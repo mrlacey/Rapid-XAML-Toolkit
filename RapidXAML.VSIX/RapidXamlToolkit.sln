@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27520.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXamlToolkit", "RapidXamlToolkit\RapidXamlToolkit.csproj", "{053A3048-276A-49ED-BD34-9C3AB1273A26}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{053A3048-276A-49ED-BD34-9C3AB1273A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{053A3048-276A-49ED-BD34-9C3AB1273A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{053A3048-276A-49ED-BD34-9C3AB1273A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{053A3048-276A-49ED-BD34-9C3AB1273A26}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75DA1BA4-192B-4D71-94BC-19DE1FA2C0C6}
+	EndGlobalSection
+EndGlobal
