@@ -125,8 +125,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analysis\CSharpTestsBase.cs" />
+    <Compile Include="Analysis\GetCSharpClassTests.cs" />
+    <Compile Include="Analysis\GetCSharpPropertiesTests.cs" />
+    <Compile Include="Analysis\GetCSharpSelectionTests.cs" />
+    <Compile Include="Analysis\GetVisualBasicClassTests.cs" />
+    <Compile Include="Analysis\GetVisualBasicPropertiesTests.cs" />
+    <Compile Include="Analysis\GetVisualBasicSelectionTests.cs" />
+    <Compile Include="Analysis\IStarsRepresentCaretInDocsTests.cs" />
+    <Compile Include="Analysis\StarsRepresentCaretInDocsTests.cs" />
+    <Compile Include="Analysis\VisualBasicTestsBase.cs" />
+    <Compile Include="Formatting\OutputGenerationTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
