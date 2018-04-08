@@ -1,0 +1,81 @@
+﻿<platformUi:DialogWindow x:Class="RapidXamlToolkit.ProfileConfigPage"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                         xmlns:local="clr-namespace:RapidXamlToolkit"
+                         xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+                         mc:Ignorable="d"
+                         HasHelpButton="False"
+                         HasMaximizeButton="False"
+                         HasMinimizeButton="False"
+                         Title="Copy as XAML - Edit Profile"
+                         MinHeight="350"
+                         MinWidth="300"
+                         d:DesignHeight="400" d:DesignWidth="500">
+    <Grid Margin="4,8,4,4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0">Name</TextBlock>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, Mode=TwoWay}" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4">Class grouping</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ClassGrouping, Mode=TwoWay}" Margin="0,4" />
+        <TextBlock Grid.Row="2" Grid.Column="0">Default output</TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DefaultOutput, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">Mappings</TextBlock>
+
+        <Grid Grid.Row="4" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ScrollViewer>
+                <DataGrid ItemsSource="{Binding Mappings}"
+                          SelectedItem="{Binding Path=SelectedMapping, Mode=TwoWay}"
+                          IsReadOnly="True"
+                          x:Name="DisplayedMappings"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserReorderColumns="False"
+                          CanUserResizeColumns="True"
+                          CanUserResizeRows="False"
+                          CanUserSortColumns="False"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow" />
+            </ScrollViewer>
+            <StackPanel Grid.Column="1" Width="70" Margin="4,0,0,0">
+                <Button Click="AddClicked">Add</Button>
+                <Button Click="CopyClicked" Margin="0,8">Copy</Button>
+                <Button Click="DeleteClicked">Delete</Button>
+            </StackPanel>
+        </Grid>
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,4">Type</TextBlock>
+        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedMapping.Type, Mode=TwoWay}" Margin="0,4" />
+        <TextBlock Grid.Row="6" Grid.Column="0">Name filter</TextBlock>
+        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding SelectedMapping.NameContains, Mode=TwoWay}" />
+        <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4,4,4">Only if readonly</TextBlock>
+        <CheckBox Grid.Row="7" Grid.Column="1" IsChecked="{Binding SelectedMapping.IfReadOnly, Mode=TwoWay}" Margin="0,4" />
+        <TextBlock Grid.Row="8" Grid.Column="0">Output</TextBlock>
+        <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding SelectedMapping.Output, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
+
+        <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Click="OkClicked" Width="70" HorizontalAlignment="Right" Margin="0,8,0,0">Ok</Button>
+
+    </Grid>
+</platformUi:DialogWindow>
+
