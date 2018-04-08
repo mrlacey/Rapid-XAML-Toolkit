@@ -65,7 +65,8 @@
     <Compile Include="Analyzers\IDocumentAnalyzer.cs" />
     <Compile Include="Analyzers\VisualBasicAnalyzer.cs" />
     <Compile Include="Commands\CreateViewCommand.cs" />
-    <Compile Include="Commands\CreateXamlStringCommand.cs" />
+    <Compile Include="Commands\SendToToolboxCommand.cs" />
+    <Compile Include="Commands\CopyToClipboardCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Options\CanNotifyPropertyChanged.cs" />
     <Compile Include="Options\ConfiguredSettings.cs" />

@@ -36,14 +36,31 @@
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
     <Groups>
-      <Group guid="guidRapidXamlPackageCmdSet" id="MyMenuGroup" priority="0x0600">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
-      </Group>
+      <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextGroup" priority="0x0600"/>
+      <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600"/>
+      <Group guid="guidRapidXamlPackageCmdSet" id="SolutionContextGroup" priority="0x0600"/>
+      <Group guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenuGroup" priority="0x0600"/>
     </Groups>
 
-    <!--Buttons section. -->
-    <!--This section defines the elements the user can interact with, like a menu command or a button
-        or combo box in a toolbar. -->
+    <Menus>
+      <Menu guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" type="Context" priority="0x0100">
+        <Strings>
+          <CommandName>Rapid XAML</CommandName>
+          <ButtonText>Rapid XAML</ButtonText>
+          <MenuText>Rapid XAML</MenuText>
+          <ToolTipText>Rapid XAML</ToolTipText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenu" type="Context" priority="0x0100">
+        <Strings>
+          <CommandName>Rapid XAML</CommandName>
+          <ButtonText>Rapid XAML</ButtonText>
+          <MenuText>Rapid XAML</MenuText>
+          <ToolTipText>Rapid XAML</ToolTipText>
+        </Strings>
+      </Menu>
+    </Menus>
+    
     <Buttons>
       <!--To define a menu group you have to specify its ID, the parent menu and its display priority.
           The command is visible and enabled by default. If you need to change the visibility, status, etc, you can use
@@ -53,22 +70,25 @@
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
       <Button guid="guidRapidXamlPackageCmdSet" id="CreateViewCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidRapidXamlPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>Invoke CreateViewCommand</ButtonText>
+          <ButtonText>Create View</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidRapidXamlPackageCmdSet" id="cmdidCreateXamlStringCommand" priority="0x0100" type="Button">
-        <Parent guid="guidRapidXamlPackageCmdSet" id="MyMenuGroup" />
+      <Button guid="guidRapidXamlPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>Invoke CreateXamlStringCommand</ButtonText>
+          <ButtonText>Copy to Clipboard</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidRapidXamlPackageCmdSet" id="SendToToolboxCommandId" priority="0x0100" type="Button">
+        <Icon guid="guidImages" id="bmpPic2" />
+        <Strings>
+          <ButtonText>Send to Toolbox</ButtonText>
         </Strings>
       </Button>
     </Buttons>
 
-    <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
     <Bitmaps>
       <!--  The bitmap id is defined in a way that is a little bit different from the others:
             the declaration starts with a guid for the bitmap strip, then there is the resource id of the
@@ -79,15 +99,62 @@
     </Bitmaps>
   </Commands>
 
+  <CommandPlacements>
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SolutionContextGroup" priority="0x0200">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenu" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="SolutionContextGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenuGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenu" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CreateViewCommandId" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenuGroup" />
+    </CommandPlacement>
+
+
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CodeContextGroup" priority="0x0200">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SendToToolboxCommandId" priority="0x0200">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
+    </CommandPlacement>
+  </CommandPlacements>
+
   <Symbols>
     <!-- This is the package guid. -->
     <GuidSymbol name="guidRapidXamlPackage" value="{c735dfc3-c416-4501-bc33-558e2aaad8c5}" />
 
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidRapidXamlPackageCmdSet" value="{8c20aab1-50b0-4523-8d9d-24d512fa8154}">
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
-      <IDSymbol name="CreateViewCommandId" value="0x0100" />
-      <IDSymbol value="4129" name="cmdidCreateXamlStringCommand" />
+      <IDSymbol value="0x0100" name="SolutionContextGroup" />
+      <IDSymbol value="0x0200" name="SolutionContextMenu" />
+      <IDSymbol value="0x0300" name="SolutionContextMenuGroup" />
+      <IDSymbol value="0x1100" name="CodeContextGroup" />
+      <IDSymbol value="0x1200" name="CodeContextMenu" />
+      <IDSymbol value="0x1300" name="CodeContextMenuGroup" />
+
+      <IDSymbol name="CopyToClipboardCommandId" value="4128" />
+      <IDSymbol name="SendToToolboxCommandId" value="4129" />
+      <IDSymbol name="CreateViewCommandId" value="4130" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{092daafa-627f-4f53-a712-4e3e5fa72e0d}">

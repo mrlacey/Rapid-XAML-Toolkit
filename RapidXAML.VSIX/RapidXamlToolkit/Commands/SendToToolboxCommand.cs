@@ -1,4 +1,4 @@
-﻿// <copyright file="CreateXamlStringCommand.cs" company="Microsoft">
+﻿// <copyright file="SendToToolboxCommand.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
@@ -16,7 +16,7 @@ namespace RapidXamlToolkit
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class CreateXamlStringCommand
+    internal sealed class SendToToolboxCommand
     {
         /// <summary>
         /// Command ID.
@@ -34,12 +34,12 @@ namespace RapidXamlToolkit
         private readonly AsyncPackage package;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateXamlStringCommand"/> class.
+        /// Initializes a new instance of the <see cref="SendToToolboxCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
         /// <param name="commandService">Command service to add command to, not null.</param>
-        private CreateXamlStringCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private SendToToolboxCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -52,7 +52,7 @@ namespace RapidXamlToolkit
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static CreateXamlStringCommand Instance
+        public static SendToToolboxCommand Instance
         {
             get;
             private set;
@@ -81,7 +81,7 @@ namespace RapidXamlToolkit
             ThreadHelper.ThrowIfNotOnUIThread();
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new CreateXamlStringCommand(package, commandService);
+            Instance = new SendToToolboxCommand(package, commandService);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace RapidXamlToolkit
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-            string title = "CreateXamlStringCommand";
+            string title = "SendToToolboxCommand";
 
             // Show a message box to prove we were here
             VsShellUtilities.ShowMessageBox(

@@ -1,4 +1,4 @@
-﻿// <copyright file="CreateViewCommand.cs" company="Microsoft">
+﻿// <copyright file="CopyToClipboardCommand.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
@@ -16,12 +16,12 @@ namespace RapidXamlToolkit
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class CreateViewCommand
+    internal sealed class CopyToClipboardCommand
     {
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 4130;
+        public const int CommandId = 4128;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -34,12 +34,12 @@ namespace RapidXamlToolkit
         private readonly AsyncPackage package;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateViewCommand"/> class.
+        /// Initializes a new instance of the <see cref="CopyToClipboardCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
         /// <param name="commandService">Command service to add command to, not null.</param>
-        private CreateViewCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private CopyToClipboardCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -52,7 +52,7 @@ namespace RapidXamlToolkit
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static CreateViewCommand Instance
+        public static CopyToClipboardCommand Instance
         {
             get;
             private set;
@@ -76,12 +76,12 @@ namespace RapidXamlToolkit
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public static async Task InitializeAsync(AsyncPackage package)
         {
-            // Verify the current thread is the UI thread - the call to AddCommand in CreateViewCommand's constructor requires
+            // Verify the current thread is the UI thread - the call to AddCommand in CreateXamlStringCommand's constructor requires
             // the UI thread.
             ThreadHelper.ThrowIfNotOnUIThread();
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new CreateViewCommand(package, commandService);
+            Instance = new CopyToClipboardCommand(package, commandService);
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace RapidXamlToolkit
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-            string title = "CreateViewCommand";
+            string title = "CopyToClipboardCommand";
 
             // Show a message box to prove we were here
             VsShellUtilities.ShowMessageBox(
