@@ -41,6 +41,7 @@ namespace RapidXamlToolkit
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(RapidXamlPackage.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
+    [ProvideOptionPage(typeof(SettingsConfigPage), "RapidXAML", "Profiles", 106, 107, true)]
     public sealed class RapidXamlPackage : AsyncPackage
     {
         /// <summary>
