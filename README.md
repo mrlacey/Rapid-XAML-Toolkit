@@ -10,4 +10,4 @@ details to follow.
 
 ## Contributing
 
-Please see the [contribution guide](./CONTRIBUTING).
+Please see the [contribution guide](./CONTRIBUTING.md).
