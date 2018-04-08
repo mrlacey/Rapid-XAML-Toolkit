@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="CreateXamlStringCommand.cs" company="Microsoft">
+// Copyright (c) Microsoft. All rights reserved.
+// </copyright>
+
+using System;
 using System.ComponentModel.Design;
 using System.Globalization;
 using System.Threading;
@@ -69,13 +73,14 @@ namespace RapidXamlToolkit
         /// Initializes the singleton instance of the command.
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public static async Task InitializeAsync(AsyncPackage package)
         {
             // Verify the current thread is the UI thread - the call to AddCommand in CreateXamlStringCommand's constructor requires
             // the UI thread.
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            OleMenuCommandService commandService = await package.GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
+            OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new CreateXamlStringCommand(package, commandService);
         }
 

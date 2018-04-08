@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="UnitTest1.cs" company="Microsoft">
+// Copyright (c) Microsoft. All rights reserved.
+// </copyright>
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RapidXamlToolkit.Tests

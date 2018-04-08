@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="RapidXamlPackage.cs" company="Microsoft">
+// Copyright (c) Microsoft. All rights reserved.
+// </copyright>
+
+using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -45,7 +49,7 @@ namespace RapidXamlToolkit
         public const string PackageGuidString = "c735dfc3-c416-4501-bc33-558e2aaad8c5";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreateViewCommand"/> class.
+        /// Initializes a new instance of the <see cref="RapidXamlPackage"/> class.
         /// </summary>
         public RapidXamlPackage()
         {
@@ -54,8 +58,6 @@ namespace RapidXamlToolkit
             // not sited yet inside Visual Studio environment. The place to do all the other
             // initialization is the Initialize method.
         }
-
-        #region Package Members
 
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
@@ -72,7 +74,5 @@ namespace RapidXamlToolkit
             await CreateViewCommand.InitializeAsync(this);
             await CreateXamlStringCommand.InitializeAsync(this);
         }
-
-        #endregion
     }
 }
