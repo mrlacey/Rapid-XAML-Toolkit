@@ -134,7 +134,7 @@ namespace RapidXamlToolkit
                 {
                     foreach (var subProp in subProps.Value.strings)
                     {
-                        // TODO: remove this? or at least make it configurable?
+                        // TODO: remove this? or at least make it configurable? ISSUE #24
                         replacement.AppendLine(subProp.Replace("ViewModel.", string.Empty));
                     }
                 }

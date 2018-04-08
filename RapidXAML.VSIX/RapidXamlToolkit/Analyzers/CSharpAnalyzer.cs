@@ -14,9 +14,6 @@ namespace RapidXamlToolkit
 {
     public class CSharpAnalyzer : AnalyzerBase, IDocumentAnalyzer
     {
-        // TODO: Get sub-properties from classes defined in other files in project
-        // TODO: Get sub-properties from classes via reflection
-        // TODO: Get inherited sub-properties
         public static (List<string> strings, int count) GetSubPropertyOutput(ITypeSymbol typeSymbol, string propertyName, Profile profile)
         {
             var result = new List<string>();
