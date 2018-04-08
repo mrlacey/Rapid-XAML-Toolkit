@@ -58,6 +58,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CreateViewCommand.cs" />
+    <Compile Include="CreateXamlStringCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlPackage.cs" />
   </ItemGroup>

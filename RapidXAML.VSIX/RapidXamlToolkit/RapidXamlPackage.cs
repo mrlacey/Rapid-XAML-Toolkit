@@ -70,6 +70,7 @@ namespace RapidXamlToolkit
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await CreateViewCommand.InitializeAsync(this);
+            await CreateXamlStringCommand.InitializeAsync(this);
         }
 
         #endregion
