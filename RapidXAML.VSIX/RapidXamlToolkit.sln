@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27520.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXamlToolkit", "RapidXamlToolkit\RapidXamlToolkit.csproj", "{053A3048-276A-49ED-BD34-9C3AB1273A26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXamlToolkit.Tests", "RapidXamlToolkit.Tests\RapidXamlToolkit.Tests.csproj", "{8A7DD653-78BC-4EAB-8227-4309CC25E750}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{053A3048-276A-49ED-BD34-9C3AB1273A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{053A3048-276A-49ED-BD34-9C3AB1273A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{053A3048-276A-49ED-BD34-9C3AB1273A26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A7DD653-78BC-4EAB-8227-4309CC25E750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A7DD653-78BC-4EAB-8227-4309CC25E750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A7DD653-78BC-4EAB-8227-4309CC25E750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A7DD653-78BC-4EAB-8227-4309CC25E750}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
