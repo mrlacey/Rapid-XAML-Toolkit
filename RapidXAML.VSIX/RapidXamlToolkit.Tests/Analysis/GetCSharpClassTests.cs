@@ -33,12 +33,12 @@ namespace tests
 }";
 
             var expectedOutput = "<StackPanel>"
-                + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-                + Environment.NewLine + "<TextBlock Text=\"Property2\" />"
-                + Environment.NewLine + "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"Property5\" Value=\"{x:Bind Property5, Mode=TwoWay}\" />"
-                + Environment.NewLine + "<ItemsControl ItemsSource=\"{x:Bind Property6}\"></ItemsControl>"
-                + Environment.NewLine + "<TextBox Text=\"{x:Bind Property8, Mode=TwoWay}\" />"
-                + Environment.NewLine + "</StackPanel>";
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBlock Text=\"Property2\" />"
+         + Environment.NewLine + "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"Property5\" Value=\"{x:Bind Property5, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<ItemsControl ItemsSource=\"{x:Bind Property6}\"></ItemsControl>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property8, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
             {
@@ -80,8 +80,8 @@ namespace tests
 }";
 
             var expectedOutput = "<StackPanel Orientation=\"Horizontal\">"
-                                 + Environment.NewLine + "<TextBlock Text=\"Property1\" />"
-                                 + Environment.NewLine + "</StackPanel>";
+         + Environment.NewLine + "<TextBlock Text=\"Property1\" />"
+         + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
             {
@@ -659,6 +659,71 @@ namespace tests
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
+        }
+
+        [TestMethod]
+        public void GetInheritedPropertiesInTheSameFile()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1 : BaseCl*ass
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+    }
+    class BaseClass
+    {
+        public string BaseProperty { get; set; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
+        public void IgnoreOtherClassesInTheSameFile()
+        {
+            var code = @"
+namespace tests
+{
+    class Clas*s1
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+    }
+    class Class2
+    {
+        public string HopefullyIgnoredProperty { get; set; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
         }
 
         private void ClassNotFoundTest(string code)

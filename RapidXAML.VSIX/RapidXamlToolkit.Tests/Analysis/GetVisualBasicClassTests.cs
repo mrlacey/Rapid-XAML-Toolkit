@@ -586,6 +586,66 @@ End Class";
             this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
         }
 
+        [TestMethod]
+        public void GetInheritedPropertiesInTheSameFile()
+        {
+            var code = @"
+Public Class Class1
+    Inherits Base*Class
+
+    Public Property Property1 As String
+    Public Property Property2 As String
+End Class
+
+Public Class BaseClass
+    Public Property BaseProperty As String
+End Class";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
+        public void IgnoreOtherClassesInTheSameFile()
+        {
+            var code = @"
+Public Class Cla*ss1
+
+    Public Property Property1 As String
+    Public Property Property2 As String
+End Class
+
+Public Class Class2
+    Public Property HopefullyIgnoredProperty As String
+End Class";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
         private void FindNoPropertiesInClass(string code)
         {
             var expectedOutput = "<StackPanel>"
