@@ -13,8 +13,10 @@ namespace RapidXamlToolkit
 {
     internal class GetXamlFromCodeWindowBaseCommand
     {
-        public void GetXaml(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider, Action<string> ifContent)
+        public AnalyzerOutput GetXaml(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider)
         {
+            AnalyzerOutput result = null;
+
             if (AnalyzerBase.GetSettings().Profiles.Any())
             {
                 var dte = (EnvDTE.DTE)serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)).Result;
@@ -32,8 +34,6 @@ namespace RapidXamlToolkit
 
                 var semanticModel = document.GetSemanticModelAsync().Result;
 
-                AnalyzerOutput analyzerOutput = null;
-
                 IDocumentAnalyzer analyzer = null;
 
                 if (activeDocument.Language == "CSharp")
@@ -47,41 +47,23 @@ namespace RapidXamlToolkit
 
                 if (isSelection)
                 {
-                    analyzerOutput = analyzer.GetSelectionOutput(document.GetSyntaxRootAsync().Result, semanticModel, selection.Start.Position, selection.End.Position);
+                    result = analyzer.GetSelectionOutput(document.GetSyntaxRootAsync().Result, semanticModel, selection.Start.Position, selection.End.Position);
                 }
                 else
                 {
-                    analyzerOutput = analyzer.GetSingleItemOutput(document.GetSyntaxRootAsync().Result, semanticModel, caretPosition.Position);
-                }
-
-                if (analyzerOutput != null && analyzerOutput.OutputType != AnalyzerOutputType.None)
-                {
-                    var message = analyzerOutput.Output;
-
-                    if (!string.IsNullOrWhiteSpace(message))
-                    {
-                        ifContent?.Invoke(message);
-                    }
-                    else
-                    {
-                        // Log no output
-                    }
-
-                    ShowStatusBarMessage(serviceProvider, $"Copied XAML for {analyzerOutput.OutputType}: {analyzerOutput.Name}");
-                }
-                else
-                {
-                    // TODO [vNext]: play error noise/beep if can't do something or error?
-                    ShowStatusBarMessage(serviceProvider, "No XAML copied.");
+                    result = analyzer.GetSingleItemOutput(document.GetSyntaxRootAsync().Result, semanticModel, caretPosition.Position);
                 }
             }
             else
             {
+                // This shouldn't be necessary after ISSUE#17
                 ShowStatusBarMessage(serviceProvider, "No XAML copied. No profiles configured.");
             }
+
+            return result;
         }
 
-        private static void ShowStatusBarMessage(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider, string message)
+        protected static void ShowStatusBarMessage(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider, string message)
         {
             try
             {

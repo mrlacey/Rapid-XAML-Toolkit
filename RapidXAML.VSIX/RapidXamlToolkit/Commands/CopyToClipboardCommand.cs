@@ -55,7 +55,27 @@ namespace RapidXamlToolkit
 
         private void Execute(object sender, EventArgs e)
         {
-            this.GetXaml(Instance.ServiceProvider, (msg) => { Clipboard.SetText(msg); });
+            var output = this.GetXaml(Instance.ServiceProvider);
+
+            if (output != null && output.OutputType != AnalyzerOutputType.None)
+            {
+                var message = output.Output;
+
+                if (!string.IsNullOrWhiteSpace(message))
+                {
+                    Clipboard.SetText(message);
+                }
+                else
+                {
+                    // Log no output
+                }
+
+                ShowStatusBarMessage(Instance.ServiceProvider, $"Copied XAML for {output.OutputType}: {output.Name}");
+            }
+            else
+            {
+                ShowStatusBarMessage(Instance.ServiceProvider, "No XAML copied.");
+            }
         }
     }
 }
