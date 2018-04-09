@@ -174,17 +174,50 @@ namespace RapidXamlToolkit
                     typeSyntax = ((GenericNameSyntax)((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).TypeArgumentList.Arguments.First();
                 }
 
-                typeSymbol = semModel.GetTypeInfo(typeSyntax).Type;
+                try
+                {
+                    typeSymbol = semModel.GetTypeInfo(typeSyntax).Type;
+                }
+                catch (Exception)
+                {
+                    // The semanticmodel passed into this method is the one for the active document.
+                    // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
+                    var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
+
+                    typeSymbol = localSemModel.GetTypeInfo(typeSyntax).Type;
+                }
             }
             else
             {
                 if (prop is PropertyStatementSyntax pss)
                 {
-                    typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
+                    try
+                    {
+                        typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
+                    }
+                    catch (Exception)
+                    {
+                        // The semanticmodel passed into this method is the one for the active document.
+                        // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
+                        var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
+
+                        typeSymbol = localSemModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
+                    }
                 }
                 else if (prop is PropertyBlockSyntax pbs)
                 {
-                    typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).Type;
+                    try
+                    {
+                        typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).Type;
+                    }
+                    catch (Exception)
+                    {
+                        // The semanticmodel passed into this method is the one for the active document.
+                        // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
+                        var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
+
+                        typeSymbol = localSemModel.GetTypeInfo(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).Type;
+                    }
                 }
             }
 
@@ -233,6 +266,10 @@ namespace RapidXamlToolkit
                 var className = GetIdentifier(classNode);
 
                 var properties = GetAllPublicPropertiesFromClassNode(classNode);
+
+                var inheritedProperties = GetInheritedPropertiesFromClassNode(semModel, classNode);
+
+                properties.AddRange(inheritedProperties);
 
                 var output = new StringBuilder();
 
@@ -360,6 +397,33 @@ namespace RapidXamlToolkit
             {
                 return AnalyzerOutput.Empty;
             }
+        }
+
+        private static List<DeclarationStatementSyntax> GetInheritedPropertiesFromClassNode(SemanticModel semModel, SyntaxNode classNode)
+        {
+            var typeC = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
+            var types = typeC.GetBaseTypes();
+            var members = types.SelectMany(n => n.GetMembers()).Where(m => m.Kind == SymbolKind.Property && m.DeclaredAccessibility == Accessibility.Public).ToList();
+
+            var result = new List<DeclarationStatementSyntax>();
+
+            foreach (var member in members)
+            {
+                var decRef = member.OriginalDefinition.DeclaringSyntaxReferences[0];
+
+                var pbs = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyBlockSyntax>().FirstOrDefault();
+
+                if (pbs != null)
+                {
+                    result.Add(pbs);
+                }
+                else
+                {
+                    result.Add(decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyStatementSyntax>().FirstOrDefault());
+                }
+            }
+
+            return result;
         }
     }
 }

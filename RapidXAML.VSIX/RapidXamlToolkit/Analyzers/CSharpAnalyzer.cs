@@ -273,9 +273,6 @@ namespace RapidXamlToolkit
             }
             else
             {
-                // SymbolInfo *may* be able to provide more about the properties of the underlying type
-                // semModel.GetSymbolInfo(propertyNode.Type).Symbol
-
                 try
                 {
                     typeSymbol = semModel.GetTypeInfo(prop.Type).Type;

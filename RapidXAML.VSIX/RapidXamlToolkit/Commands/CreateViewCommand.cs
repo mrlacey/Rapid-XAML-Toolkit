@@ -192,7 +192,8 @@ namespace RapidXamlToolkit
 
             if (analyzer != null)
             {
-                var actual = (analyzer as IDocumentAnalyzer).GetSingleItemOutput(syntaxTree.GetRoot(), semModel, fileContents.IndexOf("class "), profile);
+                // Index Of is allowing for "class " in C# and "Class " in VB
+                var actual = (analyzer as IDocumentAnalyzer).GetSingleItemOutput(syntaxTree.GetRoot(), semModel, fileContents.IndexOf("lass "), profile);
 
                 var className = actual.Name;
 
