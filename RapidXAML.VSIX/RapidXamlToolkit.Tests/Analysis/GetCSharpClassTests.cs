@@ -695,6 +695,92 @@ namespace tests
         }
 
         [TestMethod]
+        public void GetInheritedPropertiesInOtherFile()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1 : BaseCl*ass
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+    }
+}";
+
+            var code2 = @"
+namespace tests
+{
+    class BaseClass
+    {
+        public string BaseProperty { get; set; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, profileOverload: null, additionalCode: code2);
+        }
+
+        [TestMethod]
+        public void GetInheritedPropertiesInOtherFilesOverMultipleLevels()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1 : BaseCl*ass
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+    }
+}";
+
+            var code2 = @"
+namespace tests
+{
+    class BaseClass : SuperBaseClass
+    {
+        public string BaseProperty { get; set; }
+    }
+}";
+
+            var code3 = @"
+namespace tests
+{
+    class SuperBaseClass
+    {
+        public string SuperBaseProperty { get; set; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind SuperBaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, profileOverload: null, additionalCode: new[] { code2, code3 });
+        }
+
+        [TestMethod]
         public void IgnoreOtherClassesInTheSameFile()
         {
             var code = @"

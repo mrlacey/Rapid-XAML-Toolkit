@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -199,6 +200,58 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var semModel = isCSharp ? CSharpCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true)
                                     : VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true);
+
+            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer() as IDocumentAnalyzer : new VisualBasicAnalyzer();
+
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
+
+            Assert.AreEqual(expected.OutputType, actual.OutputType);
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.Output, actual.Output);
+        }
+
+        protected void PositionAtStarShouldProduceExpectedUsingAdditonalFiles(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalCode)
+        {
+            var pos = code.IndexOf("*", StringComparison.Ordinal);
+
+            SyntaxTree syntaxTree = null;
+            SemanticModel semModel = null;
+
+            var projectId = ProjectId.CreateNewId();
+            var documentId = DocumentId.CreateNewId(projectId);
+
+            if (isCSharp)
+            {
+                var solution = new AdhocWorkspace().CurrentSolution
+                                                   .AddProject(projectId, "MyProject", "MyProject", LanguageNames.CSharp)
+                                                   .AddDocument(documentId, "MyFile.cs", code.Replace("*", string.Empty));
+
+                foreach (var addCode in additionalCode)
+                {
+                    solution = solution.AddDocument(DocumentId.CreateNewId(projectId), $"{System.IO.Path.GetRandomFileName()}.cs", addCode);
+                }
+
+                var document = solution.GetDocument(documentId);
+
+                semModel = document.GetSemanticModelAsync().Result;
+                syntaxTree = document.GetSyntaxTreeAsync().Result;
+            }
+            else
+            {
+                var solution = new AdhocWorkspace().CurrentSolution
+                                                   .AddProject(projectId, "MyProject", "MyProject", LanguageNames.VisualBasic)
+                                                   .AddDocument(documentId, "MyFile.vb", code.Replace("*", string.Empty));
+
+                foreach (var addCode in additionalCode)
+                {
+                    solution = solution.AddDocument(DocumentId.CreateNewId(projectId), $"{System.IO.Path.GetRandomFileName()}.vb", addCode);
+                }
+
+                var document = solution.GetDocument(documentId);
+
+                semModel = document.GetSemanticModelAsync().Result;
+                syntaxTree = document.GetSyntaxTreeAsync().Result;
+            }
 
             IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer() as IDocumentAnalyzer : new VisualBasicAnalyzer();
 
