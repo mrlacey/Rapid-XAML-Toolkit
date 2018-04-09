@@ -34,6 +34,8 @@ namespace RapidXamlToolkit
 
         public static IServiceProvider ServiceProvider { get; set; }
 
+        public string FileExtension { get; } = string.Empty;
+
         public static Settings GetSettings()
         {
             var configuredSettings = new ConfiguredSettings(ServiceProvider);

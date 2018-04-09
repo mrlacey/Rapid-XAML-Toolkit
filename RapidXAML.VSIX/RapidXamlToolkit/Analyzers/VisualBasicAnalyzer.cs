@@ -14,6 +14,8 @@ namespace RapidXamlToolkit
 {
     public class VisualBasicAnalyzer : AnalyzerBase, IDocumentAnalyzer
     {
+        public new string FileExtension { get; } = "vb";
+
         public static (List<string> strings, int count) GetSubPropertyOutput(ITypeSymbol typeSymbol, string propertyName, Profile profile)
         {
             var result = new List<string>();

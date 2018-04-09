@@ -83,7 +83,6 @@ namespace RapidXamlToolkit
             }
             else
             {
-                // TODO [vNext]: play error noise/beep if can't do something or error?
                 ShowStatusBarMessage(Instance.ServiceProvider, "No XAML copied.");
             }
         }

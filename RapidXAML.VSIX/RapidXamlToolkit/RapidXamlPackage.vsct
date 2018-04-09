@@ -71,6 +71,8 @@
           If you do not want an image next to your command, remove the Icon node /> -->
       <Button guid="guidRapidXamlPackageCmdSet" id="CreateViewCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpPic1" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>Create View</ButtonText>
         </Strings>
