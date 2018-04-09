@@ -63,6 +63,7 @@
     <Compile Include="Analyzers\AnalyzerOutputType.cs" />
     <Compile Include="Analyzers\CSharpAnalyzer.cs" />
     <Compile Include="Analyzers\IDocumentAnalyzer.cs" />
+    <Compile Include="ITypeSymbolExtensions.cs" />
     <Compile Include="Analyzers\VisualBasicAnalyzer.cs" />
     <Compile Include="Commands\CreateViewCommand.cs" />
     <Compile Include="Commands\GetXamlFromCodeWindowBaseCommand.cs" />

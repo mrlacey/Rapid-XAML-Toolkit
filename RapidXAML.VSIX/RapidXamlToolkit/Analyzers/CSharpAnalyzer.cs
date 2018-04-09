@@ -128,6 +128,10 @@ namespace RapidXamlToolkit
 
                 var properties = GetAllPublicPropertiesFromClassNode(classNode);
 
+                var inheritedProperties = GetInheritedPropertiesFromClassNode(semModel, classNode);
+
+                properties.AddRange(inheritedProperties);
+
                 var output = new StringBuilder();
 
                 var classGrouping = profileOverload == null ? GetClassGroupingForActiveProfile() : profileOverload.ClassGrouping;
@@ -284,6 +288,24 @@ namespace RapidXamlToolkit
         private static List<PropertyDeclarationSyntax> GetAllPublicPropertiesFromClassNode(ClassDeclarationSyntax classNode)
         {
             return classNode.DescendantNodes().OfType<PropertyDeclarationSyntax>().Where(n => n.Modifiers.Any(SyntaxKind.PublicKeyword)).ToList();
+        }
+
+        private static List<PropertyDeclarationSyntax> GetInheritedPropertiesFromClassNode(SemanticModel semModel, ClassDeclarationSyntax classNode)
+        {
+            var typeC = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
+            var types = typeC.GetBaseTypes();
+            var members = types.SelectMany(n => n.GetMembers()).Where(m => m.Kind == SymbolKind.Property && m.DeclaredAccessibility == Accessibility.Public).ToList();
+
+            var result = new List<PropertyDeclarationSyntax>();
+
+            foreach (var member in members)
+            {
+                var decRef = member.OriginalDefinition.DeclaringSyntaxReferences[0];
+
+                result.Add(decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyDeclarationSyntax>().First());
+            }
+
+            return result;
         }
     }
 }
