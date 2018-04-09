@@ -275,7 +275,19 @@ namespace RapidXamlToolkit
             {
                 // SymbolInfo *may* be able to provide more about the properties of the underlying type
                 // semModel.GetSymbolInfo(propertyNode.Type).Symbol
-                typeSymbol = semModel.GetTypeInfo(prop.Type).Type;
+
+                try
+                {
+                    typeSymbol = semModel.GetTypeInfo(prop.Type).Type;
+                }
+                catch (Exception)
+                {
+                    // The semanticmodel passed into this method is the one for the active document.
+                    // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
+                    var localSemModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
+
+                    typeSymbol = localSemModel.GetTypeInfo(prop.Type).Type;
+                }
             }
 
             var (output, counter) = profileOverload == null
