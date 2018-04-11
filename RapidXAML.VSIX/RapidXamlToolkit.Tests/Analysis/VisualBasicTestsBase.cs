@@ -27,6 +27,13 @@ namespace RapidXamlToolkit.Tests.Analysis
             this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, isCSharp: false, profileOverload: profile, additionalCode: additionalCode);
         }
 
+        public void PositionAtStarShouldProduceExpectedUsingAdditonalReferences(string code, AnalyzerOutput expected, Profile profileOverload, params string[] additionalReferences)
+        {
+            var profile = profileOverload ?? this.DefaultProfile;
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalReferences(code, expected, isCSharp: false, profileOverload: profile, additionalReferences: additionalReferences);
+        }
+
         public void SelectionBetweenStarsShouldProduceExpected(string code, AnalyzerOutput expected, Profile profileOverload = null)
         {
             var profile = profileOverload ?? this.DefaultProfile;
