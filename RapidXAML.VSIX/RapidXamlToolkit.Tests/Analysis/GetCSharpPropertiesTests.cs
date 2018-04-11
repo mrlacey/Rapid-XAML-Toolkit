@@ -496,5 +496,75 @@ namespace tests
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
         }
+
+        [TestMethod]
+        public void GetCustomProperty_InOtherFile()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        public Order LastOrd*er { get; set; }
+    }
+}";
+            var code2 = @"
+namespace tests
+{
+    class Order
+    {
+        public int OrderId { get; set; }
+        public string OrderDescription { get; set; }
+    }
+}";
+
+            var orderProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                Mappings = new List<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "Order",
+                        NameContains = "",
+                        Output = "<TextBlock x:IsOrder=\"True\" Text=\"{NAME}\" />",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "LastOrder",
+                Output = "<TextBlock x:IsOrder=\"True\" Text=\"LastOrder\" />",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, orderProfile, code2);
+        }
+
+        [TestMethod]
+        public void GetCustomProperty_ForUndefinedType()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        publ*ic NonDefinedType SomeProperty { get; set; }
+    }
+}";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "SomeProperty",
+                Output = "<TextBlock Text=\"FALLBACK_SomeProperty\" />",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
     }
 }

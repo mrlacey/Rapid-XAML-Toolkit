@@ -331,6 +331,54 @@ End Namespace";
         }
 
         [TestMethod]
+        public void GetCustomProperty_InOtherFile()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        Pu*blic Property LastOrder As Order
+    End Class
+End Namespace";
+
+            var code2 = @"
+Namespace tests
+    Public Class Order
+        Public Property OrderId As Int
+        Public Property OrderDescription As String
+    End Class
+End Namespace";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "LastOrder",
+                Output = "<TextBlock Text=\"FALLBACK_LastOrder\" />",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, additionalCode: code2);
+        }
+
+        [TestMethod]
+        public void GetCustomProperty_ForUndefinedType()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        *Public Property SomeProperty As NonDefinedType*
+    End Class
+End Namespace";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "SomeProperty",
+                Output = "<TextBlock Text=\"FALLBACK_SomeProperty\" />",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
         public void GetCustomPropertyWithSpecificMapping()
         {
             var orderProfile = new Profile
