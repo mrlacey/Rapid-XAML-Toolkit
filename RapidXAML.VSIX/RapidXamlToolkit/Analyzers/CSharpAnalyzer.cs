@@ -47,7 +47,7 @@ namespace RapidXamlToolkit
             return (result, numericSubstitute);
         }
 
-        public static PropertyDetails GetPropertyInfo(PropertyDeclarationSyntax propertyDeclaration, SemanticModel semModel)
+        public static PropertyDetails GetPropertyDetails(PropertyDeclarationSyntax propertyDeclaration, SemanticModel semModel)
         {
             var propertyType = "**unknown**";
 
@@ -61,6 +61,9 @@ namespace RapidXamlToolkit
                     break;
                 case IdentifierNameSyntax ins:
                     propertyType = ins.Identifier.ValueText;
+                    break;
+                case QualifiedNameSyntax qns:
+                    propertyType = qns.Right.Identifier.ValueText;
                     break;
             }
 
@@ -129,7 +132,7 @@ namespace RapidXamlToolkit
 
             if (propertyNode != null)
             {
-                var propDetails = GetPropertyInfo(propertyNode, semModel);
+                var propDetails = GetPropertyDetails(propertyNode, semModel);
 
                 var (output, name, _) = GetOutputToAdd(semModel, profileOverload, propDetails);
 
@@ -243,12 +246,11 @@ namespace RapidXamlToolkit
 
             foreach (var prop in propertiesOfInterest)
             {
-                var propDetails = GetPropertyInfo(prop, semModel);
+                var propDetails = GetPropertyDetails(prop, semModel);
 
-                var typeInfo = semModel.GetTypeInfo(prop.Type).Type;
-
-                var toAdd = profileOverload == null ? GetPropertyOutputAndCounterForActiveProfile(propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, GetSettings().GetActiveProfile(), semModel))
-                                                    : GetPropertyOutputAndCounter(profileOverload, propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, profileOverload, semModel));
+                var toAdd = profileOverload == null
+                        ? GetPropertyOutputAndCounterForActiveProfile(propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, GetSettings().GetActiveProfile(), semModel))
+                        : GetPropertyOutputAndCounter(profileOverload, propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, profileOverload, semModel));
 
                 numericCounter = toAdd.counter;
                 output.AppendLine(toAdd.output);
@@ -342,7 +344,7 @@ namespace RapidXamlToolkit
 
                     var syntax = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyDeclarationSyntax>().First();
 
-                    var details = GetPropertyInfo(syntax, semModel);
+                    var details = GetPropertyDetails(syntax, semModel);
 
                     result.Add(details);
                 }

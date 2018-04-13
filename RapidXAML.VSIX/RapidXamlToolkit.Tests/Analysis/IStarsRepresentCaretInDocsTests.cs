@@ -15,5 +15,7 @@ namespace RapidXamlToolkit.Tests.Analysis
         void PositionAtStarShouldProduceExpectedUsingAdditonalFiles(string code, AnalyzerOutput expected, Profile profileOverload, params string[] additionalCode);
 
         void PositionAtStarShouldProduceExpectedUsingAdditonalReferences(string code, AnalyzerOutput expected, Profile profileOverload, params string[] additionalReferences);
+
+        void PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(string code, AnalyzerOutput expected, Profile profileOverload, params string[] additionalLibraryPaths);
     }
 }

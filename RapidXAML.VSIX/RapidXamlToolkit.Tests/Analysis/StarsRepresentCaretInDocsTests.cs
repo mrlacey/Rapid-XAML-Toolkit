@@ -13,6 +13,8 @@ namespace RapidXamlToolkit.Tests.Analysis
 {
     public abstract class StarsRepresentCaretInDocsTests
     {
+        public const string TestLibraryPath = "./Assets/TestLibrary.dll";
+
         public TestContext TestContext { get; set; }
 
         public Profile DefaultProfile => GetDefaultTestSettings().GetActiveProfile();
@@ -288,6 +290,55 @@ namespace RapidXamlToolkit.Tests.Analysis
             foreach (var addRef in additionalReferences)
             {
                 var lib = MetadataReference.CreateFromFile(Type.GetType(addRef).Assembly.Location);
+
+                solution = solution.AddMetadataReference(projectId, lib);
+            }
+
+            var document = solution.GetDocument(documentId);
+
+            semModel = document.GetSemanticModelAsync().Result;
+            syntaxTree = document.GetSyntaxTreeAsync().Result;
+
+            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer() as IDocumentAnalyzer : new VisualBasicAnalyzer();
+
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
+
+            Assert.AreEqual(expected.OutputType, actual.OutputType);
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.Output, actual.Output);
+        }
+
+        protected void PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalLibraryPaths)
+        {
+            var pos = code.IndexOf("*", StringComparison.Ordinal);
+
+            SyntaxTree syntaxTree = null;
+            SemanticModel semModel = null;
+
+            var projectId = ProjectId.CreateNewId();
+            var documentId = DocumentId.CreateNewId(projectId);
+
+            string language = string.Empty;
+            string fileExt = string.Empty;
+
+            if (isCSharp)
+            {
+                language = LanguageNames.CSharp;
+                fileExt = "cs";
+            }
+            else
+            {
+                language = LanguageNames.VisualBasic;
+                fileExt = "vb";
+            }
+
+            var solution = new AdhocWorkspace().CurrentSolution
+                                               .AddProject(projectId, "MyProject", "MyProject", language)
+                                               .AddDocument(documentId, $"MyFile.{fileExt}", code.Replace("*", string.Empty));
+
+            foreach (var libPath in additionalLibraryPaths)
+            {
+                var lib = MetadataReference.CreateFromFile(libPath);
 
                 solution = solution.AddMetadataReference(projectId, lib);
             }

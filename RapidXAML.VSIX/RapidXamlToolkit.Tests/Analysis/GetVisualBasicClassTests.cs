@@ -461,7 +461,6 @@ End Class";
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "<StackPanel>"
          + Environment.NewLine + "<TextBlock Text=\"FB_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderPlacedDateTime\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_OrderDescription\" />"
          + Environment.NewLine + "</StackPanel>"
          + Environment.NewLine + "</Grid>";
@@ -474,6 +473,100 @@ End Class";
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
+        }
+
+        [TestMethod]
+        public void GetClassAndSubProperties_ClassInExternalLibrary()
+        {
+            var recurseProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                Mappings = new List<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "TestClass",
+                        NameContains = "",
+                        Output = "<StackPanel>{SUBPROPERTIES}</StackPanel>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+Imports TestLibrary
+
+Pu*blic Class Class1
+        Public Property LastOrder As TestLibrary.TestClass
+End Class";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "<StackPanel>"
+         + Environment.NewLine + "<TextBlock Text=\"FB_TestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_BaseTestProperty\" />"
+         + Environment.NewLine + "</StackPanel>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
+        }
+
+        [TestMethod]
+        public void GetClassAndSubProperties_ClassWithBaseInExternalLibrary()
+        {
+            var recurseProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                Mappings = new List<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "Order",
+                        NameContains = "",
+                        Output = "<StackPanel>{SUBPROPERTIES}</StackPanel>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+Imports TestLibrary
+Pu*blic Class Class1
+        Public Property LastOrder As Order
+End Class
+
+Public Class Order
+    Inherits TestClass
+
+        Public Property OrderId As Integer
+End Class";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "<StackPanel>"
+         + Environment.NewLine + "<TextBlock Text=\"FB_OrderId\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_TestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_BaseTestProperty\" />"
+         + Environment.NewLine + "</StackPanel>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
         }
 
         [TestMethod]
@@ -510,7 +603,6 @@ End Class";
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
          + Environment.NewLine + "<TextBlock Text=\"FB_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderPlacedDateTime\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_OrderDescription\" />"
          + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
          + Environment.NewLine + "</Grid>";
@@ -552,7 +644,7 @@ End Class
 
 Public Class Order
         Public Property OrderId As Integer
-        Private Property OrderPlacedDateTime As DateTime
+        Public Property OrderPlacedDateTime As DateTime
         Public Property OrderDescription As String
 End Class";
 
@@ -751,12 +843,10 @@ End Class";
          + Environment.NewLine + "<TextBlock Text=\"FB_Length\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_LongLength\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_Rank\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_System.Collections.ICollection.Count\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_SyncRoot\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_IsReadOnly\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_IsFixedSize\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_IsSynchronized\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_System.Collections.IList.Item\" />"
          + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
          + Environment.NewLine + "</Grid>";
 
@@ -768,6 +858,98 @@ End Class";
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalReferences(code, expected, recurseProfile, "System.Array");
+        }
+
+        [TestMethod]
+        public void GetClassAndSubPropertiesInGenericList_ForClassInExternalLibrary()
+        {
+            var recurseProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                Mappings = new List<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "ObservableCollection<T>",
+                        NameContains = "",
+                        Output = "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>{SUBPROPERTIES}</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+Pu*blic Class Class1
+        Public Property PastOrders As ObservableCollection(Of TestLibrary.TestClass)
+End Class";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
+         + Environment.NewLine + "<TextBlock Text=\"FB_TestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_BaseTestProperty\" />"
+         + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
+        }
+
+        [TestMethod]
+        public void GetClassAndSubPropertiesInGenericList_ForClassWithBaseInExternalLibrary()
+        {
+            var recurseProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                Mappings = new List<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "ObservableCollection<T>",
+                        NameContains = "",
+                        Output = "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>{SUBPROPERTIES}</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+Imports System
+Pu*blic Class Class1
+        Public Property PastOrders As ObservableCollection(Of Order)
+End Class
+
+Public Class Order
+    Inherits TestLibrary.TestClass
+
+        Public Property OrderId As Integer
+End Class";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
+         + Environment.NewLine + "<TextBlock Text=\"FB_OrderId\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_TestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_BaseTestProperty\" />"
+         + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
         }
 
         private void FindNoPropertiesInClass(string code)

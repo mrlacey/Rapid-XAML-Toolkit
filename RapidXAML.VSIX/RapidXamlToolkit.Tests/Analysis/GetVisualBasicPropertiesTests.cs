@@ -331,6 +331,80 @@ End Namespace";
         }
 
         [TestMethod]
+        public void GetNativeProperty()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        *Public Property LastOrder As Array*
+    End Class
+End Namespace";
+
+            var arrayProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                Mappings = new List<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "Array",
+                        NameContains = "",
+                        Output = "<TextBlock Text=\"{NAME}\" x:Array=\"true\" />",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "LastOrder",
+                Output = "<TextBlock Text=\"LastOrder\" x:Array=\"true\" />",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, arrayProfile);
+        }
+
+        [TestMethod]
+        public void GetNonExistantProperty()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        *Public Property LastOrder As DneType*
+    End Class
+End Namespace";
+
+            var dneProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                Mappings = new List<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "DneType",
+                        NameContains = "",
+                        Output = "<TextBlock Text=\"{NAME}\" x:DneType=\"true\" />",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "LastOrder",
+                Output = "<TextBlock Text=\"LastOrder\" x:DneType=\"true\" />",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, dneProfile);
+        }
+
+        [TestMethod]
         public void GetCustomProperty_InOtherFile()
         {
             var code = @"

@@ -16,28 +16,29 @@ namespace RapidXamlToolkit
     {
         public new string FileExtension { get; } = "vb";
 
-        public static (List<string> strings, int count) GetSubPropertyOutput(ITypeSymbol typeSymbol, string propertyName, Profile profile)
+        public static (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, Profile profile, SemanticModel semModel)
         {
             var result = new List<string>();
 
-            var x = typeSymbol.GetMembers();
+            var subProperties = GetAllPublicProperties(property.Symbol, semModel);
 
             var numericSubstitute = 0;
 
-            foreach (var symbol in x)
+            if (subProperties.Any())
             {
-                if (symbol.Kind == SymbolKind.Property)
+                foreach (var subprop in subProperties)
                 {
-                    var (output, counter) = GetPropertyOutputAndCounter(profile, UnknownOrInvalidTypeName, symbol.Name, isReadOnly: false, numericSubstitute: numericSubstitute);
+                    // As can't (yet?) get details about properties, forcibly get the fallback
+                    var (output, counter) = GetFallbackPropertyOutputAndCounter(profile, subprop.Name, numericSubstitute: numericSubstitute);
 
                     numericSubstitute = counter;
                     result.Add(output);
                 }
             }
-
-            if (!result.Any())
+            else
             {
-                var (output, counter) = GetPropertyOutputAndCounter(profile, UnknownOrInvalidTypeName, propertyName, isReadOnly: false, numericSubstitute: numericSubstitute);
+                // There are no subproperties so just get self
+                var (output, counter) = GetFallbackPropertyOutputAndCounter(profile, property.Name, numericSubstitute: numericSubstitute);
 
                 numericSubstitute = counter;
                 result.Add(output);
@@ -79,7 +80,7 @@ namespace RapidXamlToolkit
             return result;
         }
 
-        public static (string propertyType, string propertyname, bool propertyIsReadOnly) GetPropertyInfo(SyntaxNode propertyNode)
+        public static PropertyDetails GetPropertyDetails(SyntaxNode propertyNode, SemanticModel semModel)
         {
             var propertyName = GetIdentifier(propertyNode);
             var propertyType = "**unknown**";
@@ -102,6 +103,19 @@ namespace RapidXamlToolkit
             else if (descendantNodes.Any(n => n is PredefinedTypeSyntax))
             {
                 propertyType = descendantNodes.OfType<PredefinedTypeSyntax>().FirstOrDefault()?.Keyword.ValueText;
+            }
+
+            // Remove any namespace qualifications as we match class names as strings
+            if (propertyType.Contains("."))
+            {
+                if (propertyType.Contains("Of "))
+                {
+                    propertyType = propertyType.Substring(0, propertyType.IndexOf("Of ") + 3) + propertyType.Substring(propertyType.LastIndexOf(".") + 1);
+                }
+                else
+                {
+                    propertyType = propertyType.Substring(propertyType.LastIndexOf(".") + 1);
+                }
             }
 
             if (propertyNode is PropertyStatementSyntax pss)
@@ -130,7 +144,18 @@ namespace RapidXamlToolkit
                 }
             }
 
-            return (propertyType, propertyName, propIsReadOnly ?? false);
+            var pd = new PropertyDetails
+            {
+                Name = propertyName,
+                PropertyType = propertyType,
+                IsReadOnly = propIsReadOnly ?? false,
+            };
+
+            ITypeSymbol typeSymbol = GetTypeSymbol(semModel, propertyNode, pd);
+
+            pd.Symbol = typeSymbol;
+
+            return pd;
         }
 
         public static string GetIdentifier(SyntaxNode syntaxNode)
@@ -153,81 +178,16 @@ namespace RapidXamlToolkit
             return syntaxNode?.ChildTokens().FirstOrDefault(t => t.RawKind == (int)SyntaxKind.IdentifierToken).ValueText;
         }
 
-        public static (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, Profile profileOverload, SyntaxNode prop, int numericCounter = 0)
+        public static (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, Profile profileOverload, PropertyDetails prop, int numericCounter = 0)
         {
-            var (pType, pName, pIsReadOnly) = GetPropertyInfo(prop);
-
-            ITypeSymbol typeSymbol = null;
-
-            if (pType.IsGenericTypeName())
-            {
-                TypeSyntax typeSyntax = null;
-
-                if (prop is PropertyStatementSyntax pss)
-                {
-                    typeSyntax = ((GenericNameSyntax)((SimpleAsClauseSyntax)pss.AsClause).Type).TypeArgumentList.Arguments.First();
-                }
-
-                if (prop is PropertyBlockSyntax pbs)
-                {
-                    typeSyntax = ((GenericNameSyntax)((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).TypeArgumentList.Arguments.First();
-                }
-
-                try
-                {
-                    typeSymbol = semModel.GetTypeInfo(typeSyntax).Type;
-                }
-                catch (Exception)
-                {
-                    // The semanticmodel passed into this method is the one for the active document.
-                    // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
-                    var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
-
-                    typeSymbol = localSemModel.GetTypeInfo(typeSyntax).Type;
-                }
-            }
-            else
-            {
-                if (prop is PropertyStatementSyntax pss)
-                {
-                    try
-                    {
-                        typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
-                    }
-                    catch (Exception)
-                    {
-                        // The semanticmodel passed into this method is the one for the active document.
-                        // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
-                        var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
-
-                        typeSymbol = localSemModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
-                    }
-                }
-                else if (prop is PropertyBlockSyntax pbs)
-                {
-                    try
-                    {
-                        typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).Type;
-                    }
-                    catch (Exception)
-                    {
-                        // The semanticmodel passed into this method is the one for the active document.
-                        // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
-                        var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
-
-                        typeSymbol = localSemModel.GetTypeInfo(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).Type;
-                    }
-                }
-            }
-
             var (output, counter) = profileOverload == null
-                ? GetPropertyOutputAndCounterForActiveProfile(pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeSymbol, pName, GetSettings().GetActiveProfile()))
-                : GetPropertyOutputAndCounter(profileOverload, pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeSymbol, pName, profileOverload));
+                ? GetPropertyOutputAndCounterForActiveProfile(prop, numericCounter, () => GetSubPropertyOutput(prop, GetSettings().GetActiveProfile(), semModel))
+                : GetPropertyOutputAndCounter(profileOverload, prop, numericCounter, () => GetSubPropertyOutput(prop, profileOverload, semModel));
 
-            return (output, pName, counter);
+            return (output, prop.Name, counter);
         }
 
-        public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null)
+        public static (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             SyntaxNode propertyNode = null;
             SyntaxNode classNode = null;
@@ -249,9 +209,18 @@ namespace RapidXamlToolkit
                 currentNode = currentNode.Parent;
             }
 
+            return (propertyNode, classNode);
+        }
+
+        public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null)
+        {
+            var (propertyNode, classNode) = GetNodeUnderCaret(documentRoot, caretPosition);
+
             if (propertyNode != null)
             {
-                var (output, name, _) = GetOutputToAdd(semModel, profileOverload, propertyNode);
+                var propDetails = GetPropertyDetails(propertyNode, semModel);
+
+                var (output, name, _) = GetOutputToAdd(semModel, profileOverload, propDetails);
 
                 return new AnalyzerOutput
                 {
@@ -263,7 +232,9 @@ namespace RapidXamlToolkit
             else if (classNode != null)
             {
                 var className = GetIdentifier(classNode);
-                var properties = GetInheritedPropertiesFromClassNode(semModel, classNode);
+
+                var classTypeSymbol = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
+                var properties = GetAllPublicProperties(classTypeSymbol, semModel);
 
                 var output = new StringBuilder();
 
@@ -361,18 +332,16 @@ namespace RapidXamlToolkit
 
             foreach (var prop in propertiesOfInterest)
             {
-                var (pType, pName, pIsReadOnly) = GetPropertyInfo(prop);
-
-                var typeInfo = semModel.GetTypeInfo(((SimpleAsClauseSyntax)prop.AsClause).Type).Type;
+                var propDetails = GetPropertyDetails(prop, semModel);
 
                 var toAdd = profileOverload == null
-                        ? GetPropertyOutputAndCounterForActiveProfile(pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeInfo, pName, GetSettings().GetActiveProfile()))
-                        : GetPropertyOutputAndCounter(profileOverload, pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeInfo, pName, profileOverload));
+                        ? GetPropertyOutputAndCounterForActiveProfile(propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, GetSettings().GetActiveProfile(), semModel))
+                        : GetPropertyOutputAndCounter(profileOverload, propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, profileOverload, semModel));
 
                 numericCounter = toAdd.counter;
                 output.AppendLine(toAdd.output);
 
-                propertyNames.Add(pName);
+                propertyNames.Add(propDetails.Name);
             }
 
             if (propertyNames.Any())
@@ -391,6 +360,74 @@ namespace RapidXamlToolkit
             {
                 return AnalyzerOutput.Empty;
             }
+        }
+
+        private static ITypeSymbol GetTypeSymbol(SemanticModel semModel, SyntaxNode prop, PropertyDetails propDetails)
+        {
+            ITypeSymbol typeSymbol = null;
+
+            if (propDetails.PropertyType.IsGenericTypeName())
+            {
+                TypeSyntax typeSyntax = null;
+
+                if (prop is PropertyStatementSyntax pss)
+                {
+                    typeSyntax = ((GenericNameSyntax)((SimpleAsClauseSyntax)pss.AsClause).Type).TypeArgumentList.Arguments.First();
+                }
+
+                if (prop is PropertyBlockSyntax pbs)
+                {
+                    typeSyntax = ((GenericNameSyntax)((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).TypeArgumentList.Arguments.First();
+                }
+
+                try
+                {
+                    typeSymbol = semModel.GetTypeInfo(typeSyntax).Type;
+                }
+                catch (Exception)
+                {
+                    // The semanticmodel passed into this method is the one for the active document.
+                    // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
+                    var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
+
+                    typeSymbol = localSemModel.GetTypeInfo(typeSyntax).Type;
+                }
+            }
+            else
+            {
+                if (prop is PropertyStatementSyntax pss)
+                {
+                    try
+                    {
+                        typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
+                    }
+                    catch (Exception)
+                    {
+                        // The semanticmodel passed into this method is the one for the active document.
+                        // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
+                        var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
+
+                        typeSymbol = localSemModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
+                    }
+                }
+                else if (prop is PropertyBlockSyntax pbs)
+                {
+                    try
+                    {
+                        typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).Type;
+                    }
+                    catch (Exception)
+                    {
+                        // The semanticmodel passed into this method is the one for the active document.
+                        // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
+                        var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
+
+                        typeSymbol = localSemModel.GetTypeInfo(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).Type;
+                    }
+                }
+            }
+
+            return typeSymbol;
         }
 
         private static List<DeclarationStatementSyntax> GetInheritedPropertiesFromClassNode(SemanticModel semModel, SyntaxNode classNode)
@@ -414,6 +451,61 @@ namespace RapidXamlToolkit
                 else
                 {
                     result.Add(decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyStatementSyntax>().FirstOrDefault());
+                }
+            }
+
+            return result;
+        }
+
+        private static List<PropertyDetails> GetAllPublicProperties(ITypeSymbol typeSymbol, SemanticModel semModel)
+        {
+            var properties = new List<ISymbol>();
+
+            foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
+            {
+                switch (baseType.Kind)
+                {
+                    case SymbolKind.NamedType:
+                        properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property && m.DeclaredAccessibility == Accessibility.Public));
+                        break;
+                    case SymbolKind.ErrorType:
+
+                        //// TODO: Log that type is unknown and so may not be able to provide all output expected
+
+                        break;
+                }
+            }
+
+            var result = new List<PropertyDetails>();
+
+            foreach (var prop in properties)
+            {
+                var decRefs = prop.OriginalDefinition.DeclaringSyntaxReferences;
+
+                if (decRefs.Any())
+                {
+                    var decRef = decRefs.First();
+
+                    var pbs = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyBlockSyntax>().FirstOrDefault();
+
+                    SyntaxNode syntax = null;
+
+                    if (pbs != null)
+                    {
+                        syntax = pbs;
+                    }
+                    else
+                    {
+                        syntax = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyStatementSyntax>().FirstOrDefault();
+                    }
+
+                    var details = GetPropertyDetails(syntax, semModel);
+
+                    result.Add(details);
+                }
+                else
+                {
+                    result.Add(new PropertyDetails { Name = prop.Name, PropertyType = UnknownOrInvalidTypeName, IsReadOnly = false, Symbol = null });
                 }
             }
 
