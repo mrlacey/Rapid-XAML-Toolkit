@@ -348,8 +348,7 @@ namespace RapidXamlToolkit
                 }
                 else
                 {
-                    // TODO: create a constant for unknowntype that is not a valid type identifier
-                    result.Add(new PropertyDetails { Name = prop.Name, PropertyType = "UNKNOWNTYPE", IsReadOnly = false, Symbol = null });
+                    result.Add(new PropertyDetails { Name = prop.Name, PropertyType = UnknownOrInvalidTypeName, IsReadOnly = false, Symbol = null });
                 }
             }
 

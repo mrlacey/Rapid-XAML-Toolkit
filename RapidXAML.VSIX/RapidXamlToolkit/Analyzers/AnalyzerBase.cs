@@ -13,6 +13,8 @@ namespace RapidXamlToolkit
 {
     public class AnalyzerBase
     {
+        public const string UnknownOrInvalidTypeName = "*UNKNOWN-INVALID-TYPE*";  // Asterisk as first character ensures it is invalid
+
         public const string NamePlaceholder = "{NAME}";
 
         public const string NumericPlaceholder = "{X}";
@@ -76,7 +78,7 @@ namespace RapidXamlToolkit
         {
             // Forcibly get the fallback by using an unknowntype
             // TODO: review the effect of specifying readonly here
-            return GetPropertyOutputAndCounter(profile, "UNKNOWNTYPE", name, isReadOnly: false, numericSubstitute: numericSubstitute, getSubPropertyOutput: null);
+            return GetPropertyOutputAndCounter(profile, UnknownOrInvalidTypeName, name, isReadOnly: false, numericSubstitute: numericSubstitute, getSubPropertyOutput: null);
         }
 
         public static (string output, int counter) GetPropertyOutputAndCounter(Profile profile, PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)

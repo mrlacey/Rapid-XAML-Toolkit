@@ -28,8 +28,7 @@ namespace RapidXamlToolkit
             {
                 if (symbol.Kind == SymbolKind.Property)
                 {
-                    // As can't (yet) get details about properties, forcibly get the fallback
-                    var (output, counter) = GetPropertyOutputAndCounter(profile, "UNKNOWNTYPE", symbol.Name, isReadOnly: false, numericSubstitute: numericSubstitute);
+                    var (output, counter) = GetPropertyOutputAndCounter(profile, UnknownOrInvalidTypeName, symbol.Name, isReadOnly: false, numericSubstitute: numericSubstitute);
 
                     numericSubstitute = counter;
                     result.Add(output);
@@ -38,7 +37,7 @@ namespace RapidXamlToolkit
 
             if (!result.Any())
             {
-                var (output, counter) = GetPropertyOutputAndCounter(profile, "UNKNOWNTYPE", propertyName, isReadOnly: false, numericSubstitute: numericSubstitute);
+                var (output, counter) = GetPropertyOutputAndCounter(profile, UnknownOrInvalidTypeName, propertyName, isReadOnly: false, numericSubstitute: numericSubstitute);
 
                 numericSubstitute = counter;
                 result.Add(output);
