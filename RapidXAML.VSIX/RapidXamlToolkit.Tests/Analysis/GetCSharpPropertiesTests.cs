@@ -356,6 +356,84 @@ namespace tests
         }
 
         [TestMethod]
+        public void GetNativeProperty()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        *public Array LastOrder { get; set; }*
+    }
+}";
+
+            var arrayProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                Mappings = new List<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "Array",
+                        NameContains = "",
+                        Output = "<TextBlock Text=\"{NAME}\" x:Array=\"true\" />",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "LastOrder",
+                Output = "<TextBlock Text=\"LastOrder\" x:Array=\"true\" />",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, arrayProfile);
+        }
+
+        [TestMethod]
+        public void GetNonExistentPropertyProperty()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        *public InvalidType LastOrder { get; set; }*
+    }
+}";
+
+            var invalidTypeProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                Mappings = new List<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "InvalidType",
+                        NameContains = "",
+                        Output = "<TextBlock Text=\"{NAME}\" x:InvalidType=\"true\" />",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "LastOrder",
+                Output = "<TextBlock Text=\"LastOrder\" x:InvalidType=\"true\" />",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, invalidTypeProfile);
+        }
+
+        [TestMethod]
         public void GetCustomPropertyWithSpecificMapping()
         {
             var orderProfile = new Profile
