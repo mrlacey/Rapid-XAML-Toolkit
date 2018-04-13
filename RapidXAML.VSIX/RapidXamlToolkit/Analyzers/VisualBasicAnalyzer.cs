@@ -228,7 +228,7 @@ namespace RapidXamlToolkit
             return (output, pName, counter);
         }
 
-        public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null, Dictionary<string, string> referenceLibs = null)
+        public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null)
         {
             SyntaxNode propertyNode = null;
             SyntaxNode classNode = null;
@@ -340,7 +340,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        public AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null, Dictionary<string, string> referenceLibs = null)
+        public AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null)
         {
             var allProperties = documentRoot.DescendantNodes().OfType<PropertyStatementSyntax>().ToList();
 

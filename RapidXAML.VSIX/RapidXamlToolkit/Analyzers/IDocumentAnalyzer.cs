@@ -9,8 +9,8 @@ namespace RapidXamlToolkit
 {
     public interface IDocumentAnalyzer
     {
-        AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null, Dictionary<string, string> referenceLibs = null);
+        AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null);
 
-        AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null, Dictionary<string, string> referenceLibs = null);
+        AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null);
     }
 }
