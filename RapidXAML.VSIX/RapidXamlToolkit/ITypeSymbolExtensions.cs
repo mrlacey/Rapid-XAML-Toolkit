@@ -9,9 +9,9 @@ namespace RapidXamlToolkit
 {
     public static class ITypeSymbolExtensions
     {
-        public static IEnumerable<ITypeSymbol> GetBaseTypes(this ITypeSymbol type)
+        public static IEnumerable<ITypeSymbol> GetSelfAndBaseTypes(this ITypeSymbol type)
         {
-            var current = type.BaseType;
+            var current = type;
             while (current != null)
             {
                 yield return current;

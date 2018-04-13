@@ -45,14 +45,19 @@ namespace RapidXamlToolkit
 
         public static string GetPropertyOutputForActiveProfile(string type, string name, bool isReadOnly, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
         {
-            return GetPropertyOutputForActiveProfile(type, name, isReadOnly, 1, getSubPropertyOutput).output;
+            return GetPropertyOutputAndCounterForActiveProfile(type, name, isReadOnly, 1, getSubPropertyOutput).output;
         }
 
-        public static (string output, int counter) GetPropertyOutputForActiveProfile(string type, string name, bool isReadOnly, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
+        public static (string output, int counter) GetPropertyOutputAndCounterForActiveProfile(PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
+        {
+            return GetPropertyOutputAndCounterForActiveProfile(property.PropertyType, property.Name, property.IsReadOnly, numericSubstitute, getSubPropertyOutput);
+        }
+
+        public static (string output, int counter) GetPropertyOutputAndCounterForActiveProfile(string type, string name, bool isReadOnly, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
         {
             var settings = GetSettings();
-            var profile = settings.GetActiveProfile();
-            return GetPropertyOutput(profile, type, name, isReadOnly, numericSubstitute, getSubPropertyOutput);
+            var activeProfile = settings.GetActiveProfile();
+            return GetPropertyOutputAndCounter(activeProfile, type, name, isReadOnly, numericSubstitute, getSubPropertyOutput);
         }
 
         public static string GetClassGroupingForActiveProfile()
@@ -64,10 +69,22 @@ namespace RapidXamlToolkit
 
         public static string GetPropertyOutput(Profile profile, string type, string name, bool isReadOnly, Func<(List<string> strings, int count)> getSubProperties = null)
         {
-            return GetPropertyOutput(profile, type, name, isReadOnly, 1, getSubProperties).output;
+            return GetPropertyOutputAndCounter(profile, type, name, isReadOnly, 1, getSubProperties).output;
         }
 
-        public static (string output, int counter) GetPropertyOutput(Profile profile, string type, string name, bool isReadOnly, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
+        public static (string output, int counter) GetFallbackPropertyOutputAndCounter(Profile profile, string name, int numericSubstitute)
+        {
+            // Forcibly get the fallback by using an unknowntype
+            // TODO: review the effect of specifying readonly here
+            return GetPropertyOutputAndCounter(profile, "UNKNOWNTYPE", name, isReadOnly: false, numericSubstitute: numericSubstitute, getSubPropertyOutput: null);
+        }
+
+        public static (string output, int counter) GetPropertyOutputAndCounter(Profile profile, PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
+        {
+            return GetPropertyOutputAndCounter(profile, property.PropertyType, property.Name, property.IsReadOnly, numericSubstitute, getSubPropertyOutput);
+        }
+
+        public static (string output, int counter) GetPropertyOutputAndCounter(Profile profile, string type, string name, bool isReadOnly, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
         {
             var mappingOfInterest = GetMappingOfInterest(profile, type, name, isReadOnly);
 

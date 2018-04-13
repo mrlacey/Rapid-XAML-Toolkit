@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.ComponentModelHost;
@@ -21,6 +22,31 @@ namespace RapidXamlToolkit
             {
                 var dte = (EnvDTE.DTE)serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)).Result;
                 var activeDocument = dte.ActiveDocument;
+
+                var refLibs = new Dictionary<string, string>();
+
+                var proj = activeDocument.ProjectItem.ContainingProject;
+
+                var vsproject = proj.Object as VSLangProj.VSProject;
+
+                foreach (VSLangProj.Reference reference in vsproject.References)
+                {
+                    // Only interested in project without source
+                    if (reference.SourceProject == null)
+                    {
+                        var refName = reference.Name;
+
+                        // Ignore platform/framework libraries as very unlikely to be relevant (and there's loads of them)
+                        if (!refName.StartsWith("System")
+                         && !refName.StartsWith("Windows")
+                         && !refName.StartsWith("Microsoft")
+                         && !refName.StartsWith("netstandard")
+                         && !refName.StartsWith("mscorlib"))
+                        {
+                            refLibs.Add(refName, reference.Path);
+                        }
+                    }
+                }
 
                 var textView = GetTextView(serviceProvider);
 
@@ -47,11 +73,11 @@ namespace RapidXamlToolkit
 
                 if (isSelection)
                 {
-                    result = analyzer.GetSelectionOutput(document.GetSyntaxRootAsync().Result, semanticModel, selection.Start.Position, selection.End.Position);
+                    result = analyzer.GetSelectionOutput(document.GetSyntaxRootAsync().Result, semanticModel, selection.Start.Position, selection.End.Position, referenceLibs: refLibs);
                 }
                 else
                 {
-                    result = analyzer.GetSingleItemOutput(document.GetSyntaxRootAsync().Result, semanticModel, caretPosition.Position);
+                    result = analyzer.GetSingleItemOutput(document.GetSyntaxRootAsync().Result, semanticModel, caretPosition.Position, referenceLibs: refLibs);
                 }
             }
             else

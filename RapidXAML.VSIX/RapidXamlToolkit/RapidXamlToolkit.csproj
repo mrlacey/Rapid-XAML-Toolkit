@@ -63,6 +63,7 @@
     <Compile Include="Analyzers\AnalyzerOutputType.cs" />
     <Compile Include="Analyzers\CSharpAnalyzer.cs" />
     <Compile Include="Analyzers\IDocumentAnalyzer.cs" />
+    <Compile Include="Analyzers\PropertyDetails.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />
     <Compile Include="Analyzers\VisualBasicAnalyzer.cs" />
     <Compile Include="Commands\CreateViewCommand.cs" />
@@ -330,6 +331,9 @@
     </Reference>
     <Reference Include="System.Xml.XPath.XDocument, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Xml.XPath.XDocument.4.3.0\lib\net46\System.Xml.XPath.XDocument.dll</HintPath>
+    </Reference>
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

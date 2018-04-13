@@ -29,7 +29,7 @@ namespace RapidXamlToolkit
                 if (symbol.Kind == SymbolKind.Property)
                 {
                     // As can't (yet) get details about properties, forcibly get the fallback
-                    var (output, counter) = GetPropertyOutput(profile, "UNKNOWNTYPE", symbol.Name, isReadOnly: false, numericSubstitute: numericSubstitute);
+                    var (output, counter) = GetPropertyOutputAndCounter(profile, "UNKNOWNTYPE", symbol.Name, isReadOnly: false, numericSubstitute: numericSubstitute);
 
                     numericSubstitute = counter;
                     result.Add(output);
@@ -38,7 +38,7 @@ namespace RapidXamlToolkit
 
             if (!result.Any())
             {
-                var (output, counter) = GetPropertyOutput(profile, "UNKNOWNTYPE", propertyName, isReadOnly: false, numericSubstitute: numericSubstitute);
+                var (output, counter) = GetPropertyOutputAndCounter(profile, "UNKNOWNTYPE", propertyName, isReadOnly: false, numericSubstitute: numericSubstitute);
 
                 numericSubstitute = counter;
                 result.Add(output);
@@ -222,13 +222,13 @@ namespace RapidXamlToolkit
             }
 
             var (output, counter) = profileOverload == null
-                ? GetPropertyOutputForActiveProfile(pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeSymbol, pName, GetSettings().GetActiveProfile()))
-                : GetPropertyOutput(profileOverload, pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeSymbol, pName, profileOverload));
+                ? GetPropertyOutputAndCounterForActiveProfile(pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeSymbol, pName, GetSettings().GetActiveProfile()))
+                : GetPropertyOutputAndCounter(profileOverload, pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeSymbol, pName, profileOverload));
 
             return (output, pName, counter);
         }
 
-        public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null)
+        public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null, Dictionary<string, string> referenceLibs = null)
         {
             SyntaxNode propertyNode = null;
             SyntaxNode classNode = null;
@@ -264,12 +264,7 @@ namespace RapidXamlToolkit
             else if (classNode != null)
             {
                 var className = GetIdentifier(classNode);
-
-                var properties = GetAllPublicPropertiesFromClassNode(classNode);
-
-                var inheritedProperties = GetInheritedPropertiesFromClassNode(semModel, classNode);
-
-                properties.AddRange(inheritedProperties);
+                var properties = GetInheritedPropertiesFromClassNode(semModel, classNode);
 
                 var output = new StringBuilder();
 
@@ -345,7 +340,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        public AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null)
+        public AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null, Dictionary<string, string> referenceLibs = null)
         {
             var allProperties = documentRoot.DescendantNodes().OfType<PropertyStatementSyntax>().ToList();
 
@@ -372,8 +367,8 @@ namespace RapidXamlToolkit
                 var typeInfo = semModel.GetTypeInfo(((SimpleAsClauseSyntax)prop.AsClause).Type).Type;
 
                 var toAdd = profileOverload == null
-                        ? GetPropertyOutputForActiveProfile(pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeInfo, pName, GetSettings().GetActiveProfile()))
-                        : GetPropertyOutput(profileOverload, pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeInfo, pName, profileOverload));
+                        ? GetPropertyOutputAndCounterForActiveProfile(pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeInfo, pName, GetSettings().GetActiveProfile()))
+                        : GetPropertyOutputAndCounter(profileOverload, pType, pName, pIsReadOnly, numericCounter, () => GetSubPropertyOutput(typeInfo, pName, profileOverload));
 
                 numericCounter = toAdd.counter;
                 output.AppendLine(toAdd.output);
@@ -402,7 +397,7 @@ namespace RapidXamlToolkit
         private static List<DeclarationStatementSyntax> GetInheritedPropertiesFromClassNode(SemanticModel semModel, SyntaxNode classNode)
         {
             var typeC = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
-            var types = typeC.GetBaseTypes();
+            var types = typeC.GetSelfAndBaseTypes();
             var members = types.SelectMany(n => n.GetMembers()).Where(m => m.Kind == SymbolKind.Property && m.DeclaredAccessibility == Accessibility.Public).ToList();
 
             var result = new List<DeclarationStatementSyntax>();

@@ -848,12 +848,10 @@ namespace tests
          + Environment.NewLine + "<TextBlock Text=\"FB_Length\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_LongLength\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_Rank\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_System.Collections.ICollection.Count\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_SyncRoot\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_IsReadOnly\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_IsFixedSize\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_IsSynchronized\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_System.Collections.IList.Item\" />"
          + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
          + Environment.NewLine + "</Grid>";
 
