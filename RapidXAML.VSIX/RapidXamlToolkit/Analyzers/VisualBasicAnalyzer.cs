@@ -14,7 +14,7 @@ namespace RapidXamlToolkit
 {
     public class VisualBasicAnalyzer : AnalyzerBase, IDocumentAnalyzer
     {
-        public new string FileExtension { get; } = "vb";
+        public override string FileExtension { get; } = "vb";
 
         public static (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, Profile profile, SemanticModel semModel)
         {

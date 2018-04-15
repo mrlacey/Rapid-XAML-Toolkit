@@ -26,18 +26,13 @@ namespace RapidXamlToolkit
 
         public static IServiceProvider ServiceProvider { get; set; }
 
-        public string FileExtension { get; } = string.Empty;
+        public virtual string FileExtension { get; } = string.Empty;
 
         public static Settings GetSettings()
         {
             var configuredSettings = new ConfiguredSettings(ServiceProvider);
 
             return configuredSettings.ActualSettings;
-        }
-
-        public static string GetPropertyOutputForActiveProfile(string type, string name, bool isReadOnly, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
-        {
-            return GetPropertyOutputAndCounterForActiveProfile(type, name, isReadOnly, 1, getSubPropertyOutput).output;
         }
 
         public static (string output, int counter) GetPropertyOutputAndCounterForActiveProfile(PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
@@ -62,13 +57,6 @@ namespace RapidXamlToolkit
         public static string GetPropertyOutput(Profile profile, string type, string name, bool isReadOnly, Func<(List<string> strings, int count)> getSubProperties = null)
         {
             return GetPropertyOutputAndCounter(profile, type, name, isReadOnly, 1, getSubProperties).output;
-        }
-
-        public static (string output, int counter) GetFallbackPropertyOutputAndCounter(Profile profile, string name, int numericSubstitute)
-        {
-            // Forcibly get the fallback by using an unknowntype
-            // TODO: review the effect of specifying readonly here
-            return GetPropertyOutputAndCounter(profile, UnknownOrInvalidTypeName, name, isReadOnly: false, numericSubstitute: numericSubstitute, getSubPropertyOutput: null);
         }
 
         public static (string output, int counter) GetSubPropertyOutputAndCounter(Profile profile, string name, int numericSubstitute)
@@ -156,8 +144,7 @@ namespace RapidXamlToolkit
                 {
                     foreach (var subProp in subProps.Value.strings)
                     {
-                        // TODO: remove this? or at least make it configurable? ISSUE #24
-                        replacement.AppendLine(subProp.Replace("ViewModel.", string.Empty));
+                        replacement.AppendLine(subProp);
                     }
                 }
 

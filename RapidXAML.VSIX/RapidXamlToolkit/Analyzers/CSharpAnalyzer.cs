@@ -14,7 +14,7 @@ namespace RapidXamlToolkit
 {
     public class CSharpAnalyzer : AnalyzerBase, IDocumentAnalyzer
     {
-        public new string FileExtension { get; } = "cs";
+        public override string FileExtension { get; } = "cs";
 
         public static (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, Profile profile, SemanticModel semModel)
         {
