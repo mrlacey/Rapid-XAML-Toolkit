@@ -2,6 +2,8 @@
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
+using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -123,7 +125,33 @@ namespace RapidXamlToolkit
             }
         }
 
-        private void ResetClicked(object sender, RoutedEventArgs e)
+        private void ImportClicked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            // TODO: implement importing (and validating) profiles ISSUE#20
+        }
+
+        private void ExportClicked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (this.DisplayedProfiles.SelectedIndex >= 0)
+            {
+                var selectedProfile = this.SettingsProvider.ActualSettings.Profiles[this.DisplayedProfiles.SelectedIndex];
+                var profileJson = Newtonsoft.Json.JsonConvert.SerializeObject(selectedProfile, Newtonsoft.Json.Formatting.Indented);
+
+                var saveFileDialog = new System.Windows.Forms.SaveFileDialog
+                {
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    Filter = "Rapid XAML Profile (*.rxprofile)|*.rxprofile",
+                    FileName = $"{selectedProfile.Name}.rxprofile",
+                };
+
+                if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    File.WriteAllText(saveFileDialog.FileName, profileJson);
+                }
+            }
+        }
+
+        private void ResetClicked(object sender, System.Windows.RoutedEventArgs e)
         {
             var msgResult = MessageBox.Show(
                 "Resetting profiles will cause you to lose any changes. Are you sure?",
