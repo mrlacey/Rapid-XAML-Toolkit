@@ -19,7 +19,8 @@ namespace RapidXamlToolkit
                     {
                         Name = "UWP",
                         ClassGrouping = "StackPanel",
-                        DefaultOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
+                        FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping
@@ -155,7 +156,8 @@ namespace RapidXamlToolkit
                     {
                         Name = "UWP (with labels)",
                         ClassGrouping = "Grid-plus-RowDefs",
-                        DefaultOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
+                        FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping
@@ -291,7 +293,8 @@ namespace RapidXamlToolkit
                     {
                         Name = "WPF",
                         ClassGrouping = "StackPanel",
-                        DefaultOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                        FallbackOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping
@@ -371,7 +374,8 @@ namespace RapidXamlToolkit
                     {
                         Name = "Xamarin.Forms",
                         ClassGrouping = "StackLayout",
-                        DefaultOutput = "<Label Text=\"{Binding $name$}\" />",
+                        FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
+                        SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping

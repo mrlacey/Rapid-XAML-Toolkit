@@ -28,8 +28,7 @@ namespace RapidXamlToolkit
             {
                 foreach (var subprop in subProperties)
                 {
-                    // As can't (yet?) get details about properties, forcibly get the fallback
-                    var (output, counter) = GetFallbackPropertyOutputAndCounter(profile, subprop.Name, numericSubstitute: numericSubstitute);
+                    var (output, counter) = GetSubPropertyOutputAndCounter(profile, subprop.Name, numericSubstitute: numericSubstitute);
 
                     numericSubstitute = counter;
                     result.Add(output);
@@ -38,7 +37,7 @@ namespace RapidXamlToolkit
             else
             {
                 // There are no subproperties so just get self
-                var (output, counter) = GetFallbackPropertyOutputAndCounter(profile, property.Name, numericSubstitute: numericSubstitute);
+                var (output, counter) = GetSubPropertyOutputAndCounter(profile, property.Name, numericSubstitute: numericSubstitute);
 
                 numericSubstitute = counter;
                 result.Add(output);

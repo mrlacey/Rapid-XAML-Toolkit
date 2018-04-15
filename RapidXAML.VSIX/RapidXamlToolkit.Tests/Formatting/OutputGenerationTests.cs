@@ -11,6 +11,7 @@ namespace RapidXamlToolkit.Tests.Formatting
     public class OutputGenerationTests
     {
         private const string FallbackOutput = "<TextBlock Fallback=\"True\" />";
+        private const string SubPropertyOutput = "<TextBlock Subproperty=\"True\" />";
         private const string ReadonlyStringOutput = "<TextBlock Text=\"$name$\" />";
         private const string ReadWriteStringOutput = "<TextBox Text=\"{x:Bind $name$, Mode=TwoWay}\" />";
         private const string ReadWritePasswordStringOutput = "<PasswordBox Password=\"{x:Bind $name$}\" />";
@@ -27,7 +28,8 @@ namespace RapidXamlToolkit.Tests.Formatting
             {
                 Name = "TestProfile",
                 ClassGrouping = "StackPanel",
-                DefaultOutput = FallbackOutput,
+                FallbackOutput = FallbackOutput,
+                SubPropertyOutput = SubPropertyOutput,
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -148,7 +150,8 @@ namespace RapidXamlToolkit.Tests.Formatting
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SUBPROP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -173,7 +176,7 @@ namespace RapidXamlToolkit.Tests.Formatting
             {
                 Name = "readonlyProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<Fallback />",
+                FallbackOutput = "<Fallback />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -198,7 +201,7 @@ namespace RapidXamlToolkit.Tests.Formatting
             {
                 Name = "readonlyProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<Fallback />",
+                FallbackOutput = "<Fallback />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -271,7 +274,7 @@ namespace RapidXamlToolkit.Tests.Formatting
             {
                 Name = "wildcardGenericsProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<Fallback />",
+                FallbackOutput = "<Fallback />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -296,7 +299,7 @@ namespace RapidXamlToolkit.Tests.Formatting
             {
                 Name = "wildcardGenericsProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<Fallback />",
+                FallbackOutput = "<Fallback />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping

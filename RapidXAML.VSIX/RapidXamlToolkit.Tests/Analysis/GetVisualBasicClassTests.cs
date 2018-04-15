@@ -60,7 +60,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "StackPanel Orientation=\"Horizontal\"",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -99,7 +100,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -140,7 +142,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "GRID-PLUS-ROWDEFS",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -185,7 +188,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "GRID-PLUS-ROWDEFS-2cols",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -234,7 +238,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "GrId-PlUs-RoWdEfS",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -276,7 +281,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "GrId-PlUs-RoWdEfS-2cOlS",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -434,7 +440,8 @@ End Class*";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -460,8 +467,8 @@ End Class";
 
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderDescription\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
          + Environment.NewLine + "</StackPanel>"
          + Environment.NewLine + "</Grid>";
 
@@ -482,7 +489,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -504,8 +512,8 @@ End Class";
 
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"FB_TestProperty\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_BaseTestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_TestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_BaseTestProperty\" />"
          + Environment.NewLine + "</StackPanel>"
          + Environment.NewLine + "</Grid>";
 
@@ -526,7 +534,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -553,9 +562,9 @@ End Class";
 
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_TestProperty\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_BaseTestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_TestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_BaseTestProperty\" />"
          + Environment.NewLine + "</StackPanel>"
          + Environment.NewLine + "</Grid>";
 
@@ -576,7 +585,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -602,8 +612,8 @@ End Class";
 
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderDescription\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
          + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
          + Environment.NewLine + "</Grid>";
 
@@ -624,7 +634,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" />\r\n<TextBlock Text=\"FB_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" />\r\n<TextBlock Text=\"FB_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                SubPropertyOutput = "<TextBlock Text=\"FB_$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" />\r\n<TextBlock Text=\"FB_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -819,7 +830,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -840,13 +852,13 @@ End Class";
 
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"FB_Length\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_LongLength\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_Rank\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_SyncRoot\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_IsReadOnly\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_IsFixedSize\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_IsSynchronized\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_Length\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_LongLength\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_Rank\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_SyncRoot\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_IsReadOnly\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_IsFixedSize\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_IsSynchronized\" />"
          + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
          + Environment.NewLine + "</Grid>";
 
@@ -867,7 +879,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -887,8 +900,8 @@ End Class";
 
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"FB_TestProperty\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_BaseTestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_TestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_BaseTestProperty\" />"
          + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
          + Environment.NewLine + "</Grid>";
 
@@ -909,7 +922,8 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -936,9 +950,9 @@ End Class";
 
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_TestProperty\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_BaseTestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_TestProperty\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_BaseTestProperty\" />"
          + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
          + Environment.NewLine + "</Grid>";
 

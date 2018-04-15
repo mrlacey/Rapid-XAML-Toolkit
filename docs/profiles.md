@@ -19,7 +19,8 @@ The mapping used when a property does not match any other mapping.
 
 #### Sub-Property mapping
 
-The mapping used for properties included from the $subprops$ placeholder.
+The mapping used for properties included from the **$subprops$** placeholder.
+Only **$name$**, **$incint$**, and **$repint$** placeholders are valid in the sub-property output.
 
 ## Placeholders
 

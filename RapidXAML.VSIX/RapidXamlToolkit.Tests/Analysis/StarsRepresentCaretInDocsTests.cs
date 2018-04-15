@@ -30,7 +30,8 @@ namespace RapidXamlToolkit.Tests.Analysis
                     {
                         Name = "UWP",
                         ClassGrouping = "StackPanel",
-                        DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                        FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"SUBPROP_$name$\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping
@@ -75,7 +76,8 @@ namespace RapidXamlToolkit.Tests.Analysis
                     {
                         Name = "UWP (with labels)",
                         ClassGrouping = "Grid-plus-RowDefs",
-                        DefaultOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
+                        FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"SUBPROP_$name$\" Grid.Row=\"$incint$\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping
@@ -120,7 +122,8 @@ namespace RapidXamlToolkit.Tests.Analysis
                     {
                         Name = "WPF",
                         ClassGrouping = "StackPanel",
-                        DefaultOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
+                        FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"SUBPROP_$name$\" Grid.Row=\"$incint$\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping
@@ -144,7 +147,8 @@ namespace RapidXamlToolkit.Tests.Analysis
                     {
                         Name = "Xamarin.Forms",
                         ClassGrouping = "StackLayout",
-                        DefaultOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
+                        FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"SUBPROP_$name$\" Grid.Row=\"$incint$\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping

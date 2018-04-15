@@ -20,7 +20,9 @@ namespace RapidXamlToolkit
 
         public string ClassGrouping { get; set; }
 
-        public string DefaultOutput { get; set; }
+        public string FallbackOutput { get; set; }
+
+        public string SubPropertyOutput { get; set; }
 
         public List<Mapping> Mappings
         {
@@ -73,7 +75,8 @@ namespace RapidXamlToolkit
             {
                 Name = "New",
                 ClassGrouping = string.Empty,
-                DefaultOutput = string.Empty,
+                FallbackOutput = string.Empty,
+                SubPropertyOutput = string.Empty,
                 Mappings = new List<Mapping>(),
             };
         }
@@ -84,8 +87,10 @@ namespace RapidXamlToolkit
             {
                 Name = $"{this.Name} (copy)",
                 ClassGrouping = this.ClassGrouping,
-                DefaultOutput = this.DefaultOutput,
+                FallbackOutput = this.FallbackOutput,
+                SubPropertyOutput = this.SubPropertyOutput,
                 Mappings = new List<Mapping>(),
+                ViewGeneration = this.ViewGeneration,
             };
 
             foreach (var mapping in this.Mappings)

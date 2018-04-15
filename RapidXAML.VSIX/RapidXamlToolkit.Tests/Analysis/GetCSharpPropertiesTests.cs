@@ -371,7 +371,8 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -410,7 +411,8 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -440,7 +442,8 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -485,7 +488,8 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -517,10 +521,10 @@ namespace tests
             // This includes the readonly property as not yet filtering out
             // All types treated as fallback
             var expectedOutput = "<StackPanel>"
-                                 + Environment.NewLine + "<TextBlock Text=\"FB_OrderId\" />"
-                                 + Environment.NewLine + "<TextBlock Text=\"FB_OrderPlacedDateTime\" />"
-                                 + Environment.NewLine + "<TextBlock Text=\"FB_OrderDescription\" />"
-                                 + Environment.NewLine + "</StackPanel>";
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
+         + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
             {
@@ -539,7 +543,8 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
@@ -562,8 +567,8 @@ namespace tests
 }";
 
             var expectedOutput = "<StackPanel>"
-                                 + Environment.NewLine + "<TextBlock Text=\"FB_LastOrder\" />"
-                                 + Environment.NewLine + "</StackPanel>";
+         + Environment.NewLine + "<TextBlock Text=\"SP_LastOrder\" />"
+         + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
             {
@@ -600,7 +605,8 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping

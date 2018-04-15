@@ -71,6 +71,12 @@ namespace RapidXamlToolkit
             return GetPropertyOutputAndCounter(profile, UnknownOrInvalidTypeName, name, isReadOnly: false, numericSubstitute: numericSubstitute, getSubPropertyOutput: null);
         }
 
+        public static (string output, int counter) GetSubPropertyOutputAndCounter(Profile profile, string name, int numericSubstitute)
+        {
+            // Type can be blank as it's can't be used in a subproperty
+            return FormatOutput(profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, getSubPropertyOutput: null);
+        }
+
         public static (string output, int counter) GetPropertyOutputAndCounter(Profile profile, PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
         {
             return GetPropertyOutputAndCounter(profile, property.PropertyType, property.Name, property.IsReadOnly, numericSubstitute, getSubPropertyOutput);
@@ -102,7 +108,7 @@ namespace RapidXamlToolkit
 
                 if (rawOutput == null)
                 {
-                    rawOutput = profile?.DefaultOutput;
+                    rawOutput = profile?.FallbackOutput;
                 }
             }
 
@@ -111,6 +117,11 @@ namespace RapidXamlToolkit
                 return (null, numericSubstitute);
             }
 
+            return FormatOutput(rawOutput, type, name, numericSubstitute, getSubPropertyOutput);
+        }
+
+        public static (string output, int counter) FormatOutput(string rawOutput, string type, string name, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput)
+        {
             var result = rawOutput.Replace(Placeholder.PropertyName, name);
 
             if (type.IsGenericTypeName())
