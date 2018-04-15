@@ -11,9 +11,9 @@ namespace RapidXamlToolkit.Tests.Formatting
     public class OutputGenerationTests
     {
         private const string FallbackOutput = "<TextBlock Fallback=\"True\" />";
-        private const string ReadonlyStringOutput = "<TextBlock Text=\"{NAME}\" />";
-        private const string ReadWriteStringOutput = "<TextBox Text=\"{x:Bind {NAME}, Mode=TwoWay}\" />";
-        private const string ReadWritePasswordStringOutput = "<PasswordBox Password=\"{x:Bind {NAME}}\" />";
+        private const string ReadonlyStringOutput = "<TextBlock Text=\"$name$\" />";
+        private const string ReadWriteStringOutput = "<TextBox Text=\"{x:Bind $name$, Mode=TwoWay}\" />";
+        private const string ReadWritePasswordStringOutput = "<PasswordBox Password=\"{x:Bind $name$}\" />";
         private const string ReadWriteNumberIntOutput = "<ReadWriteNumberIntOutput />";
         private const string ReadWriteIntOutput = "<ReadWriteIntOutput />";
 
@@ -74,7 +74,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         {
             var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "MyProperty", false);
 
-            Assert.AreEqual(ReadWriteStringOutput.Replace("{NAME}", "MyProperty"), result);
+            Assert.AreEqual(ReadWriteStringOutput.Replace("$name$", "MyProperty"), result);
         }
 
         [TestMethod]
@@ -82,7 +82,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         {
             var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "AnotherProperty", true);
 
-            Assert.AreEqual(ReadonlyStringOutput.Replace("{NAME}", "AnotherProperty"), result);
+            Assert.AreEqual(ReadonlyStringOutput.Replace("$name$", "AnotherProperty"), result);
         }
 
         [TestMethod]
@@ -98,7 +98,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         {
             var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "EnteredPassword", false);
 
-            Assert.AreEqual(ReadWritePasswordStringOutput.Replace("{NAME}", "EnteredPassword"), result);
+            Assert.AreEqual(ReadWritePasswordStringOutput.Replace("$name$", "EnteredPassword"), result);
         }
 
         [TestMethod]
@@ -106,7 +106,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         {
             var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "EnteredPwd", true);
 
-            Assert.AreEqual(ReadonlyStringOutput.Replace("{NAME}", "EnteredPwd"), result);
+            Assert.AreEqual(ReadonlyStringOutput.Replace("$name$", "EnteredPwd"), result);
         }
 
         [TestMethod]
@@ -148,14 +148,14 @@ namespace RapidXamlToolkit.Tests.Formatting
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = StringPropertyName,
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\" />",
+                        Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />",
                         IfReadOnly = false,
                     },
                 },

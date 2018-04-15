@@ -371,14 +371,14 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "Array",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" x:Array=\"true\" />",
+                        Output = "<TextBlock Text=\"$name$\" x:Array=\"true\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -410,14 +410,14 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "InvalidType",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" x:InvalidType=\"true\" />",
+                        Output = "<TextBlock Text=\"$name$\" x:InvalidType=\"true\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -440,14 +440,14 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "Order",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" x:Order=\"true\" />",
+                        Output = "<TextBlock Text=\"$name$\" x:Order=\"true\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -485,14 +485,14 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "Order",
                         NameContains = "",
-                        Output = "<StackPanel>{SUBPROPERTIES}</StackPanel>",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
                         IfReadOnly = false,
                     },
                 },
@@ -539,14 +539,14 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "string",
                         NameContains = "LastOrder",
-                        Output = "<StackPanel>{SUBPROPERTIES}</StackPanel>",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
                         IfReadOnly = false,
                     },
                 },
@@ -600,14 +600,14 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "Order",
                         NameContains = "",
-                        Output = "<TextBlock x:IsOrder=\"True\" Text=\"{NAME}\" />",
+                        Output = "<TextBlock x:IsOrder=\"True\" Text=\"$name$\" />",
                         IfReadOnly = false,
                     },
                 },

@@ -60,14 +60,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "StackPanel Orientation=\"Horizontal\"",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "string",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" />",
+                        Output = "<TextBlock Text=\"$name$\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -99,14 +99,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "string",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\" />",
+                        Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -140,14 +140,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "GRID-PLUS-ROWDEFS",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "string",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\" />",
+                        Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -185,14 +185,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "GRID-PLUS-ROWDEFS-2cols",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "string",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\" />",
+                        Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -234,14 +234,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "GrId-PlUs-RoWdEfS",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "string",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\" />",
+                        Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -276,14 +276,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "GrId-PlUs-RoWdEfS-2cOlS",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "string",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\" />",
+                        Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -434,14 +434,14 @@ End Class*";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "Order",
                         NameContains = "",
-                        Output = "<StackPanel>{SUBPROPERTIES}</StackPanel>",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
                         IfReadOnly = false,
                     },
                 },
@@ -482,14 +482,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "TestClass",
                         NameContains = "",
-                        Output = "<StackPanel>{SUBPROPERTIES}</StackPanel>",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
                         IfReadOnly = false,
                     },
                 },
@@ -526,14 +526,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "Order",
                         NameContains = "",
-                        Output = "<StackPanel>{SUBPROPERTIES}</StackPanel>",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
                         IfReadOnly = false,
                     },
                 },
@@ -576,14 +576,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "ObservableCollection<Order>",
                         NameContains = "",
-                        Output = "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>{SUBPROPERTIES}</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                        Output = "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
                         IfReadOnly = false,
                     },
                 },
@@ -624,14 +624,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" Grid.Row=\"{X}\" Grid.Column=\"0\" />\r\n<TextBlock Text=\"FB_{NAME}\" Grid.Row=\"{XX}\" Grid.Column=\"1\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" />\r\n<TextBlock Text=\"FB_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "Order",
                         NameContains = "",
-                        Output = "<GRID-PLUS-ROWDEFS-2COLS>{SUBPROPERTIES}</GRID-PLUS-ROWDEFS-2COLS>",
+                        Output = "<GRID-PLUS-ROWDEFS-2COLS>$subprops$</GRID-PLUS-ROWDEFS-2COLS>",
                         IfReadOnly = false,
                     },
                 },
@@ -819,14 +819,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "ObservableCollection<T>",
                         NameContains = "",
-                        Output = "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>{SUBPROPERTIES}</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                        Output = "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
                         IfReadOnly = false,
                     },
                 },
@@ -867,14 +867,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "ObservableCollection<T>",
                         NameContains = "",
-                        Output = "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>{SUBPROPERTIES}</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                        Output = "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
                         IfReadOnly = false,
                     },
                 },
@@ -909,14 +909,14 @@ End Class";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "ObservableCollection<T>",
                         NameContains = "",
-                        Output = "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>{SUBPROPERTIES}</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                        Output = "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
                         IfReadOnly = false,
                     },
                 },

@@ -14,16 +14,16 @@ namespace RapidXamlToolkit
         public ViewGenerationSettings()
         {
             this.XamlPlaceholder = @"<Page
-    x:Class=""{PROJECT}.Views.{CLASS}Page""
+    x:Class=""$project$.Views.$class$Page""
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:local=""using:{PROJECT}.Views""
+    xmlns:local=""using:$project$.Views""
     xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
     xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
     mc:Ignorable=""d"">
 
     <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        {GENXAML}
+        $genxaml$
     </Grid>
 </Page>
 ";
@@ -42,18 +42,18 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using {PROJECT}.ViewModels;
+using $project$.ViewModels;
 
-namespace {PROJECT}.Views
+namespace $project$.Views
 {
-    public sealed partial class {CLASS}Page : Page
+    public sealed partial class $class$Page : Page
     {
-        public {CLASS} ViewModel { get; set; }
+        public $class$ ViewModel { get; set; }
 
-        public {CLASS}Page()
+        public $class$Page()
         {
             this.InitializeComponent();
-            this.ViewModel = new {CLASS}();
+            this.ViewModel = new $class$();
         }
     }
 }

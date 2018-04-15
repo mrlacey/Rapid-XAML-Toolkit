@@ -344,14 +344,14 @@ End Namespace";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "Array",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" x:Array=\"true\" />",
+                        Output = "<TextBlock Text=\"$name$\" x:Array=\"true\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -381,14 +381,14 @@ End Namespace";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "DneType",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" x:DneType=\"true\" />",
+                        Output = "<TextBlock Text=\"$name$\" x:DneType=\"true\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -459,14 +459,14 @@ End Namespace";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "Order",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" x:Order=\"true\" />",
+                        Output = "<TextBlock Text=\"$name$\" x:Order=\"true\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -501,14 +501,14 @@ End Namespace";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "Order",
                         NameContains = "",
-                        Output = "<StackPanel>{SUBPROPERTIES}</StackPanel>",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
                         IfReadOnly = false,
                     },
                 },
@@ -552,14 +552,14 @@ End Namespace";
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "string",
                         NameContains = "LastOrder",
-                        Output = "<StackPanel>{SUBPROPERTIES}</StackPanel>",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
                         IfReadOnly = false,
                     },
                 },

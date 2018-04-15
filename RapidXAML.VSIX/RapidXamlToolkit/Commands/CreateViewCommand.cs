@@ -213,14 +213,15 @@ namespace RapidXamlToolkit
                 var xamlFileName = Path.Combine(viewFolder, $"{baseFileName}Page.xaml");
                 var codeFileName = Path.Combine(viewFolder, $"{baseFileName}Page.xaml.{codeBehindExt}");
 
+                // TODO: This should be the name of the project that the file will be added to. (this may be differnt to the one the VM is in)
                 var projName = proj.Name;
 
-                var xamlContent = profile.ViewGeneration.XamlPlaceholder.Replace("{PROJECT}", projName).Replace("{CLASS}", className).Replace("{GENXAML}", actual.Output);
+                var xamlContent = profile.ViewGeneration.XamlPlaceholder.Replace("$project$", projName).Replace("$class$", className).Replace("$genxaml$", actual.Output);
 
                 // The content should be configurable (ISSUE#21)
                 File.WriteAllText(xamlFileName, xamlContent, Encoding.UTF8);
 
-                var codeBehind = profile.ViewGeneration.CodePlaceholder.Replace("{PROJECT}", projName).Replace("{CLASS}", className);
+                var codeBehind = profile.ViewGeneration.CodePlaceholder.Replace("$project$", projName).Replace("$class$", className);
 
                 // The content should be configurable (ISSUE#21)
                 File.WriteAllText(codeFileName, codeBehind, Encoding.UTF8);

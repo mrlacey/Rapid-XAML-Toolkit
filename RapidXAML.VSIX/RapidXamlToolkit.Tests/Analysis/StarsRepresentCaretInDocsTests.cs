@@ -30,42 +30,42 @@ namespace RapidXamlToolkit.Tests.Analysis
                     {
                         Name = "UWP",
                         ClassGrouping = "StackPanel",
-                        DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                        DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping
                             {
                                 Type = "String",
                                 NameContains = "password|pwd",
-                                Output = "<PasswordBox Password=\"{x:Bind {NAME}}\" />",
+                                Output = "<PasswordBox Password=\"{x:Bind $name$}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "String",
                                 NameContains = string.Empty,
-                                Output = "<TextBox Text=\"{x:Bind {NAME}, Mode=TwoWay}\" />",
+                                Output = "<TextBox Text=\"{x:Bind $name$, Mode=TwoWay}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "String",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"{NAME}\" />",
+                                Output = "<TextBlock Text=\"$name$\" />",
                                 IfReadOnly = true,
                             },
                             new Mapping
                             {
                                 Type = "int|Integer",
                                 NameContains = string.Empty,
-                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"{NAME}\" Value=\"{x:Bind {NAME}, Mode=TwoWay}\" />",
+                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{x:Bind $name$, Mode=TwoWay}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "List<string>",
                                 NameContains = string.Empty,
-                                Output = "<ItemsControl ItemsSource=\"{x:Bind {NAME}}\"></ItemsControl>",
+                                Output = "<ItemsControl ItemsSource=\"{x:Bind $name$}\"></ItemsControl>",
                                 IfReadOnly = false,
                             },
                         },
@@ -75,42 +75,42 @@ namespace RapidXamlToolkit.Tests.Analysis
                     {
                         Name = "UWP (with labels)",
                         ClassGrouping = "Grid-plus-RowDefs",
-                        DefaultOutput = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><TextBlock Text=\"FALLBACK_{NAME}\" Grid.Row=\"{X}\" />",
+                        DefaultOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping
                             {
                                 Type = "String",
                                 NameContains = "password|pwd",
-                                Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><PasswordBox Password=\"{x:Bind {NAME}}\" Grid.Row=\"{X}\" />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><PasswordBox Password=\"{x:Bind $name$}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "String",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><TextBox Text=\"{x:Bind {NAME}, Mode=TwoWay}\" Grid.Row=\"{X}\" />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBox Text=\"{x:Bind $name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "String",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\" />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = true,
                             },
                             new Mapping
                             {
                                 Type = "int|Integer",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"{NAME}\" Value=\"{x:Bind {NAME}, Mode=TwoWay}\" />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{x:Bind $name$, Mode=TwoWay}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "List<string>",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><ItemsControl ItemsSource=\"{x:Bind {NAME}}\"></ItemsControl>",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><ItemsControl ItemsSource=\"{x:Bind $name$}\"></ItemsControl>",
                                 IfReadOnly = false,
                             },
                         },
@@ -120,21 +120,21 @@ namespace RapidXamlToolkit.Tests.Analysis
                     {
                         Name = "WPF",
                         ClassGrouping = "StackPanel",
-                        DefaultOutput = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><TextBlock Text=\"FALLBACK_{NAME}\" Grid.Row=\"{X}\" />",
+                        DefaultOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping
                             {
                                 Type = "String",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><TextBox Text=\"{x:Bind {NAME}, Mode=TwoWay}\" Grid.Row=\"{X}\" />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBox Text=\"{x:Bind $name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "String",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\" />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = true,
                             },
                         },
@@ -144,14 +144,14 @@ namespace RapidXamlToolkit.Tests.Analysis
                     {
                         Name = "Xamarin.Forms",
                         ClassGrouping = "StackLayout",
-                        DefaultOutput = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><TextBlock Text=\"FALLBACK_{NAME}\" Grid.Row=\"{X}\" />",
+                        DefaultOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping
                             {
                                 Type = "String",
                                 NameContains = "password|pwd",
-                                Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\"><PasswordBox Password=\"{x:Bind {NAME}}\" Grid.Row=\"{X}\" />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><PasswordBox Password=\"{x:Bind $name$}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = false,
                             },
                         },

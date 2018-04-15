@@ -15,16 +15,6 @@ namespace RapidXamlToolkit
     {
         public const string UnknownOrInvalidTypeName = "*UNKNOWN-INVALID-TYPE*";  // Asterisk as first character ensures it is invalid
 
-        public const string NamePlaceholder = "{NAME}";
-
-        public const string NumericPlaceholder = "{X}";
-
-        public const string RepeatedNumericPlaceholder = "{XX}";
-
-        public const string TypePlaceholder = "{TYPE}";
-
-        public const string SubPropertiesPlaceholder = "{SUBPROPERTIES}";
-
         // Can't support this unless able to get relevant information for all types (from all locations: file, project, solution, assembly)
         ////public const string SubPropertiesReadOnlyPlaceholder = "{SUBPROPERTIES-READONLY}";
 
@@ -121,30 +111,30 @@ namespace RapidXamlToolkit
                 return (null, numericSubstitute);
             }
 
-            var result = rawOutput.Replace(NamePlaceholder, name);
+            var result = rawOutput.Replace(Placeholder.PropertyName, name);
 
             if (type.IsGenericTypeName())
             {
                 var typeArgument = type.Substring(type.IndexOf("<", StringComparison.Ordinal) + 1, type.Length - type.IndexOf("<", StringComparison.Ordinal) - 2);
-                result = result.Replace(TypePlaceholder, typeArgument);
+                result = result.Replace(Placeholder.PropertyType, typeArgument);
             }
             else
             {
-                result = result.Replace(TypePlaceholder, type);
+                result = result.Replace(Placeholder.PropertyType, type);
             }
 
-            if (rawOutput.Contains(SubPropertiesPlaceholder))
+            if (rawOutput.Contains(Placeholder.SubProperties))
             {
                 bool subPropertyInsideGridPlusRowDefs =
-                    (rawOutput.IndexOf(SubPropertiesPlaceholder, StringComparison.OrdinalIgnoreCase)
+                    (rawOutput.IndexOf(Placeholder.SubProperties, StringComparison.OrdinalIgnoreCase)
                     > rawOutput.IndexOf(GridWithRowDefsIndicator, StringComparison.OrdinalIgnoreCase)
                  && rawOutput.IndexOf("/" + GridWithRowDefsIndicator, StringComparison.OrdinalIgnoreCase)
-                    > rawOutput.IndexOf(SubPropertiesPlaceholder, StringComparison.OrdinalIgnoreCase))
+                    > rawOutput.IndexOf(Placeholder.SubProperties, StringComparison.OrdinalIgnoreCase))
                     ||
-                    (rawOutput.IndexOf(SubPropertiesPlaceholder, StringComparison.OrdinalIgnoreCase)
+                    (rawOutput.IndexOf(Placeholder.SubProperties, StringComparison.OrdinalIgnoreCase)
                     > rawOutput.IndexOf(GridWithRowDefs2ColsIndicator, StringComparison.OrdinalIgnoreCase)
                     && rawOutput.IndexOf("/" + GridWithRowDefs2ColsIndicator, StringComparison.OrdinalIgnoreCase)
-                    > rawOutput.IndexOf(SubPropertiesPlaceholder, StringComparison.OrdinalIgnoreCase));
+                    > rawOutput.IndexOf(Placeholder.SubProperties, StringComparison.OrdinalIgnoreCase));
 
                 var subProps = getSubPropertyOutput?.Invoke();
 
@@ -160,7 +150,7 @@ namespace RapidXamlToolkit
                     }
                 }
 
-                result = result.Replace(SubPropertiesPlaceholder, replacement.ToString());
+                result = result.Replace(Placeholder.SubProperties, replacement.ToString());
 
                 if (subPropertyInsideGridPlusRowDefs)
                 {
@@ -217,21 +207,21 @@ namespace RapidXamlToolkit
                 }
             }
 
-            while (result.Contains(NumericPlaceholder))
+            while (result.Contains(Placeholder.IncrementingInteger))
             {
-                var subPosition = result.IndexOf(NumericPlaceholder, StringComparison.OrdinalIgnoreCase);
+                var subPosition = result.IndexOf(Placeholder.IncrementingInteger, StringComparison.OrdinalIgnoreCase);
 
-                result = result.Remove(subPosition, NumericPlaceholder.Length);
+                result = result.Remove(subPosition, Placeholder.IncrementingInteger.Length);
                 result = result.Insert(subPosition, numericSubstitute.ToString());
 
                 numericSubstitute += 1;
             }
 
-            while (result.Contains(RepeatedNumericPlaceholder))
+            while (result.Contains(Placeholder.RepeatingInteger))
             {
-                var subPosition = result.IndexOf(RepeatedNumericPlaceholder, StringComparison.OrdinalIgnoreCase);
+                var subPosition = result.IndexOf(Placeholder.RepeatingInteger, StringComparison.OrdinalIgnoreCase);
 
-                result = result.Remove(subPosition, RepeatedNumericPlaceholder.Length);
+                result = result.Remove(subPosition, Placeholder.RepeatingInteger.Length);
                 result = result.Insert(subPosition, (numericSubstitute - 1).ToString()); // Remove 1 as was incremented after last used
             }
 

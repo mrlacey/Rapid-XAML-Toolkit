@@ -192,14 +192,14 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FALLBACK_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "string",
                         NameContains = "",
-                        Output = "<TextBlock Text=\"{NAME}\" Grid.Row=\"{X}\" />",
+                        Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />",
                         IfReadOnly = false,
                     },
                 },
@@ -237,14 +237,14 @@ namespace tests
             {
                 Name = "GridTestProfile",
                 ClassGrouping = "Grid",
-                DefaultOutput = "<TextBlock Text=\"FB_{NAME}\" />",
+                DefaultOutput = "<TextBlock Text=\"FB_$name$\" />",
                 Mappings = new List<Mapping>
                 {
                     new Mapping
                     {
                         Type = "Order",
                         NameContains = "",
-                        Output = "<StackPanel>{SUBPROPERTIES}</StackPanel>",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
                         IfReadOnly = false,
                     },
                 },
