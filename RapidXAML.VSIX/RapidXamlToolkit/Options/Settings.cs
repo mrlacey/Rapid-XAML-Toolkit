@@ -20,16 +20,26 @@ namespace RapidXamlToolkit
             {
                 var list = new ObservableCollection<ProfileSummary>();
 
+                // If multile profiles have the same name as the active profile, use the first one in the list with matcing name
+                bool activeIndicated = false;
+
                 for (var index = 0; index < this.Profiles.Count; index++)
                 {
                     var profile = this.Profiles[index];
 
-                    list.Add(new ProfileSummary
+                    var summary = new ProfileSummary
                     {
                         Index = index,
                         Name = profile.Name,
-                        IsActive = profile.Name == this.ActiveProfileName,
-                    });
+                        IsActive = !activeIndicated && profile.Name == this.ActiveProfileName,
+                    };
+
+                    if (summary.IsActive)
+                    {
+                        activeIndicated = true;
+                    }
+
+                    list.Add(summary);
                 }
 
                 return list;
