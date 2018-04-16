@@ -79,20 +79,26 @@
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpPic1" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>Copy to Clipboard</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="SendToToolboxCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpPic2" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>Send to Toolbox</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpPic1" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Open Options</ButtonText>
+          <ButtonText>First set an active profile</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -121,6 +127,10 @@
     </CommandPlacement>
 
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CreateViewCommandId" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenuGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100">
       <Parent guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenuGroup" />
     </CommandPlacement>
 

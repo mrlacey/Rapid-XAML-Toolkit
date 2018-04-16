@@ -26,7 +26,8 @@ namespace RapidXamlToolkit
             this.logger = logger;
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
-            var menuItem = new MenuCommand(this.Execute, menuCommandID);
+            var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
+            menuItem.BeforeQueryStatus += this.MenuItem_BeforeQueryStatus;
             commandService.AddCommand(menuItem);
         }
 
@@ -53,6 +54,19 @@ namespace RapidXamlToolkit
             Instance = new CopyToClipboardCommand(package, commandService, logger);
 
             AnalyzerBase.ServiceProvider = (IServiceProvider)Instance.ServiceProvider;
+        }
+
+        private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
+        {
+            if (sender is OleMenuCommand menuCmd)
+            {
+                menuCmd.Visible = menuCmd.Enabled = false;
+
+                if (AnalyzerBase.GetSettings().IsActiveProfileSet)
+                {
+                    menuCmd.Visible = menuCmd.Enabled = true;
+                }
+            }
         }
 
         private void Execute(object sender, EventArgs e)

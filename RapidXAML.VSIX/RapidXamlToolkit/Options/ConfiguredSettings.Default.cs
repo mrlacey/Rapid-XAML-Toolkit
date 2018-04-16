@@ -12,7 +12,7 @@ namespace RapidXamlToolkit
         {
             return new Settings
             {
-                ActiveProfileName = "UWP",
+                ActiveProfileName = string.Empty,  // No profile should be selected by default
                 Profiles = new List<Profile>
                 {
                     new Profile

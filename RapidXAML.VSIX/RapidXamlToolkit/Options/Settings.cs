@@ -48,6 +48,14 @@ namespace RapidXamlToolkit
             }
         }
 
+        public bool IsActiveProfileSet
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(this.ActiveProfileName);
+            }
+        }
+
         public Profile GetActiveProfile()
         {
             Profile result = null;

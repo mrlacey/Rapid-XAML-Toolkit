@@ -85,7 +85,10 @@ namespace RapidXamlToolkit
 
                 if (transformFileInfo.Name.EndsWith(".cs") || transformFileInfo.Name.EndsWith(".vb"))
                 {
-                    menuCmd.Visible = menuCmd.Enabled = true;
+                    if (AnalyzerBase.GetSettings().IsActiveProfileSet)
+                    {
+                        menuCmd.Visible = menuCmd.Enabled = true;
+                    }
                 }
             }
         }
