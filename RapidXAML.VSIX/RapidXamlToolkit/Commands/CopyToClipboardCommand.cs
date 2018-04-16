@@ -17,11 +17,13 @@ namespace RapidXamlToolkit
         public static readonly Guid CommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
 
         private readonly AsyncPackage package;
+        private readonly ILogger logger;
 
-        private CopyToClipboardCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private CopyToClipboardCommand(AsyncPackage package, OleMenuCommandService commandService, ILogger logger)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
+            this.logger = logger;
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new MenuCommand(this.Execute, menuCommandID);
@@ -42,13 +44,13 @@ namespace RapidXamlToolkit
             }
         }
 
-        public static async Task InitializeAsync(AsyncPackage package)
+        public static async Task InitializeAsync(AsyncPackage package, ILogger logger)
         {
             // Verify the current thread is the UI thread - the call to AddCommand in CreateXamlStringCommand's constructor requires the UI thread.
             ThreadHelper.ThrowIfNotOnUIThread();
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new CopyToClipboardCommand(package, commandService);
+            Instance = new CopyToClipboardCommand(package, commandService, logger);
 
             AnalyzerBase.ServiceProvider = (IServiceProvider)Instance.ServiceProvider;
         }
@@ -71,10 +73,12 @@ namespace RapidXamlToolkit
                 }
 
                 ShowStatusBarMessage(Instance.ServiceProvider, $"Copied XAML for {output.OutputType}: {output.Name}");
+                this.logger.RecordInfo($"Copied XAML for {output.OutputType}: {output.Name}");
             }
             else
             {
                 ShowStatusBarMessage(Instance.ServiceProvider, "No XAML copied.");
+                this.logger.RecordInfo("No XAML copied.");
             }
         }
     }

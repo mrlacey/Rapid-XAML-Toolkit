@@ -25,11 +25,13 @@ namespace RapidXamlToolkit
         public static readonly Guid CommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
 
         private readonly AsyncPackage package;
+        private readonly ILogger logger;
 
-        private CreateViewCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private CreateViewCommand(AsyncPackage package, OleMenuCommandService commandService, ILogger logger)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
+            this.logger = logger;
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
@@ -53,13 +55,13 @@ namespace RapidXamlToolkit
 
         private string SelectedFileName { get; set; }
 
-        public static async Task InitializeAsync(AsyncPackage package)
+        public static async Task InitializeAsync(AsyncPackage package, ILogger logger)
         {
             // Verify the current thread is the UI thread - the call to AddCommand in CreateViewCommand's constructor requires the UI thread.
             ThreadHelper.ThrowIfNotOnUIThread();
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new CreateViewCommand(package, commandService);
+            Instance = new CreateViewCommand(package, commandService, logger);
         }
 
         private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -232,6 +234,11 @@ namespace RapidXamlToolkit
 
                 // Open the newly created view
                 dte.ItemOperations.OpenFile(xamlFileName, EnvDTE.Constants.vsViewKindDesigner);
+                this.logger.RecordInfo($"Created file {xamlFileName}");
+            }
+            else
+            {
+                this.logger.RecordInfo("No view created.");
             }
         }
     }

@@ -18,11 +18,13 @@ namespace RapidXamlToolkit
         public static readonly Guid CommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
 
         private readonly AsyncPackage package;
+        private readonly ILogger logger;
 
-        private SendToToolboxCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private SendToToolboxCommand(AsyncPackage package, OleMenuCommandService commandService, ILogger logger)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
+            this.logger = logger;
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new MenuCommand(this.Execute, menuCommandID);
@@ -43,13 +45,13 @@ namespace RapidXamlToolkit
             }
         }
 
-        public static async Task InitializeAsync(AsyncPackage package)
+        public static async Task InitializeAsync(AsyncPackage package, ILogger logger)
         {
             // Verify the current thread is the UI thread - the call to AddCommand in CreateXamlStringCommand's constructor requires the UI thread.
             ThreadHelper.ThrowIfNotOnUIThread();
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new SendToToolboxCommand(package, commandService);
+            Instance = new SendToToolboxCommand(package, commandService, logger);
 
             AnalyzerBase.ServiceProvider = (IServiceProvider)Instance.ServiceProvider;
         }
@@ -61,7 +63,7 @@ namespace RapidXamlToolkit
             TBXITEMINFO[] itemInfo = new TBXITEMINFO[1];
             OleDataObject tbItem = new OleDataObject();
 
-            itemInfo[0].bstrText = label; // sumary
+            itemInfo[0].bstrText = label;
             itemInfo[0].dwFlags = (uint)__TBXITEMINFOFLAGS.TBXIF_DONTPERSIST;
 
             tbItem.SetText(actualText, TextDataFormat.Text);
@@ -79,11 +81,13 @@ namespace RapidXamlToolkit
 
                 AddToToolbox(label, analyzerResult.Output);
 
-                ShowStatusBarMessage(Instance.ServiceProvider, $"Copied XAML for {label}");
+                ShowStatusBarMessage(Instance.ServiceProvider, $"Added XAML to toolbox for {label}");
+                this.logger.RecordInfo($"Added XAML to toolbox for {label}");
             }
             else
             {
-                ShowStatusBarMessage(Instance.ServiceProvider, "No XAML copied.");
+                ShowStatusBarMessage(Instance.ServiceProvider, "No XAML added to toolbox.");
+                this.logger.RecordInfo("No XAML added to toolbox.");
             }
         }
     }

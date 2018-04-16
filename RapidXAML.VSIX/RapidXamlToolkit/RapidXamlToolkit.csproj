@@ -71,6 +71,11 @@
     <Compile Include="Commands\SendToToolboxCommand.cs" />
     <Compile Include="Commands\CopyToClipboardCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Logging\GeneralOutputPane.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\IOutputPane.cs" />
+    <Compile Include="Logging\RxtLogger.cs" />
+    <Compile Include="Logging\RxtOutputPane.cs" />
     <Compile Include="Options\CanNotifyPropertyChanged.cs" />
     <Compile Include="Options\ConfiguredSettings.cs" />
     <Compile Include="Options\ConfiguredSettings.Default.cs" />

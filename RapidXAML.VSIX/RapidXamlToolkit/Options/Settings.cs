@@ -14,6 +14,8 @@ namespace RapidXamlToolkit
 
         public List<Profile> Profiles { get; set; }
 
+        public bool ExtendedOutputEnabled { get; set; }
+
         public ObservableCollection<ProfileSummary> ProfilesList
         {
             get
