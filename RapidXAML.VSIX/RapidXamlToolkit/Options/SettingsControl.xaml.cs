@@ -125,9 +125,33 @@ namespace RapidXamlToolkit
             }
         }
 
-        private void ImportClicked(object sender, System.Windows.RoutedEventArgs e)
+        private async void ImportClicked(object sender, System.Windows.RoutedEventArgs e)
         {
             // TODO: implement importing (and validating) profiles ISSUE#20
+            var openFileDialog = new System.Windows.Forms.OpenFileDialog
+            {
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                Filter = "Rapid XAML Profile (*.rxprofile)|*.rxprofile",
+                Multiselect = false,
+            };
+
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var fileContents = File.ReadAllText(openFileDialog.FileName);
+
+                //var analyzer = new ApiAnalysis.SimpleJsonAnalyzer();
+
+                //var analyzerResults = await analyzer.AnalyzeJsonAsync(fileContents, typeof(Profile));
+
+                //if (analyzerResults.Count == 1 && analyzerResults.First() == analyzer.MessageBuilder.AllGoodMessage)
+                {
+                    var profile = Newtonsoft.Json.JsonConvert.DeserializeObject<Profile>(fileContents);
+
+                    this.SettingsProvider.ActualSettings.Profiles.Add(profile);
+                    this.SettingsProvider.Save();
+                    this.SettingsProvider.ActualSettings.RefreshProfilesList();
+                }
+            }
         }
 
         private void ExportClicked(object sender, System.Windows.RoutedEventArgs e)
