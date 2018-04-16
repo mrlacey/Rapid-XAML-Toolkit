@@ -125,9 +125,8 @@ namespace RapidXamlToolkit
             }
         }
 
-        private async void ImportClicked(object sender, System.Windows.RoutedEventArgs e)
+        private void ImportClicked(object sender, System.Windows.RoutedEventArgs e)
         {
-            // TODO: implement importing (and validating) profiles ISSUE#20
             var openFileDialog = new System.Windows.Forms.OpenFileDialog
             {
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
@@ -139,11 +138,12 @@ namespace RapidXamlToolkit
             {
                 var fileContents = File.ReadAllText(openFileDialog.FileName);
 
-                //var analyzer = new ApiAnalysis.SimpleJsonAnalyzer();
+                // TODO: Add validation from SimpleJsonAnalyzer once a signed version is available (AA.SJA#9) ISSUE#20
+                ////var analyzer = new ApiAnalysis.SimpleJsonAnalyzer();
 
-                //var analyzerResults = await analyzer.AnalyzeJsonAsync(fileContents, typeof(Profile));
+                ////var analyzerResults = await analyzer.AnalyzeJsonAsync(fileContents, typeof(Profile));
 
-                //if (analyzerResults.Count == 1 && analyzerResults.First() == analyzer.MessageBuilder.AllGoodMessage)
+                ////if (analyzerResults.Count == 1 && analyzerResults.First() == analyzer.MessageBuilder.AllGoodMessage)
                 {
                     var profile = Newtonsoft.Json.JsonConvert.DeserializeObject<Profile>(fileContents);
 
