@@ -80,6 +80,7 @@ namespace RapidXamlToolkit
             await CreateViewCommand.InitializeAsync(this, logger);
             await CopyToClipboardCommand.InitializeAsync(this, logger);
             await SendToToolboxCommand.InitializeAsync(this, logger);
+            await OpenOptionsCommand.InitializeAsync(this);
         }
     }
 }

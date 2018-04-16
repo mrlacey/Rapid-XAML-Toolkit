@@ -64,6 +64,7 @@
     <Compile Include="Analyzers\CSharpAnalyzer.cs" />
     <Compile Include="Analyzers\IDocumentAnalyzer.cs" />
     <Compile Include="Analyzers\PropertyDetails.cs" />
+    <Compile Include="Commands\OpenOptionsCommand.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />
     <Compile Include="Analyzers\VisualBasicAnalyzer.cs" />
     <Compile Include="Commands\CreateViewCommand.cs" />
