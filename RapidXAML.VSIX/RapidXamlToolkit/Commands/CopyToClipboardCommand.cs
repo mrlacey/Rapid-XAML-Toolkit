@@ -16,14 +16,10 @@ namespace RapidXamlToolkit
 
         public static readonly Guid CommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
 
-        private readonly AsyncPackage package;
-        private readonly ILogger logger;
-
         private CopyToClipboardCommand(AsyncPackage package, OleMenuCommandService commandService, ILogger logger)
+            : base(package, logger)
         {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
-            this.logger = logger;
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
@@ -37,14 +33,6 @@ namespace RapidXamlToolkit
             private set;
         }
 
-        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider
-        {
-            get
-            {
-                return this.package;
-            }
-        }
-
         public static async Task InitializeAsync(AsyncPackage package, ILogger logger)
         {
             // Verify the current thread is the UI thread - the call to AddCommand in CreateXamlStringCommand's constructor requires the UI thread.
@@ -56,43 +44,38 @@ namespace RapidXamlToolkit
             AnalyzerBase.ServiceProvider = (IServiceProvider)Instance.ServiceProvider;
         }
 
-        private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
-        {
-            if (sender is OleMenuCommand menuCmd)
-            {
-                menuCmd.Visible = menuCmd.Enabled = false;
-
-                if (AnalyzerBase.GetSettings().IsActiveProfileSet)
-                {
-                    menuCmd.Visible = menuCmd.Enabled = true;
-                }
-            }
-        }
-
         private void Execute(object sender, EventArgs e)
         {
-            var output = this.GetXaml(Instance.ServiceProvider);
-
-            if (output != null && output.OutputType != AnalyzerOutputType.None)
+            try
             {
-                var message = output.Output;
+                var output = this.GetXaml(Instance.ServiceProvider);
 
-                if (!string.IsNullOrWhiteSpace(message))
+                if (output != null && output.OutputType != AnalyzerOutputType.None)
                 {
-                    Clipboard.SetText(message);
+                    var message = output.Output;
+
+                    if (!string.IsNullOrWhiteSpace(message))
+                    {
+                        Clipboard.SetText(message);
+                    }
+                    else
+                    {
+                        // Log no output
+                    }
+
+                    ShowStatusBarMessage(Instance.ServiceProvider, $"Copied XAML for {output.OutputType}: {output.Name}");
+                    this.Logger.RecordInfo($"Copied XAML for {output.OutputType}: {output.Name}");
                 }
                 else
                 {
-                    // Log no output
+                    ShowStatusBarMessage(Instance.ServiceProvider, "No XAML copied.");
+                    this.Logger.RecordInfo("No XAML copied.");
                 }
-
-                ShowStatusBarMessage(Instance.ServiceProvider, $"Copied XAML for {output.OutputType}: {output.Name}");
-                this.logger.RecordInfo($"Copied XAML for {output.OutputType}: {output.Name}");
             }
-            else
+            catch (Exception exc)
             {
-                ShowStatusBarMessage(Instance.ServiceProvider, "No XAML copied.");
-                this.logger.RecordInfo("No XAML copied.");
+                this.Logger.RecordException(exc);
+                throw;
             }
         }
     }

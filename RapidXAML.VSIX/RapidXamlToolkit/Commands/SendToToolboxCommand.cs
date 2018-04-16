@@ -17,14 +17,10 @@ namespace RapidXamlToolkit
 
         public static readonly Guid CommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
 
-        private readonly AsyncPackage package;
-        private readonly ILogger logger;
-
         private SendToToolboxCommand(AsyncPackage package, OleMenuCommandService commandService, ILogger logger)
+            : base(package, logger)
         {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
-            this.logger = logger;
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
@@ -36,14 +32,6 @@ namespace RapidXamlToolkit
         {
             get;
             private set;
-        }
-
-        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider
-        {
-            get
-            {
-                return this.package;
-            }
         }
 
         public static async Task InitializeAsync(AsyncPackage package, ILogger logger)
@@ -72,36 +60,31 @@ namespace RapidXamlToolkit
             tbs.AddItem(tbItem, itemInfo, "Rapid XAML");
         }
 
-        private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
-        {
-            if (sender is OleMenuCommand menuCmd)
-            {
-                menuCmd.Visible = menuCmd.Enabled = false;
-
-                if (AnalyzerBase.GetSettings().IsActiveProfileSet)
-                {
-                    menuCmd.Visible = menuCmd.Enabled = true;
-                }
-            }
-        }
-
         private void Execute(object sender, EventArgs e)
         {
-            var analyzerResult = this.GetXaml(Instance.ServiceProvider);
-
-            if (analyzerResult != null && analyzerResult.OutputType != AnalyzerOutputType.None)
+            try
             {
-                var label = $"{analyzerResult.OutputType}: {analyzerResult.Name}";
+                var analyzerResult = this.GetXaml(Instance.ServiceProvider);
 
-                AddToToolbox(label, analyzerResult.Output);
+                if (analyzerResult != null && analyzerResult.OutputType != AnalyzerOutputType.None)
+                {
+                    var label = $"{analyzerResult.OutputType}: {analyzerResult.Name}";
 
-                ShowStatusBarMessage(Instance.ServiceProvider, $"Added XAML to toolbox for {label}");
-                this.logger.RecordInfo($"Added XAML to toolbox for {label}");
+                    AddToToolbox(label, analyzerResult.Output);
+
+                    ShowStatusBarMessage(Instance.ServiceProvider, $"Added XAML to toolbox for {label}");
+                    this.Logger.RecordInfo($"Added XAML to toolbox for {label}");
+                }
+                else
+                {
+                    ShowStatusBarMessage(Instance.ServiceProvider, "No XAML added to toolbox.");
+                    this.Logger.RecordInfo("No XAML added to toolbox.");
+                }
             }
-            else
+            catch (Exception exc)
             {
-                ShowStatusBarMessage(Instance.ServiceProvider, "No XAML added to toolbox.");
-                this.logger.RecordInfo("No XAML added to toolbox.");
+                this.Logger.RecordException(exc);
+                throw;
             }
         }
     }

@@ -20,18 +20,26 @@ namespace RapidXamlToolkit
 
         public ConfiguredSettings(IServiceProvider vsServiceProvider)
         {
-            var shellSettingsManager = new ShellSettingsManager(vsServiceProvider);
-            this.store = shellSettingsManager.GetWritableSettingsStore(SettingsScope.UserSettings);
-
-            if (this.store.PropertyExists(SettingCollectionName, nameof(this.ActualSettings)))
+            try
             {
-                var settingsString = this.store.GetString(SettingCollectionName, nameof(this.ActualSettings));
+                var shellSettingsManager = new ShellSettingsManager(vsServiceProvider);
+                this.store = shellSettingsManager.GetWritableSettingsStore(SettingsScope.UserSettings);
 
-                this.ActualSettings = DeserializeOrDefault(settingsString);
+                if (this.store.PropertyExists(SettingCollectionName, nameof(this.ActualSettings)))
+                {
+                    var settingsString = this.store.GetString(SettingCollectionName, nameof(this.ActualSettings));
+
+                    this.ActualSettings = DeserializeOrDefault(settingsString);
+                }
+                else
+                {
+                    this.ActualSettings = GetDefaultSettings();
+                }
             }
-            else
+            catch (Exception exc)
             {
-                this.ActualSettings = GetDefaultSettings();
+                new RxtLogger().RecordException(exc);
+                throw;
             }
         }
 
@@ -51,53 +59,85 @@ namespace RapidXamlToolkit
 
         public static string Serialize(Settings settings)
         {
-            byte[] byteArray;
-
-            using (var ms = new MemoryStream())
+            try
             {
-                var ser = new DataContractJsonSerializer(typeof(Settings));
-                ser.WriteObject(ms, settings);
-                byteArray = ms.ToArray();
-            }
+                byte[] byteArray;
 
-            return Encoding.UTF8.GetString(byteArray, 0, byteArray.Length);
+                using (var ms = new MemoryStream())
+                {
+                    var ser = new DataContractJsonSerializer(typeof(Settings));
+                    ser.WriteObject(ms, settings);
+                    byteArray = ms.ToArray();
+                }
+
+                return Encoding.UTF8.GetString(byteArray, 0, byteArray.Length);
+            }
+            catch (Exception exc)
+            {
+                new RxtLogger().RecordException(exc);
+                throw;
+            }
         }
 
         public static Settings DeserializeOrDefault(string json)
         {
-            Settings deserializedSettings = null;
-
-            if (!string.IsNullOrWhiteSpace(json))
+            try
             {
-                using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
-                {
-                    var ser = new DataContractJsonSerializer(typeof(Settings));
-                    deserializedSettings = ser.ReadObject(ms) as Settings;
-                }
-            }
+                Settings deserializedSettings = null;
 
-            return deserializedSettings ?? GetDefaultSettings();
+                if (!string.IsNullOrWhiteSpace(json))
+                {
+                    using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+                    {
+                        var ser = new DataContractJsonSerializer(typeof(Settings));
+                        deserializedSettings = ser.ReadObject(ms) as Settings;
+                    }
+                }
+
+                return deserializedSettings ?? GetDefaultSettings();
+            }
+            catch (Exception exc)
+            {
+                new RxtLogger().RecordException(exc);
+                throw;
+            }
         }
 
         public void Save()
         {
-            if (!this.store.CollectionExists(SettingCollectionName))
+            try
             {
-                this.store.CreateCollection(SettingCollectionName);
+                if (!this.store.CollectionExists(SettingCollectionName))
+                {
+                    this.store.CreateCollection(SettingCollectionName);
+                }
+
+                var settingsAsString = Serialize(this.ActualSettings);
+
+                this.store.SetString(SettingCollectionName, nameof(this.ActualSettings), settingsAsString);
             }
-
-            var settingsAsString = Serialize(this.ActualSettings);
-
-            this.store.SetString(SettingCollectionName, nameof(this.ActualSettings), settingsAsString);
+            catch (Exception exc)
+            {
+                new RxtLogger().RecordException(exc);
+                throw;
+            }
         }
 
         public void Reset()
         {
-            var defaults = GetDefaultSettings();
+            try
+            {
+                var defaults = GetDefaultSettings();
 
-            this.ActualSettings.Profiles.Clear();
-            this.actualSettings.Profiles.AddRange(defaults.Profiles);
-            this.ActualSettings.ActiveProfileName = defaults.ActiveProfileName;
+                this.ActualSettings.Profiles.Clear();
+                this.actualSettings.Profiles.AddRange(defaults.Profiles);
+                this.ActualSettings.ActiveProfileName = defaults.ActiveProfileName;
+            }
+            catch (Exception exc)
+            {
+                new RxtLogger().RecordException(exc);
+                throw;
+            }
         }
     }
 }

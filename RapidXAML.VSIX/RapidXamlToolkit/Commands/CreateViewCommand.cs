@@ -62,34 +62,44 @@ namespace RapidXamlToolkit
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new CreateViewCommand(package, commandService, logger);
+
+            AnalyzerBase.ServiceProvider = (IServiceProvider)Instance.ServiceProvider;
         }
 
         private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
-            if (sender is OleMenuCommand menuCmd)
+            try
             {
-                menuCmd.Visible = menuCmd.Enabled = false;
-
-                uint itemid = VSConstants.VSITEMID_NIL;
-
-                if (!this.IsSingleProjectItemSelection(out IVsHierarchy hierarchy, out itemid))
+                if (sender is OleMenuCommand menuCmd)
                 {
-                    this.SelectedFileName = null;
-                    return;
-                }
+                    menuCmd.Visible = menuCmd.Enabled = false;
 
-                ((IVsProject)hierarchy).GetMkDocument(itemid, out string itemFullPath);
-                var transformFileInfo = new FileInfo(itemFullPath);
+                    uint itemid = VSConstants.VSITEMID_NIL;
 
-                this.SelectedFileName = transformFileInfo.FullName;
-
-                if (transformFileInfo.Name.EndsWith(".cs") || transformFileInfo.Name.EndsWith(".vb"))
-                {
-                    if (AnalyzerBase.GetSettings().IsActiveProfileSet)
+                    if (!this.IsSingleProjectItemSelection(out IVsHierarchy hierarchy, out itemid))
                     {
-                        menuCmd.Visible = menuCmd.Enabled = true;
+                        this.SelectedFileName = null;
+                        return;
+                    }
+
+                    ((IVsProject)hierarchy).GetMkDocument(itemid, out string itemFullPath);
+                    var transformFileInfo = new FileInfo(itemFullPath);
+
+                    this.SelectedFileName = transformFileInfo.FullName;
+
+                    if (transformFileInfo.Name.EndsWith(".cs") || transformFileInfo.Name.EndsWith(".vb"))
+                    {
+                        if (AnalyzerBase.GetSettings().IsActiveProfileSet)
+                        {
+                            menuCmd.Visible = menuCmd.Enabled = true;
+                        }
                     }
                 }
+            }
+            catch (Exception exc)
+            {
+                this.logger.RecordException(exc);
+                throw;
             }
         }
 
@@ -163,85 +173,93 @@ namespace RapidXamlToolkit
 
         private void Execute(object sender, EventArgs e)
         {
-            // get current project
-            var dte = this.ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE;
-
-            // This may need to be configurable to support multi-project files (ISSUE#21)
-            var proj = ((Array)dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project;
-
-            var fileExt = Path.GetExtension(this.SelectedFileName);
-            var fileContents = File.ReadAllText(this.SelectedFileName);
-
-            var profile = AnalyzerBase.GetSettings().GetActiveProfile();
-
-            AnalyzerBase analyzer = null;
-            SyntaxTree syntaxTree = null;
-            SemanticModel semModel = null;
-            string codeBehindExt = string.Empty;
-
-            switch (fileExt)
+            try
             {
-                case ".cs":
-                    analyzer = new CSharpAnalyzer();
-                    syntaxTree = CSharpSyntaxTree.ParseText(fileContents);
-                    semModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, ignoreAccessibility: true);
-                    codeBehindExt = (analyzer as CSharpAnalyzer).FileExtension;
-                    break;
-                case ".vb":
-                    analyzer = new VisualBasicAnalyzer();
-                    syntaxTree = VisualBasicSyntaxTree.ParseText(fileContents);
-                    semModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, ignoreAccessibility: true);
-                    codeBehindExt = (analyzer as VisualBasicAnalyzer).FileExtension;
-                    break;
-            }
+                // get current project
+                var dte = this.ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE;
 
-            if (analyzer != null)
-            {
-                // Index Of is allowing for "class " in C# and "Class " in VB
-                var actual = (analyzer as IDocumentAnalyzer).GetSingleItemOutput(syntaxTree.GetRoot(), semModel, fileContents.IndexOf("lass "), profile);
+                // This may need to be configurable to support multi-project files (ISSUE#21)
+                var proj = ((Array)dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project;
 
-                var className = actual.Name;
+                var fileExt = Path.GetExtension(this.SelectedFileName);
+                var fileContents = File.ReadAllText(this.SelectedFileName);
 
-                // Should this be configurable? Should the file name match the source file name or the name of the class in the file? (ISSUE#21)
-                var baseFileName = Path.GetFileNameWithoutExtension(this.SelectedFileName);
-                var folder = Path.GetDirectoryName(proj.FileName);
+                var profile = AnalyzerBase.GetSettings().GetActiveProfile();
 
-                // This should be configurable (ISSUE#21)
-                var viewFolder = Path.Combine(folder, "Views");
+                AnalyzerBase analyzer = null;
+                SyntaxTree syntaxTree = null;
+                SemanticModel semModel = null;
+                string codeBehindExt = string.Empty;
 
-                if (!Directory.Exists(viewFolder))
+                switch (fileExt)
                 {
-                    Directory.CreateDirectory(viewFolder);
+                    case ".cs":
+                        analyzer = new CSharpAnalyzer();
+                        syntaxTree = CSharpSyntaxTree.ParseText(fileContents);
+                        semModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, ignoreAccessibility: true);
+                        codeBehindExt = (analyzer as CSharpAnalyzer).FileExtension;
+                        break;
+                    case ".vb":
+                        analyzer = new VisualBasicAnalyzer();
+                        syntaxTree = VisualBasicSyntaxTree.ParseText(fileContents);
+                        semModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, ignoreAccessibility: true);
+                        codeBehindExt = (analyzer as VisualBasicAnalyzer).FileExtension;
+                        break;
                 }
 
-                // This should be configurable (ISSUE#21)
-                var xamlFileName = Path.Combine(viewFolder, $"{baseFileName}Page.xaml");
-                var codeFileName = Path.Combine(viewFolder, $"{baseFileName}Page.xaml.{codeBehindExt}");
+                if (analyzer != null)
+                {
+                    // Index Of is allowing for "class " in C# and "Class " in VB
+                    var actual = (analyzer as IDocumentAnalyzer).GetSingleItemOutput(syntaxTree.GetRoot(), semModel, fileContents.IndexOf("lass "), profile);
 
-                // TODO: This should be the name of the project that the file will be added to. (this may be differnt to the one the VM is in)
-                var projName = proj.Name;
+                    var className = actual.Name;
 
-                var xamlContent = profile.ViewGeneration.XamlPlaceholder.Replace("$project$", projName).Replace("$class$", className).Replace("$genxaml$", actual.Output);
+                    // Should this be configurable? Should the file name match the source file name or the name of the class in the file? (ISSUE#21)
+                    var baseFileName = Path.GetFileNameWithoutExtension(this.SelectedFileName);
+                    var folder = Path.GetDirectoryName(proj.FileName);
 
-                // The content should be configurable (ISSUE#21)
-                File.WriteAllText(xamlFileName, xamlContent, Encoding.UTF8);
+                    // This should be configurable (ISSUE#21)
+                    var viewFolder = Path.Combine(folder, "Views");
 
-                var codeBehind = profile.ViewGeneration.CodePlaceholder.Replace("$project$", projName).Replace("$class$", className);
+                    if (!Directory.Exists(viewFolder))
+                    {
+                        Directory.CreateDirectory(viewFolder);
+                    }
 
-                // The content should be configurable (ISSUE#21)
-                File.WriteAllText(codeFileName, codeBehind, Encoding.UTF8);
+                    // This should be configurable (ISSUE#21)
+                    var xamlFileName = Path.Combine(viewFolder, $"{baseFileName}Page.xaml");
+                    var codeFileName = Path.Combine(viewFolder, $"{baseFileName}Page.xaml.{codeBehindExt}");
 
-                // add files to project (rely on VS to nest them)
-                proj.ProjectItems.AddFromFile(xamlFileName);
-                proj.ProjectItems.AddFromFile(codeFileName);
+                    // TODO: This should be the name of the project that the file will be added to. (this may be differnt to the one the VM is in)
+                    var projName = proj.Name;
 
-                // Open the newly created view
-                dte.ItemOperations.OpenFile(xamlFileName, EnvDTE.Constants.vsViewKindDesigner);
-                this.logger.RecordInfo($"Created file {xamlFileName}");
+                    var xamlContent = profile.ViewGeneration.XamlPlaceholder.Replace("$project$", projName).Replace("$class$", className).Replace("$genxaml$", actual.Output);
+
+                    // The content should be configurable (ISSUE#21)
+                    File.WriteAllText(xamlFileName, xamlContent, Encoding.UTF8);
+
+                    var codeBehind = profile.ViewGeneration.CodePlaceholder.Replace("$project$", projName).Replace("$class$", className);
+
+                    // The content should be configurable (ISSUE#21)
+                    File.WriteAllText(codeFileName, codeBehind, Encoding.UTF8);
+
+                    // add files to project (rely on VS to nest them)
+                    proj.ProjectItems.AddFromFile(xamlFileName);
+                    proj.ProjectItems.AddFromFile(codeFileName);
+
+                    // Open the newly created view
+                    dte.ItemOperations.OpenFile(xamlFileName, EnvDTE.Constants.vsViewKindDesigner);
+                    this.logger.RecordInfo($"Created file {xamlFileName}");
+                }
+                else
+                {
+                    this.logger.RecordInfo("No view created.");
+                }
             }
-            else
+            catch (Exception exc)
             {
-                this.logger.RecordInfo("No view created.");
+                this.logger.RecordException(exc);
+                throw;
             }
         }
     }

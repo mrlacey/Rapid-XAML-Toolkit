@@ -77,10 +77,18 @@ namespace RapidXamlToolkit
 
             var logger = new RxtLogger();
 
-            await CreateViewCommand.InitializeAsync(this, logger);
-            await CopyToClipboardCommand.InitializeAsync(this, logger);
-            await SendToToolboxCommand.InitializeAsync(this, logger);
-            await OpenOptionsCommand.InitializeAsync(this);
+            try
+            {
+                await CreateViewCommand.InitializeAsync(this, logger);
+                await CopyToClipboardCommand.InitializeAsync(this, logger);
+                await SendToToolboxCommand.InitializeAsync(this, logger);
+                await OpenOptionsCommand.InitializeAsync(this, logger);
+            }
+            catch (Exception exc)
+            {
+                logger.RecordException(exc);
+                throw;
+            }
         }
     }
 }

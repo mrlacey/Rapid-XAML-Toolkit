@@ -3,17 +3,37 @@
 // </copyright>
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.TextManager.Interop;
 
 namespace RapidXamlToolkit
 {
     internal class GetXamlFromCodeWindowBaseCommand
     {
+        private readonly ILogger logger;
+
+        private readonly AsyncPackage package;
+
+        public GetXamlFromCodeWindowBaseCommand(AsyncPackage package, ILogger logger)
+        {
+            this.package = package ?? throw new ArgumentNullException(nameof(package));
+            this.logger = logger;
+        }
+
+        protected ILogger Logger => this.logger;
+
+        protected IAsyncServiceProvider ServiceProvider
+        {
+            get
+            {
+                return this.package;
+            }
+        }
+
         public AnalyzerOutput GetXaml(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider)
         {
             AnalyzerOutput result = null;
@@ -73,6 +93,27 @@ namespace RapidXamlToolkit
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        protected void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
+        {
+            try
+            {
+                if (sender is OleMenuCommand menuCmd)
+                {
+                    menuCmd.Visible = menuCmd.Enabled = false;
+
+                    if (AnalyzerBase.GetSettings().IsActiveProfileSet)
+                    {
+                        menuCmd.Visible = menuCmd.Enabled = true;
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                this.Logger.RecordException(exc);
                 throw;
             }
         }

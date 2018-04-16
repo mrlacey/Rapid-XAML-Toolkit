@@ -2,6 +2,8 @@
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
+using System;
+
 namespace RapidXamlToolkit
 {
     public interface ILogger
@@ -9,5 +11,7 @@ namespace RapidXamlToolkit
         void RecordInfo(string message);
 
         void RecordError(string message);
+
+        void RecordException(Exception exception);
     }
 }

@@ -2,6 +2,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
+using System;
 using System.Windows;
 using Microsoft.VisualStudio.PlatformUI;
 
@@ -29,27 +30,51 @@ namespace RapidXamlToolkit
 
         private void AddClicked(object sender, RoutedEventArgs e)
         {
-            this.viewModel.Mappings.Add(Mapping.CreateNew());
-            this.viewModel.RefreshMappings();
+            try
+            {
+                this.viewModel.Mappings.Add(Mapping.CreateNew());
+                this.viewModel.RefreshMappings();
+            }
+            catch (Exception exc)
+            {
+                new RxtLogger().RecordException(exc);
+                throw;
+            }
         }
 
         private void CopyClicked(object sender, RoutedEventArgs e)
         {
-            if (this.DisplayedMappings.SelectedIndex >= 0)
+            try
             {
-                var copy = (Mapping)this.viewModel.Mappings[this.DisplayedMappings.SelectedIndex].Clone();
+                if (this.DisplayedMappings.SelectedIndex >= 0)
+                {
+                    var copy = (Mapping)this.viewModel.Mappings[this.DisplayedMappings.SelectedIndex].Clone();
 
-                this.viewModel.Mappings.Add(copy);
-                this.viewModel.RefreshMappings();
+                    this.viewModel.Mappings.Add(copy);
+                    this.viewModel.RefreshMappings();
+                }
+            }
+            catch (Exception exc)
+            {
+                new RxtLogger().RecordException(exc);
+                throw;
             }
         }
 
         private void DeleteClicked(object sender, RoutedEventArgs e)
         {
-            if (this.DisplayedMappings.SelectedIndex >= 0)
+            try
             {
-                this.viewModel.Mappings.RemoveAt(this.DisplayedMappings.SelectedIndex);
-                this.viewModel.RefreshMappings();
+                if (this.DisplayedMappings.SelectedIndex >= 0)
+                {
+                    this.viewModel.Mappings.RemoveAt(this.DisplayedMappings.SelectedIndex);
+                    this.viewModel.RefreshMappings();
+                }
+            }
+            catch (Exception exc)
+            {
+                new RxtLogger().RecordException(exc);
+                throw;
             }
         }
     }
