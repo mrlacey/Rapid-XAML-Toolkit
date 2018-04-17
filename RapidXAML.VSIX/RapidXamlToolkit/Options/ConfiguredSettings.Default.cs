@@ -12,6 +12,7 @@ namespace RapidXamlToolkit
         {
             return new Settings
             {
+                ExtendedOutputEnabled = true,  // TODO: Change this to false for 1.0 but want it on by default for all testers ISSUE#45
                 ActiveProfileName = string.Empty,  // No profile should be selected by default
                 Profiles = new List<Profile>
                 {
