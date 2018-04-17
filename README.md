@@ -26,7 +26,7 @@ If you already have an empty page, you can easily get the XAML for the ViewModel
 
 You don't have to copy the XAML for the whole class.
 
-[[*IMAGE (ANI-GIF) NEEDED - COPY SELECTION TO CLIPBOARD & PASTE*]]
+![Copy selection of properties in ViewModel and paste into View as XAML](./docs/Assets/Copy-Selection-To-Clipboard.gif)
 
 If you want to add the XAML for multiple properties you can send it to the toolbox and use it from there.
 
