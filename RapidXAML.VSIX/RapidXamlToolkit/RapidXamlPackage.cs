@@ -83,6 +83,7 @@ namespace RapidXamlToolkit
                 await CopyToClipboardCommand.InitializeAsync(this, logger);
                 await SendToToolboxCommand.InitializeAsync(this, logger);
                 await OpenOptionsCommand.InitializeAsync(this, logger);
+                await SetDatacontextCommand.InitializeAsync(this, logger);
             }
             catch (Exception exc)
             {

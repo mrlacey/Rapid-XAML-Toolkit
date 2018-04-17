@@ -40,6 +40,8 @@
       <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
       <Group guid="guidRapidXamlPackageCmdSet" id="SolutionContextGroup" priority="0x0600" />
       <Group guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenuGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlPackageCmdSet" id="XamlContextGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" priority="0x0600" />
     </Groups>
 
     <Menus>
@@ -59,8 +61,16 @@
           <ToolTipText>Rapid XAML</ToolTipText>
         </Strings>
       </Menu>
+      <Menu guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" type="Context" priority="0x0100">
+        <Strings>
+          <CommandName>Rapid XAML</CommandName>
+          <ButtonText>Rapid XAML</ButtonText>
+          <MenuText>Rapid XAML</MenuText>
+          <ToolTipText>Rapid XAML</ToolTipText>
+        </Strings>
+      </Menu>
     </Menus>
-    
+
     <Buttons>
       <!--To define a menu group you have to specify its ID, the parent menu and its display priority.
           The command is visible and enabled by default. If you need to change the visibility, status, etc, you can use
@@ -99,6 +109,14 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>First set an active profile</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidRapidXamlPackageCmdSet" id="SetDatacontextCommandId" priority="0x0100" type="Button">
+        <Icon guid="guidImages" id="bmpPic1" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Invoke SetDatacontextCommand</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -159,6 +177,28 @@
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
     </CommandPlacement>
+
+
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="XamlContextGroup" priority="0x0200">
+      <Parent guid="GuidVisualStudioXAMLWindowContextMenu" id="IDVisualStudioXAMLWindowContextMenu" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SetDatacontextCommandId" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" />
+    </CommandPlacement>
   </CommandPlacements>
 
   <Symbols>
@@ -173,11 +213,15 @@
       <IDSymbol value="0x1100" name="CodeContextGroup" />
       <IDSymbol value="0x1200" name="CodeContextMenu" />
       <IDSymbol value="0x1300" name="CodeContextMenuGroup" />
+      <IDSymbol value="0x2100" name="XamlContextGroup" />
+      <IDSymbol value="0x2200" name="XamlContextMenu" />
+      <IDSymbol value="0x2300" name="XamlContextMenuGroup" />
 
       <IDSymbol name="CopyToClipboardCommandId" value="4128" />
       <IDSymbol name="SendToToolboxCommandId" value="4129" />
       <IDSymbol name="CreateViewCommandId" value="4130" />
       <IDSymbol name="OpenOptionsCommandId" value="4131" />
+      <IDSymbol name="SetDatacontextCommandId" value="4132" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{092daafa-627f-4f53-a712-4e3e5fa72e0d}">
@@ -188,6 +232,10 @@
       <IDSymbol name="bmpPicArrows" value="5" />
       <IDSymbol name="bmpPicStrikethrough" value="6" />
     </GuidSymbol>
-
+    
+    <GuidSymbol name="GuidVisualStudioXAMLWindowContextMenu" value="{4c87b692-1202-46aa-b64c-ef01faec53da}">
+      <IDSymbol name="IDVisualStudioXAMLWindowContextMenu" value="0x103" />
+    </GuidSymbol>
+    
   </Symbols>
 </CommandTable>
