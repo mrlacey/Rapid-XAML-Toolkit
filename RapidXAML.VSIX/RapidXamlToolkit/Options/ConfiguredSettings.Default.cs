@@ -48,6 +48,13 @@ namespace RapidXamlToolkit
                             {
                                 Type = "int|Integer",
                                 NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
                                 Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
                                 IfReadOnly = false,
                             },
