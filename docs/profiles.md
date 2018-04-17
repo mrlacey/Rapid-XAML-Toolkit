@@ -4,7 +4,23 @@ A profile is a set of rules and settings that apply to the way the tool works.
 
 ## Mappings
 
-A mapping is the specific rule for the generation of XAML for a specific property. A profile includes a configurable list of mappings for different combinations of type, name, and accessibility.
+Mappings are the encapsulation of the logic for turning the properties in C# or VB code into XAML.
+Each profile will contain multiple mappings.
+Each mapping is the specific rule for the generation of XAML for a specific property. A profile includes a configurable list of mappings for different combinations of type, name, and accessibility.
+
+A mapping can match multiple property types. To specify multiple types, separate them with the pipe (|) character.
+
+A mapping can be made to only apply to properties that are read-only. This is useful if you want different output for properties that can be edited.
+
+A mapping can be made to apply to properties based on the property name. If name filters are provided, mapping will only be used if the name of the property contains the value specified. To specify multiple types, separate them with the pipe (|) character. Note that this check is case insensitive.
+
+Mappings are matched in the following order:
+
+1. Property Type.
+2. If the property is Read-Only.
+3. Property Name.
+
+If a property matches multiple mappings, there is no guarantee on which will be used.
 
 ### Special mappings
 

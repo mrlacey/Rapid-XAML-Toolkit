@@ -3,7 +3,7 @@
 
 Creating a XAML UI can be slow or require lots of manual effort. These tools aim to reduce the time and effort required to get the basics working and allow you to customize the UI to meet your preferences or the specific needs of your app.   
 We can't and don't try to create the whole app for you but we can make creating and working with XAML faster easier.
-The functionality of the toolkit is based common conventions but is highly [configurable](./docs/profiles.md).
+The functionality of the toolkit is based common conventions but is highly [configurable](./docs/configuration.md).
 
 ## Overview
 
@@ -20,7 +20,7 @@ In very few apps is the UI created first. It's more common to start with the dat
 
 ### Modification and improvement
 
-If you already have an empty page, you can easily get the XAML for the ViewModel and paste them into the View.
+If you already have an empty page, you can easily get the XAML for the ViewModel and paste it into the View.
 
 ![Copy class in ViewModel and paste into View as XAML](./docs/Assets/Copy-Class-To-Clipboard.gif)
 
@@ -28,9 +28,9 @@ You don't have to copy the XAML for the whole class.
 
 ![Copy selection of properties in ViewModel and paste into View as XAML](./docs/Assets/Copy-Selection-To-Clipboard.gif)
 
-If you want to add the XAML for multiple properties you can send it to the toolbox and use it from there.
+If you want to add the XAML for multiple properties you can send them to the Toolbox and use them from there.
 
-[[*IMAGE (ANI-GIF) NEEDED - SEND MULTIPLE PROPERTIES TO THE TOOLBOX*]]
+![Send properties to the Toolbox then drag onto the View as XAML](./docs/Assets/Send-To-Toolbox-And-Drag-To-View.gif)
 
 In addition to creating the XAML for the View, you can also set the DataContext. In CodeBehind.
 
