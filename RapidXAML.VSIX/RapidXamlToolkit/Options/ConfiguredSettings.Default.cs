@@ -150,6 +150,63 @@ namespace RapidXamlToolkit
                                 IfReadOnly = false,
                             },
                         },
+                        ViewGeneration = new ViewGenerationSettings
+                        {
+                            XamlPlaceholder = @"<Page
+    x:Class=""$viewns$.$viewclass$""
+    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
+    xmlns:local=""using:$viewns$""
+    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
+    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
+    mc:Ignorable=""d"">
+
+    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
+        $genxaml$
+    </Grid>
+</Page>
+",
+                            CodePlaceholder = @"using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using $viewmodelns$;
+
+namespace $viewns$
+{
+    public sealed partial class $viewclass$ : Page
+    {
+        public $viewmodelclass$ ViewModel { get; set; }
+
+        public $viewclass$()
+        {
+            this.InitializeComponent();
+            this.ViewModel = new $viewmodelclass$();
+        }
+    }
+}
+",
+                            XamlFileSuffix = "Page",
+                            ViewModelFileSuffix = "ViewModel",
+
+                            XamlFileDirectoryName = "Views",
+                            ViewModelDirectoryName = "ViewModels",
+
+                            AllInSameProject = true,
+
+                            XamlProjectSuffix = "n/a",
+                            ViewModelProjectSuffix = "n/a",
+                        },
                     },
 
                     new Profile
@@ -286,6 +343,63 @@ namespace RapidXamlToolkit
                                 Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<ListView ItemsSource=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\">\n<ListView.ItemTemplate>\n<DataTemplate x:DataType=\"$type$\">\n<GRID-PLUS-ROWDEFS>$subprops$</GRID-PLUS-ROWDEFS>\n</DataTemplate>\n</ListView.ItemTemplate>\n</ListView>",
                                 IfReadOnly = false,
                             },
+                        },
+                        ViewGeneration = new ViewGenerationSettings
+                        {
+                            XamlPlaceholder = @"<Page
+    x:Class=""$viewns$.$viewclass$""
+    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
+    xmlns:local=""using:$viewns$""
+    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
+    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
+    mc:Ignorable=""d"">
+
+    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
+        $genxaml$
+    </Grid>
+</Page>
+",
+                            CodePlaceholder = @"using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using $viewmodelns$;
+
+namespace $viewns$
+{
+    public sealed partial class $viewclass$ : Page
+    {
+        public $viewmodelclass$ ViewModel { get; set; }
+
+        public $viewclass$()
+        {
+            this.InitializeComponent();
+            this.ViewModel = new $viewmodelclass$();
+        }
+    }
+}
+",
+                            XamlFileSuffix = "View",
+                            ViewModelFileSuffix = string.Empty,
+
+                            XamlFileDirectoryName = "Views",
+                            ViewModelDirectoryName = string.Empty,
+
+                            AllInSameProject = false,
+
+                            XamlProjectSuffix = string.Empty,
+                            ViewModelProjectSuffix = ".ViewModels",
                         },
                     },
 

@@ -26,9 +26,17 @@ Only **$name$**, **$incint$**, and **$repint$** placeholders are valid in the su
 
 Profile settings and mappings can include placeholders. A placeholder is something that will be replaced in the generated code. The following placeholders are defined.
 
-- **$project$** The name of the project that a file will be created in.
-- **$class$** The name of the class that will be created.
+### File Generation placeholders
+
+- **$viewproject$** The name of the project that the view will be created in.
+- **$viewns$** The namespace the view will be created in. This is based on project and file structure.
+- **$viewmodelns$** The namespace the view model will be created in. This is based on project and file structure.
+- **$viewclass$** The name of the view class that will be created.
+- **$viewmodelclass$** The name of the view model class that will be created.
 - **$genxaml$** Where the generated XAML will be included in the created file.
+
+### XAML generation placeholders
+
 - **$name$** Property name.
 - **$type$** Property type.
 - **$incint$** Incrementing integer. A number (starting at zero) that will increase with each property that is matched in a class.

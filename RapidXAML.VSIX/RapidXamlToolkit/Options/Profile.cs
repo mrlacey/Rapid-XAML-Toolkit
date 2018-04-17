@@ -14,8 +14,6 @@ namespace RapidXamlToolkit
 
         private List<Mapping> mappings;
 
-        private ViewGenerationSettings viewGeneration;
-
         public string Name { get; set; }
 
         public string ClassGrouping { get; set; }
@@ -53,21 +51,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        // This can probably become an auto-property (ISSUE#21)
-        public ViewGenerationSettings ViewGeneration
-        {
-            get
-            {
-                if (this.viewGeneration == null)
-                {
-                    this.viewGeneration = new ViewGenerationSettings();
-                }
-
-                return this.viewGeneration;
-            }
-
-            set => this.viewGeneration = value;
-        }
+        public ViewGenerationSettings ViewGeneration { get; set; }
 
         public static Profile CreateNew()
         {
@@ -78,6 +62,7 @@ namespace RapidXamlToolkit
                 FallbackOutput = string.Empty,
                 SubPropertyOutput = string.Empty,
                 Mappings = new List<Mapping>(),
+                ViewGeneration = new ViewGenerationSettings(),
             };
         }
 

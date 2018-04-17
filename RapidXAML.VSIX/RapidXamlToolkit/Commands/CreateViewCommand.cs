@@ -3,10 +3,12 @@
 // </copyright>
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows;
 using EnvDTE;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -175,11 +177,9 @@ namespace RapidXamlToolkit
         {
             try
             {
-                // get current project
                 var dte = this.ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE;
 
-                // This may need to be configurable to support multi-project files (ISSUE#21)
-                var proj = ((Array)dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project;
+                var vmProj = ((Array)dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project;
 
                 var fileExt = Path.GetExtension(this.SelectedFileName);
                 var fileContents = File.ReadAllText(this.SelectedFileName);
@@ -210,46 +210,112 @@ namespace RapidXamlToolkit
                 if (analyzer != null)
                 {
                     // Index Of is allowing for "class " in C# and "Class " in VB
-                    var actual = (analyzer as IDocumentAnalyzer).GetSingleItemOutput(syntaxTree.GetRoot(), semModel, fileContents.IndexOf("lass "), profile);
+                    var analyzerOutput = (analyzer as IDocumentAnalyzer).GetSingleItemOutput(syntaxTree.GetRoot(), semModel, fileContents.IndexOf("lass "), profile);
 
-                    var className = actual.Name;
+                    var config = profile.ViewGeneration;
 
-                    // Should this be configurable? Should the file name match the source file name or the name of the class in the file? (ISSUE#21)
-                    var baseFileName = Path.GetFileNameWithoutExtension(this.SelectedFileName);
-                    var folder = Path.GetDirectoryName(proj.FileName);
+                    var vmClassName = analyzerOutput.Name;
 
-                    // This should be configurable (ISSUE#21)
-                    var viewFolder = Path.Combine(folder, "Views");
+                    var baseClassName = vmClassName;
 
-                    if (!Directory.Exists(viewFolder))
+                    if (vmClassName.EndsWith(config.ViewModelFileSuffix))
                     {
-                        Directory.CreateDirectory(viewFolder);
+                        baseClassName = vmClassName.Substring(0, vmClassName.LastIndexOf(config.ViewModelFileSuffix));
                     }
 
-                    // This should be configurable (ISSUE#21)
-                    var xamlFileName = Path.Combine(viewFolder, $"{baseFileName}Page.xaml");
-                    var codeFileName = Path.Combine(viewFolder, $"{baseFileName}Page.xaml.{codeBehindExt}");
+                    var viewClassName = $"{baseClassName}{config.XamlFileSuffix}";
 
-                    // TODO: This should be the name of the project that the file will be added to. (this may be differnt to the one the VM is in)
-                    var projName = proj.Name;
+                    var vmProjName = vmProj.Name;
+                    var viewProjName = string.Empty;
 
-                    var xamlContent = profile.ViewGeneration.XamlPlaceholder.Replace("$project$", projName).Replace("$class$", className).Replace("$genxaml$", actual.Output);
+                    EnvDTE.Project viewProj = null;
 
-                    // The content should be configurable (ISSUE#21)
-                    File.WriteAllText(xamlFileName, xamlContent, Encoding.UTF8);
+                    if (config.AllInSameProject)
+                    {
+                        viewProj = vmProj;
+                        viewProjName = viewProj.Name;
+                    }
+                    else
+                    {
+                        var expectedViewProjectName = vmProjName.Replace(config.ViewModelProjectSuffix, config.XamlProjectSuffix);
 
-                    var codeBehind = profile.ViewGeneration.CodePlaceholder.Replace("$project$", projName).Replace("$class$", className);
+                        foreach (var project in dte.Solution.GetAllProjects())
+                        {
+                            if (project.Name == expectedViewProjectName)
+                            {
+                                viewProj = project;
+                                break;
+                            }
+                        }
 
-                    // The content should be configurable (ISSUE#21)
-                    File.WriteAllText(codeFileName, codeBehind, Encoding.UTF8);
+                        if (viewProj == null)
+                        {
+                            this.logger.RecordError($"Unable to find project '{expectedViewProjectName}' in the solution.");
+                        }
 
-                    // add files to project (rely on VS to nest them)
-                    proj.ProjectItems.AddFromFile(xamlFileName);
-                    proj.ProjectItems.AddFromFile(codeFileName);
+                        viewProjName = viewProj?.Name;
+                    }
 
-                    // Open the newly created view
-                    dte.ItemOperations.OpenFile(xamlFileName, EnvDTE.Constants.vsViewKindDesigner);
-                    this.logger.RecordInfo($"Created file {xamlFileName}");
+                    if (viewProj != null)
+                    {
+                        var folder = Path.GetDirectoryName(viewProj.FileName);
+
+                        var viewFolder = Path.Combine(folder, config.XamlFileDirectoryName);
+
+                        // We assume that the type name matches the file name.
+                        var xamlFileName = Path.Combine(viewFolder, $"{viewClassName}.xaml");
+                        var codeFileName = Path.Combine(viewFolder, $"{viewClassName}.xaml.{codeBehindExt}");
+
+                        var createFile = true;
+
+                        if (File.Exists(xamlFileName))
+                        {
+                            this.logger.RecordInfo($"File '{xamlFileName}' already exists");
+
+                            var msgResult = MessageBox.Show(
+                                                       $"Do you want to override the existing file?",
+                                                       "File already exists",
+                                                       MessageBoxButton.YesNo,
+                                                       MessageBoxImage.Warning);
+
+                            if (msgResult != MessageBoxResult.Yes)
+                            {
+                                createFile = false;
+                                this.logger.RecordInfo($"Not overwriting '{xamlFileName}'");
+                            }
+                            else
+                            {
+                                this.logger.RecordInfo($"Overwriting '{xamlFileName}'");
+                            }
+                        }
+
+                        if (createFile)
+                        {
+                            var viewNamespace = $"{viewProjName}.{config.XamlFileDirectoryName}".TrimEnd('.');
+                            var vmNamespace = $"{vmProjName}.{config.ViewModelDirectoryName}".TrimEnd('.');
+
+                            if (!Directory.Exists(viewFolder))
+                            {
+                                Directory.CreateDirectory(viewFolder);
+                            }
+
+                            var replacementValues = (viewProjName, viewNamespace, vmNamespace, viewClassName, vmClassName, analyzerOutput.Output);
+
+                            var xamlContent = this.ReplacePlaceholders(config.XamlPlaceholder, replacementValues);
+                            File.WriteAllText(xamlFileName, xamlContent, Encoding.UTF8);
+
+                            var codeBehind = this.ReplacePlaceholders(config.CodePlaceholder, replacementValues);
+                            File.WriteAllText(codeFileName, codeBehind, Encoding.UTF8);
+
+                            // add files to project (rely on VS to nest them)
+                            viewProj.ProjectItems.AddFromFile(xamlFileName);
+                            viewProj.ProjectItems.AddFromFile(codeFileName);
+
+                            // Open the newly created view
+                            dte.ItemOperations.OpenFile(xamlFileName, EnvDTE.Constants.vsViewKindDesigner);
+                            this.logger.RecordInfo($"Created file {xamlFileName}");
+                        }
+                    }
                 }
                 else
                 {
@@ -261,6 +327,16 @@ namespace RapidXamlToolkit
                 this.logger.RecordException(exc);
                 throw;
             }
+        }
+
+        private string ReplacePlaceholders(string source, (string projName, string viewNs, string vmNs, string viewClass, string vmClass, string xaml) values)
+        {
+            return source.Replace(Placeholder.ViewProject, values.projName)
+                         .Replace(Placeholder.ViewNamespace, values.viewNs)
+                         .Replace(Placeholder.ViewModelNamespace, values.vmNs)
+                         .Replace(Placeholder.ViewClass, values.viewClass)
+                         .Replace(Placeholder.ViewModelClass, values.vmClass)
+                         .Replace(Placeholder.GeneratedXAML, values.xaml);
         }
     }
 }
