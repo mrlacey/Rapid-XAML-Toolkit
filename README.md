@@ -22,7 +22,7 @@ In very few apps is the UI created first. It's more common to start with the dat
 
 If you already have an empty page, you can easily get the XAML for the ViewModel and paste them into the View.
 
-[[*IMAGE (ANI-GIF) NEEDED - COPY CLASS TO CLIPBOARD & PASTE*]]
+![Copy class in ViewModel and paste into View as XAML](./docs/Assets/Copy-Class-To-Clipboard.gif)
 
 You don't have to copy the XAML for the whole class.
 
