@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -14,6 +15,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
@@ -186,23 +189,29 @@ namespace RapidXamlToolkit
 
                 var profile = AnalyzerBase.GetSettings().GetActiveProfile();
 
+                var componentModel = (IComponentModel)this.ServiceProvider.GetServiceAsync(typeof(SComponentModel)).Result;
+                var visualStudioWorkspace = componentModel.GetService<VisualStudioWorkspace>();
+
+                Microsoft.CodeAnalysis.Solution solution = visualStudioWorkspace.CurrentSolution;
+                DocumentId documentId = solution.GetDocumentIdsWithFilePath(this.SelectedFileName).FirstOrDefault();
+                var document = solution.GetDocument(documentId);
+
+                var root = document.GetSyntaxRootAsync().Result;
+                var syntaxTree = root.SyntaxTree;
+
+                var semModel = document.GetSemanticModelAsync().Result;
+
                 AnalyzerBase analyzer = null;
-                SyntaxTree syntaxTree = null;
-                SemanticModel semModel = null;
                 string codeBehindExt = string.Empty;
 
                 switch (fileExt)
                 {
                     case ".cs":
                         analyzer = new CSharpAnalyzer();
-                        syntaxTree = CSharpSyntaxTree.ParseText(fileContents);
-                        semModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, ignoreAccessibility: true);
                         codeBehindExt = (analyzer as CSharpAnalyzer).FileExtension;
                         break;
                     case ".vb":
                         analyzer = new VisualBasicAnalyzer();
-                        syntaxTree = VisualBasicSyntaxTree.ParseText(fileContents);
-                        semModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, ignoreAccessibility: true);
                         codeBehindExt = (analyzer as VisualBasicAnalyzer).FileExtension;
                         break;
                 }
