@@ -214,7 +214,7 @@ namespace $viewns$
                         Name = "UWP (with labels)",
                         ClassGrouping = "Grid-plus-RowDefs",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
-                        SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind $name$}\" Grid.Row=\"$incint$\" />",
                         Mappings = new List<Mapping>
                         {
                             new Mapping
