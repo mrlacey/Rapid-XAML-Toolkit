@@ -567,7 +567,7 @@ namespace tests
 }";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_LastOrder\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput

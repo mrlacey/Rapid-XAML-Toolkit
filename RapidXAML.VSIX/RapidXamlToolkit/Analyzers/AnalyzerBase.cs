@@ -61,7 +61,7 @@ namespace RapidXamlToolkit
 
         public static (string output, int counter) GetSubPropertyOutputAndCounter(Profile profile, string name, int numericSubstitute)
         {
-            // Type can be blank as it's can't be used in a subproperty
+            // Type is blank as it's can't be used in a subproperty
             return FormatOutput(profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, getSubPropertyOutput: null);
         }
 

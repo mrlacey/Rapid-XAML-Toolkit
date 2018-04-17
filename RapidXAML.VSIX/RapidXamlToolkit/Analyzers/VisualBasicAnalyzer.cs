@@ -36,8 +36,8 @@ namespace RapidXamlToolkit
             }
             else
             {
-                // There are no subproperties so just get self
-                var (output, counter) = GetSubPropertyOutputAndCounter(profile, property.Name, numericSubstitute: numericSubstitute);
+                // There are no subproperties so leave blank
+                var (output, counter) = GetSubPropertyOutputAndCounter(profile, string.Empty, numericSubstitute: numericSubstitute);
 
                 numericSubstitute = counter;
                 result.Add(output);
