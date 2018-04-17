@@ -77,7 +77,6 @@ namespace RapidXamlToolkit
             }
             else
             {
-                // This shouldn't be necessary after ISSUE#17
                 ShowStatusBarMessage(serviceProvider, "No XAML copied. No profiles configured.");
             }
 
