@@ -1,10 +1,8 @@
 
 # Rapid XAML Toolkit
 
-Tools to accelerate XAML app development.
-
 Creating a XAML UI can be slow or require lots of manual effort. These tools aim to reduce the time and effort required to get the basics working and allow you to customize the UI to meet your preferences or the specific needs of your app.   
-We can't and don't try to create the whole app for you but we can make creating and working with XAML easier.
+We can't and don't try to create the whole app for you but we can make creating and working with XAML faster easier.
 
 ## Principles guiding this project
 
