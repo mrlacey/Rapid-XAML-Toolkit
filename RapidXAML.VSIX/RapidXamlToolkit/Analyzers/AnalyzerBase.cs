@@ -28,6 +28,8 @@ namespace RapidXamlToolkit
 
         public virtual string FileExtension { get; } = string.Empty;
 
+        protected static string[] TypesToSkipWhenCheckingForSubProperties { get; } = new[] { "String", "ValueType", "Object" };
+
         public static Settings GetSettings()
         {
             var configuredSettings = new ConfiguredSettings(ServiceProvider);
@@ -114,12 +116,13 @@ namespace RapidXamlToolkit
 
             if (type.IsGenericTypeName())
             {
+                type = type.ToCSharpFormat();
                 var typeArgument = type.Substring(type.IndexOf("<", StringComparison.Ordinal) + 1, type.Length - type.IndexOf("<", StringComparison.Ordinal) - 2);
-                result = result.Replace(Placeholder.PropertyType, typeArgument);
+                result = result.Replace(Placeholder.PropertyType, typeArgument.AsXamlFriendlyTypeArgument());
             }
             else
             {
-                result = result.Replace(Placeholder.PropertyType, type);
+                result = result.Replace(Placeholder.PropertyType, type.AsXamlFriendlyTypeArgument());
             }
 
             if (rawOutput.Contains(Placeholder.SubProperties))

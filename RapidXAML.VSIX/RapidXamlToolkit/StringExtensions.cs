@@ -76,5 +76,40 @@ namespace RapidXamlToolkit
             // Know no better way of detecting this
             return value.ToCSharpFormat().EndsWith(">");
         }
+
+        public static string AsXamlFriendlyTypeArgument(this string value)
+        {
+            // Replace uppercase versions first to avoid double replacements
+            return value.Replace("Boolean", "x:Boolean")
+                        .Replace("bool", "x:Boolean")
+                        .Replace("Byte", "x:Byte")
+                        .Replace("byte", "x:Byte")
+                        .Replace("Char", "x:Char")
+                        .Replace("char", "x:Char")
+                        .Replace("Decimal", "x:Decimal")
+                        .Replace("decimal", "x:Decimal")
+                        .Replace("Double", "x:Double")
+                        .Replace("double", "x:Double")
+                        .Replace("Int16", "x:Int16")
+                        .Replace("short", "x:Int16")
+                        .Replace("Int32", "x:Int32")
+                        .Replace("Integer", "x:Int32")
+                        .Replace("int", "x:Int32")
+                        .Replace("Int64", "x:Int64")
+                        .Replace("long", "x:Int64")
+                        .Replace("Object", "x:Object")
+                        .Replace("object", "x:Object")
+                        .Replace("Single", "x:Single")
+                        .Replace("single", "x:Single")
+                        .Replace("String", "x:String")
+                        .Replace("string", "x:String")
+                        .Replace("TimeSpan", "x:TimeSpan")
+                        .Replace("Uri", "x:Uri");
+        }
+
+        public static bool IsOneOf(this string item, params string[] options)
+        {
+            return options.Contains(item);
+        }
     }
 }

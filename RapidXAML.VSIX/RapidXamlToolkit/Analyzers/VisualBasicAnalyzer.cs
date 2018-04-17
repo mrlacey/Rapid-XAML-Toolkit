@@ -462,6 +462,11 @@ namespace RapidXamlToolkit
 
             foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
             {
+                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubProperties))
+                {
+                    continue;
+                }
+
                 switch (baseType.Kind)
                 {
                     case SymbolKind.NamedType:
