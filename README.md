@@ -14,7 +14,7 @@ The Rapid XAML Toolkit aims to help developers with two aspects of working with 
 
 ### Creation
 
-In very few apps is the UI created first. It's more common to start with the data Model and the ViewModels and then create the UI for them. Allow the Rapid XAML Toolkit to scaffold your Views based on your ViewModels.
+In very few apps is the UI created first. It's more common to start with the data Model and the ViewModels and then create the UI for them. Allow the Rapid XAML Toolkit to scaffold your Views based on your ViewModels. It works with different naming conventions or files and folders. The View and ViewModel don't even have to be in the same project.
 
 ![Creating a View from context menu of ViewModel in Solution Explorer](./docs/Assets/Create-View-In-Solution-Explorer.gif)
 
