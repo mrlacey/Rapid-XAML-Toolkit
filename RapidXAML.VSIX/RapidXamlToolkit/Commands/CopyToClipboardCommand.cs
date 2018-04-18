@@ -14,8 +14,6 @@ namespace RapidXamlToolkit
     {
         public const int CommandId = 4128;
 
-        public static readonly Guid CommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
-
         private CopyToClipboardCommand(AsyncPackage package, OleMenuCommandService commandService, ILogger logger)
             : base(package, logger)
         {

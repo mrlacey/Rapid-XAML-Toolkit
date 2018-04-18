@@ -4,29 +4,21 @@
 
 using System;
 using System.ComponentModel.Design;
-using System.Globalization;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit
 {
-    internal sealed class SetDatacontextCommand
+    internal sealed class SetDatacontextCommand : BaseCommand
     {
         public const int CommandId = 4132;
 
-        public static readonly Guid CommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
-
-        private readonly AsyncPackage package;
-        private readonly ILogger logger;
-
         private SetDatacontextCommand(AsyncPackage package, OleMenuCommandService commandService, ILogger logger)
+            : base(package, logger)
         {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
-            this.logger = logger;
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
@@ -38,14 +30,6 @@ namespace RapidXamlToolkit
         {
             get;
             private set;
-        }
-
-        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider
-        {
-            get
-            {
-                return this.package;
-            }
         }
 
         public static async Task InitializeAsync(AsyncPackage package, ILogger logger)
@@ -66,25 +50,97 @@ namespace RapidXamlToolkit
             {
                 if (sender is OleMenuCommand menuCmd)
                 {
-                    menuCmd.Visible = menuCmd.Enabled = false;
+                    bool showCommandButton = false;
 
-                    if (AnalyzerBase.GetSettings().IsActiveProfileSet)
+                    var settings = AnalyzerBase.GetSettings();
+
+                    if (settings.IsActiveProfileSet)
                     {
-                        // TODO: other logic here about whether this should be shown - need to review the perf impact of doing this. - better to show when shouldn't than make VS slow
-                        // find the file where it should be set
-                        // only show if not already set where it should be
-                        // Get active document
-                        // - if XAML & should be set in XAML
-                        // - if XAML & should be set in CB get CB doc
-                        // - if CB & should be set in CB
-                        // - if CB & should be set in XAML get XAML doc
-                        menuCmd.Visible = menuCmd.Enabled = true;
+                        var profile = settings.GetActiveProfile();
+
+                        var dte = (EnvDTE.DTE)Instance.ServiceProvider.GetServiceAsync(typeof(EnvDTE.DTE)).Result;
+                        var activeDocument = dte.ActiveDocument;
+
+                        var inXamlDoc = activeDocument.Name.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
+
+                        var viewModelName = System.IO.Path.GetFileNameWithoutExtension(activeDocument.Name)
+                                                          .RemoveFromEndIfExists(".xaml") // to allow for double extensions
+                                                          .RemoveFromEndIfExists(profile.ViewGeneration.XamlFileSuffix)
+                                                          .Append(profile.ViewGeneration.ViewModelFileSuffix);
+
+                        if (inXamlDoc)
+                        {
+                            if (profile.Datacontext.SetsXamlPageAttribute)
+                            {
+                                var objectDoc = activeDocument.Object("TextDocument") as EnvDTE.TextDocument;
+                                var docText = objectDoc.StartPoint.CreateEditPoint().GetText(objectDoc.EndPoint);
+
+                                // Get formatted content to insert
+                                var contentToInsert = profile.Datacontext.XamlPageAttribute.Replace(Placeholder.ViewModelClass, viewModelName);
+
+                                if (!docText.Contains(contentToInsert))
+                                {
+                                    showCommandButton = true;
+                                }
+                            }
+
+                            if (!showCommandButton && profile.Datacontext.SetsAnyCodeBehindContent)
+                            {
+                                if (profile.Datacontext.SetsCodeBehindPageContent)
+                                {
+                                    // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
+                                }
+
+                                if (!showCommandButton && profile.Datacontext.SetsCodeBehindConstructorContent)
+                                {
+                                    // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (profile.Datacontext.SetsXamlPageAttribute)
+                            {
+                                // TODO: set the DC in the XAML file (C# or VB) may be open and unsaved
+                            }
+
+                            if (!showCommandButton && profile.Datacontext.SetsAnyCodeBehindContent)
+                            {
+                                var objectDoc = activeDocument.Object("TextDocument") as EnvDTE.TextDocument;
+                                var docText = objectDoc.StartPoint.CreateEditPoint().GetText(objectDoc.EndPoint);
+
+                                // Compare without whitespace to allow for VS reformatting the code we add
+                                var docTextWithoutWhitespace = docText.RemoveAllWhitespace();
+
+                                if (profile.Datacontext.SetsCodeBehindPageContent)
+                                {
+                                    var contentToInsert = profile.Datacontext.CodeBehindPageContent.Replace(Placeholder.ViewModelClass, viewModelName);
+
+                                    if (!docTextWithoutWhitespace.Contains(contentToInsert.RemoveAllWhitespace()))
+                                    {
+                                        showCommandButton = true;
+                                    }
+                                }
+
+                                if (!showCommandButton && profile.Datacontext.SetsCodeBehindConstructorContent)
+                                {
+                                    var ctorCodeToInsert = profile.Datacontext.CodeBehindConstructorContent.Replace(Placeholder.ViewModelClass, viewModelName);
+
+                                    if (!docTextWithoutWhitespace.Contains(ctorCodeToInsert.RemoveAllWhitespace()))
+                                    {
+                                        showCommandButton = true;
+                                    }
+                                }
+                            }
+                        }
                     }
+
+                    menuCmd.Visible = menuCmd.Enabled = showCommandButton;
                 }
             }
             catch (Exception exc)
             {
-                this.logger.RecordException(exc);
+                this.Logger.RecordException(exc);
                 throw;
             }
         }
@@ -93,29 +149,169 @@ namespace RapidXamlToolkit
         {
             try
             {
-                // TODO: Add actual logic for setting the datacontext
-                // If in xamlfile
-                //  - if should set here then modify current document
-                //  - If should set in CB, modify that file then open it unsaved
-                // if in code behind
-                //  - if should set here then modify current document
-                //  - If should set in XAML, modify that file then open it unsaved
                 ThreadHelper.ThrowIfNotOnUIThread();
-                string message = string.Format(CultureInfo.CurrentCulture, "Inside {0}.MenuItemCallback()", this.GetType().FullName);
-                string title = "SetDatacontextCommand";
 
-                // Show a message box to prove we were here
-                VsShellUtilities.ShowMessageBox(
-                    this.package,
-                    message,
-                    title,
-                    OLEMSGICON.OLEMSGICON_INFO,
-                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
-                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                var settings = AnalyzerBase.GetSettings();
+                var profile = settings.GetActiveProfile();
+
+                var dte = (EnvDTE.DTE)Instance.ServiceProvider.GetServiceAsync(typeof(EnvDTE.DTE)).Result;
+                var activeDocument = dte.ActiveDocument;
+
+                var inXamlDoc = activeDocument.Name.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
+
+                var viewModelName = System.IO.Path.GetFileNameWithoutExtension(activeDocument.Name)
+                                                  .RemoveFromEndIfExists(".xaml") // to allow for double extensions
+                                                  .RemoveFromEndIfExists(profile.ViewGeneration.XamlFileSuffix)
+                                                  .Append(profile.ViewGeneration.ViewModelFileSuffix);
+
+                if (inXamlDoc)
+                {
+                    if (profile.Datacontext.SetsXamlPageAttribute)
+                    {
+                        var objectDoc = activeDocument.Object("TextDocument") as EnvDTE.TextDocument;
+                        var docText = objectDoc.StartPoint.CreateEditPoint().GetText(objectDoc.EndPoint);
+                        var docLines = docText.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+                        var contentToInsert = profile.Datacontext.XamlPageAttribute.Replace(Placeholder.ViewModelClass, viewModelName);
+
+                        if (!docText.Contains(contentToInsert))
+                        {
+                            var pageOpeningTagEnd = docText.IndexOf(">");
+
+                            // Assume attributes are on different lines
+                            var openingPageTag = docText.Substring(0, pageOpeningTagEnd);
+
+                            var lineNumberToInsertAfter = openingPageTag.Select((c, i) => openingPageTag.Substring(i)).Count(sub => sub.StartsWith(Environment.NewLine));
+
+                            var lineToAddAfter = docLines[lineNumberToInsertAfter];
+
+                            var whitespaceLength = lineToAddAfter.Length - lineToAddAfter.TrimStart().Length;
+
+                            objectDoc.Selection.GotoLine(lineNumberToInsertAfter);
+                            objectDoc.Selection.EndOfLine();
+                            objectDoc.Selection.Insert($"{Environment.NewLine}{new string(' ', whitespaceLength)}{contentToInsert}");
+                        }
+                    }
+
+                    if (profile.Datacontext.SetsAnyCodeBehindContent)
+                    {
+                        if (profile.Datacontext.SetsCodeBehindPageContent)
+                        {
+                            // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
+                        }
+
+                        if (profile.Datacontext.SetsCodeBehindConstructorContent)
+                        {
+                            // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
+                        }
+                    }
+                }
+                else
+                {
+                    if (profile.Datacontext.SetsXamlPageAttribute)
+                    {
+                        // TODO: set the DC in the XAML file (C# or VB) may be open and unsaved
+                    }
+
+                    if (profile.Datacontext.SetsAnyCodeBehindContent)
+                    {
+                        var objectDoc = activeDocument.Object("TextDocument") as EnvDTE.TextDocument;
+                        var docText = objectDoc.StartPoint.CreateEditPoint().GetText(objectDoc.EndPoint);
+
+                        // Compare without whitespace to allow for VS reformatting the code we add
+                        var docTextWithoutWhitespace = docText.RemoveAllWhitespace();
+
+                        var textView = GetTextView(Instance.ServiceProvider);
+
+                        var caretPosition = textView.Caret.Position.BufferPosition;
+
+                        var document = caretPosition.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
+
+                        var semanticModel = document.GetSemanticModelAsync().Result;
+
+                        int ctorEndPosLineNo = 0;
+
+                        if (profile.Datacontext.SetsCodeBehindPageContent)
+                        {
+                            var contentToInsert = profile.Datacontext.CodeBehindPageContent.Replace(Placeholder.ViewModelClass, viewModelName);
+
+                            if (!docTextWithoutWhitespace.Contains(contentToInsert.RemoveAllWhitespace()))
+                            {
+                                if (activeDocument.Language == "CSharp")
+                                {
+                                    // Get end of constructor
+                                    var documentRoot = document.GetSyntaxRootAsync().Result;
+
+                                    var allConstructors = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax>().ToList();
+
+                                    int ctorEndPos = 0;
+
+                                    if (allConstructors.Any())
+                                    {
+                                        ctorEndPos = allConstructors.First().Span.End;
+                                    }
+                                    else
+                                    {
+                                        // TODO: No constructor so may need to add one.
+                                    }
+
+                                    ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n') + 1;
+
+                                    objectDoc.Selection.GotoLine(ctorEndPosLineNo);
+                                    objectDoc.Selection.EndOfLine();
+                                    objectDoc.Selection.Insert($"{Environment.NewLine}{Environment.NewLine}{contentToInsert}");
+                                }
+                                else
+                                {
+                                    // TODO: implement for VB
+                                }
+                            }
+                        }
+
+                        if (profile.Datacontext.SetsCodeBehindConstructorContent)
+                        {
+                            var ctorCodeToInsert = profile.Datacontext.CodeBehindConstructorContent.Replace(Placeholder.ViewModelClass, viewModelName);
+
+                            if (!docTextWithoutWhitespace.Contains(ctorCodeToInsert.RemoveAllWhitespace()))
+                            {
+                                if (ctorEndPosLineNo == 0)
+                                {
+                                    if (activeDocument.Language == "CSharp")
+                                    {
+                                        var documentRoot = document.GetSyntaxRootAsync().Result;
+
+                                        var allConstructors = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax>().ToList();
+
+                                        int ctorEndPos = 0;
+
+                                        if (allConstructors.Any())
+                                        {
+                                            ctorEndPos = allConstructors.First().Span.End;
+                                        }
+                                        else
+                                        {
+                                            // TODO: No constructor so may need to add one.
+                                        }
+
+                                        ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n') + 1;
+                                    }
+                                    else
+                                    {
+                                        // TODO: implement for VB
+                                    }
+                                }
+
+                                objectDoc.Selection.GotoLine(ctorEndPosLineNo - 1);
+                                objectDoc.Selection.EndOfLine();
+                                objectDoc.Selection.Insert($"{Environment.NewLine}{Environment.NewLine}{ctorCodeToInsert}");
+                            }
+                        }
+                    }
+                }
             }
             catch (Exception exc)
             {
-                this.logger.RecordException(exc);
+                this.Logger.RecordException(exc);
                 throw;
             }
         }

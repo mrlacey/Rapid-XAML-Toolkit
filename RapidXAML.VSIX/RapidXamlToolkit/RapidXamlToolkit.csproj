@@ -64,6 +64,7 @@
     <Compile Include="Analyzers\CSharpAnalyzer.cs" />
     <Compile Include="Analyzers\IDocumentAnalyzer.cs" />
     <Compile Include="Analyzers\PropertyDetails.cs" />
+    <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\OpenOptionsCommand.cs" />
     <Compile Include="Commands\SetDatacontextCommand.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Options\CanNotifyPropertyChanged.cs" />
     <Compile Include="Options\ConfiguredSettings.cs" />
     <Compile Include="Options\ConfiguredSettings.Default.cs" />
+    <Compile Include="Options\DatacontextSettings.cs" />
     <Compile Include="Options\Mapping.cs" />
     <Compile Include="Options\Profile.cs" />
     <Compile Include="Options\ProfileConfigPage.xaml.cs">

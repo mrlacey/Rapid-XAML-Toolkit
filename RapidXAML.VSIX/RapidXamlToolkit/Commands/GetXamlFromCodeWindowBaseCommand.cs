@@ -12,26 +12,11 @@ using Microsoft.VisualStudio.TextManager.Interop;
 
 namespace RapidXamlToolkit
 {
-    internal class GetXamlFromCodeWindowBaseCommand
+    internal class GetXamlFromCodeWindowBaseCommand : BaseCommand
     {
-        private readonly ILogger logger;
-
-        private readonly AsyncPackage package;
-
         public GetXamlFromCodeWindowBaseCommand(AsyncPackage package, ILogger logger)
+            : base(package, logger)
         {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
-            this.logger = logger;
-        }
-
-        protected ILogger Logger => this.logger;
-
-        protected IAsyncServiceProvider ServiceProvider
-        {
-            get
-            {
-                return this.package;
-            }
         }
 
         public AnalyzerOutput GetXaml(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider)
@@ -115,31 +100,6 @@ namespace RapidXamlToolkit
                 this.Logger.RecordException(exc);
                 throw;
             }
-        }
-
-        private static Microsoft.VisualStudio.Text.Editor.IWpfTextView GetTextView(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider)
-        {
-            var textManager = (IVsTextManager)serviceProvider.GetServiceAsync(typeof(SVsTextManager)).Result;
-
-            if (textManager == null)
-            {
-                return null;
-            }
-
-            textManager.GetActiveView(1, null, out IVsTextView textView);
-
-            if (textView == null)
-            {
-                return null;
-            }
-
-            return GetEditorAdaptersFactoryService(serviceProvider).GetWpfTextView(textView);
-        }
-
-        private static IVsEditorAdaptersFactoryService GetEditorAdaptersFactoryService(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider)
-        {
-            IComponentModel componentModel = (IComponentModel)serviceProvider.GetServiceAsync(typeof(SComponentModel)).Result;
-            return componentModel.GetService<IVsEditorAdaptersFactoryService>();
         }
     }
 }

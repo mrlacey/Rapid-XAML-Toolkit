@@ -77,6 +77,53 @@ namespace RapidXamlToolkit
             return value.ToCSharpFormat().EndsWith(">");
         }
 
+        public static string RemoveFromEndIfExists(this string value, string toRemove)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            if (toRemove == null)
+            {
+                throw new ArgumentNullException(nameof(toRemove));
+            }
+
+            var result = value;
+
+            if (value.Length > toRemove.Length)
+            {
+                if (value.Substring(value.Length - toRemove.Length) == toRemove)
+                {
+                    result = value.Substring(0, value.Length - toRemove.Length);
+                }
+            }
+
+            return result;
+        }
+
+        public static string RemoveAllWhitespace(this string source)
+        {
+            return source.Replace(" ", string.Empty)
+                         .Replace("\t", string.Empty)
+                         .Replace(Environment.NewLine, string.Empty);
+        }
+
+        public static string Append(this string value, string toAdd)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            if (toAdd == null)
+            {
+                throw new ArgumentNullException(nameof(toAdd));
+            }
+
+            return $"{value}{toAdd}";
+        }
+
         public static string AsXamlFriendlyTypeArgument(this string value)
         {
             // Replace uppercase versions first to avoid double replacements

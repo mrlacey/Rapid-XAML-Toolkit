@@ -20,8 +20,6 @@ namespace RapidXamlToolkit
             IVsOutputWindow outWindow = ServiceProvider.GlobalProvider.GetService(typeof(SVsOutputWindow)) as IVsOutputWindow;
             Guid generalPaneGuid = VSConstants.GUID_OutWindowGeneralPane;
 
-           // outWindow.GetPane(ref generalPaneGuid, out this.generalPane);
-
             if (ErrorHandler.Failed(outWindow.GetPane(ref generalPaneGuid, out this.generalPane)) || (this.generalPane == null))
             {
                 if (ErrorHandler.Failed(outWindow.CreatePane(ref generalPaneGuid, "General", 1, 0)))
@@ -36,7 +34,6 @@ namespace RapidXamlToolkit
                     return;
                 }
             }
-
         }
 
         public static GeneralOutputPane Instance => instance ?? (instance = new GeneralOutputPane());

@@ -140,6 +140,30 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="DataContext">
+
+                <Grid Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4">Xaml Page Attribute</TextBlock>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Datacontext.XamlPageAttribute, Mode=TwoWay}" Margin="0,4,0,0" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4">Code Behind Page Content</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Datacontext.CodeBehindPageContent, Mode=TwoWay}" Margin="0,4,0,0" />
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4">Code Behind Constructor Content</TextBlock>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Datacontext.CodeBehindConstructorContent, Mode=TwoWay}" Margin="0,4,0,0" />
+                </Grid>
+            </TabItem>
         </TabControl>
 
         <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Click="OkClicked" Width="70" HorizontalAlignment="Right" Margin="0,8,0,0">Ok</Button>

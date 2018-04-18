@@ -215,6 +215,12 @@ namespace $viewns$
                             XamlProjectSuffix = "n/a",
                             ViewModelProjectSuffix = "n/a",
                         },
+                        Datacontext = new DatacontextSettings
+                        {
+                            XamlPageAttribute = "DataContext=\"{Binding $viewmodelclass$, Source={StaticResource Locator}}\"",
+                            CodeBehindPageContent = "private $viewmodelclass$ ViewModel { get { return DataContext as $viewmodelclass$; } }", // Caliburn Micro style
+                            CodeBehindConstructorContent = "this.DataContext = this.ViewModel;", // MVVMBasic style
+                        },
                     },
 
                     new Profile
@@ -408,6 +414,12 @@ namespace $viewns$
 
                             XamlProjectSuffix = string.Empty,
                             ViewModelProjectSuffix = ".ViewModels",
+                        },
+                        Datacontext = new DatacontextSettings
+                        {
+                            XamlPageAttribute = "DataContext=\"{Binding $viewmodelclass$, Source={StaticResource Locator}}\"",
+                            CodeBehindPageContent = "private $viewmodelclass$ ViewModel { get { return DataContext as $viewmodelclass$; } }", // Caliburn Micro style
+                            CodeBehindConstructorContent = "this.DataContext = this.ViewModel;", // MVVMBasic style
                         },
                     },
 

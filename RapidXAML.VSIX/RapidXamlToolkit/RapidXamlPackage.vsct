@@ -116,7 +116,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Invoke SetDatacontextCommand</ButtonText>
+          <ButtonText>Set DataContext</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -173,6 +173,10 @@
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SendToToolboxCommandId" priority="0x0200">
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
     </CommandPlacement>
+
+      <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SetDatacontextCommandId" priority="0x0050">
+        <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
+      </CommandPlacement>
 
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />

@@ -53,6 +53,8 @@ namespace RapidXamlToolkit
 
         public ViewGenerationSettings ViewGeneration { get; set; }
 
+        public DatacontextSettings Datacontext { get; set; }
+
         public static Profile CreateNew()
         {
             return new Profile
@@ -63,6 +65,7 @@ namespace RapidXamlToolkit
                 SubPropertyOutput = string.Empty,
                 Mappings = new List<Mapping>(),
                 ViewGeneration = new ViewGenerationSettings(),
+                Datacontext = new DatacontextSettings(),
             };
         }
 
@@ -76,6 +79,7 @@ namespace RapidXamlToolkit
                 SubPropertyOutput = this.SubPropertyOutput,
                 Mappings = new List<Mapping>(),
                 ViewGeneration = this.ViewGeneration,
+                Datacontext = this.Datacontext,
             };
 
             foreach (var mapping in this.Mappings)
