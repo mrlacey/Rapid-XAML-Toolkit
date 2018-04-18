@@ -1,7 +1,7 @@
 
 # Rapid XAML Toolkit
 
-Creating a XAML UI can be slow or require lots of manual effort. These tools aim to reduce the time and effort required to get the basics working and allow you to customize the UI to meet your preferences or the specific needs of your app.   
+Creating a XAML UI can be slow or require lots of manual effort. These tools aim to reduce the time and effort required to get the basics working and allow you to customize the UI to meet your preferences or the specific needs of your app.
 We can't and don't try to create the whole app for you but we can make creating and working with XAML faster easier.
 The functionality of the toolkit is based common conventions but is highly [configurable](./docs/configuration.md).
 
@@ -32,9 +32,9 @@ If you want to add the XAML for multiple properties you can send them to the Too
 
 ![Send properties to the Toolbox then drag onto the View as XAML](./docs/Assets/Send-To-Toolbox-And-Drag-To-View.gif)
 
-In addition to creating the XAML for the View, you can also set the DataContext. In CodeBehind.
+In addition to creating the XAML for the View, you can also set the DataContext so the bindings will work. Do it in CodeBehind.
 
-[[*IMAGE (ANI-GIF) NEEDED - SET DATACONTEXT IN CODEBEHIND*]]
+![Set the DataContext and related properties if not already defined in the code-behind file](./docs/Assets/Set-Datacontext-In-CodeBehind.gif)
 
 Or in the XAML.
 
