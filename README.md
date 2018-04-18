@@ -32,13 +32,14 @@ If you want to add the XAML for multiple properties you can send them to the Too
 
 ![Send properties to the Toolbox then drag onto the View as XAML](./docs/Assets/Send-To-Toolbox-And-Drag-To-View.gif)
 
-In addition to creating the XAML for the View, you can also set the DataContext so the bindings will work. Do it in CodeBehind.
+In addition to creating the XAML for the View, you can also set the DataContext (so the bindings will work.)
+Do it in Code-Behind.
 
 ![Set the DataContext and related properties if not already defined in the code-behind file](./docs/Assets/Set-Datacontext-In-CodeBehind.gif)
 
 Or in the XAML.
 
-[[*IMAGE (ANI-GIF) NEEDED - SET DATACONTEXT IN XAML*]]
+![Set the DataContext and related properties if not already defined in the XAML file](./docs/Assets/Set-Datacontext-In-XAML.gif)
 
 More to follow...
 
