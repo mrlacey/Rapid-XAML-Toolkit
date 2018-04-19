@@ -256,7 +256,7 @@ namespace RapidXamlToolkit
                                     }
                                     else
                                     {
-                                        // TODO: No constructor so may need to add one.
+                                        // TODO: No constructor so add this at the top of the class definition
                                     }
                                 }
                                 else
@@ -269,7 +269,7 @@ namespace RapidXamlToolkit
                                     }
                                     else
                                     {
-                                        // TODO: No constructor so may need to add one.
+                                        // TODO: No constructor so add this at the top of the class definition
                                     }
                                 }
 
@@ -287,11 +287,11 @@ namespace RapidXamlToolkit
 
                             if (!docTextWithoutWhitespace.Contains(ctorCodeToInsert.RemoveAllWhitespace()))
                             {
+                                int ctorEndPos = 0;
+
                                 if (ctorEndPosLineNo == 0)
                                 {
                                     var documentRoot = document.GetSyntaxRootAsync().Result;
-
-                                    int ctorEndPos = 0;
 
                                     if (activeDocument.Language == "CSharp")
                                     {
@@ -303,7 +303,7 @@ namespace RapidXamlToolkit
                                         }
                                         else
                                         {
-                                            // TODO: No constructor so may need to add one.
+                                            // TODO: No constructor so add constructor to `contentToInsert` and postion at the top of the class
                                         }
                                     }
                                     else
@@ -316,12 +316,12 @@ namespace RapidXamlToolkit
                                         }
                                         else
                                         {
-                                            // TODO: No constructor so may need to add one.
+                                            // TODO: No constructor so add constructor to `contentToInsert` and postion at the top of the class
                                         }
                                     }
                                 }
 
-                                        ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n') + 1;
+                                ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n') + 1;
 
                                 objectDoc.Selection.GotoLine(ctorEndPosLineNo - 1);
                                 objectDoc.Selection.EndOfLine();
