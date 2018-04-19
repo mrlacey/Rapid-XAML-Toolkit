@@ -18,7 +18,7 @@ namespace RapidXamlToolkit
                 {
                     new Profile
                     {
-                        Name = "UWP",
+                        Name = "Demo-Basic",
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
@@ -125,8 +125,597 @@ namespace RapidXamlToolkit
                             new Mapping
                             {
                                 Type = "string",
-                                NameContains = "postcode|zip",
-                                Output = "<TextBox InputScope=\"zipcodeinputscope\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                NameContains = "email",
+                                Output = "<TextBox InputScope=\"EmailNameOrAddress\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "firstname|lastname|familyname|surname|givenname",
+                                Output = "<TextBox InputScope=\"PersonalFullName\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<TextBox InputScope=\"Url\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ObservableCollection<T>|List<T>",
+                                NameContains = string.Empty,
+                                Output = "<ListView ItemsSource=\"{x:Bind ViewModel.$name$}\"><ListView.ItemTemplate><DataTemplate x:DataType=\"$type$\"><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                                IfReadOnly = false,
+                            },
+                        },
+                        ViewGeneration = new ViewGenerationSettings
+                        {
+                            XamlPlaceholder = @"<Page
+    x:Class=""$viewns$.$viewclass$""
+    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
+    xmlns:local=""using:$viewns$""
+    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
+    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
+    mc:Ignorable=""d"">
+
+    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
+        $genxaml$
+    </Grid>
+</Page>
+",
+                            CodePlaceholder = @"using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using $viewmodelns$;
+
+namespace $viewns$
+{
+    public sealed partial class $viewclass$ : Page
+    {
+        public $viewmodelclass$ ViewModel { get; set; }
+
+        public $viewclass$()
+        {
+            this.InitializeComponent();
+            this.ViewModel = new $viewmodelclass$();
+        }
+    }
+}
+",
+                            XamlFileSuffix = "Page",
+                            ViewModelFileSuffix = "ViewModel",
+
+                            XamlFileDirectoryName = "Views",
+                            ViewModelDirectoryName = "ViewModels",
+
+                            AllInSameProject = true,
+
+                            XamlProjectSuffix = "n/a",
+                            ViewModelProjectSuffix = "n/a",
+                        },
+                        Datacontext = new DatacontextSettings
+                        {
+                            XamlPageAttribute = string.Empty,
+                            CodeBehindPageContent = "private $viewmodelclass$ ViewModel { get { return DataContext as $viewmodelclass$; } }",
+                            CodeBehindConstructorContent = "this.DataContext = this.ViewModel;", 
+                        },
+                    },
+
+                    new Profile
+                    {
+                        Name = "Demo-Light",
+                        ClassGrouping = "Grid-plus-RowDefs",
+                        FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind $name$}\" Grid.Row=\"$incint$\" />",
+                        Mappings = new List<Mapping>
+                        {
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = "busy|active",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<ProgressRing IsActive=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = string.Empty,
+                                Output = "<ToggleSwitch Header=\"$name$\" IsOn=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "search",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<SearchBox PlaceholderText=\"Search\" QueryText=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = "password|pwd",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<PasswordBox Password=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<HyperlinkButton NavigateUri=\"{x:Bind ViewModel.$name$}\" Content=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "phone|tel",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBox InputScope=\"TelephoneNumber\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "email",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBox InputScope=\"EmailNameOrAddress\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "firstname|lastname|familyname|surname|givenname",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBox InputScope=\"PersonalFullName\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBox InputScope=\"Url\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBox Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ICommand|Command|RelayCommand",
+                                NameContains = string.Empty,
+                                Output = "<Button Content=\"$name$\" Command=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTimeOffset",
+                                NameContains = "date",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<DatePicker Date=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "Uri",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<HyperlinkButton NavigateUri=\"{x:Bind ViewModel.$name$}\" Content=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "List<string>",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<ItemsControl ItemsSource=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ObservableCollection<T>|List<T>",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<ListView ItemsSource=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\">\n<ListView.ItemTemplate>\n<DataTemplate x:DataType=\"$type$\">\n<GRID-PLUS-ROWDEFS>$subprops$</GRID-PLUS-ROWDEFS>\n</DataTemplate>\n</ListView.ItemTemplate>\n</ListView>",
+                                IfReadOnly = false,
+                            },
+                        },
+                        ViewGeneration = new ViewGenerationSettings
+                        {
+                            XamlPlaceholder = @"<Page
+    x:Class=""$viewns$.$viewclass$""
+    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
+    xmlns:local=""using:$viewns$""
+    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
+    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
+    DataContext=""{Binding $viewmodelclass$, Source={StaticResource Locator}}""
+    mc:Ignorable=""d"">
+
+    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
+        $genxaml$
+    </Grid>
+</Page>
+",
+                            CodePlaceholder = @"using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using $viewmodelns$;
+
+namespace $viewns$
+{
+    public sealed partial class $viewclass$ : Page
+    {
+        private $viewmodelclass$ ViewModel
+        {
+            get { return DataContext as $viewmodelclass$; }
+        }
+
+        public $viewclass$()
+        {
+            this.InitializeComponent();
+        }
+    }
+}
+",
+                            XamlFileSuffix = "View",
+                            ViewModelFileSuffix = "ViewModel",
+
+                            XamlFileDirectoryName = "Views",
+                            ViewModelDirectoryName = "ViewModels",
+
+                            AllInSameProject = true,
+
+                            XamlProjectSuffix = string.Empty,
+                            ViewModelProjectSuffix = ".ViewModels",
+                        },
+                        Datacontext = new DatacontextSettings
+                        {
+                            XamlPageAttribute = "DataContext=\"{Binding $viewmodelclass$, Source={StaticResource Locator}}\"",
+                            CodeBehindPageContent = "private $viewmodelclass$ ViewModel { get { return DataContext as $viewmodelclass$; } }",
+                            CodeBehindConstructorContent = "",
+                        },
+                    },
+
+                    new Profile
+                    {
+                        Name = "Demo-Simple",
+                        ClassGrouping = "StackPanel",
+                        FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
+                        Mappings = new List<Mapping>
+                        {
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = "password|pwd",
+                                Output = "<PasswordBox Password=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<TextBox Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "List<string>",
+                                NameContains = string.Empty,
+                                Output = "<ItemsControl ItemsSource=\"{x:Bind ViewModel.$name$}\"></ItemsControl>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "search",
+                                Output = "<SearchBox PlaceholderText=\"Search\" QueryText=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ICommand|Command|RelayCommand",
+                                NameContains = string.Empty,
+                                Output = "<Button Content=\"$name$\" Command=\"{x:Bind ViewModel.$name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTimeOffset",
+                                NameContains = "date",
+                                Output = "<DatePicker Date=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = string.Empty,
+                                Output = "<ToggleSwitch Header=\"$name$\" IsOn=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "Uri",
+                                NameContains = string.Empty,
+                                Output = "<HyperlinkButton NavigateUri=\"{x:Bind ViewModel.$name$}\" Content=\"{x:Bind ViewModel.$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<HyperlinkButton NavigateUri=\"{x:Bind ViewModel.$name$}\" Content=\"{x:Bind ViewModel.$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = "busy|active",
+                                Output = "<ProgressRing IsActive=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "phone|tel",
+                                Output = "<TextBox InputScope=\"TelephoneNumber\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "email",
+                                Output = "<TextBox InputScope=\"EmailNameOrAddress\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "firstname|lastname|familyname|surname|givenname",
+                                Output = "<TextBox InputScope=\"PersonalFullName\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<TextBox InputScope=\"Url\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ObservableCollection<T>|List<T>",
+                                NameContains = string.Empty,
+                                Output = "<ListView ItemsSource=\"{x:Bind ViewModel.$name$}\"><ListView.ItemTemplate><DataTemplate x:DataType=\"$type$\"><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                                IfReadOnly = false,
+                            },
+                        },
+                        ViewGeneration = new ViewGenerationSettings
+                        {
+                            XamlPlaceholder = @"<Page
+    x:Class=""$viewns$.$viewclass$""
+    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
+    xmlns:local=""using:$viewns$""
+    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
+    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
+    mc:Ignorable=""d"">
+
+    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
+        $genxaml$
+    </Grid>
+</Page>
+",
+                            CodePlaceholder = @"using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using $viewmodelns$;
+
+namespace $viewns$
+{
+    public sealed partial class $viewclass$ : Page
+    {
+        public $viewmodelclass$ ViewModel { get; set; }
+
+        public $viewclass$()
+        {
+            this.InitializeComponent();
+            this.ViewModel = new $viewmodelclass$();
+        }
+    }
+}
+",
+                            XamlFileSuffix = "Page",
+                            ViewModelFileSuffix = "ViewModel",
+
+                            XamlFileDirectoryName = "Pages",
+                            ViewModelDirectoryName = "ViewModels",
+
+                            AllInSameProject = false,
+
+                            XamlProjectSuffix = string.Empty,
+                            ViewModelProjectSuffix = ".ViewModels",
+                        },
+                        Datacontext = new DatacontextSettings
+                        {
+                            XamlPageAttribute = string.Empty,
+                            CodeBehindPageContent = "private $viewmodelclass$ ViewModel { get { return DataContext as $viewmodelclass$; } }",
+                            CodeBehindConstructorContent = "this.DataContext = this.ViewModel;",
+                        },
+                    },
+
+                    new Profile
+                    {
+                        Name = "UWP",
+                        ClassGrouping = "StackPanel",
+                        FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
+                        Mappings = new List<Mapping>
+                        {
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = "password|pwd",
+                                Output = "<PasswordBox Password=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<TextBox Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "List<string>",
+                                NameContains = string.Empty,
+                                Output = "<ItemsControl ItemsSource=\"{x:Bind ViewModel.$name$}\"></ItemsControl>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "search",
+                                Output = "<SearchBox PlaceholderText=\"Search\" QueryText=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ICommand|Command|RelayCommand",
+                                NameContains = string.Empty,
+                                Output = "<Button Content=\"$name$\" Command=\"{x:Bind ViewModel.$name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTimeOffset",
+                                NameContains = "date",
+                                Output = "<DatePicker Date=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = string.Empty,
+                                Output = "<ToggleSwitch Header=\"$name$\" IsOn=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "Uri",
+                                NameContains = string.Empty,
+                                Output = "<HyperlinkButton NavigateUri=\"{x:Bind ViewModel.$name$}\" Content=\"{x:Bind ViewModel.$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<HyperlinkButton NavigateUri=\"{x:Bind ViewModel.$name$}\" Content=\"{x:Bind ViewModel.$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = "busy|active",
+                                Output = "<ProgressRing IsActive=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "phone|tel",
+                                Output = "<TextBox InputScope=\"TelephoneNumber\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -278,13 +867,6 @@ namespace $viewns$
                                 Type = "string",
                                 NameContains = "phone|tel",
                                 Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBox InputScope=\"TelephoneNumber\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "string",
-                                NameContains = "postcode|zip",
-                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBox InputScope=\"zipcodeinputscope\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
