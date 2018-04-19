@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace RapidXamlToolkit
 {
@@ -36,6 +37,7 @@ namespace RapidXamlToolkit
             }
         }
 
+        [JsonIgnore]
         [IgnoreDataMember]
         public Mapping SelectedMapping
         {

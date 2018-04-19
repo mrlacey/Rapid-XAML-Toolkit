@@ -165,7 +165,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        private void ImportClicked(object sender, System.Windows.RoutedEventArgs e)
+        private async void ImportClicked(object sender, System.Windows.RoutedEventArgs e)
         {
             try
             {
@@ -180,18 +180,25 @@ namespace RapidXamlToolkit
                 {
                     var fileContents = File.ReadAllText(openFileDialog.FileName);
 
-                    // TODO: Add validation from SimpleJsonAnalyzer once a signed version is available (AA.SJA#9) ISSUE#20
-                    ////var analyzer = new ApiAnalysis.SimpleJsonAnalyzer();
+                    var analyzer = new ApiAnalysis.SimpleJsonAnalyzer();
 
-                    ////var analyzerResults = await analyzer.AnalyzeJsonAsync(fileContents, typeof(Profile));
+                    var analyzerResults = await analyzer.AnalyzeJsonAsync(fileContents, typeof(Profile));
 
-                    ////if (analyzerResults.Count == 1 && analyzerResults.First() == analyzer.MessageBuilder.AllGoodMessage)
+                    if (analyzerResults.Count == 1 && analyzerResults.First() == analyzer.MessageBuilder.AllGoodMessage)
                     {
                         var profile = Newtonsoft.Json.JsonConvert.DeserializeObject<Profile>(fileContents);
 
                         this.SettingsProvider.ActualSettings.Profiles.Add(profile);
                         this.SettingsProvider.Save();
                         this.SettingsProvider.ActualSettings.RefreshProfilesList();
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                                        $"The following issues prevented the profile from being imported:{Environment.NewLine}{Environment.NewLine}- {string.Join(Environment.NewLine + "- ", analyzerResults)}",
+                                        "Unable to import profile",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Error);
                     }
                 }
             }
