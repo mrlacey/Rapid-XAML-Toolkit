@@ -61,74 +61,78 @@ namespace RapidXamlToolkit
                         var dte = (EnvDTE.DTE)Instance.ServiceProvider.GetServiceAsync(typeof(EnvDTE.DTE)).Result;
                         var activeDocument = dte.ActiveDocument;
 
-                        var inXamlDoc = activeDocument.Name.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
-
-                        var viewModelName = System.IO.Path.GetFileNameWithoutExtension(activeDocument.Name)
-                                                          .RemoveFromEndIfExists(".xaml") // to allow for double extensions
-                                                          .RemoveFromEndIfExists(profile.ViewGeneration.XamlFileSuffix)
-                                                          .Append(profile.ViewGeneration.ViewModelFileSuffix);
-
-                        if (inXamlDoc)
+                        // Is a XAML or code-behind file
+                        if (activeDocument.Name.ToLowerInvariant().Contains(".xaml"))
                         {
-                            if (profile.Datacontext.SetsXamlPageAttribute)
+                            var inXamlDoc = activeDocument.Name.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
+
+                            var viewModelName = System.IO.Path.GetFileNameWithoutExtension(activeDocument.Name)
+                                                              .RemoveFromEndIfExists(".xaml") // to allow for double extensions
+                                                              .RemoveFromEndIfExists(profile.ViewGeneration.XamlFileSuffix)
+                                                              .Append(profile.ViewGeneration.ViewModelFileSuffix);
+
+                            if (inXamlDoc)
                             {
-                                var objectDoc = activeDocument.Object("TextDocument") as EnvDTE.TextDocument;
-                                var docText = objectDoc.StartPoint.CreateEditPoint().GetText(objectDoc.EndPoint);
-
-                                // Get formatted content to insert
-                                var contentToInsert = profile.Datacontext.XamlPageAttribute.Replace(Placeholder.ViewModelClass, viewModelName);
-
-                                if (!docText.Contains(contentToInsert))
+                                if (profile.Datacontext.SetsXamlPageAttribute)
                                 {
-                                    showCommandButton = true;
-                                }
-                            }
+                                    var objectDoc = activeDocument.Object("TextDocument") as EnvDTE.TextDocument;
+                                    var docText = objectDoc.StartPoint.CreateEditPoint().GetText(objectDoc.EndPoint);
 
-                            if (!showCommandButton && profile.Datacontext.SetsAnyCodeBehindContent)
-                            {
-                                if (profile.Datacontext.SetsCodeBehindPageContent)
-                                {
-                                    // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
-                                }
+                                    // Get formatted content to insert
+                                    var contentToInsert = profile.Datacontext.XamlPageAttribute.Replace(Placeholder.ViewModelClass, viewModelName);
 
-                                if (!showCommandButton && profile.Datacontext.SetsCodeBehindConstructorContent)
-                                {
-                                    // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (profile.Datacontext.SetsXamlPageAttribute)
-                            {
-                                // TODO: set the DC in the XAML file (C# or VB) may be open and unsaved
-                            }
-
-                            if (!showCommandButton && profile.Datacontext.SetsAnyCodeBehindContent)
-                            {
-                                var objectDoc = activeDocument.Object("TextDocument") as EnvDTE.TextDocument;
-                                var docText = objectDoc.StartPoint.CreateEditPoint().GetText(objectDoc.EndPoint);
-
-                                // Compare without whitespace to allow for VS reformatting the code we add
-                                var docTextWithoutWhitespace = docText.RemoveAllWhitespace();
-
-                                if (profile.Datacontext.SetsCodeBehindPageContent)
-                                {
-                                    var contentToInsert = profile.Datacontext.CodeBehindPageContent.Replace(Placeholder.ViewModelClass, viewModelName);
-
-                                    if (!docTextWithoutWhitespace.Contains(contentToInsert.RemoveAllWhitespace()))
+                                    if (!docText.Contains(contentToInsert))
                                     {
                                         showCommandButton = true;
                                     }
                                 }
 
-                                if (!showCommandButton && profile.Datacontext.SetsCodeBehindConstructorContent)
+                                if (!showCommandButton && profile.Datacontext.SetsAnyCodeBehindContent)
                                 {
-                                    var ctorCodeToInsert = profile.Datacontext.CodeBehindConstructorContent.Replace(Placeholder.ViewModelClass, viewModelName);
-
-                                    if (!docTextWithoutWhitespace.Contains(ctorCodeToInsert.RemoveAllWhitespace()))
+                                    if (profile.Datacontext.SetsCodeBehindPageContent)
                                     {
-                                        showCommandButton = true;
+                                        // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
+                                    }
+
+                                    if (!showCommandButton && profile.Datacontext.SetsCodeBehindConstructorContent)
+                                    {
+                                        // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (profile.Datacontext.SetsXamlPageAttribute)
+                                {
+                                    // TODO: set the DC in the XAML file (C# or VB) may be open and unsaved
+                                }
+
+                                if (!showCommandButton && profile.Datacontext.SetsAnyCodeBehindContent)
+                                {
+                                    var objectDoc = activeDocument.Object("TextDocument") as EnvDTE.TextDocument;
+                                    var docText = objectDoc.StartPoint.CreateEditPoint().GetText(objectDoc.EndPoint);
+
+                                    // Compare without whitespace to allow for VS reformatting the code we add
+                                    var docTextWithoutWhitespace = docText.RemoveAllWhitespace();
+
+                                    if (profile.Datacontext.SetsCodeBehindPageContent)
+                                    {
+                                        var contentToInsert = profile.Datacontext.CodeBehindPageContent.Replace(Placeholder.ViewModelClass, viewModelName);
+
+                                        if (!docTextWithoutWhitespace.Contains(contentToInsert.RemoveAllWhitespace()))
+                                        {
+                                            showCommandButton = true;
+                                        }
+                                    }
+
+                                    if (!showCommandButton && profile.Datacontext.SetsCodeBehindConstructorContent)
+                                    {
+                                        var ctorCodeToInsert = profile.Datacontext.CodeBehindConstructorContent.Replace(Placeholder.ViewModelClass, viewModelName);
+
+                                        if (!docTextWithoutWhitespace.Contains(ctorCodeToInsert.RemoveAllWhitespace()))
+                                        {
+                                            showCommandButton = true;
+                                        }
                                     }
                                 }
                             }
