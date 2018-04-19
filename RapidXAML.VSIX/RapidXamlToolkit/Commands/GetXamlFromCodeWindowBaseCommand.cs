@@ -44,11 +44,11 @@ namespace RapidXamlToolkit
 
                 if (activeDocument.Language == "CSharp")
                 {
-                    analyzer = new CSharpAnalyzer();
+                    analyzer = new CSharpAnalyzer(this.Logger);
                 }
                 else if (activeDocument.Language == "Basic")
                 {
-                    analyzer = new VisualBasicAnalyzer();
+                    analyzer = new VisualBasicAnalyzer(this.Logger);
                 }
 
                 if (isSelection)

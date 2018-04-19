@@ -163,6 +163,7 @@ namespace RapidXamlToolkit
         {
             try
             {
+                this.Logger.RecordInfo("Attempting to create View.");
                 var dte = this.ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE;
 
                 var vmProj = ((Array)dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project;
@@ -190,11 +191,11 @@ namespace RapidXamlToolkit
                 switch (fileExt)
                 {
                     case ".cs":
-                        analyzer = new CSharpAnalyzer();
+                        analyzer = new CSharpAnalyzer(this.Logger);
                         codeBehindExt = (analyzer as CSharpAnalyzer).FileExtension;
                         break;
                     case ".vb":
-                        analyzer = new VisualBasicAnalyzer();
+                        analyzer = new VisualBasicAnalyzer(this.Logger);
                         codeBehindExt = (analyzer as VisualBasicAnalyzer).FileExtension;
                         break;
                 }

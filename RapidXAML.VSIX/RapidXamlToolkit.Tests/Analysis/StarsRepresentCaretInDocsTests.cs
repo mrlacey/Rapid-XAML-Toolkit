@@ -181,7 +181,7 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             for (var pos = startPos; pos < endPos; pos++)
             {
-                IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer() as IDocumentAnalyzer : new VisualBasicAnalyzer();
+                IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
                 var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
@@ -207,7 +207,7 @@ namespace RapidXamlToolkit.Tests.Analysis
             var semModel = isCSharp ? CSharpCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true)
                                     : VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true);
 
-            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer() as IDocumentAnalyzer : new VisualBasicAnalyzer();
+            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
@@ -254,7 +254,7 @@ namespace RapidXamlToolkit.Tests.Analysis
             semModel = document.GetSemanticModelAsync().Result;
             syntaxTree = document.GetSyntaxTreeAsync().Result;
 
-            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer() as IDocumentAnalyzer : new VisualBasicAnalyzer();
+            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
@@ -303,7 +303,7 @@ namespace RapidXamlToolkit.Tests.Analysis
             semModel = document.GetSemanticModelAsync().Result;
             syntaxTree = document.GetSyntaxTreeAsync().Result;
 
-            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer() as IDocumentAnalyzer : new VisualBasicAnalyzer();
+            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
@@ -352,7 +352,7 @@ namespace RapidXamlToolkit.Tests.Analysis
             semModel = document.GetSemanticModelAsync().Result;
             syntaxTree = document.GetSyntaxTreeAsync().Result;
 
-            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer() as IDocumentAnalyzer : new VisualBasicAnalyzer();
+            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
@@ -374,7 +374,7 @@ namespace RapidXamlToolkit.Tests.Analysis
             var semModel = isCSharp ? CSharpCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true)
                 : VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true);
 
-            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer() as IDocumentAnalyzer : new VisualBasicAnalyzer();
+            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
             var actual = analyzer.GetSelectionOutput(syntaxTree.GetRoot(), semModel, startPos, endPos, profileOverload);
 

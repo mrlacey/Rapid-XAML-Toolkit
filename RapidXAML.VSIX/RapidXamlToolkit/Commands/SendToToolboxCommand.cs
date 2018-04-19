@@ -62,6 +62,7 @@ namespace RapidXamlToolkit
         {
             try
             {
+                this.Logger.RecordInfo("Attempting to add XAML to the Toolbox.");
                 var analyzerResult = this.GetXaml(Instance.ServiceProvider);
 
                 if (analyzerResult != null && analyzerResult.OutputType != AnalyzerOutputType.None)

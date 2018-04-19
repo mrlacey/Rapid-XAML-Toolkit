@@ -14,6 +14,12 @@ namespace RapidXamlToolkit
 {
     public class CSharpAnalyzer : AnalyzerBase, IDocumentAnalyzer
     {
+        public CSharpAnalyzer(ILogger logger)
+            : base(logger)
+        {
+            Logger?.RecordInfo($"Analyzing C# code.");
+        }
+
         public override string FileExtension { get; } = "cs";
 
         public static (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, Profile profile, SemanticModel semModel)
@@ -26,8 +32,12 @@ namespace RapidXamlToolkit
 
             if (subProperties.Any())
             {
+                Logger?.RecordInfo($"Property {property.Name} has {subProperties.Count} sub-properties.");
+
                 foreach (var subprop in subProperties)
                 {
+                    Logger?.RecordInfo($"Getting sub-property output for {subprop.Name}.");
+
                     var (output, counter) = GetSubPropertyOutputAndCounter(profile, subprop.Name, numericSubstitute: numericSubstitute);
 
                     numericSubstitute = counter;
@@ -36,6 +46,8 @@ namespace RapidXamlToolkit
             }
             else
             {
+                Logger?.RecordInfo($"{property.Name} is of type '{property.PropertyType}' which has has no sub-properties.");
+
                 // There are no subproperties so leave blank
                 var (output, counter) = GetSubPropertyOutputAndCounter(profile, string.Empty, numericSubstitute: numericSubstitute);
 
@@ -89,6 +101,8 @@ namespace RapidXamlToolkit
                 IsReadOnly = propIsReadOnly ?? false,
             };
 
+            Logger?.RecordInfo($"Identified property as Name='{pd.Name}' Type='{pd.PropertyType}' IsReadOnly='{pd.IsReadOnly}' ");
+
             ITypeSymbol typeSymbol = GetTypeSymbol(semModel, propertyDeclaration, pd);
 
             pd.Symbol = typeSymbol;
@@ -127,10 +141,13 @@ namespace RapidXamlToolkit
 
         public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null)
         {
+            Logger?.RecordInfo($"Getting oputput for a single item.");
             var (propertyNode, classNode) = GetNodeUnderCaret(documentRoot, caretPosition);
 
             if (propertyNode != null)
             {
+                Logger?.RecordInfo($"Getting oputput for a single property.");
+
                 var propDetails = GetPropertyDetails(propertyNode, semModel);
 
                 var (output, name, _) = GetOutputToAdd(semModel, profileOverload, propDetails);
@@ -144,6 +161,8 @@ namespace RapidXamlToolkit
             }
             else if (classNode != null)
             {
+                Logger?.RecordInfo($"Getting output for the class");
+
                 var className = GetIdentifier(classNode);
 
                 var classTypeSymbol = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
@@ -160,12 +179,15 @@ namespace RapidXamlToolkit
 
                 if (properties.Any())
                 {
+                    Logger?.RecordInfo($"Class contains {properties.Count} properties.");
+
                     var propertyOutput = new List<string>();
 
                     var numericCounter = 0;
 
                     foreach (var prop in properties)
                     {
+                        Logger?.RecordInfo($"Adding {prop.Name} to the output.");
                         var toAdd = GetOutputToAdd(semModel, profileOverload, prop, numericCounter);
 
                         numericCounter = toAdd.counter;
@@ -175,8 +197,12 @@ namespace RapidXamlToolkit
                     if (classGrouping.Equals(GridWithRowDefsIndicator, StringComparison.InvariantCultureIgnoreCase)
                      || classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase))
                     {
+                        Logger?.RecordInfo($"Adding Grid to output.");
+
                         if (classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase))
                         {
+                            Logger?.RecordInfo($"Adding ColumnDefinitions to Grid.");
+
                             output.AppendLine("<Grid.ColumnDefinitions>");
                             output.AppendLine("<ColumnDefinition Width=\"Auto\" />");
                             output.AppendLine("<ColumnDefinition Width=\"*\" />");
@@ -185,6 +211,7 @@ namespace RapidXamlToolkit
 
                         output.AppendLine("<Grid.RowDefinitions>");
 
+                        Logger?.RecordInfo($"Adding {numericCounter} RowDefinitions to Grid.");
                         for (int i = 1; i <= numericCounter; i++)
                         {
                             output.AppendLine(i < numericCounter
@@ -202,6 +229,7 @@ namespace RapidXamlToolkit
                 }
                 else
                 {
+                    Logger?.RecordInfo($"Class contains no public properties.");
                     output.AppendLine(NoPropertiesXaml);
                 }
 
@@ -219,13 +247,18 @@ namespace RapidXamlToolkit
             }
             else
             {
+                Logger?.RecordInfo($"No properties to provide output for.");
                 return AnalyzerOutput.Empty;
             }
         }
 
         public AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null)
         {
+            Logger?.RecordInfo($"Getting output for the selection.");
+
             var allProperties = documentRoot.DescendantNodes().OfType<PropertyDeclarationSyntax>().ToList();
+
+            Logger?.RecordInfo($"Document contains {allProperties.Count} properties.");
 
             var propertiesOfInterest = new List<PropertyDeclarationSyntax>();
 
@@ -237,6 +270,8 @@ namespace RapidXamlToolkit
                 }
             }
 
+            Logger?.RecordInfo($"{propertiesOfInterest.Count} properties within the selection area.");
+
             var output = new StringBuilder();
 
             var numericCounter = 1;
@@ -247,6 +282,7 @@ namespace RapidXamlToolkit
             {
                 var propDetails = GetPropertyDetails(prop, semModel);
 
+                Logger?.RecordInfo($"Adding property '{propDetails.Name}' to the output.");
                 var toAdd = profileOverload == null
                         ? GetPropertyOutputAndCounterForActiveProfile(propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, GetSettings().GetActiveProfile(), semModel))
                         : GetPropertyOutputAndCounter(profileOverload, propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, profileOverload, semModel));
@@ -261,6 +297,8 @@ namespace RapidXamlToolkit
             {
                 var outputName = GetSelectionPropertiesName(propertyNames);
 
+                Logger?.RecordInfo($"Returning {outputName}");
+
                 // Trim end of output to remove trailing newline
                 return new AnalyzerOutput
                 {
@@ -271,6 +309,7 @@ namespace RapidXamlToolkit
             }
             else
             {
+                Logger?.RecordInfo($"No properties to provide output for.");
                 return AnalyzerOutput.Empty;
             }
         }
@@ -289,6 +328,7 @@ namespace RapidXamlToolkit
             ITypeSymbol typeSymbol;
             if (propDetails.PropertyType.IsGenericTypeName())
             {
+                Logger?.RecordInfo($"Getting a generic type.");
                 var t = ((GenericNameSyntax)prop.Type).TypeArgumentList.Arguments.First();
 
                 typeSymbol = semModel.GetTypeInfo(t).Type;
@@ -318,8 +358,6 @@ namespace RapidXamlToolkit
 
             foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
             {
-                var skipTypes = new[] { "String", "ValueType", "Object" };
-
                 if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubProperties))
                 {
                     continue;
@@ -331,9 +369,7 @@ namespace RapidXamlToolkit
                         properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property && m.DeclaredAccessibility == Accessibility.Public));
                         break;
                     case SymbolKind.ErrorType:
-
-                        //// TODO: Log that type is unknown and so may not be able to provide all output expected
-
+                        Logger?.RecordInfo($"Cannot get sub-properties for known type '{baseType.Name}'.");
                         break;
                 }
             }
@@ -352,10 +388,12 @@ namespace RapidXamlToolkit
 
                     var details = GetPropertyDetails(syntax, semModel);
 
+                    Logger?.RecordInfo($"Found sub-property '{details.Name}'.");
                     result.Add(details);
                 }
                 else
                 {
+                    Logger?.RecordInfo($"Found sub-property of unknown type: {prop.Name}.");
                     result.Add(new PropertyDetails { Name = prop.Name, PropertyType = UnknownOrInvalidTypeName, IsReadOnly = false, Symbol = null });
                 }
             }
