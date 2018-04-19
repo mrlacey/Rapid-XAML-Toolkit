@@ -241,14 +241,14 @@ namespace RapidXamlToolkit
 
                             if (!docTextWithoutWhitespace.Contains(contentToInsert.RemoveAllWhitespace()))
                             {
+                                int ctorEndPos = 0;
+
+                                // Get end of constructor
+                                var documentRoot = document.GetSyntaxRootAsync().Result;
+
                                 if (activeDocument.Language == "CSharp")
                                 {
-                                    // Get end of constructor
-                                    var documentRoot = document.GetSyntaxRootAsync().Result;
-
                                     var allConstructors = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax>().ToList();
-
-                                    int ctorEndPos = 0;
 
                                     if (allConstructors.Any())
                                     {
@@ -258,17 +258,26 @@ namespace RapidXamlToolkit
                                     {
                                         // TODO: No constructor so may need to add one.
                                     }
-
-                                    ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n') + 1;
-
-                                    objectDoc.Selection.GotoLine(ctorEndPosLineNo);
-                                    objectDoc.Selection.EndOfLine();
-                                    objectDoc.Selection.Insert($"{Environment.NewLine}{Environment.NewLine}{contentToInsert}");
                                 }
                                 else
                                 {
-                                    // TODO: implement for VB
+                                    var allConstructors = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ConstructorBlockSyntax>().ToList();
+
+                                    if (allConstructors.Any())
+                                    {
+                                        ctorEndPos = allConstructors.First().Span.End;
+                                    }
+                                    else
+                                    {
+                                        // TODO: No constructor so may need to add one.
+                                    }
                                 }
+
+                                ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n') + 1;
+
+                                objectDoc.Selection.GotoLine(ctorEndPosLineNo);
+                                objectDoc.Selection.EndOfLine();
+                                objectDoc.Selection.Insert($"{Environment.NewLine}{Environment.NewLine}{contentToInsert}");
                             }
                         }
 
@@ -280,13 +289,13 @@ namespace RapidXamlToolkit
                             {
                                 if (ctorEndPosLineNo == 0)
                                 {
+                                    var documentRoot = document.GetSyntaxRootAsync().Result;
+
+                                    int ctorEndPos = 0;
+
                                     if (activeDocument.Language == "CSharp")
                                     {
-                                        var documentRoot = document.GetSyntaxRootAsync().Result;
-
                                         var allConstructors = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax>().ToList();
-
-                                        int ctorEndPos = 0;
 
                                         if (allConstructors.Any())
                                         {
@@ -296,14 +305,23 @@ namespace RapidXamlToolkit
                                         {
                                             // TODO: No constructor so may need to add one.
                                         }
-
-                                        ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n') + 1;
                                     }
                                     else
                                     {
-                                        // TODO: implement for VB
+                                        var allConstructors = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ConstructorBlockSyntax>().ToList();
+
+                                        if (allConstructors.Any())
+                                        {
+                                            ctorEndPos = allConstructors.First().Span.End;
+                                        }
+                                        else
+                                        {
+                                            // TODO: No constructor so may need to add one.
+                                        }
                                     }
                                 }
+
+                                        ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n') + 1;
 
                                 objectDoc.Selection.GotoLine(ctorEndPosLineNo - 1);
                                 objectDoc.Selection.EndOfLine();
