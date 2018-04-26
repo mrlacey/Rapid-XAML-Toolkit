@@ -71,6 +71,7 @@ namespace RapidXamlToolkit
                                                               .RemoveFromEndIfExists(profile.ViewGeneration.XamlFileSuffix)
                                                               .Append(profile.ViewGeneration.ViewModelFileSuffix);
 
+                            // Only show based on current doc - will need to switch to other doc if not set there
                             if (inXamlDoc)
                             {
                                 if (profile.Datacontext.SetsXamlPageAttribute)
@@ -86,27 +87,9 @@ namespace RapidXamlToolkit
                                         showCommandButton = true;
                                     }
                                 }
-
-                                if (!showCommandButton && profile.Datacontext.SetsAnyCodeBehindContent)
-                                {
-                                    if (profile.Datacontext.SetsCodeBehindPageContent)
-                                    {
-                                        // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
-                                    }
-
-                                    if (!showCommandButton && profile.Datacontext.SetsCodeBehindConstructorContent)
-                                    {
-                                        // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
-                                    }
-                                }
                             }
                             else
                             {
-                                if (profile.Datacontext.SetsXamlPageAttribute)
-                                {
-                                    // TODO: set the DC in the XAML file (C# or VB) may be open and unsaved
-                                }
-
                                 if (!showCommandButton && profile.Datacontext.SetsAnyCodeBehindContent)
                                 {
                                     var objectDoc = activeDocument.Object("TextDocument") as EnvDTE.TextDocument;
