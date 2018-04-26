@@ -7,41 +7,59 @@ The functionality of the toolkit is based common conventions but is highly [conf
 
 ## Overview
 
-The Rapid XAML Toolkit aims to help developers with two aspects of working with XAML files.
+The Rapid XAML Toolkit aims to help developers go from this
 
-- Creating new XAML files
-- Modifying existing XAML files
+```csharp
+    public class OrderDetailsViewModel : ViewModelBase
+    {
+        public int OrderId { get; private set; }
+        public Guid CustomerId{ get; set; }
+        public DateTimeOffset OrderDate { get; set; }
+        public string OrderNotes { get; set; }
+        public decimal OrderTotal { get; }
+        public ObservableCollection<OrderLineItem> Items { get; set; }
+    }
+```
 
-### Creation
+to this
 
-In very few apps is the UI created first. It's more common to start with the data Model and the ViewModels and then create the UI for them. Allow the Rapid XAML Toolkit to scaffold your Views based on your ViewModels. It works with different naming conventions or files and folders. The View and ViewModel don't even have to be in the same project.
+```xml
+    <StackPanel>
+        <TextBlock Text="{x:Bind ViewModel.OrderId}" />
+        <TextBlock Text="{x:Bind ViewModel.CustomerId}" />
+        <DatePicker Date="{x:Bind ViewModel.OrderDate, Mode=TwoWay}" />
+        <TextBox Text="{x:Bind ViewModel.OrderNotes, Mode=TwoWay}" />
+        <TextBlock Text="{x:Bind ViewModel.OrderTotal}" />
+        <ListView ItemsSource="{x:Bind ViewModel.Items}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="OrderLineItem">
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind OrderLineId}" />
+                        <TextBlock Text="{x:Bind ItemId}" />
+                        <TextBlock Text="{x:Bind ItemDescription}" />
+                        <TextBlock Text="{x:Bind Quantity}" />
+                        <TextBlock Text="{x:Bind UnitPrice}" />
+                        <TextBlock Text="{x:Bind LineTotal}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
+```
 
-![Creating a View from context menu of ViewModel in Solution Explorer](./docs/Assets/Create-View-In-Solution-Explorer.gif)
+in a couple of clicks.
 
-### Modification and improvement
+## Features
 
-If you already have an empty page, you can easily get the XAML for the ViewModel and paste it into the View.
+The toolkit currently includes the following features
 
-![Copy class in ViewModel and paste into View as XAML](./docs/Assets/Copy-Class-To-Clipboard.gif)
+- Create the entire View (XAML & CodeBehind) from the ViewModel file.
+- Copy a property, selection of properties, or the whole class (from the ViewModel) into the clipboard and paste into the View as XAML.
+- Send a property, selection of properties, or the whole class (from the ViewModel) into the Toolbox and drag into the View as XAML.
+- Set the DataContext in the XAML file.
+- Set the DataContext in the CodeBehind file.
 
-You don't have to copy the XAML for the whole class.
-
-![Copy selection of properties in ViewModel and paste into View as XAML](./docs/Assets/Copy-Selection-To-Clipboard.gif)
-
-If you want to add the XAML for multiple properties you can send them to the Toolbox and use them from there.
-
-![Send properties to the Toolbox then drag onto the View as XAML](./docs/Assets/Send-To-Toolbox-And-Drag-To-View.gif)
-
-In addition to creating the XAML for the View, you can also set the DataContext (so the bindings will work.)
-Do it in Code-Behind.
-
-![Set the DataContext and related properties if not already defined in the code-behind file](./docs/Assets/Set-Datacontext-In-CodeBehind.gif)
-
-Or in the XAML.
-
-![Set the DataContext and related properties if not already defined in the XAML file](./docs/Assets/Set-Datacontext-In-XAML.gif)
-
-More to follow...
+Learn more about [features](./docs/features.md).
 
 ## Principles guiding this project
 
