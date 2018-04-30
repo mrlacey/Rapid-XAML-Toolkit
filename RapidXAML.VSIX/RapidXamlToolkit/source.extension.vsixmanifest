@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="RapidXamlToolkit.25067190-b212-4873-aecf-84547ed9b962" Version="1.0" Language="en-US" Publisher="Matt Lacey" />
+        <Identity Id="RapidXamlToolkit.25067190-b212-4873-aecf-84547ed9b962" Version="0.0.1" Language="en-US" Publisher="Matt Lacey" />
         <DisplayName>RapidXamlToolkit</DisplayName>
-        <Description>Empty VSIX Project.</Description>
+        <Description xml:space="preserve">Tools for accelerating XAML development.</Description>
         <Icon>RapidXamlPackage.ico</Icon>
     </Metadata>
     <Installation>
