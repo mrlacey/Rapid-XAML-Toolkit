@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.VisualBasic;
@@ -32,7 +33,7 @@ namespace RapidXamlToolkit.Tests.Analysis
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"SUBPROP_$name$\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {
@@ -78,7 +79,7 @@ namespace RapidXamlToolkit.Tests.Analysis
                         ClassGrouping = "Grid-plus-RowDefs",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"SUBPROP_$name$\" Grid.Row=\"$incint$\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {
@@ -124,7 +125,7 @@ namespace RapidXamlToolkit.Tests.Analysis
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"SUBPROP_$name$\" Grid.Row=\"$incint$\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {
@@ -149,7 +150,7 @@ namespace RapidXamlToolkit.Tests.Analysis
                         ClassGrouping = "StackLayout",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"SUBPROP_$name$\" Grid.Row=\"$incint$\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {

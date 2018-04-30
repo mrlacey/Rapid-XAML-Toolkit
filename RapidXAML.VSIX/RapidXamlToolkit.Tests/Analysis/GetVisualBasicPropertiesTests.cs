@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RapidXamlToolkit.Tests.Analysis
@@ -346,7 +347,7 @@ End Namespace";
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -384,7 +385,7 @@ End Namespace";
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -463,7 +464,7 @@ End Namespace";
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -506,7 +507,7 @@ End Namespace";
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -558,7 +559,7 @@ End Namespace";
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -609,7 +610,7 @@ End Namespace";
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {

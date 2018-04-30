@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -13,7 +14,7 @@ namespace RapidXamlToolkit
     {
         private Mapping selectedMapping;
 
-        private List<Mapping> mappings;
+        private ObservableCollection<Mapping> mappings;
 
         public string Name { get; set; }
 
@@ -23,7 +24,7 @@ namespace RapidXamlToolkit
 
         public string SubPropertyOutput { get; set; }
 
-        public List<Mapping> Mappings
+        public ObservableCollection<Mapping> Mappings
         {
             get
             {
@@ -65,7 +66,7 @@ namespace RapidXamlToolkit
                 ClassGrouping = string.Empty,
                 FallbackOutput = string.Empty,
                 SubPropertyOutput = string.Empty,
-                Mappings = new List<Mapping>(),
+                Mappings = new ObservableCollection<Mapping>(),
                 ViewGeneration = new ViewGenerationSettings(),
                 Datacontext = new DatacontextSettings(),
             };
@@ -79,7 +80,7 @@ namespace RapidXamlToolkit
                 ClassGrouping = this.ClassGrouping,
                 FallbackOutput = this.FallbackOutput,
                 SubPropertyOutput = this.SubPropertyOutput,
-                Mappings = new List<Mapping>(),
+                Mappings = new ObservableCollection<Mapping>(),
                 ViewGeneration = this.ViewGeneration,
                 Datacontext = this.Datacontext,
             };

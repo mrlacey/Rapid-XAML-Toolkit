@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RapidXamlToolkit.Tests.Formatting
@@ -30,7 +31,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 ClassGrouping = "StackPanel",
                 FallbackOutput = FallbackOutput,
                 SubPropertyOutput = SubPropertyOutput,
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -152,7 +153,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SUBPROP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -177,7 +178,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 Name = "readonlyProfile",
                 ClassGrouping = "Grid",
                 FallbackOutput = "<Fallback />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -202,7 +203,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 Name = "readonlyProfile",
                 ClassGrouping = "Grid",
                 FallbackOutput = "<Fallback />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -275,7 +276,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 Name = "wildcardGenericsProfile",
                 ClassGrouping = "Grid",
                 FallbackOutput = "<Fallback />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -300,7 +301,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 Name = "wildcardGenericsProfile",
                 ClassGrouping = "Grid",
                 FallbackOutput = "<Fallback />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {

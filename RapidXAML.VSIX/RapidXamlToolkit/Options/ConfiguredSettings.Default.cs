@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace RapidXamlToolkit
 {
@@ -22,7 +23,7 @@ namespace RapidXamlToolkit
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {
@@ -223,7 +224,7 @@ namespace $viewns$
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {
@@ -430,7 +431,7 @@ End Property",
                         ClassGrouping = "Grid-plus-RowDefs",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind $name$}\" Grid.Row=\"$incint$\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {
@@ -627,7 +628,7 @@ namespace $viewns$
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {
@@ -828,7 +829,7 @@ namespace $viewns$
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {
@@ -1029,7 +1030,7 @@ namespace $viewns$
                         ClassGrouping = "Grid-plus-RowDefs",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind $name$}\" Grid.Row=\"$incint$\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {
@@ -1223,7 +1224,7 @@ namespace $viewns$
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {
@@ -1304,7 +1305,7 @@ namespace $viewns$
                         ClassGrouping = "StackLayout",
                         FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
-                        Mappings = new List<Mapping>
+                        Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
                             {

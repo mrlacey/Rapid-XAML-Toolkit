@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RapidXamlToolkit.Tests.Analysis
@@ -88,7 +89,7 @@ namespace tests
                 Name = "GridTestProfile",
                 ClassGrouping = "StackPanel Orientation=\"Horizontal\"",
                 FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -132,7 +133,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -178,7 +179,7 @@ namespace tests
                 ClassGrouping = "GRID-PLUS-ROWDEFS",
                 FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -228,7 +229,7 @@ namespace tests
                 ClassGrouping = "GrId-PlUs-RoWdEfS",
                 FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -275,7 +276,7 @@ namespace tests
                 ClassGrouping = "GrId-PlUs-RoWdEfS-2cOlS",
                 FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -326,7 +327,7 @@ namespace tests
                 ClassGrouping = "GRID-PLUS-ROWDEFS-2COLS",
                 FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -531,7 +532,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -586,7 +587,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -635,7 +636,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -690,7 +691,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -745,7 +746,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" />\r\n<TextBlock Text=\"FB_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" />\r\n<TextBlock Text=\"SP_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -963,7 +964,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -1017,7 +1018,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
@@ -1064,7 +1065,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                Mappings = new List<Mapping>
+                Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
                     {
