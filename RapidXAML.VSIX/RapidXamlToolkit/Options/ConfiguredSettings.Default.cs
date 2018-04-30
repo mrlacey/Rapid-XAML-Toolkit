@@ -806,7 +806,7 @@ namespace $viewns$
                             ViewModelFileSuffix = "ViewModel",
 
                             XamlFileDirectoryName = "Pages",
-                            ViewModelDirectoryName = "ViewModels",
+                            ViewModelDirectoryName = string.Empty,
 
                             AllInSameProject = false,
 
