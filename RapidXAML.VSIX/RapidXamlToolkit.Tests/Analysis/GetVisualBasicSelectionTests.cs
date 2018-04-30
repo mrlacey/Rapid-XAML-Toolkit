@@ -57,6 +57,37 @@ End Namespace";
         }
 
         [TestMethod]
+        public void GetSelectionDoesNotIncludeExcludedProperties()
+        {
+            var code = @"
+Public Class Class1
+        Private _property8 As String    *
+
+        Public Property Property1 As String
+        Public ReadOnly IsInDesignMode Property2 As Boolean
+        Public Static Property IsInDesignModeStatic As Boolean
+            Get
+                Return _property8
+            End Get
+            Set
+                _property8 = value
+            End Set
+        End Property*
+End Class";
+
+            var expectedOutput = "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Property1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Selection,
+            };
+
+            this.SelectionBetweenStarsShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
         public void GetSelectionWithinSingleProperties()
         {
             var code = @"

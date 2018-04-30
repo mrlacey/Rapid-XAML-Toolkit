@@ -537,6 +537,60 @@ namespace tests
         }
 
         [TestMethod]
+        public void GetSubPropertiesExcludesPropertiesItShould()
+        {
+            var recurseProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new List<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "Order",
+                        NameContains = "",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        *public Order LastOrder { get; set; }*
+    }
+
+    class Order
+    {
+        public int OrderId { get; set; }
+        public DateTime OrderPlacedDateTime { get; private set; }
+        public bool IsInDesignMode { get; set; }
+    }
+}";
+
+            // This includes the readonly property as not yet filtering out
+            // All types treated as fallback
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "LastOrder",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
+        }
+
+        [TestMethod]
         public void HandleSubPropertiesOfSimpleProperty()
         {
             var recurseProfile = new Profile

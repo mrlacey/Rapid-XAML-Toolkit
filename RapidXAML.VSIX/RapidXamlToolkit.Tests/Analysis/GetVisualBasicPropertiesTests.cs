@@ -550,6 +550,57 @@ End Namespace";
         }
 
         [TestMethod]
+        public void GetSubPropertiesExcludesPropertiesWithBannedNames()
+        {
+            var recurseProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new List<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "Order",
+                        NameContains = "",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+Namespace tests
+    Class Class1
+        *Public Property LastOrder As Order*
+    End Class
+
+    Public Class Order
+        Public Property OrderId As Int
+        Public Property OrderPlacedDateTime As DateTimeOffset
+        Public Property IsInDesignMode As Boolean
+    End Class
+End Namespace";
+
+            // This includes the readonly property as not yet filtering out
+            // All types treated as fallback
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "LastOrder",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
+        }
+
+        [TestMethod]
         public void HandleSubPropertiesOfSimpleProperty()
         {
             var recurseProfile = new Profile

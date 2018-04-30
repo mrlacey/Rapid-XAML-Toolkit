@@ -51,6 +51,36 @@ namespace tests
         }
 
         [TestMethod]
+        public void GetClassDoesNotIncludeExcludedProperties()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1    *
+    {
+        private static string _property8;
+
+        public string Property1 { get; set; }
+        public string IsInDesignMode { get; private set; }
+        public static string IsInDesignModeStatic { get => _property8; set => _property8 = value; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
         public void ClassGroupingWithExtraProperties()
         {
             var extraGroupPropertiesProfile = new Profile

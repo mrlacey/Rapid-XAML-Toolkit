@@ -54,6 +54,39 @@ End Class";
         }
 
         [TestMethod]
+        public void GetClassDoesNotIncludeExcludedProperties()
+        {
+            var code = @"
+Public Class Class1
+        Private _property8 As String    *
+
+        Public Property Property1 As String
+        Public ReadOnly IsInDesignMode Property2 As Boolean
+        Public Static Property IsInDesignModeStatic As Boolean
+            Get
+                Return _property8
+            End Get
+            Set
+                _property8 = value
+            End Set
+        End Property
+End Class";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
         public void ClassGroupingWithExtraProperties()
         {
             var extraGroupPropertiesProfile = new Profile

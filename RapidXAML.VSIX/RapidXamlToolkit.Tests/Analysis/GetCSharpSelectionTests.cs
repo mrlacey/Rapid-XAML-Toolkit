@@ -51,6 +51,34 @@ namespace tests
         }
 
         [TestMethod]
+        public void GetSelectionDoesNotIncludeExcludedProperties()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        private static string _property8;    *
+
+        public string Property1 { get; set; }
+        public string IsInDesignMode { get; private set; }
+        public static string IsInDesignModeStatic { get => _property8; set => _property8 = value; }
+    }*
+}";
+
+            var expectedOutput = "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Property1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Selection,
+            };
+
+            this.SelectionBetweenStarsShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
         public void GetSelectionWithinSingleProperties()
         {
             var code = @"

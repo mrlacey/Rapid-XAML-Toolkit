@@ -37,6 +37,8 @@ namespace RapidXamlToolkit
 
         protected static string[] TypesToSkipWhenCheckingForSubProperties { get; } = new[] { "String", "ValueType", "Object" };
 
+        protected static string[] NamesOfPropertiesToExcludeFromOutput { get; } = new[] { "IsInDesignMode", "IsInDesignModeStatic" };
+
         public static Settings GetSettings()
         {
             var configuredSettings = new ConfiguredSettings(ServiceProvider);

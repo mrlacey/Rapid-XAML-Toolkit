@@ -335,6 +335,12 @@ namespace RapidXamlToolkit
             {
                 var propDetails = GetPropertyDetails(prop, semModel);
 
+                if (propDetails.Name.IsOneOf(NamesOfPropertiesToExcludeFromOutput))
+                {
+                    Logger?.RecordInfo($"Not including property '{propDetails.Name}' as it's on the exclusion list.");
+                    continue;
+                }
+
                 Logger?.RecordInfo($"Adding property '{propDetails.Name}' to the output.");
                 var toAdd = profileOverload == null
                         ? GetPropertyOutputAndCounterForActiveProfile(propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, GetSettings().GetActiveProfile(), semModel))
@@ -462,6 +468,12 @@ namespace RapidXamlToolkit
 
             foreach (var prop in properties)
             {
+                if (prop.Name.IsOneOf(NamesOfPropertiesToExcludeFromOutput))
+                {
+                    Logger?.RecordInfo($"Not including property '{prop.Name}' as it's on the exclusion list.");
+                    continue;
+                }
+
                 var decRefs = prop.OriginalDefinition.DeclaringSyntaxReferences;
 
                 if (decRefs.Any())
