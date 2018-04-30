@@ -49,5 +49,7 @@ namespace RapidXamlToolkit
                 return this.SetsCodeBehindConstructorContent || this.SetsCodeBehindPageContent;
             }
         }
+
+        public string DefaultCodeBehindConstructor { get; set; }
     }
 }

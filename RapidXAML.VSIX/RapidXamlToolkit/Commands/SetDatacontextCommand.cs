@@ -184,12 +184,12 @@ namespace RapidXamlToolkit
                     {
                         if (profile.Datacontext.SetsCodeBehindPageContent)
                         {
-                            // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
+                            // TODO: ISSUE#22 - set the DC in the CB file (C# or VB) may be open and unsaved
                         }
 
                         if (profile.Datacontext.SetsCodeBehindConstructorContent)
                         {
-                            // TODO: set the DC in the CB file (C# or VB) may be open and unsaved
+                            // TODO: ISSUE#22 - set the DC in the CB file (C# or VB) may be open and unsaved
                         }
                     }
                 }
@@ -197,7 +197,7 @@ namespace RapidXamlToolkit
                 {
                     if (profile.Datacontext.SetsXamlPageAttribute)
                     {
-                        // TODO: set the DC in the XAML file (C# or VB) may be open and unsaved
+                        // TODO: ISSUE#22 - set the DC in the XAML file (C# or VB) may be open and unsaved
                     }
 
                     if (profile.Datacontext.SetsAnyCodeBehindContent)
@@ -218,16 +218,17 @@ namespace RapidXamlToolkit
 
                         int ctorEndPosLineNo = 0;
 
-                        if (profile.Datacontext.SetsCodeBehindPageContent)
-                        {
-                            var contentToInsert = profile.Datacontext.CodeBehindPageContent.Replace(Placeholder.ViewModelClass, viewModelName);
+                        var documentRoot = document.GetSyntaxRootAsync().Result;
 
-                            if (!docTextWithoutWhitespace.Contains(contentToInsert.RemoveAllWhitespace()))
+                        int ctorAddedLineNo = -1;
+
+                        if (profile.Datacontext.SetsCodeBehindConstructorContent)
+                        {
+                            var ctorCodeToInsert = profile.Datacontext.CodeBehindConstructorContent.Replace(Placeholder.ViewModelClass, viewModelName);
+
+                            if (!docTextWithoutWhitespace.Contains(ctorCodeToInsert.RemoveAllWhitespace()))
                             {
                                 int ctorEndPos = 0;
-
-                                // Get end of constructor
-                                var documentRoot = document.GetSyntaxRootAsync().Result;
 
                                 if (activeDocument.Language == "CSharp")
                                 {
@@ -239,7 +240,111 @@ namespace RapidXamlToolkit
                                     }
                                     else
                                     {
-                                        // TODO: No constructor so add this at the top of the class definition
+                                        var classDeclaration = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax>().FirstOrDefault();
+
+                                        if (classDeclaration != null)
+                                        {
+                                            ctorEndPos = classDeclaration.OpenBraceToken.Span.End;
+                                        }
+
+                                        ctorCodeToInsert = profile.Datacontext.DefaultCodeBehindConstructor.Insert(profile.Datacontext.DefaultCodeBehindConstructor.LastIndexOf("}"), $"{ctorCodeToInsert}{Environment.NewLine}");
+                                    }
+
+                                    ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n');
+
+                                    // Add 2 at the end to account for the 2 lines added below during insertion
+                                    ctorAddedLineNo = ctorEndPosLineNo + System.Text.RegularExpressions.Regex.Matches(ctorCodeToInsert, Environment.NewLine).Count + 2;
+                                }
+                                else
+                                {
+                                    var allConstructors = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ConstructorBlockSyntax>().ToList();
+
+                                    if (allConstructors.Any())
+                                    {
+                                        ctorEndPos = allConstructors.First().Span.End;
+                                        ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n');
+                                    }
+                                    else
+                                    {
+                                        var classBlock = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ClassBlockSyntax>().FirstOrDefault();
+
+                                        var classStatement = classBlock?.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ClassStatementSyntax>().FirstOrDefault();
+
+                                        if (classStatement != null)
+                                        {
+                                            ctorEndPos = classStatement.Span.End;
+
+                                            var implementsStatement = classBlock.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ImplementsStatementSyntax>().LastOrDefault();
+
+                                            if (implementsStatement != null)
+                                            {
+                                                ctorEndPos = implementsStatement.Span.End;
+                                            }
+                                            else
+                                            {
+                                                var inheritsStatement = classBlock.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.InheritsStatementSyntax>().FirstOrDefault();
+
+                                                if (inheritsStatement != null)
+                                                {
+                                                    ctorEndPos = inheritsStatement.Span.End;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            var moduleStatement = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ModuleStatementSyntax>().FirstOrDefault();
+
+                                            if (moduleStatement != null)
+                                            {
+                                                ctorEndPos = moduleStatement.Span.End;
+                                            }
+                                        }
+
+                                        ctorCodeToInsert = profile.Datacontext.DefaultCodeBehindConstructor.Insert(profile.Datacontext.DefaultCodeBehindConstructor.LastIndexOf("End "), $"{ctorCodeToInsert}{Environment.NewLine}");
+
+                                        if (ctorEndPos == 0)
+                                        {
+                                            // TODO: handle not finding anywhere to add the content? Or should it just go at the top of the file?
+                                        }
+
+                                        ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n') + 1;
+                                    }
+
+                                    // Add 2 at the end to account for the 2 lines added below during insertion
+                                    ctorAddedLineNo = ctorEndPosLineNo + System.Text.RegularExpressions.Regex.Matches(ctorCodeToInsert, Environment.NewLine).Count + 2;
+                                }
+
+                                objectDoc.Selection.GotoLine(ctorEndPosLineNo);
+                                objectDoc.Selection.EndOfLine();
+                                objectDoc.Selection.Insert($"{Environment.NewLine}{Environment.NewLine}{ctorCodeToInsert}");
+                            }
+                        }
+
+                        if (profile.Datacontext.SetsCodeBehindPageContent)
+                        {
+                            var contentToInsert = profile.Datacontext.CodeBehindPageContent.Replace(Placeholder.ViewModelClass, viewModelName);
+
+                            if (!docTextWithoutWhitespace.Contains(contentToInsert.RemoveAllWhitespace()))
+                            {
+                                int ctorEndPos = 0;
+
+                                // Get end of constructor
+                                if (activeDocument.Language == "CSharp")
+                                {
+                                    var allConstructors = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax>().ToList();
+
+                                    if (allConstructors.Any())
+                                    {
+                                        ctorEndPos = allConstructors.First().Span.End;
+                                    }
+                                    else
+                                    {
+                                        var classDeclaration = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax>().FirstOrDefault();
+
+                                        if (classDeclaration != null)
+                                        {
+                                            ctorEndPos = classDeclaration.OpenBraceToken.Span.End;
+                                        }
                                     }
                                 }
                                 else
@@ -252,63 +357,63 @@ namespace RapidXamlToolkit
                                     }
                                     else
                                     {
-                                        // TODO: No constructor so add this at the top of the class definition
+                                        // If the constructor was added above it won't be in the SyntaxNode (documentRoot)
+                                        if (ctorAddedLineNo == -1)
+                                        {
+                                            var classBlock = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ClassBlockSyntax>().FirstOrDefault();
+
+                                            var classStatement = classBlock?.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ClassStatementSyntax>().FirstOrDefault();
+
+                                            if (classStatement != null)
+                                            {
+                                                ctorEndPos = classStatement.Span.End;
+
+                                                var implementsStatement = classBlock.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ImplementsStatementSyntax>().LastOrDefault();
+
+                                                if (implementsStatement != null)
+                                                {
+                                                    ctorEndPos = implementsStatement.Span.End;
+                                                }
+                                                else
+                                                {
+                                                    var inheritsStatement = classBlock.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.InheritsStatementSyntax>().FirstOrDefault();
+
+                                                    if (inheritsStatement != null)
+                                                    {
+                                                        ctorEndPos = inheritsStatement.Span.End;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                var moduleStatement = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ModuleBlockSyntax>().FirstOrDefault();
+
+                                                if (moduleStatement != null)
+                                                {
+                                                    ctorEndPos = moduleStatement.Span.End;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
 
-                                ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n') + 1;
+                                if (ctorEndPos == 0 && ctorAddedLineNo == -1)
+                                {
+                                    // TODO: handle not finding anywhere to add the content? Or should it just go at the top of the file?
+                                }
 
-                                objectDoc.Selection.GotoLine(ctorEndPosLineNo);
+                                if (ctorAddedLineNo > -1)
+                                {
+                                    ctorEndPosLineNo = ctorAddedLineNo;
+                                }
+                                else
+                                {
+                                    ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n');
+                                }
+
+                                objectDoc.Selection.GotoLine(ctorEndPosLineNo + 1);
                                 objectDoc.Selection.EndOfLine();
                                 objectDoc.Selection.Insert($"{Environment.NewLine}{Environment.NewLine}{contentToInsert}");
-                            }
-                        }
-
-                        if (profile.Datacontext.SetsCodeBehindConstructorContent)
-                        {
-                            var ctorCodeToInsert = profile.Datacontext.CodeBehindConstructorContent.Replace(Placeholder.ViewModelClass, viewModelName);
-
-                            if (!docTextWithoutWhitespace.Contains(ctorCodeToInsert.RemoveAllWhitespace()))
-                            {
-                                int ctorEndPos = 0;
-
-                                if (ctorEndPosLineNo == 0)
-                                {
-                                    var documentRoot = document.GetSyntaxRootAsync().Result;
-
-                                    if (activeDocument.Language == "CSharp")
-                                    {
-                                        var allConstructors = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax>().ToList();
-
-                                        if (allConstructors.Any())
-                                        {
-                                            ctorEndPos = allConstructors.First().Span.End;
-                                        }
-                                        else
-                                        {
-                                            // TODO: No constructor so add constructor to `contentToInsert` and postion at the top of the class
-                                        }
-                                    }
-                                    else
-                                    {
-                                        var allConstructors = documentRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.VisualBasic.Syntax.ConstructorBlockSyntax>().ToList();
-
-                                        if (allConstructors.Any())
-                                        {
-                                            ctorEndPos = allConstructors.First().Span.End;
-                                        }
-                                        else
-                                        {
-                                            // TODO: No constructor so add constructor to `contentToInsert` and postion at the top of the class
-                                        }
-                                    }
-                                }
-
-                                ctorEndPosLineNo = docText.Take(ctorEndPos).Count(c => c == '\n') + 1;
-
-                                objectDoc.Selection.GotoLine(ctorEndPosLineNo - 1);
-                                objectDoc.Selection.EndOfLine();
-                                objectDoc.Selection.Insert($"{Environment.NewLine}{Environment.NewLine}{ctorCodeToInsert}");
                             }
                         }
                     }
