@@ -24,10 +24,11 @@ If a property matches multiple mappings, there is no guarantee on which will be 
 
 ### Special mappings
 
-In addition to the mappings for properties, there are also two special mappings that must be configured.
+In addition to the mappings for properties, there are also three special mappings that must be configured.
 
 - Fallback
 - Sub-Property
+- Enum Members
 
 #### Fallback mapping
 
@@ -37,6 +38,11 @@ The mapping used when a property does not match any other mapping.
 
 The mapping used for properties included from the **$subprops$** placeholder.
 Only **$name$**, **$incint$**, and **$repint$** placeholders are valid in the sub-property output.
+
+#### Enum Members mapping
+
+The mapping used for properties included from the **$members$** placeholder.
+Only the **$name$** placeholders are valid in the enum member output.
 
 ## Placeholders
 
@@ -58,4 +64,5 @@ Profile settings and mappings can include placeholders. A placeholder is somethi
 - **$incint$** Incrementing integer. A number (starting at zero) that will increase with each property that is matched in a class.
 - **$repint$** Repeating integer. The same number that was last used, repeated without increment. Useful when you want output with multiple items in the same row.
 - **$subprops$** Sub-properties. Is replaced with output from the sub-property mapping for each property of the matched type. Useful when outputting collections of items.
+- **$members$** Enum Members. Is replaced with output from the enum member mapping for each property of the matched type.
 - **$nooutput$** No Output. Nothing will be included in the generated XAML when this is in the mapping output.

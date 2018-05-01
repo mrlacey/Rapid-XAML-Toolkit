@@ -16,6 +16,8 @@ namespace RapidXamlToolkit
 
         public const string SubProperties = "$subprops$";
 
+        public const string EnumMembers = "$members$";
+
         public const string ViewProject = "$viewproject$";
 
         public const string ViewNamespace = "$viewns$";

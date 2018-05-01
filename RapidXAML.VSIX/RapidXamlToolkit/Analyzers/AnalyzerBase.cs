@@ -48,14 +48,9 @@ namespace RapidXamlToolkit
 
         public static (string output, int counter) GetPropertyOutputAndCounterForActiveProfile(PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
         {
-            return GetPropertyOutputAndCounterForActiveProfile(property.PropertyType, property.Name, property.IsReadOnly, numericSubstitute, getSubPropertyOutput);
-        }
-
-        public static (string output, int counter) GetPropertyOutputAndCounterForActiveProfile(string type, string name, bool isReadOnly, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
-        {
             var settings = GetSettings();
             var activeProfile = settings.GetActiveProfile();
-            return GetPropertyOutputAndCounter(activeProfile, type, name, isReadOnly, numericSubstitute, getSubPropertyOutput);
+            return GetPropertyOutputAndCounter(activeProfile, property, numericSubstitute, getSubPropertyOutput);
         }
 
         public static string GetClassGroupingForActiveProfile()
@@ -71,23 +66,18 @@ namespace RapidXamlToolkit
 
         public static string GetPropertyOutput(Profile profile, string type, string name, bool isReadOnly, Func<(List<string> strings, int count)> getSubProperties = null)
         {
-            return GetPropertyOutputAndCounter(profile, type, name, isReadOnly, 1, getSubProperties).output;
+            return GetPropertyOutputAndCounter(profile, new PropertyDetails { PropertyType = type, Name = name, IsReadOnly = isReadOnly }, 1, getSubProperties).output;
         }
 
         public static (string output, int counter) GetSubPropertyOutputAndCounter(Profile profile, string name, int numericSubstitute)
         {
             // Type is blank as it's can't be used in a subproperty
-            return FormatOutput(profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, getSubPropertyOutput: null);
+            return FormatOutput(profile, profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, symbol: null, getSubPropertyOutput: null);
         }
 
         public static (string output, int counter) GetPropertyOutputAndCounter(Profile profile, PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
         {
-            return GetPropertyOutputAndCounter(profile, property.PropertyType, property.Name, property.IsReadOnly, numericSubstitute, getSubPropertyOutput);
-        }
-
-        public static (string output, int counter) GetPropertyOutputAndCounter(Profile profile, string type, string name, bool isReadOnly, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
-        {
-            var mappingOfInterest = GetMappingOfInterest(profile, type, name, isReadOnly);
+            var mappingOfInterest = GetMappingOfInterest(profile, property);
 
             string rawOutput = null;
 
@@ -97,13 +87,13 @@ namespace RapidXamlToolkit
             }
             else
             {
-                if (type.IsGenericTypeName())
+                if (property.PropertyType.IsGenericTypeName())
                 {
-                    var wildcardGenericType = type.Substring(0, type.ToCSharpFormat().IndexOf("<", StringComparison.Ordinal)) + "<T>";
+                    var wildcardGenericType = property.PropertyType.Substring(0, property.PropertyType.ToCSharpFormat().IndexOf("<", StringComparison.Ordinal)) + "<T>";
 
                     Logger?.RecordInfo($"Searching for mapping for generic type treated as {wildcardGenericType}");
 
-                    mappingOfInterest = GetMappingOfInterest(profile, wildcardGenericType, name, isReadOnly);
+                    mappingOfInterest = GetMappingOfInterest(profile, wildcardGenericType, property.Name, property.IsReadOnly);
 
                     if (mappingOfInterest != null)
                     {
@@ -123,10 +113,10 @@ namespace RapidXamlToolkit
                 return (null, numericSubstitute);
             }
 
-            return FormatOutput(rawOutput, type, name, numericSubstitute, getSubPropertyOutput);
+            return FormatOutput(profile, rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, getSubPropertyOutput);
         }
 
-        public static (string output, int counter) FormatOutput(string rawOutput, string type, string name, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput)
+        public static (string output, int counter) FormatOutput(Profile profile, string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, Func<(List<string> strings, int count)> getSubPropertyOutput)
         {
             Logger?.RecordInfo($"Formatting output for property '{name}'");
 
@@ -237,6 +227,26 @@ namespace RapidXamlToolkit
                 }
             }
 
+            if (result.Contains(Placeholder.EnumMembers))
+            {
+                var enumMembers = symbol.GetMembers().Where(m => m.Kind == SymbolKind.Field && !m.IsImplicitlyDeclared).ToList();
+
+                var replacement = new StringBuilder();
+                replacement.AppendLine();
+
+                Logger?.RecordInfo($"Found {enumMembers.Count} members of enum");
+
+                if (enumMembers.Any())
+                {
+                    foreach (var member in enumMembers)
+                    {
+                        replacement.AppendLine(profile.EnumMemberOutput.Replace(Placeholder.PropertyName, member.Name));
+                    }
+                }
+
+                result = result.Replace(Placeholder.EnumMembers, replacement.ToString());
+            }
+
             while (result.Contains(Placeholder.IncrementingInteger))
             {
                 Logger?.RecordInfo($"Replacing incrementing integer placeholder.");
@@ -260,6 +270,27 @@ namespace RapidXamlToolkit
             }
 
             return (result, numericSubstitute);
+        }
+
+        public static Mapping GetMappingOfInterest(Profile profile, PropertyDetails property)
+        {
+            // Enums can be mapped by name or that they're enums - check enum first
+            if (property.Symbol?.BaseType?.Name == "Enum")
+            {
+                var enumMapping = GetMappingOfInterest(profile, "enum", property.Name, property.IsReadOnly);
+
+                if (enumMapping != null)
+                {
+                    Logger?.RecordInfo($"Found mapping for '{property.Name}' as an Enum.");
+                    return enumMapping;
+                }
+                else
+                {
+                    Logger?.RecordInfo($"No mapping found for '{property.Name}' as an Enum so now checking by type name.");
+                }
+            }
+
+            return GetMappingOfInterest(profile, property.PropertyType, property.Name, property.IsReadOnly);
         }
 
         public static Mapping GetMappingOfInterest(Profile profile, string type, string name, bool isReadOnly)

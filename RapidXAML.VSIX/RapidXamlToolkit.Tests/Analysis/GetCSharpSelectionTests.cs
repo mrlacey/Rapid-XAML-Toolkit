@@ -52,6 +52,60 @@ namespace tests
         }
 
         [TestMethod]
+        public void HandlePropertyBeingAnEnum()
+        {
+            var enumProfile = new Profile
+            {
+                Name = "EnumTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                EnumMemberOutput = "<x:String>$name$</x:String>",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "enum",
+                        NameContains = string.Empty,
+                        Output = "<ComboBox>$members$</ComboBox>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        *public Status OrderStatus { get; set; }*
+    }
+
+    enum Status
+    {
+        Active,
+        OnHold,
+        Closed,
+    }
+}";
+
+            var expectedOutput = "<ComboBox>"
+         + Environment.NewLine + "<x:String>Active</x:String>"
+         + Environment.NewLine + "<x:String>OnHold</x:String>"
+         + Environment.NewLine + "<x:String>Closed</x:String>"
+         + Environment.NewLine + "</ComboBox>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "OrderStatus",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Selection,
+            };
+
+            this.SelectionBetweenStarsShouldProduceExpected(code, expected, enumProfile);
+        }
+
+        [TestMethod]
         public void GetSelectionDoesNotIncludeExcludedProperties()
         {
             var code = @"

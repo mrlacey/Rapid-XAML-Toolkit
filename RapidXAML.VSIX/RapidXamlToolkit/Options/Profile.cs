@@ -24,6 +24,8 @@ namespace RapidXamlToolkit
 
         public string SubPropertyOutput { get; set; }
 
+        public string EnumMemberOutput { get; set; }
+
         public ObservableCollection<Mapping> Mappings
         {
             get

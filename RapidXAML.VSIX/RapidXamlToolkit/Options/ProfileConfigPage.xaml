@@ -88,6 +88,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -100,10 +101,12 @@
                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding FallbackOutput, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,4,0">SubProperty output</TextBlock>
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SubPropertyOutput, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,4,0">Enum Mapping output</TextBlock>
+                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding EnumMappingOutput, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
 
-                    <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">Mappings</TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">Mappings</TextBlock>
 
-                    <Grid Grid.Row="5" Grid.ColumnSpan="2">
+                    <Grid Grid.Row="6" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -129,14 +132,14 @@
                         </StackPanel>
                     </Grid>
 
-                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,4">Type</TextBlock>
-                    <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding SelectedMapping.Type, Mode=TwoWay}" Margin="0,4" />
-                    <TextBlock Grid.Row="7" Grid.Column="0">Name filter</TextBlock>
-                    <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedMapping.NameContains, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="0,4,4,4">Only if readonly</TextBlock>
-                    <CheckBox Grid.Row="8" Grid.Column="1" IsChecked="{Binding SelectedMapping.IfReadOnly, Mode=TwoWay}" Margin="0,4" />
-                    <TextBlock Grid.Row="9" Grid.Column="0">Output</TextBlock>
-                    <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding SelectedMapping.Output, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
+                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4">Type</TextBlock>
+                    <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedMapping.Type, Mode=TwoWay}" Margin="0,4" />
+                    <TextBlock Grid.Row="8" Grid.Column="0">Name filter</TextBlock>
+                    <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding SelectedMapping.NameContains, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="0,4,4,4">Only if readonly</TextBlock>
+                    <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding SelectedMapping.IfReadOnly, Mode=TwoWay}" Margin="0,4" />
+                    <TextBlock Grid.Row="10" Grid.Column="0">Output</TextBlock>
+                    <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding SelectedMapping.Output, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
 
                 </Grid>
             </TabItem>
