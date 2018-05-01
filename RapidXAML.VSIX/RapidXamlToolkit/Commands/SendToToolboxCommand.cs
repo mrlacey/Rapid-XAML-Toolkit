@@ -50,6 +50,9 @@ namespace RapidXamlToolkit
             TBXITEMINFO[] itemInfo = new TBXITEMINFO[1];
             OleDataObject tbItem = new OleDataObject();
 
+            var bitmap = new System.Drawing.Bitmap("./Resources/MarkupTag_16x.png");
+
+            itemInfo[0].hBmp = bitmap.GetHbitmap();
             itemInfo[0].bstrText = label;
             itemInfo[0].dwFlags = (uint)__TBXITEMINFOFLAGS.TBXIF_DONTPERSIST;
 
