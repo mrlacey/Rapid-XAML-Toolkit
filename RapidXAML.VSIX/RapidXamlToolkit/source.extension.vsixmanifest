@@ -3,8 +3,10 @@
     <Metadata>
         <Identity Id="RapidXamlToolkit.25067190-b212-4873-aecf-84547ed9b962" Version="0.0.1" Language="en-US" Publisher="Matt Lacey" />
         <DisplayName>RapidXamlToolkit</DisplayName>
-        <Description xml:space="preserve">Tools for accelerating XAML development.</Description>
-        <Icon>RapidXamlPackage.ico</Icon>
+        <Description xml:space="preserve">Tools to accelerate XAML app development</Description>
+        <License>https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/master/LICENSE</License>
+        <Icon>Resources\RapidXamlPackage.ico</Icon>
+        <Tags>XAML</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0, 16.0)" />
