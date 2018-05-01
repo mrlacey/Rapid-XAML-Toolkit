@@ -104,6 +104,7 @@
     <Compile Include="RapidXamlPackage.cs" />
     <Compile Include="SolutionExtensions.cs" />
     <Compile Include="StringExtensions.cs" />
+    <Compile Include="Telemetry\CoreDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">

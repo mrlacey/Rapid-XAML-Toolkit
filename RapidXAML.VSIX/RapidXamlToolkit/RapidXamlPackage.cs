@@ -79,6 +79,8 @@ namespace RapidXamlToolkit
 
             try
             {
+                logger.RecordInfo($"Initializing Commands  (v{Telemetry.CoreDetails.GetVersion()})");
+
                 await CreateViewCommand.InitializeAsync(this, logger);
                 await CopyToClipboardCommand.InitializeAsync(this, logger);
                 await SendToToolboxCommand.InitializeAsync(this, logger);

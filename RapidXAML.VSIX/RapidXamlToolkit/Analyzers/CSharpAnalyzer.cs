@@ -17,7 +17,7 @@ namespace RapidXamlToolkit
         public CSharpAnalyzer(ILogger logger)
             : base(logger)
         {
-            Logger?.RecordInfo($"Analyzing C# code.");
+            Logger?.RecordInfo($"Analyzing C# code. (v{Telemetry.CoreDetails.GetVersion()})");
         }
 
         public override string FileExtension { get; } = "cs";

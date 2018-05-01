@@ -17,7 +17,7 @@ namespace RapidXamlToolkit
         public VisualBasicAnalyzer(ILogger logger)
             : base(logger)
         {
-            Logger?.RecordInfo($"Analyzing VB code.");
+            Logger?.RecordInfo($"Analyzing VB code.  (v{Telemetry.CoreDetails.GetVersion()})");
         }
 
         public override string FileExtension { get; } = "vb";
