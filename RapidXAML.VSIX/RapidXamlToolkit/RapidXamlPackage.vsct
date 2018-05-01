@@ -80,7 +80,7 @@
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
       <Button guid="guidRapidXamlPackageCmdSet" id="CreateViewCommandId" priority="0x0100" type="Button">
-        <Icon guid="guidImages" id="bmpPic1" />
+        <Icon guid="guidImages" id="bmpCreateView" />
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -88,7 +88,7 @@
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100" type="Button">
-        <Icon guid="guidImages" id="bmpPic1" />
+        <Icon guid="guidImages" id="bmpCopyAsXaml" />
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -96,7 +96,7 @@
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="SendToToolboxCommandId" priority="0x0100" type="Button">
-        <Icon guid="guidImages" id="bmpPic2" />
+        <Icon guid="guidImages" id="bmpToolbox" />
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -104,7 +104,7 @@
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100" type="Button">
-        <Icon guid="guidImages" id="bmpPic1" />
+        <Icon guid="guidImages" id="bmpOptions" />
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -112,7 +112,7 @@
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="SetDatacontextCommandId" priority="0x0100" type="Button">
-        <Icon guid="guidImages" id="bmpPic1" />
+        <Icon guid="guidImages" id="bmpSetDc" />
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
@@ -127,7 +127,7 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\RapidXamlPackage.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+      <Bitmap guid="guidImages" href="Resources\RapidXamlPackage.png" usedList="bmpCopyAsXaml, bmpToolbox, bmpCreateView, bmpOptions, bmpSetDc, bmpPicStrikethrough" />
     </Bitmaps>
   </Commands>
 
@@ -229,11 +229,11 @@
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{092daafa-627f-4f53-a712-4e3e5fa72e0d}">
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpCopyAsXaml" value="1" />
+      <IDSymbol name="bmpToolbox" value="2" />
+      <IDSymbol name="bmpCreateView" value="3" />
+      <IDSymbol name="bmpOptions" value="4" />
+      <IDSymbol name="bmpSetDc" value="5" />
       <IDSymbol name="bmpPicStrikethrough" value="6" />
     </GuidSymbol>
     
