@@ -63,7 +63,7 @@ Learn more about [features](./docs/features.md).
 
 ## Principles guiding this project
 
-- Doing something is better than nothing.
+- Doing something is better than doing nothing.
 - The toolkit can't produce the final UI as every app may require unique customization.
 - Everything that is output should be configurable.
 - C# and VB.Net are supported equally.
@@ -72,7 +72,7 @@ Learn more about [features](./docs/features.md).
 
 ## Installation
 
-details to follow.
+Please see our [**getting started guide**](./docs/getting-started.md).
 
 ## Contributing
 
