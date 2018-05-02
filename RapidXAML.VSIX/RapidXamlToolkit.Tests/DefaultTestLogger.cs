@@ -21,6 +21,10 @@ namespace RapidXamlToolkit.Tests
         {
         }
 
+        public void RecordFeatureUsage(string feature)
+        {
+        }
+
         public void RecordInfo(string message)
         {
         }

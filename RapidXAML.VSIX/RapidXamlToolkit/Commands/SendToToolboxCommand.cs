@@ -39,8 +39,6 @@ namespace RapidXamlToolkit
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new SendToToolboxCommand(package, commandService, logger);
-
-            AnalyzerBase.ServiceProvider = (IServiceProvider)Instance.ServiceProvider;
         }
 
         private static void AddToToolbox(string label, string actualText)
@@ -65,6 +63,10 @@ namespace RapidXamlToolkit
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
+                this.Logger?.RecordFeatureUsage(nameof(SendToToolboxCommand));
+
                 this.Logger.RecordInfo("Attempting to add XAML to the Toolbox.");
                 var analyzerResult = this.GetXaml(Instance.ServiceProvider);
 

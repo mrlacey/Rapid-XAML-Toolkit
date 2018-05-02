@@ -50,8 +50,6 @@ namespace RapidXamlToolkit
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new CreateViewCommand(package, commandService, logger);
-
-            AnalyzerBase.ServiceProvider = (IServiceProvider)Instance.ServiceProvider;
         }
 
         private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -163,6 +161,10 @@ namespace RapidXamlToolkit
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
+                this.Logger?.RecordFeatureUsage(nameof(CreateViewCommand));
+
                 this.Logger.RecordInfo("Attempting to create View.");
                 var dte = this.ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE;
 

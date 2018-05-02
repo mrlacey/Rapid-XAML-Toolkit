@@ -10,6 +10,8 @@ namespace RapidXamlToolkit
     {
         void RecordInfo(string message);
 
+        void RecordFeatureUsage(string feature);
+
         void RecordError(string message);
 
         void RecordException(Exception exception);

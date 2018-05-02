@@ -40,8 +40,6 @@ namespace RapidXamlToolkit
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new SetDatacontextCommand(package, commandService, logger);
-
-            AnalyzerBase.ServiceProvider = (IServiceProvider)Instance.ServiceProvider;
         }
 
         private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
@@ -137,6 +135,8 @@ namespace RapidXamlToolkit
             try
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
+
+                this.Logger?.RecordFeatureUsage(nameof(SetDatacontextCommand));
 
                 var settings = AnalyzerBase.GetSettings();
                 var profile = settings.GetActiveProfile();

@@ -3,6 +3,7 @@
 // </copyright>
 
 using System;
+using RapidXamlToolkit.Telemetry;
 
 namespace RapidXamlToolkit
 {
@@ -43,6 +44,12 @@ namespace RapidXamlToolkit
             this.RecordError(exception.Message);
             this.RecordError(exception.Source);
             this.RecordError(exception.StackTrace);
+        }
+
+        public void RecordFeatureUsage(string feature)
+        {
+            // this loggeer doesn't need to do anything special with feature usage messages
+            this.RecordInfo(feature);
         }
     }
 }

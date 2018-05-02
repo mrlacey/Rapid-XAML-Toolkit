@@ -15,6 +15,7 @@ using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
+using RapidXamlToolkit.Telemetry;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit
@@ -75,11 +76,20 @@ namespace RapidXamlToolkit
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
-            var logger = new RxtLogger();
+            var rxtLogger = new RxtLogger();
+
+            var telemKey = string.Empty;
+
+            TelemetryAccessor.InitializeInstance(rxtLogger, telemKey);
+            var telemLogger = TelemetryAccessor.Instance;
+
+            var logger = new RxtLoggerWithTelemtry(rxtLogger, telemLogger);
 
             try
             {
-                logger.RecordInfo($"Initializing Commands  (v{Telemetry.CoreDetails.GetVersion()})");
+                // Set the ServiceProvider of AnalyzerBase as it's needed to get settings
+                AnalyzerBase.ServiceProvider = this;
+                logger.RecordInfo($"Initializing Commands (v{CoreDetails.GetVersion()})");
 
                 await CreateViewCommand.InitializeAsync(this, logger);
                 await CopyToClipboardCommand.InitializeAsync(this, logger);

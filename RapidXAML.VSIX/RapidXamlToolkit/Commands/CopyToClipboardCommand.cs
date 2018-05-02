@@ -38,14 +38,16 @@ namespace RapidXamlToolkit
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new CopyToClipboardCommand(package, commandService, logger);
-
-            AnalyzerBase.ServiceProvider = (IServiceProvider)Instance.ServiceProvider;
         }
 
         private void Execute(object sender, EventArgs e)
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
+                this.Logger?.RecordFeatureUsage(nameof(CopyToClipboardCommand));
+
                 this.Logger.RecordInfo("Attempting to copy XAML to clipboard.");
                 var output = this.GetXaml(Instance.ServiceProvider);
 
