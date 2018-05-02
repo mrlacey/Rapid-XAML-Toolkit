@@ -15,6 +15,10 @@ In very few apps is the UI created first. It's more common to start with the dat
 
 ![Creating a View from context menu of ViewModel in Solution Explorer](./Assets/Create-View-In-Solution-Explorer.gif)
 
+The contents of the created view (and code-behind file) are entirely configurable and can contain elements based on the originating ViewModel. For example:
+
+![Example XAML of a file created from the ViewModel.](./Assets/created-view-example.png)
+
 ## Modification and improvement
 
 If you already have an empty page, you can easily get the XAML for the ViewModel and paste it into the View.
