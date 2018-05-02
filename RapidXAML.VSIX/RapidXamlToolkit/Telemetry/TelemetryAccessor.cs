@@ -67,7 +67,7 @@ namespace RapidXamlToolkit.Telemetry
 
                     instance.IsEnabled = true;
 #if DEBUG
-                   // TelemetryConfiguration.Active.TelemetryChannel.DeveloperMode = true;
+                    TelemetryConfiguration.Active.TelemetryChannel.DeveloperMode = true;
 #endif
                 }
                 else
@@ -113,6 +113,7 @@ namespace RapidXamlToolkit.Telemetry
             if (this.IsEnabled && this.Client.IsEnabled())
             {
                 this.Client.TrackException(exc);
+                this.Flush();
             }
         }
 
