@@ -5,15 +5,11 @@
 using System;
 using System.ComponentModel.Design;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows;
 using EnvDTE;
-using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
-using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
@@ -71,6 +67,7 @@ namespace RapidXamlToolkit
                     ((IVsProject)hierarchy).GetMkDocument(itemid, out string itemFullPath);
                     var transformFileInfo = new FileInfo(itemFullPath);
 
+                    // Save the name of the selected file so we whave it when the command is executed
                     this.SelectedFileName = transformFileInfo.FullName;
 
                     if (transformFileInfo.Name.EndsWith(".cs") || transformFileInfo.Name.EndsWith(".vb"))
@@ -167,150 +164,31 @@ namespace RapidXamlToolkit
 
                 this.Logger.RecordInfo("Attempting to create View.");
                 var dte = this.ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE;
-
-                var vmProj = ((Array)dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project;
-
-                var fileExt = Path.GetExtension(this.SelectedFileName);
-                var fileContents = File.ReadAllText(this.SelectedFileName);
+                var componentModel = (IComponentModel)this.ServiceProvider.GetServiceAsync(typeof(SComponentModel)).Result;
 
                 var profile = AnalyzerBase.GetSettings().GetActiveProfile();
 
-                var componentModel = (IComponentModel)this.ServiceProvider.GetServiceAsync(typeof(SComponentModel)).Result;
-                var visualStudioWorkspace = componentModel.GetService<VisualStudioWorkspace>();
+                var logic = new CreateViewCommandLogic(profile, this.Logger, new VisualStudioAbstraction(dte, componentModel));
 
-                Microsoft.CodeAnalysis.Solution solution = visualStudioWorkspace.CurrentSolution;
-                DocumentId documentId = solution.GetDocumentIdsWithFilePath(this.SelectedFileName).FirstOrDefault();
-                var document = solution.GetDocument(documentId);
+                logic.Execute(this.SelectedFileName);
 
-                var root = document.GetSyntaxRootAsync().Result;
-                var syntaxTree = root.SyntaxTree;
-
-                var semModel = document.GetSemanticModelAsync().Result;
-
-                AnalyzerBase analyzer = null;
-                string codeBehindExt = string.Empty;
-
-                switch (fileExt)
+                if (logic.CreateView)
                 {
-                    case ".cs":
-                        analyzer = new CSharpAnalyzer(this.Logger);
-                        codeBehindExt = (analyzer as CSharpAnalyzer).FileExtension;
-                        break;
-                    case ".vb":
-                        analyzer = new VisualBasicAnalyzer(this.Logger);
-                        codeBehindExt = (analyzer as VisualBasicAnalyzer).FileExtension;
-                        break;
-                }
-
-                if (analyzer != null)
-                {
-                    // Index Of is allowing for "class " in C# and "Class " in VB
-                    var analyzerOutput = (analyzer as IDocumentAnalyzer).GetSingleItemOutput(syntaxTree.GetRoot(), semModel, fileContents.IndexOf("lass "), profile);
-
-                    var config = profile.ViewGeneration;
-
-                    var vmClassName = analyzerOutput.Name;
-
-                    var baseClassName = vmClassName;
-
-                    if (vmClassName.EndsWith(config.ViewModelFileSuffix))
+                    if (!Directory.Exists(logic.ViewFolder))
                     {
-                        baseClassName = vmClassName.Substring(0, vmClassName.LastIndexOf(config.ViewModelFileSuffix));
+                        Directory.CreateDirectory(logic.ViewFolder);
                     }
 
-                    var viewClassName = $"{baseClassName}{config.XamlFileSuffix}";
+                    File.WriteAllText(logic.XamlFileName, logic.XamlFileContents, Encoding.UTF8);
+                    File.WriteAllText(logic.CodeFileName, logic.CodeFileContents, Encoding.UTF8);
 
-                    var vmProjName = vmProj.Name;
-                    var viewProjName = string.Empty;
+                    // add files to project (rely on VS to nest them)
+                    logic.ViewProject.ProjectItems.AddFromFile(logic.XamlFileName);
+                    logic.ViewProject.ProjectItems.AddFromFile(logic.CodeFileName);
 
-                    EnvDTE.Project viewProj = null;
-
-                    if (config.AllInSameProject)
-                    {
-                        viewProj = vmProj;
-                        viewProjName = viewProj.Name;
-                    }
-                    else
-                    {
-                        var expectedViewProjectName = vmProjName.Replace(config.ViewModelProjectSuffix, config.XamlProjectSuffix);
-
-                        foreach (var project in dte.Solution.GetAllProjects())
-                        {
-                            if (project.Name == expectedViewProjectName)
-                            {
-                                viewProj = project;
-                                break;
-                            }
-                        }
-
-                        if (viewProj == null)
-                        {
-                            this.Logger.RecordError($"Unable to find project '{expectedViewProjectName}' in the solution.");
-                        }
-
-                        viewProjName = viewProj?.Name;
-                    }
-
-                    if (viewProj != null)
-                    {
-                        var folder = Path.GetDirectoryName(viewProj.FileName);
-
-                        var viewFolder = Path.Combine(folder, config.XamlFileDirectoryName);
-
-                        // We assume that the type name matches the file name.
-                        var xamlFileName = Path.Combine(viewFolder, $"{viewClassName}.xaml");
-                        var codeFileName = Path.Combine(viewFolder, $"{viewClassName}.xaml.{codeBehindExt}");
-
-                        var createFile = true;
-
-                        if (File.Exists(xamlFileName))
-                        {
-                            this.Logger.RecordInfo($"File '{xamlFileName}' already exists");
-
-                            var msgResult = MessageBox.Show(
-                                                       $"Do you want to override the existing file?",
-                                                       "File already exists",
-                                                       MessageBoxButton.YesNo,
-                                                       MessageBoxImage.Warning);
-
-                            if (msgResult != MessageBoxResult.Yes)
-                            {
-                                createFile = false;
-                                this.Logger.RecordInfo($"Not overwriting '{xamlFileName}'");
-                            }
-                            else
-                            {
-                                this.Logger.RecordInfo($"Overwriting '{xamlFileName}'");
-                            }
-                        }
-
-                        if (createFile)
-                        {
-                            var viewNamespace = $"{viewProjName}.{config.XamlFileDirectoryName}".TrimEnd('.');
-                            var vmNamespace = $"{vmProjName}.{config.ViewModelDirectoryName}".TrimEnd('.');
-
-                            if (!Directory.Exists(viewFolder))
-                            {
-                                Directory.CreateDirectory(viewFolder);
-                            }
-
-                            var replacementValues = (viewProjName, viewNamespace, vmNamespace, viewClassName, vmClassName, analyzerOutput.Output);
-
-                            var xamlContent = this.ReplacePlaceholders(config.XamlPlaceholder, replacementValues);
-                            File.WriteAllText(xamlFileName, xamlContent, Encoding.UTF8);
-
-                            var codeBehind = this.ReplacePlaceholders(config.CodePlaceholder, replacementValues);
-                            File.WriteAllText(codeFileName, codeBehind, Encoding.UTF8);
-
-                            // add files to project (rely on VS to nest them)
-                            viewProj.ProjectItems.AddFromFile(xamlFileName);
-                            viewProj.ProjectItems.AddFromFile(codeFileName);
-
-                            // Open the newly created view
-                            dte.ItemOperations.OpenFile(xamlFileName, EnvDTE.Constants.vsViewKindDesigner);
-                            this.Logger.RecordInfo($"Created file {xamlFileName}");
-                        }
-                    }
+                    // Open the newly created view
+                    dte.ItemOperations.OpenFile(logic.XamlFileName, EnvDTE.Constants.vsViewKindDesigner);
+                    this.Logger.RecordInfo($"Created file {logic.XamlFileName}");
                 }
                 else
                 {
@@ -322,16 +200,6 @@ namespace RapidXamlToolkit
                 this.Logger.RecordException(exc);
                 throw;
             }
-        }
-
-        private string ReplacePlaceholders(string source, (string projName, string viewNs, string vmNs, string viewClass, string vmClass, string xaml) values)
-        {
-            return source.Replace(Placeholder.ViewProject, values.projName)
-                         .Replace(Placeholder.ViewNamespace, values.viewNs)
-                         .Replace(Placeholder.ViewModelNamespace, values.vmNs)
-                         .Replace(Placeholder.ViewClass, values.viewClass)
-                         .Replace(Placeholder.ViewModelClass, values.vmClass)
-                         .Replace(Placeholder.GeneratedXAML, values.xaml);
         }
     }
 }

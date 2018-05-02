@@ -67,8 +67,13 @@
     <Compile Include="Analyzers\IDocumentAnalyzer.cs" />
     <Compile Include="Analyzers\PropertyDetails.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
+    <Compile Include="Commands\CreateViewCommandLogic.cs" />
+    <Compile Include="Commands\IFileSystemAbstraction.cs" />
+    <Compile Include="Commands\IVisualStudioAbstraction.cs" />
     <Compile Include="Commands\OpenOptionsCommand.cs" />
     <Compile Include="Commands\SetDatacontextCommand.cs" />
+    <Compile Include="Commands\VisualStudioAbstraction.cs" />
+    <Compile Include="Commands\WindowsFileSystem.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />
     <Compile Include="Analyzers\VisualBasicAnalyzer.cs" />
     <Compile Include="Commands\CreateViewCommand.cs" />
