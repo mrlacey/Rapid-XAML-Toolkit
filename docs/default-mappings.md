@@ -29,7 +29,7 @@ The order of items is in the tabel does not reflect the order in which
 | bool/Boolean   | false        | isbusy/isactive | ProgressRing   |                                  |
 | Uri            | **TRUE**     | -             | HyperlinkButton  |                                  |
 | List&lt;string&gt; | false    | -             | ItemsControl     |                                  |
-| ObservableCollection&lt;T&gt;<br />List&lt;T&gt; | F | -  | ListView |                              |
+| ObservableCollection&lt;T&gt;<br />List&lt;T&gt; | false | -  | ListView |                          |
 | enum           | false       | -              | RadioButton [*](https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/58) |   |
 |                |             |                |                  |                                  |
 
@@ -46,11 +46,21 @@ The order of items is in the tabel does not reflect the order in which
 
 ## Xamarin.Forms
 
-**TBD **
-
 | Property Type  | Is Read-only | Property Name | Control          | Other Attributes/Notes           |
 |----------------|--------------|---------------|------------------|----------------------------------|
-| **{fallback}** | _n/a_        | _n/a_         | TextBlock        |                                  |
-|                |              |               |                  |                                  |
-|                |              |               |                  |                                  |
+| **{fallback}** | _n/a_        | _n/a_         | Label            |                                  |
+| String         | **TRUE**     | -             | Label            |                                  |
+| String         | false        | -             | Entry            |                                  |
+| String         | false        | password/pwd  | Entry            | IsPassword="True"                |
+| String         | false        | search        | SearchBar        | Placeholder="Search"             |
+| String         | false        | phone/tel     | Entry            | Keyboard="Telephone"             |
+| String         | false        | chat/message  | Entry            | Keyboard="Chat"                  |
+| String         | false        | email         | Entry            | Keyboard="Email"                 |
+| String         | false        | uri/url       | Entry            | Keyboard="Url"                   |
+| String         | false        | int/Integer/long/<br />double/float | Entry | Keyboard="Numeric"    |
+| DateTimeOffset/<br />DateTime | false | date  | DatePicker       |                                  |
+| DateTimeOffset/<br />DateTime | false | time  | TimePicker       |                                  |
+| ICommand<br />Command<br />RelayCommand | false | - Buutton      |                                  |
+| List&lt;string&gt; | false    | -             | Picker           |                                  |
+| ObservableCollection&lt;T&gt;<br />List&lt;T&gt; | false | -  | ListView |                          |
 |                |              |               |                  |                                  |
