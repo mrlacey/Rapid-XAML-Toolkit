@@ -63,7 +63,7 @@ Learn more about [features](./docs/features.md).
 
 ## Principles guiding this project
 
-- Doing something is better than nothing.
+- Doing something is better than doing nothing.
 - The toolkit can't produce the final UI as every app may require unique customization.
 - Everything that is output should be configurable.
 - C# and VB.Net are supported equally.
@@ -72,8 +72,12 @@ Learn more about [features](./docs/features.md).
 
 ## Installation
 
-details to follow.
+Please see our [**getting started guide**](./docs/getting-started.md).
 
 ## Contributing
 
 Please see the [contribution guide](./CONTRIBUTING.md).
+
+***
+
+The Rapid XAML Toolkit (RXT) is a sister project to [Windows Template Studio (WTS)](https://aka.ms/wts). They're separate projects but some of the same people are behind both. Anyone using WTS should also benefit from using RXT.
