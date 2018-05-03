@@ -183,8 +183,8 @@ namespace RapidXamlToolkit
                     File.WriteAllText(logic.CodeFileName, logic.CodeFileContents, Encoding.UTF8);
 
                     // add files to project (rely on VS to nest them)
-                    logic.ViewProject.ProjectItems.AddFromFile(logic.XamlFileName);
-                    logic.ViewProject.ProjectItems.AddFromFile(logic.CodeFileName);
+                    logic.ViewProject.Project.ProjectItems.AddFromFile(logic.XamlFileName);
+                    logic.ViewProject.Project.ProjectItems.AddFromFile(logic.CodeFileName);
 
                     // Open the newly created view
                     dte.ItemOperations.OpenFile(logic.XamlFileName, EnvDTE.Constants.vsViewKindDesigner);

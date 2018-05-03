@@ -10,9 +10,9 @@ namespace RapidXamlToolkit
     {
         bool UserConfirms(string title, string message);
 
-        EnvDTE.Project GetActiveProject();
+        ProjectWrapper GetActiveProject();
 
-        EnvDTE.Project GetProject(string projectName);
+        ProjectWrapper GetProject(string projectName);
 
         (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(string fileName);
     }

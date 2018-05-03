@@ -23,9 +23,9 @@ namespace RapidXamlToolkit
             this.componentModel = componentModel ?? throw new ArgumentNullException(nameof(componentModel));
         }
 
-        public EnvDTE.Project GetActiveProject()
+        public ProjectWrapper GetActiveProject()
         {
-            return ((Array)this.dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project;
+            return new ProjectWrapper(((Array)this.dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project);
         }
 
         public (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(string fileName)
@@ -44,13 +44,13 @@ namespace RapidXamlToolkit
             return (syntaxTree, semModel);
         }
 
-        public EnvDTE.Project GetProject(string projectName)
+        public ProjectWrapper GetProject(string projectName)
         {
             foreach (var project in this.dte.Solution.GetAllProjects())
             {
                 if (project.Name == projectName)
                 {
-                    return project;
+                    return new ProjectWrapper(project);
                 }
             }
 

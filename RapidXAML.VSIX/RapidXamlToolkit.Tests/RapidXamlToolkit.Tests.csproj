@@ -168,13 +168,15 @@
     <Compile Include="Analysis\IStarsRepresentCaretInDocsTests.cs" />
     <Compile Include="Analysis\StarsRepresentCaretInDocsTests.cs" />
     <Compile Include="Analysis\VisualBasicTestsBase.cs" />
+    <Compile Include="CreateViews\CreateViewCSharpTests.cs" />
     <Compile Include="DefaultTestLogger.cs" />
     <Compile Include="Extensions\StringExtensionTests.cs" />
-    <Compile Include="CreateViews\UnitTest1.cs" />
     <Compile Include="Formatting\OutputGenerationTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetDatacontext\UnitTest1.cs" />
+    <Compile Include="TestFileSystem.cs" />
+    <Compile Include="TestVisualStudioAbstraction.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">

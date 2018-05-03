@@ -23,7 +23,7 @@ namespace RapidXamlToolkit
 
         public bool CreateView { get; private set; }
 
-        public EnvDTE.Project ViewProject { get; private set; }
+        public ProjectWrapper ViewProject { get; private set; }
 
         public string XamlFileName { get; private set; }
 
