@@ -23,6 +23,7 @@ namespace RapidXamlToolkit
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
+                        EnumMemberOutput = string.Empty,
                         Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
@@ -224,6 +225,7 @@ namespace $viewns$
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
+                        EnumMemberOutput = string.Empty,
                         Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
@@ -431,6 +433,7 @@ End Property",
                         ClassGrouping = "Grid-plus-RowDefs",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind $name$}\" Grid.Row=\"$incint$\" />",
+                        EnumMemberOutput = string.Empty,
                         Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
@@ -628,6 +631,7 @@ namespace $viewns$
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
+                        EnumMemberOutput = string.Empty,
                         Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
@@ -829,6 +833,7 @@ namespace $viewns$
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
+                        EnumMemberOutput = string.Empty,
                         Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
@@ -1030,6 +1035,7 @@ namespace $viewns$
                         ClassGrouping = "Grid-plus-RowDefs",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$incint$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" />\n<TextBlock Text=\"{x:Bind $name$}\" Grid.Row=\"$incint$\" />",
+                        EnumMemberOutput = string.Empty,
                         Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
@@ -1224,6 +1230,7 @@ namespace $viewns$
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                        EnumMemberOutput = string.Empty,
                         Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
@@ -1297,6 +1304,25 @@ namespace $viewns$
                                 IfReadOnly = false,
                             },
                         },
+                        ViewGeneration = new ViewGenerationSettings
+                        {
+                            AllInSameProject = true,
+                            CodePlaceholder = string.Empty,
+                            ViewModelDirectoryName = string.Empty,
+                            ViewModelFileSuffix = string.Empty,
+                            ViewModelProjectSuffix = string.Empty,
+                            XamlFileDirectoryName = string.Empty,
+                            XamlFileSuffix = string.Empty,
+                            XamlPlaceholder = string.Empty,
+                            XamlProjectSuffix = string.Empty,
+                        },
+                        Datacontext = new DatacontextSettings
+                        {
+                            XamlPageAttribute = string.Empty,
+                            CodeBehindPageContent = string.Empty,
+                            CodeBehindConstructorContent = string.Empty,
+                            DefaultCodeBehindConstructor = string.Empty,
+                        },
                     },
 
                     new Profile
@@ -1305,6 +1331,7 @@ namespace $viewns$
                         ClassGrouping = "StackLayout",
                         FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
+                        EnumMemberOutput = string.Empty,
                         Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
@@ -1412,6 +1439,25 @@ namespace $viewns$
                                 Output = "<ListView ItemsSource=\"{Binding $name$}\">\n<ListView.ItemTemplate>\n<DataTemplate x:DataType=\"$type$\">\n<StackLayout>$subprops$</StackLayout>\n</DataTemplate>\n</ListView.ItemTemplate></ListView>",
                                 IfReadOnly = false,
                             },
+                        },
+                        ViewGeneration = new ViewGenerationSettings
+                        {
+                            AllInSameProject = true,
+                            CodePlaceholder = string.Empty,
+                            ViewModelDirectoryName = string.Empty,
+                            ViewModelFileSuffix = string.Empty,
+                            ViewModelProjectSuffix = string.Empty,
+                            XamlFileDirectoryName = string.Empty,
+                            XamlFileSuffix = string.Empty,
+                            XamlPlaceholder = string.Empty,
+                            XamlProjectSuffix = string.Empty,
+                        },
+                        Datacontext = new DatacontextSettings
+                        {
+                            XamlPageAttribute = string.Empty,
+                            CodeBehindPageContent = string.Empty,
+                            CodeBehindConstructorContent = string.Empty,
+                            DefaultCodeBehindConstructor = string.Empty,
                         },
                     },
                 },
