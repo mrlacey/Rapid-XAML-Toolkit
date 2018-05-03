@@ -60,7 +60,7 @@ The order of items is in the tabel does not reflect the order in which
 | String         | false        | int/Integer/long/<br />double/float | Entry | Keyboard="Numeric"    |
 | DateTimeOffset/<br />DateTime | false | date  | DatePicker       |                                  |
 | DateTimeOffset/<br />DateTime | false | time  | TimePicker       |                                  |
-| ICommand<br />Command<br />RelayCommand | false | - Buutton      |                                  |
+| ICommand<br />Command<br />RelayCommand | false | - | Button     |                                  |
 | List&lt;string&gt; | false    | -             | Picker           |                                  |
 | ObservableCollection&lt;T&gt;<br />List&lt;T&gt; | false | -  | ListView |                          |
 |                |              |               |                  |                                  |
