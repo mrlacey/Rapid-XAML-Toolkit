@@ -20,7 +20,7 @@ The order of items is in the tabel does not reflect the order in which
 | String         | false        | phone/tel     | TextBox          | InputScope="TelephoneNumber"     |
 | String         | false        | email         | TextBox          | InputScope="EmailNameOrAddress"  |
 | String         | false        | firstname/lastname/<br />familyname/surname/<br />givenname | TextBox | InputScope="PersonalFullName" |
-| String         | false        | password      | PasswordBox      |                                  |
+| String         | false        | password/pwd  | PasswordBox      |                                  |
 | String         | false        | search        | AutoSuggestBox   |                                  |
 | int/Integer    | **TRUE**     | -             | TextBlock        |                                  |
 | ICommand<br />Command<br />RelayCommand | false | - | Button     |                                  |
@@ -30,18 +30,23 @@ The order of items is in the tabel does not reflect the order in which
 | Uri            | **TRUE**     | -             | HyperlinkButton  |                                  |
 | List&lt;string&gt; | false    | -             | ItemsControl     |                                  |
 | ObservableCollection&lt;T&gt;<br />List&lt;T&gt; | false | -  | ListView |                          |
-| enum           | false       | -              | RadioButton [*](https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/58) |   |
+| [enum](https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/58) | false | - | RadioButton |       |
 |                |             |                |                  |                                  |
 
 ## WPF
 
-**TBD **
-
 | Property Type  | Is Read-only | Property Name | Control          | Other Attributes/Notes           |
 |----------------|--------------|---------------|------------------|----------------------------------|
 | **{fallback}** | _n/a_        | _n/a_         | TextBlock        |                                  |
-|                |              |               |                  |                                  |
-|                |              |               |                  |                                  |
+| bool|Boolean   | false        | busy/active   | ProgressBar      | IsIndeterminate="{binding}"      |
+| bool|Boolean   | false        | -             | CheckBox         |                                  |
+| String         | false        | -             | TextBox          |                                  |
+| String         | **TRUE**     | -             | TextBlock        |                                  |
+| String         | false        | password/pwd  | PasswordBox      |                                  |
+| DateTimeOffset<br />DateTime | false | date   | DatePicker       |                                  |
+| ICommand<br />Command<br />RelayCommand | false | - | Button     |                                  |
+| List&lt;string&gt; | false    | -             | ItemsControl     |                                  |
+| ObservableCollection&lt;T&gt;<br />List&lt;T&gt; | false | -  | ListView |                          |
 |                |              |               |                  |                                  |
 
 ## Xamarin.Forms
@@ -57,9 +62,9 @@ The order of items is in the tabel does not reflect the order in which
 | String         | false        | chat/message  | Entry            | Keyboard="Chat"                  |
 | String         | false        | email         | Entry            | Keyboard="Email"                 |
 | String         | false        | uri/url       | Entry            | Keyboard="Url"                   |
-| String         | false        | int/Integer/long/<br />double/float | Entry | Keyboard="Numeric"    |
-| DateTimeOffset/<br />DateTime | false | date  | DatePicker       |                                  |
-| DateTimeOffset/<br />DateTime | false | time  | TimePicker       |                                  |
+| int<br />Integer<br />long<br />double<br />float | false | - | Entry | Keyboard="Numeric"          |
+| DateTimeOffset<br />DateTime | false | date  | DatePicker        |                                  |
+| DateTimeOffset<br />DateTime | false | time  | TimePicker        |                                  |
 | ICommand<br />Command<br />RelayCommand | false | - | Button     |                                  |
 | List&lt;string&gt; | false    | -             | Picker           |                                  |
 | ObservableCollection&lt;T&gt;<br />List&lt;T&gt; | false | -  | ListView |                          |
