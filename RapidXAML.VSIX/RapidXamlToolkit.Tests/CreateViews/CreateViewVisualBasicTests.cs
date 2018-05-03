@@ -1,16 +1,16 @@
-﻿// <copyright file="CreateViewCSharpTests.cs" company="Microsoft">
+﻿// <copyright file="CreateViewVisualBasicTests.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
 using System;
 using System.Collections.ObjectModel;
-using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RapidXamlToolkit.Tests.CreateViews
 {
     [TestClass]
-    public class CreateViewCSharpTests
+    public class CreateViewVisualBasicTests
     {
         [TestMethod]
         public void CorrectOutputInSameFolder()
@@ -26,22 +26,24 @@ namespace RapidXamlToolkit.Tests.CreateViews
             var fs = new TestFileSystem
             {
                 FileExistsResponse = false,
-                FileText = " public class TestViewModel { public string OnlyProperty { get; set;} }",
+                FileText = @"Public Class TestViewModel
+    Public Property OnlyProperty As String
+End Class",
             };
 
-            var synTree = CSharpSyntaxTree.ParseText(fs.FileText);
-            var semModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
+            var synTree = VisualBasicSyntaxTree.ParseText(fs.FileText);
+            var semModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
 
             var vsa = new TestVisualStudioAbstraction
             {
                 SyntaxTree = synTree,
                 SemanticModel = semModel,
-                ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.csproj" },
+                ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.vbproj" },
             };
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            sut.Execute(@"C:\Test\App\Files\TestViewModel.cs");
+            sut.Execute(@"C:\Test\App\Files\TestViewModel.vb");
 
             var expectedXaml = @"<Page
     x:Class=""App.Files.TestPage"">
@@ -53,28 +55,28 @@ namespace RapidXamlToolkit.Tests.CreateViews
 </Page>
 ";
 
-            var expectedCodeBehind = @"using System;
-using Windows.UI.Xaml.Controls;
-using App.Files;
+            var expectedCodeBehind = @"Imports System
+Imports Windows.UI.Xaml.Controls
+Imports App.Files
 
-namespace App.Files
-{
-    public sealed partial class TestPage : Page
-    {
-        public TestViewModel ViewModel { get; set; }
+Namespace App.Files
 
-        public TestPage()
-        {
-            this.InitializeComponent();
-            this.ViewModel = new TestViewModel();
-        }
-    }
-}
+    Public NotInheritable Partial Class TestPage
+        Inherits Page
+
+        Public Property ViewModel As TestViewModel
+
+        Public Sub New()
+            Me.InitializeComponent()
+            Me.ViewModel = New TestViewModel()
+        End Sub
+    End Class
+End Namespace
 ";
 
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml", sut.XamlFileName);
-            Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml.cs", sut.CodeFileName);
+            Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml.vb", sut.CodeFileName);
             Assert.AreEqual(expectedXaml, sut.XamlFileContents);
             Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
         }
@@ -93,22 +95,24 @@ namespace App.Files
             var fs = new TestFileSystem
             {
                 FileExistsResponse = false,
-                FileText = " public class TestViewModel { public string OnlyProperty { get; set;} }",
+                FileText = @"Public Class TestViewModel
+    Public Property OnlyProperty As String
+End Class",
             };
 
-            var synTree = CSharpSyntaxTree.ParseText(fs.FileText);
-            var semModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
+            var synTree = VisualBasicSyntaxTree.ParseText(fs.FileText);
+            var semModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
 
             var vsa = new TestVisualStudioAbstraction
             {
                 SyntaxTree = synTree,
                 SemanticModel = semModel,
-                ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.csproj" },
+                ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.vbproj" },
             };
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            sut.Execute(@"C:\Test\App\ViewModels\TestViewModel.cs");
+            sut.Execute(@"C:\Test\App\ViewModels\TestViewModel.vb");
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
@@ -120,28 +124,28 @@ namespace App.Files
 </Page>
 ";
 
-            var expectedCodeBehind = @"using System;
-using Windows.UI.Xaml.Controls;
-using App.ViewModels;
+            var expectedCodeBehind = @"Imports System
+Imports Windows.UI.Xaml.Controls
+Imports App.ViewModels
 
-namespace App.Views
-{
-    public sealed partial class TestPage : Page
-    {
-        public TestViewModel ViewModel { get; set; }
+Namespace App.Views
 
-        public TestPage()
-        {
-            this.InitializeComponent();
-            this.ViewModel = new TestViewModel();
-        }
-    }
-}
+    Public NotInheritable Partial Class TestPage
+        Inherits Page
+
+        Public Property ViewModel As TestViewModel
+
+        Public Sub New()
+            Me.InitializeComponent()
+            Me.ViewModel = New TestViewModel()
+        End Sub
+    End Class
+End Namespace
 ";
 
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml", sut.XamlFileName);
-            Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml.cs", sut.CodeFileName);
+            Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml.vb", sut.CodeFileName);
             Assert.AreEqual(expectedXaml, sut.XamlFileContents);
             Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
         }
@@ -164,23 +168,25 @@ namespace App.Views
             var fs = new TestFileSystem
             {
                 FileExistsResponse = false,
-                FileText = " public class TestViewModel { public string OnlyProperty { get; set;} }",
+                FileText = @"Public Class TestViewModel
+    Public Property OnlyProperty As String
+End Class",
             };
 
-            var synTree = CSharpSyntaxTree.ParseText(fs.FileText);
-            var semModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
+            var synTree = VisualBasicSyntaxTree.ParseText(fs.FileText);
+            var semModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
 
             var vsa = new TestVisualStudioAbstraction
             {
                 SyntaxTree = synTree,
                 SemanticModel = semModel,
-                ActiveProject = new ProjectWrapper { Name = "App.ViewModels", FileName = @"C:\Test\App.ViewModels\App.ViewModels.csproj" },
-                NamedProject = new ProjectWrapper { Name = "App", FileName = @"C:\Test\App\App.csproj" },
+                ActiveProject = new ProjectWrapper { Name = "App.ViewModels", FileName = @"C:\Test\App.ViewModels\App.ViewModels.vbproj" },
+                NamedProject = new ProjectWrapper { Name = "App", FileName = @"C:\Test\App\App.vbproj" },
             };
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            sut.Execute(@"C:\Test\App.ViewModels\TestViewModel.cs");
+            sut.Execute(@"C:\Test\App.ViewModels\TestViewModel.vb");
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
@@ -192,64 +198,30 @@ namespace App.Views
 </Page>
 ";
 
-            var expectedCodeBehind = @"using System;
-using Windows.UI.Xaml.Controls;
-using App.ViewModels;
+            var expectedCodeBehind = @"Imports System
+Imports Windows.UI.Xaml.Controls
+Imports App.ViewModels
 
-namespace App.Views
-{
-    public sealed partial class TestPage : Page
-    {
-        public TestViewModel ViewModel { get; set; }
+Namespace App.Views
 
-        public TestPage()
-        {
-            this.InitializeComponent();
-            this.ViewModel = new TestViewModel();
-        }
-    }
-}
+    Public NotInheritable Partial Class TestPage
+        Inherits Page
+
+        Public Property ViewModel As TestViewModel
+
+        Public Sub New()
+            Me.InitializeComponent()
+            Me.ViewModel = New TestViewModel()
+        End Sub
+    End Class
+End Namespace
 ";
 
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml", sut.XamlFileName);
-            Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml.cs", sut.CodeFileName);
+            Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml.vb", sut.CodeFileName);
             Assert.AreEqual(expectedXaml, sut.XamlFileContents);
             Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
-        }
-
-        [TestMethod]
-        public void FileExistsAndDoNotOverwriteMeansNoNewFileCreated()
-        {
-            var profile = this.GetDefaultTestProfile();
-
-            profile.ViewGeneration.AllInSameProject = true;
-            profile.ViewGeneration.ViewModelDirectoryName = "ViewModels";
-            profile.ViewGeneration.ViewModelFileSuffix = "ViewModel";
-            profile.ViewGeneration.XamlFileDirectoryName = "Views";
-            profile.ViewGeneration.XamlFileSuffix = "Page";
-
-            var fs = new TestFileSystem
-            {
-                FileExistsResponse = true,
-                FileText = " public class TestViewModel { public string OnlyProperty { get; set;} }",
-            };
-
-            var synTree = CSharpSyntaxTree.ParseText(fs.FileText);
-            var semModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
-
-            var vsa = new TestVisualStudioAbstraction
-            {
-                UserConfirmsResult = false,
-                SyntaxTree = synTree,
-                SemanticModel = semModel,
-                ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.csproj" },
-            };
-            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
-
-            sut.Execute(@"C:\Test\App\ViewModels\TestViewModel.cs");
-
-            Assert.IsFalse(sut.CreateView);
         }
 
         private Profile GetDefaultTestProfile()
@@ -272,23 +244,23 @@ namespace App.Views
     </Grid>
 </Page>
 ",
-                    CodePlaceholder = @"using System;
-using Windows.UI.Xaml.Controls;
-using $viewmodelns$;
+                    CodePlaceholder = @"Imports System
+Imports Windows.UI.Xaml.Controls
+Imports $viewmodelns$
 
-namespace $viewns$
-{
-    public sealed partial class $viewclass$ : Page
-    {
-        public $viewmodelclass$ ViewModel { get; set; }
+Namespace $viewns$
 
-        public $viewclass$()
-        {
-            this.InitializeComponent();
-            this.ViewModel = new $viewmodelclass$();
-        }
-    }
-}
+    Public NotInheritable Partial Class $viewclass$
+        Inherits Page
+
+        Public Property ViewModel As $viewmodelclass$
+
+        Public Sub New()
+            Me.InitializeComponent()
+            Me.ViewModel = New $viewmodelclass$()
+        End Sub
+    End Class
+End Namespace
 ",
                     XamlFileSuffix = "Page",
                     ViewModelFileSuffix = "ViewModel",

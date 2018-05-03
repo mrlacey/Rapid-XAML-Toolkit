@@ -168,6 +168,7 @@
     <Compile Include="Analysis\IStarsRepresentCaretInDocsTests.cs" />
     <Compile Include="Analysis\StarsRepresentCaretInDocsTests.cs" />
     <Compile Include="Analysis\VisualBasicTestsBase.cs" />
+    <Compile Include="CreateViews\CreateViewVisualBasicTests.cs" />
     <Compile Include="CreateViews\CreateViewCSharpTests.cs" />
     <Compile Include="DefaultTestLogger.cs" />
     <Compile Include="Extensions\StringExtensionTests.cs" />
