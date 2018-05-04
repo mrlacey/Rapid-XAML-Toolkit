@@ -29,11 +29,11 @@ namespace RapidXamlToolkit
                 {
                     var settingsString = this.store.GetString(SettingCollectionName, nameof(this.ActualSettings));
 
-                    this.ActualSettings = DeserializeOrDefault(settingsString);
+                    this.actualSettings = DeserializeOrDefault(settingsString);
                 }
                 else
                 {
-                    this.ActualSettings = GetDefaultSettings();
+                    this.actualSettings = GetDefaultSettings();
                 }
             }
             catch (Exception exc)

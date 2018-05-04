@@ -3,11 +3,7 @@
 // </copyright>
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.VisualStudio.Telemetry;
@@ -16,37 +12,25 @@ namespace RapidXamlToolkit.Telemetry
 {
     public class TelemetryAccessor : IDisposable
     {
-        private static TelemetryAccessor instance;
         private ILogger logger;
 
-        public TelemetryAccessor(ILogger logger)
+        private TelemetryAccessor(ILogger logger)
         {
             this.logger = logger;
-        }
-
-        public static TelemetryAccessor Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    throw new NullReferenceException("TelemetryService must be initialized before use");
-                }
-
-                return instance;
-            }
         }
 
         public bool IsEnabled { get; private set; }
 
         private TelemetryClient Client { get; set; }
 
-        public static void InitializeInstance(ILogger logger, string key)
+        public static TelemetryAccessor Create(ILogger logger, string key)
         {
             if (logger == null)
             {
                 throw new ArgumentNullException(nameof(logger));
             }
+
+            TelemetryAccessor instance = null;
 
             try
             {
@@ -83,6 +67,8 @@ namespace RapidXamlToolkit.Telemetry
 
                 logger.RecordException(ex);
             }
+
+            return instance;
         }
 
         public void Dispose()
@@ -95,16 +81,11 @@ namespace RapidXamlToolkit.Telemetry
         {
             try
             {
-                if (instance != null)
-                {
-                    instance.Client?.Flush();
-
-                    instance = null;
-                }
+                this.Client?.Flush();
             }
             catch (Exception ex)
             {
-                instance?.logger?.RecordException(ex);
+                this.logger?.RecordException(ex);
             }
         }
 

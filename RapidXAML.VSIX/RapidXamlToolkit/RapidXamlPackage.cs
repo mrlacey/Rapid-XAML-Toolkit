@@ -80,8 +80,7 @@ namespace RapidXamlToolkit
 
             var telemKey = string.Empty;
 
-            TelemetryAccessor.InitializeInstance(rxtLogger, telemKey);
-            var telemLogger = TelemetryAccessor.Instance;
+            var telemLogger = TelemetryAccessor.Create(rxtLogger, telemKey);
 
             var logger = new RxtLoggerWithTelemtry(rxtLogger, telemLogger);
 
