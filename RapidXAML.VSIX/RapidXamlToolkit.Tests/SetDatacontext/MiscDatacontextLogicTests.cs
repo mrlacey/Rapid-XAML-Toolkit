@@ -95,9 +95,10 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var inferredVmName = sut.InferViewModelNameFromFileName("Test.xaml.cs");
+            var (view, viewModel) = sut.InferViewModelNameFromFileName("Test.xaml.cs");
 
-            Assert.AreEqual("Test", inferredVmName);
+            Assert.AreEqual("Test", view);
+            Assert.AreEqual("Test", viewModel);
         }
 
         [TestMethod]
@@ -109,9 +110,10 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var inferredVmName = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
+            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
 
-            Assert.AreEqual("TestPage", inferredVmName);
+            Assert.AreEqual("TestPage", view);
+            Assert.AreEqual("TestPage", viewModel);
         }
 
         [TestMethod]
@@ -126,9 +128,10 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var inferredVmName = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
+            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
 
-            Assert.AreEqual("Test", inferredVmName);
+            Assert.AreEqual("TestPage", view);
+            Assert.AreEqual("Test", viewModel);
         }
 
         [TestMethod]
@@ -143,9 +146,10 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var inferredVmName = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
+            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
 
-            Assert.AreEqual("TestPage", inferredVmName);
+            Assert.AreEqual("TestPage", view);
+            Assert.AreEqual("TestPage", viewModel);
         }
 
         [TestMethod]
@@ -160,9 +164,10 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var inferredVmName = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
+            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
 
-            Assert.AreEqual("TestPageViewModel", inferredVmName);
+            Assert.AreEqual("TestPage", view);
+            Assert.AreEqual("TestPageViewModel", viewModel);
         }
 
         [TestMethod]
@@ -178,9 +183,10 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var inferredVmName = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
+            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
 
-            Assert.AreEqual("TestViewModel", inferredVmName);
+            Assert.AreEqual("TestPage", view);
+            Assert.AreEqual("TestViewModel", viewModel);
         }
 
         [TestMethod]
@@ -196,9 +202,10 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var inferredVmName = sut.InferViewModelNameFromFileName("TestFoo.xaml.cs");
+            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestFoo.xaml.cs");
 
-            Assert.AreEqual("TestBar", inferredVmName);
+            Assert.AreEqual("TestFoo", view);
+            Assert.AreEqual("TestBar", viewModel);
         }
     }
 }

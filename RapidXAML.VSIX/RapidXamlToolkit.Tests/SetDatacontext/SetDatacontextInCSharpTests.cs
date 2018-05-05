@@ -132,7 +132,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
+            var result = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestPage", "TestViewModel");
 
             Assert.IsTrue(result.anythingToAdd);
             Assert.AreEqual(5, result.lineNoToAddAfter);
@@ -145,7 +145,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
         {
             var profile = TestProfile.CreateEmpty();
             profile.Datacontext.CodeBehindConstructorContent = "this.DataContext = this.ViewModel;";
-            profile.Datacontext.DefaultCodeBehindConstructor = @"public TestPage()
+            profile.Datacontext.DefaultCodeBehindConstructor = @"public $viewclass$()
 {
     this.Initialize();
 }";
@@ -171,16 +171,16 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
+            var result = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestPage", "TestViewModel");
 
             var expectedContent = @"
-
 public TestPage()
 {
     this.Initialize();
 
 this.DataContext = this.ViewModel;
-}";
+}
+";
 
             Assert.IsTrue(result.anythingToAdd);
             Assert.AreEqual(2, result.lineNoToAddAfter);
@@ -375,6 +375,140 @@ public TestViewModel ViewModel
             Assert.IsTrue(result.anythingToAdd);
             Assert.AreEqual(2, result.lineNoToAddAfter);
             Assert.AreEqual(expectedContent, result.contentToAdd);
+        }
+
+        [TestMethod]
+        public void CanDetectWhereAndWhenToInsertConstructorAndPageContentWhenConstructorExists()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.ViewGeneration.XamlFileSuffix = "Page";
+            profile.ViewGeneration.ViewModelFileSuffix = "ViewModel";
+            profile.Datacontext.CodeBehindConstructorContent = "this.DataContext = this.ViewModel;";
+            profile.Datacontext.CodeBehindPageContent = @"public $viewmodelclass$ ViewModel
+{
+    get
+    {
+        return new $viewmodelclass$();
+    }
+}";
+
+            var logger = DefaultTestLogger.Create();
+
+            var fs = new TestFileSystem
+            {
+                FileText = @"class TestPage
+{
+    public TestPage()
+    {
+        this.Initialize();
+    }
+}",
+            };
+
+            var synTree = CSharpSyntaxTree.ParseText(fs.FileText);
+
+            var vs = new TestVisualStudioAbstraction
+            {
+                ActiveDocumentFileName = "TestPage.xaml.cs",
+                ActiveDocumentText = fs.FileText,
+                SyntaxTree = synTree,
+                DocumentIsCSharp = true,
+            };
+
+            var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
+
+            var documentRoot = CSharpSyntaxTree.ParseText(fs.FileText).GetRoot();
+
+            var result = sut.GetCodeBehindContentToAdd("TestPage", "TestViewModel", documentRoot);
+
+            Assert.IsTrue(result[0].anythingToAdd);
+            Assert.AreEqual(5, result[0].lineNoToAddAfter);
+            Assert.AreEqual($"{Environment.NewLine}{Environment.NewLine}this.DataContext = this.ViewModel;", result[0].contentToAdd);
+
+            var expectedContent = @"
+
+public TestViewModel ViewModel
+{
+    get
+    {
+        return new TestViewModel();
+    }
+}";
+
+            Assert.IsTrue(result[1].anythingToAdd);
+            Assert.AreEqual(8, result[1].lineNoToAddAfter);
+            Assert.AreEqual(expectedContent, result[1].contentToAdd);
+        }
+
+        [TestMethod]
+        public void CanDetectWhereAndWhenToInsertConstructorAndPageContentWhenConstructorDoesNotExist()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.ViewGeneration.XamlFileSuffix = "Page";
+            profile.ViewGeneration.ViewModelFileSuffix = "ViewModel";
+            profile.Datacontext.CodeBehindConstructorContent = "this.DataContext = this.ViewModel;";
+            profile.Datacontext.DefaultCodeBehindConstructor = @"public $viewclass$()
+{
+    this.Initialize();
+}";
+            profile.Datacontext.CodeBehindPageContent = @"public $viewmodelclass$ ViewModel
+{
+    get
+    {
+        return new $viewmodelclass$();
+    }
+}";
+
+            var logger = DefaultTestLogger.Create();
+
+            var fs = new TestFileSystem
+            {
+                FileText = @"class TestPage
+{
+}",
+            };
+
+            var synTree = CSharpSyntaxTree.ParseText(fs.FileText);
+
+            var vs = new TestVisualStudioAbstraction
+            {
+                ActiveDocumentFileName = "TestPage.xaml.cs",
+                ActiveDocumentText = fs.FileText,
+                SyntaxTree = synTree,
+                DocumentIsCSharp = true,
+            };
+
+            var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
+
+            var documentRoot = CSharpSyntaxTree.ParseText(fs.FileText).GetRoot();
+
+            var result = sut.GetCodeBehindContentToAdd("TestPage", "TestViewModel", documentRoot);
+
+            var expectedContent0 = @"
+public TestPage()
+{
+    this.Initialize();
+
+this.DataContext = this.ViewModel;
+}
+";
+
+            Assert.IsTrue(result[0].anythingToAdd);
+            Assert.AreEqual(2, result[0].lineNoToAddAfter);
+            Assert.AreEqual(expectedContent0, result[0].contentToAdd);
+
+            var expectedContent1 = @"
+
+public TestViewModel ViewModel
+{
+    get
+    {
+        return new TestViewModel();
+    }
+}";
+            Assert.IsTrue(result[1].anythingToAdd);
+            Assert.AreEqual(8, result[1].lineNoToAddAfter);
+            Assert.AreEqual(expectedContent1, result[1].contentToAdd);
         }
     }
 }

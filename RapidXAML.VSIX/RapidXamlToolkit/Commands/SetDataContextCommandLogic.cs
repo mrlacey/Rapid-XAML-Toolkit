@@ -36,13 +36,16 @@ namespace RapidXamlToolkit
             return result;
         }
 
-        public string InferViewModelNameFromFileName(string fileName)
+        public (string viewName, string viewModelName) InferViewModelNameFromFileName(string fileName)
         {
             // Incoming file may be XAML or code-behind
-            return this.fileSystem.GetFileNameWithoutExtension(fileName)
-                .RemoveFromEndIfExists(".xaml") // to allow for double extensions
-                .RemoveFromEndIfExists(this.profile.ViewGeneration.XamlFileSuffix)
-                .Append(this.profile.ViewGeneration.ViewModelFileSuffix);
+            // to allow for double extensions
+            var viewClass = this.fileSystem.GetFileNameWithoutExtension(fileName).RemoveFromEndIfExists(".xaml");
+
+            var vm = viewClass.RemoveFromEndIfExists(this.profile.ViewGeneration.XamlFileSuffix)
+                              .Append(this.profile.ViewGeneration.ViewModelFileSuffix);
+
+            return (viewClass, vm);
         }
 
         public bool ShouldEnableCommand()
@@ -55,7 +58,7 @@ namespace RapidXamlToolkit
             {
                 var inXamlDoc = activeDocName.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
 
-                var viewModelName = this.InferViewModelNameFromFileName(activeDocName);
+                var (viewName, viewModelName) = this.InferViewModelNameFromFileName(activeDocName);
 
                 // Only show based on current doc - will need to switch to other doc if not set there
                 if (inXamlDoc)
@@ -140,7 +143,7 @@ namespace RapidXamlToolkit
             return (add, lineNo, content);
         }
 
-        public (bool anythingToAdd, int lineNoToAddAfter, string contentToAdd, bool constructorAdded) GetCodeBehindConstructorContentToAdd(string activeDocText, SyntaxNode documentRoot, string viewModelName)
+        public (bool anythingToAdd, int lineNoToAddAfter, string contentToAdd, bool constructorAdded) GetCodeBehindConstructorContentToAdd(string activeDocText, SyntaxNode documentRoot, string viewName, string viewModelName)
         {
             var add = false;
             var lineNo = 0;
@@ -166,6 +169,8 @@ namespace RapidXamlToolkit
 
                         // Count based on count of linefeed as may not use CrLf
                         lineNo = activeDocText.Take(ctorEndPos).Count(c => c == '\n');
+
+                        content = $"{Environment.NewLine}{Environment.NewLine}{ctorCodeToInsert}";
                     }
                     else
                     {
@@ -176,9 +181,13 @@ namespace RapidXamlToolkit
                             ctorEndPos = classDeclaration.OpenBraceToken.Span.End;
                         }
 
-                        ctorCodeToInsert = this.profile.Datacontext.DefaultCodeBehindConstructor.Insert(
-                            this.profile.Datacontext.DefaultCodeBehindConstructor.LastIndexOf("}"),
-                            $"{Environment.NewLine}{ctorCodeToInsert}{Environment.NewLine}");
+                        var defaultConstructor = this.profile.Datacontext.DefaultCodeBehindConstructor.Replace(Placeholder.ViewClass, viewName);
+
+                        content = Environment.NewLine
+                                + defaultConstructor.Insert(
+                                        defaultConstructor.LastIndexOf("}"),
+                                        $"{Environment.NewLine}{ctorCodeToInsert}{Environment.NewLine}")
+                                + Environment.NewLine;
 
                         ctorAdded = true;
 
@@ -186,9 +195,6 @@ namespace RapidXamlToolkit
                         // Add one because of different zero indexes
                         lineNo = activeDocText.Take(ctorEndPos).Count(c => c == '\n') + 1;
                     }
-
-                    // Add 2 at the end to account for the 2 lines added below during insertion
-                    ////lineNo = lineNo + System.Text.RegularExpressions.Regex.Matches(ctorCodeToInsert, Environment.NewLine).Count + 2;
                 }
                 else
                 {
@@ -235,9 +241,9 @@ namespace RapidXamlToolkit
                             }
                         }
 
-                        ctorCodeToInsert = this.profile.Datacontext.DefaultCodeBehindConstructor.Insert(
-                            this.profile.Datacontext.DefaultCodeBehindConstructor.LastIndexOf("End "),
-                            $"{ctorCodeToInsert}{Environment.NewLine}");
+                        var defaultConstructor = this.profile.Datacontext.DefaultCodeBehindConstructor.Replace(Placeholder.ViewModelClass, viewName);
+
+                        ctorCodeToInsert = defaultConstructor.Insert(defaultConstructor.LastIndexOf("End "), $"{ctorCodeToInsert}{Environment.NewLine}");
 
                         if (ctorEndPos == 0)
                         {
@@ -248,13 +254,9 @@ namespace RapidXamlToolkit
 
                         ctorAdded = true;
                     }
-
-                    // Add 2 at the end to account for the 2 lines added below during insertion
-                    ////lineNo = lineNo + System.Text.RegularExpressions.Regex.Matches(ctorCodeToInsert, Environment.NewLine).Count + 2;
                 }
 
                 add = true;
-                content = $"{Environment.NewLine}{Environment.NewLine}{ctorCodeToInsert}";
             }
 
             return (add, lineNo, content, ctorAdded);
@@ -355,27 +357,24 @@ namespace RapidXamlToolkit
                 }
                 else
                 {
-                    lineNo = activeDocText.Take(ctorEndPos).Count(c => c == '\n');
+                    lineNo = activeDocText.Take(ctorEndPos).Count(c => c == '\n') + 1;
                 }
 
                 add = true;
-                lineNo = lineNo + 1;
                 content = $"{Environment.NewLine}{Environment.NewLine}{contentToInsert}";
             }
 
             return (add, lineNo, content);
         }
 
-        public (bool anythingToAdd, int lineNoToAddAfter, string contentToAdd)[] GetCodeBehindContentToAdd(string viewModelName, Document document)
+        public (bool anythingToAdd, int lineNoToAddAfter, string contentToAdd)[] GetCodeBehindContentToAdd(string viewName, string viewModelName, SyntaxNode documentRoot)
         {
             var result = new (bool add, int line, string content)[2];
 
             // The Active Document Text is the underlying model of the document and what we directly manipulate
-            // The document is what is displayed and what Roslyn can be used with
-            // We need a combination of both views of the code
+            // The documentRoot is the Roslyn model of the document
+            // We combine the raw text and tree models to produce the output we need
             var activeDocText = this.vs.GetActiveDocumentText();
-            var (syntaxTree, semanticModel) = this.vs.GetDocumentModels(document);
-            var documentRoot = syntaxTree.GetRoot();
 
             bool constructorAdded = false;
 
@@ -383,7 +382,7 @@ namespace RapidXamlToolkit
             // If added other content first we couldn't position it relative to the new constructor
             if (this.profile.Datacontext.SetsCodeBehindConstructorContent)
             {
-                var ctorAddition = this.GetCodeBehindConstructorContentToAdd(activeDocText, documentRoot, viewModelName);
+                var ctorAddition = this.GetCodeBehindConstructorContentToAdd(activeDocText, documentRoot, viewName, viewModelName);
                 result[0] = (ctorAddition.anythingToAdd, ctorAddition.lineNoToAddAfter, ctorAddition.contentToAdd);
                 constructorAdded = ctorAddition.constructorAdded;
             }
@@ -401,7 +400,7 @@ namespace RapidXamlToolkit
                     activeDocText = activeDocText.Insert(insertPos, result[0].content);
                 }
 
-                result[1] = this.GetCodeBehindPageContentToAdd(activeDocText, documentRoot, viewModelName, constructorAdded ? result[0].line + result[1].content.Count(c => c == '\n') : -1);
+                result[1] = this.GetCodeBehindPageContentToAdd(activeDocText, documentRoot, viewModelName, constructorAdded ? result[0].line + result[0].content.Count(c => c == '\n') - 1 : -1);
             }
             else
             {

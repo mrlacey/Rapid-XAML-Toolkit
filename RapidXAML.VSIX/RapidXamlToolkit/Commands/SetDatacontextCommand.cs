@@ -87,7 +87,7 @@ namespace RapidXamlToolkit
 
                 var inXamlDoc = dte.ActiveDocument.Name.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
 
-                var viewModelName = logic.InferViewModelNameFromFileName(dte.ActiveDocument.Name);
+                var (viewName, viewModelName) = logic.InferViewModelNameFromFileName(dte.ActiveDocument.Name);
 
                 if (inXamlDoc)
                 {
@@ -131,8 +131,9 @@ namespace RapidXamlToolkit
                         var textView = GetTextView(Instance.ServiceProvider);
                         var caretPosition = textView.Caret.Position.BufferPosition;
                         var document = caretPosition.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
+                        var documentRoot = document.GetSyntaxTreeAsync().Result.GetRoot();
 
-                        var toAdd = logic.GetCodeBehindContentToAdd(viewModelName, document);
+                        var toAdd = logic.GetCodeBehindContentToAdd(viewName, viewModelName, documentRoot);
 
                         foreach (var (anything, lineNo, contentToAdd) in toAdd)
                         {
