@@ -4,13 +4,13 @@ The Rapid XAML Toolkit is highly configurable so that it can be used regardless 
 
 ## Profiles
 
-The basis of configuration are [profiles](./docs/profiles.md). A profile is a complete set of configurable values for how the toolkit works.
+The basis of configuration are [profiles](./profiles.md). A profile is a complete set of configurable values for how the toolkit works.
 
 Only one profile can be used at a time. The profile being used is called the ""active"" profile. If no profile is active you will be prompted to make one active before you can use any of the functionality of the toolkit. If you work on different platforms or projects that are very different, it is expected you will switch between profiles as necessary.
 
 A number of profiles are provided by default. These can be used as they are or customized to meet your needs.
 
-Learn more about profiles [here](./docs/profiles.md).
+Learn more about profiles [here](./profiles.md).
 
 ## General settings
 
