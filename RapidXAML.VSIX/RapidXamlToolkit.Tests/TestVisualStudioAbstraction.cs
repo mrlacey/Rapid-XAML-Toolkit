@@ -1,6 +1,5 @@
-﻿// <copyright file="TestVisualStudioAbstraction.cs" company="Microsoft">
-// Copyright (c) Microsoft. All rights reserved.
-// </copyright>
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
 
 using Microsoft.CodeAnalysis;
 

@@ -1,6 +1,5 @@
-﻿// <copyright file="SetDataContextCommandLogic.cs" company="Microsoft">
-// Copyright (c) Microsoft. All rights reserved.
-// </copyright>
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
 
 using System;
 using System.Linq;
@@ -189,7 +188,7 @@ namespace RapidXamlToolkit
                     }
 
                     // Add 2 at the end to account for the 2 lines added below during insertion
-                    //lineNo = lineNo + System.Text.RegularExpressions.Regex.Matches(ctorCodeToInsert, Environment.NewLine).Count + 2;
+                    ////lineNo = lineNo + System.Text.RegularExpressions.Regex.Matches(ctorCodeToInsert, Environment.NewLine).Count + 2;
                 }
                 else
                 {
@@ -251,7 +250,7 @@ namespace RapidXamlToolkit
                     }
 
                     // Add 2 at the end to account for the 2 lines added below during insertion
-                    //lineNo = lineNo + System.Text.RegularExpressions.Regex.Matches(ctorCodeToInsert, Environment.NewLine).Count + 2;
+                    ////lineNo = lineNo + System.Text.RegularExpressions.Regex.Matches(ctorCodeToInsert, Environment.NewLine).Count + 2;
                 }
 
                 add = true;
