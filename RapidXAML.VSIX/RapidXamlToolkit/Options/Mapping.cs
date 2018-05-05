@@ -3,7 +3,7 @@
 
 using System;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Options
 {
     public class Mapping : ICloneable
     {

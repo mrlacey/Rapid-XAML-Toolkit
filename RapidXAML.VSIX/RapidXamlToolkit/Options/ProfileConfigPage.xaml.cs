@@ -3,11 +3,11 @@
 
 using System;
 using System.Windows;
-using Microsoft.VisualStudio.PlatformUI;
+using RapidXamlToolkit.Logging;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Options
 {
-    public partial class ProfileConfigPage : DialogWindow
+    public partial class ProfileConfigPage
     {
         private Profile viewModel;
 

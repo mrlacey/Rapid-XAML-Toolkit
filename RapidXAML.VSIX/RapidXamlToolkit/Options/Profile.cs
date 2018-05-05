@@ -2,12 +2,11 @@
 // Licensed under the MIT license.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Options
 {
     public class Profile : CanNotifyPropertyChanged, ICloneable
     {

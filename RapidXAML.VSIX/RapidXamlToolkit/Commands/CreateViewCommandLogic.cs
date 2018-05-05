@@ -2,8 +2,11 @@
 // Licensed under the MIT license.
 
 using System;
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Options;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     public class CreateViewCommandLogic
     {
@@ -44,17 +47,17 @@ namespace RapidXamlToolkit
             (var syntaxTree, var semModel) = this.vs.GetDocumentModels(selectedFileName);
 
             AnalyzerBase analyzer = null;
-            string codeBehindExt = string.Empty;
+            var codeBehindExt = string.Empty;
 
             switch (fileExt)
             {
                 case ".cs":
                     analyzer = new CSharpAnalyzer(this.logger);
-                    codeBehindExt = (analyzer as CSharpAnalyzer).FileExtension;
+                    codeBehindExt = ((CSharpAnalyzer)analyzer).FileExtension;
                     break;
                 case ".vb":
                     analyzer = new VisualBasicAnalyzer(this.logger);
-                    codeBehindExt = (analyzer as VisualBasicAnalyzer).FileExtension;
+                    codeBehindExt = ((VisualBasicAnalyzer)analyzer).FileExtension;
                     break;
             }
 
@@ -63,7 +66,7 @@ namespace RapidXamlToolkit
             if (analyzer != null)
             {
                 // IndexOf is allowing for "class " in C# and "Class " in VB
-                var analyzerOutput = (analyzer as IDocumentAnalyzer).GetSingleItemOutput(syntaxTree.GetRoot(), semModel, fileContents.IndexOf("lass "), this.profile);
+                var analyzerOutput = ((IDocumentAnalyzer)analyzer).GetSingleItemOutput(syntaxTree.GetRoot(), semModel, fileContents.IndexOf("lass "), this.profile);
 
                 var config = this.profile.ViewGeneration;
 
@@ -73,13 +76,13 @@ namespace RapidXamlToolkit
 
                 if (vmClassName.EndsWith(config.ViewModelFileSuffix))
                 {
-                    baseClassName = vmClassName.Substring(0, vmClassName.LastIndexOf(config.ViewModelFileSuffix));
+                    baseClassName = vmClassName.Substring(0, vmClassName.LastIndexOf(config.ViewModelFileSuffix, StringComparison.InvariantCulture));
                 }
 
                 var viewClassName = $"{baseClassName}{config.XamlFileSuffix}";
 
                 var vmProjName = vmProj.Name;
-                var viewProjName = string.Empty;
+                string viewProjName;
 
                 this.ViewProject = null;
 

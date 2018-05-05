@@ -6,12 +6,13 @@ using System.Reflection;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.VisualStudio.Telemetry;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.Telemetry
 {
     public class TelemetryAccessor : IDisposable
     {
-        private ILogger logger;
+        private readonly ILogger logger;
 
         private TelemetryAccessor(ILogger logger)
         {
@@ -61,7 +62,11 @@ namespace RapidXamlToolkit.Telemetry
             }
             catch (Exception ex)
             {
-                instance.IsEnabled = false;
+                if (instance != null)
+                {
+                    instance.IsEnabled = false;
+                }
+
                 TelemetryConfiguration.Active.DisableTelemetry = true;
 
                 logger.RecordException(ex);
@@ -161,7 +166,7 @@ namespace RapidXamlToolkit.Telemetry
             }
             catch (Exception)
             {
-                logger.RecordInfo($"Unable to load the assembly 'Microsoft.VisualStudio.Telemetry' so telemetry will not be enabled.");
+                logger.RecordInfo("Unable to load the assembly 'Microsoft.VisualStudio.Telemetry' so telemetry will not be enabled.");
                 isOptedIn = false;
             }
 

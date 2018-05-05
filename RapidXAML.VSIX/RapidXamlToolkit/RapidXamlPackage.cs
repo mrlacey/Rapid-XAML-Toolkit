@@ -2,18 +2,14 @@
 // Licensed under the MIT license.
 
 using System;
-using System.ComponentModel.Design;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.Win32;
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Telemetry;
 using Task = System.Threading.Tasks.Task;
 
@@ -41,7 +37,7 @@ namespace RapidXamlToolkit
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [Guid(RapidXamlPackage.PackageGuidString)]
+    [Guid(PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideOptionPage(typeof(SettingsConfigPage), "RapidXAML", "Profiles", 106, 107, true)]
     public sealed class RapidXamlPackage : AsyncPackage
@@ -50,17 +46,6 @@ namespace RapidXamlToolkit
         /// CreateViewCommandPackage GUID string.
         /// </summary>
         public const string PackageGuidString = "c735dfc3-c416-4501-bc33-558e2aaad8c5";
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RapidXamlPackage"/> class.
-        /// </summary>
-        public RapidXamlPackage()
-        {
-            // Inside this method you can place any initialization code that does not require
-            // any Visual Studio service because at this point the package object is created but
-            // not sited yet inside Visual Studio environment. The place to do all the other
-            // initialization is the Initialize method.
-        }
 
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place

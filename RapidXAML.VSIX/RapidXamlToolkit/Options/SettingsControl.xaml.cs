@@ -5,11 +5,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
+using RapidXamlToolkit.Logging;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Options
 {
-    public partial class SettingsControl : UserControl
+    public partial class SettingsControl
     {
         private ConfiguredSettings settings;
 
@@ -32,7 +32,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        private void SetActiveClicked(object sender, System.Windows.RoutedEventArgs e)
+        private void SetActiveClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        private void AddClicked(object sender, System.Windows.RoutedEventArgs e)
+        private void AddClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        private void EditClicked(object sender, System.Windows.RoutedEventArgs e)
+        private void EditClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        private void CopyClicked(object sender, System.Windows.RoutedEventArgs e)
+        private void CopyClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        private void DeleteClicked(object sender, System.Windows.RoutedEventArgs e)
+        private void DeleteClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        private async void ImportClicked(object sender, System.Windows.RoutedEventArgs e)
+        private async void ImportClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -208,7 +208,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        private void ExportClicked(object sender, System.Windows.RoutedEventArgs e)
+        private void ExportClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -237,7 +237,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        private void ResetClicked(object sender, System.Windows.RoutedEventArgs e)
+        private void ResetClicked(object sender, RoutedEventArgs e)
         {
             try
             {

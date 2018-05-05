@@ -7,14 +7,15 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell.Settings;
+using RapidXamlToolkit.Logging;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Options
 {
     public partial class ConfiguredSettings : CanNotifyPropertyChanged
     {
         public const string SettingCollectionName = "RapidXamlToolkitSettings";
 
-        private WritableSettingsStore store;
+        private readonly WritableSettingsStore store;
         private Settings actualSettings;
 
         public ConfiguredSettings(IServiceProvider vsServiceProvider)

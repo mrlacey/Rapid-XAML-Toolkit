@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Options
 {
     public partial class ConfiguredSettings
     {

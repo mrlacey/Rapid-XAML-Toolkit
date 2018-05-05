@@ -9,8 +9,9 @@ using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Text.Editor;
+using TextDocument = EnvDTE.TextDocument;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     public class VisualStudioAbstraction : IVisualStudioAbstraction
     {
@@ -33,10 +34,15 @@ namespace RapidXamlToolkit
         public string GetActiveDocumentText()
         {
             var activeDoc = this.dte.ActiveDocument;
-            var objectDoc = activeDoc.Object("TextDocument") as EnvDTE.TextDocument;
-            var docText = objectDoc.StartPoint.CreateEditPoint().GetText(objectDoc.EndPoint);
 
-            return docText;
+            if (activeDoc.Object("TextDocument") is TextDocument objectDoc)
+            {
+                var docText = objectDoc.StartPoint.CreateEditPoint().GetText(objectDoc.EndPoint);
+
+                return docText;
+            }
+
+            return null;
         }
 
         public ProjectWrapper GetActiveProject()
@@ -48,11 +54,16 @@ namespace RapidXamlToolkit
         {
             var visualStudioWorkspace = this.componentModel?.GetService<VisualStudioWorkspace>();
 
-            Microsoft.CodeAnalysis.Solution solution = visualStudioWorkspace.CurrentSolution;
-            DocumentId documentId = solution.GetDocumentIdsWithFilePath(fileName).FirstOrDefault();
-            var document = solution.GetDocument(documentId);
+            if (visualStudioWorkspace != null)
+            {
+                var solution = visualStudioWorkspace.CurrentSolution;
+                var documentId = solution.GetDocumentIdsWithFilePath(fileName).FirstOrDefault();
+                var document = solution.GetDocument(documentId);
 
-            return this.GetDocumentModels(document);
+                return this.GetDocumentModels(document);
+            }
+
+            return (null, null);
         }
 
         public (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(Microsoft.CodeAnalysis.Document document)

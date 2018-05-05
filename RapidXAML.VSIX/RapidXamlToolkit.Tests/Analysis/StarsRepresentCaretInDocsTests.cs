@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Options;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
@@ -181,7 +183,7 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             for (var pos = startPos; pos < endPos; pos++)
             {
-                IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+                var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
                 var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
@@ -207,7 +209,7 @@ namespace RapidXamlToolkit.Tests.Analysis
             var semModel = isCSharp ? CSharpCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true)
                                     : VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true);
 
-            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
@@ -220,25 +222,11 @@ namespace RapidXamlToolkit.Tests.Analysis
         {
             var pos = code.IndexOf("*", StringComparison.Ordinal);
 
-            SyntaxTree syntaxTree = null;
-            SemanticModel semModel = null;
-
             var projectId = ProjectId.CreateNewId();
             var documentId = DocumentId.CreateNewId(projectId);
 
-            string language = string.Empty;
-            string fileExt = string.Empty;
-
-            if (isCSharp)
-            {
-                language = LanguageNames.CSharp;
-                fileExt = "cs";
-            }
-            else
-            {
-                language = LanguageNames.VisualBasic;
-                fileExt = "vb";
-            }
+            var language = isCSharp ? LanguageNames.CSharp : LanguageNames.VisualBasic;
+            var fileExt = isCSharp ? "cs" : "vb";
 
             var solution = new AdhocWorkspace().CurrentSolution
                                                .AddProject(projectId, "MyProject", "MyProject", language)
@@ -251,10 +239,11 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var document = solution.GetDocument(documentId);
 
-            semModel = document.GetSemanticModelAsync().Result;
-            syntaxTree = document.GetSyntaxTreeAsync().Result;
+            var semModel = document.GetSemanticModelAsync().Result;
+            var syntaxTree = document.GetSyntaxTreeAsync().Result;
 
-            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer
+                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
@@ -267,25 +256,11 @@ namespace RapidXamlToolkit.Tests.Analysis
         {
             var pos = code.IndexOf("*", StringComparison.Ordinal);
 
-            SyntaxTree syntaxTree = null;
-            SemanticModel semModel = null;
-
             var projectId = ProjectId.CreateNewId();
             var documentId = DocumentId.CreateNewId(projectId);
 
-            string language = string.Empty;
-            string fileExt = string.Empty;
-
-            if (isCSharp)
-            {
-                language = LanguageNames.CSharp;
-                fileExt = "cs";
-            }
-            else
-            {
-                language = LanguageNames.VisualBasic;
-                fileExt = "vb";
-            }
+            var language = isCSharp ? LanguageNames.CSharp : LanguageNames.VisualBasic;
+            var fileExt = isCSharp ? "cs" : "vb";
 
             var solution = new AdhocWorkspace().CurrentSolution
                                                .AddProject(projectId, "MyProject", "MyProject", language)
@@ -293,17 +268,18 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             foreach (var addRef in additionalReferences)
             {
-                var lib = MetadataReference.CreateFromFile(Type.GetType(addRef).Assembly.Location);
+                var lib = MetadataReference.CreateFromFile(Type.GetType(addRef)?.Assembly.Location);
 
                 solution = solution.AddMetadataReference(projectId, lib);
             }
 
             var document = solution.GetDocument(documentId);
 
-            semModel = document.GetSemanticModelAsync().Result;
-            syntaxTree = document.GetSyntaxTreeAsync().Result;
+            var semModel = document.GetSemanticModelAsync().Result;
+            var syntaxTree = document.GetSyntaxTreeAsync().Result;
 
-            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer
+                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
@@ -316,25 +292,11 @@ namespace RapidXamlToolkit.Tests.Analysis
         {
             var pos = code.IndexOf("*", StringComparison.Ordinal);
 
-            SyntaxTree syntaxTree = null;
-            SemanticModel semModel = null;
-
             var projectId = ProjectId.CreateNewId();
             var documentId = DocumentId.CreateNewId(projectId);
 
-            string language = string.Empty;
-            string fileExt = string.Empty;
-
-            if (isCSharp)
-            {
-                language = LanguageNames.CSharp;
-                fileExt = "cs";
-            }
-            else
-            {
-                language = LanguageNames.VisualBasic;
-                fileExt = "vb";
-            }
+            var language = isCSharp ? LanguageNames.CSharp : LanguageNames.VisualBasic;
+            var fileExt = isCSharp ? "cs" : "vb";
 
             var solution = new AdhocWorkspace().CurrentSolution
                                                .AddProject(projectId, "MyProject", "MyProject", language)
@@ -349,10 +311,11 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var document = solution.GetDocument(documentId);
 
-            semModel = document.GetSemanticModelAsync().Result;
-            syntaxTree = document.GetSyntaxTreeAsync().Result;
+            var semModel = document.GetSemanticModelAsync().Result;
+            var syntaxTree = document.GetSyntaxTreeAsync().Result;
 
-            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer
+                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
@@ -367,14 +330,14 @@ namespace RapidXamlToolkit.Tests.Analysis
             var endPos = code.LastIndexOf("*", StringComparison.Ordinal) - 1;
 
             var syntaxTree = isCSharp ? CSharpSyntaxTree.ParseText(code.Replace("*", string.Empty))
-                : VisualBasicSyntaxTree.ParseText(code.Replace("*", string.Empty));
+                                      : VisualBasicSyntaxTree.ParseText(code.Replace("*", string.Empty));
 
             Assert.IsNotNull(syntaxTree);
 
             var semModel = isCSharp ? CSharpCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true)
-                : VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true);
+                                    : VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true);
 
-            IDocumentAnalyzer analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
             var actual = analyzer.GetSelectionOutput(syntaxTree.GetRoot(), semModel, startPos, endPos, profileOverload);
 

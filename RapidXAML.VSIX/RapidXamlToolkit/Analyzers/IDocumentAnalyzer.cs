@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
+using RapidXamlToolkit.Options;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Analyzers
 {
     public interface IDocumentAnalyzer
     {

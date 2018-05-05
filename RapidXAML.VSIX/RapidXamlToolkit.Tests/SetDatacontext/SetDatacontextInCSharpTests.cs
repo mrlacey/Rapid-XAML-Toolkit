@@ -4,6 +4,7 @@
 using System;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.Commands;
 
 namespace RapidXamlToolkit.Tests.SetDatacontext
 {
@@ -31,7 +32,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 }",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -61,7 +62,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 }",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -90,7 +91,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 }",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -130,12 +131,13 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestPage", "TestViewModel");
+            var (anythingToAdd, lineNoToAddAfter, contentToAdd, constructorAdded)
+                = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestPage", "TestViewModel");
 
-            Assert.IsTrue(result.anythingToAdd);
-            Assert.AreEqual(5, result.lineNoToAddAfter);
-            Assert.AreEqual($"{Environment.NewLine}{Environment.NewLine}this.DataContext = this.ViewModel;", result.contentToAdd);
-            Assert.IsFalse(result.constructorAdded);
+            Assert.IsTrue(anythingToAdd);
+            Assert.AreEqual(5, lineNoToAddAfter);
+            Assert.AreEqual($"{Environment.NewLine}{Environment.NewLine}this.DataContext = this.ViewModel;", contentToAdd);
+            Assert.IsFalse(constructorAdded);
         }
 
         [TestMethod]
@@ -169,7 +171,8 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestPage", "TestViewModel");
+            var (anythingToAdd, lineNoToAddAfter, contentToAdd, constructorAdded)
+                = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestPage", "TestViewModel");
 
             var expectedContent = @"
 public TestPage()
@@ -180,10 +183,10 @@ this.DataContext = this.ViewModel;
 }
 ";
 
-            Assert.IsTrue(result.anythingToAdd);
-            Assert.AreEqual(2, result.lineNoToAddAfter);
-            Assert.AreEqual(expectedContent, result.contentToAdd);
-            Assert.IsTrue(result.constructorAdded);
+            Assert.IsTrue(anythingToAdd);
+            Assert.AreEqual(2, lineNoToAddAfter);
+            Assert.AreEqual(expectedContent, contentToAdd);
+            Assert.IsTrue(constructorAdded);
         }
 
         [TestMethod]
@@ -222,7 +225,7 @@ this.DataContext = this.ViewModel;
 }",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -259,7 +262,7 @@ this.DataContext = this.ViewModel;
 }",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -307,7 +310,8 @@ this.DataContext = this.ViewModel;
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
+            var (anythingToAdd, lineNoToAddAfter, contentToAdd)
+                = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
 
             var expectedContent = @"
 
@@ -319,9 +323,9 @@ public TestViewModel ViewModel
     }
 }";
 
-            Assert.IsTrue(result.anythingToAdd);
-            Assert.AreEqual(6, result.lineNoToAddAfter);
-            Assert.AreEqual(expectedContent, result.contentToAdd);
+            Assert.IsTrue(anythingToAdd);
+            Assert.AreEqual(6, lineNoToAddAfter);
+            Assert.AreEqual(expectedContent, contentToAdd);
         }
 
         [TestMethod]
@@ -359,7 +363,8 @@ public TestViewModel ViewModel
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
+            var (anythingToAdd, lineNoToAddAfter, contentToAdd)
+                = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
 
             var expectedContent = @"
 
@@ -370,9 +375,9 @@ public TestViewModel ViewModel
         return new TestViewModel();
     }
 }";
-            Assert.IsTrue(result.anythingToAdd);
-            Assert.AreEqual(2, result.lineNoToAddAfter);
-            Assert.AreEqual(expectedContent, result.contentToAdd);
+            Assert.IsTrue(anythingToAdd);
+            Assert.AreEqual(2, lineNoToAddAfter);
+            Assert.AreEqual(expectedContent, contentToAdd);
         }
 
         [TestMethod]

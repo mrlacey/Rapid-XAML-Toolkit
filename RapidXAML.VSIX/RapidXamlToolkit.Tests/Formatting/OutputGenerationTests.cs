@@ -4,6 +4,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Options;
 
 namespace RapidXamlToolkit.Tests.Formatting
 {
@@ -20,7 +22,7 @@ namespace RapidXamlToolkit.Tests.Formatting
 
         private const string StringPropertyName = "String";
 
-        private Profile testProfile;
+        private readonly Profile testProfile;
 
         public OutputGenerationTests()
         {

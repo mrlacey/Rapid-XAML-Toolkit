@@ -4,7 +4,7 @@
 using System;
 using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Tests;
+using RapidXamlToolkit.Commands;
 
 namespace RapidXamlToolkit.Tests.SetDatacontext
 {
@@ -33,7 +33,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 End Class",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -64,7 +64,7 @@ End Class",
 End Class",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -93,7 +93,7 @@ End Class",
 End Class",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -133,12 +133,13 @@ End Class",
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestPage", "TestViewModel");
+            var (anythingToAdd, lineNoToAddAfter, contentToAdd, constructorAdded)
+                = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestPage", "TestViewModel");
 
-            Assert.IsTrue(result.anythingToAdd);
-            Assert.AreEqual(5, result.lineNoToAddAfter);
-            Assert.AreEqual($"{Environment.NewLine}{Environment.NewLine}DataContext = ViewModel", result.contentToAdd);
-            Assert.IsFalse(result.constructorAdded);
+            Assert.IsTrue(anythingToAdd);
+            Assert.AreEqual(5, lineNoToAddAfter);
+            Assert.AreEqual($"{Environment.NewLine}{Environment.NewLine}DataContext = ViewModel", contentToAdd);
+            Assert.IsFalse(constructorAdded);
         }
 
         [TestMethod]
@@ -172,7 +173,8 @@ End Class",
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestPage", "TestViewModel");
+            var (anythingToAdd, lineNoToAddAfter, contentToAdd, constructorAdded)
+                = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestPage", "TestViewModel");
 
             var expectedContent = @"
 Sub New()
@@ -182,10 +184,10 @@ DataContext = ViewModel
 End Sub
 ";
 
-            Assert.IsTrue(result.anythingToAdd);
-            Assert.AreEqual(2, result.lineNoToAddAfter);
-            Assert.AreEqual(expectedContent, result.contentToAdd);
-            Assert.IsTrue(result.constructorAdded);
+            Assert.IsTrue(anythingToAdd);
+            Assert.AreEqual(2, lineNoToAddAfter);
+            Assert.AreEqual(expectedContent, contentToAdd);
+            Assert.IsTrue(constructorAdded);
         }
 
         [TestMethod]
@@ -220,7 +222,7 @@ End Property";
 End Class",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -255,7 +257,7 @@ End Property";
 End Class",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -301,7 +303,8 @@ End Class",
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
+            var (anythingToAdd, lineNoToAddAfter, contentToAdd)
+                = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
 
             var expectedContent = @"
 
@@ -311,9 +314,9 @@ Public ReadOnly Property ViewModel As TestViewModel
     End Get
 End Property";
 
-            Assert.IsTrue(result.anythingToAdd);
-            Assert.AreEqual(6, result.lineNoToAddAfter);
-            Assert.AreEqual(expectedContent, result.contentToAdd);
+            Assert.IsTrue(anythingToAdd);
+            Assert.AreEqual(6, lineNoToAddAfter);
+            Assert.AreEqual(expectedContent, contentToAdd);
         }
 
         [TestMethod]
@@ -350,7 +353,8 @@ End Class",
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
+            var (anythingToAdd, lineNoToAddAfter, contentToAdd)
+                = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
 
             var expectedContent = @"
 
@@ -360,9 +364,9 @@ Public ReadOnly Property ViewModel As TestViewModel
     End Get
 End Property";
 
-            Assert.IsTrue(result.anythingToAdd);
-            Assert.AreEqual(2, result.lineNoToAddAfter);
-            Assert.AreEqual(expectedContent, result.contentToAdd);
+            Assert.IsTrue(anythingToAdd);
+            Assert.AreEqual(2, lineNoToAddAfter);
+            Assert.AreEqual(expectedContent, contentToAdd);
         }
 
         [TestMethod]

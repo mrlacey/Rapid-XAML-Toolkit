@@ -3,6 +3,7 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.Commands;
 
 namespace RapidXamlToolkit.Tests.SetDatacontext
 {
@@ -27,7 +28,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 </Page>",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -53,7 +54,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 </Page>",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
@@ -80,7 +81,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 </Page>",
             };
 
-            var fs = new TestFileSystem { };
+            var fs = new TestFileSystem();
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 

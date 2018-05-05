@@ -48,6 +48,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\RapidXamlToolkit.xml</DocumentationFile>
+    <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -58,6 +59,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <DocumentationFile>bin\Release\RapidXamlToolkit.xml</DocumentationFile>
+    <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Analyzers\AnalyzerBase.cs" />

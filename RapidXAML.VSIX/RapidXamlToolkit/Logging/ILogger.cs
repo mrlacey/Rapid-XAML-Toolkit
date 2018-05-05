@@ -3,7 +3,7 @@
 
 using System;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Logging
 {
     public interface ILogger
     {

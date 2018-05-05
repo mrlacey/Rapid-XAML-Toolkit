@@ -7,6 +7,6 @@ namespace RapidXamlToolkit.Telemetry
     {
         public const string Prefix = "Rxt";
 
-        public static string SessionStart { get; private set; } = Prefix + "SessionStart";
+        public static string SessionStart { get; } = Prefix + "SessionStart";
     }
 }

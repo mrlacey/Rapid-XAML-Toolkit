@@ -4,7 +4,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Options
 {
     public class CanNotifyPropertyChanged : INotifyPropertyChanged
     {

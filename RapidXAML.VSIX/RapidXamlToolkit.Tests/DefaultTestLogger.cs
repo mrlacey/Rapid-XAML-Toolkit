@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.Tests
 {

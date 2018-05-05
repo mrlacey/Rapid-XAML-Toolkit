@@ -2,9 +2,10 @@
 // Licensed under the MIT license.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Options;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {

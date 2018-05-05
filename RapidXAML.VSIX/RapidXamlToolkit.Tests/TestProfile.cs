@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System.Collections.ObjectModel;
+using RapidXamlToolkit.Options;
 
 namespace RapidXamlToolkit.Tests
 {

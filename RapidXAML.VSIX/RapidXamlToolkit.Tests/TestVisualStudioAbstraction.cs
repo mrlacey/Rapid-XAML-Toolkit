@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Microsoft.CodeAnalysis;
+using RapidXamlToolkit.Commands;
 
 namespace RapidXamlToolkit.Tests
 {

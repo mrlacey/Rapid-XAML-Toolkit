@@ -4,10 +4,12 @@
 using System;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Options;
 using CSSyntax = Microsoft.CodeAnalysis.CSharp.Syntax;
 using VBSyntax = Microsoft.CodeAnalysis.VisualBasic.Syntax;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     public class SetDataContextCommandLogic
     {
@@ -58,7 +60,7 @@ namespace RapidXamlToolkit
             {
                 var inXamlDoc = activeDocName.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
 
-                var (viewName, viewModelName) = this.InferViewModelNameFromFileName(activeDocName);
+                var (_, viewModelName) = this.InferViewModelNameFromFileName(activeDocName);
 
                 // Only show based on current doc - will need to switch to other doc if not set there
                 if (inXamlDoc)
@@ -78,7 +80,7 @@ namespace RapidXamlToolkit
                 }
                 else
                 {
-                    if (!result && this.profile.Datacontext.SetsAnyCodeBehindContent)
+                    if (this.profile.Datacontext.SetsAnyCodeBehindContent)
                     {
                         var docText = this.vs.GetActiveDocumentText();
 

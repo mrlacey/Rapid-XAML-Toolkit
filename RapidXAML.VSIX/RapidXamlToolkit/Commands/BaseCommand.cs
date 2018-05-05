@@ -6,36 +6,29 @@ using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.TextManager.Interop;
+using RapidXamlToolkit.Logging;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     public class BaseCommand
     {
         public static readonly Guid CommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
-
-        private readonly ILogger logger;
 
         private readonly AsyncPackage package;
 
         public BaseCommand(AsyncPackage package, ILogger logger)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
-            this.logger = logger;
+            this.Logger = logger;
         }
 
-        protected ILogger Logger => this.logger;
+        protected ILogger Logger { get; }
 
         protected AsyncPackage AsyncPackage => this.package;
 
-        protected Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider
-        {
-            get
-            {
-                return this.package;
-            }
-        }
+        protected IAsyncServiceProvider ServiceProvider => this.package;
 
-        protected static Microsoft.VisualStudio.Text.Editor.IWpfTextView GetTextView(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider)
+        protected static Microsoft.VisualStudio.Text.Editor.IWpfTextView GetTextView(IAsyncServiceProvider serviceProvider)
         {
             var textManager = (IVsTextManager)serviceProvider.GetServiceAsync(typeof(SVsTextManager)).Result;
 
@@ -46,17 +39,12 @@ namespace RapidXamlToolkit
 
             textManager.GetActiveView(1, null, out IVsTextView textView);
 
-            if (textView == null)
-            {
-                return null;
-            }
-
-            return GetEditorAdaptersFactoryService(serviceProvider).GetWpfTextView(textView);
+            return textView == null ? null : GetEditorAdaptersFactoryService(serviceProvider).GetWpfTextView(textView);
         }
 
-        protected static IVsEditorAdaptersFactoryService GetEditorAdaptersFactoryService(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider)
+        protected static IVsEditorAdaptersFactoryService GetEditorAdaptersFactoryService(IAsyncServiceProvider serviceProvider)
         {
-            IComponentModel componentModel = (IComponentModel)serviceProvider.GetServiceAsync(typeof(SComponentModel)).Result;
+            var componentModel = (IComponentModel)serviceProvider.GetServiceAsync(typeof(SComponentModel)).Result;
             return componentModel.GetService<IVsEditorAdaptersFactoryService>();
         }
     }

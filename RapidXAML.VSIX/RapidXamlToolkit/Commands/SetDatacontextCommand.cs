@@ -3,11 +3,14 @@
 
 using System;
 using System.ComponentModel.Design;
+using EnvDTE;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Shell;
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Logging;
 using Task = System.Threading.Tasks.Task;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     internal sealed class SetDatacontextCommand : BaseCommand
     {
@@ -53,7 +56,7 @@ namespace RapidXamlToolkit
                     if (settings.IsActiveProfileSet)
                     {
                         var profile = settings.GetActiveProfile();
-                        var dte = (EnvDTE.DTE)Instance.ServiceProvider.GetServiceAsync(typeof(EnvDTE.DTE)).Result;
+                        var dte = (DTE)Instance.ServiceProvider.GetServiceAsync(typeof(DTE)).Result;
 
                         var logic = new SetDataContextCommandLogic(profile, this.Logger, new VisualStudioAbstraction(dte));
 
@@ -81,7 +84,7 @@ namespace RapidXamlToolkit
                 var settings = AnalyzerBase.GetSettings();
                 var profile = settings.GetActiveProfile();
 
-                var dte = (EnvDTE.DTE)Instance.ServiceProvider.GetServiceAsync(typeof(EnvDTE.DTE)).Result;
+                var dte = (DTE)Instance.ServiceProvider.GetServiceAsync(typeof(DTE)).Result;
 
                 var logic = new SetDataContextCommandLogic(profile, this.Logger, new VisualStudioAbstraction(dte));
 
@@ -97,10 +100,12 @@ namespace RapidXamlToolkit
 
                         if (add)
                         {
-                            var objectDoc = dte.ActiveDocument.Object("TextDocument") as EnvDTE.TextDocument;
-                            objectDoc.Selection.GotoLine(lineNo);
-                            objectDoc.Selection.EndOfLine();
-                            objectDoc.Selection.Insert(content);
+                            if (dte.ActiveDocument.Object("TextDocument") is TextDocument objectDoc)
+                            {
+                                objectDoc.Selection.GotoLine(lineNo);
+                                objectDoc.Selection.EndOfLine();
+                                objectDoc.Selection.Insert(content);
+                            }
                         }
                     }
 
@@ -126,22 +131,23 @@ namespace RapidXamlToolkit
 
                     if (profile.Datacontext.SetsAnyCodeBehindContent)
                     {
-                        var objectDoc = dte.ActiveDocument.Object("TextDocument") as EnvDTE.TextDocument;
-
-                        var textView = GetTextView(Instance.ServiceProvider);
-                        var caretPosition = textView.Caret.Position.BufferPosition;
-                        var document = caretPosition.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
-                        var documentRoot = document.GetSyntaxTreeAsync().Result.GetRoot();
-
-                        var toAdd = logic.GetCodeBehindContentToAdd(viewName, viewModelName, documentRoot);
-
-                        foreach (var (anything, lineNo, contentToAdd) in toAdd)
+                        if (dte.ActiveDocument.Object("TextDocument") is TextDocument objectDoc)
                         {
-                            if (anything)
+                            var textView = GetTextView(Instance.ServiceProvider);
+                            var caretPosition = textView.Caret.Position.BufferPosition;
+                            var document = caretPosition.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
+                            var documentRoot = document.GetSyntaxTreeAsync().Result.GetRoot();
+
+                            var toAdd = logic.GetCodeBehindContentToAdd(viewName, viewModelName, documentRoot);
+
+                            foreach (var (anything, lineNo, contentToAdd) in toAdd)
                             {
-                                objectDoc.Selection.GotoLine(lineNo);
-                                objectDoc.Selection.EndOfLine();
-                                objectDoc.Selection.Insert(contentToAdd);
+                                if (anything)
+                                {
+                                    objectDoc.Selection.GotoLine(lineNo);
+                                    objectDoc.Selection.EndOfLine();
+                                    objectDoc.Selection.Insert(contentToAdd);
+                                }
                             }
                         }
                     }
@@ -149,7 +155,7 @@ namespace RapidXamlToolkit
             }
             catch (Exception exc)
             {
-                this.Logger.RecordException(exc);
+                this.Logger?.RecordException(exc);
                 throw;
             }
         }

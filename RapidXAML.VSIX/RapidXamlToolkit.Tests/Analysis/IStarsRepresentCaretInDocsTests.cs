@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Options;
+
 namespace RapidXamlToolkit.Tests.Analysis
 {
     public interface IStarsRepresentCaretInDocsTests

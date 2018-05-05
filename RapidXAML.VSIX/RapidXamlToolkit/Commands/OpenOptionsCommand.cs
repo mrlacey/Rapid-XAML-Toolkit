@@ -3,14 +3,13 @@
 
 using System;
 using System.ComponentModel.Design;
-using System.Globalization;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Options;
 using Task = System.Threading.Tasks.Task;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     internal sealed class OpenOptionsCommand : BaseCommand
     {
@@ -21,8 +20,8 @@ namespace RapidXamlToolkit
         {
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
-            var menuCommandID = new CommandID(CommandSet, CommandId);
-            var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
+            var menuCommandId = new CommandID(CommandSet, CommandId);
+            var menuItem = new OleMenuCommand(this.Execute, menuCommandId);
             menuItem.BeforeQueryStatus += this.MenuItem_BeforeQueryStatus;
             commandService.AddCommand(menuItem);
         }
@@ -77,7 +76,7 @@ namespace RapidXamlToolkit
             }
             catch (Exception exc)
             {
-                this.Logger.RecordException(exc);
+                this.Logger?.RecordException(exc);
                 throw;
             }
         }

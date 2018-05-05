@@ -3,7 +3,7 @@
 
 using Microsoft.CodeAnalysis;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     public interface IVisualStudioAbstraction
     {

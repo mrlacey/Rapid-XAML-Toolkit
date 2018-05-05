@@ -3,7 +3,7 @@
 
 using System.IO;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     public class WindowsFileSystem : IFileSystemAbstraction
     {

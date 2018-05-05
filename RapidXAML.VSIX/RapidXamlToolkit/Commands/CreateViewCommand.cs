@@ -11,9 +11,11 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Logging;
 using Task = System.Threading.Tasks.Task;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     internal sealed class CreateViewCommand : BaseCommand
     {
@@ -24,8 +26,8 @@ namespace RapidXamlToolkit
         {
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
-            var menuCommandID = new CommandID(CommandSet, CommandId);
-            var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
+            var menuCommandId = new CommandID(CommandSet, CommandId);
+            var menuItem = new OleMenuCommand(this.Execute, menuCommandId);
             menuItem.BeforeQueryStatus += this.MenuItem_BeforeQueryStatus;
             commandService.AddCommand(menuItem);
         }
@@ -55,15 +57,13 @@ namespace RapidXamlToolkit
                 {
                     menuCmd.Visible = menuCmd.Enabled = false;
 
-                    uint itemid = VSConstants.VSITEMID_NIL;
-
-                    if (!this.IsSingleProjectItemSelection(out IVsHierarchy hierarchy, out itemid))
+                    if (!this.IsSingleProjectItemSelection(out var hierarchy, out var itemid))
                     {
                         this.SelectedFileName = null;
                         return;
                     }
 
-                    ((IVsProject)hierarchy).GetMkDocument(itemid, out string itemFullPath);
+                    ((IVsProject)hierarchy).GetMkDocument(itemid, out var itemFullPath);
                     var transformFileInfo = new FileInfo(itemFullPath);
 
                     // Save the name of the selected file so we whave it when the command is executed
@@ -89,7 +89,6 @@ namespace RapidXamlToolkit
         {
             hierarchy = null;
             itemid = VSConstants.VSITEMID_NIL;
-            int hr = VSConstants.S_OK;
 
             var solution = Package.GetGlobalService(typeof(SVsSolution)) as IVsSolution;
             if (!(Package.GetGlobalService(typeof(SVsShellMonitorSelection)) is IVsMonitorSelection monitorSelection) || solution == null)
@@ -97,13 +96,12 @@ namespace RapidXamlToolkit
                 return false;
             }
 
-            IVsMultiItemSelect multiItemSelect = null;
-            IntPtr hierarchyPtr = IntPtr.Zero;
-            IntPtr selectionContainerPtr = IntPtr.Zero;
+            var hierarchyPtr = IntPtr.Zero;
+            var selectionContainerPtr = IntPtr.Zero;
 
             try
             {
-                hr = monitorSelection.GetCurrentSelection(out hierarchyPtr, out itemid, out multiItemSelect, out selectionContainerPtr);
+                var hr = monitorSelection.GetCurrentSelection(out hierarchyPtr, out itemid, out var multiItemSelect, out selectionContainerPtr);
 
                 if (ErrorHandler.Failed(hr) || hierarchyPtr == IntPtr.Zero || itemid == VSConstants.VSITEMID_NIL)
                 {
@@ -129,9 +127,7 @@ namespace RapidXamlToolkit
                     return false;
                 }
 
-                Guid guidProjectID = Guid.Empty;
-
-                if (ErrorHandler.Failed(solution.GetGuidOfProject(hierarchy, out guidProjectID)))
+                if (ErrorHandler.Failed(solution.GetGuidOfProject(hierarchy, out var _)))
                 {
                     return false; // hierarchy is not a project inside the Solution if it does not have a ProjectID Guid
                 }
@@ -161,7 +157,7 @@ namespace RapidXamlToolkit
 
                 this.Logger?.RecordFeatureUsage(nameof(CreateViewCommand));
 
-                this.Logger.RecordInfo("Attempting to create View.");
+                this.Logger?.RecordInfo("Attempting to create View.");
                 var dte = this.ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE;
                 var componentModel = (IComponentModel)this.ServiceProvider.GetServiceAsync(typeof(SComponentModel)).Result;
 
@@ -186,17 +182,17 @@ namespace RapidXamlToolkit
                     logic.ViewProject.Project.ProjectItems.AddFromFile(logic.CodeFileName);
 
                     // Open the newly created view
-                    dte.ItemOperations.OpenFile(logic.XamlFileName, EnvDTE.Constants.vsViewKindDesigner);
-                    this.Logger.RecordInfo($"Created file {logic.XamlFileName}");
+                    dte?.ItemOperations.OpenFile(logic.XamlFileName, EnvDTE.Constants.vsViewKindDesigner);
+                    this.Logger?.RecordInfo($"Created file {logic.XamlFileName}");
                 }
                 else
                 {
-                    this.Logger.RecordInfo("No view created.");
+                    this.Logger?.RecordInfo("No view created.");
                 }
             }
             catch (Exception exc)
             {
-                this.Logger.RecordException(exc);
+                this.Logger?.RecordException(exc);
                 throw;
             }
         }

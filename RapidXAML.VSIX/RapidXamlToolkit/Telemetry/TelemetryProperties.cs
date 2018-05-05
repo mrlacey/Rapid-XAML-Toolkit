@@ -5,14 +5,14 @@ namespace RapidXamlToolkit.Telemetry
 {
     public class TelemetryProperties
     {
-        public static string RoleInstanceName { get; private set; } = TelemetryEvents.Prefix + "Vsix";
+        public static string RoleInstanceName { get; } = TelemetryEvents.Prefix + "Vsix";
 
-        public static string VisualStudioExeVersion { get; private set; } = TelemetryEvents.Prefix + "VsExeVersion";
+        public static string VisualStudioExeVersion { get; } = TelemetryEvents.Prefix + "VsExeVersion";
 
-        public static string VisualStudioEdition { get; private set; } = TelemetryEvents.Prefix + "VsEdition";
+        public static string VisualStudioEdition { get; } = TelemetryEvents.Prefix + "VsEdition";
 
-        public static string VisualStudioCulture { get; private set; } = TelemetryEvents.Prefix + "VsCulture";
+        public static string VisualStudioCulture { get; } = TelemetryEvents.Prefix + "VsCulture";
 
-        public static string VisualStudioManifestId { get; private set; } = TelemetryEvents.Prefix + "VsManifestId";
+        public static string VisualStudioManifestId { get; } = TelemetryEvents.Prefix + "VsManifestId";
     }
 }

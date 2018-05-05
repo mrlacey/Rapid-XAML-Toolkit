@@ -4,12 +4,11 @@
 using System;
 using System.Linq;
 using Microsoft.CodeAnalysis.Text;
-using Microsoft.VisualStudio.ComponentModelHost;
-using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.TextManager.Interop;
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Logging;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     internal class GetXamlFromCodeWindowBaseCommand : BaseCommand
     {
@@ -18,7 +17,7 @@ namespace RapidXamlToolkit
         {
         }
 
-        public AnalyzerOutput GetXaml(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider)
+        public AnalyzerOutput GetXaml(IAsyncServiceProvider serviceProvider)
         {
             AnalyzerOutput result = null;
 
@@ -50,14 +49,9 @@ namespace RapidXamlToolkit
                     analyzer = new VisualBasicAnalyzer(this.Logger);
                 }
 
-                if (isSelection)
-                {
-                    result = analyzer.GetSelectionOutput(document.GetSyntaxRootAsync().Result, semanticModel, selection.Start.Position, selection.End.Position);
-                }
-                else
-                {
-                    result = analyzer.GetSingleItemOutput(document.GetSyntaxRootAsync().Result, semanticModel, caretPosition.Position);
-                }
+                result = isSelection
+                    ? analyzer?.GetSelectionOutput(document.GetSyntaxRootAsync().Result, semanticModel, selection.Start.Position, selection.End.Position)
+                    : analyzer?.GetSingleItemOutput(document.GetSyntaxRootAsync().Result, semanticModel, caretPosition.Position);
             }
             else
             {
@@ -67,7 +61,7 @@ namespace RapidXamlToolkit
             return result;
         }
 
-        protected static void ShowStatusBarMessage(Microsoft.VisualStudio.Shell.IAsyncServiceProvider serviceProvider, string message)
+        protected static void ShowStatusBarMessage(IAsyncServiceProvider serviceProvider, string message)
         {
             try
             {

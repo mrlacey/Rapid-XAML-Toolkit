@@ -2,15 +2,15 @@
 // Licensed under the MIT license.
 
 using System;
-using RapidXamlToolkit.Telemetry;
+using RapidXamlToolkit.Analyzers;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Logging
 {
     public class RxtLogger : ILogger
     {
         public static string TimeStampMessage(string message)
         {
-            return $"[{DateTime.Now.ToString("HH:mm:ss.fff")}]  {message}{Environment.NewLine}";
+            return $"[{DateTime.Now:HH:mm:ss.fff}]  {message}{Environment.NewLine}";
         }
 
         public void RecordError(string message)

@@ -5,27 +5,28 @@ using System;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Logging
 {
     public class RxtOutputPane : IOutputPane
     {
         private static Guid rxtPaneGuid = new Guid("32C5FA5D-E91C-4113-8B22-3396D748D429");
         private static string rxtPaneTitle = "Rapid XAML Toolkit";
 
-        private static RxtOutputPane instance = null;
+        private static RxtOutputPane instance;
 
-        private IVsOutputWindowPane rxtPane = null;
+        private readonly IVsOutputWindowPane rxtPane;
 
         private RxtOutputPane()
         {
-            IVsOutputWindow outWindow = ServiceProvider.GlobalProvider.GetService(typeof(SVsOutputWindow)) as IVsOutputWindow;
-
-            outWindow.GetPane(ref rxtPaneGuid, out this.rxtPane);
-
-            if (this.rxtPane == null)
+            if (ServiceProvider.GlobalProvider.GetService(typeof(SVsOutputWindow)) is IVsOutputWindow outWindow)
             {
-                outWindow.CreatePane(ref rxtPaneGuid, rxtPaneTitle, 1, 0);
                 outWindow.GetPane(ref rxtPaneGuid, out this.rxtPane);
+
+                if (this.rxtPane == null)
+                {
+                    outWindow.CreatePane(ref rxtPaneGuid, rxtPaneTitle, 1, 0);
+                    outWindow.GetPane(ref rxtPaneGuid, out this.rxtPane);
+                }
             }
         }
 

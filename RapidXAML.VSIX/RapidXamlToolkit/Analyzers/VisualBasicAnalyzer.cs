@@ -8,8 +8,10 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Options;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Analyzers
 {
     public class VisualBasicAnalyzer : AnalyzerBase, IDocumentAnalyzer
     {
@@ -83,7 +85,7 @@ namespace RapidXamlToolkit
             }
 
             // Remove any namespace qualifications as we match class names as strings
-            if (propertyType.Contains("."))
+            if (propertyType?.Contains(".") == true)
             {
                 if (propertyType.Contains("Of "))
                 {
@@ -111,14 +113,9 @@ namespace RapidXamlToolkit
             {
                 var setter = pbs.ChildNodes().FirstOrDefault(n => n.RawKind == (int)SyntaxKind.SetAccessorBlock);
 
-                if (setter != null)
-                {
-                    propIsReadOnly = (setter as AccessorBlockSyntax)?.AccessorStatement.Modifiers.Any(m => m.RawKind == (int)SyntaxKind.PrivateKeyword);
-                }
-                else
-                {
-                    propIsReadOnly = pbs.PropertyStatement.Modifiers.Any(m => m.RawKind == (int)SyntaxKind.ReadOnlyKeyword);
-                }
+                propIsReadOnly = setter != null
+                    ? (setter as AccessorBlockSyntax)?.AccessorStatement.Modifiers.Any(m => m.RawKind == (int)SyntaxKind.PrivateKeyword)
+                    : pbs.PropertyStatement.Modifiers.Any(m => m.RawKind == (int)SyntaxKind.ReadOnlyKeyword);
             }
 
             var pd = new PropertyDetails
@@ -193,12 +190,12 @@ namespace RapidXamlToolkit
 
         public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null)
         {
-            Logger?.RecordInfo($"Getting oputput for a single item.");
+            Logger?.RecordInfo("Getting oputput for a single item.");
             var (propertyNode, classNode) = GetNodeUnderCaret(documentRoot, caretPosition);
 
             if (propertyNode != null)
             {
-                Logger?.RecordInfo($"Getting oputput for a single property.");
+                Logger?.RecordInfo("Getting oputput for a single property.");
 
                 var propDetails = GetPropertyDetails(propertyNode, semModel);
 
@@ -213,7 +210,7 @@ namespace RapidXamlToolkit
             }
             else if (classNode != null)
             {
-                Logger?.RecordInfo($"Getting output for the class");
+                Logger?.RecordInfo("Getting output for the class");
 
                 var className = GetIdentifier(classNode);
 
@@ -246,14 +243,15 @@ namespace RapidXamlToolkit
                         propertyOutput.Add(toAdd.output);
                     }
 
-                    if (classGrouping.Equals(GridWithRowDefsIndicator, StringComparison.InvariantCultureIgnoreCase)
-                     || classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase))
+                    if (classGrouping != null
+                     && (classGrouping.Equals(GridWithRowDefsIndicator, StringComparison.InvariantCultureIgnoreCase)
+                      || classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase)))
                     {
-                        Logger?.RecordInfo($"Adding Grid to output.");
+                        Logger?.RecordInfo("Adding Grid to output.");
 
                         if (classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            Logger?.RecordInfo($"Adding ColumnDefinitions to Grid.");
+                            Logger?.RecordInfo("Adding ColumnDefinitions to Grid.");
 
                             output.AppendLine("<Grid.ColumnDefinitions>");
                             output.AppendLine("<ColumnDefinition Width=\"Auto\" />");
@@ -264,7 +262,7 @@ namespace RapidXamlToolkit
                         output.AppendLine("<Grid.RowDefinitions>");
 
                         Logger?.RecordInfo($"Adding {numericCounter} RowDefinitions to Grid.");
-                        for (int i = 1; i <= numericCounter; i++)
+                        for (var i = 1; i <= numericCounter; i++)
                         {
                             output.AppendLine(i < numericCounter
                                 ? "<RowDefinition Height=\"Auto\" />"
@@ -281,7 +279,7 @@ namespace RapidXamlToolkit
                 }
                 else
                 {
-                    Logger?.RecordInfo($"Class contains no public properties.");
+                    Logger?.RecordInfo("Class contains no public properties.");
                     output.AppendLine(NoPropertiesXaml);
                 }
 
@@ -299,14 +297,14 @@ namespace RapidXamlToolkit
             }
             else
             {
-                Logger?.RecordInfo($"No properties to provide output for.");
+                Logger?.RecordInfo("No properties to provide output for.");
                 return AnalyzerOutput.Empty;
             }
         }
 
         public AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null)
         {
-            Logger?.RecordInfo($"Getting output for the selection.");
+            Logger?.RecordInfo("Getting output for the selection.");
 
             var allProperties = documentRoot.DescendantNodes().OfType<PropertyStatementSyntax>().ToList();
 
@@ -367,7 +365,7 @@ namespace RapidXamlToolkit
             }
             else
             {
-                Logger?.RecordInfo($"No properties to provide output for.");
+                Logger?.RecordInfo("No properties to provide output for.");
                 return AnalyzerOutput.Empty;
             }
         }
@@ -378,7 +376,7 @@ namespace RapidXamlToolkit
 
             if (propDetails.PropertyType.IsGenericTypeName())
             {
-                Logger?.RecordInfo($"Getting a generic type.");
+                Logger?.RecordInfo("Getting a generic type.");
                 TypeSyntax typeSyntax = null;
 
                 if (prop is PropertyStatementSyntax pss)
@@ -481,16 +479,7 @@ namespace RapidXamlToolkit
 
                     var pbs = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyBlockSyntax>().FirstOrDefault();
 
-                    SyntaxNode syntax = null;
-
-                    if (pbs != null)
-                    {
-                        syntax = pbs;
-                    }
-                    else
-                    {
-                        syntax = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyStatementSyntax>().FirstOrDefault();
-                    }
+                    var syntax = pbs ?? (SyntaxNode)decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyStatementSyntax>().FirstOrDefault();
 
                     var details = GetPropertyDetails(syntax, semModel);
 

@@ -5,9 +5,11 @@ using System;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Logging;
 using Task = System.Threading.Tasks.Task;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     internal sealed class CopyToClipboardCommand : GetXamlFromCodeWindowBaseCommand
     {
@@ -18,8 +20,8 @@ namespace RapidXamlToolkit
         {
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
-            var menuCommandID = new CommandID(CommandSet, CommandId);
-            var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
+            var menuCommandId = new CommandID(CommandSet, CommandId);
+            var menuItem = new OleMenuCommand(this.Execute, menuCommandId);
             menuItem.BeforeQueryStatus += this.MenuItem_BeforeQueryStatus;
             commandService.AddCommand(menuItem);
         }
@@ -47,7 +49,7 @@ namespace RapidXamlToolkit
 
                 this.Logger?.RecordFeatureUsage(nameof(CopyToClipboardCommand));
 
-                this.Logger.RecordInfo("Attempting to copy XAML to clipboard.");
+                this.Logger?.RecordInfo("Attempting to copy XAML to clipboard.");
                 var output = this.GetXaml(Instance.ServiceProvider);
 
                 if (output != null && output.OutputType != AnalyzerOutputType.None)
@@ -73,7 +75,7 @@ namespace RapidXamlToolkit
             }
             catch (Exception exc)
             {
-                this.Logger.RecordException(exc);
+                this.Logger?.RecordException(exc);
                 throw;
             }
         }

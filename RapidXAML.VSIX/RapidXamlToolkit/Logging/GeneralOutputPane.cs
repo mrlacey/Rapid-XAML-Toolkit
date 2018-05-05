@@ -6,20 +6,20 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Logging
 {
     public class GeneralOutputPane : IOutputPane
     {
-        private static GeneralOutputPane instance = null;
+        private static GeneralOutputPane instance;
 
-        private IVsOutputWindowPane generalPane = null;
+        private readonly IVsOutputWindowPane generalPane;
 
         private GeneralOutputPane()
         {
-            IVsOutputWindow outWindow = ServiceProvider.GlobalProvider.GetService(typeof(SVsOutputWindow)) as IVsOutputWindow;
-            Guid generalPaneGuid = VSConstants.GUID_OutWindowGeneralPane;
+            var outWindow = ServiceProvider.GlobalProvider.GetService(typeof(SVsOutputWindow)) as IVsOutputWindow;
+            var generalPaneGuid = VSConstants.GUID_OutWindowGeneralPane;
 
-            if (ErrorHandler.Failed(outWindow.GetPane(ref generalPaneGuid, out this.generalPane)) || (this.generalPane == null))
+            if (outWindow != null && (ErrorHandler.Failed(outWindow.GetPane(ref generalPaneGuid, out this.generalPane)) || this.generalPane == null))
             {
                 if (ErrorHandler.Failed(outWindow.CreatePane(ref generalPaneGuid, "General", 1, 0)))
                 {
@@ -30,7 +30,6 @@ namespace RapidXamlToolkit
                 if (ErrorHandler.Failed(outWindow.GetPane(ref generalPaneGuid, out this.generalPane)) || (this.generalPane == null))
                 {
                     System.Diagnostics.Debug.WriteLine("Failed to get the Output window pane.");
-                    return;
                 }
             }
         }

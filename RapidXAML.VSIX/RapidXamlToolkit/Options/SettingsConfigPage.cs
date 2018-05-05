@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows;
 using Microsoft.VisualStudio.Shell;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Options
 {
     [ClassInterface(ClassInterfaceType.AutoDual)]
     [ComVisible(true)]

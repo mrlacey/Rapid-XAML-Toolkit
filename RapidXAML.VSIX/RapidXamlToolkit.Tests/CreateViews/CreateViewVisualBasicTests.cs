@@ -1,10 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
 using System.Collections.ObjectModel;
 using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.Options;
 
 namespace RapidXamlToolkit.Tests.CreateViews
 {
@@ -231,9 +232,7 @@ End Namespace
                 ClassGrouping = "StackPanel",
                 FallbackOutput = "<TextBlock FB=\"True\" Text=\"$name$\" />",
                 SubPropertyOutput = "<TextBlock SP=\"True\" Text=\"$name$\" />",
-                Mappings = new ObservableCollection<Mapping>
-                {
-                },
+                Mappings = new ObservableCollection<Mapping>(),
                 ViewGeneration = new ViewGenerationSettings
                 {
                     XamlPlaceholder = @"<Page

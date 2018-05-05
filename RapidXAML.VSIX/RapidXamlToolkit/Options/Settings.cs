@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Options
 {
     public class Settings : CanNotifyPropertyChanged
     {
@@ -47,13 +47,7 @@ namespace RapidXamlToolkit
             }
         }
 
-        public bool IsActiveProfileSet
-        {
-            get
-            {
-                return !string.IsNullOrWhiteSpace(this.ActiveProfileName);
-            }
-        }
+        public bool IsActiveProfileSet => !string.IsNullOrWhiteSpace(this.ActiveProfileName);
 
         public Profile GetActiveProfile()
         {
@@ -64,12 +58,7 @@ namespace RapidXamlToolkit
                 result = this.Profiles.FirstOrDefault(p => p.Name == this.ActiveProfileName);
             }
 
-            if (result == null)
-            {
-                result = this.Profiles.FirstOrDefault();
-            }
-
-            return result;
+            return result ?? this.Profiles.FirstOrDefault();
         }
 
         public List<string> GetAllProfileNames()

@@ -4,7 +4,7 @@
 using System;
 using RapidXamlToolkit.Telemetry;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Logging
 {
     public class RxtLoggerWithTelemtry : ILogger
     {

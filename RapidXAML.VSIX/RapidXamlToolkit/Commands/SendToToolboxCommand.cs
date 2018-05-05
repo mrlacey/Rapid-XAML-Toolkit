@@ -6,9 +6,11 @@ using System.ComponentModel.Design;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Logging;
 using Task = System.Threading.Tasks.Task;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.Commands
 {
     internal sealed class SendToToolboxCommand : GetXamlFromCodeWindowBaseCommand
     {
@@ -42,10 +44,10 @@ namespace RapidXamlToolkit
 
         private static void AddToToolbox(string label, string actualText)
         {
-            IVsToolbox tbs = Instance.ServiceProvider.GetServiceAsync(typeof(IVsToolbox)).Result as IVsToolbox;
+            var tbs = Instance.ServiceProvider.GetServiceAsync(typeof(IVsToolbox)).Result as IVsToolbox;
 
-            TBXITEMINFO[] itemInfo = new TBXITEMINFO[1];
-            OleDataObject tbItem = new OleDataObject();
+            var itemInfo = new TBXITEMINFO[1];
+            var tbItem = new OleDataObject();
 
             var bitmap = new System.Drawing.Bitmap("./Resources/MarkupTag_16x.png");
 
@@ -55,7 +57,7 @@ namespace RapidXamlToolkit
 
             tbItem.SetText(actualText, TextDataFormat.Text);
 
-            tbs.AddItem(tbItem, itemInfo, "Rapid XAML");
+            tbs?.AddItem(tbItem, itemInfo, "Rapid XAML");
         }
 
         private void Execute(object sender, EventArgs e)
@@ -66,7 +68,7 @@ namespace RapidXamlToolkit
 
                 this.Logger?.RecordFeatureUsage(nameof(SendToToolboxCommand));
 
-                this.Logger.RecordInfo("Attempting to add XAML to the Toolbox.");
+                this.Logger?.RecordInfo("Attempting to add XAML to the Toolbox.");
                 var analyzerResult = this.GetXaml(Instance.ServiceProvider);
 
                 if (analyzerResult != null && analyzerResult.OutputType != AnalyzerOutputType.None)
@@ -86,7 +88,7 @@ namespace RapidXamlToolkit
             }
             catch (Exception exc)
             {
-                this.Logger.RecordException(exc);
+                this.Logger?.RecordException(exc);
                 throw;
             }
         }
