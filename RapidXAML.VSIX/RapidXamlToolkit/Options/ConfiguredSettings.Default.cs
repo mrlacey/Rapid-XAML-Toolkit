@@ -151,6 +151,13 @@ namespace RapidXamlToolkit.Options
                                 Output = "<ListView ItemsSource=\"{x:Bind ViewModel.$name$}\"><ListView.ItemTemplate><DataTemplate x:DataType=\"$type$\"><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
                                 IfReadOnly = false,
                             },
+                            new Mapping
+                            {
+                                Type = "enum",
+                                NameContains = string.Empty,
+                                Output = "$members$",
+                                IfReadOnly = false,
+                            },
                         },
                         ViewGeneration = new ViewGenerationSettings
                         {
@@ -354,6 +361,13 @@ namespace $viewns$
                                 Type = "ObservableCollection<T>|List<T>",
                                 NameContains = string.Empty,
                                 Output = "<ListView ItemsSource=\"{x:Bind ViewModel.$name$}\"><ListView.ItemTemplate><DataTemplate x:DataType=\"$type$\"><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "enum",
+                                NameContains = string.Empty,
+                                Output = "$members$",
                                 IfReadOnly = false,
                             },
                         },
