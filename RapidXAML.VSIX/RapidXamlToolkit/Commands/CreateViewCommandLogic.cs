@@ -6,7 +6,7 @@ using System;
 
 namespace RapidXamlToolkit
 {
-        public class CreateViewCommandLogic
+    public class CreateViewCommandLogic
     {
         private readonly Profile profile;
         private readonly ILogger logger;

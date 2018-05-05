@@ -28,6 +28,11 @@ namespace RapidXamlToolkit
             return Path.GetExtension(fileName);
         }
 
+        public string GetFileNameWithoutExtension(string fileName)
+        {
+            return Path.GetFileNameWithoutExtension(fileName);
+        }
+
         public string PathCombine(params string[] paths)
         {
             return Path.Combine(paths);

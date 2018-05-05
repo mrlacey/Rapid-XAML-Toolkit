@@ -15,5 +15,13 @@ namespace RapidXamlToolkit
         ProjectWrapper GetProject(string projectName);
 
         (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(string fileName);
+
+        (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(Document document);
+
+        string GetActiveDocumentFileName();
+
+        string GetActiveDocumentText();
+
+        bool ActiveDocumentIsCSharp();
     }
 }

@@ -215,7 +215,10 @@ namespace $viewns$
                             XamlPageAttribute = string.Empty,
                             CodeBehindPageContent = "private $viewmodelclass$ ViewModel { get { return DataContext as $viewmodelclass$; } }",
                             CodeBehindConstructorContent = "this.DataContext = this.ViewModel;",
-                            DefaultCodeBehindConstructor = string.Empty,
+                            DefaultCodeBehindConstructor = @"public $viewclass$
+{
+    this.InitializeComponent();
+}",
                         },
                     },
 

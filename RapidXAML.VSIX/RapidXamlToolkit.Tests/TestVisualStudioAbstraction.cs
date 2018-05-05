@@ -18,6 +18,12 @@ namespace RapidXamlToolkit.Tests
 
         public bool UserConfirmsResult { get; set; } = false;
 
+        public string ActiveDocumentFileName { get; set; }
+
+        public string ActiveDocumentText { get; set; }
+
+        public bool DocumentIsCSharp { get; set; } = false;
+
         public ProjectWrapper GetActiveProject()
         {
             return this.ActiveProject;
@@ -36,6 +42,26 @@ namespace RapidXamlToolkit.Tests
         public bool UserConfirms(string title, string message)
         {
             return this.UserConfirmsResult;
+        }
+
+        public string GetActiveDocumentFileName()
+        {
+            return this.ActiveDocumentFileName;
+        }
+
+        public string GetActiveDocumentText()
+        {
+            return this.ActiveDocumentText;
+        }
+
+        public (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(Document document)
+        {
+            return (this.SyntaxTree, this.SemanticModel);
+        }
+
+        public bool ActiveDocumentIsCSharp()
+        {
+            return this.DocumentIsCSharp;
         }
     }
 }

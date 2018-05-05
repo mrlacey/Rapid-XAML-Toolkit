@@ -15,5 +15,7 @@ namespace RapidXamlToolkit
         string GetDirectoryName(string fileName);
 
         string PathCombine(params string[] paths);
+
+        string GetFileNameWithoutExtension(string fileName);
     }
 }
