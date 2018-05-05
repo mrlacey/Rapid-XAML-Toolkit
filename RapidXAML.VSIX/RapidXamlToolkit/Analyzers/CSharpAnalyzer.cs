@@ -160,7 +160,8 @@ namespace RapidXamlToolkit.Analyzers
                     OutputType = AnalyzerOutputType.Property,
                 };
             }
-            else if (classNode != null)
+
+            if (classNode != null)
             {
                 Logger?.RecordInfo("Getting output for the class");
 
@@ -247,11 +248,9 @@ namespace RapidXamlToolkit.Analyzers
                     OutputType = AnalyzerOutputType.Class,
                 };
             }
-            else
-            {
-                Logger?.RecordInfo("No properties to provide output for.");
-                return AnalyzerOutput.Empty;
-            }
+
+            Logger?.RecordInfo("No properties to provide output for.");
+            return AnalyzerOutput.Empty;
         }
 
         public AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null)
