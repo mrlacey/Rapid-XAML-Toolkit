@@ -204,6 +204,8 @@ namespace RapidXamlToolkit
                     {
                         ctorEndPos = allConstructors.First().Span.End;
                         lineNo = activeDocText.Take(ctorEndPos).Count(c => c == '\n');
+
+                        content = $"{Environment.NewLine}{Environment.NewLine}{ctorCodeToInsert}";
                     }
                     else
                     {
@@ -241,14 +243,18 @@ namespace RapidXamlToolkit
                             }
                         }
 
-                        var defaultConstructor = this.profile.Datacontext.DefaultCodeBehindConstructor.Replace(Placeholder.ViewModelClass, viewName);
-
-                        ctorCodeToInsert = defaultConstructor.Insert(defaultConstructor.LastIndexOf("End "), $"{ctorCodeToInsert}{Environment.NewLine}");
-
                         if (ctorEndPos == 0)
                         {
                             // TODO: handle not finding anywhere to add the content? Or should it just go at the top of the file?
                         }
+
+                        var defaultConstructor = this.profile.Datacontext.DefaultCodeBehindConstructor.Replace(Placeholder.ViewClass, viewName);
+
+                        content = Environment.NewLine
+                                + defaultConstructor.Insert(
+                                        defaultConstructor.LastIndexOf("End "),
+                                        $"{Environment.NewLine}{ctorCodeToInsert}{Environment.NewLine}")
+                                + Environment.NewLine;
 
                         lineNo = activeDocText.Take(ctorEndPos).Count(c => c == '\n') + 1;
 

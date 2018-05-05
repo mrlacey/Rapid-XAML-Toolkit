@@ -10,8 +10,6 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
     [TestClass]
     public class SetDatacontextInCSharpTests
     {
-        // TODO: TEST - C# add to CB in ctor and outside ctor
-        // TODO: TEST - C# add to CB in ctor and outside ctor when ctor does not exist
         [TestMethod]
         public void DetectsWhenConstructorContentIsAlreadySet()
         {
@@ -417,7 +415,7 @@ public TestViewModel ViewModel
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var documentRoot = CSharpSyntaxTree.ParseText(fs.FileText).GetRoot();
+            var documentRoot = synTree.GetRoot();
 
             var result = sut.GetCodeBehindContentToAdd("TestPage", "TestViewModel", documentRoot);
 
@@ -480,7 +478,7 @@ public TestViewModel ViewModel
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var documentRoot = CSharpSyntaxTree.ParseText(fs.FileText).GetRoot();
+            var documentRoot = synTree.GetRoot();
 
             var result = sut.GetCodeBehindContentToAdd("TestPage", "TestViewModel", documentRoot);
 
