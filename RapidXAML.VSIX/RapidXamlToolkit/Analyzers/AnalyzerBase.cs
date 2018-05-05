@@ -233,7 +233,12 @@ namespace RapidXamlToolkit.Analyzers
                 var enumMembers = symbol.GetMembers().Where(m => m.Kind == SymbolKind.Field && !m.IsImplicitlyDeclared).ToList();
 
                 var replacement = new StringBuilder();
-                replacement.AppendLine();
+
+                if (!result.StartsWith(Placeholder.EnumMembers))
+                {
+                    // put the elements on a new line if there's other output first
+                    replacement.AppendLine();
+                }
 
                 Logger?.RecordInfo($"Found {enumMembers.Count} members of enum");
 
@@ -241,7 +246,10 @@ namespace RapidXamlToolkit.Analyzers
                 {
                     foreach (var member in enumMembers)
                     {
-                        replacement.AppendLine(profile.EnumMemberOutput.Replace(Placeholder.PropertyName, member.Name));
+                        var line = profile.EnumMemberOutput.Replace(Placeholder.EnumElement, member.Name)
+                                                           .Replace(Placeholder.EnumPropName, name);
+
+                        replacement.AppendLine(line);
                     }
                 }
 

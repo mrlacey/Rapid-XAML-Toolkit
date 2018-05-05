@@ -66,7 +66,7 @@ End Namespace";
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                EnumMemberOutput = "<x:String>$name$</x:String>",
+                EnumMemberOutput = "<x:String>$element$</x:String>",
                 Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping

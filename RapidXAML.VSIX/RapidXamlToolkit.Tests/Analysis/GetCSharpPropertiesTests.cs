@@ -644,7 +644,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                EnumMemberOutput = "<x:String>$name$</x:String>",
+                EnumMemberOutput = "<x:String>$element$</x:String>",
                 Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
@@ -698,7 +698,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                EnumMemberOutput = "<x:String>$name$</x:String>",
+                EnumMemberOutput = "<x:String>$element$</x:String>",
                 Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
@@ -759,7 +759,7 @@ namespace tests
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                EnumMemberOutput = "<x:String>$name$</x:String>",
+                EnumMemberOutput = "<x:String>$element$</x:String>",
                 Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
@@ -806,6 +806,58 @@ namespace tests
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, enumProfile, code2);
+        }
+
+        [TestMethod]
+        public void HandlePropertyBeingAnEnumAndIncludingPropertyNameInOutput()
+        {
+            var enumProfile = new Profile
+            {
+                Name = "EnumTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "enum",
+                        NameContains = string.Empty,
+                        Output = "$members$",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        *public Status OrderStatus { get; set; }*
+    }
+
+    enum Status
+    {
+        Active,
+        OnHold,
+        Closed,
+    }
+}";
+
+            var expectedOutput = "<RadioButton Content=\"Active\" GroupName=\"OrderStatus\" />" + Environment.NewLine +
+                                 "<RadioButton Content=\"OnHold\" GroupName=\"OrderStatus\" />" + Environment.NewLine +
+                                 "<RadioButton Content=\"Closed\" GroupName=\"OrderStatus\" />" + Environment.NewLine;
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "OrderStatus",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, enumProfile);
         }
 
         [TestMethod]

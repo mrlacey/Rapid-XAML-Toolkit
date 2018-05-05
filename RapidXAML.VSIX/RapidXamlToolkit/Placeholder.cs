@@ -17,6 +17,10 @@ namespace RapidXamlToolkit
 
         public const string EnumMembers = "$members$";
 
+        public const string EnumElement = "$element$";
+
+        public const string EnumPropName = "$enumname$";
+
         public const string ViewProject = "$viewproject$";
 
         public const string ViewNamespace = "$viewns$";

@@ -610,7 +610,7 @@ End Namespace";
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                EnumMemberOutput = "<x:String>$name$</x:String>",
+                EnumMemberOutput = "<x:String>$element$</x:String>",
                 Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping
@@ -652,6 +652,56 @@ End Namespace";
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, enumProfile);
         }
 
+
+        [TestMethod]
+        public void HandlePropertyBeingAnEnumAndIncludingPropertyNameInOutput()
+        {
+            var enumProfile = new Profile
+            {
+                Name = "EnumTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "enum",
+                        NameContains = string.Empty,
+                        Output = "$members$",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+Namespace tests
+    Class Class1
+        *Public Property OrderStatus As Status*
+    End Class
+
+    Enum Status
+        Active
+        OnHold
+        Closed
+    End Enum
+End Namespace";
+
+            var expectedOutput = "<RadioButton Content=\"Active\" GroupName=\"OrderStatus\" />" + Environment.NewLine +
+                                 "<RadioButton Content=\"OnHold\" GroupName=\"OrderStatus\" />" + Environment.NewLine +
+                                 "<RadioButton Content=\"Closed\" GroupName=\"OrderStatus\" />" + Environment.NewLine;
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "OrderStatus",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, enumProfile);
+        }
+
         [TestMethod]
         public void HandlePropertyBeingAnEnumInAnotherFile()
         {
@@ -661,7 +711,7 @@ End Namespace";
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
-                EnumMemberOutput = "<x:String>$name$</x:String>",
+                EnumMemberOutput = "<x:String>$element$</x:String>",
                 Mappings = new ObservableCollection<Mapping>
                 {
                     new Mapping

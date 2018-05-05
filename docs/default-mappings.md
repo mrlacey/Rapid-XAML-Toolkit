@@ -30,8 +30,8 @@ The order of items is in the tabel does not reflect the order in which
 | Uri            | **TRUE**     | -             | HyperlinkButton  |                                  |
 | List&lt;string&gt; | false    | -             | ItemsControl     |                                  |
 | ObservableCollection&lt;T&gt;<br />List&lt;T&gt; | false | -  | ListView |                          |
-| [enum](https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/58) | false | - | RadioButton |       |
-|                |             |                |                  |                                  |
+| enum           | false        | -             | RadioButton(s)   |                                  |
+|                |              |               |                  |                                  |
 
 ## WPF
 

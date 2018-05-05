@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.Options
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
-                        EnumMemberOutput = string.Empty,
+                        EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
@@ -227,7 +227,7 @@ namespace $viewns$
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$}\" />",
-                        EnumMemberOutput = string.Empty,
+                        EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = new ObservableCollection<Mapping>
                         {
                             new Mapping
