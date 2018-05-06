@@ -93,6 +93,9 @@ namespace RapidXamlToolkit.Analyzers
                     }
 
                     break;
+                case ArrayTypeSyntax ats:
+                    propertyType = ats.ToString();
+                    break;
             }
 
             var propertyName = GetIdentifier(propertyDeclaration);

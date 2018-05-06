@@ -79,10 +79,18 @@ namespace RapidXamlToolkit
                 throw new ArgumentNullException(nameof(value));
             }
 
-            return value.Replace("(Of ", "<")
-                        .Replace("(of ", "<")
-                        .Replace("(OF ", "<")
-                        .Replace(")", ">");
+            var result = value.Replace("(Of ", "<")
+                              .Replace("(of ", "<")
+                              .Replace("(OF ", "<");
+
+            // VB array may end "()" and don't want to break that,
+            //  only want to finish the replacement for closing the opening bracket replaced above.
+            if (!result.Contains("("))
+            {
+                result = result.Replace(")", ">");
+            }
+
+            return result;
         }
 
         public static bool IsGenericTypeName(this string value)

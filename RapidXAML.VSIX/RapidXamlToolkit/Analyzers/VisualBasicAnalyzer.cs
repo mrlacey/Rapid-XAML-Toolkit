@@ -84,6 +84,11 @@ namespace RapidXamlToolkit.Analyzers
                 propertyType = descendantNodes.OfType<PredefinedTypeSyntax>().FirstOrDefault()?.Keyword.ValueText;
             }
 
+            if (descendantNodes.FirstOrDefault() is ParameterListSyntax)
+            {
+                propertyType += "()";
+            }
+
             // Remove any namespace qualifications as we match class names as strings
             if (propertyType?.Contains(".") == true)
             {
