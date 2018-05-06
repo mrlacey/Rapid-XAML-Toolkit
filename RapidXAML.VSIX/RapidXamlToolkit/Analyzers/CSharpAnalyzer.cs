@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EnvDTE;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -76,6 +77,21 @@ namespace RapidXamlToolkit.Analyzers
                     break;
                 case QualifiedNameSyntax qns:
                     propertyType = qns.Right.Identifier.ValueText;
+
+                    if (qns.Right is GenericNameSyntax qgns)
+                    {
+                        propertyType += qgns.TypeArgumentList.ToString();
+                    }
+
+                    break;
+                case NullableTypeSyntax nts:
+                    propertyType = ((PredefinedTypeSyntax) nts.ElementType).Keyword.Text;
+
+                    if (!propertyType.ToLowerInvariant().Contains("nullable"))
+                    {
+                        propertyType += nts.QuestionToken.Text;
+                    }
+
                     break;
             }
 
@@ -337,15 +353,31 @@ namespace RapidXamlToolkit.Analyzers
 
         private static ITypeSymbol GetTypeSymbol(SemanticModel semModel, PropertyDeclarationSyntax prop, PropertyDetails propDetails)
         {
-            ITypeSymbol typeSymbol;
+            ITypeSymbol typeSymbol = null;
+
             if (propDetails.PropertyType.IsGenericTypeName())
             {
                 Logger?.RecordInfo("Getting a generic type.");
-                var t = ((GenericNameSyntax)prop.Type).TypeArgumentList.Arguments.First();
 
-                typeSymbol = semModel.GetTypeInfo(t).Type;
+                if (prop.Type is GenericNameSyntax gns)
+                {
+                    var t = gns.TypeArgumentList.Arguments.First();
+
+                    typeSymbol = semModel.GetTypeInfo(t).Type;
+                }
+                else if (prop.Type is QualifiedNameSyntax qns)
+                {
+                    var t = ((GenericNameSyntax)qns.Right).TypeArgumentList.Arguments.First();
+
+                    typeSymbol = semModel.GetTypeInfo(t).Type;
+                }
+                else
+                {
+                    Logger?.RecordInfo($"'{propDetails.PropertyType}' not recognized as generic.");
+                }
             }
-            else
+
+            if (typeSymbol == null)
             {
                 try
                 {

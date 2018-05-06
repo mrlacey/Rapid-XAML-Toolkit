@@ -9,7 +9,7 @@ using RapidXamlToolkit.Options;
 namespace RapidXamlToolkit.Tests.Analysis
 {
     [TestClass]
-    public class GetVisualBasicStructsTest : VisualBasicTestsBase
+    public class GetVisualBasicStructsTests : VisualBasicTestsBase
     {
         [TestMethod]
         public void GetStructAllPropertyOptions()

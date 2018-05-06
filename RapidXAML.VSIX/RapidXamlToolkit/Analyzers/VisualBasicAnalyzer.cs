@@ -89,7 +89,19 @@ namespace RapidXamlToolkit.Analyzers
             {
                 if (propertyType.Contains("Of "))
                 {
-                    propertyType = propertyType.Substring(0, propertyType.IndexOf("Of ") + 3) + propertyType.Substring(propertyType.LastIndexOf(".") + 1);
+                    var ofPos = propertyType.IndexOf("Of ");
+                    var dotBeforeOfPos = propertyType.Substring(0, ofPos).LastIndexOf(".");
+
+                    if (dotBeforeOfPos > -1)
+                    {
+                        propertyType = propertyType.Substring(dotBeforeOfPos + 1);
+                    }
+
+                    if (propertyType.Contains("."))
+                    {
+                        propertyType = propertyType.Substring(0, propertyType.IndexOf("Of ") + 3) +
+                                       propertyType.Substring(propertyType.LastIndexOf(".") + 1);
+                    }
                 }
                 else
                 {
@@ -380,7 +392,22 @@ namespace RapidXamlToolkit.Analyzers
 
                 if (prop is PropertyStatementSyntax pss)
                 {
-                    typeSyntax = ((GenericNameSyntax)((SimpleAsClauseSyntax)pss.AsClause).Type).TypeArgumentList.Arguments.First();
+                    if (pss.AsClause is SimpleAsClauseSyntax sacs)
+                    {
+                        if (sacs.Type is GenericNameSyntax gns)
+                        {
+                            typeSyntax = gns.TypeArgumentList.Arguments.First();
+                        }
+                        else if (sacs.Type is QualifiedNameSyntax qns)
+                        {
+                            typeSyntax = ((GenericNameSyntax)qns.Right).TypeArgumentList.Arguments.First();
+                        }
+                    }
+
+                    if (typeSyntax == null)
+                    {
+                        Logger?.RecordInfo($"'{propDetails.PropertyType}' not recognized as generic.");
+                    }
                 }
 
                 if (prop is PropertyBlockSyntax pbs)
