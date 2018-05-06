@@ -369,6 +369,113 @@ namespace tests
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
         }
 
+        [TestMethod]
+        public void GetSelectionWithDynamicProperty()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "dynamic",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<Dynamic Name=\"$name$\" />",
+            });
+
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        *public dynamic SomeProperty { get; set; }*
+    }
+}";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "SomeProperty",
+                Output = "<Dynamic Name=\"SomeProperty\" />",
+                OutputType = AnalyzerOutputType.Selection,
+            };
+
+            this.SelectionBetweenStarsShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void GetSelectionWithDynamicListProperty()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.SubPropertyOutput = "<DymnProp Value=\"$name$\" />";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "List<dynamic>",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<Dyno>$subprops$</Dyno>",
+            });
+
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        *public List<dynamic> SomeList { get; set; }*
+    }
+}";
+
+            // A single "DymnProp" with no value indicates that no sub-properties of the dynamic type were found
+            var expected = new AnalyzerOutput
+            {
+                Name = "SomeList",
+                Output = @"<Dyno>
+<DymnProp Value="""" />
+</Dyno>",
+                OutputType = AnalyzerOutputType.Selection,
+            };
+
+            this.SelectionBetweenStarsShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void MappingSupportsGenericTypeInVBAndCSFormats()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.SubPropertyOutput = "<DymnProp Value=\"$name$\" />";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "List<Int>",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<Int />",
+            });
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "List(Of String)",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<String />",
+            });
+
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        *public List<Int> SomeInts { get; set; }
+        public List<String> SomeStrings { get; set; }*
+    }
+}";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "SomeInts and SomeStrings",
+                Output = @"<Int />
+<String />",
+                OutputType = AnalyzerOutputType.Selection,
+            };
+
+            this.SelectionBetweenStarsShouldProduceExpected(code, expected, profile);
+        }
+
         private void NoPropertiesFoundInSelectionTest(string code)
         {
             var expected = AnalyzerOutput.Empty;
@@ -391,3 +498,12 @@ namespace tests
         }
     }
 }
+
+////namespace tests
+////{
+////    class Class1
+////    {
+////        public System.Collections.Generic.List<int> SomeInts { get; set; }
+////        public SomeStrings  List<String> { get; set; }
+////    }
+////}

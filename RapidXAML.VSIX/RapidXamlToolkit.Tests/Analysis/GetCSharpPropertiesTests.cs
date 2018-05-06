@@ -198,6 +198,72 @@ namespace tests
         }
 
         [TestMethod]
+        public void GetDynamicProperty()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "dynamic",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<Dynamic Name=\"$name$\" />",
+            });
+
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        *public dynamic SomeProperty { get; set; }*
+    }
+}";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "SomeProperty",
+                Output = "<Dynamic Name=\"SomeProperty\" />",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void GetDynamicListProperty()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.SubPropertyOutput = "<DymnProp Value=\"$name$\" />";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "List<dynamic>",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<Dyno>$subprops$</Dyno>",
+            });
+
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        *public List<dynamic> SomeList { get; set; }*
+    }
+}";
+
+            // A single "DymnProp" with no value indicates that no sub-properties of the dynamic type were found
+            var expected = new AnalyzerOutput
+            {
+                Name = "SomeList",
+                Output = @"<Dyno>
+<DymnProp Value="""" />
+</Dyno>",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
         public void GetGenericListProperty()
         {
             var code = @"

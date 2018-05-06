@@ -309,7 +309,7 @@ namespace RapidXamlToolkit.Analyzers
                 return null;
             }
 
-            var typeMappings = profile.Mappings.Where(m => type.ToCSharpFormat().MatchesAnyOf(m.Type)).ToList();
+            var typeMappings = profile.Mappings.Where(m => type.ToCSharpFormat().MatchesAnyOfInCSharpFormat(m.Type)).ToList();
 
             if (!isReadOnly)
             {

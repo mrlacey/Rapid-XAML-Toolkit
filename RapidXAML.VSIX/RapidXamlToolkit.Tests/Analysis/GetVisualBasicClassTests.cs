@@ -1000,6 +1000,74 @@ End Class";
             this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
         }
 
+        [TestMethod]
+        public void GetClassWithDynamicProperty()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "form";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "dynamic",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<Dynamic Name=\"$name$\" />",
+            });
+
+            var code = @"
+Namespace tests
+    *Class Class1*
+        Public Property SomeProperty As dynamic
+    End Class
+End Namespace";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = @"<form>
+<Dynamic Name=""SomeProperty"" />
+</form>",
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void GetClassWithDynamicListProperty()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "form";
+            profile.SubPropertyOutput = "<DymnProp Value=\"$name$\" />";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "List<dynamic>",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<Dyno>$subprops$</Dyno>",
+            });
+
+            var code = @"
+Namespace tests
+    *Class Class1*
+        Public Property SomeList As List(Of dynamic)
+    End Class
+End Namespace";
+
+            // A single "DymnProp" with no value indicates that no sub-properties of the dynamic type were found
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = @"<form>
+<Dyno>
+<DymnProp Value="""" />
+</Dyno>
+</form>",
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
+        }
+
         private void FindNoPropertiesInClass(string code)
         {
             var expectedOutput = "<StackPanel>"

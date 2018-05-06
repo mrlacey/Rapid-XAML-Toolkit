@@ -797,5 +797,67 @@ End Namespace";
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
         }
+
+        [TestMethod]
+        public void GetDynamicProperty()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "dynamic",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<Dynamic Name=\"$name$\" />",
+            });
+
+            var code = @"
+Namespace tests
+    Class Class1
+        *Public Property SomeProperty As dynamic*
+    End Class
+End Namespace";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "SomeProperty",
+                Output = "<Dynamic Name=\"SomeProperty\" />",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void GetDynamicListProperty()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.SubPropertyOutput = "<DymnProp Value=\"$name$\" />";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "List<dynamic>",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<Dyno>$subprops$</Dyno>",
+            });
+
+            var code = @"
+Namespace tests
+    Class Class1
+        *Public Property SomeList As List(of dynamic)*
+    End Class
+End Namespace";
+
+            // A single "DymnProp" with no value indicates that no sub-properties of the dynamic type were found
+            var expected = new AnalyzerOutput
+            {
+                Name = "SomeList",
+                Output = @"<Dyno>
+<DymnProp Value="""" />
+</Dyno>",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
+        }
     }
 }

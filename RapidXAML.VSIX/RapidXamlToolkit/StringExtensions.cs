@@ -55,6 +55,23 @@ namespace RapidXamlToolkit
             return allOptions.Any(o => string.Equals(value, o, StringComparison.OrdinalIgnoreCase));
         }
 
+        public static bool MatchesAnyOfInCSharpFormat(this string value, string options)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            if (options == null)
+            {
+                throw new ArgumentNullException(nameof(options));
+            }
+
+            var allOptions = options.Split('|');
+
+            return allOptions.Any(o => string.Equals(value, o.ToCSharpFormat(), StringComparison.OrdinalIgnoreCase));
+        }
+
         public static string ToCSharpFormat(this string value)
         {
             if (value == null)
@@ -62,7 +79,10 @@ namespace RapidXamlToolkit
                 throw new ArgumentNullException(nameof(value));
             }
 
-            return value.Replace("(Of ", "<").Replace(")", ">");
+            return value.Replace("(Of ", "<")
+                        .Replace("(of ", "<")
+                        .Replace("(OF ", "<")
+                        .Replace(")", ">");
         }
 
         public static bool IsGenericTypeName(this string value)
