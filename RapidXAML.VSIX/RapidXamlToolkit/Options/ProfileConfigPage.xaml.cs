@@ -76,5 +76,10 @@ namespace RapidXamlToolkit.Options
                 throw;
             }
         }
+
+        private void DetailsClicked(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/16");
+        }
     }
 }

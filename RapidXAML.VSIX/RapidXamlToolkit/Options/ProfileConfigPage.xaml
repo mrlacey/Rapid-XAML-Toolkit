@@ -20,14 +20,19 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Margin="4,0">Name</TextBlock>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, Mode=TwoWay}" />
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"  Orientation="Horizontal">
+        <TextBlock Foreground="Red">This UI is temporary and will change before release</TextBlock>
+        <TextBlock Foreground="DarkBlue" TextDecorations="Underline" Margin="4,0,0,0" PreviewMouseDown="DetailsClicked" >details</TextBlock>
+        </StackPanel>
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="4,0">Name</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay}" />
 
-        <TabControl Grid.Row="1" Grid.ColumnSpan="2" Margin="0,8,0,0">
+        <TabControl Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8,0,0">
             <TabItem Header="Structure and naming">
 
                 <Grid Margin="4">
@@ -173,7 +178,7 @@
             </TabItem>
         </TabControl>
 
-        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Click="OkClicked" Width="70" HorizontalAlignment="Right" Margin="0,8,0,0">Ok</Button>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Click="OkClicked" Width="70" HorizontalAlignment="Right" Margin="0,8,0,0">Ok</Button>
 
     </Grid>
 </platformUi:DialogWindow>
