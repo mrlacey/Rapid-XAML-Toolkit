@@ -8,7 +8,7 @@ using RapidXamlToolkit.Options;
 namespace RapidXamlToolkit.Tests.Analysis
 {
     [TestClass]
-    public class GetVisualStudioArrayTests : VisualBasicTestsBase
+    public class GetVisualBasicArrayTests : VisualBasicTestsBase
     {
         private Profile ArrayTestsProfile
         {

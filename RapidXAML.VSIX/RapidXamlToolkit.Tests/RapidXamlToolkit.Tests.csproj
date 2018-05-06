@@ -162,10 +162,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analysis\CSharpTestsBase.cs" />
-    <Compile Include="Analysis\GetVisualStudioArrayTests.cs" />
+    <Compile Include="Analysis\GetVisualBasicArrayTests.cs" />
     <Compile Include="Analysis\GetCSharpClassTests.cs" />
     <Compile Include="Analysis\GetCSharpArrayTests.cs" />
-    <Compile Include="Analysis\GetVisualStudioNullableTests.cs" />
+    <Compile Include="Analysis\GetVisualBasicNullableTests.cs" />
     <Compile Include="Analysis\GetCSharpPropertiesTests.cs" />
     <Compile Include="Analysis\GetCSharpSelectionTests.cs" />
     <Compile Include="Analysis\GetCSharpNullableTests.cs" />

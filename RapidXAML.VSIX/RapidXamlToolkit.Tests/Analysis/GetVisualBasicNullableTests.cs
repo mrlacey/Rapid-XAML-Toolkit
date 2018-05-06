@@ -8,7 +8,7 @@ using RapidXamlToolkit.Options;
 namespace RapidXamlToolkit.Tests.Analysis
 {
     [TestClass]
-    public class GetVisualStudioNullableTests : VisualBasicTestsBase
+    public class GetVisualBasicNullableTests : VisualBasicTestsBase
     {
         private Profile NullableTestsProfile
         {
