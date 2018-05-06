@@ -116,10 +116,10 @@ namespace RapidXamlToolkit.Analyzers
             return syntaxNode?.ChildTokens().FirstOrDefault(t => t.Kind() is SyntaxKind.IdentifierToken).ValueText;
         }
 
-        public static (PropertyDeclarationSyntax propertyNode, ClassDeclarationSyntax classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        public static (PropertyDeclarationSyntax propertyNode, TypeDeclarationSyntax classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             PropertyDeclarationSyntax propertyNode = null;
-            ClassDeclarationSyntax classNode = null;
+            TypeDeclarationSyntax classNode = null;
             var currentNode = documentRoot.FindToken(caretPosition).Parent;
 
             while (currentNode != null && propertyNode == null && classNode == null)
@@ -127,6 +127,11 @@ namespace RapidXamlToolkit.Analyzers
                 if (currentNode is ClassDeclarationSyntax)
                 {
                     classNode = currentNode as ClassDeclarationSyntax;
+                }
+
+                if (currentNode is StructDeclarationSyntax)
+                {
+                    classNode = currentNode as StructDeclarationSyntax;
                 }
 
                 if (currentNode is PropertyDeclarationSyntax)

@@ -154,7 +154,12 @@ namespace RapidXamlToolkit.Analyzers
                 var subProps = getSubPropertyOutput?.Invoke();
 
                 var replacement = new StringBuilder();
-                replacement.AppendLine();
+
+                if (!result.StartsWith(Placeholder.SubProperties))
+                {
+                    // put the sub-property on a new line if there's other output first
+                    replacement.AppendLine();
+                }
 
                 if (subProps.HasValue)
                 {

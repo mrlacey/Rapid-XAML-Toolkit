@@ -172,7 +172,7 @@ namespace RapidXamlToolkit.Analyzers
 
             while (currentNode != null && propertyNode == null && classNode == null)
             {
-                if (currentNode is ClassBlockSyntax || currentNode is ModuleBlockSyntax)
+                if (currentNode is ClassBlockSyntax || currentNode is ModuleBlockSyntax || currentNode is TypeStatementSyntax)
                 {
                     classNode = currentNode;
                 }

@@ -652,7 +652,6 @@ End Namespace";
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, enumProfile);
         }
 
-
         [TestMethod]
         public void HandlePropertyBeingAnEnumAndIncludingPropertyNameInOutput()
         {

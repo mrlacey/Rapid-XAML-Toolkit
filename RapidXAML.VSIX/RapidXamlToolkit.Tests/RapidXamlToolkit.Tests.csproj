@@ -165,6 +165,8 @@
     <Compile Include="Analysis\GetCSharpClassTests.cs" />
     <Compile Include="Analysis\GetCSharpPropertiesTests.cs" />
     <Compile Include="Analysis\GetCSharpSelectionTests.cs" />
+    <Compile Include="Analysis\GetVisualBasicStructsTest.cs" />
+    <Compile Include="Analysis\GetCSharpStructsTest.cs" />
     <Compile Include="Analysis\GetVisualBasicClassTests.cs" />
     <Compile Include="Analysis\GetVisualBasicPropertiesTests.cs" />
     <Compile Include="Analysis\GetVisualBasicSelectionTests.cs" />
