@@ -304,7 +304,7 @@ End Class",
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
             var (anythingToAdd, lineNoToAddAfter, contentToAdd)
-                = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
+                = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel", "TestVmNamespace");
 
             var expectedContent = @"
 
@@ -354,7 +354,7 @@ End Class",
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
             var (anythingToAdd, lineNoToAddAfter, contentToAdd)
-                = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel");
+                = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel", "TestVmNamespace");
 
             var expectedContent = @"
 
@@ -409,7 +409,7 @@ End Class",
 
             var documentRoot = synTree.GetRoot();
 
-            var result = sut.GetCodeBehindContentToAdd("TestPage", "TestViewModel", documentRoot);
+            var result = sut.GetCodeBehindContentToAdd("TestPage", "TestViewModel", "TestVmNamespace", documentRoot);
 
             Assert.IsTrue(result[0].anythingToAdd);
             Assert.AreEqual(5, result[0].lineNoToAddAfter);
@@ -468,7 +468,7 @@ End Class",
 
             var documentRoot = synTree.GetRoot();
 
-            var result = sut.GetCodeBehindContentToAdd("TestPage", "TestViewModel", documentRoot);
+            var result = sut.GetCodeBehindContentToAdd("TestPage", "TestViewModel", "TestVmNamespace", documentRoot);
 
             var expectedContent0 = @"
 Sub New()
