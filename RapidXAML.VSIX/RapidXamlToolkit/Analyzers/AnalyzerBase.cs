@@ -16,9 +16,6 @@ namespace RapidXamlToolkit.Analyzers
     {
         public const string UnknownOrInvalidTypeName = "*UNKNOWN-INVALID-TYPE*";  // Asterisk as first character ensures it is invalid
 
-        // Can't support this unless able to get relevant information for all types (from all locations: file, project, solution, assembly)
-        ////public const string SubPropertiesReadOnlyPlaceholder = "{SUBPROPERTIES-READONLY}";
-
         public const string NoPropertiesXaml = "<!-- No accessible properties when copying as XAML -->";
 
         public const string GridWithRowDefsIndicator = "GRID-PLUS-ROWDEFS";
@@ -333,7 +330,7 @@ namespace RapidXamlToolkit.Analyzers
             }
 
             // writeable types don't match readonly mappings
-            // readonly types match writeable mappings if no readdonly mappings
+            // readonly types match writeable mappings if no readonly mappings
             if (mappingOfInterest == null)
             {
                 Logger?.RecordInfo("Looking for mappings that are not read-only.");

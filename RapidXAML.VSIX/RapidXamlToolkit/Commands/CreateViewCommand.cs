@@ -109,15 +109,15 @@ namespace RapidXamlToolkit.Commands
                     return false;
                 }
 
-                // multiple items are selected
                 if (multiItemSelect != null)
                 {
+                    // multiple items are selected
                     return false;
                 }
 
-                // there is a hierarchy root node selected, thus it is not a single item inside a project
                 if (itemid == VSConstants.VSITEMID_ROOT)
                 {
+                    // there is a hierarchy root node selected, thus it is not a single item inside a project
                     return false;
                 }
 
@@ -129,7 +129,8 @@ namespace RapidXamlToolkit.Commands
 
                 if (ErrorHandler.Failed(solution.GetGuidOfProject(hierarchy, out var _)))
                 {
-                    return false; // hierarchy is not a project inside the Solution if it does not have a ProjectID Guid
+                    // hierarchy is not a project inside the Solution if it does not have a ProjectID Guid
+                    return false;
                 }
 
                 // if we got this far then there is a single project item selected

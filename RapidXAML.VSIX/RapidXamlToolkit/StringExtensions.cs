@@ -100,7 +100,7 @@ namespace RapidXamlToolkit
                 throw new ArgumentNullException(nameof(value));
             }
 
-            // Know no better way of detecting this
+            // Quick hacky way of doing this and relies on being in C# format
             return value.ToCSharpFormat().EndsWith(">");
         }
 

@@ -69,7 +69,6 @@ namespace RapidXamlToolkit.Commands
                     {
                         var docText = this.vs.GetActiveDocumentText();
 
-                        // Get formatted content to insert
                         var contentToInsert = this.profile.Datacontext.XamlPageAttribute.Replace(Placeholder.ViewModelClass, viewModelName);
 
                         if (!docText.Contains(contentToInsert))
@@ -194,7 +193,7 @@ namespace RapidXamlToolkit.Commands
                         ctorAdded = true;
 
                         // Count based on count of linefeed as may not use CrLf
-                        // Add one because of different zero indexes
+                        // Add one because don't get the one where the end pos is
                         lineNo = activeDocText.Take(ctorEndPos).Count(c => c == '\n') + 1;
                     }
                 }
@@ -247,7 +246,7 @@ namespace RapidXamlToolkit.Commands
 
                         if (ctorEndPos == 0)
                         {
-                            // TODO: handle not finding anywhere to add the content? Or should it just go at the top of the file?
+                            // TODO: ISSUE#22 handle not finding anywhere to add the content - no output?
                         }
 
                         var defaultConstructor = this.profile.Datacontext.DefaultCodeBehindConstructor.Replace(Placeholder.ViewClass, viewName);
@@ -356,7 +355,7 @@ namespace RapidXamlToolkit.Commands
 
                 if (ctorEndPos == 0 && lineToInsertAt == -1)
                 {
-                    // TODO: handle not finding anywhere to add the content? Or should it just go at the top of the file?
+                    // TODO: Issue#22 handle not finding anywhere to add the content - no output?
                 }
 
                 if (lineToInsertAt > -1)

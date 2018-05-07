@@ -498,12 +498,3 @@ namespace tests
         }
     }
 }
-
-////namespace tests
-////{
-////    class Class1
-////    {
-////        public System.Collections.Generic.List<int> SomeInts { get; set; }
-////        public SomeStrings  List<String> { get; set; }
-////    }
-////}

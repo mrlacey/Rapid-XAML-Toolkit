@@ -47,7 +47,7 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordFeatureUsage(string feature)
         {
-            // this loggeer doesn't need to do anything special with feature usage messages
+            // this logger doesn't need to do anything special with feature usage messages
             this.RecordInfo(feature);
         }
     }

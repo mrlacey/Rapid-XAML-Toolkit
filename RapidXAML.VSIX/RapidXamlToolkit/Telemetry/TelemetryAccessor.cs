@@ -156,7 +156,7 @@ namespace RapidXamlToolkit.Telemetry
             var isOptedIn = false;
             try
             {
-                // If this fails to load the can't find out if telemtry is enabled so assume it isn't
+                // If this fails to load then can't find out if telemetry is enabled so assume it isn't
                 Assembly.Load(new AssemblyName("Microsoft.VisualStudio.Telemetry"));
 
                 if (TelemetryService.DefaultSession != null)
