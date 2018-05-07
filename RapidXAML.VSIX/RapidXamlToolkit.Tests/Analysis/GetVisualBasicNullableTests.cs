@@ -98,6 +98,26 @@ End Namespace";
         }
 
         [TestMethod]
+        public void GetNullablePropertyIndicatedOnPropertyName()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        Public Property MyBo*olQ? As Boolean
+    End Class
+End Namespace";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "MyBoolQ",
+                Output = @"<BoolQ />",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
+        }
+
+        [TestMethod]
         public void GetNullablePropertyLonghand()
         {
             var code = @"

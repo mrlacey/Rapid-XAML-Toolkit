@@ -15,6 +15,8 @@ namespace RapidXamlToolkit.Analyzers
 {
     public class VisualBasicAnalyzer : AnalyzerBase, IDocumentAnalyzer
     {
+        private const string Unknown = "**unknown**";
+
         public VisualBasicAnalyzer(ILogger logger)
             : base(logger)
         {
@@ -62,7 +64,7 @@ namespace RapidXamlToolkit.Analyzers
         public static PropertyDetails GetPropertyDetails(SyntaxNode propertyNode, SemanticModel semModel)
         {
             var propertyName = GetIdentifier(propertyNode);
-            var propertyType = "**unknown**";
+            var propertyType = Unknown;
             bool? propIsReadOnly = null;
 
             var descendantNodes = propertyNode.DescendantNodes().ToList();
@@ -87,6 +89,31 @@ namespace RapidXamlToolkit.Analyzers
             if (descendantNodes.FirstOrDefault() is ParameterListSyntax)
             {
                 propertyType += "()";
+            }
+
+            // Handle nullable types where the '?' is on the property name
+            if (propertyType == Unknown && propertyNode is PropertyStatementSyntax propss)
+            {
+                if (propss.HasTrailingTrivia)
+                {
+                    var triviaList = propss.GetTrailingTrivia().ToList();
+                    triviaList.Reverse();
+
+                    foreach (var trivia in triviaList)
+                    {
+                        var triviaStr = trivia.ToString();
+
+                        if (triviaStr.Contains("As "))
+                        {
+                            propertyType = triviaStr.Substring(triviaStr.IndexOf("As ") + 3);
+                        }
+
+                        if (triviaStr == "?")
+                        {
+                            propertyType += triviaStr;
+                        }
+                    }
+                }
             }
 
             // Remove any namespace qualifications as we match class names as strings
@@ -437,17 +464,41 @@ namespace RapidXamlToolkit.Analyzers
             {
                 if (prop is PropertyStatementSyntax pss)
                 {
-                    try
+                    if (pss.AsClause != null)
                     {
-                        typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
-                    }
-                    catch (Exception)
-                    {
-                        // The semanticmodel passed into this method is the one for the active document.
-                        // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
-                        var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
+                        try
+                        {
+                            typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
+                        }
+                        catch (Exception)
+                        {
+                            // The semanticmodel passed into this method is the one for the active document.
+                            // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
+                            var localSemModel = VisualBasicCompilation.Create(string.Empty)
+                                                                      .AddSyntaxTrees(prop.SyntaxTree)
+                                                                      .GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
 
-                        typeSymbol = localSemModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
+                            typeSymbol = localSemModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            if (pss.Identifier.TrailingTrivia.ToString().StartsWith("?"))
+                            {
+                                var propSyn = VisualBasicSyntaxTree.ParseText(prop.ToFullString().Replace("?", string.Empty).Trim() + "?");
+
+                                var propType = ((SimpleAsClauseSyntax)((CompilationUnitSyntax)propSyn.GetRoot()).Members.OfType<PropertyStatementSyntax>().FirstOrDefault()?.AsClause)?.Type;
+                                var propSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(propSyn).GetSemanticModel(propSyn, true);
+
+                                typeSymbol = propSemModel.GetTypeInfo(propType).Type;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            Logger?.RecordInfo($"Failed to get typeSymbol of property '{propDetails.Name}' assumed to have been nullable.");
+                        }
                     }
                 }
                 else if (prop is PropertyBlockSyntax pbs)
