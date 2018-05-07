@@ -85,7 +85,7 @@ namespace RapidXamlToolkit.Analyzers
 
                     break;
                 case NullableTypeSyntax nts:
-                    propertyType = ((PredefinedTypeSyntax) nts.ElementType).Keyword.Text;
+                    propertyType = ((PredefinedTypeSyntax)nts.ElementType).Keyword.Text;
 
                     if (!propertyType.ToLowerInvariant().Contains("nullable"))
                     {

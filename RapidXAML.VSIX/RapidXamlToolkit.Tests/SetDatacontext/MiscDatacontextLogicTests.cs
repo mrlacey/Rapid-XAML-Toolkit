@@ -95,7 +95,7 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var (view, viewModel) = sut.InferViewModelNameFromFileName("Test.xaml.cs");
+            var (view, viewModel, _) = sut.InferViewModelNameFromFileName("Test.xaml.cs");
 
             Assert.AreEqual("Test", view);
             Assert.AreEqual("Test", viewModel);
@@ -110,7 +110,7 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
+            var (view, viewModel, _) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
 
             Assert.AreEqual("TestPage", view);
             Assert.AreEqual("TestPage", viewModel);
@@ -128,7 +128,7 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
+            var (view, viewModel, _) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
 
             Assert.AreEqual("TestPage", view);
             Assert.AreEqual("Test", viewModel);
@@ -146,7 +146,7 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
+            var (view, viewModel, _) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
 
             Assert.AreEqual("TestPage", view);
             Assert.AreEqual("TestPage", viewModel);
@@ -164,7 +164,7 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
+            var (view, viewModel, _) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
 
             Assert.AreEqual("TestPage", view);
             Assert.AreEqual("TestPageViewModel", viewModel);
@@ -183,7 +183,7 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
+            var (view, viewModel, _) = sut.InferViewModelNameFromFileName("TestPage.xaml.cs");
 
             Assert.AreEqual("TestPage", view);
             Assert.AreEqual("TestViewModel", viewModel);
@@ -202,7 +202,7 @@ abcd
                 new TestVisualStudioAbstraction(),
                 new TestFileSystem());
 
-            var (view, viewModel) = sut.InferViewModelNameFromFileName("TestFoo.xaml.cs");
+            var (view, viewModel, _) = sut.InferViewModelNameFromFileName("TestFoo.xaml.cs");
 
             Assert.AreEqual("TestFoo", view);
             Assert.AreEqual("TestBar", viewModel);

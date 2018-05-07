@@ -38,7 +38,7 @@ namespace RapidXamlToolkit.Commands
             return result;
         }
 
-        public (string viewName, string viewModelName) InferViewModelNameFromFileName(string fileName)
+        public (string viewName, string viewModelName, string vmNamespace) InferViewModelNameFromFileName(string fileName)
         {
             // Incoming file may be XAML or code-behind
             // to allow for double extensions
@@ -47,7 +47,16 @@ namespace RapidXamlToolkit.Commands
             var vm = viewClass.RemoveFromEndIfExists(this.profile.ViewGeneration.XamlFileSuffix)
                               .Append(this.profile.ViewGeneration.ViewModelFileSuffix);
 
-            return (viewClass, vm);
+            var proj = this.vs.GetActiveProject();
+
+            var vmNs = string.Empty;
+
+            if (proj != null)
+            {
+                vmNs = $"{proj.Name}.{this.profile.ViewGeneration.ViewModelDirectoryName}";
+            }
+
+            return (viewClass, vm, vmNs);
         }
 
         public bool ShouldEnableCommand()
@@ -60,7 +69,7 @@ namespace RapidXamlToolkit.Commands
             {
                 var inXamlDoc = activeDocName.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
 
-                var (_, viewModelName) = this.InferViewModelNameFromFileName(activeDocName);
+                var (_, viewModelName, vmNamespace) = this.InferViewModelNameFromFileName(activeDocName);
 
                 // Only show based on current doc - will need to switch to other doc if not set there
                 if (inXamlDoc)
@@ -69,7 +78,8 @@ namespace RapidXamlToolkit.Commands
                     {
                         var docText = this.vs.GetActiveDocumentText();
 
-                        var contentToInsert = this.profile.Datacontext.XamlPageAttribute.Replace(Placeholder.ViewModelClass, viewModelName);
+                        var contentToInsert = this.profile.Datacontext.XamlPageAttribute.Replace(Placeholder.ViewModelClass, viewModelName)
+                                                                                        .Replace(Placeholder.ViewModelNamespace, vmNamespace);
 
                         if (!docText.Contains(contentToInsert))
                         {
@@ -269,7 +279,7 @@ namespace RapidXamlToolkit.Commands
             return (add, lineNo, content, ctorAdded);
         }
 
-        public (bool anythingToAdd, int lineNoToAddAfter, string contentToAdd) GetCodeBehindPageContentToAdd(string activeDocText, SyntaxNode documentRoot, string viewModelName, int lineToInsertAt = -1)
+        public (bool anythingToAdd, int lineNoToAddAfter, string contentToAdd) GetCodeBehindPageContentToAdd(string activeDocText, SyntaxNode documentRoot, string viewModelName, string vmNamespace, int lineToInsertAt = -1)
         {
             var add = false;
             var lineNo = 0;
@@ -278,7 +288,9 @@ namespace RapidXamlToolkit.Commands
             // Compare without whitespace to allow for VS reformatting the code we add
             var docTextWithoutWhitespace = activeDocText.RemoveAllWhitespace();
 
-            var contentToInsert = this.profile.Datacontext.CodeBehindPageContent.Replace(Placeholder.ViewModelClass, viewModelName);
+            var contentToInsert = this.profile.Datacontext.CodeBehindPageContent
+                                                          .Replace(Placeholder.ViewModelClass, viewModelName)
+                                                          .Replace(Placeholder.ViewModelNamespace, vmNamespace);
 
             if (!docTextWithoutWhitespace.Contains(contentToInsert.RemoveAllWhitespace()))
             {
@@ -374,7 +386,7 @@ namespace RapidXamlToolkit.Commands
             return (add, lineNo, content);
         }
 
-        public (bool anythingToAdd, int lineNoToAddAfter, string contentToAdd)[] GetCodeBehindContentToAdd(string viewName, string viewModelName, SyntaxNode documentRoot)
+        public (bool anythingToAdd, int lineNoToAddAfter, string contentToAdd)[] GetCodeBehindContentToAdd(string viewName, string viewModelName, string vmNamespace, SyntaxNode documentRoot)
         {
             var result = new (bool add, int line, string content)[2];
 
@@ -407,7 +419,7 @@ namespace RapidXamlToolkit.Commands
                     activeDocText = activeDocText.Insert(insertPos, result[0].content);
                 }
 
-                result[1] = this.GetCodeBehindPageContentToAdd(activeDocText, documentRoot, viewModelName, constructorAdded ? result[0].line + result[0].content.Count(c => c == '\n') - 1 : -1);
+                result[1] = this.GetCodeBehindPageContentToAdd(activeDocText, documentRoot, viewModelName, vmNamespace, constructorAdded ? result[0].line + result[0].content.Count(c => c == '\n') - 1 : -1);
             }
             else
             {
