@@ -12,6 +12,8 @@ The solution contains two projects:
 
 ## Installing the beta extension
 
+At the _very_ early stage, the toolkit is only available via source. A beta VSIX (from nightly builds) will be available shortly.
+
 Coming soon.
 
 ## Installing the release extension
