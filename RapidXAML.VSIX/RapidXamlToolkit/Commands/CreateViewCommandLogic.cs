@@ -138,7 +138,10 @@ namespace RapidXamlToolkit.Commands
 
                     if (this.CreateView)
                     {
-                        var viewNamespace = $"{viewProjName}.{config.XamlFileDirectoryName}".TrimEnd('.');
+                        var viewNamespace = analyzer is CSharpAnalyzer
+                                          ? $"{viewProjName}.{config.XamlFileDirectoryName}".TrimEnd('.')
+                                          : $"{config.XamlFileDirectoryName}".TrimEnd('.');
+
                         var vmNamespace = $"{vmProjName}.{config.ViewModelDirectoryName}".TrimEnd('.');
 
                         var replacementValues = (viewProjName, viewNamespace, vmNamespace, viewClassName, vmClassName, analyzerOutput.Output);
