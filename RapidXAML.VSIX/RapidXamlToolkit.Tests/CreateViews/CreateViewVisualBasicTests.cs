@@ -59,7 +59,7 @@ End Class",
 Imports Windows.UI.Xaml.Controls
 Imports App.Files
 
-Namespace App.Files
+Namespace Files
 
     Public NotInheritable Partial Class TestPage
         Inherits Page
@@ -128,7 +128,7 @@ End Class",
 Imports Windows.UI.Xaml.Controls
 Imports App.ViewModels
 
-Namespace App.Views
+Namespace Views
 
     Public NotInheritable Partial Class TestPage
         Inherits Page
@@ -202,7 +202,7 @@ End Class",
 Imports Windows.UI.Xaml.Controls
 Imports App.ViewModels
 
-Namespace App.Views
+Namespace Views
 
     Public NotInheritable Partial Class TestPage
         Inherits Page
@@ -236,7 +236,7 @@ End Namespace
                 ViewGeneration = new ViewGenerationSettings
                 {
                     XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$"">
+    x:Class=""$viewproject$.$viewns$.$viewclass$"">
     <Grid>
         $genxaml$
     </Grid>

@@ -364,7 +364,7 @@ namespace $viewns$
                         ViewGeneration = new ViewGenerationSettings
                         {
                             XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$""
+    x:Class=""$viewproject$.$viewns$.$viewclass$""
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
     xmlns:local=""using:$viewns$""
@@ -427,7 +427,7 @@ End Sub",
                         ViewGeneration = new ViewGenerationSettings
                         {
                             XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$""
+    x:Class=""$viewproject$.$viewns$.$viewclass$""
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
     xmlns:local=""using:$viewns$""
@@ -490,7 +490,7 @@ End Sub",
                         ViewGeneration = new ViewGenerationSettings
                         {
                             XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$""
+    x:Class=""$viewproject$.$viewns$.$viewclass$""
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
     xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
