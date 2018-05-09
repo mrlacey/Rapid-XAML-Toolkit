@@ -54,6 +54,7 @@ The order of items is in the tabel does not reflect the order in which
 | Property Type  | Is Read-only | Property Name | Control          | Other Attributes/Notes           |
 |----------------|--------------|---------------|------------------|----------------------------------|
 | **{fallback}** | _n/a_        | _n/a_         | Label            |                                  |
+| bool/Boolean   | false        | busy/active   | ActivityIndicator | IsRunning="{binding}"           |
 | String         | **TRUE**     | -             | Label            |                                  |
 | String         | false        | -             | Entry            |                                  |
 | String         | false        | password/pwd  | Entry            | IsPassword="True"                |
