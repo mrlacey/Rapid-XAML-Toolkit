@@ -207,5 +207,25 @@ abcd
             Assert.AreEqual("TestFoo", view);
             Assert.AreEqual("TestBar", viewModel);
         }
+
+        [TestMethod]
+        public void CorrectlyInferViewModelNameSpace()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.ViewGeneration.ViewModelDirectoryName = "VMS";
+
+            var sut = new SetDataContextCommandLogic(
+                profile,
+                DefaultTestLogger.Create(),
+                new TestVisualStudioAbstraction
+                {
+                    ActiveProject = new ProjectWrapper { Name = "TestApp" },
+                },
+                new TestFileSystem());
+
+            var (_, _, vmNamespace) = sut.InferViewModelNameFromFileName("Test.xaml.cs");
+
+            Assert.AreEqual("TestApp.VMS", vmNamespace);
+        }
     }
 }
