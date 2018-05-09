@@ -101,7 +101,7 @@ namespace RapidXamlToolkit.Analyzers
             var propertyName = GetIdentifier(propertyDeclaration);
 
             bool? propIsReadOnly;
-            var setter = propertyDeclaration.AccessorList.Accessors
+            var setter = propertyDeclaration?.AccessorList?.Accessors
                 .FirstOrDefault(a => a.RawKind == (ushort)SyntaxKind.SetAccessorDeclaration);
 
             if (setter == null)
@@ -166,7 +166,7 @@ namespace RapidXamlToolkit.Analyzers
 
         public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null)
         {
-            Logger?.RecordInfo("Getting oputput for a single item.");
+            Logger?.RecordInfo("Getting output for a single item.");
             var (propertyNode, classNode) = GetNodeUnderCaret(documentRoot, caretPosition);
 
             if (propertyNode != null)
