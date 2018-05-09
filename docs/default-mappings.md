@@ -38,8 +38,8 @@ The order of items is in the tabel does not reflect the order in which
 | Property Type  | Is Read-only | Property Name | Control          | Other Attributes/Notes           |
 |----------------|--------------|---------------|------------------|----------------------------------|
 | **{fallback}** | _n/a_        | _n/a_         | TextBlock        |                                  |
-| bool|Boolean   | false        | busy/active   | ProgressBar      | IsIndeterminate="{binding}"      |
-| bool|Boolean   | false        | -             | CheckBox         |                                  |
+| bool/Boolean   | false        | busy/active   | ProgressBar      | IsIndeterminate="{binding}"      |
+| bool/Boolean   | false        | -             | CheckBox         |                                  |
 | String         | false        | -             | TextBox          |                                  |
 | String         | **TRUE**     | -             | TextBlock        |                                  |
 | String         | false        | password/pwd  | PasswordBox      |                                  |
