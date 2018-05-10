@@ -371,5 +371,53 @@ namespace RapidXamlToolkit.Tests.Extensions
 
             Assert.IsFalse(value.IsGenericTypeName());
         }
+
+        [TestMethod]
+        public void AddSpacesToCamelCase_PascalCase()
+        {
+            Assert.AreEqual("My Property", "MyProperty".AddSpacesToCamelCase());
+        }
+
+        [TestMethod]
+        public void AddSpacesToCamelCase_CamelCase()
+        {
+            Assert.AreEqual("my Property", "myProperty".AddSpacesToCamelCase());
+        }
+
+        [TestMethod]
+        public void AddSpacesToCamelCase_AllCaps()
+        {
+            Assert.AreEqual("TLA", "TLA".AddSpacesToCamelCase());
+        }
+
+        [TestMethod]
+        public void AddSpacesToCamelCase_NoCaps()
+        {
+            Assert.AreEqual("nocaps", "nocaps".AddSpacesToCamelCase());
+        }
+
+        [TestMethod]
+        public void AddSpacesToCamelCase_EndWithSingleCap()
+        {
+            Assert.AreEqual("nocaps", "nocaps".AddSpacesToCamelCase());
+        }
+
+        [TestMethod]
+        public void AddSpacesToCamelCase_MultipleCapsFirst()
+        {
+            Assert.AreEqual("XYZ Value", "XYZValue".AddSpacesToCamelCase());
+        }
+
+        [TestMethod]
+        public void AddSpacesToCamelCase_MultipleCapsAtEnd()
+        {
+            Assert.AreEqual("the TLA", "theTLA".AddSpacesToCamelCase());
+        }
+
+        [TestMethod]
+        public void AddSpacesToCamelCase_SingleCapAtEnd()
+        {
+            Assert.AreEqual("something X", "somethingX".AddSpacesToCamelCase());
+        }
     }
 }

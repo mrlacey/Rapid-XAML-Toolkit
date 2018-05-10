@@ -7,6 +7,8 @@ namespace RapidXamlToolkit
     {
         public const string PropertyName = "$name$";
 
+        public const string PropertyNameWithSpaces = "$namewithspaces$";
+
         public const string PropertyType = "$type$";
 
         public const string IncrementingInteger = "$incint$";
@@ -18,6 +20,8 @@ namespace RapidXamlToolkit
         public const string EnumMembers = "$members$";
 
         public const string EnumElement = "$element$";
+
+        public const string EnumElementWithSpaces = "$elementwithspaces$";
 
         public const string EnumPropName = "$enumname$";
 

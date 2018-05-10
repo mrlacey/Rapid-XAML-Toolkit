@@ -118,7 +118,8 @@ namespace RapidXamlToolkit.Analyzers
         {
             Logger?.RecordInfo($"Formatting output for property '{name}'");
 
-            var result = rawOutput.Replace(Placeholder.PropertyName, name);
+            var result = rawOutput.Replace(Placeholder.PropertyName, name)
+                                  .Replace(Placeholder.PropertyNameWithSpaces, name.AddSpacesToCamelCase());
 
             if (type.IsGenericTypeName())
             {
@@ -249,6 +250,7 @@ namespace RapidXamlToolkit.Analyzers
                     foreach (var member in enumMembers)
                     {
                         var line = profile.EnumMemberOutput.Replace(Placeholder.EnumElement, member.Name)
+                                                           .Replace(Placeholder.EnumElementWithSpaces, member.Name.AddSpacesToCamelCase())
                                                            .Replace(Placeholder.EnumPropName, name);
 
                         replacement.AppendLine(line);

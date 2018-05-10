@@ -42,7 +42,7 @@ Only **$name$**, **$incint$**, and **$repint$** placeholders are valid in the su
 #### Enum Members mapping
 
 The mapping used for properties included from the **$members$** placeholder.
-Only the **$element$** and **$enumname$** placeholders are valid in the enum member output.
+Only the **$element$**, **$elementwithspace$** and **$enumname$** placeholders are valid in the enum member output.
 
 ## Placeholders
 
@@ -60,11 +60,13 @@ Profile settings and mappings can include placeholders. A placeholder is somethi
 ### XAML generation placeholders
 
 - **$name$** Property name.
+- **$namewithspaces$** Property name with spaces inserted between words if the name is camelCase or PascalCase.
 - **$type$** Property type.
 - **$incint$** Incrementing integer. A number (starting at zero) that will increase with each property that is matched in a class.
 - **$repint$** Repeating integer. The same number that was last used, repeated without increment. Useful when you want output with multiple items in the same row.
 - **$subprops$** Sub-properties. Is replaced with output from the sub-property mapping for each property of the matched type. Useful when outputting collections of items.
 - **$members$** Enum members. Is replaced with output from the enum member mapping for each property of the matched type.
 - **$element$** Enum element. Is replaced with the name of an individual enum element.
+- **$elementwithspaces$** Enum element. Is replaced with the name of an individual enum element and spaces are inserted between words if the name is camelCase or PascalCase.
 - **$enumname$** Enum property name. Is replaced with the name of the enum property.
 - **$nooutput$** No Output. Nothing will be included in the generated XAML when this is in the mapping output.

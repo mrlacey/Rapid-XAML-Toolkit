@@ -325,5 +325,22 @@ namespace RapidXamlToolkit.Tests.Formatting
 
             Assert.AreEqual("<ListOfStrings />", result);
         }
+
+        [TestMethod]
+        public void CorrectlySplitCamelCasePropertyNames()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "string",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "$namewithspaces$",
+            });
+
+            var result = AnalyzerBase.GetPropertyOutput(profile, "string", "MyProperty", isReadOnly: false);
+
+            Assert.AreEqual("My Property", result);
+        }
     }
 }

@@ -185,5 +185,10 @@ namespace RapidXamlToolkit
         {
             return options.Contains(item);
         }
+
+        public static string AddSpacesToCamelCase(this string source)
+        {
+            return System.Text.RegularExpressions.Regex.Replace(source, "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))", "$1 ");
+        }
     }
 }

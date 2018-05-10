@@ -550,7 +550,7 @@ End Sub",
                         ClassGrouping = "StackLayout",
                         FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
-                        EnumMemberOutput = " <x:String>$element$</x:String>",
+                        EnumMemberOutput = " <x:String>$elementwithspaces$</x:String>",
                         Mappings = MappingsForStackLayout(),
                         ViewGeneration = new ViewGenerationSettings
                         {

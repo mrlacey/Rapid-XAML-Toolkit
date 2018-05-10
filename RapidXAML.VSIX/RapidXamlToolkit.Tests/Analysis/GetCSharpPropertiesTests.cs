@@ -996,5 +996,59 @@ namespace tests
 
             this.PositionAtStarShouldProduceExpected(code, expected);
         }
+
+        [TestMethod]
+        public void CorrectlySplitCamelCaseEnumElements()
+        {
+            var enumProfile = new Profile
+            {
+                Name = "EnumTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "enum",
+                        NameContains = string.Empty,
+                        Output = "<ComboBox>$members$</ComboBox>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        public Status Order*Status { get; set; }
+    }
+
+    enum Status
+    {
+        Active,
+        OnHold,
+        Closed,
+    }
+}";
+
+            var expectedOutput = "<ComboBox>"
+         + Environment.NewLine + "<x:String>Active</x:String>"
+         + Environment.NewLine + "<x:String>On Hold</x:String>"
+         + Environment.NewLine + "<x:String>Closed</x:String>"
+         + Environment.NewLine + "</ComboBox>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "OrderStatus",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, enumProfile);
+        }
     }
 }
