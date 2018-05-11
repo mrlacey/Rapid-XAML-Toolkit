@@ -18,9 +18,5 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen or the output to be.
 
 
-**Your setup (please complete the following information):**
- - Visual Studio Version: 
- - Extension Version:
-
 **Additional context**
 Add any other context about the problem here.
