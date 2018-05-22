@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 
 namespace RapidXamlToolkit.Commands
@@ -13,9 +14,9 @@ namespace RapidXamlToolkit.Commands
 
         ProjectWrapper GetProject(string projectName);
 
-        (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(string fileName);
+        Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName);
 
-        (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(Document document);
+        Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Document document);
 
         string GetActiveDocumentFileName();
 

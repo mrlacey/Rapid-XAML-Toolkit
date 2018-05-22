@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.Commands
             Instance = new CopyToClipboardCommand(package, commandService, logger);
         }
 
-        private void Execute(object sender, EventArgs e)
+        private async void Execute(object sender, EventArgs e)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace RapidXamlToolkit.Commands
                 this.Logger?.RecordFeatureUsage(nameof(CopyToClipboardCommand));
 
                 this.Logger?.RecordInfo("Attempting to copy XAML to clipboard.");
-                var output = this.GetXaml(Instance.ServiceProvider);
+                var output = await this.GetXamlAsync(Instance.ServiceProvider);
 
                 if (output != null && output.OutputType != AnalyzerOutputType.None)
                 {
@@ -59,7 +59,7 @@ namespace RapidXamlToolkit.Commands
                     if (!string.IsNullOrWhiteSpace(message))
                     {
                         Clipboard.SetText(message);
-                        ShowStatusBarMessage(Instance.ServiceProvider, $"Copied XAML for {output.OutputType}: {output.Name}");
+                        await ShowStatusBarMessageAsync(Instance.ServiceProvider, $"Copied XAML for {output.OutputType}: {output.Name}");
                         this.Logger.RecordInfo($"Copied XAML for {output.OutputType}: {output.Name}");
                     }
                     else
@@ -69,7 +69,7 @@ namespace RapidXamlToolkit.Commands
                 }
                 else
                 {
-                    ShowStatusBarMessage(Instance.ServiceProvider, "No XAML copied.");
+                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, "No XAML copied.");
                     this.Logger.RecordInfo("No XAML copied.");
                 }
             }

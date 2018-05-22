@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Threading.Tasks;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
@@ -37,14 +38,14 @@ namespace RapidXamlToolkit.Commands
 
         public string ViewFolder { get; private set; }
 
-        public void Execute(string selectedFileName)
+        public async Task ExecuteAsync(string selectedFileName)
         {
             var vmProj = this.vs.GetActiveProject();
 
             var fileExt = this.fileSystem.GetFileExtension(selectedFileName);
             var fileContents = this.fileSystem.GetAllFileText(selectedFileName);
 
-            (var syntaxTree, var semModel) = this.vs.GetDocumentModels(selectedFileName);
+            (var syntaxTree, var semModel) = await this.vs.GetDocumentModelsAsync(selectedFileName);
 
             AnalyzerBase analyzer = null;
             var codeBehindExt = string.Empty;
@@ -66,7 +67,7 @@ namespace RapidXamlToolkit.Commands
             if (analyzer != null)
             {
                 // IndexOf is allowing for "class " in C# and "Class " in VB
-                var analyzerOutput = ((IDocumentAnalyzer)analyzer).GetSingleItemOutput(syntaxTree.GetRoot(), semModel, fileContents.IndexOf("lass "), this.profile);
+                var analyzerOutput = ((IDocumentAnalyzer)analyzer).GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, fileContents.IndexOf("lass "), this.profile);
 
                 var config = this.profile.ViewGeneration;
 

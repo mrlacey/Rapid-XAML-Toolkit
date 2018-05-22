@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Commands;
@@ -13,7 +14,7 @@ namespace RapidXamlToolkit.Tests.CreateViews
     public class CreateViewVisualBasicTests
     {
         [TestMethod]
-        public void CorrectOutputInSameFolder()
+        public async Task CorrectOutputInSameFolderAsync()
         {
             var profile = this.GetDefaultTestProfile();
 
@@ -43,7 +44,7 @@ End Class",
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            sut.Execute(@"C:\Test\App\Files\TestViewModel.vb");
+            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb");
 
             var expectedXaml = @"<Page
     x:Class=""App.Files.TestPage"">
@@ -82,7 +83,7 @@ End Namespace
         }
 
         [TestMethod]
-        public void CorrectOutputInSameProject()
+        public async Task CorrectOutputInSameProjectAsync()
         {
             var profile = this.GetDefaultTestProfile();
 
@@ -112,7 +113,7 @@ End Class",
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            sut.Execute(@"C:\Test\App\ViewModels\TestViewModel.vb");
+            await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.vb");
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
@@ -151,7 +152,7 @@ End Namespace
         }
 
         [TestMethod]
-        public void CorrectOutputInOtherProject()
+        public async Task CorrectOutputInOtherProjectAsync()
         {
             var profile = this.GetDefaultTestProfile();
 
@@ -186,7 +187,7 @@ End Class",
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            sut.Execute(@"C:\Test\App.ViewModels\TestViewModel.vb");
+            await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.vb");
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">

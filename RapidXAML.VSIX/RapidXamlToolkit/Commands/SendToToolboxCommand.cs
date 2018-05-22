@@ -42,11 +42,11 @@ namespace RapidXamlToolkit.Commands
             Instance = new SendToToolboxCommand(package, commandService, logger);
         }
 
-        private static void AddToToolbox(string label, string actualText)
+        private static async Task AddToToolboxAsync(string label, string actualText)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var tbs = Instance.ServiceProvider.GetServiceAsync(typeof(IVsToolbox)).Result as IVsToolbox;
+            var tbs = await Instance.ServiceProvider.GetServiceAsync(typeof(IVsToolbox)) as IVsToolbox;
 
             var itemInfo = new TBXITEMINFO[1];
             var tbItem = new OleDataObject();
@@ -62,7 +62,7 @@ namespace RapidXamlToolkit.Commands
             tbs?.AddItem(tbItem, itemInfo, "Rapid XAML");
         }
 
-        private void Execute(object sender, EventArgs e)
+        private async void Execute(object sender, EventArgs e)
         {
             try
             {
@@ -71,20 +71,20 @@ namespace RapidXamlToolkit.Commands
                 this.Logger?.RecordFeatureUsage(nameof(SendToToolboxCommand));
 
                 this.Logger?.RecordInfo("Attempting to add XAML to the Toolbox.");
-                var analyzerResult = this.GetXaml(Instance.ServiceProvider);
+                var analyzerResult = await this.GetXamlAsync(Instance.ServiceProvider);
 
                 if (analyzerResult != null && analyzerResult.OutputType != AnalyzerOutputType.None)
                 {
                     var label = $"{analyzerResult.OutputType}: {analyzerResult.Name}";
 
-                    AddToToolbox(label, analyzerResult.Output);
+                    await AddToToolboxAsync(label, analyzerResult.Output);
 
-                    ShowStatusBarMessage(Instance.ServiceProvider, $"Added XAML to toolbox for {label}");
+                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, $"Added XAML to toolbox for {label}");
                     this.Logger.RecordInfo($"Added XAML to toolbox for {label}");
                 }
                 else
                 {
-                    ShowStatusBarMessage(Instance.ServiceProvider, "No XAML added to toolbox.");
+                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, "No XAML added to toolbox.");
                     this.Logger.RecordInfo("No XAML added to toolbox.");
                 }
             }

@@ -43,7 +43,7 @@ namespace RapidXamlToolkit.Commands
             Instance = new SetDatacontextCommand(package, commandService, logger);
         }
 
-        private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
+        private async void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace RapidXamlToolkit.Commands
                     if (settings.IsActiveProfileSet)
                     {
                         var profile = settings.GetActiveProfile();
-                        var dte = (DTE)Instance.ServiceProvider.GetServiceAsync(typeof(DTE)).Result;
+                        var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
 
                         var logic = new SetDataContextCommandLogic(profile, this.Logger, new VisualStudioAbstraction(dte));
 
@@ -73,7 +73,7 @@ namespace RapidXamlToolkit.Commands
             }
         }
 
-        private void Execute(object sender, EventArgs e)
+        private async void Execute(object sender, EventArgs e)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace RapidXamlToolkit.Commands
                 var settings = AnalyzerBase.GetSettings();
                 var profile = settings.GetActiveProfile();
 
-                var dte = (DTE)Instance.ServiceProvider.GetServiceAsync(typeof(DTE)).Result;
+                var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
 
                 var logic = new SetDataContextCommandLogic(profile, this.Logger, new VisualStudioAbstraction(dte));
 
@@ -133,10 +133,11 @@ namespace RapidXamlToolkit.Commands
                     {
                         if (dte.ActiveDocument.Object("TextDocument") is TextDocument objectDoc)
                         {
-                            var textView = GetTextView(Instance.ServiceProvider);
+                            var textView = await GetTextViewAsync(Instance.ServiceProvider);
                             var caretPosition = textView.Caret.Position.BufferPosition;
                             var document = caretPosition.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
-                            var documentRoot = document.GetSyntaxTreeAsync().Result.GetRoot();
+                            var documentTree = await document.GetSyntaxTreeAsync();
+                            var documentRoot = documentTree.GetRoot();
 
                             var toAdd = logic.GetCodeBehindContentToAdd(viewName, viewModelName, vmNamespace, documentRoot);
 

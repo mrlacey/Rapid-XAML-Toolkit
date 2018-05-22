@@ -3,6 +3,7 @@
 
 using System;
 using System.Windows;
+using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.Options
@@ -31,6 +32,8 @@ namespace RapidXamlToolkit.Options
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 this.viewModel.Mappings.Add(Mapping.CreateNew());
                 this.viewModel.RefreshMappings();
             }
@@ -45,6 +48,8 @@ namespace RapidXamlToolkit.Options
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (this.DisplayedMappings.SelectedIndex >= 0)
                 {
                     var copy = (Mapping)this.viewModel.Mappings[this.DisplayedMappings.SelectedIndex].Clone();
@@ -64,6 +69,8 @@ namespace RapidXamlToolkit.Options
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (this.DisplayedMappings.SelectedIndex >= 0)
                 {
                     this.viewModel.Mappings.RemoveAt(this.DisplayedMappings.SelectedIndex);

@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
@@ -28,9 +29,9 @@ namespace RapidXamlToolkit.Commands
 
         protected IAsyncServiceProvider ServiceProvider => this.package;
 
-        protected static Microsoft.VisualStudio.Text.Editor.IWpfTextView GetTextView(IAsyncServiceProvider serviceProvider)
+        protected static async Task<Microsoft.VisualStudio.Text.Editor.IWpfTextView> GetTextViewAsync(IAsyncServiceProvider serviceProvider)
         {
-            var textManager = (IVsTextManager)serviceProvider.GetServiceAsync(typeof(SVsTextManager)).Result;
+            var textManager = await serviceProvider.GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager;
 
             if (textManager == null)
             {
@@ -39,12 +40,20 @@ namespace RapidXamlToolkit.Commands
 
             textManager.GetActiveView(1, null, out IVsTextView textView);
 
-            return textView == null ? null : GetEditorAdaptersFactoryService(serviceProvider).GetWpfTextView(textView);
+            if (textView == null)
+            {
+                return null;
+            }
+            else
+            {
+                var provider = await GetEditorAdaptersFactoryServiceAsync(serviceProvider);
+                return provider.GetWpfTextView(textView);
+            }
         }
 
-        protected static IVsEditorAdaptersFactoryService GetEditorAdaptersFactoryService(IAsyncServiceProvider serviceProvider)
+        protected static async Task<IVsEditorAdaptersFactoryService> GetEditorAdaptersFactoryServiceAsync(IAsyncServiceProvider serviceProvider)
         {
-            var componentModel = (IComponentModel)serviceProvider.GetServiceAsync(typeof(SComponentModel)).Result;
+            var componentModel = await serviceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel;
             return componentModel.GetService<IVsEditorAdaptersFactoryService>();
         }
     }

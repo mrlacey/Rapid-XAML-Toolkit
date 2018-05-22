@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.Options
@@ -36,6 +37,8 @@ namespace RapidXamlToolkit.Options
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 var selectedIndex = this.DisplayedProfiles.SelectedIndex;
 
                 if (selectedIndex >= 0)

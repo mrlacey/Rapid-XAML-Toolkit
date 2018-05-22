@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Telemetry;
 
 namespace RapidXamlToolkit.Logging
@@ -20,6 +21,8 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordError(string message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.Logger.RecordError(message);
         }
 

@@ -26,6 +26,8 @@ namespace RapidXamlToolkit.Options
 
         protected override void OnApply(PageApplyEventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.settingsControl.SettingsProvider.Save();
 
             base.OnApply(e);

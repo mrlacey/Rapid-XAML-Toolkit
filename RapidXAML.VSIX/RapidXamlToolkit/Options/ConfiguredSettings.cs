@@ -6,6 +6,7 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using Microsoft.VisualStudio.Settings;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Settings;
 using RapidXamlToolkit.Logging;
 
@@ -83,6 +84,8 @@ namespace RapidXamlToolkit.Options
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 Settings deserializedSettings = null;
 
                 if (!string.IsNullOrWhiteSpace(json))

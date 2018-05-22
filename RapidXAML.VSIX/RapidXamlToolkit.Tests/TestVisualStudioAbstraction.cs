@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using RapidXamlToolkit.Commands;
 
@@ -34,8 +35,9 @@ namespace RapidXamlToolkit.Tests
             return this.NamedProject;
         }
 
-        public (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(string fileName)
+        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
         {
+            await Task.CompletedTask;
             return (this.SyntaxTree, this.SemanticModel);
         }
 
@@ -54,8 +56,9 @@ namespace RapidXamlToolkit.Tests
             return this.ActiveDocumentText;
         }
 
-        public (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(Document document)
+        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Document document)
         {
+            await Task.CompletedTask;
             return (this.SyntaxTree, this.SemanticModel);
         }
 

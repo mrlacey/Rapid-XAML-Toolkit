@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Analyzers;
 
 namespace RapidXamlToolkit.Logging
@@ -15,6 +16,8 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordError(string message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // Activate the pane (bring to front) so errors are obvious
             if (AnalyzerBase.GetSettings().ExtendedOutputEnabled)
             {

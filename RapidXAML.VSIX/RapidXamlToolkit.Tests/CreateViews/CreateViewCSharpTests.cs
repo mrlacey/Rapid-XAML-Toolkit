@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Commands;
@@ -13,7 +14,7 @@ namespace RapidXamlToolkit.Tests.CreateViews
     public class CreateViewCSharpTests
     {
         [TestMethod]
-        public void CorrectOutputInSameFolder()
+        public async Task CorrectOutputInSameFolder()
         {
             var profile = this.GetDefaultTestProfile();
 
@@ -41,7 +42,7 @@ namespace RapidXamlToolkit.Tests.CreateViews
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            sut.Execute(@"C:\Test\App\Files\TestViewModel.cs");
+            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.cs");
 
             var expectedXaml = @"<Page
     x:Class=""App.Files.TestPage"">
@@ -80,7 +81,7 @@ namespace App.Files
         }
 
         [TestMethod]
-        public void CorrectOutputInSameProject()
+        public async Task CorrectOutputInSameProject()
         {
             var profile = this.GetDefaultTestProfile();
 
@@ -108,7 +109,7 @@ namespace App.Files
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            sut.Execute(@"C:\Test\App\ViewModels\TestViewModel.cs");
+            await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.cs");
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
@@ -147,7 +148,7 @@ namespace App.Views
         }
 
         [TestMethod]
-        public void CorrectOutputInOtherProject()
+        public async Task CorrectOutputInOtherProject()
         {
             var profile = this.GetDefaultTestProfile();
 
@@ -180,7 +181,7 @@ namespace App.Views
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            sut.Execute(@"C:\Test\App.ViewModels\TestViewModel.cs");
+            await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.cs");
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
@@ -219,7 +220,7 @@ namespace App.Views
         }
 
         [TestMethod]
-        public void FileExistsAndDoNotOverwriteMeansNoNewFileCreated()
+        public async Task FileExistsAndDoNotOverwriteMeansNoNewFileCreatedAsync()
         {
             var profile = this.GetDefaultTestProfile();
 
@@ -247,7 +248,7 @@ namespace App.Views
             };
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            sut.Execute(@"C:\Test\App\ViewModels\TestViewModel.cs");
+            await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.cs");
 
             Assert.IsFalse(sut.CreateView);
         }

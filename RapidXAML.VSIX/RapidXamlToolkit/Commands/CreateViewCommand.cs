@@ -154,7 +154,7 @@ namespace RapidXamlToolkit.Commands
             }
         }
 
-        private void Execute(object sender, EventArgs e)
+        private async void Execute(object sender, EventArgs e)
         {
             try
             {
@@ -163,14 +163,14 @@ namespace RapidXamlToolkit.Commands
                 this.Logger?.RecordFeatureUsage(nameof(CreateViewCommand));
 
                 this.Logger?.RecordInfo("Attempting to create View.");
-                var dte = this.ServiceProvider.GetServiceAsync(typeof(DTE)).Result as DTE;
-                var componentModel = (IComponentModel)this.ServiceProvider.GetServiceAsync(typeof(SComponentModel)).Result;
+                var dte = await this.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
+                var componentModel = await this.ServiceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel;
 
                 var profile = AnalyzerBase.GetSettings().GetActiveProfile();
 
                 var logic = new CreateViewCommandLogic(profile, this.Logger, new VisualStudioAbstraction(dte, componentModel));
 
-                logic.Execute(this.SelectedFileName);
+                await logic.ExecuteAsync(this.SelectedFileName);
 
                 if (logic.CreateView)
                 {

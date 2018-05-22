@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Analyzers;
@@ -17,16 +18,16 @@ namespace RapidXamlToolkit.Commands
         {
         }
 
-        public AnalyzerOutput GetXaml(IAsyncServiceProvider serviceProvider)
+        public async Task<AnalyzerOutput> GetXamlAsync(IAsyncServiceProvider serviceProvider)
         {
             AnalyzerOutput result = null;
 
             if (AnalyzerBase.GetSettings().Profiles.Any())
             {
-                var dte = (EnvDTE.DTE)serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)).Result;
+                var dte = await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
                 var activeDocument = dte.ActiveDocument;
 
-                var textView = GetTextView(serviceProvider);
+                var textView = await GetTextViewAsync(serviceProvider);
 
                 var selection = textView.Selection;
 
@@ -36,7 +37,7 @@ namespace RapidXamlToolkit.Commands
 
                 var document = caretPosition.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
 
-                var semanticModel = document.GetSemanticModelAsync().Result;
+                var semanticModel = await document.GetSemanticModelAsync();
 
                 IDocumentAnalyzer analyzer = null;
 
@@ -50,22 +51,23 @@ namespace RapidXamlToolkit.Commands
                 }
 
                 result = isSelection
-                    ? analyzer?.GetSelectionOutput(document.GetSyntaxRootAsync().Result, semanticModel, selection.Start.Position, selection.End.Position)
-                    : analyzer?.GetSingleItemOutput(document.GetSyntaxRootAsync().Result, semanticModel, caretPosition.Position);
+                    ? analyzer?.GetSelectionOutput(await document.GetSyntaxRootAsync(), semanticModel, selection.Start.Position, selection.End.Position)
+                    : analyzer?.GetSingleItemOutput(await document.GetSyntaxRootAsync(), semanticModel, caretPosition.Position);
             }
             else
             {
-                ShowStatusBarMessage(serviceProvider, "No XAML copied. No profiles configured.");
+                await ShowStatusBarMessageAsync(serviceProvider, "No XAML copied. No profiles configured.");
             }
 
             return result;
         }
 
-        protected static void ShowStatusBarMessage(IAsyncServiceProvider serviceProvider, string message)
+        protected static async System.Threading.Tasks.Task ShowStatusBarMessageAsync(IAsyncServiceProvider serviceProvider, string message)
         {
             try
             {
-                ((EnvDTE.DTE)serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)).Result).StatusBar.Text = message;
+                var dte = await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
+                dte.StatusBar.Text = message;
             }
             catch (Exception e)
             {

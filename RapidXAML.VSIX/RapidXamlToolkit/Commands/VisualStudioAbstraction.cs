@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using EnvDTE;
 using Microsoft.CodeAnalysis;
@@ -50,7 +51,7 @@ namespace RapidXamlToolkit.Commands
             return new ProjectWrapper(((Array)this.dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project);
         }
 
-        public (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(string fileName)
+        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
         {
             var visualStudioWorkspace = this.componentModel?.GetService<VisualStudioWorkspace>();
 
@@ -60,18 +61,18 @@ namespace RapidXamlToolkit.Commands
                 var documentId = solution.GetDocumentIdsWithFilePath(fileName).FirstOrDefault();
                 var document = solution.GetDocument(documentId);
 
-                return this.GetDocumentModels(document);
+                return await this.GetDocumentModelsAsync(document);
             }
 
             return (null, null);
         }
 
-        public (SyntaxTree syntaxTree, SemanticModel semModel) GetDocumentModels(Microsoft.CodeAnalysis.Document document)
+        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Microsoft.CodeAnalysis.Document document)
         {
-            var root = document.GetSyntaxRootAsync().Result;
+            var root = await document.GetSyntaxRootAsync();
             var syntaxTree = root.SyntaxTree;
 
-            var semModel = document.GetSemanticModelAsync().Result;
+            var semModel = await document.GetSemanticModelAsync();
 
             return (syntaxTree, semModel);
         }
