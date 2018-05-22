@@ -16,6 +16,8 @@ namespace RapidXamlToolkit.Logging
 
         private GeneralOutputPane()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var outWindow = ServiceProvider.GlobalProvider.GetService(typeof(SVsOutputWindow)) as IVsOutputWindow;
             var generalPaneGuid = VSConstants.GUID_OutWindowGeneralPane;
 
@@ -38,11 +40,15 @@ namespace RapidXamlToolkit.Logging
 
         public void Activate()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.generalPane?.Activate();
         }
 
         public void Write(string message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.generalPane?.OutputString($"{message}{Environment.NewLine}");
         }
     }

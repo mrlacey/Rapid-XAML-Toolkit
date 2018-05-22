@@ -44,6 +44,8 @@ namespace RapidXamlToolkit.Commands
 
         private static void AddToToolbox(string label, string actualText)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var tbs = Instance.ServiceProvider.GetServiceAsync(typeof(IVsToolbox)).Result as IVsToolbox;
 
             var itemInfo = new TBXITEMINFO[1];

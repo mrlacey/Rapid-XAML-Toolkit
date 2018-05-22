@@ -18,6 +18,8 @@ namespace RapidXamlToolkit.Logging
 
         private RxtOutputPane()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (ServiceProvider.GlobalProvider.GetService(typeof(SVsOutputWindow)) is IVsOutputWindow outWindow)
             {
                 outWindow.GetPane(ref rxtPaneGuid, out this.rxtPane);
@@ -34,11 +36,15 @@ namespace RapidXamlToolkit.Logging
 
         public void Write(string message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.rxtPane.OutputString(message);
         }
 
         public void Activate()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.rxtPane.Activate();
         }
     }

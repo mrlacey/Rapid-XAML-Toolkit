@@ -53,6 +53,8 @@ namespace RapidXamlToolkit.Commands
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (sender is OleMenuCommand menuCmd)
                 {
                     menuCmd.Visible = menuCmd.Enabled = false;
@@ -87,6 +89,8 @@ namespace RapidXamlToolkit.Commands
 
         private bool IsSingleProjectItemSelection(out IVsHierarchy hierarchy, out uint itemid)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             hierarchy = null;
             itemid = VSConstants.VSITEMID_NIL;
 
