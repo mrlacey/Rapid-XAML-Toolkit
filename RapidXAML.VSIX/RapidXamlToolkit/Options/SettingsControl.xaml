@@ -21,7 +21,7 @@
         <GroupBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,8" Header="{x:Static strings:StringRes.Options_GeneralSettingsHeader}" Padding="4" >
             <StackPanel Orientation="Horizontal">
                 <CheckBox IsChecked="{Binding ExtendedOutputEnabled, Mode=TwoWay}" />
-                <TextBlock Margin="4,0,0,0" Text="{x:Static strings:StringRes.Options_EnabelExtendedLogging }" />
+                <TextBlock Margin="4,0,0,0" Text="{x:Static strings:StringRes.Options_EnableExtendedLogging }" />
             </StackPanel>
         </GroupBox>
 

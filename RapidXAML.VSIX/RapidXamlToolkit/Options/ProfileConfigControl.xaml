@@ -20,14 +20,13 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"  Orientation="Horizontal">
-            <TextBlock Foreground="Red">This UI is temporary and will change before release</TextBlock>
-            <TextBlock Foreground="DarkBlue" TextDecorations="Underline" Margin="4,0,0,0" PreviewMouseDown="DetailsClicked" >details</TextBlock>
+            <TextBlock Foreground="Red" FontWeight="Black" TextDecorations="Underline" Margin="4" PreviewMouseDown="DetailsClicked" Text="{x:Static strings:StringRes.Options_TemporaryUiNotice}" />
         </StackPanel>
-        <TextBlock Grid.Row="1" Grid.Column="0" Margin="4,0">Name</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="4,0" Text="{x:Static strings:StringRes.Options_ProfileName}" />
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay}" />
 
         <TabControl Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8,0,0">
-            <TabItem Header="Structure and naming">
+            <TabItem Header="{x:Static strings:StringRes.Options_StructureAndNamingHeader}">
 
                 <Grid Margin="4">
                     <Grid.ColumnDefinitions>
@@ -46,36 +45,36 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4,4,4">Views &amp; ViewModels are in the same project</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_AllInOneProject}" />
                     <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding ViewGeneration.AllInSameProject, Mode=TwoWay}" Margin="0,4" />
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4">XamlProjectSuffix</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlProjectSuffix}" />
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ViewGeneration.XamlProjectSuffix, Mode=TwoWay}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4">ViewModelProjectSuffix</TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelProjectSuffix}" />
                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelProjectSuffix, Mode=TwoWay}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4">XamlFileDirectoryName</TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlFileDirectoryName}" />
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ViewGeneration.XamlFileDirectoryName, Mode=TwoWay}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,4">ViewModelDirectoryName</TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelDirectoryName}" />
                     <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelDirectoryName, Mode=TwoWay}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,4">XamlFileSuffix</TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlFileSuffix}" />
                     <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ViewGeneration.XamlFileSuffix, Mode=TwoWay}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,4">ViewModelFileSuffix</TextBlock>
+                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelFileSuffix}" />
                     <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelFileSuffix, Mode=TwoWay}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4">XamlPlaceholder</TextBlock>
+                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlPlaceholder}" />
                     <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding ViewGeneration.XamlPlaceholder, Mode=TwoWay}" Margin="0,4,0,0" TextWrapping="Wrap" AcceptsReturn="True" MinLines="3" VerticalScrollBarVisibility="Auto"/>
 
-                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="0,4">CodePlaceholder</TextBlock>
+                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_CodeBehindPlaceholder}" />
                     <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding ViewGeneration.CodePlaceholder, Mode=TwoWay}" Margin="0,4,0,0" TextWrapping="Wrap" AcceptsReturn="True" MinLines="3" VerticalScrollBarVisibility="Auto" />
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Mappings">
+            <TabItem Header="{x:Static strings:StringRes.Options_MappingsHeader}">
                 <Grid Margin="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -94,16 +93,16 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4">Class grouping</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ClassGrouping}" />
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ClassGrouping, Mode=TwoWay}" Margin="0,4" />
-                    <TextBlock Grid.Row="2" Grid.Column="0">Fallback output</TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static strings:StringRes.Options_FallbackOutput}" />
                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding FallbackOutput, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,4,0">SubProperty output</TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,4,0" Text="{x:Static strings:StringRes.Options_SubPropertyOutput}" />
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SubPropertyOutput, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
-                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,4,0">Enum Mapping output</TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,4,0" Text="{x:Static strings:StringRes.Options_EnumMappingOutput}" />
                     <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding EnumMemberOutput, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
 
-                    <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0">Mappings</TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0" Text="{x:Static strings:StringRes.Options_MappingsHeader}" />
 
                     <Grid Grid.Row="6" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
@@ -125,24 +124,24 @@
                           SelectionUnit="FullRow" />
                         </ScrollViewer>
                         <StackPanel Grid.Column="1" Width="70" Margin="4,0,0,0">
-                            <Button Click="AddClicked">Add</Button>
-                            <Button Click="CopyClicked" Margin="0,8">Copy</Button>
-                            <Button Click="DeleteClicked">Delete</Button>
+                            <Button Click="AddClicked" Content="{x:Static strings:StringRes.Options_ButtonAdd}" />
+                            <Button Click="CopyClicked" Margin="0,8" Content="{x:Static strings:StringRes.Options_ButtonCopy}" />
+                            <Button Click="DeleteClicked" Content="{x:Static strings:StringRes.Options_ButtonDelete}" />
                         </StackPanel>
                     </Grid>
 
-                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4">Type</TextBlock>
+                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_MappingType}" />
                     <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedMapping.Type, Mode=TwoWay}" Margin="0,4" />
-                    <TextBlock Grid.Row="8" Grid.Column="0">Name filter</TextBlock>
+                    <TextBlock Grid.Row="8" Grid.Column="0" Text="{x:Static strings:StringRes.Options_MappingNameFilter}" />
                     <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding SelectedMapping.NameContains, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="0,4,4,4">Only if readonly</TextBlock>
+                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_MappingIfReadOnly}" />
                     <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding SelectedMapping.IfReadOnly, Mode=TwoWay}" Margin="0,4" />
-                    <TextBlock Grid.Row="10" Grid.Column="0">Output</TextBlock>
+                    <TextBlock Grid.Row="10" Grid.Column="0" Text="{x:Static strings:StringRes.Options_MappingOutput}" />
                     <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding SelectedMapping.Output, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
 
                 </Grid>
             </TabItem>
-            <TabItem Header="DataContext">
+            <TabItem Header="{x:Static strings:StringRes.Options_DataContextHeader}">
 
                 <Grid Margin="4">
                     <Grid.ColumnDefinitions>
@@ -157,22 +156,22 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4">Xaml Page Attribute</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlPageAttribute}" />
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Datacontext.XamlPageAttribute, Mode=TwoWay}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4">Code Behind Page Content</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_CodeBehindPageContent}" />
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Datacontext.CodeBehindPageContent, Mode=TwoWay}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4,4,4">Code Behind Constructor Content</TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_CodeBehindConstructorContent}" />
                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Datacontext.CodeBehindConstructorContent, Mode=TwoWay}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4">Default Code Behind Constructor</TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_DefaultCodeBehindConstructor}" />
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Datacontext.DefaultCodeBehindConstructor, Mode=TwoWay}" Margin="0,4,0,0" />
                 </Grid>
             </TabItem>
         </TabControl>
 
-        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Click="OkClicked" Width="70" HorizontalAlignment="Right" Margin="0,8,0,0">Ok</Button>
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="{x:Static strings:StringRes.Options_ButtonOk}" Click="OkClicked" Width="70" HorizontalAlignment="Right" Margin="0,8,0,0" />
 
     </Grid>
 

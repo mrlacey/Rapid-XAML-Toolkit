@@ -61,7 +61,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Initializing Commands (v{0}).
+        ///   Looks up a localized string similar to [! Initializing Commands (v{0}) !].
         /// </summary>
         public static string Info_IntializingCommands {
             get {
@@ -70,7 +70,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export.
+        ///   Looks up a localized string similar to [! Export !].
         /// </summary>
         public static string Option_ButtonExport {
             get {
@@ -79,7 +79,25 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
+        ///   Looks up a localized string similar to [! Views &amp; ViewModels are in the same project !].
+        /// </summary>
+        public static string Options_AllInOneProject {
+            get {
+                return ResourceManager.GetString("Options_AllInOneProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Indicate that the ViewModels and Views (XAML files) are in the same project. !].
+        /// </summary>
+        public static string Options_AllInOneProjectDescription {
+            get {
+                return ResourceManager.GetString("Options_AllInOneProjectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Add !].
         /// </summary>
         public static string Options_ButtonAdd {
             get {
@@ -88,7 +106,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy.
+        ///   Looks up a localized string similar to [! Copy !].
         /// </summary>
         public static string Options_ButtonCopy {
             get {
@@ -97,7 +115,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to [! Delete !].
         /// </summary>
         public static string Options_ButtonDelete {
             get {
@@ -106,7 +124,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to [! Edit !].
         /// </summary>
         public static string Options_ButtonEdit {
             get {
@@ -115,7 +133,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import.
+        ///   Looks up a localized string similar to [! Import !].
         /// </summary>
         public static string Options_ButtonImport {
             get {
@@ -124,7 +142,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New.
+        ///   Looks up a localized string similar to [! New !].
         /// </summary>
         public static string Options_ButtonNew {
             get {
@@ -133,7 +151,16 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset.
+        ///   Looks up a localized string similar to [! Ok !].
+        /// </summary>
+        public static string Options_ButtonOk {
+            get {
+                return ResourceManager.GetString("Options_ButtonOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Reset !].
         /// </summary>
         public static string Options_ButtonReset {
             get {
@@ -142,7 +169,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set as Active.
+        ///   Looks up a localized string similar to [! Set as Active !].
         /// </summary>
         public static string Options_ButtonSetAsActive {
             get {
@@ -151,16 +178,151 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable extended logging.
+        ///   Looks up a localized string similar to [! Class grouping !].
         /// </summary>
-        public static string Options_EnabelExtendedLogging {
+        public static string Options_ClassGrouping {
             get {
-                return ResourceManager.GetString("Options_EnabelExtendedLogging", resourceCulture);
+                return ResourceManager.GetString("Options_ClassGrouping", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to General Settings.
+        ///   Looks up a localized string similar to [! The element that encapsulates the elements created for each property when creating XAML for a class. !].
+        /// </summary>
+        public static string Options_ClassGroupingDescription {
+            get {
+                return ResourceManager.GetString("Options_ClassGroupingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Code-behind constructor content !].
+        /// </summary>
+        public static string Options_CodeBehindConstructorContent {
+            get {
+                return ResourceManager.GetString("Options_CodeBehindConstructorContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Code that should be added to the constructor of the code behind file when setting the datacontext. !].
+        /// </summary>
+        public static string Options_CodeBehindConstructorContentDescription {
+            get {
+                return ResourceManager.GetString("Options_CodeBehindConstructorContentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Code-behind page content !].
+        /// </summary>
+        public static string Options_CodeBehindPageContent {
+            get {
+                return ResourceManager.GetString("Options_CodeBehindPageContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Code that should be added to the code-behind file, outside of the constructor, when setting the datacontext. !].
+        /// </summary>
+        public static string Options_CodeBehindPageContentDescription {
+            get {
+                return ResourceManager.GetString("Options_CodeBehindPageContentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Code-behind file default content !].
+        /// </summary>
+        public static string Options_CodeBehindPlaceholder {
+            get {
+                return ResourceManager.GetString("Options_CodeBehindPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The default file contents when creating a code-behind file. !].
+        /// </summary>
+        public static string Options_CodeBehindPlaceholderDescription {
+            get {
+                return ResourceManager.GetString("Options_CodeBehindPlaceholderDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Datacontext !].
+        /// </summary>
+        public static string Options_DataContextHeader {
+            get {
+                return ResourceManager.GetString("Options_DataContextHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Default code-behind constructor !].
+        /// </summary>
+        public static string Options_DefaultCodeBehindConstructor {
+            get {
+                return ResourceManager.GetString("Options_DefaultCodeBehindConstructor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The constuctor of the code-behind file that will be added, if needed and one doesn&apos;t already exist. !].
+        /// </summary>
+        public static string Options_DefaultCodeBehindConstructorDescription {
+            get {
+                return ResourceManager.GetString("Options_DefaultCodeBehindConstructorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Enable extended logging !].
+        /// </summary>
+        public static string Options_EnableExtendedLogging {
+            get {
+                return ResourceManager.GetString("Options_EnableExtendedLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Enum output !].
+        /// </summary>
+        public static string Options_EnumMappingOutput {
+            get {
+                return ResourceManager.GetString("Options_EnumMappingOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The output used for each element of an enumeration. !].
+        /// </summary>
+        public static string Options_EnumMappingOutputDescription {
+            get {
+                return ResourceManager.GetString("Options_EnumMappingOutputDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Fallback output !].
+        /// </summary>
+        public static string Options_FallbackOutput {
+            get {
+                return ResourceManager.GetString("Options_FallbackOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The output used for a property when no specific mapping can be applied. !].
+        /// </summary>
+        public static string Options_FallbackOutputDescription {
+            get {
+                return ResourceManager.GetString("Options_FallbackOutputDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! General Settings !].
         /// </summary>
         public static string Options_GeneralSettingsHeader {
             get {
@@ -169,7 +331,115 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rapid XAML Toolkit - Edit Profile.
+        ///   Looks up a localized string similar to [! Only if readonly !].
+        /// </summary>
+        public static string Options_MappingIfReadOnly {
+            get {
+                return ResourceManager.GetString("Options_MappingIfReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The mapping should only apply if the property has a public setter. !].
+        /// </summary>
+        public static string Options_MappingIfReadOnlyDescription {
+            get {
+                return ResourceManager.GetString("Options_MappingIfReadOnlyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Name filter !].
+        /// </summary>
+        public static string Options_MappingNameFilter {
+            get {
+                return ResourceManager.GetString("Options_MappingNameFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The partial name of the property to match with. Multiple values can be specified if separated by a pipe (|) character. !].
+        /// </summary>
+        public static string Options_MappingNameFilterDescription {
+            get {
+                return ResourceManager.GetString("Options_MappingNameFilterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Output !].
+        /// </summary>
+        public static string Options_MappingOutput {
+            get {
+                return ResourceManager.GetString("Options_MappingOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The output that shoudl be generated if this mapping is used. !].
+        /// </summary>
+        public static string Options_MappingOutputDescription {
+            get {
+                return ResourceManager.GetString("Options_MappingOutputDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Mappings !].
+        /// </summary>
+        public static string Options_MappingsHeader {
+            get {
+                return ResourceManager.GetString("Options_MappingsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Type !].
+        /// </summary>
+        public static string Options_MappingType {
+            get {
+                return ResourceManager.GetString("Options_MappingType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The type of the property to match with. Multiple values can be specified if separated by a pipe (|) character. !].
+        /// </summary>
+        public static string Options_MappingTypeDescription {
+            get {
+                return ResourceManager.GetString("Options_MappingTypeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Naming !].
+        /// </summary>
+        public static string Options_NamingHeader {
+            get {
+                return ResourceManager.GetString("Options_NamingHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Visualize solution structure !].
+        /// </summary>
+        public static string Options_NamingVisualizer {
+            get {
+                return ResourceManager.GetString("Options_NamingVisualizer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Name !].
+        /// </summary>
+        public static string Options_ProfileName {
+            get {
+                return ResourceManager.GetString("Options_ProfileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Rapid XAML Toolkit - Edit Profile !].
         /// </summary>
         public static string Options_ProfilePageTitle {
             get {
@@ -178,11 +448,200 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profiles:.
+        ///   Looks up a localized string similar to [! Profiles: !].
         /// </summary>
         public static string Options_ProfilesSectionHeader {
             get {
                 return ResourceManager.GetString("Options_ProfilesSectionHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Structure and Naming !].
+        /// </summary>
+        public static string Options_StructureAndNamingHeader {
+            get {
+                return ResourceManager.GetString("Options_StructureAndNamingHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Project strucutre !].
+        /// </summary>
+        public static string Options_StrucutreHeader {
+            get {
+                return ResourceManager.GetString("Options_StrucutreHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! Sub-property output !].
+        /// </summary>
+        public static string Options_SubPropertyOutput {
+            get {
+                return ResourceManager.GetString("Options_SubPropertyOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The output used for each property of a generic type. !].
+        /// </summary>
+        public static string Options_SubPropertyOutputDescription {
+            get {
+                return ResourceManager.GetString("Options_SubPropertyOutputDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! This UI is temporary and will change before release !].
+        /// </summary>
+        public static string Options_TemporaryUiNotice {
+            get {
+                return ResourceManager.GetString("Options_TemporaryUiNotice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! ViewModel directory name !].
+        /// </summary>
+        public static string Options_ViewModelDirectoryName {
+            get {
+                return ResourceManager.GetString("Options_ViewModelDirectoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The name of the folder that contains the ViewModels. !].
+        /// </summary>
+        public static string Options_ViewModelDirectoryNameDescription {
+            get {
+                return ResourceManager.GetString("Options_ViewModelDirectoryNameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! ViewModel file suffix !].
+        /// </summary>
+        public static string Options_ViewModelFileSuffix {
+            get {
+                return ResourceManager.GetString("Options_ViewModelFileSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The text appended to the end of the name of each ViewModel. !].
+        /// </summary>
+        public static string Options_ViewModelFileSuffixDescription {
+            get {
+                return ResourceManager.GetString("Options_ViewModelFileSuffixDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! ViewModel Project Suffix !].
+        /// </summary>
+        public static string Options_ViewModelProjectSuffix {
+            get {
+                return ResourceManager.GetString("Options_ViewModelProjectSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The text from the end of the name of the project that contains the ViewModels.  !].
+        /// </summary>
+        public static string Options_ViewModelProjectSuffixDescription {
+            get {
+                return ResourceManager.GetString("Options_ViewModelProjectSuffixDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! XAML file directory name !].
+        /// </summary>
+        public static string Options_XamlFileDirectoryName {
+            get {
+                return ResourceManager.GetString("Options_XamlFileDirectoryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The name of the folder that contains the Views (XAML files.) !].
+        /// </summary>
+        public static string Options_XamlFileDirectoryNameDescription {
+            get {
+                return ResourceManager.GetString("Options_XamlFileDirectoryNameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! XAML file suffix !].
+        /// </summary>
+        public static string Options_XamlFileSuffix {
+            get {
+                return ResourceManager.GetString("Options_XamlFileSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The text appended to the end of the name of each View (XAML file.) !].
+        /// </summary>
+        public static string Options_XamlFileSuffixDescription {
+            get {
+                return ResourceManager.GetString("Options_XamlFileSuffixDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! XAMLPage attribute !].
+        /// </summary>
+        public static string Options_XamlPageAttribute {
+            get {
+                return ResourceManager.GetString("Options_XamlPageAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The attribute that should be added ot the top level XAMLelement when setting the datacontext. !].
+        /// </summary>
+        public static string Options_XamlPageAttributeDescription {
+            get {
+                return ResourceManager.GetString("Options_XamlPageAttributeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! XAML file default content !].
+        /// </summary>
+        public static string Options_XamlPlaceholder {
+            get {
+                return ResourceManager.GetString("Options_XamlPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The default file contents when creating a new XAML file. !].
+        /// </summary>
+        public static string Options_XamlPlaceholderDescription {
+            get {
+                return ResourceManager.GetString("Options_XamlPlaceholderDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! XAML Project Suffix !].
+        /// </summary>
+        public static string Options_XamlProjectSuffix {
+            get {
+                return ResourceManager.GetString("Options_XamlProjectSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [! The text from the end of the name of the project that contains the Views (XAML files.) !].
+        /// </summary>
+        public static string Options_XamlProjectSuffixDescription {
+            get {
+                return ResourceManager.GetString("Options_XamlProjectSuffixDescription", resourceCulture);
             }
         }
     }

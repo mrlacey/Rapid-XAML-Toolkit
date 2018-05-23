@@ -82,6 +82,8 @@ namespace RapidXamlToolkit.Options
 
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 var selectedIndex = this.DisplayedProfiles.SelectedIndex;
 
                 this.SettingsProvider.ActualSettings.Profiles.Add(Profile.CreateNew());
@@ -106,6 +108,8 @@ namespace RapidXamlToolkit.Options
 
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 var selectedIndex = this.DisplayedProfiles.SelectedIndex;
 
                 if (selectedIndex >= 0)
@@ -137,6 +141,8 @@ namespace RapidXamlToolkit.Options
 
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 var selectedIndex = this.DisplayedProfiles.SelectedIndex;
 
                 if (selectedIndex >= 0)
@@ -166,6 +172,8 @@ namespace RapidXamlToolkit.Options
 
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (this.DisplayedProfiles.SelectedIndex >= 0)
                 {
                     var selectedProfile = this.SettingsProvider.ActualSettings.ProfilesList[this.DisplayedProfiles.SelectedIndex];
@@ -207,6 +215,8 @@ namespace RapidXamlToolkit.Options
 
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 var openFileDialog = new System.Windows.Forms.OpenFileDialog
                 {
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
@@ -256,6 +266,8 @@ namespace RapidXamlToolkit.Options
 
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (this.DisplayedProfiles.SelectedIndex >= 0)
                 {
                     var selectedProfile = this.SettingsProvider.ActualSettings.Profiles[this.DisplayedProfiles.SelectedIndex];
@@ -290,6 +302,8 @@ namespace RapidXamlToolkit.Options
 
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 var msgResult = MessageBox.Show(
                     "Resetting profiles will cause you to lose any changes. Are you sure?",
                     "Confirm reset",

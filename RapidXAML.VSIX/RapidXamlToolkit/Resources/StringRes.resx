@@ -121,6 +121,12 @@
     <value>Initializing Commands (v{0})</value>
     <comment>Info mesage when package initialized</comment>
   </data>
+  <data name="Options_AllInOneProject" xml:space="preserve">
+    <value>Views &amp; ViewModels are in the same project</value>
+  </data>
+  <data name="Options_AllInOneProjectDescription" xml:space="preserve">
+    <value>Indicate that the ViewModels and Views (XAML files) are in the same project.</value>
+  </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -139,23 +145,170 @@
   <data name="Options_ButtonNew" xml:space="preserve">
     <value>New</value>
   </data>
+  <data name="Options_ButtonOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
   <data name="Options_ButtonReset" xml:space="preserve">
     <value>Reset</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
     <value>Set as Active</value>
   </data>
-  <data name="Options_EnabelExtendedLogging" xml:space="preserve">
+  <data name="Options_ClassGrouping" xml:space="preserve">
+    <value>Class grouping</value>
+  </data>
+  <data name="Options_ClassGroupingDescription" xml:space="preserve">
+    <value>The element that encapsulates the elements created for each property when creating XAML for a class.</value>
+  </data>
+  <data name="Options_CodeBehindConstructorContent" xml:space="preserve">
+    <value>Code-behind constructor content</value>
+  </data>
+  <data name="Options_CodeBehindConstructorContentDescription" xml:space="preserve">
+    <value>Code that should be added to the constructor of the code behind file when setting the datacontext.</value>
+  </data>
+  <data name="Options_CodeBehindPageContent" xml:space="preserve">
+    <value>Code-behind page content</value>
+  </data>
+  <data name="Options_CodeBehindPageContentDescription" xml:space="preserve">
+    <value>Code that should be added to the code-behind file, outside of the constructor, when setting the datacontext.</value>
+  </data>
+  <data name="Options_CodeBehindPlaceholder" xml:space="preserve">
+    <value>Code-behind file default content</value>
+  </data>
+  <data name="Options_CodeBehindPlaceholderDescription" xml:space="preserve">
+    <value>The default file contents when creating a code-behind file.</value>
+  </data>
+  <data name="Options_DataContextHeader" xml:space="preserve">
+    <value>Datacontext</value>
+  </data>
+  <data name="Options_DefaultCodeBehindConstructor" xml:space="preserve">
+    <value>Default code-behind constructor</value>
+  </data>
+  <data name="Options_DefaultCodeBehindConstructorDescription" xml:space="preserve">
+    <value>The constuctor of the code-behind file that will be added, if needed and one doesn't already exist.</value>
+  </data>
+  <data name="Options_EnableExtendedLogging" xml:space="preserve">
     <value>Enable extended logging</value>
+  </data>
+  <data name="Options_EnumMappingOutput" xml:space="preserve">
+    <value>Enum output</value>
+  </data>
+  <data name="Options_EnumMappingOutputDescription" xml:space="preserve">
+    <value>The output used for each element of an enumeration.</value>
+  </data>
+  <data name="Options_FallbackOutput" xml:space="preserve">
+    <value>Fallback output</value>
+  </data>
+  <data name="Options_FallbackOutputDescription" xml:space="preserve">
+    <value>The output used for a property when no specific mapping can be applied.</value>
   </data>
   <data name="Options_GeneralSettingsHeader" xml:space="preserve">
     <value>General Settings</value>
+  </data>
+  <data name="Options_MappingIfReadOnly" xml:space="preserve">
+    <value>Only if readonly</value>
+  </data>
+  <data name="Options_MappingIfReadOnlyDescription" xml:space="preserve">
+    <value>The mapping should only apply if the property has a public setter.</value>
+  </data>
+  <data name="Options_MappingNameFilter" xml:space="preserve">
+    <value>Name filter</value>
+  </data>
+  <data name="Options_MappingNameFilterDescription" xml:space="preserve">
+    <value>The partial name of the property to match with. Multiple values can be specified if separated by a pipe (|) character.</value>
+  </data>
+  <data name="Options_MappingOutput" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Options_MappingOutputDescription" xml:space="preserve">
+    <value>The output that shoudl be generated if this mapping is used.</value>
+  </data>
+  <data name="Options_MappingsHeader" xml:space="preserve">
+    <value>Mappings</value>
+  </data>
+  <data name="Options_MappingType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Options_MappingTypeDescription" xml:space="preserve">
+    <value>The type of the property to match with. Multiple values can be specified if separated by a pipe (|) character.</value>
+  </data>
+  <data name="Options_NamingHeader" xml:space="preserve">
+    <value>Naming</value>
+  </data>
+  <data name="Options_NamingVisualizer" xml:space="preserve">
+    <value>Visualize solution structure</value>
+  </data>
+  <data name="Options_ProfileName" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="Options_ProfilePageTitle" xml:space="preserve">
     <value>Rapid XAML Toolkit - Edit Profile</value>
   </data>
   <data name="Options_ProfilesSectionHeader" xml:space="preserve">
     <value>Profiles:</value>
+  </data>
+  <data name="Options_StructureAndNamingHeader" xml:space="preserve">
+    <value>Structure and Naming</value>
+  </data>
+  <data name="Options_StrucutreHeader" xml:space="preserve">
+    <value>Project strucutre</value>
+  </data>
+  <data name="Options_SubPropertyOutput" xml:space="preserve">
+    <value>Sub-property output</value>
+  </data>
+  <data name="Options_SubPropertyOutputDescription" xml:space="preserve">
+    <value>The output used for each property of a generic type.</value>
+  </data>
+  <data name="Options_TemporaryUiNotice" xml:space="preserve">
+    <value>This UI is temporary and will change before release</value>
+  </data>
+  <data name="Options_ViewModelDirectoryName" xml:space="preserve">
+    <value>ViewModel directory name</value>
+  </data>
+  <data name="Options_ViewModelDirectoryNameDescription" xml:space="preserve">
+    <value>The name of the folder that contains the ViewModels.</value>
+  </data>
+  <data name="Options_ViewModelFileSuffix" xml:space="preserve">
+    <value>ViewModel file suffix</value>
+  </data>
+  <data name="Options_ViewModelFileSuffixDescription" xml:space="preserve">
+    <value>The text appended to the end of the name of each ViewModel.</value>
+  </data>
+  <data name="Options_ViewModelProjectSuffix" xml:space="preserve">
+    <value>ViewModel Project Suffix</value>
+  </data>
+  <data name="Options_ViewModelProjectSuffixDescription" xml:space="preserve">
+    <value>The text from the end of the name of the project that contains the ViewModels. </value>
+  </data>
+  <data name="Options_XamlFileDirectoryName" xml:space="preserve">
+    <value>XAML file directory name</value>
+  </data>
+  <data name="Options_XamlFileDirectoryNameDescription" xml:space="preserve">
+    <value>The name of the folder that contains the Views (XAML files.)</value>
+  </data>
+  <data name="Options_XamlFileSuffix" xml:space="preserve">
+    <value>XAML file suffix</value>
+  </data>
+  <data name="Options_XamlFileSuffixDescription" xml:space="preserve">
+    <value>The text appended to the end of the name of each View (XAML file.)</value>
+  </data>
+  <data name="Options_XamlPageAttribute" xml:space="preserve">
+    <value>XAMLPage attribute</value>
+  </data>
+  <data name="Options_XamlPageAttributeDescription" xml:space="preserve">
+    <value>The attribute that should be added ot the top level XAMLelement when setting the datacontext.</value>
+  </data>
+  <data name="Options_XamlPlaceholder" xml:space="preserve">
+    <value>XAML file default content</value>
+  </data>
+  <data name="Options_XamlPlaceholderDescription" xml:space="preserve">
+    <value>The default file contents when creating a new XAML file.</value>
+  </data>
+  <data name="Options_XamlProjectSuffix" xml:space="preserve">
+    <value>XAML Project Suffix</value>
+  </data>
+  <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
+    <value>The text from the end of the name of the project that contains the Views (XAML files.)</value>
   </data>
   <data name="Option_ButtonExport" xml:space="preserve">
     <value>Export</value>

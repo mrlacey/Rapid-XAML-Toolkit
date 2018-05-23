@@ -62,6 +62,8 @@ namespace RapidXamlToolkit.Options
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 byte[] byteArray;
 
                 using (var ms = new MemoryStream())
