@@ -10,6 +10,7 @@ using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.Telemetry;
 using Task = System.Threading.Tasks.Task;
 
@@ -45,7 +46,7 @@ namespace RapidXamlToolkit
             {
                 // Set the ServiceProvider of AnalyzerBase as it's needed to get settings
                 AnalyzerBase.ServiceProvider = this;
-                logger.RecordInfo($"Initializing Commands (v{CoreDetails.GetVersion()})");
+                logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
 
                 await CreateViewCommand.InitializeAsync(this, logger);
                 await CopyToClipboardCommand.InitializeAsync(this, logger);

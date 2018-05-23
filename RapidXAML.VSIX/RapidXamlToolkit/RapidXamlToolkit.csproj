@@ -120,6 +120,17 @@
     <Compile Include="Telemetry\TelemetryEvents.cs" />
     <Compile Include="Telemetry\TelemetryProperties.cs" />
   </ItemGroup>
+  <ItemGroup>    
+    <EmbeddedResource Include="Resources\StringRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Resources\StringRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringRes.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>

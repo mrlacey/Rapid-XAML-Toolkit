@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RapidXamlToolkit"
+             xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -20,7 +21,7 @@
         <GroupBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,8" Header="General Settings" Padding="4" >
             <StackPanel Orientation="Horizontal">
                 <CheckBox IsChecked="{Binding ExtendedOutputEnabled, Mode=TwoWay}" />
-                <TextBlock Margin="4,0,0,0">Enable extended logging</TextBlock>
+                <TextBlock Margin="4,0,0,0" Text="{x:Static strings:StringRes.Options_EnabelExtendedLogging }" />
             </StackPanel>
         </GroupBox>
 
@@ -35,13 +36,18 @@
         </ListView>
 
         <StackPanel Grid.Column="1" Grid.Row="2" Width="100" Margin="12,0,4,0">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="0,0,0,6" />
+                </Style>
+            </StackPanel.Resources>
             <Button Click="SetActiveClicked" Margin="0,0,0,18">Set as Active</Button>
-            <Button Click="AddClicked" Margin="0,0,0,6">Add</Button>
-            <Button Click="EditClicked" Margin="0,0,0,6">Edit</Button>
-            <Button Click="CopyClicked" Margin="0,0,0,6">Copy</Button>
-            <Button Click="DeleteClicked" Margin="0,0,0,6">Delete</Button>
-            <Button Click="ImportClicked" Margin="0,6,0,6">Import</Button>
-            <Button Click="ExportClicked" Margin="0,0,0,6">Export</Button>
+            <Button Click="AddClicked" >Add</Button>
+            <Button Click="EditClicked" >Edit</Button>
+            <Button Click="CopyClicked" >Copy</Button>
+            <Button Click="DeleteClicked" >Delete</Button>
+            <Button Click="ImportClicked" >Import</Button>
+            <Button Click="ExportClicked" >Export</Button>
         </StackPanel>
         <Button Click="ResetClicked" Grid.Column="1" Grid.Row="2" Width="100" Margin="12,0,4,0" VerticalAlignment="Bottom">Reset</Button>
     </Grid>

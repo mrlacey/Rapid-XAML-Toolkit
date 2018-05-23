@@ -8,6 +8,12 @@ namespace RapidXamlToolkit
 {
     public static class StringExtensions
     {
+        // Convenient syntactic wrapper around string.Format
+        public static string WithParams(this string value, params object[] args)
+        {
+            return string.Format(value, args);
+        }
+
         public static bool ContainsAnyOf(this string value, string filters)
         {
             if (filters == null)
