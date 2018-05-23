@@ -13,6 +13,7 @@ namespace RapidXamlToolkit.Options
     public partial class SettingsControl
     {
         private ConfiguredSettings settings;
+        private bool disabled = false;
 
         public SettingsControl()
         {
@@ -33,8 +34,18 @@ namespace RapidXamlToolkit.Options
             }
         }
 
+        public void DisableButtonsForEmulator()
+        {
+            this.disabled = true;
+        }
+
         private void SetActiveClicked(object sender, RoutedEventArgs e)
         {
+            if (this.disabled)
+            {
+                return;
+            }
+
             try
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
@@ -64,6 +75,11 @@ namespace RapidXamlToolkit.Options
 
         private void AddClicked(object sender, RoutedEventArgs e)
         {
+            if (this.disabled)
+            {
+                return;
+            }
+
             try
             {
                 var selectedIndex = this.DisplayedProfiles.SelectedIndex;
@@ -83,6 +99,11 @@ namespace RapidXamlToolkit.Options
 
         private void EditClicked(object sender, RoutedEventArgs e)
         {
+            if (this.disabled)
+            {
+                return;
+            }
+
             try
             {
                 var selectedIndex = this.DisplayedProfiles.SelectedIndex;
@@ -109,6 +130,11 @@ namespace RapidXamlToolkit.Options
 
         private void CopyClicked(object sender, RoutedEventArgs e)
         {
+            if (this.disabled)
+            {
+                return;
+            }
+
             try
             {
                 var selectedIndex = this.DisplayedProfiles.SelectedIndex;
@@ -133,6 +159,11 @@ namespace RapidXamlToolkit.Options
 
         private void DeleteClicked(object sender, RoutedEventArgs e)
         {
+            if (this.disabled)
+            {
+                return;
+            }
+
             try
             {
                 if (this.DisplayedProfiles.SelectedIndex >= 0)
@@ -169,6 +200,11 @@ namespace RapidXamlToolkit.Options
 
         private async void ImportClicked(object sender, RoutedEventArgs e)
         {
+            if (this.disabled)
+            {
+                return;
+            }
+
             try
             {
                 var openFileDialog = new System.Windows.Forms.OpenFileDialog
@@ -213,6 +249,11 @@ namespace RapidXamlToolkit.Options
 
         private void ExportClicked(object sender, RoutedEventArgs e)
         {
+            if (this.disabled)
+            {
+                return;
+            }
+
             try
             {
                 if (this.DisplayedProfiles.SelectedIndex >= 0)
@@ -242,6 +283,11 @@ namespace RapidXamlToolkit.Options
 
         private void ResetClicked(object sender, RoutedEventArgs e)
         {
+            if (this.disabled)
+            {
+                return;
+            }
+
             try
             {
                 var msgResult = MessageBox.Show(

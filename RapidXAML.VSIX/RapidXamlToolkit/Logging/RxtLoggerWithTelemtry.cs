@@ -28,18 +28,24 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordException(Exception exception)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.Logger.RecordException(exception);
             this.Telem.TrackException(exception);
         }
 
         public void RecordFeatureUsage(string feature)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.Logger.RecordFeatureUsage(feature);
             this.Telem.TrackEvent(feature);
         }
 
         public void RecordInfo(string message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.Logger.RecordInfo(message);
         }
     }

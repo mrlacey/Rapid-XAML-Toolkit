@@ -6,7 +6,7 @@
         <Description xml:space="preserve">Tools to accelerate XAML app development</Description>
         <License>EULA.rtf</License>
         <Icon>Resources\RapidXamlPackage.ico</Icon>
-        <Tags>XAML</Tags>
+        <Tags>XAML UWP WPF Xamarin.Forms</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0, 16.0)" />

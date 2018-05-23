@@ -1,0 +1,20 @@
+﻿<Window x:Class="OptionsEmulator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OptionsEmulator"
+        xmlns:options="clr-namespace:RapidXamlToolkit.Options;assembly=RapidXamlToolkit"
+        mc:Ignorable="d"
+        Title="Rapid XAML Toolkit - Options Emulator" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Settings">
+                <options:SettingsControl x:Name="Settings" />
+            </TabItem>
+            <TabItem Header="Profile">
+                <options:ProfileConfigControl x:Name="ProfileConfig" />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

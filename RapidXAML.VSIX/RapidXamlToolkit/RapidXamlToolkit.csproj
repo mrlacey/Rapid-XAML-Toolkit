@@ -96,8 +96,12 @@
     <Compile Include="Options\ConfiguredSettings.cs" />
     <Compile Include="Options\ConfiguredSettings.Default.cs" />
     <Compile Include="Options\DatacontextSettings.cs" />
+    <Compile Include="Options\ICanClose.cs" />
     <Compile Include="Options\Mapping.cs" />
     <Compile Include="Options\Profile.cs" />
+    <Compile Include="Options\ProfileConfigControl.xaml.cs">
+      <DependentUpon>ProfileConfigControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Options\ProfileConfigPage.xaml.cs">
       <DependentUpon>ProfileConfigPage.xaml</DependentUpon>
     </Compile>
@@ -486,6 +490,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="Options\ProfileConfigControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Options\ProfileConfigPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

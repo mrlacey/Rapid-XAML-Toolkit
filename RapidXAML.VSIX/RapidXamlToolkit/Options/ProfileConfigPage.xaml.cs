@@ -8,10 +8,8 @@ using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.Options
 {
-    public partial class ProfileConfigPage
+    public partial class ProfileConfigPage : ICanClose
     {
-        private Profile viewModel;
-
         public ProfileConfigPage()
         {
             this.InitializeComponent();
@@ -19,74 +17,7 @@ namespace RapidXamlToolkit.Options
 
         public void SetDataContext(Profile profile)
         {
-            this.viewModel = profile;
-            this.DataContext = this.viewModel;
-        }
-
-        private void OkClicked(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void AddClicked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
-                this.viewModel.Mappings.Add(Mapping.CreateNew());
-                this.viewModel.RefreshMappings();
-            }
-            catch (Exception exc)
-            {
-                new RxtLogger().RecordException(exc);
-                throw;
-            }
-        }
-
-        private void CopyClicked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
-                if (this.DisplayedMappings.SelectedIndex >= 0)
-                {
-                    var copy = (Mapping)this.viewModel.Mappings[this.DisplayedMappings.SelectedIndex].Clone();
-
-                    this.viewModel.Mappings.Add(copy);
-                    this.viewModel.RefreshMappings();
-                }
-            }
-            catch (Exception exc)
-            {
-                new RxtLogger().RecordException(exc);
-                throw;
-            }
-        }
-
-        private void DeleteClicked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                ThreadHelper.ThrowIfNotOnUIThread();
-
-                if (this.DisplayedMappings.SelectedIndex >= 0)
-                {
-                    this.viewModel.Mappings.RemoveAt(this.DisplayedMappings.SelectedIndex);
-                    this.viewModel.RefreshMappings();
-                }
-            }
-            catch (Exception exc)
-            {
-                new RxtLogger().RecordException(exc);
-                throw;
-            }
-        }
-
-        private void DetailsClicked(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/16");
+            this.ProfileConfig.SetDataContextAndHost(profile, this);
         }
     }
 }
