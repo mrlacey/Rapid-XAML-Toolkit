@@ -18,14 +18,14 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,8" Header="General Settings" Padding="4" >
+        <GroupBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,8" Header="{x:Static strings:StringRes.Options_GeneralSettingsHeader}" Padding="4" >
             <StackPanel Orientation="Horizontal">
                 <CheckBox IsChecked="{Binding ExtendedOutputEnabled, Mode=TwoWay}" />
                 <TextBlock Margin="4,0,0,0" Text="{x:Static strings:StringRes.Options_EnabelExtendedLogging }" />
             </StackPanel>
         </GroupBox>
 
-        <TextBlock Grid.Row="1">Profiles:</TextBlock>
+        <TextBlock Grid.Row="1" Text="{x:Static strings:StringRes.Options_ProfilesSectionHeader}" />
 
         <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding ProfilesList}" x:Name="DisplayedProfiles">
             <ListView.ItemTemplate>
@@ -35,20 +35,20 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <StackPanel Grid.Column="1" Grid.Row="2" Width="100" Margin="12,0,4,0">
+        <StackPanel Grid.Column="1" Grid.Row="2" Width="100" Margin="8,0,4,0">
             <StackPanel.Resources>
                 <Style TargetType="Button">
                     <Setter Property="Margin" Value="0,0,0,6" />
                 </Style>
             </StackPanel.Resources>
-            <Button Click="SetActiveClicked" Margin="0,0,0,18">Set as Active</Button>
-            <Button Click="AddClicked" >Add</Button>
-            <Button Click="EditClicked" >Edit</Button>
-            <Button Click="CopyClicked" >Copy</Button>
-            <Button Click="DeleteClicked" >Delete</Button>
-            <Button Click="ImportClicked" >Import</Button>
-            <Button Click="ExportClicked" >Export</Button>
+            <Button Click="SetActiveClicked" Content="{x:Static strings:StringRes.Options_ButtonSetAsActive}" Margin="0,0,0,18" />
+            <Button Click="AddClicked" Content="{x:Static strings:StringRes.Options_ButtonAdd}" />
+            <Button Click="EditClicked" Content="{x:Static strings:StringRes.Options_ButtonEdit}" />
+            <Button Click="CopyClicked" Content="{x:Static strings:StringRes.Options_ButtonCopy}" />
+            <Button Click="DeleteClicked" Content="{x:Static strings:StringRes.Options_ButtonDelete}" />
+            <Button Click="ImportClicked" Content="{x:Static strings:StringRes.Options_ButtonImport}" />
+            <Button Click="ExportClicked" Content="{x:Static strings:StringRes.Option_ButtonExport}" />
         </StackPanel>
-        <Button Click="ResetClicked" Grid.Column="1" Grid.Row="2" Width="100" Margin="12,0,4,0" VerticalAlignment="Bottom">Reset</Button>
+        <Button Click="ResetClicked"  Content="{x:Static strings:StringRes.Options_ButtonReset}" Grid.Column="1" Grid.Row="2" Width="100" Margin="12,0,4,0" VerticalAlignment="Bottom" />
     </Grid>
 </UserControl>

@@ -110,6 +110,8 @@ namespace RapidXamlToolkit.Options
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 if (!this.store.CollectionExists(SettingCollectionName))
                 {
                     this.store.CreateCollection(SettingCollectionName);
@@ -130,6 +132,8 @@ namespace RapidXamlToolkit.Options
         {
             try
             {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
                 var defaults = GetDefaultSettings();
 
                 this.ActualSettings.Profiles.Clear();

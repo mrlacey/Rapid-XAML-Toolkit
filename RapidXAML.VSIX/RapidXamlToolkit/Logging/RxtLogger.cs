@@ -33,6 +33,8 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordInfo(string message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             if (AnalyzerBase.GetSettings().ExtendedOutputEnabled)
             {
                 RxtOutputPane.Instance.Write(TimeStampMessage(message));
@@ -41,6 +43,8 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordException(Exception exception)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.RecordError("Exception");
             this.RecordError("=========");
             this.RecordError(exception.Message);
@@ -50,6 +54,8 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordFeatureUsage(string feature)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             // this logger doesn't need to do anything special with feature usage messages
             this.RecordInfo(feature);
         }

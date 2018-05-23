@@ -6,11 +6,12 @@
                          xmlns:local="clr-namespace:RapidXamlToolkit"
                          xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
                          xmlns:options="clr-namespace:RapidXamlToolkit.Options"
+                         xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
                          mc:Ignorable="d"
                          HasHelpButton="False"
                          HasMaximizeButton="False"
                          HasMinimizeButton="False"
-                         Title="Copy as XAML - Edit Profile"
+                         Title="{x:Static strings:StringRes.Options_ProfilePageTitle}"
                          MinHeight="350"
                          MinWidth="300"
                          d:DesignHeight="400" d:DesignWidth="500">

@@ -121,7 +121,43 @@
     <value>Initializing Commands (v{0})</value>
     <comment>Info mesage when package initialized</comment>
   </data>
+  <data name="Options_ButtonAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Options_ButtonCopy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Options_ButtonDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Options_ButtonEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Options_ButtonImport" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Options_ButtonNew" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Options_ButtonReset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Options_ButtonSetAsActive" xml:space="preserve">
+    <value>Set as Active</value>
+  </data>
   <data name="Options_EnabelExtendedLogging" xml:space="preserve">
     <value>Enable extended logging</value>
+  </data>
+  <data name="Options_GeneralSettingsHeader" xml:space="preserve">
+    <value>General Settings</value>
+  </data>
+  <data name="Options_ProfilePageTitle" xml:space="preserve">
+    <value>Rapid XAML Toolkit - Edit Profile</value>
+  </data>
+  <data name="Options_ProfilesSectionHeader" xml:space="preserve">
+    <value>Profiles:</value>
+  </data>
+  <data name="Option_ButtonExport" xml:space="preserve">
+    <value>Export</value>
   </data>
 </root>

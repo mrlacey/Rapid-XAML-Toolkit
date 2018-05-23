@@ -70,11 +70,119 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string Option_ButtonExport {
+            get {
+                return ResourceManager.GetString("Option_ButtonExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string Options_ButtonAdd {
+            get {
+                return ResourceManager.GetString("Options_ButtonAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy.
+        /// </summary>
+        public static string Options_ButtonCopy {
+            get {
+                return ResourceManager.GetString("Options_ButtonCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Options_ButtonDelete {
+            get {
+                return ResourceManager.GetString("Options_ButtonDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Options_ButtonEdit {
+            get {
+                return ResourceManager.GetString("Options_ButtonEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import.
+        /// </summary>
+        public static string Options_ButtonImport {
+            get {
+                return ResourceManager.GetString("Options_ButtonImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string Options_ButtonNew {
+            get {
+                return ResourceManager.GetString("Options_ButtonNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Options_ButtonReset {
+            get {
+                return ResourceManager.GetString("Options_ButtonReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set as Active.
+        /// </summary>
+        public static string Options_ButtonSetAsActive {
+            get {
+                return ResourceManager.GetString("Options_ButtonSetAsActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable extended logging.
         /// </summary>
         public static string Options_EnabelExtendedLogging {
             get {
                 return ResourceManager.GetString("Options_EnabelExtendedLogging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General Settings.
+        /// </summary>
+        public static string Options_GeneralSettingsHeader {
+            get {
+                return ResourceManager.GetString("Options_GeneralSettingsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Toolkit - Edit Profile.
+        /// </summary>
+        public static string Options_ProfilePageTitle {
+            get {
+                return ResourceManager.GetString("Options_ProfilePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profiles:.
+        /// </summary>
+        public static string Options_ProfilesSectionHeader {
+            get {
+                return ResourceManager.GetString("Options_ProfilesSectionHeader", resourceCulture);
             }
         }
     }
