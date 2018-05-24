@@ -16,8 +16,6 @@ namespace RapidXamlToolkit.Analyzers
 {
     public class VisualBasicAnalyzer : AnalyzerBase, IDocumentAnalyzer
     {
-        private const string Unknown = "**unknown**";
-
         public VisualBasicAnalyzer(ILogger logger)
             : base(logger)
         {
@@ -50,7 +48,7 @@ namespace RapidXamlToolkit.Analyzers
             }
             else
             {
-                Logger?.RecordInfo(StringRes.Info_PropertyTypeHasNoSubProperties.WithParams(property.Name,property.PropertyType));
+                Logger?.RecordInfo(StringRes.Info_PropertyTypeHasNoSubProperties.WithParams(property.Name, property.PropertyType));
 
                 // There are no subproperties so leave blank
                 var (output, counter) = GetSubPropertyOutputAndCounter(profile, string.Empty, numericSubstitute: numericSubstitute);
@@ -326,7 +324,7 @@ namespace RapidXamlToolkit.Analyzers
                 else
                 {
                     Logger?.RecordInfo(StringRes.Info_ClassNoPublicProperties);
-                    output.AppendLine(NoPropertiesXaml);
+                    output.AppendLine(StringRes.UI_NoPropertiesXaml);
                 }
 
                 if (!string.IsNullOrWhiteSpace(classGrouping))

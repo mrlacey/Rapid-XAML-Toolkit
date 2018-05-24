@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using RapidXamlToolkit.Resources;
+
 namespace RapidXamlToolkit.Options
 {
     public class ProfileSummary : CanNotifyPropertyChanged
@@ -32,7 +34,7 @@ namespace RapidXamlToolkit.Options
             {
                 if (this.IsActive)
                 {
-                    return $"{this.Name}    [*ACTIVE*]";
+                    return StringRes.UI_ActiveProfileName.WithParams(this.Name);
                 }
                 else
                 {

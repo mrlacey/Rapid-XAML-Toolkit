@@ -313,6 +313,9 @@
   <data name="Option_ButtonExport" xml:space="preserve">
     <value>Export</value>
   </data>
+  <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
+    <value>Unable to find project '{0}' in the solution.</value>
+  </data>
   <data name="Info_AddedRowDefsCount" xml:space="preserve">
     <value>Adding {0} row definitions.</value>
   </data>
@@ -484,10 +487,61 @@
   <data name="Info_UsingClassGrouping" xml:space="preserve">
     <value>Using class grouping of '{0}'.</value>
   </data>
+  <data name="Prompt_ConfirmDeleteProfileMessage" xml:space="preserve">
+    <value>Are you sure you want to delete profile '{0}'?</value>
+  </data>
+  <data name="Prompt_ConfirmDeleteProfileTitle" xml:space="preserve">
+    <value>Confirm deletion</value>
+  </data>
+  <data name="Prompt_ConfirmResetProfilesMessage" xml:space="preserve">
+    <value>Resetting profiles will cause you to lose any changes. Are you sure?</value>
+  </data>
+  <data name="Prompt_ConfirmResetProfilesTitle" xml:space="preserve">
+    <value>Confirm reset</value>
+  </data>
   <data name="Prompt_FileExistsTitle" xml:space="preserve">
     <value>File already exists</value>
   </data>
   <data name="Propt_FileExistsMessage" xml:space="preserve">
     <value>Do you want to override the existing file?</value>
+  </data>
+  <data name="UI_NoPropertiesXaml" xml:space="preserve">
+    <value>&lt;!-- No accessible properties when copying as XAML --&gt;</value>
+  </data>
+  <data name="UI_ProfileFilterDescription" xml:space="preserve">
+    <value>Rapid XAML Profile</value>
+  </data>
+  <data name="UI_SelectionMoreThanThreeNames" xml:space="preserve">
+    <value>{0}, {1} and {2} other properties</value>
+  </data>
+  <data name="UI_SelectionThreeNames" xml:space="preserve">
+    <value>{0}, {1} and 1 other property</value>
+  </data>
+  <data name="UI_SelectionTwoNames" xml:space="preserve">
+    <value>{0} and {1}</value>
+  </data>
+  <data name="UI_AccessingOutputPaneFailed" xml:space="preserve">
+    <value>Failed to get the Output window pane.</value>
+  </data>
+  <data name="UI_ActiveProfileName" xml:space="preserve">
+    <value>{0}    [*ACTIVE*]</value>
+  </data>
+  <data name="UI_CopiedProfileName" xml:space="preserve">
+    <value>{0} (copy)</value>
+  </data>
+  <data name="UI_CreatingOutputPaneFailed" xml:space="preserve">
+    <value>Failed to create the Output window pane.</value>
+  </data>
+  <data name="UI_NewProfileDefaultName" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="UI_NoXamlCopiedNoProfilesConfigured" xml:space="preserve">
+    <value>No XAML copied. No profiles configured.</value>
+  </data>
+  <data name="UI_RxtOutputPaneTitle" xml:space="preserve">
+    <value>Rapid XAML Toolkit</value>
+  </data>
+  <data name="UI_ToolboxGroupHeader" xml:space="preserve">
+    <value>Rapid XAML</value>
   </data>
 </root>

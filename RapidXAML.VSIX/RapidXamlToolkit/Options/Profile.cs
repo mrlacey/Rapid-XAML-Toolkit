@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Options
 {
@@ -62,7 +63,7 @@ namespace RapidXamlToolkit.Options
         {
             return new Profile
             {
-                Name = "New",
+                Name = StringRes.UI_NewProfileDefaultName,
                 ClassGrouping = string.Empty,
                 FallbackOutput = string.Empty,
                 SubPropertyOutput = string.Empty,
@@ -76,7 +77,7 @@ namespace RapidXamlToolkit.Options
         {
             var result = new Profile
             {
-                Name = $"{this.Name} (copy)",
+                Name = StringRes.UI_CopiedProfileName.WithParams(this.Name),
                 ClassGrouping = this.ClassGrouping,
                 FallbackOutput = this.FallbackOutput,
                 SubPropertyOutput = this.SubPropertyOutput,

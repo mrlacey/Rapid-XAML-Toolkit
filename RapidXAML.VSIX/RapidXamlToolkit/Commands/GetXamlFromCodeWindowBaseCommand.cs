@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Commands
 {
@@ -56,7 +57,7 @@ namespace RapidXamlToolkit.Commands
             }
             else
             {
-                await ShowStatusBarMessageAsync(serviceProvider, "No XAML copied. No profiles configured.");
+                await ShowStatusBarMessageAsync(serviceProvider, StringRes.UI_NoXamlCopiedNoProfilesConfigured);
             }
 
             return result;

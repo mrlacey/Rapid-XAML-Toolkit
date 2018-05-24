@@ -270,6 +270,14 @@ namespace RapidXamlToolkit.Tests.Formatting
         }
 
         [TestMethod]
+        public void GetSelectionPropertiesName_Five()
+        {
+            var result = AnalyzerBase.GetSelectionPropertiesName(new List<string> { "one", "two", "three", "four", "five" });
+
+            Assert.IsTrue(result.Equals("one, two and 3 other properties"));
+        }
+
+        [TestMethod]
         public void CanMatchWildCardGenerics()
         {
             var wildcardGenericsProfile = new Profile

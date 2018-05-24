@@ -60,7 +60,7 @@ namespace RapidXamlToolkit.Commands
 
             tbItem.SetText(actualText, TextDataFormat.Text);
 
-            tbs?.AddItem(tbItem, itemInfo, "Rapid XAML");
+            tbs?.AddItem(tbItem, itemInfo, StringRes.UI_ToolboxGroupHeader);
         }
 
         private async void Execute(object sender, EventArgs e)

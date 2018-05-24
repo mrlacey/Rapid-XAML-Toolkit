@@ -4,14 +4,14 @@
 using System;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Logging
 {
     public class RxtOutputPane : IOutputPane
     {
         private static Guid rxtPaneGuid = new Guid("32C5FA5D-E91C-4113-8B22-3396D748D429");
-        private static string rxtPaneTitle = "Rapid XAML Toolkit";
-
+ 
         private static RxtOutputPane instance;
 
         private readonly IVsOutputWindowPane rxtPane;
@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.Logging
 
                 if (this.rxtPane == null)
                 {
-                    outWindow.CreatePane(ref rxtPaneGuid, rxtPaneTitle, 1, 0);
+                    outWindow.CreatePane(ref rxtPaneGuid, StringRes.UI_RxtOutputPaneTitle, 1, 0);
                     outWindow.GetPane(ref rxtPaneGuid, out this.rxtPane);
                 }
             }

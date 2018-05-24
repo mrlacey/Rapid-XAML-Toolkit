@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Options
 {
@@ -178,8 +179,8 @@ namespace RapidXamlToolkit.Options
                 {
                     var selectedProfile = this.SettingsProvider.ActualSettings.ProfilesList[this.DisplayedProfiles.SelectedIndex];
                     var msgResult = MessageBox.Show(
-                                                    $"Are you sure you want to delete profile '{selectedProfile.Name}'?",
-                                                    "Confirm deletion",
+                                                    StringRes.Prompt_ConfirmDeleteProfileMessage.WithParams(selectedProfile.Name),
+                                                    StringRes.Prompt_ConfirmDeleteProfileTitle,
                                                     MessageBoxButton.YesNo,
                                                     MessageBoxImage.Warning);
 
@@ -276,7 +277,7 @@ namespace RapidXamlToolkit.Options
                     var saveFileDialog = new System.Windows.Forms.SaveFileDialog
                     {
                         InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                        Filter = "Rapid XAML Profile (*.rxprofile)|*.rxprofile",
+                        Filter = $"{StringRes.UI_ProfileFilterDescription} (*.rxprofile)|*.rxprofile",
                         FileName = $"{selectedProfile.Name}.rxprofile",
                     };
 
@@ -305,8 +306,8 @@ namespace RapidXamlToolkit.Options
                 ThreadHelper.ThrowIfNotOnUIThread();
 
                 var msgResult = MessageBox.Show(
-                    "Resetting profiles will cause you to lose any changes. Are you sure?",
-                    "Confirm reset",
+                    StringRes.Prompt_ConfirmResetProfilesMessage,
+                    StringRes.Prompt_ConfirmResetProfilesTitle,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
 

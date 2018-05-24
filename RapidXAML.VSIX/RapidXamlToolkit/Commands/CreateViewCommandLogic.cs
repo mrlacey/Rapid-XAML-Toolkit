@@ -101,7 +101,7 @@ namespace RapidXamlToolkit.Commands
 
                     if (this.ViewProject == null)
                     {
-                        this.logger.RecordError($"Unable to find project '{expectedViewProjectName}' in the solution.");
+                        this.logger.RecordError(StringRes.Error_UnableToFindProjectInSolution.WithParams(expectedViewProjectName));
                     }
 
                     viewProjName = this.ViewProject?.Name;

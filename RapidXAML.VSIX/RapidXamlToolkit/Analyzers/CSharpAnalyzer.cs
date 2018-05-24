@@ -62,7 +62,7 @@ namespace RapidXamlToolkit.Analyzers
 
         public static PropertyDetails GetPropertyDetails(PropertyDeclarationSyntax propertyDeclaration, SemanticModel semModel)
         {
-            var propertyType = "**unknown**";
+            var propertyType = Unknown;
 
             switch (propertyDeclaration.Type)
             {
@@ -257,7 +257,7 @@ namespace RapidXamlToolkit.Analyzers
                 else
                 {
                     Logger?.RecordInfo(StringRes.Info_ClassNoPublicProperties);
-                    output.AppendLine(NoPropertiesXaml);
+                    output.AppendLine(StringRes.UI_NoPropertiesXaml);
                 }
 
                 if (!string.IsNullOrWhiteSpace(classGrouping))

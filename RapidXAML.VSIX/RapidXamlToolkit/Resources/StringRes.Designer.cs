@@ -61,6 +61,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to find project &apos;{0}&apos; in the solution..
+        /// </summary>
+        public static string Error_UnableToFindProjectInSolution {
+            get {
+                return ResourceManager.GetString("Error_UnableToFindProjectInSolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding {0} row definitions..
         /// </summary>
         public static string Info_AddedRowDefsCount {
@@ -1159,6 +1168,42 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete profile &apos;{0}&apos;?.
+        /// </summary>
+        public static string Prompt_ConfirmDeleteProfileMessage {
+            get {
+                return ResourceManager.GetString("Prompt_ConfirmDeleteProfileMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm deletion.
+        /// </summary>
+        public static string Prompt_ConfirmDeleteProfileTitle {
+            get {
+                return ResourceManager.GetString("Prompt_ConfirmDeleteProfileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resetting profiles will cause you to lose any changes. Are you sure?.
+        /// </summary>
+        public static string Prompt_ConfirmResetProfilesMessage {
+            get {
+                return ResourceManager.GetString("Prompt_ConfirmResetProfilesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm reset.
+        /// </summary>
+        public static string Prompt_ConfirmResetProfilesTitle {
+            get {
+                return ResourceManager.GetString("Prompt_ConfirmResetProfilesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File already exists.
         /// </summary>
         public static string Prompt_FileExistsTitle {
@@ -1173,6 +1218,123 @@ namespace RapidXamlToolkit.Resources {
         public static string Propt_FileExistsMessage {
             get {
                 return ResourceManager.GetString("Propt_FileExistsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get the Output window pane..
+        /// </summary>
+        public static string UI_AccessingOutputPaneFailed {
+            get {
+                return ResourceManager.GetString("UI_AccessingOutputPaneFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}    [*ACTIVE*].
+        /// </summary>
+        public static string UI_ActiveProfileName {
+            get {
+                return ResourceManager.GetString("UI_ActiveProfileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} (copy).
+        /// </summary>
+        public static string UI_CopiedProfileName {
+            get {
+                return ResourceManager.GetString("UI_CopiedProfileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to create the Output window pane..
+        /// </summary>
+        public static string UI_CreatingOutputPaneFailed {
+            get {
+                return ResourceManager.GetString("UI_CreatingOutputPaneFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string UI_NewProfileDefaultName {
+            get {
+                return ResourceManager.GetString("UI_NewProfileDefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!-- No accessible properties when copying as XAML --&gt;.
+        /// </summary>
+        public static string UI_NoPropertiesXaml {
+            get {
+                return ResourceManager.GetString("UI_NoPropertiesXaml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No XAML copied. No profiles configured..
+        /// </summary>
+        public static string UI_NoXamlCopiedNoProfilesConfigured {
+            get {
+                return ResourceManager.GetString("UI_NoXamlCopiedNoProfilesConfigured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Profile.
+        /// </summary>
+        public static string UI_ProfileFilterDescription {
+            get {
+                return ResourceManager.GetString("UI_ProfileFilterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Toolkit.
+        /// </summary>
+        public static string UI_RxtOutputPaneTitle {
+            get {
+                return ResourceManager.GetString("UI_RxtOutputPaneTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}, {1} and {2} other properties.
+        /// </summary>
+        public static string UI_SelectionMoreThanThreeNames {
+            get {
+                return ResourceManager.GetString("UI_SelectionMoreThanThreeNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}, {1} and 1 other property.
+        /// </summary>
+        public static string UI_SelectionThreeNames {
+            get {
+                return ResourceManager.GetString("UI_SelectionThreeNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} and {1}.
+        /// </summary>
+        public static string UI_SelectionTwoNames {
+            get {
+                return ResourceManager.GetString("UI_SelectionTwoNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML.
+        /// </summary>
+        public static string UI_ToolboxGroupHeader {
+            get {
+                return ResourceManager.GetString("UI_ToolboxGroupHeader", resourceCulture);
             }
         }
     }

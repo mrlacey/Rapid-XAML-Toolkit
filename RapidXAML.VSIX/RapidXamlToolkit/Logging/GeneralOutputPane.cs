@@ -5,6 +5,7 @@ using System;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Logging
 {
@@ -25,13 +26,13 @@ namespace RapidXamlToolkit.Logging
             {
                 if (ErrorHandler.Failed(outWindow.CreatePane(ref generalPaneGuid, "General", 1, 0)))
                 {
-                    System.Diagnostics.Debug.WriteLine("Failed to create the Output window pane.");
+                    System.Diagnostics.Debug.WriteLine(StringRes.UI_CreatingOutputPaneFailed);
                     return;
                 }
 
                 if (ErrorHandler.Failed(outWindow.GetPane(ref generalPaneGuid, out this.generalPane)) || (this.generalPane == null))
                 {
-                    System.Diagnostics.Debug.WriteLine("Failed to get the Output window pane.");
+                    System.Diagnostics.Debug.WriteLine(StringRes.UI_AccessingOutputPaneFailed);
                 }
             }
         }

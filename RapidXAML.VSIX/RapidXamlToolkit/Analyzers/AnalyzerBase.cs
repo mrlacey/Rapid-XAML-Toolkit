@@ -17,11 +17,11 @@ namespace RapidXamlToolkit.Analyzers
     {
         public const string UnknownOrInvalidTypeName = "*UNKNOWN-INVALID-TYPE*";  // Asterisk as first character ensures it is invalid
 
-        public const string NoPropertiesXaml = "<!-- No accessible properties when copying as XAML -->";
-
         public const string GridWithRowDefsIndicator = "GRID-PLUS-ROWDEFS";
 
         public const string GridWithRowDefs2ColsIndicator = "GRID-PLUS-ROWDEFS-2COLS";
+
+        internal const string Unknown = "**unknown**";
 
         public AnalyzerBase(ILogger logger)
         {
@@ -355,13 +355,15 @@ namespace RapidXamlToolkit.Analyzers
 
             if (names.Count == 2)
             {
-                result += $" and {names[1]}";
+                result = StringRes.UI_SelectionTwoNames.WithParams(names[0], names[1]);
             }
-            else if (names.Count > 2)
+            else if (names.Count == 3)
             {
-                var others = names.Count == 3 ? "other property" : "other properties";
-
-                result += $", {names[1]} and {names.Count - 2} {others}";
+                result = StringRes.UI_SelectionThreeNames.WithParams(names[0], names[1]);
+            }
+            else if (names.Count > 3)
+            {
+                result = StringRes.UI_SelectionMoreThanThreeNames.WithParams(names[0], names[1], names.Count - 2);
             }
 
             return result;
