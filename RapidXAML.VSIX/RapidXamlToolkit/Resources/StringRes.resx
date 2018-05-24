@@ -520,6 +520,12 @@
   <data name="UI_SelectionTwoNames" xml:space="preserve">
     <value>{0} and {1}</value>
   </data>
+  <data name="Prompt_ImportFailedMessage" xml:space="preserve">
+    <value>The following issues prevented the profile from being imported:\r\n\r\n- {0}</value>
+  </data>
+  <data name="Prompt_ImportFailedTitle" xml:space="preserve">
+    <value>Unable to import profile</value>
+  </data>
   <data name="UI_AccessingOutputPaneFailed" xml:space="preserve">
     <value>Failed to get the Output window pane.</value>
   </data>

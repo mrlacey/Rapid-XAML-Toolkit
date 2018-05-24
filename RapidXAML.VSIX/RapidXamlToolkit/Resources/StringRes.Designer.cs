@@ -1213,6 +1213,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following issues prevented the profile from being imported:\r\n\r\n- {0}.
+        /// </summary>
+        public static string Prompt_ImportFailedMessage {
+            get {
+                return ResourceManager.GetString("Prompt_ImportFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to import profile.
+        /// </summary>
+        public static string Prompt_ImportFailedTitle {
+            get {
+                return ResourceManager.GetString("Prompt_ImportFailedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to override the existing file?.
         /// </summary>
         public static string Propt_FileExistsMessage {

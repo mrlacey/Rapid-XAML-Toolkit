@@ -221,7 +221,7 @@ namespace RapidXamlToolkit.Options
                 var openFileDialog = new System.Windows.Forms.OpenFileDialog
                 {
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                    Filter = "Rapid XAML Profile (*.rxprofile)|*.rxprofile",
+                    Filter = $"{StringRes.UI_ProfileFilterDescription} (*.rxprofile)|*.rxprofile",
                     Multiselect = false,
                 };
 
@@ -244,8 +244,8 @@ namespace RapidXamlToolkit.Options
                     else
                     {
                         MessageBox.Show(
-                                        $"The following issues prevented the profile from being imported:{Environment.NewLine}{Environment.NewLine}- {string.Join(Environment.NewLine + "- ", analyzerResults)}",
-                                        "Unable to import profile",
+                                        StringRes.Prompt_ImportFailedMessage.WithParams(string.Join(Environment.NewLine + "- ", analyzerResults)),
+                                        StringRes.Prompt_ImportFailedTitle,
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Error);
                     }
