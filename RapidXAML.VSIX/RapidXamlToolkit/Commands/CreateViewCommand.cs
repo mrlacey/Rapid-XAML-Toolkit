@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
@@ -162,7 +163,7 @@ namespace RapidXamlToolkit.Commands
 
                 this.Logger?.RecordFeatureUsage(nameof(CreateViewCommand));
 
-                this.Logger?.RecordInfo("Attempting to create View.");
+                this.Logger?.RecordInfo(StringRes.Info_AttemptingToCreateView);
                 var dte = await this.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
                 var componentModel = await this.ServiceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel;
 
@@ -188,11 +189,11 @@ namespace RapidXamlToolkit.Commands
 
                     // Open the newly created view
                     dte?.ItemOperations.OpenFile(logic.XamlFileName, EnvDTE.Constants.vsViewKindDesigner);
-                    this.Logger?.RecordInfo($"Created file {logic.XamlFileName}");
+                    this.Logger?.RecordInfo(StringRes.Info_CreatedView.WithParams(logic.XamlFileName));
                 }
                 else
                 {
-                    this.Logger?.RecordInfo("No view created.");
+                    this.Logger?.RecordInfo(StringRes.Info_NoViewCreated);
                 }
             }
             catch (Exception exc)

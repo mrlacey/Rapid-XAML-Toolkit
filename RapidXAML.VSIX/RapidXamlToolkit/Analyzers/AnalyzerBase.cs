@@ -8,6 +8,7 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Resources;
 using IServiceProvider = System.IServiceProvider;
 
 namespace RapidXamlToolkit.Analyzers
@@ -57,7 +58,7 @@ namespace RapidXamlToolkit.Analyzers
             var profile = settings.GetActiveProfile();
             var result = profile.ClassGrouping.Trim();
 
-            Logger?.RecordInfo($"Using class grouping of {result}");
+            Logger?.RecordInfo(StringRes.Info_UsingClassGrouping.WithParams(result));
 
             return result;
         }
@@ -89,7 +90,7 @@ namespace RapidXamlToolkit.Analyzers
                 {
                     var wildcardGenericType = property.PropertyType.Substring(0, property.PropertyType.ToCSharpFormat().IndexOf("<", StringComparison.Ordinal)) + "<T>";
 
-                    Logger?.RecordInfo($"Searching for mapping for generic type treated as {wildcardGenericType}");
+                    Logger?.RecordInfo(StringRes.Info_SearchingForMappingWithGenericWildcard.WithParams(wildcardGenericType));
 
                     mappingOfInterest = GetMappingOfInterest(profile, wildcardGenericType, property.Name, property.IsReadOnly);
 
@@ -101,7 +102,7 @@ namespace RapidXamlToolkit.Analyzers
 
                 if (rawOutput == null)
                 {
-                    Logger?.RecordInfo("No mapping found so using fallback output.");
+                    Logger?.RecordInfo(StringRes.Info_NoMappingFoundUsingFallback);
                     rawOutput = profile?.FallbackOutput;
                 }
             }
@@ -116,14 +117,14 @@ namespace RapidXamlToolkit.Analyzers
 
         public static (string output, int counter) FormatOutput(Profile profile, string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, Func<(List<string> strings, int count)> getSubPropertyOutput)
         {
-            Logger?.RecordInfo($"Formatting output for property '{name}'");
+            Logger?.RecordInfo(StringRes.Info_FormattingOutputForProperty.WithParams(name));
 
             var result = rawOutput.Replace(Placeholder.PropertyName, name)
                                   .Replace(Placeholder.PropertyNameWithSpaces, name.AddSpacesToCamelCase());
 
             if (type.IsGenericTypeName())
             {
-                Logger?.RecordInfo($"Formatting output for generic type '{type}'");
+                Logger?.RecordInfo(StringRes.Info_FormattingOutputForGenericType.WithParams(type));
 
                 type = type.ToCSharpFormat();
                 var typeArgument = type.Substring(type.IndexOf("<", StringComparison.Ordinal) + 1, type.Length - type.IndexOf("<", StringComparison.Ordinal) - 2);
@@ -131,7 +132,7 @@ namespace RapidXamlToolkit.Analyzers
             }
             else
             {
-                Logger?.RecordInfo($"Formatting output for non-generic type '{type}'");
+                Logger?.RecordInfo(StringRes.Info_FormattingOutputForNonGenericType.WithParams(type));
 
                 result = result.Replace(Placeholder.PropertyType, type.AsXamlFriendlyTypeArgument());
             }
@@ -161,7 +162,7 @@ namespace RapidXamlToolkit.Analyzers
 
                 if (subProps.HasValue)
                 {
-                    Logger?.RecordInfo($"Found {subProps.Value.strings.Count} subproperties");
+                    Logger?.RecordInfo(StringRes.Info_FoundPropertyCount.WithParams(subProps.Value.strings.Count));
 
                     foreach (var subProp in subProps.Value.strings)
                     {
@@ -173,14 +174,14 @@ namespace RapidXamlToolkit.Analyzers
 
                 if (subPropertyInsideGridPlusRowDefs)
                 {
-                    Logger?.RecordInfo("Formatting subproperties inside a grid.");
+                    Logger?.RecordInfo(StringRes.Info_FormattingSubpropertiesInsideGrid);
                     var opener = new StringBuilder();
 
                     opener.AppendLine("<Grid>");
 
                     if (rawOutput.Contains(GridWithRowDefs2ColsIndicator))
                     {
-                        Logger?.RecordInfo("Adding ColumnDefinitions to grid.");
+                        Logger?.RecordInfo(StringRes.Info_AddingColDefsToGrid);
 
                         opener.AppendLine("<Grid.ColumnDefinitions>");
                         opener.AppendLine("<ColumnDefinition Width=\"Auto\" />");
@@ -192,7 +193,7 @@ namespace RapidXamlToolkit.Analyzers
                     {
                         opener.AppendLine("<Grid.RowDefinitions>");
 
-                        Logger?.RecordInfo($"Adding {subProps.Value.count} row definitions.");
+                        Logger?.RecordInfo(StringRes.Info_AddedRowDefsCount.WithParams(subProps.Value.count));
 
                         for (int i = 1; i <= subProps.Value.count; i++)
                         {
@@ -243,7 +244,7 @@ namespace RapidXamlToolkit.Analyzers
                     replacement.AppendLine();
                 }
 
-                Logger?.RecordInfo($"Found {enumMembers.Count} members of enum");
+                Logger?.RecordInfo(StringRes.Info_EnumElementCount.WithParams(enumMembers.Count));
 
                 if (enumMembers.Any())
                 {
@@ -262,7 +263,7 @@ namespace RapidXamlToolkit.Analyzers
 
             while (result.Contains(Placeholder.IncrementingInteger))
             {
-                Logger?.RecordInfo("Replacing incrementing integer placeholder.");
+                Logger?.RecordInfo(StringRes.Info_ReplacingIncIntPlaceholder);
 
                 var subPosition = result.IndexOf(Placeholder.IncrementingInteger, StringComparison.OrdinalIgnoreCase);
 
@@ -274,7 +275,7 @@ namespace RapidXamlToolkit.Analyzers
 
             while (result.Contains(Placeholder.RepeatingInteger))
             {
-                Logger?.RecordInfo("Replacing repeated integer placeholder.");
+                Logger?.RecordInfo(StringRes.Info_ReplacingRepIntPlaceholder);
 
                 var subPosition = result.IndexOf(Placeholder.RepeatingInteger, StringComparison.OrdinalIgnoreCase);
 
@@ -294,12 +295,12 @@ namespace RapidXamlToolkit.Analyzers
 
                 if (enumMapping != null)
                 {
-                    Logger?.RecordInfo($"Found mapping for '{property.Name}' as an Enum.");
+                    Logger?.RecordInfo(StringRes.Info_FoundEnumMapping.WithParams(property.Name));
                     return enumMapping;
                 }
                 else
                 {
-                    Logger?.RecordInfo($"No mapping found for '{property.Name}' as an Enum so now checking by type name.");
+                    Logger?.RecordInfo(StringRes.Info_NoEnumMappingFound.WithParams(property.Name));
                 }
             }
 
@@ -317,7 +318,7 @@ namespace RapidXamlToolkit.Analyzers
 
             if (!isReadOnly)
             {
-                Logger?.RecordInfo("Property is not read-only so filtering out read-only mappings.");
+                Logger?.RecordInfo(StringRes.Info_ProperyIsNotReadOnly);
                 typeMappings = typeMappings.Where(m => m.IfReadOnly == false).ToList();
             }
 
@@ -326,7 +327,7 @@ namespace RapidXamlToolkit.Analyzers
             // Readonly types match readonly mappings first
             if (isReadOnly)
             {
-                Logger?.RecordInfo("Property is read-only so looking for read-only mappings first.");
+                Logger?.RecordInfo(StringRes.Info_PropertyIsReadOnly);
                 mappingOfInterest = typeMappings.FirstOrDefault(m => name.ToLowerInvariant().ContainsAnyOf(m.NameContains.ToLowerInvariant()) && m.IfReadOnly)
                                  ?? typeMappings.FirstOrDefault(m => string.IsNullOrWhiteSpace(m.NameContains) && m.IfReadOnly);
             }
@@ -335,7 +336,7 @@ namespace RapidXamlToolkit.Analyzers
             // readonly types match writeable mappings if no readonly mappings
             if (mappingOfInterest == null)
             {
-                Logger?.RecordInfo("Looking for mappings that are not read-only.");
+                Logger?.RecordInfo(StringRes.Info_LookingForReadWriteMappings);
                 mappingOfInterest = typeMappings.FirstOrDefault(m => name.ToLowerInvariant().ContainsAnyOf(m.NameContains.ToLowerInvariant()) && !m.IfReadOnly)
                                  ?? typeMappings.FirstOrDefault(m => string.IsNullOrWhiteSpace(m.NameContains) && !m.IfReadOnly);
             }

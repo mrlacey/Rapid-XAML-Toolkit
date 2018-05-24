@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
@@ -49,7 +50,7 @@ namespace RapidXamlToolkit.Commands
 
                 this.Logger?.RecordFeatureUsage(nameof(CopyToClipboardCommand));
 
-                this.Logger?.RecordInfo("Attempting to copy XAML to clipboard.");
+                this.Logger?.RecordInfo(StringRes.Info_AttemptingToCopy);
                 var output = await this.GetXamlAsync(Instance.ServiceProvider);
 
                 if (output != null && output.OutputType != AnalyzerOutputType.None)
@@ -59,18 +60,18 @@ namespace RapidXamlToolkit.Commands
                     if (!string.IsNullOrWhiteSpace(message))
                     {
                         Clipboard.SetText(message);
-                        await ShowStatusBarMessageAsync(Instance.ServiceProvider, $"Copied XAML for {output.OutputType}: {output.Name}");
-                        this.Logger.RecordInfo($"Copied XAML for {output.OutputType}: {output.Name}");
+                        await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.Info_CopiedXaml.WithParams(output.OutputType, output.Name));
+                        this.Logger.RecordInfo(StringRes.Info_CopiedXaml.WithParams(output.OutputType, output.Name));
                     }
                     else
                     {
-                        this.Logger.RecordInfo("Nothing to copy to clipboard.");
+                        this.Logger.RecordInfo(StringRes.Info_NothingToCopy);
                     }
                 }
                 else
                 {
-                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, "No XAML copied.");
-                    this.Logger.RecordInfo("No XAML copied.");
+                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.Info_NoXamlCopied);
+                    this.Logger.RecordInfo(StringRes.Info_NoXamlCopied);
                 }
             }
             catch (Exception exc)

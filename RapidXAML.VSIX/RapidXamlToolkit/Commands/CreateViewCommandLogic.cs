@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Commands
 {
@@ -118,18 +119,18 @@ namespace RapidXamlToolkit.Commands
 
                     if (this.fileSystem.FileExists(this.XamlFileName))
                     {
-                        this.logger.RecordInfo($"File '{this.XamlFileName}' already exists");
+                        this.logger.RecordInfo(StringRes.Info_FileExists.WithParams(this.XamlFileName));
 
-                        var overwrite = this.vs.UserConfirms("File already exists", "Do you want to override the existing file?");
+                        var overwrite = this.vs.UserConfirms(StringRes.Prompt_FileExistsTitle, StringRes.Propt_FileExistsMessage);
 
                         if (overwrite)
                         {
                             this.CreateView = true;
-                            this.logger.RecordInfo($"Overwriting '{this.XamlFileName}'");
+                            this.logger.RecordInfo(StringRes.Info_OverwritingFile.WithParams(this.XamlFileName));
                         }
                         else
                         {
-                            this.logger.RecordInfo($"Not overwriting '{this.XamlFileName}'");
+                            this.logger.RecordInfo(StringRes.Info_NotOverwritingFile.WithParams(this.XamlFileName));
                         }
                     }
                     else

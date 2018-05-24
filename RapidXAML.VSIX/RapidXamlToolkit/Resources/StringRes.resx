@@ -313,4 +313,181 @@
   <data name="Option_ButtonExport" xml:space="preserve">
     <value>Export</value>
   </data>
+  <data name="Info_AddedRowDefsCount" xml:space="preserve">
+    <value>Adding {0} row definitions.</value>
+  </data>
+  <data name="Info_AddedXamlToToolbox" xml:space="preserve">
+    <value>Added XAML to toolbox for {0}</value>
+  </data>
+  <data name="Info_AddingColDefsToGrid" xml:space="preserve">
+    <value>Adding ColumnDefinitions to grid.</value>
+  </data>
+  <data name="Info_AddingGridToOutput" xml:space="preserve">
+    <value>Adding Grid to output.</value>
+  </data>
+  <data name="Info_AddingPropertyToOutput" xml:space="preserve">
+    <value>Adding '{0}' to the output.</value>
+  </data>
+  <data name="Info_AnalyzingCSharpCode" xml:space="preserve">
+    <value>Analyzing C# code. (v{0})</value>
+  </data>
+  <data name="Info_AnalyzingVisualBasicCode" xml:space="preserve">
+    <value>Analyzing VB code.  (v{0})</value>
+  </data>
+  <data name="Info_AttemptingoAddToToolbox" xml:space="preserve">
+    <value>Attempting to add XAML to the Toolbox.</value>
+  </data>
+  <data name="Info_AttemptingToCopy" xml:space="preserve">
+    <value>Attempting to copy XAML to clipboard.</value>
+  </data>
+  <data name="Info_AttemptingToCreateView" xml:space="preserve">
+    <value>Attempting to create View.</value>
+  </data>
+  <data name="Info_CannotGetPropertiesForKnownType" xml:space="preserve">
+    <value>Cannot get sub-properties for known type '{0}'.</value>
+  </data>
+  <data name="Info_ClassNoPublicProperties" xml:space="preserve">
+    <value>Class contains no public properties.</value>
+  </data>
+  <data name="Info_ClassPropertyCount" xml:space="preserve">
+    <value>Class contains {0} properties.</value>
+  </data>
+  <data name="Info_CopiedXaml" xml:space="preserve">
+    <value>Copied XAML for {0}: {1}</value>
+  </data>
+  <data name="Info_CreatedView" xml:space="preserve">
+    <value>Created file {0}</value>
+  </data>
+  <data name="Info_DocumentPropertyCount" xml:space="preserve">
+    <value>Document contains {0} properties.</value>
+  </data>
+  <data name="Info_EnumElementCount" xml:space="preserve">
+    <value>Found {0} elements of enum.</value>
+  </data>
+  <data name="Info_FailedToGetNullableType" xml:space="preserve">
+    <value>Failed to get typeSymbol of property '{0}' assumed to have been nullable.</value>
+  </data>
+  <data name="Info_FileExists" xml:space="preserve">
+    <value>File '{0}' already exists.</value>
+  </data>
+  <data name="Info_FormattingOutputForGenericType" xml:space="preserve">
+    <value>Formatting output for generic type '{0}'.</value>
+  </data>
+  <data name="Info_FormattingOutputForNonGenericType" xml:space="preserve">
+    <value>Formatting output for non-generic type '{0}'.</value>
+  </data>
+  <data name="Info_FormattingOutputForProperty" xml:space="preserve">
+    <value>Formatting output for property '{0}'.</value>
+  </data>
+  <data name="Info_FormattingSubpropertiesInsideGrid" xml:space="preserve">
+    <value>Formatting subproperties inside a grid.</value>
+  </data>
+  <data name="Info_FoundEnumMapping" xml:space="preserve">
+    <value>Found mapping for '{0}' as an Enum.</value>
+  </data>
+  <data name="Info_FoundPropertyCount" xml:space="preserve">
+    <value>Found {0} subproperties.</value>
+  </data>
+  <data name="Info_FoundSubProperty" xml:space="preserve">
+    <value>Found sub-property '{0}'.</value>
+  </data>
+  <data name="Info_FoundSubPropertyOfUnknownType" xml:space="preserve">
+    <value>Found sub-property of unknown type: {0}.</value>
+  </data>
+  <data name="Info_GetSelectionOutput" xml:space="preserve">
+    <value>Getting output for the selection.</value>
+  </data>
+  <data name="Info_GetSingleClassOutput" xml:space="preserve">
+    <value>Getting output for the class.</value>
+  </data>
+  <data name="Info_GetSingleItemOutput" xml:space="preserve">
+    <value>Getting output for a single item.</value>
+  </data>
+  <data name="Info_GetSinglePropertyOutput" xml:space="preserve">
+    <value>Getting output for a single property.</value>
+  </data>
+  <data name="Info_GettingGenericType" xml:space="preserve">
+    <value>Getting a generic type.</value>
+  </data>
+  <data name="Info_GettingSubPropertyOutput" xml:space="preserve">
+    <value>Getting sub-property output for '{0}'.</value>
+  </data>
+  <data name="Info_IdentifiedPropertySummary" xml:space="preserve">
+    <value>Identified property as Name='{0}' Type='{1}' IsReadOnly='{2}'.</value>
+  </data>
+  <data name="Info_LookingForReadWriteMappings" xml:space="preserve">
+    <value>Looking for mappings that are not read-only.</value>
+  </data>
+  <data name="Info_NoEnumMappingFound" xml:space="preserve">
+    <value>No mapping found for '{0}' as an Enum so now checking by type name.</value>
+  </data>
+  <data name="Info_NoMappingFoundUsingFallback" xml:space="preserve">
+    <value>No mapping found so using fallback output.</value>
+  </data>
+  <data name="Info_NoPropertiesToOutput" xml:space="preserve">
+    <value>No properties to provide output for.</value>
+  </data>
+  <data name="Info_NothingAddedToToolbox" xml:space="preserve">
+    <value>No XAML added to toolbox.</value>
+  </data>
+  <data name="Info_NothingToCopy" xml:space="preserve">
+    <value>Nothing to copy to clipboard.</value>
+  </data>
+  <data name="Info_NotIncludingExcludedProperty" xml:space="preserve">
+    <value>Not including property '{0}' as it's on the exclusion list.</value>
+  </data>
+  <data name="Info_NotOverwritingFile" xml:space="preserve">
+    <value>Not overwriting '{0}'.</value>
+  </data>
+  <data name="Info_NoViewCreated" xml:space="preserve">
+    <value>No view created.</value>
+  </data>
+  <data name="Info_NoXamlCopied" xml:space="preserve">
+    <value>No XAML copied.</value>
+  </data>
+  <data name="Info_OverwritingFile" xml:space="preserve">
+    <value>Overwriting '{0}'.</value>
+  </data>
+  <data name="Info_PropertiesInSelectedAreaCount" xml:space="preserve">
+    <value>{0} properties within the selection area.</value>
+  </data>
+  <data name="Info_PropertyIsReadOnly" xml:space="preserve">
+    <value>Property is read-only so looking for read-only mappings first.</value>
+  </data>
+  <data name="Info_PropertyTypeHasNoSubProperties" xml:space="preserve">
+    <value>'{0}' is of type '{1}' which has has no sub-properties.</value>
+  </data>
+  <data name="Info_PropertyTypeNotRecognizedAsGeneric" xml:space="preserve">
+    <value>'{0}' not recognized as generic.</value>
+  </data>
+  <data name="Info_ProperyIsNotReadOnly" xml:space="preserve">
+    <value>Property is not read-only so filtering out read-only mappings.</value>
+  </data>
+  <data name="Info_ReplacingIncIntPlaceholder" xml:space="preserve">
+    <value>Replacing incrementing integer placeholder.</value>
+  </data>
+  <data name="Info_ReplacingRepIntPlaceholder" xml:space="preserve">
+    <value>Replacing repeated integer placeholder.</value>
+  </data>
+  <data name="Info_ReturningOutput" xml:space="preserve">
+    <value>Returning: {0}</value>
+  </data>
+  <data name="Info_SearchingForMappingWithGenericWildcard" xml:space="preserve">
+    <value>Searching for mapping for generic type treated as '{0}'.</value>
+  </data>
+  <data name="Info_SubpropertyCount" xml:space="preserve">
+    <value>Property '{0}' has {1} sub-properties.</value>
+  </data>
+  <data name="Info_UnableToAccessTelemetry" xml:space="preserve">
+    <value>Unable to load the assembly 'Microsoft.VisualStudio.Telemetry' so telemetry will not be enabled.</value>
+  </data>
+  <data name="Info_UsingClassGrouping" xml:space="preserve">
+    <value>Using class grouping of '{0}'.</value>
+  </data>
+  <data name="Prompt_FileExistsTitle" xml:space="preserve">
+    <value>File already exists</value>
+  </data>
+  <data name="Propt_FileExistsMessage" xml:space="preserve">
+    <value>Do you want to override the existing file?</value>
+  </data>
 </root>

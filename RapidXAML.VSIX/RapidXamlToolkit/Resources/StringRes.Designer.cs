@@ -61,7 +61,313 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Initializing Commands (v{0}) !].
+        ///   Looks up a localized string similar to Adding {0} row definitions..
+        /// </summary>
+        public static string Info_AddedRowDefsCount {
+            get {
+                return ResourceManager.GetString("Info_AddedRowDefsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Added XAML to toolbox for {0}.
+        /// </summary>
+        public static string Info_AddedXamlToToolbox {
+            get {
+                return ResourceManager.GetString("Info_AddedXamlToToolbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding ColumnDefinitions to grid..
+        /// </summary>
+        public static string Info_AddingColDefsToGrid {
+            get {
+                return ResourceManager.GetString("Info_AddingColDefsToGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding Grid to output..
+        /// </summary>
+        public static string Info_AddingGridToOutput {
+            get {
+                return ResourceManager.GetString("Info_AddingGridToOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding &apos;{0}&apos; to the output..
+        /// </summary>
+        public static string Info_AddingPropertyToOutput {
+            get {
+                return ResourceManager.GetString("Info_AddingPropertyToOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analyzing C# code. (v{0}).
+        /// </summary>
+        public static string Info_AnalyzingCSharpCode {
+            get {
+                return ResourceManager.GetString("Info_AnalyzingCSharpCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analyzing VB code.  (v{0}).
+        /// </summary>
+        public static string Info_AnalyzingVisualBasicCode {
+            get {
+                return ResourceManager.GetString("Info_AnalyzingVisualBasicCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to add XAML to the Toolbox..
+        /// </summary>
+        public static string Info_AttemptingoAddToToolbox {
+            get {
+                return ResourceManager.GetString("Info_AttemptingoAddToToolbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to copy XAML to clipboard..
+        /// </summary>
+        public static string Info_AttemptingToCopy {
+            get {
+                return ResourceManager.GetString("Info_AttemptingToCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to create View..
+        /// </summary>
+        public static string Info_AttemptingToCreateView {
+            get {
+                return ResourceManager.GetString("Info_AttemptingToCreateView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot get sub-properties for known type &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_CannotGetPropertiesForKnownType {
+            get {
+                return ResourceManager.GetString("Info_CannotGetPropertiesForKnownType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class contains no public properties..
+        /// </summary>
+        public static string Info_ClassNoPublicProperties {
+            get {
+                return ResourceManager.GetString("Info_ClassNoPublicProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class contains {0} properties..
+        /// </summary>
+        public static string Info_ClassPropertyCount {
+            get {
+                return ResourceManager.GetString("Info_ClassPropertyCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copied XAML for {0}: {1}.
+        /// </summary>
+        public static string Info_CopiedXaml {
+            get {
+                return ResourceManager.GetString("Info_CopiedXaml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created file {0}.
+        /// </summary>
+        public static string Info_CreatedView {
+            get {
+                return ResourceManager.GetString("Info_CreatedView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document contains {0} properties..
+        /// </summary>
+        public static string Info_DocumentPropertyCount {
+            get {
+                return ResourceManager.GetString("Info_DocumentPropertyCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found {0} elements of enum..
+        /// </summary>
+        public static string Info_EnumElementCount {
+            get {
+                return ResourceManager.GetString("Info_EnumElementCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get typeSymbol of property &apos;{0}&apos; assumed to have been nullable..
+        /// </summary>
+        public static string Info_FailedToGetNullableType {
+            get {
+                return ResourceManager.GetString("Info_FailedToGetNullableType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File &apos;{0}&apos; already exists..
+        /// </summary>
+        public static string Info_FileExists {
+            get {
+                return ResourceManager.GetString("Info_FileExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formatting output for generic type &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_FormattingOutputForGenericType {
+            get {
+                return ResourceManager.GetString("Info_FormattingOutputForGenericType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formatting output for non-generic type &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_FormattingOutputForNonGenericType {
+            get {
+                return ResourceManager.GetString("Info_FormattingOutputForNonGenericType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formatting output for property &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_FormattingOutputForProperty {
+            get {
+                return ResourceManager.GetString("Info_FormattingOutputForProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formatting subproperties inside a grid..
+        /// </summary>
+        public static string Info_FormattingSubpropertiesInsideGrid {
+            get {
+                return ResourceManager.GetString("Info_FormattingSubpropertiesInsideGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found mapping for &apos;{0}&apos; as an Enum..
+        /// </summary>
+        public static string Info_FoundEnumMapping {
+            get {
+                return ResourceManager.GetString("Info_FoundEnumMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found {0} subproperties..
+        /// </summary>
+        public static string Info_FoundPropertyCount {
+            get {
+                return ResourceManager.GetString("Info_FoundPropertyCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found sub-property &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_FoundSubProperty {
+            get {
+                return ResourceManager.GetString("Info_FoundSubProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found sub-property of unknown type: {0}..
+        /// </summary>
+        public static string Info_FoundSubPropertyOfUnknownType {
+            get {
+                return ResourceManager.GetString("Info_FoundSubPropertyOfUnknownType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting output for the selection..
+        /// </summary>
+        public static string Info_GetSelectionOutput {
+            get {
+                return ResourceManager.GetString("Info_GetSelectionOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting output for the class..
+        /// </summary>
+        public static string Info_GetSingleClassOutput {
+            get {
+                return ResourceManager.GetString("Info_GetSingleClassOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting output for a single item..
+        /// </summary>
+        public static string Info_GetSingleItemOutput {
+            get {
+                return ResourceManager.GetString("Info_GetSingleItemOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting output for a single property..
+        /// </summary>
+        public static string Info_GetSinglePropertyOutput {
+            get {
+                return ResourceManager.GetString("Info_GetSinglePropertyOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting a generic type..
+        /// </summary>
+        public static string Info_GettingGenericType {
+            get {
+                return ResourceManager.GetString("Info_GettingGenericType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting sub-property output for &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_GettingSubPropertyOutput {
+            get {
+                return ResourceManager.GetString("Info_GettingSubPropertyOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Identified property as Name=&apos;{0}&apos; Type=&apos;{1}&apos; IsReadOnly=&apos;{2}&apos;..
+        /// </summary>
+        public static string Info_IdentifiedPropertySummary {
+            get {
+                return ResourceManager.GetString("Info_IdentifiedPropertySummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initializing Commands (v{0}).
         /// </summary>
         public static string Info_IntializingCommands {
             get {
@@ -70,7 +376,214 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Export !].
+        ///   Looks up a localized string similar to Looking for mappings that are not read-only..
+        /// </summary>
+        public static string Info_LookingForReadWriteMappings {
+            get {
+                return ResourceManager.GetString("Info_LookingForReadWriteMappings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No mapping found for &apos;{0}&apos; as an Enum so now checking by type name..
+        /// </summary>
+        public static string Info_NoEnumMappingFound {
+            get {
+                return ResourceManager.GetString("Info_NoEnumMappingFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No mapping found so using fallback output..
+        /// </summary>
+        public static string Info_NoMappingFoundUsingFallback {
+            get {
+                return ResourceManager.GetString("Info_NoMappingFoundUsingFallback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No properties to provide output for..
+        /// </summary>
+        public static string Info_NoPropertiesToOutput {
+            get {
+                return ResourceManager.GetString("Info_NoPropertiesToOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No XAML added to toolbox..
+        /// </summary>
+        public static string Info_NothingAddedToToolbox {
+            get {
+                return ResourceManager.GetString("Info_NothingAddedToToolbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nothing to copy to clipboard..
+        /// </summary>
+        public static string Info_NothingToCopy {
+            get {
+                return ResourceManager.GetString("Info_NothingToCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not including property &apos;{0}&apos; as it&apos;s on the exclusion list..
+        /// </summary>
+        public static string Info_NotIncludingExcludedProperty {
+            get {
+                return ResourceManager.GetString("Info_NotIncludingExcludedProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not overwriting &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_NotOverwritingFile {
+            get {
+                return ResourceManager.GetString("Info_NotOverwritingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No view created..
+        /// </summary>
+        public static string Info_NoViewCreated {
+            get {
+                return ResourceManager.GetString("Info_NoViewCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No XAML copied..
+        /// </summary>
+        public static string Info_NoXamlCopied {
+            get {
+                return ResourceManager.GetString("Info_NoXamlCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overwriting &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_OverwritingFile {
+            get {
+                return ResourceManager.GetString("Info_OverwritingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} properties within the selection area..
+        /// </summary>
+        public static string Info_PropertiesInSelectedAreaCount {
+            get {
+                return ResourceManager.GetString("Info_PropertiesInSelectedAreaCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Property is read-only so looking for read-only mappings first..
+        /// </summary>
+        public static string Info_PropertyIsReadOnly {
+            get {
+                return ResourceManager.GetString("Info_PropertyIsReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is of type &apos;{1}&apos; which has has no sub-properties..
+        /// </summary>
+        public static string Info_PropertyTypeHasNoSubProperties {
+            get {
+                return ResourceManager.GetString("Info_PropertyTypeHasNoSubProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; not recognized as generic..
+        /// </summary>
+        public static string Info_PropertyTypeNotRecognizedAsGeneric {
+            get {
+                return ResourceManager.GetString("Info_PropertyTypeNotRecognizedAsGeneric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Property is not read-only so filtering out read-only mappings..
+        /// </summary>
+        public static string Info_ProperyIsNotReadOnly {
+            get {
+                return ResourceManager.GetString("Info_ProperyIsNotReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replacing incrementing integer placeholder..
+        /// </summary>
+        public static string Info_ReplacingIncIntPlaceholder {
+            get {
+                return ResourceManager.GetString("Info_ReplacingIncIntPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replacing repeated integer placeholder..
+        /// </summary>
+        public static string Info_ReplacingRepIntPlaceholder {
+            get {
+                return ResourceManager.GetString("Info_ReplacingRepIntPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Returning: {0}.
+        /// </summary>
+        public static string Info_ReturningOutput {
+            get {
+                return ResourceManager.GetString("Info_ReturningOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Searching for mapping for generic type treated as &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_SearchingForMappingWithGenericWildcard {
+            get {
+                return ResourceManager.GetString("Info_SearchingForMappingWithGenericWildcard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Property &apos;{0}&apos; has {1} sub-properties..
+        /// </summary>
+        public static string Info_SubpropertyCount {
+            get {
+                return ResourceManager.GetString("Info_SubpropertyCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to load the assembly &apos;Microsoft.VisualStudio.Telemetry&apos; so telemetry will not be enabled..
+        /// </summary>
+        public static string Info_UnableToAccessTelemetry {
+            get {
+                return ResourceManager.GetString("Info_UnableToAccessTelemetry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Using class grouping of &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_UsingClassGrouping {
+            get {
+                return ResourceManager.GetString("Info_UsingClassGrouping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export.
         /// </summary>
         public static string Option_ButtonExport {
             get {
@@ -79,7 +592,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Views &amp; ViewModels are in the same project !].
+        ///   Looks up a localized string similar to Views &amp; ViewModels are in the same project.
         /// </summary>
         public static string Options_AllInOneProject {
             get {
@@ -88,7 +601,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Indicate that the ViewModels and Views (XAML files) are in the same project. !].
+        ///   Looks up a localized string similar to Indicate that the ViewModels and Views (XAML files) are in the same project..
         /// </summary>
         public static string Options_AllInOneProjectDescription {
             get {
@@ -97,7 +610,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Add !].
+        ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Options_ButtonAdd {
             get {
@@ -106,7 +619,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Copy !].
+        ///   Looks up a localized string similar to Copy.
         /// </summary>
         public static string Options_ButtonCopy {
             get {
@@ -115,7 +628,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Delete !].
+        ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Options_ButtonDelete {
             get {
@@ -124,7 +637,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Edit !].
+        ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Options_ButtonEdit {
             get {
@@ -133,7 +646,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Import !].
+        ///   Looks up a localized string similar to Import.
         /// </summary>
         public static string Options_ButtonImport {
             get {
@@ -142,7 +655,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! New !].
+        ///   Looks up a localized string similar to New.
         /// </summary>
         public static string Options_ButtonNew {
             get {
@@ -151,7 +664,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Ok !].
+        ///   Looks up a localized string similar to Ok.
         /// </summary>
         public static string Options_ButtonOk {
             get {
@@ -160,7 +673,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Reset !].
+        ///   Looks up a localized string similar to Reset.
         /// </summary>
         public static string Options_ButtonReset {
             get {
@@ -169,7 +682,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Set as Active !].
+        ///   Looks up a localized string similar to Set as Active.
         /// </summary>
         public static string Options_ButtonSetAsActive {
             get {
@@ -178,7 +691,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Class grouping !].
+        ///   Looks up a localized string similar to Class grouping.
         /// </summary>
         public static string Options_ClassGrouping {
             get {
@@ -187,7 +700,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The element that encapsulates the elements created for each property when creating XAML for a class. !].
+        ///   Looks up a localized string similar to The element that encapsulates the elements created for each property when creating XAML for a class..
         /// </summary>
         public static string Options_ClassGroupingDescription {
             get {
@@ -196,7 +709,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Code-behind constructor content !].
+        ///   Looks up a localized string similar to Code-behind constructor content.
         /// </summary>
         public static string Options_CodeBehindConstructorContent {
             get {
@@ -205,7 +718,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Code that should be added to the constructor of the code behind file when setting the datacontext. !].
+        ///   Looks up a localized string similar to Code that should be added to the constructor of the code behind file when setting the datacontext..
         /// </summary>
         public static string Options_CodeBehindConstructorContentDescription {
             get {
@@ -214,7 +727,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Code-behind page content !].
+        ///   Looks up a localized string similar to Code-behind page content.
         /// </summary>
         public static string Options_CodeBehindPageContent {
             get {
@@ -223,7 +736,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Code that should be added to the code-behind file, outside of the constructor, when setting the datacontext. !].
+        ///   Looks up a localized string similar to Code that should be added to the code-behind file, outside of the constructor, when setting the datacontext..
         /// </summary>
         public static string Options_CodeBehindPageContentDescription {
             get {
@@ -232,7 +745,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Code-behind file default content !].
+        ///   Looks up a localized string similar to Code-behind file default content.
         /// </summary>
         public static string Options_CodeBehindPlaceholder {
             get {
@@ -241,7 +754,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The default file contents when creating a code-behind file. !].
+        ///   Looks up a localized string similar to The default file contents when creating a code-behind file..
         /// </summary>
         public static string Options_CodeBehindPlaceholderDescription {
             get {
@@ -250,7 +763,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Datacontext !].
+        ///   Looks up a localized string similar to Datacontext.
         /// </summary>
         public static string Options_DataContextHeader {
             get {
@@ -259,7 +772,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Default code-behind constructor !].
+        ///   Looks up a localized string similar to Default code-behind constructor.
         /// </summary>
         public static string Options_DefaultCodeBehindConstructor {
             get {
@@ -268,7 +781,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The constuctor of the code-behind file that will be added, if needed and one doesn&apos;t already exist. !].
+        ///   Looks up a localized string similar to The constuctor of the code-behind file that will be added, if needed and one doesn&apos;t already exist..
         /// </summary>
         public static string Options_DefaultCodeBehindConstructorDescription {
             get {
@@ -277,7 +790,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Enable extended logging !].
+        ///   Looks up a localized string similar to Enable extended logging.
         /// </summary>
         public static string Options_EnableExtendedLogging {
             get {
@@ -286,7 +799,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Enum output !].
+        ///   Looks up a localized string similar to Enum output.
         /// </summary>
         public static string Options_EnumMappingOutput {
             get {
@@ -295,7 +808,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The output used for each element of an enumeration. !].
+        ///   Looks up a localized string similar to The output used for each element of an enumeration..
         /// </summary>
         public static string Options_EnumMappingOutputDescription {
             get {
@@ -304,7 +817,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Fallback output !].
+        ///   Looks up a localized string similar to Fallback output.
         /// </summary>
         public static string Options_FallbackOutput {
             get {
@@ -313,7 +826,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The output used for a property when no specific mapping can be applied. !].
+        ///   Looks up a localized string similar to The output used for a property when no specific mapping can be applied..
         /// </summary>
         public static string Options_FallbackOutputDescription {
             get {
@@ -322,7 +835,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! General Settings !].
+        ///   Looks up a localized string similar to General Settings.
         /// </summary>
         public static string Options_GeneralSettingsHeader {
             get {
@@ -331,7 +844,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Only if readonly !].
+        ///   Looks up a localized string similar to Only if readonly.
         /// </summary>
         public static string Options_MappingIfReadOnly {
             get {
@@ -340,7 +853,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The mapping should only apply if the property has a public setter. !].
+        ///   Looks up a localized string similar to The mapping should only apply if the property has a public setter..
         /// </summary>
         public static string Options_MappingIfReadOnlyDescription {
             get {
@@ -349,7 +862,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Name filter !].
+        ///   Looks up a localized string similar to Name filter.
         /// </summary>
         public static string Options_MappingNameFilter {
             get {
@@ -358,7 +871,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The partial name of the property to match with. Multiple values can be specified if separated by a pipe (|) character. !].
+        ///   Looks up a localized string similar to The partial name of the property to match with. Multiple values can be specified if separated by a pipe (|) character..
         /// </summary>
         public static string Options_MappingNameFilterDescription {
             get {
@@ -367,7 +880,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Output !].
+        ///   Looks up a localized string similar to Output.
         /// </summary>
         public static string Options_MappingOutput {
             get {
@@ -376,7 +889,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The output that shoudl be generated if this mapping is used. !].
+        ///   Looks up a localized string similar to The output that shoudl be generated if this mapping is used..
         /// </summary>
         public static string Options_MappingOutputDescription {
             get {
@@ -385,7 +898,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Mappings !].
+        ///   Looks up a localized string similar to Mappings.
         /// </summary>
         public static string Options_MappingsHeader {
             get {
@@ -394,7 +907,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Type !].
+        ///   Looks up a localized string similar to Type.
         /// </summary>
         public static string Options_MappingType {
             get {
@@ -403,7 +916,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The type of the property to match with. Multiple values can be specified if separated by a pipe (|) character. !].
+        ///   Looks up a localized string similar to The type of the property to match with. Multiple values can be specified if separated by a pipe (|) character..
         /// </summary>
         public static string Options_MappingTypeDescription {
             get {
@@ -412,7 +925,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Naming !].
+        ///   Looks up a localized string similar to Naming.
         /// </summary>
         public static string Options_NamingHeader {
             get {
@@ -421,7 +934,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Visualize solution structure !].
+        ///   Looks up a localized string similar to Visualize solution structure.
         /// </summary>
         public static string Options_NamingVisualizer {
             get {
@@ -430,7 +943,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Name !].
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Options_ProfileName {
             get {
@@ -439,7 +952,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Rapid XAML Toolkit - Edit Profile !].
+        ///   Looks up a localized string similar to Rapid XAML Toolkit - Edit Profile.
         /// </summary>
         public static string Options_ProfilePageTitle {
             get {
@@ -448,7 +961,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Profiles: !].
+        ///   Looks up a localized string similar to Profiles:.
         /// </summary>
         public static string Options_ProfilesSectionHeader {
             get {
@@ -457,7 +970,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Structure and Naming !].
+        ///   Looks up a localized string similar to Structure and Naming.
         /// </summary>
         public static string Options_StructureAndNamingHeader {
             get {
@@ -466,7 +979,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Project strucutre !].
+        ///   Looks up a localized string similar to Project strucutre.
         /// </summary>
         public static string Options_StrucutreHeader {
             get {
@@ -475,7 +988,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! Sub-property output !].
+        ///   Looks up a localized string similar to Sub-property output.
         /// </summary>
         public static string Options_SubPropertyOutput {
             get {
@@ -484,7 +997,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The output used for each property of a generic type. !].
+        ///   Looks up a localized string similar to The output used for each property of a generic type..
         /// </summary>
         public static string Options_SubPropertyOutputDescription {
             get {
@@ -493,7 +1006,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! This UI is temporary and will change before release !].
+        ///   Looks up a localized string similar to This UI is temporary and will change before release.
         /// </summary>
         public static string Options_TemporaryUiNotice {
             get {
@@ -502,7 +1015,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! ViewModel directory name !].
+        ///   Looks up a localized string similar to ViewModel directory name.
         /// </summary>
         public static string Options_ViewModelDirectoryName {
             get {
@@ -511,7 +1024,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The name of the folder that contains the ViewModels. !].
+        ///   Looks up a localized string similar to The name of the folder that contains the ViewModels..
         /// </summary>
         public static string Options_ViewModelDirectoryNameDescription {
             get {
@@ -520,7 +1033,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! ViewModel file suffix !].
+        ///   Looks up a localized string similar to ViewModel file suffix.
         /// </summary>
         public static string Options_ViewModelFileSuffix {
             get {
@@ -529,7 +1042,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The text appended to the end of the name of each ViewModel. !].
+        ///   Looks up a localized string similar to The text appended to the end of the name of each ViewModel..
         /// </summary>
         public static string Options_ViewModelFileSuffixDescription {
             get {
@@ -538,7 +1051,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! ViewModel Project Suffix !].
+        ///   Looks up a localized string similar to ViewModel Project Suffix.
         /// </summary>
         public static string Options_ViewModelProjectSuffix {
             get {
@@ -547,7 +1060,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The text from the end of the name of the project that contains the ViewModels.  !].
+        ///   Looks up a localized string similar to The text from the end of the name of the project that contains the ViewModels. .
         /// </summary>
         public static string Options_ViewModelProjectSuffixDescription {
             get {
@@ -556,7 +1069,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! XAML file directory name !].
+        ///   Looks up a localized string similar to XAML file directory name.
         /// </summary>
         public static string Options_XamlFileDirectoryName {
             get {
@@ -565,7 +1078,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The name of the folder that contains the Views (XAML files.) !].
+        ///   Looks up a localized string similar to The name of the folder that contains the Views (XAML files.).
         /// </summary>
         public static string Options_XamlFileDirectoryNameDescription {
             get {
@@ -574,7 +1087,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! XAML file suffix !].
+        ///   Looks up a localized string similar to XAML file suffix.
         /// </summary>
         public static string Options_XamlFileSuffix {
             get {
@@ -583,7 +1096,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The text appended to the end of the name of each View (XAML file.) !].
+        ///   Looks up a localized string similar to The text appended to the end of the name of each View (XAML file.).
         /// </summary>
         public static string Options_XamlFileSuffixDescription {
             get {
@@ -592,7 +1105,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! XAMLPage attribute !].
+        ///   Looks up a localized string similar to XAMLPage attribute.
         /// </summary>
         public static string Options_XamlPageAttribute {
             get {
@@ -601,7 +1114,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The attribute that should be added ot the top level XAMLelement when setting the datacontext. !].
+        ///   Looks up a localized string similar to The attribute that should be added ot the top level XAMLelement when setting the datacontext..
         /// </summary>
         public static string Options_XamlPageAttributeDescription {
             get {
@@ -610,7 +1123,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! XAML file default content !].
+        ///   Looks up a localized string similar to XAML file default content.
         /// </summary>
         public static string Options_XamlPlaceholder {
             get {
@@ -619,7 +1132,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The default file contents when creating a new XAML file. !].
+        ///   Looks up a localized string similar to The default file contents when creating a new XAML file..
         /// </summary>
         public static string Options_XamlPlaceholderDescription {
             get {
@@ -628,7 +1141,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! XAML Project Suffix !].
+        ///   Looks up a localized string similar to XAML Project Suffix.
         /// </summary>
         public static string Options_XamlProjectSuffix {
             get {
@@ -637,11 +1150,29 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [! The text from the end of the name of the project that contains the Views (XAML files.) !].
+        ///   Looks up a localized string similar to The text from the end of the name of the project that contains the Views (XAML files.).
         /// </summary>
         public static string Options_XamlProjectSuffixDescription {
             get {
                 return ResourceManager.GetString("Options_XamlProjectSuffixDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File already exists.
+        /// </summary>
+        public static string Prompt_FileExistsTitle {
+            get {
+                return ResourceManager.GetString("Prompt_FileExistsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to override the existing file?.
+        /// </summary>
+        public static string Propt_FileExistsMessage {
+            get {
+                return ResourceManager.GetString("Propt_FileExistsMessage", resourceCulture);
             }
         }
     }

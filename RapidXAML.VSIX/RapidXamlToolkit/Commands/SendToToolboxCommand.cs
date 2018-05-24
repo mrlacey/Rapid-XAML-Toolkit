@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
@@ -70,7 +71,7 @@ namespace RapidXamlToolkit.Commands
 
                 this.Logger?.RecordFeatureUsage(nameof(SendToToolboxCommand));
 
-                this.Logger?.RecordInfo("Attempting to add XAML to the Toolbox.");
+                this.Logger?.RecordInfo(StringRes.Info_AttemptingoAddToToolbox);
                 var analyzerResult = await this.GetXamlAsync(Instance.ServiceProvider);
 
                 if (analyzerResult != null && analyzerResult.OutputType != AnalyzerOutputType.None)
@@ -79,13 +80,13 @@ namespace RapidXamlToolkit.Commands
 
                     await AddToToolboxAsync(label, analyzerResult.Output);
 
-                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, $"Added XAML to toolbox for {label}");
-                    this.Logger.RecordInfo($"Added XAML to toolbox for {label}");
+                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.Info_AddedXamlToToolbox.WithParams(label));
+                    this.Logger.RecordInfo(StringRes.Info_AddedXamlToToolbox.WithParams(label));
                 }
                 else
                 {
-                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, "No XAML added to toolbox.");
-                    this.Logger.RecordInfo("No XAML added to toolbox.");
+                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.Info_NothingAddedToToolbox);
+                    this.Logger.RecordInfo(StringRes.Info_NothingAddedToToolbox);
                 }
             }
             catch (Exception exc)

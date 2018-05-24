@@ -7,6 +7,7 @@ using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.VisualStudio.Telemetry;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Telemetry
 {
@@ -118,7 +119,7 @@ namespace RapidXamlToolkit.Telemetry
                 // free managed resources
                 this.Flush();
 
-                // Allow time for flushing - APPInsights recommendation
+                // Allow time for flushing - AppInsights recommendation
                 System.Threading.Thread.Sleep(1000);
             }
 
@@ -166,7 +167,7 @@ namespace RapidXamlToolkit.Telemetry
             }
             catch (Exception)
             {
-                logger.RecordInfo("Unable to load the assembly 'Microsoft.VisualStudio.Telemetry' so telemetry will not be enabled.");
+                logger.RecordInfo(StringRes.Info_UnableToAccessTelemetry);
                 isOptedIn = false;
             }
 
