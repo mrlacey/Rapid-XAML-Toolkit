@@ -116,7 +116,7 @@
         <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Set DataContext</ButtonText>
+          <ButtonText>Set Datacontext</ButtonText>
         </Strings>
       </Button>
     </Buttons>
