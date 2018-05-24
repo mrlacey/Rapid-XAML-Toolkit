@@ -520,6 +520,22 @@
   <data name="UI_SelectionTwoNames" xml:space="preserve">
     <value>{0} and {1}</value>
   </data>
+  <data name="Package__106" xml:space="preserve">
+    <value>Rapid XAML Toolkit</value>
+    <comment>Options group header</comment>
+  </data>
+  <data name="Package__107" xml:space="preserve">
+    <value>Profiles</value>
+    <comment>Options section header</comment>
+  </data>
+  <data name="Package__110" xml:space="preserve">
+    <value>Rapid XAML Toolkit</value>
+    <comment>Title for Help/About</comment>
+  </data>
+  <data name="Package__112" xml:space="preserve">
+    <value>Tools to accelerate XAML app development</value>
+    <comment>Detailed description for Help/About</comment>
+  </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
     <value>The following issues prevented the profile from being imported:\r\n\r\n- {0}</value>
   </data>
@@ -549,5 +565,37 @@
   </data>
   <data name="UI_ToolboxGroupHeader" xml:space="preserve">
     <value>Rapid XAML</value>
+  </data>
+  <data name="VSCT__ContextMenu" xml:space="preserve">
+    <value>Rapid XAML</value>
+    <comment>VS Context menu text</comment>
+  </data>
+  <data name="VSCT__CopyToClipboardCommandId" xml:space="preserve">
+    <value>Copy to Clipboard</value>
+    <comment>Command button text for when copying to the clipboard as XAML</comment>
+  </data>
+  <data name="VSCT__CreateViewCommandId" xml:space="preserve">
+    <value>Create View</value>
+    <comment>Command button text for when creating a view from the SolutionExplorer</comment>
+  </data>
+  <data name="VSCT__OpenOptionsCommandId" xml:space="preserve">
+    <value>First set an active profile</value>
+    <comment>Command button text when there is no active profile set</comment>
+  </data>
+  <data name="VSCT__SendToToolboxCommandId" xml:space="preserve">
+    <value>Send to Toolbox</value>
+    <comment>Command button text for when sending to the clipboard as XAML</comment>
+  </data>
+  <data name="VSCT__SetDatacontextCommandId" xml:space="preserve">
+    <value>Set Datacontext</value>
+    <comment>Command button text for setting the datacontext of a page</comment>
+  </data>
+  <data name="VSIX__LocalizedDescription" xml:space="preserve">
+    <value>Tools to accelerate XAML app development</value>
+    <comment>Description used in vsixlangpack</comment>
+  </data>
+  <data name="VSIX__LocalizedName" xml:space="preserve">
+    <value>Rapid XAML Toolkit</value>
+    <comment>Name used in vsixlangpack</comment>
   </data>
 </root>

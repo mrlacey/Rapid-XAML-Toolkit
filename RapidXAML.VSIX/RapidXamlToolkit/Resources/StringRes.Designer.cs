@@ -1168,6 +1168,42 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Toolkit.
+        /// </summary>
+        public static string Package__106 {
+            get {
+                return ResourceManager.GetString("Package__106", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profiles.
+        /// </summary>
+        public static string Package__107 {
+            get {
+                return ResourceManager.GetString("Package__107", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Toolkit.
+        /// </summary>
+        public static string Package__110 {
+            get {
+                return ResourceManager.GetString("Package__110", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tools to accelerate XAML app development.
+        /// </summary>
+        public static string Package__112 {
+            get {
+                return ResourceManager.GetString("Package__112", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete profile &apos;{0}&apos;?.
         /// </summary>
         public static string Prompt_ConfirmDeleteProfileMessage {
@@ -1353,6 +1389,78 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_ToolboxGroupHeader {
             get {
                 return ResourceManager.GetString("UI_ToolboxGroupHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML.
+        /// </summary>
+        public static string VSCT__ContextMenu {
+            get {
+                return ResourceManager.GetString("VSCT__ContextMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to Clipboard.
+        /// </summary>
+        public static string VSCT__CopyToClipboardCommandId {
+            get {
+                return ResourceManager.GetString("VSCT__CopyToClipboardCommandId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create View.
+        /// </summary>
+        public static string VSCT__CreateViewCommandId {
+            get {
+                return ResourceManager.GetString("VSCT__CreateViewCommandId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First set an active profile.
+        /// </summary>
+        public static string VSCT__OpenOptionsCommandId {
+            get {
+                return ResourceManager.GetString("VSCT__OpenOptionsCommandId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send to Toolbox.
+        /// </summary>
+        public static string VSCT__SendToToolboxCommandId {
+            get {
+                return ResourceManager.GetString("VSCT__SendToToolboxCommandId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Datacontext.
+        /// </summary>
+        public static string VSCT__SetDatacontextCommandId {
+            get {
+                return ResourceManager.GetString("VSCT__SetDatacontextCommandId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tools to accelerate XAML app development.
+        /// </summary>
+        public static string VSIX__LocalizedDescription {
+            get {
+                return ResourceManager.GetString("VSIX__LocalizedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Toolkit.
+        /// </summary>
+        public static string VSIX__LocalizedName {
+            get {
+                return ResourceManager.GetString("VSIX__LocalizedName", resourceCulture);
             }
         }
     }
