@@ -1183,6 +1183,74 @@ namespace tests
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
         }
 
+        [TestMethod]
+        public void RepIntCanBeUsedMoreThanOnceInProperty()
+        {
+            var profile = new Profile
+            {
+                Name = "RepIntPropertyProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" />\r\n<TextBlock Text=\"FB_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />\r\n<TextBlock Text=\"FB_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                Mappings = new ObservableCollection<Mapping>(),
+            };
+
+            var code = @"
+public class Class1
+{
+        public string Some*Property { get; set; }
+}";
+
+            var expectedOutput = "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"0\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"1\" />";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "SomeProperty",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void RepIntCanBeUsedMoreThanOnceInClass()
+        {
+            var profile = new Profile
+            {
+                Name = "RepIntClassProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" />\r\n<TextBlock Text=\"FB_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />\r\n<TextBlock Text=\"FB_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                Mappings = new ObservableCollection<Mapping>(),
+            };
+
+            var code = @"
+public class Clas*s1
+{
+        public string SomeProperty { get; set; }
+        public string AnotherProperty { get; set; }
+}";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"0\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_AnotherProperty\" Grid.Row=\"1\" Grid.Column=\"0\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_AnotherProperty\" Grid.Row=\"1\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "<TextBlock Text=\"FB_AnotherProperty\" Grid.Row=\"1\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
         private void ClassNotFoundTest(string code)
         {
             var expected = AnalyzerOutput.Empty;
