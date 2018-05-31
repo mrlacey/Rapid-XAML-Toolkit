@@ -585,6 +585,20 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="VSPackage.cs-CZ.resx" />
+    <EmbeddedResource Include="VSPackage.de-DE.resx" />
+    <EmbeddedResource Include="VSPackage.es-ES.resx" />
+    <EmbeddedResource Include="VSPackage.en-US.resx" />
+    <EmbeddedResource Include="VSPackage.zh-TW.resx" />
+    <EmbeddedResource Include="VSPackage.zh-CN.resx" />
+    <EmbeddedResource Include="VSPackage.tr-TR.resx" />
+    <EmbeddedResource Include="VSPackage.pt-BR.resx" />
+    <EmbeddedResource Include="VSPackage.ko-KR.resx" />
+    <EmbeddedResource Include="VSPackage.fr-FR.resx" />
+    <EmbeddedResource Include="VSPackage.it-IT.resx" />
+    <EmbeddedResource Include="VSPackage.ja-JP.resx" />
+    <EmbeddedResource Include="VSPackage.pl-PL.resx" />
+    <EmbeddedResource Include="VSPackage.ru-RU.resx" />
     <EmbeddedResource Include="VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
