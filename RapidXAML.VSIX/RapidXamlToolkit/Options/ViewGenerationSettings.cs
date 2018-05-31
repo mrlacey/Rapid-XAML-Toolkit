@@ -5,8 +5,10 @@ namespace RapidXamlToolkit.Options
 {
     public class ViewGenerationSettings
     {
+        [AllowedPlaceholders(Placeholder.ViewProject, Placeholder.ViewNamespace, Placeholder.ViewModelNamespace, Placeholder.ViewClass, Placeholder.ViewModelClass, Placeholder.GeneratedXAML)]
         public string XamlPlaceholder { get; set; }
 
+        [AllowedPlaceholders(Placeholder.ViewProject, Placeholder.ViewNamespace, Placeholder.ViewModelNamespace, Placeholder.ViewClass, Placeholder.ViewModelClass, Placeholder.GeneratedXAML)]
         public string CodePlaceholder { get; set; }
 
         public string XamlFileSuffix { get; set; }

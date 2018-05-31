@@ -19,10 +19,13 @@ namespace RapidXamlToolkit.Options
 
         public string ClassGrouping { get; set; }
 
+        [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger)]
         public string FallbackOutput { get; set; }
 
+        [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger)]
         public string SubPropertyOutput { get; set; }
 
+        [AllowedPlaceholders(Placeholder.EnumElement, Placeholder.EnumElementWithSpaces, Placeholder.EnumPropName)]
         public string EnumMemberOutput { get; set; }
 
         public ObservableCollection<Mapping> Mappings

@@ -96,7 +96,7 @@ namespace RapidXamlToolkit.Commands
                 {
                     if (profile.Datacontext.SetsXamlPageAttribute)
                     {
-                        var (add, lineNo, content) = logic.GetPageAttributeToAdd(viewModelName);
+                        var (add, lineNo, content) = logic.GetPageAttributeToAdd(viewModelName, vmNamespace);
 
                         if (add)
                         {

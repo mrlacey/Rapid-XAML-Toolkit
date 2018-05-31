@@ -85,7 +85,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetPageAttributeToAdd("TestViewModel");
+            var result = sut.GetPageAttributeToAdd("TestViewModel", "Tests");
 
             Assert.IsTrue(result.anythingToAdd);
             Assert.AreEqual(2, result.lineNoToAddAfter);

@@ -98,7 +98,7 @@ namespace RapidXamlToolkit.Commands
 
                         if (this.profile.Datacontext.SetsCodeBehindPageContent)
                         {
-                            var contentToInsert = this.profile.Datacontext.CodeBehindPageContent.Replace(Placeholder.ViewModelClass, viewModelName);
+                            var contentToInsert = this.profile.Datacontext.CodeBehindPageContent.Replace(Placeholder.ViewModelClass, viewModelName).Replace(Placeholder.ViewModelNamespace, vmNamespace);
 
                             if (!docTextWithoutWhitespace.Contains(contentToInsert.RemoveAllWhitespace()))
                             {
@@ -122,7 +122,7 @@ namespace RapidXamlToolkit.Commands
             return result;
         }
 
-        public (bool anythingToAdd, int lineNoToAddAfter, string contentToAdd) GetPageAttributeToAdd(string viewModelName)
+        public (bool anythingToAdd, int lineNoToAddAfter, string contentToAdd) GetPageAttributeToAdd(string viewModelName, string vmNamespace)
         {
             var add = false;
             var lineNo = -1;
@@ -131,7 +131,7 @@ namespace RapidXamlToolkit.Commands
             var docText = this.vs.GetActiveDocumentText();
             var docLines = docText.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
-            var contentToInsert = this.profile.Datacontext.XamlPageAttribute.Replace(Placeholder.ViewModelClass, viewModelName);
+            var contentToInsert = this.profile.Datacontext.XamlPageAttribute.Replace(Placeholder.ViewModelClass, viewModelName).Replace(Placeholder.ViewModelNamespace, vmNamespace);
 
             if (!docText.Contains(contentToInsert))
             {
