@@ -11,7 +11,7 @@ namespace RapidXamlToolkit.Logging
     public class RxtOutputPane : IOutputPane
     {
         private static Guid rxtPaneGuid = new Guid("32C5FA5D-E91C-4113-8B22-3396D748D429");
- 
+
         private static RxtOutputPane instance;
 
         private readonly IVsOutputWindowPane rxtPane;
