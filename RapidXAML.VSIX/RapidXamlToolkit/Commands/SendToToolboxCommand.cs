@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.Commands
 
         public static async Task InitializeAsync(AsyncPackage package, ILogger logger)
         {
-            // Verify the current thread is the UI thread - the call to AddCommand in CreateXamlStringCommand's constructor requires the UI thread.
+            // Verify the current thread is the UI thread - the call to AddCommand in SendToToolboxCommand's constructor requires the UI thread.
             ThreadHelper.ThrowIfNotOnUIThread();
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
