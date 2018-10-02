@@ -2,7 +2,7 @@
 
 Creating a XAML UI can be slow or require lots of manual effort. These tools aim to reduce the time and effort required to get the basics working and allow you to customize the UI to meet your preferences or the specific needs of your app.
 We can't and don't try to create the whole app for you but we can make creating and working with XAML faster easier.
-The functionality of the toolkit is based common conventions but is highly [configurable](./docs/configuration.md).
+The functionality of the toolkit is based common conventions but is highly [configurable](./configuration.md).
 
 The Rapid XAML Toolkit aims to help developers with two aspects of working with XAML files.
 
