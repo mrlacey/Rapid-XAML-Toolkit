@@ -647,6 +647,10 @@
       <MergeWithCTO>true</MergeWithCTO>
       <LogicalName>VSPackage.de-DE.Resources</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="VSPackage.en-US.resx">    
+      <MergeWithCTO>true</MergeWithCTO>
+      <LogicalName>VSPackage.en-US.Resources</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.es-ES.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <LogicalName>VSPackage.es-ES.Resources</LogicalName>
@@ -690,10 +694,6 @@
     <EmbeddedResource Include="VSPackage.zh-TW.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <LogicalName>VSPackage.zh-TW.Resources</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VSPackage.resx">
-      <MergeWithCTO>true</MergeWithCTO>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
