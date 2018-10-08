@@ -4,7 +4,10 @@
         <Identity Id="RapidXamlToolkit.25067190-b212-4873-aecf-84547ed9b962" Version="0.0.1" Language="en-US" Publisher="Microsoft Corporation" />
         <DisplayName>Rapid XAML Toolkit</DisplayName>
         <Description xml:space="preserve">Tools to accelerate XAML app development</Description>
+        <MoreInfo>https://github.com/Microsoft/Rapid-XAML-Toolkit</MoreInfo>
         <License>EULA.rtf</License>
+        <GettingStartedGuide>https://github.com/Microsoft/Rapid-XAML-Toolkit/tree/master/docs</GettingStartedGuide>
+        <ReleaseNotes>https://github.com/Microsoft/Rapid-XAML-Toolkit/releases</ReleaseNotes>
         <Icon>Resources\RapidXamlPackage.ico</Icon>
         <Tags>XAML UWP WPF Xamarin.Forms</Tags>
     </Metadata>
