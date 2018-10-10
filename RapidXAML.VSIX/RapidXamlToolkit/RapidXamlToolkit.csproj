@@ -2,6 +2,7 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.props')" />
   <PropertyGroup>
+    <UICulture>en-US</UICulture>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <NuGetPackageImportStamp>
@@ -27,7 +28,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RapidXamlToolkit</RootNamespace>
-    <AssemblyName>RapidXamlToolkit</AssemblyName>
+    <AssemblyName>RapidXamlToolkitExt</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
@@ -47,7 +48,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\RapidXamlToolkit.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\RapidXamlToolkitExt.xml</DocumentationFile>
     <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
@@ -59,7 +60,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <DocumentationFile>bin\Release\RapidXamlToolkit.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\RapidXamlToolkitExt.xml</DocumentationFile>
     <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
   </PropertyGroup>
   <ItemGroup>
@@ -647,7 +648,7 @@
       <MergeWithCTO>true</MergeWithCTO>
       <LogicalName>VSPackage.de-DE.Resources</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="VSPackage.en-US.resx">    
+    <EmbeddedResource Include="VSPackage.en-US.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <LogicalName>VSPackage.en-US.Resources</LogicalName>
     </EmbeddedResource>
