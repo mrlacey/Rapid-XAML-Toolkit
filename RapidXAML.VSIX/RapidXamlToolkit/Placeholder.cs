@@ -36,5 +36,7 @@ namespace RapidXamlToolkit
         public const string ViewModelClass = "$viewmodelclass$";
 
         public const string GeneratedXAML = "$genxaml$";
+
+        public const string NoOutput = "$nooutput$";
     }
 }

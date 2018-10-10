@@ -1050,5 +1050,57 @@ namespace tests
 
             this.PositionAtStarShouldProduceExpected(code, expected, enumProfile);
         }
+
+        [TestMethod]
+        public void HandlePropertyHavingNoOutput()
+        {
+            var noOutputProfile = new Profile
+            {
+                Name = "NoOutputTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                EnumMemberOutput = "<x:String>$element$</x:String>",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "string",
+                        NameContains = string.Empty,
+                        Output = "$nooutput$",
+                        IfReadOnly = false,
+                    },
+                    new Mapping
+                    {
+                        Type = "int",
+                        NameContains = string.Empty,
+                        Output = "<int>$name$</int>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        *public string Name { get; set; }
+        public Int Amount { get; set; }
+        public string Value { get; set; }*
+    }
+}";
+
+            var expectedOutput = "<int>Amount</int>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Amount",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Selection,
+            };
+
+            this.SelectionBetweenStarsShouldProduceExpected(code, expected, noOutputProfile);
+        }
     }
 }

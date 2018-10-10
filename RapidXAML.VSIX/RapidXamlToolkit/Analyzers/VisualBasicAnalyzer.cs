@@ -385,10 +385,13 @@ namespace RapidXamlToolkit.Analyzers
                         ? GetPropertyOutputAndCounterForActiveProfile(propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, GetSettings().GetActiveProfile(), semModel))
                         : GetPropertyOutputAndCounter(profileOverload, propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, profileOverload, semModel));
 
-                numericCounter = toAdd.counter;
-                output.AppendLine(toAdd.output);
+                if (!string.IsNullOrWhiteSpace(toAdd.output))
+                {
+                    numericCounter = toAdd.counter;
+                    output.AppendLine(toAdd.output);
 
-                propertyNames.Add(propDetails.Name);
+                    propertyNames.Add(propDetails.Name);
+                }
             }
 
             if (propertyNames.Any())

@@ -283,6 +283,11 @@ namespace RapidXamlToolkit.Analyzers
                 result = result.Insert(subPosition, (numericSubstitute - 1).ToString()); // Remove 1 as was incremented after last used
             }
 
+            if (rawOutput == Placeholder.NoOutput)
+            {
+                result = string.Empty;
+            }
+
             return (result, numericSubstitute);
         }
 
