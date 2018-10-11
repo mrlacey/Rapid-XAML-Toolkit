@@ -118,484 +118,484 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Info_IntializingCommands" xml:space="preserve">
-    <value>Initializing Commands (v{0})</value>
+    <value>Befehle werden initialisiert... (v{0})</value>
     <comment>Info mesage when package initialized</comment>
   </data>
   <data name="Options_AllInOneProject" xml:space="preserve">
-    <value>Views &amp; ViewModels are in the same project</value>
+    <value>Ansichten &amp; ViewModels befinden sich im gleichen Projekt.</value>
   </data>
   <data name="Options_AllInOneProjectDescription" xml:space="preserve">
-    <value>Indicate that the ViewModels and Views (XAML files) are in the same project.</value>
+    <value>Geben Sie an, dass sich ViewModels und Ansichten (XAML-Dateien) im gleichen Projekt befinden.</value>
   </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
-    <value>Add</value>
+    <value>Hinzufügen</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Copy</value>
+    <value>Kopieren</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Löschen</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Bearbeiten</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>Import</value>
+    <value>Importieren</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>New</value>
+    <value>Neu</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
-    <value>Ok</value>
+    <value>OK</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Zurücksetzen</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
-    <value>Set as Active</value>
+    <value>Als aktiv festlegen</value>
   </data>
   <data name="Options_ClassGrouping" xml:space="preserve">
-    <value>Class grouping</value>
+    <value>Klassengruppierung</value>
   </data>
   <data name="Options_ClassGroupingDescription" xml:space="preserve">
-    <value>The element that encapsulates the elements created for each property when creating XAML for a class.</value>
+    <value>Das Element, das die Elemente einschließt, die beim Erstellen einer XAML-Datei für eine Klasse für jede Eigenschaft erstellt wurden.</value>
   </data>
   <data name="Options_CodeBehindConstructorContent" xml:space="preserve">
-    <value>Code-behind constructor content</value>
+    <value>Code-behind-Konstruktorinhalt</value>
   </data>
   <data name="Options_CodeBehindConstructorContentDescription" xml:space="preserve">
-    <value>Code that should be added to the constructor of the code behind file when setting the datacontext.</value>
+    <value>Code, der beim Festlegen des Datenkontexts dem Konstruktor der CodeBehind-Datei hinzugefügt werden sollte.</value>
   </data>
   <data name="Options_CodeBehindPageContent" xml:space="preserve">
-    <value>Code-behind page content</value>
+    <value>Code-behind-Seiteninhalt</value>
   </data>
   <data name="Options_CodeBehindPageContentDescription" xml:space="preserve">
-    <value>Code that should be added to the code-behind file, outside of the constructor, when setting the datacontext.</value>
+    <value>Code, der beim Festlegen des Datenkontexts der code-behind-Datei außerhalb des Konstruktors hinzugefügt werden sollte.</value>
   </data>
   <data name="Options_CodeBehindPlaceholder" xml:space="preserve">
-    <value>Code-behind file default content</value>
+    <value>Standardinhalt der Code-behind-Datei</value>
   </data>
   <data name="Options_CodeBehindPlaceholderDescription" xml:space="preserve">
-    <value>The default file contents when creating a code-behind file.</value>
+    <value>Die Standarddateiinhalte beim Erstellen einer code-behind-Datei.</value>
   </data>
   <data name="Options_DataContextHeader" xml:space="preserve">
-    <value>Datacontext</value>
+    <value>Datenkontext</value>
   </data>
   <data name="Options_DefaultCodeBehindConstructor" xml:space="preserve">
-    <value>Default code-behind constructor</value>
+    <value>code-behind-Standardkonstruktor</value>
   </data>
   <data name="Options_DefaultCodeBehindConstructorDescription" xml:space="preserve">
-    <value>The constuctor of the code-behind file that will be added, if needed and one doesn't already exist.</value>
+    <value>Der Konstruktor der code-behind-Datei, die hinzugefügt wird, sofern erforderlich und noch nicht vorhanden.</value>
   </data>
   <data name="Options_EnableExtendedLogging" xml:space="preserve">
-    <value>Enable extended logging</value>
+    <value>Erweiterte Protokollierung aktivieren</value>
   </data>
   <data name="Options_EnumMappingOutput" xml:space="preserve">
-    <value>Enum output</value>
+    <value>Enumerationsausgabe</value>
   </data>
   <data name="Options_EnumMappingOutputDescription" xml:space="preserve">
-    <value>The output used for each element of an enumeration.</value>
+    <value>Die für die einzelnen Elemente einer Enumeration verwendete Ausgabe.</value>
   </data>
   <data name="Options_FallbackOutput" xml:space="preserve">
-    <value>Fallback output</value>
+    <value>Fallbackausgabe</value>
   </data>
   <data name="Options_FallbackOutputDescription" xml:space="preserve">
-    <value>The output used for a property when no specific mapping can be applied.</value>
+    <value>Die für eine Eigenschaft verwendete Ausgabe, wenn keine bestimmte Zuordnung angewendet werden kann.</value>
   </data>
   <data name="Options_GeneralSettingsHeader" xml:space="preserve">
-    <value>General Settings</value>
+    <value>Allgemeine Einstellungen</value>
   </data>
   <data name="Options_MappingIfReadOnly" xml:space="preserve">
-    <value>Only if readonly</value>
+    <value>Nur bei Schreibschutz</value>
   </data>
   <data name="Options_MappingIfReadOnlyDescription" xml:space="preserve">
-    <value>The mapping should only apply if the property has a public setter.</value>
+    <value>Die Zuordnung sollte nur angewendet werden, wenn für die Eigenschaft ein öffentlicher Setter angegeben ist.</value>
   </data>
   <data name="Options_MappingNameFilter" xml:space="preserve">
-    <value>Name filter</value>
+    <value>Namensfilter</value>
   </data>
   <data name="Options_MappingNameFilterDescription" xml:space="preserve">
-    <value>The partial name of the property to match with. Multiple values can be specified if separated by a pipe (|) character.</value>
+    <value>Der unvollständige Name der Eigenschaft für den Abgleich. Mehrere Werte können durch einen senkrechten Strich (|) getrennt eingegeben werden.</value>
   </data>
   <data name="Options_MappingOutput" xml:space="preserve">
-    <value>Output</value>
+    <value>Ausgabe</value>
   </data>
   <data name="Options_MappingOutputDescription" xml:space="preserve">
-    <value>The output that shoudl be generated if this mapping is used.</value>
+    <value>Die Ausgabe, die generiert werden sollte, wenn diese Zuordnung verwendet wird.</value>
   </data>
   <data name="Options_MappingsHeader" xml:space="preserve">
-    <value>Mappings</value>
+    <value>Zuordnungen</value>
   </data>
   <data name="Options_MappingType" xml:space="preserve">
-    <value>Type</value>
+    <value>Typ</value>
   </data>
   <data name="Options_MappingTypeDescription" xml:space="preserve">
-    <value>The type of the property to match with. Multiple values can be specified if separated by a pipe (|) character.</value>
+    <value>Der Typ der Eigenschaft für den Abgleich. Mehrere Werte können durch einen senkrechten Strich (|) getrennt eingegeben werden.</value>
   </data>
   <data name="Options_NamingHeader" xml:space="preserve">
-    <value>Naming</value>
+    <value>Benennung</value>
   </data>
   <data name="Options_NamingVisualizer" xml:space="preserve">
-    <value>Visualize solution structure</value>
+    <value>Lösungsstruktur visualisieren</value>
   </data>
   <data name="Options_ProfileName" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="Options_ProfilePageTitle" xml:space="preserve">
-    <value>Rapid XAML Toolkit - Edit Profile</value>
+    <value>Toolkit für schnelle XAML-Entwicklung – Profil bearbeiten</value>
   </data>
   <data name="Options_ProfilesSectionHeader" xml:space="preserve">
-    <value>Profiles:</value>
+    <value>Profile:</value>
   </data>
   <data name="Options_StructureAndNamingHeader" xml:space="preserve">
-    <value>Structure and Naming</value>
+    <value>Struktur und Benennung</value>
   </data>
   <data name="Options_StrucutreHeader" xml:space="preserve">
-    <value>Project strucutre</value>
+    <value>Projektstruktur</value>
   </data>
   <data name="Options_SubPropertyOutput" xml:space="preserve">
-    <value>Sub-property output</value>
+    <value>Ausgabe der Untereigenschaft</value>
   </data>
   <data name="Options_SubPropertyOutputDescription" xml:space="preserve">
-    <value>The output used for each property of a generic type.</value>
+    <value>Die für die einzelnen Eigenschaften mit generischem Typ verwendete Ausgabe.</value>
   </data>
   <data name="Options_TemporaryUiNotice" xml:space="preserve">
-    <value>This UI is temporary and will change before release</value>
+    <value>Die Benutzeroberfläche ist vorläufig und wird vor der Veröffentlichung geändert.</value>
   </data>
   <data name="Options_ViewModelDirectoryName" xml:space="preserve">
-    <value>ViewModel directory name</value>
+    <value>ViewModel-Verzeichnisname</value>
   </data>
   <data name="Options_ViewModelDirectoryNameDescription" xml:space="preserve">
-    <value>The name of the folder that contains the ViewModels.</value>
+    <value>Der Name des Ordners mit den ViewModels.</value>
   </data>
   <data name="Options_ViewModelFileSuffix" xml:space="preserve">
-    <value>ViewModel file suffix</value>
+    <value>ViewModel-Dateisuffix</value>
   </data>
   <data name="Options_ViewModelFileSuffixDescription" xml:space="preserve">
-    <value>The text appended to the end of the name of each ViewModel.</value>
+    <value>Der Text, der ans Ende der einzelnen ViewModel-Namen angehängt wird.</value>
   </data>
   <data name="Options_ViewModelProjectSuffix" xml:space="preserve">
-    <value>ViewModel Project Suffix</value>
+    <value>ViewModel-Projektsuffix</value>
   </data>
   <data name="Options_ViewModelProjectSuffixDescription" xml:space="preserve">
-    <value>The text from the end of the name of the project that contains the ViewModels. </value>
+    <value>Der Text am Ende des Namens des Projekts, das die ViewModels enthält. </value>
   </data>
   <data name="Options_XamlFileDirectoryName" xml:space="preserve">
-    <value>XAML file directory name</value>
+    <value>Verzeichnisname der XAML-Datei</value>
   </data>
   <data name="Options_XamlFileDirectoryNameDescription" xml:space="preserve">
-    <value>The name of the folder that contains the Views (XAML files.)</value>
+    <value>Der Name des Ordners mit den Ansichten (XAML-Dateien).</value>
   </data>
   <data name="Options_XamlFileSuffix" xml:space="preserve">
-    <value>XAML file suffix</value>
+    <value>XAML-Dateisuffix</value>
   </data>
   <data name="Options_XamlFileSuffixDescription" xml:space="preserve">
-    <value>The text appended to the end of the name of each View (XAML file.)</value>
+    <value>Der Text, der ans Ende der einzelnen Ansichtsnamen (XAML-Datei) angehängt wird.</value>
   </data>
   <data name="Options_XamlPageAttribute" xml:space="preserve">
-    <value>XAMLPage attribute</value>
+    <value>XAMLPage-Attribut</value>
   </data>
   <data name="Options_XamlPageAttributeDescription" xml:space="preserve">
-    <value>The attribute that should be added ot the top level XAMLelement when setting the datacontext.</value>
+    <value>Das Attribut, das beim Festlegen des Datenkontexts dem XAML-Element auf oberster Ebene hinzugefügt werden sollte.</value>
   </data>
   <data name="Options_XamlPlaceholder" xml:space="preserve">
-    <value>XAML file default content</value>
+    <value>Standardinhalt der XAML-Datei</value>
   </data>
   <data name="Options_XamlPlaceholderDescription" xml:space="preserve">
-    <value>The default file contents when creating a new XAML file.</value>
+    <value>Die Standarddateiinhalte beim Erstellen einer neuen XAML-Datei.</value>
   </data>
   <data name="Options_XamlProjectSuffix" xml:space="preserve">
-    <value>XAML Project Suffix</value>
+    <value>XAML-Projektsuffix</value>
   </data>
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
-    <value>The text from the end of the name of the project that contains the Views (XAML files.)</value>
+    <value>Der Text am Ende des Namens des Projekts, das die Ansichten (XAML-Dateien) enthält.</value>
   </data>
   <data name="Option_ButtonExport" xml:space="preserve">
-    <value>Export</value>
+    <value>Exportieren</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
-    <value>Unable to find project '{0}' in the solution.</value>
+    <value>Das Projekt „{0}“ wurde in der Lösung nicht gefunden.</value>
   </data>
   <data name="Info_AddedRowDefsCount" xml:space="preserve">
-    <value>Adding {0} row definitions.</value>
+    <value>{0} Zeilendefinitionen werden hinzugefügt...</value>
   </data>
   <data name="Info_AddedXamlToToolbox" xml:space="preserve">
-    <value>Added XAML to toolbox for {0}</value>
+    <value>XAML zur Toolbox für {0} hinzugefügt</value>
   </data>
   <data name="Info_AddingColDefsToGrid" xml:space="preserve">
-    <value>Adding ColumnDefinitions to grid.</value>
+    <value>ColumnDefinitions werden zum Raster hinzugefügt...</value>
   </data>
   <data name="Info_AddingGridToOutput" xml:space="preserve">
-    <value>Adding Grid to output.</value>
+    <value>Das Raster wird zur Ausgabe hinzugefügt...</value>
   </data>
   <data name="Info_AddingPropertyToOutput" xml:space="preserve">
-    <value>Adding '{0}' to the output.</value>
+    <value>„{0}“ wird zur Ausgabe hinzugefügt...</value>
   </data>
   <data name="Info_AnalyzingCSharpCode" xml:space="preserve">
-    <value>Analyzing C# code. (v{0})</value>
+    <value>C#-Code wird analysiert... (v{0})</value>
   </data>
   <data name="Info_AnalyzingVisualBasicCode" xml:space="preserve">
-    <value>Analyzing VB code.  (v{0})</value>
+    <value>VB-Code wird analysiert...  (v{0})</value>
   </data>
   <data name="Info_AttemptingoAddToToolbox" xml:space="preserve">
-    <value>Attempting to add XAML to the Toolbox.</value>
+    <value>Es wird versucht, XAML zur Toolbox hinzuzufügen.</value>
   </data>
   <data name="Info_AttemptingToCopy" xml:space="preserve">
-    <value>Attempting to copy XAML to clipboard.</value>
+    <value>Es wird versucht, XAML in die Zwischenablage zu kopieren.</value>
   </data>
   <data name="Info_AttemptingToCreateView" xml:space="preserve">
-    <value>Attempting to create View.</value>
+    <value>Es wird versucht, eine Ansicht zu erstellen.</value>
   </data>
   <data name="Info_CannotGetPropertiesForKnownType" xml:space="preserve">
-    <value>Cannot get sub-properties for known type '{0}'.</value>
+    <value>Die Untereigenschaften für den bekannten Typ „{0}“ können nicht abgerufen werden.</value>
   </data>
   <data name="Info_ClassNoPublicProperties" xml:space="preserve">
-    <value>Class contains no public properties.</value>
+    <value>Die Klasse enthält keine öffentlichen Eigenschaften.</value>
   </data>
   <data name="Info_ClassPropertyCount" xml:space="preserve">
-    <value>Class contains {0} properties.</value>
+    <value>Die Klasse enthält {0} Eigenschaften.</value>
   </data>
   <data name="Info_CopiedXaml" xml:space="preserve">
-    <value>Copied XAML for {0}: {1}</value>
+    <value>XAML wurde für {0} kopiert: {1}</value>
   </data>
   <data name="Info_CreatedView" xml:space="preserve">
-    <value>Created file {0}</value>
+    <value>Die Datei „{0}“ wurde erstellt.</value>
   </data>
   <data name="Info_DocumentPropertyCount" xml:space="preserve">
-    <value>Document contains {0} properties.</value>
+    <value>Das Dokument enthält {0} Eigenschaften.</value>
   </data>
   <data name="Info_EnumElementCount" xml:space="preserve">
-    <value>Found {0} elements of enum.</value>
+    <value>{0} Elemente der Enumeration wurden gefunden.</value>
   </data>
   <data name="Info_FailedToGetNullableType" xml:space="preserve">
-    <value>Failed to get typeSymbol of property '{0}' assumed to have been nullable.</value>
+    <value>Fehler beim Abrufen von „typeSymbol“ der Eigenschaft „{0}“, von der angenommen wurde dass Nullwerte zulässig sind.</value>
   </data>
   <data name="Info_FileExists" xml:space="preserve">
-    <value>File '{0}' already exists.</value>
+    <value>Die Datei „{0}“ ist bereits vorhanden.</value>
   </data>
   <data name="Info_FormattingOutputForGenericType" xml:space="preserve">
-    <value>Formatting output for generic type '{0}'.</value>
+    <value>Die Ausgabe für den generischen Typ „{0}“ wird formatiert...</value>
   </data>
   <data name="Info_FormattingOutputForNonGenericType" xml:space="preserve">
-    <value>Formatting output for non-generic type '{0}'.</value>
+    <value>Die Ausgabe für den nicht generischen Typ „{0}“ wird formatiert...</value>
   </data>
   <data name="Info_FormattingOutputForProperty" xml:space="preserve">
-    <value>Formatting output for property '{0}'.</value>
+    <value>Die Ausgabe für die Eigenschaft „{0}“ wird formatiert...</value>
   </data>
   <data name="Info_FormattingSubpropertiesInsideGrid" xml:space="preserve">
-    <value>Formatting subproperties inside a grid.</value>
+    <value>Die Untereigenschaften in einem Raster werden formatiert...</value>
   </data>
   <data name="Info_FoundEnumMapping" xml:space="preserve">
-    <value>Found mapping for '{0}' as an Enum.</value>
+    <value>Die Zuordnung für „{0}“ wurde als Enumeration ermittelt.</value>
   </data>
   <data name="Info_FoundPropertyCount" xml:space="preserve">
-    <value>Found {0} subproperties.</value>
+    <value>{0} Untereigenschaften wurden gefunden.</value>
   </data>
   <data name="Info_FoundSubProperty" xml:space="preserve">
-    <value>Found sub-property '{0}'.</value>
+    <value>Die Untereigenschaft „{0}“ wurde gefunden.</value>
   </data>
   <data name="Info_FoundSubPropertyOfUnknownType" xml:space="preserve">
-    <value>Found sub-property of unknown type: {0}.</value>
+    <value>Eine Untereigenschaft mit unbekanntem Typ wurde gefunden. {0}.</value>
   </data>
   <data name="Info_GetSelectionOutput" xml:space="preserve">
-    <value>Getting output for the selection.</value>
+    <value>Die Ausgabe für die Auswahl wird abgerufen...</value>
   </data>
   <data name="Info_GetSingleClassOutput" xml:space="preserve">
-    <value>Getting output for the class.</value>
+    <value>Die Ausgabe für die Klasse wird abgerufen...</value>
   </data>
   <data name="Info_GetSingleItemOutput" xml:space="preserve">
-    <value>Getting output for a single item.</value>
+    <value>Die Ausgabe für ein einzelnes Element wird abgerufen...</value>
   </data>
   <data name="Info_GetSinglePropertyOutput" xml:space="preserve">
-    <value>Getting output for a single property.</value>
+    <value>Die Ausgabe für eine einzelne Eigenschaft wird abgerufen...</value>
   </data>
   <data name="Info_GettingGenericType" xml:space="preserve">
-    <value>Getting a generic type.</value>
+    <value>Ein generischer Typ wird abgerufen...</value>
   </data>
   <data name="Info_GettingSubPropertyOutput" xml:space="preserve">
-    <value>Getting sub-property output for '{0}'.</value>
+    <value>Die Ausgabe der Untereigenschaft für „{0}“ wird abgerufen...</value>
   </data>
   <data name="Info_IdentifiedPropertySummary" xml:space="preserve">
-    <value>Identified property as Name='{0}' Type='{1}' IsReadOnly='{2}'.</value>
+    <value>Für die Eigenschaft wurde Folgendes ermittelt: Name='{0}' Type='{1}' IsReadOnly='{2}'.</value>
   </data>
   <data name="Info_LookingForReadWriteMappings" xml:space="preserve">
-    <value>Looking for mappings that are not read-only.</value>
+    <value>Es wird nach nicht schreibgeschützten Zuordnungen gesucht...</value>
   </data>
   <data name="Info_NoEnumMappingFound" xml:space="preserve">
-    <value>No mapping found for '{0}' as an Enum so now checking by type name.</value>
+    <value>Für „{0}“ wurde keine Zuordnung als Enumeration gefunden, daher wird nun anhand des Typnamens gesucht.</value>
   </data>
   <data name="Info_NoMappingFoundUsingFallback" xml:space="preserve">
-    <value>No mapping found so using fallback output.</value>
+    <value>Es wurde keine Zuordnung gefunden, daher wird die Fallbackausgabe verwendet.</value>
   </data>
   <data name="Info_NoPropertiesToOutput" xml:space="preserve">
-    <value>No properties to provide output for.</value>
+    <value>Keine Eigenschaft, für die eine Ausgabe bereitgestellt wird.</value>
   </data>
   <data name="Info_NothingAddedToToolbox" xml:space="preserve">
-    <value>No XAML added to toolbox.</value>
+    <value>Keine XAML zur Toolbox hinzugefügt.</value>
   </data>
   <data name="Info_NothingToCopy" xml:space="preserve">
-    <value>Nothing to copy to clipboard.</value>
+    <value>Kein in die Zwischenablage zu kopierendes Element vorhanden.</value>
   </data>
   <data name="Info_NotIncludingExcludedProperty" xml:space="preserve">
-    <value>Not including property '{0}' as it's on the exclusion list.</value>
+    <value>Die Eigenschaft „{0}“ wird nicht aufgenommen, da sie in der Ausschlussliste enthalten ist.</value>
   </data>
   <data name="Info_NotOverwritingFile" xml:space="preserve">
-    <value>Not overwriting '{0}'.</value>
+    <value>„{0}“ wird nicht überschrieben.</value>
   </data>
   <data name="Info_NoViewCreated" xml:space="preserve">
-    <value>No view created.</value>
+    <value>Keine Ansicht erstellt.</value>
   </data>
   <data name="Info_NoXamlCopied" xml:space="preserve">
-    <value>No XAML copied.</value>
+    <value>Keine XAML kopiert.</value>
   </data>
   <data name="Info_OverwritingFile" xml:space="preserve">
-    <value>Overwriting '{0}'.</value>
+    <value>„{0}“ wird überschrieben.</value>
   </data>
   <data name="Info_PropertiesInSelectedAreaCount" xml:space="preserve">
-    <value>{0} properties within the selection area.</value>
+    <value>{0} Eigenschaften im Auswahlbereich.</value>
   </data>
   <data name="Info_PropertyIsReadOnly" xml:space="preserve">
-    <value>Property is read-only so looking for read-only mappings first.</value>
+    <value>Die Eigenschaft ist schreibgeschützt, daher wird zuerst nach schreibgeschützten Zuordnungen gesucht.</value>
   </data>
   <data name="Info_PropertyTypeHasNoSubProperties" xml:space="preserve">
-    <value>'{0}' is of type '{1}' which has has no sub-properties.</value>
+    <value>„{0}“ ist vom Typ „{1}“, der keine Untereigenschaften besitzt.</value>
   </data>
   <data name="Info_PropertyTypeNotRecognizedAsGeneric" xml:space="preserve">
-    <value>'{0}' not recognized as generic.</value>
+    <value>„{0}“ wird nicht als generisch erkannt.</value>
   </data>
   <data name="Info_ProperyIsNotReadOnly" xml:space="preserve">
-    <value>Property is not read-only so filtering out read-only mappings.</value>
+    <value>Die Eigenschaft ist nicht schreibgeschützt, daher werden schreibgeschützte Zuordnungen herausgefiltert.</value>
   </data>
   <data name="Info_ReplacingIncIntPlaceholder" xml:space="preserve">
-    <value>Replacing incrementing integer placeholder.</value>
+    <value>Der Platzhalter für die ganzzahlige Erhöhung wird ersetzt...</value>
   </data>
   <data name="Info_ReplacingRepIntPlaceholder" xml:space="preserve">
-    <value>Replacing repeated integer placeholder.</value>
+    <value>Der Platzhalter für die wiederholte Ganzzahl wird ersetzt...</value>
   </data>
   <data name="Info_ReturningOutput" xml:space="preserve">
-    <value>Returning: {0}</value>
+    <value>Rückgabe: {0}</value>
   </data>
   <data name="Info_SearchingForMappingWithGenericWildcard" xml:space="preserve">
-    <value>Searching for mapping for generic type treated as '{0}'.</value>
+    <value>Es wird nach einer Zuordnung für den generischen Typ (behandelt als „{0}“) gesucht...</value>
   </data>
   <data name="Info_SubpropertyCount" xml:space="preserve">
-    <value>Property '{0}' has {1} sub-properties.</value>
+    <value>Die Eigenschaft „{0}“ besitzt {1} Untereigenschaften.</value>
   </data>
   <data name="Info_UnableToAccessTelemetry" xml:space="preserve">
-    <value>Unable to load the assembly 'Microsoft.VisualStudio.Telemetry' so telemetry will not be enabled.</value>
+    <value>Die Assembly „Microsoft.VisualStudio.Telemetry“ kann nicht geladen werden, daher wird Telemetrie nicht aktiviert.</value>
   </data>
   <data name="Info_UsingClassGrouping" xml:space="preserve">
-    <value>Using class grouping of '{0}'.</value>
+    <value>Die Klassengruppierung „{0}“ wird verwendet.</value>
   </data>
   <data name="Prompt_ConfirmDeleteProfileMessage" xml:space="preserve">
-    <value>Are you sure you want to delete profile '{0}'?</value>
+    <value>Möchten Sie das Profil „{0}“ wirklich löschen?</value>
   </data>
   <data name="Prompt_ConfirmDeleteProfileTitle" xml:space="preserve">
-    <value>Confirm deletion</value>
+    <value>Löschen bestätigen</value>
   </data>
   <data name="Prompt_ConfirmResetProfilesMessage" xml:space="preserve">
-    <value>Resetting profiles will cause you to lose any changes. Are you sure?</value>
+    <value>Beim Zurücksetzen der Profile gehen vorgenommene Änderungen verloren. Sind Sie sicher?</value>
   </data>
   <data name="Prompt_ConfirmResetProfilesTitle" xml:space="preserve">
-    <value>Confirm reset</value>
+    <value>Zurücksetzen bestätigen</value>
   </data>
   <data name="Prompt_FileExistsTitle" xml:space="preserve">
-    <value>File already exists</value>
+    <value>Die Datei ist bereits vorhanden.</value>
   </data>
   <data name="Propt_FileExistsMessage" xml:space="preserve">
-    <value>Do you want to override the existing file?</value>
+    <value>Möchten Sie die vorhandene Datei überschreiben?</value>
   </data>
   <data name="UI_NoPropertiesXaml" xml:space="preserve">
-    <value>&lt;!-- No accessible properties when copying as XAML --&gt;</value>
+    <value>&lt;!-- Beim Kopieren als XAML stehen keine zugänglichen Eigenschaften zur Verfügung. --&gt;</value>
   </data>
   <data name="UI_ProfileFilterDescription" xml:space="preserve">
-    <value>Rapid XAML Profile</value>
+    <value>Profil für schnelle XAML-Entwicklung</value>
   </data>
   <data name="UI_SelectionMoreThanThreeNames" xml:space="preserve">
-    <value>{0}, {1} and {2} other properties</value>
+    <value>{0}, {1} und {2} weitere Eigenschaften</value>
   </data>
   <data name="UI_SelectionThreeNames" xml:space="preserve">
-    <value>{0}, {1} and 1 other property</value>
+    <value>{0}, {1} und 1 weitere Eigenschaft</value>
   </data>
   <data name="UI_SelectionTwoNames" xml:space="preserve">
-    <value>{0} and {1}</value>
+    <value>{0} und {1}</value>
   </data>
   <data name="Package__106" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
+    <value>Toolkit für schnelle XAML-Entwicklung</value>
     <comment>Options group header</comment>
   </data>
   <data name="Package__107" xml:space="preserve">
-    <value>Profiles</value>
+    <value>Profile</value>
     <comment>Options section header</comment>
   </data>
   <data name="Package__110" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
+    <value>Toolkit für schnelle XAML-Entwicklung</value>
     <comment>Title for Help/About</comment>
   </data>
   <data name="Package__112" xml:space="preserve">
-    <value>Tools to accelerate XAML app development</value>
+    <value>Tools zum Beschleunigen der XAML-App-Entwicklung</value>
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>The following issues prevented the profile from being imported:\r\n\r\n- {0}</value>
+    <value>Das Profil konnte aufgrund der folgenden Probleme nicht importiert werden:\r\n\r\n- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
-    <value>Unable to import profile</value>
+    <value>Importieren des Profils nicht möglich</value>
   </data>
   <data name="UI_AccessingOutputPaneFailed" xml:space="preserve">
-    <value>Failed to get the Output window pane.</value>
+    <value>Fehler beim Abrufen des Ausgabefensterbereichs.</value>
   </data>
   <data name="UI_ActiveProfileName" xml:space="preserve">
-    <value>{0}    [*ACTIVE*]</value>
+    <value>{0}    [*AKTIV*]</value>
   </data>
   <data name="UI_CopiedProfileName" xml:space="preserve">
-    <value>{0} (copy)</value>
+    <value>{0} (kopieren)</value>
   </data>
   <data name="UI_CreatingOutputPaneFailed" xml:space="preserve">
-    <value>Failed to create the Output window pane.</value>
+    <value>Fehler beim Erstellen des Ausgabefensterbereichs.</value>
   </data>
   <data name="UI_NewProfileDefaultName" xml:space="preserve">
-    <value>New</value>
+    <value>Neu</value>
   </data>
   <data name="UI_NoXamlCopiedNoProfilesConfigured" xml:space="preserve">
-    <value>No XAML copied. No profiles configured.</value>
+    <value>Keine XAML kopiert. Keine Profile konfiguriert.</value>
   </data>
   <data name="UI_RxtOutputPaneTitle" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
+    <value>Toolkit für schnelle XAML-Entwicklung</value>
   </data>
   <data name="UI_ToolboxGroupHeader" xml:space="preserve">
-    <value>Rapid XAML</value>
+    <value>Schnelle XAML-Entwicklung</value>
   </data>
   <data name="VSCT__ContextMenu" xml:space="preserve">
-    <value>Rapid XAML</value>
+    <value>Schnelle XAML-Entwicklung</value>
     <comment>VS Context menu text</comment>
   </data>
   <data name="VSCT__CopyToClipboardCommandId" xml:space="preserve">
-    <value>Copy to Clipboard</value>
+    <value>In die Zwischenablage kopieren</value>
     <comment>Command button text for when copying to the clipboard as XAML</comment>
   </data>
   <data name="VSCT__CreateViewCommandId" xml:space="preserve">
-    <value>Create View</value>
+    <value>Ansicht erstellen</value>
     <comment>Command button text for when creating a view from the SolutionExplorer</comment>
   </data>
   <data name="VSCT__OpenOptionsCommandId" xml:space="preserve">
-    <value>First set an active profile</value>
+    <value>Legen Sie zuerst ein aktives Profil fest.</value>
     <comment>Command button text when there is no active profile set</comment>
   </data>
   <data name="VSCT__SendToToolboxCommandId" xml:space="preserve">
-    <value>Send to Toolbox</value>
+    <value>An Toolbox senden</value>
     <comment>Command button text for when sending to the clipboard as XAML</comment>
   </data>
   <data name="VSCT__SetDatacontextCommandId" xml:space="preserve">
-    <value>Set Datacontext</value>
+    <value>Datenkontext festlegen</value>
     <comment>Command button text for setting the datacontext of a page</comment>
   </data>
   <data name="VSIX__LocalizedDescription" xml:space="preserve">
-    <value>Tools to accelerate XAML app development</value>
+    <value>Tools zum Beschleunigen der XAML-App-Entwicklung</value>
     <comment>Description used in vsixlangpack</comment>
   </data>
   <data name="VSIX__LocalizedName" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
+    <value>Toolkit für schnelle XAML-Entwicklung</value>
     <comment>Name used in vsixlangpack</comment>
   </data>
 </root>

@@ -118,450 +118,450 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Info_IntializingCommands" xml:space="preserve">
-    <value>Initializing Commands (v{0})</value>
+    <value>Inicializace příkazů (verze {0})</value>
     <comment>Info mesage when package initialized</comment>
   </data>
   <data name="Options_AllInOneProject" xml:space="preserve">
-    <value>Views &amp; ViewModels are in the same project</value>
+    <value>Zobrazení a modely zobrazení jsou ve stejném projektu.</value>
   </data>
   <data name="Options_AllInOneProjectDescription" xml:space="preserve">
-    <value>Indicate that the ViewModels and Views (XAML files) are in the same project.</value>
+    <value>Udává, že modely zobrazení a zobrazení (soubory XAML) jsou ve stejném projektu.</value>
   </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
-    <value>Add</value>
+    <value>Přidat</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Copy</value>
+    <value>Kopírovat</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Odstranit</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Upravit</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>Import</value>
+    <value>Importovat</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>New</value>
+    <value>Nový</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
-    <value>Ok</value>
+    <value>OK</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Resetovat</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
-    <value>Set as Active</value>
+    <value>Nastavit jako aktivní</value>
   </data>
   <data name="Options_ClassGrouping" xml:space="preserve">
-    <value>Class grouping</value>
+    <value>Seskupení tříd</value>
   </data>
   <data name="Options_ClassGroupingDescription" xml:space="preserve">
-    <value>The element that encapsulates the elements created for each property when creating XAML for a class.</value>
+    <value>Tento element zapouzdřuje elementy vytvořené pro jednotlivé vlastnosti při vytváření kódu XAML pro třídu.</value>
   </data>
   <data name="Options_CodeBehindConstructorContent" xml:space="preserve">
-    <value>Code-behind constructor content</value>
+    <value>Obsah konstruktoru kódu na pozadí (Code-behind)</value>
   </data>
   <data name="Options_CodeBehindConstructorContentDescription" xml:space="preserve">
-    <value>Code that should be added to the constructor of the code behind file when setting the datacontext.</value>
+    <value>Kód, který je při nastavování kontextu dat zapotřebí přidat do konstruktoru souboru kódu</value>
   </data>
   <data name="Options_CodeBehindPageContent" xml:space="preserve">
-    <value>Code-behind page content</value>
+    <value>Obsah stránky kódu na pozadí (Code-behind)</value>
   </data>
   <data name="Options_CodeBehindPageContentDescription" xml:space="preserve">
-    <value>Code that should be added to the code-behind file, outside of the constructor, when setting the datacontext.</value>
+    <value>Kód, který je při nastavování kontextu dat zapotřebí přidat do souboru kódu na pozadí (code-behind) mimo konstruktor</value>
   </data>
   <data name="Options_CodeBehindPlaceholder" xml:space="preserve">
-    <value>Code-behind file default content</value>
+    <value>Výchozí obsah souboru kódu na pozadí (Code-behind)</value>
   </data>
   <data name="Options_CodeBehindPlaceholderDescription" xml:space="preserve">
-    <value>The default file contents when creating a code-behind file.</value>
+    <value>Výchozí obsah souboru při vytváření souboru kódu na pozadí (code-behind)</value>
   </data>
   <data name="Options_DataContextHeader" xml:space="preserve">
-    <value>Datacontext</value>
+    <value>Kontext dat</value>
   </data>
   <data name="Options_DefaultCodeBehindConstructor" xml:space="preserve">
-    <value>Default code-behind constructor</value>
+    <value>Výchozí konstruktor kódu na pozadí (code-behind)</value>
   </data>
   <data name="Options_DefaultCodeBehindConstructorDescription" xml:space="preserve">
-    <value>The constuctor of the code-behind file that will be added, if needed and one doesn't already exist.</value>
+    <value>Konstruktor souboru kódu na pozadí (code-behind), který bude přidán, pokud bude zapotřebí a žádný jiný konstruktor zatím nebude existovat</value>
   </data>
   <data name="Options_EnableExtendedLogging" xml:space="preserve">
-    <value>Enable extended logging</value>
+    <value>Povolit rozšířené protokolování</value>
   </data>
   <data name="Options_EnumMappingOutput" xml:space="preserve">
-    <value>Enum output</value>
+    <value>Výčet výstupu</value>
   </data>
   <data name="Options_EnumMappingOutputDescription" xml:space="preserve">
-    <value>The output used for each element of an enumeration.</value>
+    <value>Výstup používaný pro jednotlivé prvky výčtu</value>
   </data>
   <data name="Options_FallbackOutput" xml:space="preserve">
-    <value>Fallback output</value>
+    <value>Náhradní výstup</value>
   </data>
   <data name="Options_FallbackOutputDescription" xml:space="preserve">
-    <value>The output used for a property when no specific mapping can be applied.</value>
+    <value>Výstup, který se použije pro vlastnost, když není možné použít žádné konkrétní mapování</value>
   </data>
   <data name="Options_GeneralSettingsHeader" xml:space="preserve">
-    <value>General Settings</value>
+    <value>Obecná nastavení</value>
   </data>
   <data name="Options_MappingIfReadOnly" xml:space="preserve">
-    <value>Only if readonly</value>
+    <value>Pouze v režimu jen pro čtení</value>
   </data>
   <data name="Options_MappingIfReadOnlyDescription" xml:space="preserve">
-    <value>The mapping should only apply if the property has a public setter.</value>
+    <value>Toto mapování by se mělo použít, jen pokud má vlastnost veřejnou metodu setter.</value>
   </data>
   <data name="Options_MappingNameFilter" xml:space="preserve">
-    <value>Name filter</value>
+    <value>Filtr názvu</value>
   </data>
   <data name="Options_MappingNameFilterDescription" xml:space="preserve">
-    <value>The partial name of the property to match with. Multiple values can be specified if separated by a pipe (|) character.</value>
+    <value>Částečný název vlastnosti, který se má shodovat. Je možné zadat více hodnot oddělených znakem svislé čáry (|).</value>
   </data>
   <data name="Options_MappingOutput" xml:space="preserve">
-    <value>Output</value>
+    <value>Výstup</value>
   </data>
   <data name="Options_MappingOutputDescription" xml:space="preserve">
-    <value>The output that shoudl be generated if this mapping is used.</value>
+    <value>Výstup, který se má vygenerovat, pokud se toto mapování použije</value>
   </data>
   <data name="Options_MappingsHeader" xml:space="preserve">
-    <value>Mappings</value>
+    <value>Mapování</value>
   </data>
   <data name="Options_MappingType" xml:space="preserve">
-    <value>Type</value>
+    <value>Typ</value>
   </data>
   <data name="Options_MappingTypeDescription" xml:space="preserve">
-    <value>The type of the property to match with. Multiple values can be specified if separated by a pipe (|) character.</value>
+    <value>Typ vlastnosti, který se má shodovat. Je možné zadat více hodnot oddělených znakem svislé čáry (|).</value>
   </data>
   <data name="Options_NamingHeader" xml:space="preserve">
-    <value>Naming</value>
+    <value>Pojmenování</value>
   </data>
   <data name="Options_NamingVisualizer" xml:space="preserve">
-    <value>Visualize solution structure</value>
+    <value>Vizualizovat strukturu řešení</value>
   </data>
   <data name="Options_ProfileName" xml:space="preserve">
-    <value>Name</value>
+    <value>Název</value>
   </data>
   <data name="Options_ProfilePageTitle" xml:space="preserve">
-    <value>Rapid XAML Toolkit - Edit Profile</value>
+    <value>Sada nástrojů Rapid XAML – úprava profilu</value>
   </data>
   <data name="Options_ProfilesSectionHeader" xml:space="preserve">
-    <value>Profiles:</value>
+    <value>Profily:</value>
   </data>
   <data name="Options_StructureAndNamingHeader" xml:space="preserve">
-    <value>Structure and Naming</value>
+    <value>Struktura a pojmenování</value>
   </data>
   <data name="Options_StrucutreHeader" xml:space="preserve">
-    <value>Project strucutre</value>
+    <value>Struktura projektu</value>
   </data>
   <data name="Options_SubPropertyOutput" xml:space="preserve">
-    <value>Sub-property output</value>
+    <value>Výstup dílčí vlastnosti</value>
   </data>
   <data name="Options_SubPropertyOutputDescription" xml:space="preserve">
-    <value>The output used for each property of a generic type.</value>
+    <value>Výstup používaný pro jednotlivé vlastnosti obecného typu</value>
   </data>
   <data name="Options_TemporaryUiNotice" xml:space="preserve">
-    <value>This UI is temporary and will change before release</value>
+    <value>Toto uživatelské rozhraní je dočasné a před vydáním se změní.</value>
   </data>
   <data name="Options_ViewModelDirectoryName" xml:space="preserve">
-    <value>ViewModel directory name</value>
+    <value>Název adresáře modelu zobrazení</value>
   </data>
   <data name="Options_ViewModelDirectoryNameDescription" xml:space="preserve">
-    <value>The name of the folder that contains the ViewModels.</value>
+    <value>Název složky, která obsahuje modely zobrazení</value>
   </data>
   <data name="Options_ViewModelFileSuffix" xml:space="preserve">
-    <value>ViewModel file suffix</value>
+    <value>Přípona souboru modelu zobrazení</value>
   </data>
   <data name="Options_ViewModelFileSuffixDescription" xml:space="preserve">
-    <value>The text appended to the end of the name of each ViewModel.</value>
+    <value>Text přidaný na konec názvu každého modelu zobrazení</value>
   </data>
   <data name="Options_ViewModelProjectSuffix" xml:space="preserve">
-    <value>ViewModel Project Suffix</value>
+    <value>Přípona projektu modelu zobrazení</value>
   </data>
   <data name="Options_ViewModelProjectSuffixDescription" xml:space="preserve">
-    <value>The text from the end of the name of the project that contains the ViewModels. </value>
+    <value>Text z konce názvu projektu, který obsahuje modely zobrazení </value>
   </data>
   <data name="Options_XamlFileDirectoryName" xml:space="preserve">
-    <value>XAML file directory name</value>
+    <value>Název adresáře souboru XAML</value>
   </data>
   <data name="Options_XamlFileDirectoryNameDescription" xml:space="preserve">
-    <value>The name of the folder that contains the Views (XAML files.)</value>
+    <value>Název složky, která obsahuje zobrazení (soubory XAML)</value>
   </data>
   <data name="Options_XamlFileSuffix" xml:space="preserve">
-    <value>XAML file suffix</value>
+    <value>Přípona souboru XAML</value>
   </data>
   <data name="Options_XamlFileSuffixDescription" xml:space="preserve">
-    <value>The text appended to the end of the name of each View (XAML file.)</value>
+    <value>Text přidaný na konec názvu každého zobrazení (souboru XAML)</value>
   </data>
   <data name="Options_XamlPageAttribute" xml:space="preserve">
-    <value>XAMLPage attribute</value>
+    <value>Atribut XAMLPage</value>
   </data>
   <data name="Options_XamlPageAttributeDescription" xml:space="preserve">
-    <value>The attribute that should be added ot the top level XAMLelement when setting the datacontext.</value>
+    <value>Atribut, který je při nastavování kontextu dat potřeba přidat k elementu XAML nejvyšší úrovně</value>
   </data>
   <data name="Options_XamlPlaceholder" xml:space="preserve">
-    <value>XAML file default content</value>
+    <value>Výchozí obsah souboru XAML</value>
   </data>
   <data name="Options_XamlPlaceholderDescription" xml:space="preserve">
-    <value>The default file contents when creating a new XAML file.</value>
+    <value>Výchozí obsah souboru při vytváření nového souboru XAML</value>
   </data>
   <data name="Options_XamlProjectSuffix" xml:space="preserve">
-    <value>XAML Project Suffix</value>
+    <value>Přípona projektu XAML</value>
   </data>
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
-    <value>The text from the end of the name of the project that contains the Views (XAML files.)</value>
+    <value>Text z konce názvu projektu, který obsahuje zobrazení (soubory XAML)</value>
   </data>
   <data name="Option_ButtonExport" xml:space="preserve">
-    <value>Export</value>
+    <value>Exportovat</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
-    <value>Unable to find project '{0}' in the solution.</value>
+    <value>Projekt {0} nelze v řešení najít.</value>
   </data>
   <data name="Info_AddedRowDefsCount" xml:space="preserve">
-    <value>Adding {0} row definitions.</value>
+    <value>Přidávání následujícího počtu definic řádků: {0}</value>
   </data>
   <data name="Info_AddedXamlToToolbox" xml:space="preserve">
-    <value>Added XAML to toolbox for {0}</value>
+    <value>Přidán kód XAML do sady nástrojů pro: {0}</value>
   </data>
   <data name="Info_AddingColDefsToGrid" xml:space="preserve">
-    <value>Adding ColumnDefinitions to grid.</value>
+    <value>Přidávání definic sloupců do mřížky</value>
   </data>
   <data name="Info_AddingGridToOutput" xml:space="preserve">
-    <value>Adding Grid to output.</value>
+    <value>Přidávání mřížky do výstupu</value>
   </data>
   <data name="Info_AddingPropertyToOutput" xml:space="preserve">
-    <value>Adding '{0}' to the output.</value>
+    <value>Přidávání vlastnosti {0} do výstupu</value>
   </data>
   <data name="Info_AnalyzingCSharpCode" xml:space="preserve">
-    <value>Analyzing C# code. (v{0})</value>
+    <value>Probíhá analýza kódu C#. (verze {0})</value>
   </data>
   <data name="Info_AnalyzingVisualBasicCode" xml:space="preserve">
-    <value>Analyzing VB code.  (v{0})</value>
+    <value>Probíhá analýza kódu VB.  (verze {0})</value>
   </data>
   <data name="Info_AttemptingoAddToToolbox" xml:space="preserve">
-    <value>Attempting to add XAML to the Toolbox.</value>
+    <value>Pokus o přidání kódu XAML do sady nástrojů</value>
   </data>
   <data name="Info_AttemptingToCopy" xml:space="preserve">
-    <value>Attempting to copy XAML to clipboard.</value>
+    <value>Pokus o zkopírování kódu XAML do schránky</value>
   </data>
   <data name="Info_AttemptingToCreateView" xml:space="preserve">
-    <value>Attempting to create View.</value>
+    <value>Pokus o vytvoření zobrazení</value>
   </data>
   <data name="Info_CannotGetPropertiesForKnownType" xml:space="preserve">
-    <value>Cannot get sub-properties for known type '{0}'.</value>
+    <value>Nelze získat dílčí vlastnosti pro známý typ {0}.</value>
   </data>
   <data name="Info_ClassNoPublicProperties" xml:space="preserve">
-    <value>Class contains no public properties.</value>
+    <value>Třída neobsahuje žádné veřejné vlastnosti.</value>
   </data>
   <data name="Info_ClassPropertyCount" xml:space="preserve">
-    <value>Class contains {0} properties.</value>
+    <value>Třída obsahuje následující počet vlastností: {0}</value>
   </data>
   <data name="Info_CopiedXaml" xml:space="preserve">
-    <value>Copied XAML for {0}: {1}</value>
+    <value>Zkopírován kód XAML pro {0}: {1}</value>
   </data>
   <data name="Info_CreatedView" xml:space="preserve">
-    <value>Created file {0}</value>
+    <value>Vytvořen soubor {0}</value>
   </data>
   <data name="Info_DocumentPropertyCount" xml:space="preserve">
-    <value>Document contains {0} properties.</value>
+    <value>Dokument obsahuje následující počet vlastností: {0}</value>
   </data>
   <data name="Info_EnumElementCount" xml:space="preserve">
-    <value>Found {0} elements of enum.</value>
+    <value>Byl nalezen následující počet prvků výčtu: {0}</value>
   </data>
   <data name="Info_FailedToGetNullableType" xml:space="preserve">
-    <value>Failed to get typeSymbol of property '{0}' assumed to have been nullable.</value>
+    <value>Nepodařilo se získat hodnotu typeSymbol vlastnosti {0}, u které se předpokládalo, že může mít hodnotu null.</value>
   </data>
   <data name="Info_FileExists" xml:space="preserve">
-    <value>File '{0}' already exists.</value>
+    <value>Soubor {0} už existuje.</value>
   </data>
   <data name="Info_FormattingOutputForGenericType" xml:space="preserve">
-    <value>Formatting output for generic type '{0}'.</value>
+    <value>Formátování výstupu pro obecný typ {0}</value>
   </data>
   <data name="Info_FormattingOutputForNonGenericType" xml:space="preserve">
-    <value>Formatting output for non-generic type '{0}'.</value>
+    <value>Formátování výstupu pro neobecný typ {0}</value>
   </data>
   <data name="Info_FormattingOutputForProperty" xml:space="preserve">
-    <value>Formatting output for property '{0}'.</value>
+    <value>Formátování výstupu pro vlastnost {0}</value>
   </data>
   <data name="Info_FormattingSubpropertiesInsideGrid" xml:space="preserve">
-    <value>Formatting subproperties inside a grid.</value>
+    <value>Formátování dílčích vlastností uvnitř mřížky</value>
   </data>
   <data name="Info_FoundEnumMapping" xml:space="preserve">
-    <value>Found mapping for '{0}' as an Enum.</value>
+    <value>Pro {0} bylo nalezeno mapování jako výčet.</value>
   </data>
   <data name="Info_FoundPropertyCount" xml:space="preserve">
-    <value>Found {0} subproperties.</value>
+    <value>Byl nalezen následující počet dílčích vlastností: {0}</value>
   </data>
   <data name="Info_FoundSubProperty" xml:space="preserve">
-    <value>Found sub-property '{0}'.</value>
+    <value>Byla nalezena dílčí vlastnost {0}.</value>
   </data>
   <data name="Info_FoundSubPropertyOfUnknownType" xml:space="preserve">
-    <value>Found sub-property of unknown type: {0}.</value>
+    <value>Byla nalezena dílčí vlastnost neznámého typu: {0}.</value>
   </data>
   <data name="Info_GetSelectionOutput" xml:space="preserve">
-    <value>Getting output for the selection.</value>
+    <value>Získávání výstupu pro výběr</value>
   </data>
   <data name="Info_GetSingleClassOutput" xml:space="preserve">
-    <value>Getting output for the class.</value>
+    <value>Získávání výstupu pro třídu</value>
   </data>
   <data name="Info_GetSingleItemOutput" xml:space="preserve">
-    <value>Getting output for a single item.</value>
+    <value>Získávání výstupu pro jednu položku</value>
   </data>
   <data name="Info_GetSinglePropertyOutput" xml:space="preserve">
-    <value>Getting output for a single property.</value>
+    <value>Získávání výstupu pro jednu vlastnost</value>
   </data>
   <data name="Info_GettingGenericType" xml:space="preserve">
-    <value>Getting a generic type.</value>
+    <value>Získávání obecného typu</value>
   </data>
   <data name="Info_GettingSubPropertyOutput" xml:space="preserve">
-    <value>Getting sub-property output for '{0}'.</value>
+    <value>Získávání výstupu dílčí vlastnosti pro: {0}</value>
   </data>
   <data name="Info_IdentifiedPropertySummary" xml:space="preserve">
-    <value>Identified property as Name='{0}' Type='{1}' IsReadOnly='{2}'.</value>
+    <value>Byla identifikována vlastnost jako název={0}, typ={1}, IsReadOnly={2}.</value>
   </data>
   <data name="Info_LookingForReadWriteMappings" xml:space="preserve">
-    <value>Looking for mappings that are not read-only.</value>
+    <value>Hledání mapování, která nejsou jen pro čtení</value>
   </data>
   <data name="Info_NoEnumMappingFound" xml:space="preserve">
-    <value>No mapping found for '{0}' as an Enum so now checking by type name.</value>
+    <value>Pro {0} nebylo nalezeno žádné mapování jako výčet, a proto se teď zjišťuje podle názvu typu.</value>
   </data>
   <data name="Info_NoMappingFoundUsingFallback" xml:space="preserve">
-    <value>No mapping found so using fallback output.</value>
+    <value>Nebylo nalezeno žádné mapování, a proto se používá náhradní výstup.</value>
   </data>
   <data name="Info_NoPropertiesToOutput" xml:space="preserve">
-    <value>No properties to provide output for.</value>
+    <value>Neexistují žádné vlastnosti, pro které se má poskytovat výstup.</value>
   </data>
   <data name="Info_NothingAddedToToolbox" xml:space="preserve">
-    <value>No XAML added to toolbox.</value>
+    <value>Do sady nástrojů nebyl přidán žádný kód XAML.</value>
   </data>
   <data name="Info_NothingToCopy" xml:space="preserve">
-    <value>Nothing to copy to clipboard.</value>
+    <value>Není nic, co by bylo možné zkopírovat do schránky.</value>
   </data>
   <data name="Info_NotIncludingExcludedProperty" xml:space="preserve">
-    <value>Not including property '{0}' as it's on the exclusion list.</value>
+    <value>Vlastnost {0} nebyla zahrnuta, protože je na seznamu vyloučení.</value>
   </data>
   <data name="Info_NotOverwritingFile" xml:space="preserve">
-    <value>Not overwriting '{0}'.</value>
+    <value>Soubor {0} se nepřepisuje.</value>
   </data>
   <data name="Info_NoViewCreated" xml:space="preserve">
-    <value>No view created.</value>
+    <value>Nebylo vytvořeno žádné zobrazení.</value>
   </data>
   <data name="Info_NoXamlCopied" xml:space="preserve">
-    <value>No XAML copied.</value>
+    <value>Nebyl zkopírován žádný kód XAML.</value>
   </data>
   <data name="Info_OverwritingFile" xml:space="preserve">
-    <value>Overwriting '{0}'.</value>
+    <value>Přepisuje se soubor {0}.</value>
   </data>
   <data name="Info_PropertiesInSelectedAreaCount" xml:space="preserve">
-    <value>{0} properties within the selection area.</value>
+    <value>V rámci vybrané oblasti je následující počet vlastností: {0}</value>
   </data>
   <data name="Info_PropertyIsReadOnly" xml:space="preserve">
-    <value>Property is read-only so looking for read-only mappings first.</value>
+    <value>Vlastnost je jen pro čtení, a proto se jako první vyhledávají mapování jen pro čtení.</value>
   </data>
   <data name="Info_PropertyTypeHasNoSubProperties" xml:space="preserve">
-    <value>'{0}' is of type '{1}' which has has no sub-properties.</value>
+    <value>Vlastnost {0} je typu {1}, který nemá žádné dílčí vlastnosti.</value>
   </data>
   <data name="Info_PropertyTypeNotRecognizedAsGeneric" xml:space="preserve">
-    <value>'{0}' not recognized as generic.</value>
+    <value>Typ {0} nebyl rozpoznán jako obecný.</value>
   </data>
   <data name="Info_ProperyIsNotReadOnly" xml:space="preserve">
-    <value>Property is not read-only so filtering out read-only mappings.</value>
+    <value>Vlastnost není jen pro čtení, a proto se odfiltrovávají mapování jen pro čtení.</value>
   </data>
   <data name="Info_ReplacingIncIntPlaceholder" xml:space="preserve">
-    <value>Replacing incrementing integer placeholder.</value>
+    <value>Nahrazování zástupného symbolu zvětšujícího se celého čísla</value>
   </data>
   <data name="Info_ReplacingRepIntPlaceholder" xml:space="preserve">
-    <value>Replacing repeated integer placeholder.</value>
+    <value>Nahrazování zástupného symbolu opakovaného celého čísla</value>
   </data>
   <data name="Info_ReturningOutput" xml:space="preserve">
-    <value>Returning: {0}</value>
+    <value>Vrací se: {0}</value>
   </data>
   <data name="Info_SearchingForMappingWithGenericWildcard" xml:space="preserve">
-    <value>Searching for mapping for generic type treated as '{0}'.</value>
+    <value>Vyhledávání mapování pro obecný typ, který se zpracovává jako {0}</value>
   </data>
   <data name="Info_SubpropertyCount" xml:space="preserve">
-    <value>Property '{0}' has {1} sub-properties.</value>
+    <value>Vlastnost {0} má následující počet dílčích vlastností: {1}</value>
   </data>
   <data name="Info_UnableToAccessTelemetry" xml:space="preserve">
-    <value>Unable to load the assembly 'Microsoft.VisualStudio.Telemetry' so telemetry will not be enabled.</value>
+    <value>Nelze načíst sestavení Microsoft.VisualStudio.Telemetry, a proto telemetrie nebude povolená.</value>
   </data>
   <data name="Info_UsingClassGrouping" xml:space="preserve">
-    <value>Using class grouping of '{0}'.</value>
+    <value>Používá se seskupení tříd {0}.</value>
   </data>
   <data name="Prompt_ConfirmDeleteProfileMessage" xml:space="preserve">
-    <value>Are you sure you want to delete profile '{0}'?</value>
+    <value>Opravdu chcete odstranit profil {0}?</value>
   </data>
   <data name="Prompt_ConfirmDeleteProfileTitle" xml:space="preserve">
-    <value>Confirm deletion</value>
+    <value>Potvrzení odstranění</value>
   </data>
   <data name="Prompt_ConfirmResetProfilesMessage" xml:space="preserve">
-    <value>Resetting profiles will cause you to lose any changes. Are you sure?</value>
+    <value>Při resetování profilů přijdete o jakékoli provedené změny. Opravdu chcete pokračovat?</value>
   </data>
   <data name="Prompt_ConfirmResetProfilesTitle" xml:space="preserve">
-    <value>Confirm reset</value>
+    <value>Potvrzení resetování</value>
   </data>
   <data name="Prompt_FileExistsTitle" xml:space="preserve">
-    <value>File already exists</value>
+    <value>Soubor už existuje</value>
   </data>
   <data name="Propt_FileExistsMessage" xml:space="preserve">
-    <value>Do you want to override the existing file?</value>
+    <value>Opravdu chcete přepsat existující soubor?</value>
   </data>
   <data name="UI_NoPropertiesXaml" xml:space="preserve">
-    <value>&lt;!-- No accessible properties when copying as XAML --&gt;</value>
+    <value>&lt;!-- Žádné dostupné vlastnosti při kopírování jako XAML --&gt;</value>
   </data>
   <data name="UI_ProfileFilterDescription" xml:space="preserve">
-    <value>Rapid XAML Profile</value>
+    <value>Profil Rapid XAML</value>
   </data>
   <data name="UI_SelectionMoreThanThreeNames" xml:space="preserve">
-    <value>{0}, {1} and {2} other properties</value>
+    <value>{0}, {1} a další vlastnosti (počet: {2})</value>
   </data>
   <data name="UI_SelectionThreeNames" xml:space="preserve">
-    <value>{0}, {1} and 1 other property</value>
+    <value>{0}, {1} a 1 další vlastnost</value>
   </data>
   <data name="UI_SelectionTwoNames" xml:space="preserve">
-    <value>{0} and {1}</value>
+    <value>{0} a {1}</value>
   </data>
   <data name="Package__106" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
+    <value>Sada nástrojů Rapid XAML</value>
     <comment>Options group header</comment>
   </data>
   <data name="Package__107" xml:space="preserve">
-    <value>Profiles</value>
+    <value>Profily</value>
     <comment>Options section header</comment>
   </data>
   <data name="Package__110" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
+    <value>Sada nástrojů Rapid XAML</value>
     <comment>Title for Help/About</comment>
   </data>
   <data name="Package__112" xml:space="preserve">
-    <value>Tools to accelerate XAML app development</value>
+    <value>Nástroje pro urychlení vývoje aplikací XAML</value>
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>The following issues prevented the profile from being imported:\r\n\r\n- {0}</value>
+    <value>Import profilu se nezdařil kvůli následujícím problémům:\r\n\r\n- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
-    <value>Unable to import profile</value>
+    <value>Profil nelze importovat</value>
   </data>
   <data name="UI_AccessingOutputPaneFailed" xml:space="preserve">
-    <value>Failed to get the Output window pane.</value>
+    <value>Nepodařilo se získat podokno Výstup.</value>
   </data>
   <data name="UI_ActiveProfileName" xml:space="preserve">
-    <value>{0}    [*ACTIVE*]</value>
+    <value>{0}    [*AKTIVNÍ*]</value>
   </data>
   <data name="UI_CopiedProfileName" xml:space="preserve">
-    <value>{0} (copy)</value>
+    <value>{0} (kopie)</value>
   </data>
   <data name="UI_CreatingOutputPaneFailed" xml:space="preserve">
-    <value>Failed to create the Output window pane.</value>
+    <value>Nepodařilo se vytvořit podokno Výstup.</value>
   </data>
   <data name="UI_NewProfileDefaultName" xml:space="preserve">
-    <value>New</value>
+    <value>Nový</value>
   </data>
   <data name="UI_NoXamlCopiedNoProfilesConfigured" xml:space="preserve">
-    <value>No XAML copied. No profiles configured.</value>
+    <value>Nebyl zkopírován žádný kód XAML. Nebyly nakonfigurovány žádné profily.</value>
   </data>
   <data name="UI_RxtOutputPaneTitle" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
+    <value>Sada nástrojů Rapid XAML</value>
   </data>
   <data name="UI_ToolboxGroupHeader" xml:space="preserve">
     <value>Rapid XAML</value>
@@ -571,31 +571,31 @@
     <comment>VS Context menu text</comment>
   </data>
   <data name="VSCT__CopyToClipboardCommandId" xml:space="preserve">
-    <value>Copy to Clipboard</value>
+    <value>Kopírovat do schránky</value>
     <comment>Command button text for when copying to the clipboard as XAML</comment>
   </data>
   <data name="VSCT__CreateViewCommandId" xml:space="preserve">
-    <value>Create View</value>
+    <value>Vytvořit zobrazení</value>
     <comment>Command button text for when creating a view from the SolutionExplorer</comment>
   </data>
   <data name="VSCT__OpenOptionsCommandId" xml:space="preserve">
-    <value>First set an active profile</value>
+    <value>Nejprve nastavit aktivní profil</value>
     <comment>Command button text when there is no active profile set</comment>
   </data>
   <data name="VSCT__SendToToolboxCommandId" xml:space="preserve">
-    <value>Send to Toolbox</value>
+    <value>Odeslat do sady nástrojů</value>
     <comment>Command button text for when sending to the clipboard as XAML</comment>
   </data>
   <data name="VSCT__SetDatacontextCommandId" xml:space="preserve">
-    <value>Set Datacontext</value>
+    <value>Nastavit kontext dat</value>
     <comment>Command button text for setting the datacontext of a page</comment>
   </data>
   <data name="VSIX__LocalizedDescription" xml:space="preserve">
-    <value>Tools to accelerate XAML app development</value>
+    <value>Nástroje pro urychlení vývoje aplikací XAML</value>
     <comment>Description used in vsixlangpack</comment>
   </data>
   <data name="VSIX__LocalizedName" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
+    <value>Sada nástrojů Rapid XAML</value>
     <comment>Name used in vsixlangpack</comment>
   </data>
 </root>

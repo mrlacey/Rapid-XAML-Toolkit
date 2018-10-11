@@ -118,414 +118,414 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Info_IntializingCommands" xml:space="preserve">
-    <value>Initializing Commands (v{0})</value>
+    <value>명령 (v{0}) 시작하기</value>
     <comment>Info mesage when package initialized</comment>
   </data>
   <data name="Options_AllInOneProject" xml:space="preserve">
-    <value>Views &amp; ViewModels are in the same project</value>
+    <value>보기 &amp; ViewModels가 동일한 프로젝트에 있음</value>
   </data>
   <data name="Options_AllInOneProjectDescription" xml:space="preserve">
-    <value>Indicate that the ViewModels and Views (XAML files) are in the same project.</value>
+    <value>ViewModels 및 보기(XAML files)가 동일한 프로젝트에 있음을 표시합니다.</value>
   </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
-    <value>Add</value>
+    <value>추가</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Copy</value>
+    <value>복사</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Delete</value>
+    <value>삭제</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Edit</value>
+    <value>편집</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>Import</value>
+    <value>가져오기</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>New</value>
+    <value>신규</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
-    <value>Ok</value>
+    <value>확인</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>재설정</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
-    <value>Set as Active</value>
+    <value>활성 상태로 설정</value>
   </data>
   <data name="Options_ClassGrouping" xml:space="preserve">
-    <value>Class grouping</value>
+    <value>클래스 그룹화</value>
   </data>
   <data name="Options_ClassGroupingDescription" xml:space="preserve">
-    <value>The element that encapsulates the elements created for each property when creating XAML for a class.</value>
+    <value>클래스에 대한 XAML을 만들 때, 각 속성을 만들어주는 요소를 캡슐화한 요소입니다.</value>
   </data>
   <data name="Options_CodeBehindConstructorContent" xml:space="preserve">
-    <value>Code-behind constructor content</value>
+    <value>Code-behind 생성자 콘텐츠</value>
   </data>
   <data name="Options_CodeBehindConstructorContentDescription" xml:space="preserve">
-    <value>Code that should be added to the constructor of the code behind file when setting the datacontext.</value>
+    <value>datacontext를 설정할 때 코드 숨김 파일의 생성자에 추가해야 하는 코드입니다.</value>
   </data>
   <data name="Options_CodeBehindPageContent" xml:space="preserve">
-    <value>Code-behind page content</value>
+    <value>Code-behind 페이지 콘텐츠</value>
   </data>
   <data name="Options_CodeBehindPageContentDescription" xml:space="preserve">
-    <value>Code that should be added to the code-behind file, outside of the constructor, when setting the datacontext.</value>
+    <value>datacontext를 설정할 때 생성자 외부에 있는 code-behind 파일에 추가해야 하는 코드입니다.</value>
   </data>
   <data name="Options_CodeBehindPlaceholder" xml:space="preserve">
-    <value>Code-behind file default content</value>
+    <value>Code-behind 파일 기본 콘텐츠</value>
   </data>
   <data name="Options_CodeBehindPlaceholderDescription" xml:space="preserve">
-    <value>The default file contents when creating a code-behind file.</value>
+    <value>code-behind 파일을 만드는 기본 파일 콘텐츠입니다.</value>
   </data>
   <data name="Options_DataContextHeader" xml:space="preserve">
     <value>Datacontext</value>
   </data>
   <data name="Options_DefaultCodeBehindConstructor" xml:space="preserve">
-    <value>Default code-behind constructor</value>
+    <value>기본 code-behind 생성자</value>
   </data>
   <data name="Options_DefaultCodeBehindConstructorDescription" xml:space="preserve">
-    <value>The constuctor of the code-behind file that will be added, if needed and one doesn't already exist.</value>
+    <value>필요하나 존재하지 않는 경우, code-behind의 파일 생성자가 추가됩니다.</value>
   </data>
   <data name="Options_EnableExtendedLogging" xml:space="preserve">
-    <value>Enable extended logging</value>
+    <value>확장된 로깅 사용</value>
   </data>
   <data name="Options_EnumMappingOutput" xml:space="preserve">
-    <value>Enum output</value>
+    <value>열거형 출력</value>
   </data>
   <data name="Options_EnumMappingOutputDescription" xml:space="preserve">
-    <value>The output used for each element of an enumeration.</value>
+    <value>열거형의 각 요소에 사용되는 출력입니다.</value>
   </data>
   <data name="Options_FallbackOutput" xml:space="preserve">
-    <value>Fallback output</value>
+    <value>대체(fallback) 출력</value>
   </data>
   <data name="Options_FallbackOutputDescription" xml:space="preserve">
-    <value>The output used for a property when no specific mapping can be applied.</value>
+    <value>특정 매핑을 적용할 수 없는 경우, 속성에 사용되는 출력입니다.</value>
   </data>
   <data name="Options_GeneralSettingsHeader" xml:space="preserve">
-    <value>General Settings</value>
+    <value>일반 설정</value>
   </data>
   <data name="Options_MappingIfReadOnly" xml:space="preserve">
-    <value>Only if readonly</value>
+    <value>읽기 전용에만 해당</value>
   </data>
   <data name="Options_MappingIfReadOnlyDescription" xml:space="preserve">
-    <value>The mapping should only apply if the property has a public setter.</value>
+    <value>속성에 public setter가 있는 경우에만 매핑을 적용해야 합니다.</value>
   </data>
   <data name="Options_MappingNameFilter" xml:space="preserve">
-    <value>Name filter</value>
+    <value>이름 필터</value>
   </data>
   <data name="Options_MappingNameFilterDescription" xml:space="preserve">
-    <value>The partial name of the property to match with. Multiple values can be specified if separated by a pipe (|) character.</value>
+    <value>일치되는 속성의 부분 이름입니다. 파이프 글자(|)로 구분하면 여러 값을 지정할 수 있습니다.</value>
   </data>
   <data name="Options_MappingOutput" xml:space="preserve">
-    <value>Output</value>
+    <value>출력</value>
   </data>
   <data name="Options_MappingOutputDescription" xml:space="preserve">
-    <value>The output that shoudl be generated if this mapping is used.</value>
+    <value>이 매핑이 사용되는 경우 생성되어야 하는 출력입니다.</value>
   </data>
   <data name="Options_MappingsHeader" xml:space="preserve">
-    <value>Mappings</value>
+    <value>매핑</value>
   </data>
   <data name="Options_MappingType" xml:space="preserve">
-    <value>Type</value>
+    <value>형식</value>
   </data>
   <data name="Options_MappingTypeDescription" xml:space="preserve">
-    <value>The type of the property to match with. Multiple values can be specified if separated by a pipe (|) character.</value>
+    <value>일치되는 속성의 형식입니다. 파이프 글자(|)로 구분하면 여러 값을 지정할 수 있습니다.</value>
   </data>
   <data name="Options_NamingHeader" xml:space="preserve">
-    <value>Naming</value>
+    <value>이름 지정</value>
   </data>
   <data name="Options_NamingVisualizer" xml:space="preserve">
-    <value>Visualize solution structure</value>
+    <value>솔루션 구조 시각화</value>
   </data>
   <data name="Options_ProfileName" xml:space="preserve">
-    <value>Name</value>
+    <value>이름</value>
   </data>
   <data name="Options_ProfilePageTitle" xml:space="preserve">
-    <value>Rapid XAML Toolkit - Edit Profile</value>
+    <value>Rapid XAML Toolkit - 프로필 편집</value>
   </data>
   <data name="Options_ProfilesSectionHeader" xml:space="preserve">
-    <value>Profiles:</value>
+    <value>프로필:</value>
   </data>
   <data name="Options_StructureAndNamingHeader" xml:space="preserve">
-    <value>Structure and Naming</value>
+    <value>구조 및 이름 지정</value>
   </data>
   <data name="Options_StrucutreHeader" xml:space="preserve">
-    <value>Project strucutre</value>
+    <value>프로젝트 구조</value>
   </data>
   <data name="Options_SubPropertyOutput" xml:space="preserve">
-    <value>Sub-property output</value>
+    <value>하위 속성 출력</value>
   </data>
   <data name="Options_SubPropertyOutputDescription" xml:space="preserve">
-    <value>The output used for each property of a generic type.</value>
+    <value>제네릭 형식의 각 속성에 사용되는 출력입니다.</value>
   </data>
   <data name="Options_TemporaryUiNotice" xml:space="preserve">
-    <value>This UI is temporary and will change before release</value>
+    <value>이 UI는 일시적이며 출시 전에 변경됩니다.</value>
   </data>
   <data name="Options_ViewModelDirectoryName" xml:space="preserve">
-    <value>ViewModel directory name</value>
+    <value>ViewModel 디렉토리 이름</value>
   </data>
   <data name="Options_ViewModelDirectoryNameDescription" xml:space="preserve">
-    <value>The name of the folder that contains the ViewModels.</value>
+    <value>ViewModel을 포함한 폴더 이름입니다.</value>
   </data>
   <data name="Options_ViewModelFileSuffix" xml:space="preserve">
-    <value>ViewModel file suffix</value>
+    <value>ViewModel 파일 접미사</value>
   </data>
   <data name="Options_ViewModelFileSuffixDescription" xml:space="preserve">
-    <value>The text appended to the end of the name of each ViewModel.</value>
+    <value>각 ViewModel의 이름 끝에 있는 텍스트입니다.</value>
   </data>
   <data name="Options_ViewModelProjectSuffix" xml:space="preserve">
-    <value>ViewModel Project Suffix</value>
+    <value>ViewModel 프로젝트 접미사</value>
   </data>
   <data name="Options_ViewModelProjectSuffixDescription" xml:space="preserve">
-    <value>The text from the end of the name of the project that contains the ViewModels. </value>
+    <value>ViewModel을 포함하는 프로젝트 이름 끝에 있는 텍스트입니다. </value>
   </data>
   <data name="Options_XamlFileDirectoryName" xml:space="preserve">
-    <value>XAML file directory name</value>
+    <value>XAML 파일 디렉터리 이름</value>
   </data>
   <data name="Options_XamlFileDirectoryNameDescription" xml:space="preserve">
-    <value>The name of the folder that contains the Views (XAML files.)</value>
+    <value>보기(XAML 파일)를 포함하는 폴더 이름입니다.</value>
   </data>
   <data name="Options_XamlFileSuffix" xml:space="preserve">
-    <value>XAML file suffix</value>
+    <value>XAML 파일 접미사</value>
   </data>
   <data name="Options_XamlFileSuffixDescription" xml:space="preserve">
-    <value>The text appended to the end of the name of each View (XAML file.)</value>
+    <value>각 보기(XAML 파일)의 이름 끝에 있는 텍스트입니다.</value>
   </data>
   <data name="Options_XamlPageAttribute" xml:space="preserve">
-    <value>XAMLPage attribute</value>
+    <value>XAMLPage 속성</value>
   </data>
   <data name="Options_XamlPageAttributeDescription" xml:space="preserve">
-    <value>The attribute that should be added ot the top level XAMLelement when setting the datacontext.</value>
+    <value>datacontext를 설정할 때 최상위 XAMLelement에 추가해야 하는 속성입니다.</value>
   </data>
   <data name="Options_XamlPlaceholder" xml:space="preserve">
-    <value>XAML file default content</value>
+    <value>XAML 파일의 기본 콘텐츠</value>
   </data>
   <data name="Options_XamlPlaceholderDescription" xml:space="preserve">
-    <value>The default file contents when creating a new XAML file.</value>
+    <value>새 XAML 파일을 만드는 기본 파일 콘텐츠입니다.</value>
   </data>
   <data name="Options_XamlProjectSuffix" xml:space="preserve">
-    <value>XAML Project Suffix</value>
+    <value>XAML 프로젝트 접미사</value>
   </data>
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
-    <value>The text from the end of the name of the project that contains the Views (XAML files.)</value>
+    <value>보기(XAML 파일)가 포함된 프로젝트 이름 끝의 텍스트입니다.</value>
   </data>
   <data name="Option_ButtonExport" xml:space="preserve">
-    <value>Export</value>
+    <value>내보내기</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
-    <value>Unable to find project '{0}' in the solution.</value>
+    <value>솔루션에 프로젝트{0}을(를) 추가할 수 없습니다.</value>
   </data>
   <data name="Info_AddedRowDefsCount" xml:space="preserve">
-    <value>Adding {0} row definitions.</value>
+    <value>{0}행 정의를 추가 중입니다.</value>
   </data>
   <data name="Info_AddedXamlToToolbox" xml:space="preserve">
-    <value>Added XAML to toolbox for {0}</value>
+    <value>{0}의 도구 상자에 XAML 추가됨.</value>
   </data>
   <data name="Info_AddingColDefsToGrid" xml:space="preserve">
-    <value>Adding ColumnDefinitions to grid.</value>
+    <value>그리드에 ColumnDefinitions를 추가 중입니다.</value>
   </data>
   <data name="Info_AddingGridToOutput" xml:space="preserve">
-    <value>Adding Grid to output.</value>
+    <value>그리드를 출력에 추가 중입니다.</value>
   </data>
   <data name="Info_AddingPropertyToOutput" xml:space="preserve">
-    <value>Adding '{0}' to the output.</value>
+    <value>'{0}'을(를) 출력에 추가 중입니다.</value>
   </data>
   <data name="Info_AnalyzingCSharpCode" xml:space="preserve">
-    <value>Analyzing C# code. (v{0})</value>
+    <value>C# 코드를 분석 중입니다. (v{0})</value>
   </data>
   <data name="Info_AnalyzingVisualBasicCode" xml:space="preserve">
-    <value>Analyzing VB code.  (v{0})</value>
+    <value>VB 코드를 분석 중입니다.  (v{0})</value>
   </data>
   <data name="Info_AttemptingoAddToToolbox" xml:space="preserve">
-    <value>Attempting to add XAML to the Toolbox.</value>
+    <value>XAML을 도구 상자에 추가하려고 합니다.</value>
   </data>
   <data name="Info_AttemptingToCopy" xml:space="preserve">
-    <value>Attempting to copy XAML to clipboard.</value>
+    <value>XAML을 클립보드에 추가하려고 합니다.</value>
   </data>
   <data name="Info_AttemptingToCreateView" xml:space="preserve">
-    <value>Attempting to create View.</value>
+    <value>보기를 생성하려고 합니다.</value>
   </data>
   <data name="Info_CannotGetPropertiesForKnownType" xml:space="preserve">
-    <value>Cannot get sub-properties for known type '{0}'.</value>
+    <value>알려진 형식 '{0}'에 대한 하위 속성을 가져올 수 없습니다.</value>
   </data>
   <data name="Info_ClassNoPublicProperties" xml:space="preserve">
-    <value>Class contains no public properties.</value>
+    <value>클래스에는 public 속성이 없습니다.</value>
   </data>
   <data name="Info_ClassPropertyCount" xml:space="preserve">
-    <value>Class contains {0} properties.</value>
+    <value>클래스에는 {0} 속성이 있습니다.</value>
   </data>
   <data name="Info_CopiedXaml" xml:space="preserve">
-    <value>Copied XAML for {0}: {1}</value>
+    <value>{0}에 대해 복사된 XAML: {1}</value>
   </data>
   <data name="Info_CreatedView" xml:space="preserve">
-    <value>Created file {0}</value>
+    <value>만든 파일{0}</value>
   </data>
   <data name="Info_DocumentPropertyCount" xml:space="preserve">
-    <value>Document contains {0} properties.</value>
+    <value>문서가 {0}개의 속성을 포함합니다.</value>
   </data>
   <data name="Info_EnumElementCount" xml:space="preserve">
-    <value>Found {0} elements of enum.</value>
+    <value>{0}개의 열거형 요소를 찾았습니다.</value>
   </data>
   <data name="Info_FailedToGetNullableType" xml:space="preserve">
-    <value>Failed to get typeSymbol of property '{0}' assumed to have been nullable.</value>
+    <value>null 값을 허용하는 '{0}' 속성의 typeSymbol를 가져올 수 없습니다.</value>
   </data>
   <data name="Info_FileExists" xml:space="preserve">
-    <value>File '{0}' already exists.</value>
+    <value>{0} 파일이 이미 있습니다.</value>
   </data>
   <data name="Info_FormattingOutputForGenericType" xml:space="preserve">
-    <value>Formatting output for generic type '{0}'.</value>
+    <value>제네릭 형식 '{0}'의 출력 서식을 지정 중입니다.</value>
   </data>
   <data name="Info_FormattingOutputForNonGenericType" xml:space="preserve">
-    <value>Formatting output for non-generic type '{0}'.</value>
+    <value>제네릭이 아닌 형식 '{0}'의 출력 서식을 지정 중입니다.</value>
   </data>
   <data name="Info_FormattingOutputForProperty" xml:space="preserve">
-    <value>Formatting output for property '{0}'.</value>
+    <value>속성 '{0}'의 출력 서식을 지정 중입니다.</value>
   </data>
   <data name="Info_FormattingSubpropertiesInsideGrid" xml:space="preserve">
-    <value>Formatting subproperties inside a grid.</value>
+    <value>그리드 안에 하위 속성의 서식을 지정 중입니다.</value>
   </data>
   <data name="Info_FoundEnumMapping" xml:space="preserve">
-    <value>Found mapping for '{0}' as an Enum.</value>
+    <value>'{0}'의 열거형에 대한 매핑을 찾았습니다.</value>
   </data>
   <data name="Info_FoundPropertyCount" xml:space="preserve">
-    <value>Found {0} subproperties.</value>
+    <value>{0}개의 하위 속성을 찾았습니다.</value>
   </data>
   <data name="Info_FoundSubProperty" xml:space="preserve">
-    <value>Found sub-property '{0}'.</value>
+    <value>'{0}' 하위 속성을 찾았습니다.</value>
   </data>
   <data name="Info_FoundSubPropertyOfUnknownType" xml:space="preserve">
-    <value>Found sub-property of unknown type: {0}.</value>
+    <value>알 수 없는 형식의 하위 속성을 찾음: {0}.</value>
   </data>
   <data name="Info_GetSelectionOutput" xml:space="preserve">
-    <value>Getting output for the selection.</value>
+    <value>해당 선택의 출력을 얻는 중입니다.</value>
   </data>
   <data name="Info_GetSingleClassOutput" xml:space="preserve">
-    <value>Getting output for the class.</value>
+    <value>해당 클래스에 대한 출력을 얻는 중입니다.</value>
   </data>
   <data name="Info_GetSingleItemOutput" xml:space="preserve">
-    <value>Getting output for a single item.</value>
+    <value>단일 항목에 대한 출력을 얻는 중입니다.</value>
   </data>
   <data name="Info_GetSinglePropertyOutput" xml:space="preserve">
-    <value>Getting output for a single property.</value>
+    <value>단일 속성에 대한 출력을 얻는 중입니다.</value>
   </data>
   <data name="Info_GettingGenericType" xml:space="preserve">
-    <value>Getting a generic type.</value>
+    <value>제네릭 형식을 얻는 중입니다.</value>
   </data>
   <data name="Info_GettingSubPropertyOutput" xml:space="preserve">
-    <value>Getting sub-property output for '{0}'.</value>
+    <value>'{0}'에 대한 하위 속성 출력을 얻는 중입니다.</value>
   </data>
   <data name="Info_IdentifiedPropertySummary" xml:space="preserve">
-    <value>Identified property as Name='{0}' Type='{1}' IsReadOnly='{2}'.</value>
+    <value>식별한 속성이 Name='{0}' Type='{1}' IsReadOnly='{2}'입니다.</value>
   </data>
   <data name="Info_LookingForReadWriteMappings" xml:space="preserve">
-    <value>Looking for mappings that are not read-only.</value>
+    <value>읽기 전용이 아닌 매핑을 찾는 중입니다.</value>
   </data>
   <data name="Info_NoEnumMappingFound" xml:space="preserve">
-    <value>No mapping found for '{0}' as an Enum so now checking by type name.</value>
+    <value>열거형의 '{0}'에 대한 매핑을 찾을 수 없으므로 이제 형식 이름을 확인하십시오.</value>
   </data>
   <data name="Info_NoMappingFoundUsingFallback" xml:space="preserve">
-    <value>No mapping found so using fallback output.</value>
+    <value>매핑을 찾을 수 없으므로 대체(fallback) 출력을 사용 중입니다.</value>
   </data>
   <data name="Info_NoPropertiesToOutput" xml:space="preserve">
-    <value>No properties to provide output for.</value>
+    <value>출력에 사용할 속성이 없습니다.</value>
   </data>
   <data name="Info_NothingAddedToToolbox" xml:space="preserve">
-    <value>No XAML added to toolbox.</value>
+    <value>도구 상자에 추가된 XAML이 없습니다.</value>
   </data>
   <data name="Info_NothingToCopy" xml:space="preserve">
-    <value>Nothing to copy to clipboard.</value>
+    <value>클립보드에 복사할 항목이 없습니다.</value>
   </data>
   <data name="Info_NotIncludingExcludedProperty" xml:space="preserve">
-    <value>Not including property '{0}' as it's on the exclusion list.</value>
+    <value>제외 목록에 있는 속성 '{0}'을(를) 포함하지 않습니다.</value>
   </data>
   <data name="Info_NotOverwritingFile" xml:space="preserve">
-    <value>Not overwriting '{0}'.</value>
+    <value>'{0}'을(를) 덮어쓰지 않습니다.</value>
   </data>
   <data name="Info_NoViewCreated" xml:space="preserve">
-    <value>No view created.</value>
+    <value>보기를 만들지 않았습니다.</value>
   </data>
   <data name="Info_NoXamlCopied" xml:space="preserve">
-    <value>No XAML copied.</value>
+    <value>복사된 XAML이 없습니다.</value>
   </data>
   <data name="Info_OverwritingFile" xml:space="preserve">
-    <value>Overwriting '{0}'.</value>
+    <value>'{0}'을(를) 덮어쓰는 중입니다.</value>
   </data>
   <data name="Info_PropertiesInSelectedAreaCount" xml:space="preserve">
-    <value>{0} properties within the selection area.</value>
+    <value>선택 영역 내의 {0}개의 속성이 있습니다.</value>
   </data>
   <data name="Info_PropertyIsReadOnly" xml:space="preserve">
-    <value>Property is read-only so looking for read-only mappings first.</value>
+    <value>속성은 읽기 전용이므로 읽기 전용 매핑을 먼저 찾는 중입니다.</value>
   </data>
   <data name="Info_PropertyTypeHasNoSubProperties" xml:space="preserve">
-    <value>'{0}' is of type '{1}' which has has no sub-properties.</value>
+    <value>'{0}'은(는) 하위속성이 없는 '{1}' 형식입니다.</value>
   </data>
   <data name="Info_PropertyTypeNotRecognizedAsGeneric" xml:space="preserve">
-    <value>'{0}' not recognized as generic.</value>
+    <value>'{0}'은(는) 제네릭으로 인식되지 않습니다.</value>
   </data>
   <data name="Info_ProperyIsNotReadOnly" xml:space="preserve">
-    <value>Property is not read-only so filtering out read-only mappings.</value>
+    <value>속성은 읽기 전용이 아니므로 읽기 전용 매핑을 필터링합니다.</value>
   </data>
   <data name="Info_ReplacingIncIntPlaceholder" xml:space="preserve">
-    <value>Replacing incrementing integer placeholder.</value>
+    <value>증분 정수 자리의 표시자를 바꾸는 중입니다.</value>
   </data>
   <data name="Info_ReplacingRepIntPlaceholder" xml:space="preserve">
-    <value>Replacing repeated integer placeholder.</value>
+    <value>반복 정수 자리의 표시자를 교체 중입니다.</value>
   </data>
   <data name="Info_ReturningOutput" xml:space="preserve">
-    <value>Returning: {0}</value>
+    <value>반환 중: {0}</value>
   </data>
   <data name="Info_SearchingForMappingWithGenericWildcard" xml:space="preserve">
-    <value>Searching for mapping for generic type treated as '{0}'.</value>
+    <value>'{0}'(으)로 처리되는 제네릭 형식에 대한 매핑을 검색 중입니다.</value>
   </data>
   <data name="Info_SubpropertyCount" xml:space="preserve">
-    <value>Property '{0}' has {1} sub-properties.</value>
+    <value>'{0}' 속성에는 {1} 하위 속성이 있습니다.</value>
   </data>
   <data name="Info_UnableToAccessTelemetry" xml:space="preserve">
-    <value>Unable to load the assembly 'Microsoft.VisualStudio.Telemetry' so telemetry will not be enabled.</value>
+    <value>어셈블리 'Microsoft.VisualStudio.Telemetry'를 로드할 수 없으므로 텔레메트리를 사용할 수 없습니다.</value>
   </data>
   <data name="Info_UsingClassGrouping" xml:space="preserve">
-    <value>Using class grouping of '{0}'.</value>
+    <value>'{0}' 클래스 그룹화를 사용 중입니다.</value>
   </data>
   <data name="Prompt_ConfirmDeleteProfileMessage" xml:space="preserve">
-    <value>Are you sure you want to delete profile '{0}'?</value>
+    <value>'{0}' 프로필을 삭제하시겠습니까?</value>
   </data>
   <data name="Prompt_ConfirmDeleteProfileTitle" xml:space="preserve">
-    <value>Confirm deletion</value>
+    <value>삭제 확인</value>
   </data>
   <data name="Prompt_ConfirmResetProfilesMessage" xml:space="preserve">
-    <value>Resetting profiles will cause you to lose any changes. Are you sure?</value>
+    <value>프로필을 다시 설정하면 변경 사항이 유실됩니다. 계속하시겠습니까?</value>
   </data>
   <data name="Prompt_ConfirmResetProfilesTitle" xml:space="preserve">
-    <value>Confirm reset</value>
+    <value>다시 설정 확인</value>
   </data>
   <data name="Prompt_FileExistsTitle" xml:space="preserve">
-    <value>File already exists</value>
+    <value>파일이 이미 있습니다.</value>
   </data>
   <data name="Propt_FileExistsMessage" xml:space="preserve">
-    <value>Do you want to override the existing file?</value>
+    <value>기존 파일을 덮어쓰시겠습니까?</value>
   </data>
   <data name="UI_NoPropertiesXaml" xml:space="preserve">
-    <value>&lt;!-- No accessible properties when copying as XAML --&gt;</value>
+    <value>&lt;!-- XAML로 복사할 때 사용 가능한 속성 없음 --&gt;</value>
   </data>
   <data name="UI_ProfileFilterDescription" xml:space="preserve">
-    <value>Rapid XAML Profile</value>
+    <value>Rapid XAML 프로필</value>
   </data>
   <data name="UI_SelectionMoreThanThreeNames" xml:space="preserve">
-    <value>{0}, {1} and {2} other properties</value>
+    <value>{0}, {1} 및 {2}개의 다른 프로필</value>
   </data>
   <data name="UI_SelectionThreeNames" xml:space="preserve">
-    <value>{0}, {1} and 1 other property</value>
+    <value>{0}, {1} 및 1개의 다른 프로필</value>
   </data>
   <data name="UI_SelectionTwoNames" xml:space="preserve">
-    <value>{0} and {1}</value>
+    <value>{0}, {1}</value>
   </data>
   <data name="Package__106" xml:space="preserve">
     <value>Rapid XAML Toolkit</value>
     <comment>Options group header</comment>
   </data>
   <data name="Package__107" xml:space="preserve">
-    <value>Profiles</value>
+    <value>프로필</value>
     <comment>Options section header</comment>
   </data>
   <data name="Package__110" xml:space="preserve">
@@ -533,32 +533,32 @@
     <comment>Title for Help/About</comment>
   </data>
   <data name="Package__112" xml:space="preserve">
-    <value>Tools to accelerate XAML app development</value>
+    <value>XAML 앱 개발 가속화 도구</value>
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>The following issues prevented the profile from being imported:\r\n\r\n- {0}</value>
+    <value>다음 문제로 인해 프로필을 가져올 수 없습니다:\r\n\r\n- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
-    <value>Unable to import profile</value>
+    <value>프로필을 가져올 수 없습니다.</value>
   </data>
   <data name="UI_AccessingOutputPaneFailed" xml:space="preserve">
-    <value>Failed to get the Output window pane.</value>
+    <value>출력 창을 가져오지 못했습니다.</value>
   </data>
   <data name="UI_ActiveProfileName" xml:space="preserve">
-    <value>{0}    [*ACTIVE*]</value>
+    <value>{0}    [*활성*]</value>
   </data>
   <data name="UI_CopiedProfileName" xml:space="preserve">
-    <value>{0} (copy)</value>
+    <value>{0} (복사)</value>
   </data>
   <data name="UI_CreatingOutputPaneFailed" xml:space="preserve">
-    <value>Failed to create the Output window pane.</value>
+    <value>출력 창을 만들지 못했습니다.</value>
   </data>
   <data name="UI_NewProfileDefaultName" xml:space="preserve">
-    <value>New</value>
+    <value>신규</value>
   </data>
   <data name="UI_NoXamlCopiedNoProfilesConfigured" xml:space="preserve">
-    <value>No XAML copied. No profiles configured.</value>
+    <value>복사된 XAML이 없음. 프로필을 구성할 수 없습니다.</value>
   </data>
   <data name="UI_RxtOutputPaneTitle" xml:space="preserve">
     <value>Rapid XAML Toolkit</value>
@@ -571,27 +571,27 @@
     <comment>VS Context menu text</comment>
   </data>
   <data name="VSCT__CopyToClipboardCommandId" xml:space="preserve">
-    <value>Copy to Clipboard</value>
+    <value>클립보드에 복사</value>
     <comment>Command button text for when copying to the clipboard as XAML</comment>
   </data>
   <data name="VSCT__CreateViewCommandId" xml:space="preserve">
-    <value>Create View</value>
+    <value>보기 만들기</value>
     <comment>Command button text for when creating a view from the SolutionExplorer</comment>
   </data>
   <data name="VSCT__OpenOptionsCommandId" xml:space="preserve">
-    <value>First set an active profile</value>
+    <value>먼저 활성 프로필 설정하기</value>
     <comment>Command button text when there is no active profile set</comment>
   </data>
   <data name="VSCT__SendToToolboxCommandId" xml:space="preserve">
-    <value>Send to Toolbox</value>
+    <value>도구 상자로 보내기</value>
     <comment>Command button text for when sending to the clipboard as XAML</comment>
   </data>
   <data name="VSCT__SetDatacontextCommandId" xml:space="preserve">
-    <value>Set Datacontext</value>
+    <value>Datacontext 설정</value>
     <comment>Command button text for setting the datacontext of a page</comment>
   </data>
   <data name="VSIX__LocalizedDescription" xml:space="preserve">
-    <value>Tools to accelerate XAML app development</value>
+    <value>XAML 앱 개발 가속화 도구</value>
     <comment>Description used in vsixlangpack</comment>
   </data>
   <data name="VSIX__LocalizedName" xml:space="preserve">
