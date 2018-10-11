@@ -1289,5 +1289,68 @@ public class Clas*s1
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
         }
+
+        [TestMethod]
+        public void CanHandleMultipleNumberRepetitionsInClass()
+        {
+            var gridProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "string",
+                        NameContains = "",
+                        Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$repint$\" somethingElse=\"$repint$\" />",
+                        IfReadOnly = false,
+                    },
+                    new Mapping
+                    {
+                        Type = "int",
+                        NameContains = "",
+                        Output = "<Int Text=\"$name$\" Grid.Row=\"$incint$\" somethingElse=\"$repint$\" anotherThing=\"$repint$\" />",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class Class100 *
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+        public int Property3 { get; set; }
+        public string Property4 { get; set; }
+        public int Property5 { get; set; }
+        public string Property6 { get; set; }
+    }
+}";
+
+            // Note that using $repint$ on its own in a row (i.e. not after an $incint$) may or may not produce the same output as on the previous line.
+            // This is deliberate. $repint$ is not intended to be used on its own.
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "<TextBlock Text=\"Property1\" Grid.Row=\"0\" somethingElse=\"0\" />"
+         + Environment.NewLine + "<TextBlock Text=\"Property2\" Grid.Row=\"0\" somethingElse=\"0\" />"
+         + Environment.NewLine + "<Int Text=\"Property3\" Grid.Row=\"0\" somethingElse=\"0\" anotherThing=\"0\" />"
+         + Environment.NewLine + "<TextBlock Text=\"Property4\" Grid.Row=\"1\" somethingElse=\"1\" />"
+         + Environment.NewLine + "<Int Text=\"Property5\" Grid.Row=\"1\" somethingElse=\"1\" anotherThing=\"1\" />"
+         + Environment.NewLine + "<TextBlock Text=\"Property6\" Grid.Row=\"2\" somethingElse=\"2\" />"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class100",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, gridProfile);
+        }
     }
 }

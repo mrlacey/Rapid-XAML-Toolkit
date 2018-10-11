@@ -261,6 +261,8 @@ namespace RapidXamlToolkit.Analyzers
                 result = result.Replace(Placeholder.EnumMembers, replacement.ToString());
             }
 
+            var currentNumber = numericSubstitute;
+
             while (result.Contains(Placeholder.IncrementingInteger))
             {
                 Logger?.RecordInfo(StringRes.Info_ReplacingIncIntPlaceholder);
@@ -271,6 +273,8 @@ namespace RapidXamlToolkit.Analyzers
                 result = result.Insert(subPosition, numericSubstitute.ToString());
 
                 numericSubstitute += 1;
+
+                currentNumber = numericSubstitute - 1;
             }
 
             while (result.Contains(Placeholder.RepeatingInteger))
@@ -280,7 +284,7 @@ namespace RapidXamlToolkit.Analyzers
                 var subPosition = result.IndexOf(Placeholder.RepeatingInteger, StringComparison.OrdinalIgnoreCase);
 
                 result = result.Remove(subPosition, Placeholder.RepeatingInteger.Length);
-                result = result.Insert(subPosition, (numericSubstitute - 1).ToString()); // Remove 1 as was incremented after last used
+                result = result.Insert(subPosition, currentNumber.ToString());
             }
 
             if (rawOutput == Placeholder.NoOutput)
