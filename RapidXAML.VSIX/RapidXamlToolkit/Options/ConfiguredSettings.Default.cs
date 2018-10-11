@@ -864,7 +864,7 @@ namespace CsXf.Views
                             {
                                 Type = "DateTimeOffset",
                                 NameContains = "date",
-                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><DatePicker Date=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />Grid.Row=\"$repint$\" Grid.Column=\"1\" ",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><DatePicker Date=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
