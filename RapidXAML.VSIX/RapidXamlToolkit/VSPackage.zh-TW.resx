@@ -122,7 +122,7 @@
     <comment>Options group header</comment>
   </data>
   <data name="107" xml:space="preserve">
-    <value>Profiles</value>
+    <value>設定檔</value>
     <comment>Options section header</comment>
   </data>
   <data name="110" xml:space="preserve">
@@ -130,7 +130,7 @@
     <comment>Title for Help/About</comment>
   </data>
   <data name="112" xml:space="preserve">
-    <value>Tools to accelerate XAML app development</value>
+    <value>加速 XAML 應用程式開發的工具</value>
     <comment>Detailed description for Help/About</comment>
   </data>
 </root>

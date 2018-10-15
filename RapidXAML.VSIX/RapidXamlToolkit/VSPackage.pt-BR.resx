@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="106" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
+    <value>Kit de Ferramentas de XAML Rápido</value>
     <comment>Options group header</comment>
   </data>
   <data name="107" xml:space="preserve">
-    <value>Profiles</value>
+    <value>Perfis</value>
     <comment>Options section header</comment>
   </data>
   <data name="110" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
+    <value>Kit de Ferramentas de XAML Rápido</value>
     <comment>Title for Help/About</comment>
   </data>
   <data name="112" xml:space="preserve">
-    <value>Tools to accelerate XAML app development</value>
+    <value>Ferramentas para acelerar o desenvolvimento de aplicativos XAML</value>
     <comment>Detailed description for Help/About</comment>
   </data>
 </root>
