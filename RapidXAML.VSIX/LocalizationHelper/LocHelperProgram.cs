@@ -71,7 +71,7 @@ namespace LocalizationHelper
             foreach (var culture in cultures)
             {
                 Console.WriteLine($"Copying {culture}");
-                var stringresxFile = Path.Combine(relativeRootPath, $"StringRes.{culture}.resx");
+                var stringresxFile = Path.Combine(relativeResourcesPath, $"StringRes.{culture}.resx");
 
                 var xdoc = new XmlDocument();
                 xdoc.Load(stringresxFile);
