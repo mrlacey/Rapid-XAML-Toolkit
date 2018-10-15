@@ -4,7 +4,6 @@
 using System;
 using System.Windows;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.Options
 {
@@ -58,7 +57,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                new RxtLogger().RecordException(exc);
+                RapidXamlPackage.Logger?.RecordException(exc);
                 throw;
             }
         }
@@ -84,7 +83,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                new RxtLogger().RecordException(exc);
+                RapidXamlPackage.Logger?.RecordException(exc);
                 throw;
             }
         }
@@ -108,7 +107,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                new RxtLogger().RecordException(exc);
+                RapidXamlPackage.Logger?.RecordException(exc);
                 throw;
             }
         }

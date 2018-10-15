@@ -28,6 +28,8 @@ namespace RapidXamlToolkit
     {
         public const string PackageGuidString = "c735dfc3-c416-4501-bc33-558e2aaad8c5";
 
+        public static ILogger Logger { get; private set; }
+
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
@@ -40,23 +42,23 @@ namespace RapidXamlToolkit
 
             var telemLogger = TelemetryAccessor.Create(rxtLogger, telemKey);
 
-            var logger = new RxtLoggerWithTelemtry(rxtLogger, telemLogger);
+            Logger = new RxtLoggerWithTelemtry(rxtLogger, telemLogger);
 
             try
             {
                 // Set the ServiceProvider of AnalyzerBase as it's needed to get settings
                 AnalyzerBase.ServiceProvider = this;
-                logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
+                Logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
 
-                await CreateViewCommand.InitializeAsync(this, logger);
-                await CopyToClipboardCommand.InitializeAsync(this, logger);
-                await SendToToolboxCommand.InitializeAsync(this, logger);
-                await OpenOptionsCommand.InitializeAsync(this, logger);
-                await SetDatacontextCommand.InitializeAsync(this, logger);
+                await CreateViewCommand.InitializeAsync(this, Logger);
+                await CopyToClipboardCommand.InitializeAsync(this, Logger);
+                await SendToToolboxCommand.InitializeAsync(this, Logger);
+                await OpenOptionsCommand.InitializeAsync(this, Logger);
+                await SetDatacontextCommand.InitializeAsync(this, Logger);
             }
             catch (Exception exc)
             {
-                logger.RecordException(exc);
+                Logger.RecordException(exc);
                 throw;
             }
         }
