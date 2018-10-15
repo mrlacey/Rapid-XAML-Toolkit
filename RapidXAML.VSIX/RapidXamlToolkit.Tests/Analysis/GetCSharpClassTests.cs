@@ -1251,45 +1251,6 @@ public class Clas*s1
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
         }
 
-        private void ClassNotFoundTest(string code)
-        {
-            var expected = AnalyzerOutput.Empty;
-
-            this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
-        }
-
-        private void FindSinglePropertyInClass(string code)
-        {
-            var expectedOutput = "<StackPanel>"
-                                 + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-                                 + Environment.NewLine + "</StackPanel>";
-
-            var expected = new AnalyzerOutput
-            {
-                Name = "Class1",
-                Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
-            };
-
-            this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
-        }
-
-        private void FindNoPropertiesInClass(string code)
-        {
-            var expectedOutput = "<StackPanel>"
-                                 + Environment.NewLine + "<!-- No accessible properties when copying as XAML -->"
-                                 + Environment.NewLine + "</StackPanel>";
-
-            var expected = new AnalyzerOutput
-            {
-                Name = "Class1",
-                Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
-            };
-
-            this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
-        }
-
         [TestMethod]
         public void CanHandleMultipleNumberRepetitionsInClass()
         {
@@ -1351,6 +1312,45 @@ namespace tests
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, gridProfile);
+        }
+
+        private void ClassNotFoundTest(string code)
+        {
+            var expected = AnalyzerOutput.Empty;
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
+        }
+
+        private void FindSinglePropertyInClass(string code)
+        {
+            var expectedOutput = "<StackPanel>"
+                                 + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+                                 + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
+        }
+
+        private void FindNoPropertiesInClass(string code)
+        {
+            var expectedOutput = "<StackPanel>"
+                                 + Environment.NewLine + "<!-- No accessible properties when copying as XAML -->"
+                                 + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
         }
     }
 }
