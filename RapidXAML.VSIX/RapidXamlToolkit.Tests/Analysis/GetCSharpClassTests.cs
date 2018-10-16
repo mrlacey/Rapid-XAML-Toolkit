@@ -30,6 +30,7 @@ namespace tests
         public List<string> Property6 { get; set; }    // include NOT readonly
         internal string Property7 { get; set; }        // DO NOT include
         public string Property8 { get => _property8; set => _property8 = value; } // include NOT readonly
+        public static string Property9 { get; private set; } // do not include statics
     }
 }";
 
@@ -1312,6 +1313,127 @@ namespace tests
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, gridProfile);
+        }
+
+        [TestMethod]
+        public void GetClassIgnoreStaticProperties()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1*
+    {
+        public static string Property1 { get; set; }
+        public string Property2 { get; set; }
+        public static string Property3 { get; set; }
+        public string Property4 { get; set; }
+        public static string Property5 { get; set; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property4, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
+        public void GetClassButExcludeInheritedStaticProperties()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1 : BaseCl*ass
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+    }
+    class BaseClass
+    {
+        public static string StaticBaseProperty { get; set; }
+        public string BaseProperty { get; set; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
+        public void GetClassAndSubPropertiesExcludesStatics()
+        {
+            var recurseProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "Order",
+                        NameContains = "",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class C*lass1
+    {
+        public Order LastOrder { get; set; }
+    }
+
+    class Order
+    {
+        public static bool Status { get; set; }
+        public int OrderId { get; set; }
+        public DateTime OrderPlacedDateTime { get; private set; }
+        public string OrderDescription { get; set; }
+    }
+}";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "<StackPanel>"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
+         + Environment.NewLine + "</StackPanel>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
         }
 
         private void ClassNotFoundTest(string code)

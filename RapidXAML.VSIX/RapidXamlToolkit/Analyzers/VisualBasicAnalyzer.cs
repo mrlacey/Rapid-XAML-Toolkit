@@ -537,7 +537,7 @@ namespace RapidXamlToolkit.Analyzers
                 switch (baseType.Kind)
                 {
                     case SymbolKind.NamedType:
-                        properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property && m.DeclaredAccessibility == Accessibility.Public));
+                        properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property && m.DeclaredAccessibility == Accessibility.Public && !m.IsShared()));
                         break;
                     case SymbolKind.ErrorType:
                         Logger?.RecordInfo(StringRes.Info_CannotGetPropertiesForKnownType.WithParams(baseType.Name));

@@ -34,6 +34,7 @@ Public Class Class1
                 _property8 = value
             End Set
         End Property  // include NOT readonly
+        Public Shared Property Property9 As String  // Do not include static/shared
 End Class";
 
             var expectedOutput = "<StackPanel>"
@@ -1193,6 +1194,116 @@ End Namespace";
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, gridProfile);
+        }
+
+        [TestMethod]
+        public void GetClassIgnoreSharedProperties()
+        {
+            var code = @"
+Public Class Class1*
+        Public Shared Property Property1 As String 
+        Public Property Property2 As String 
+        Public Shared Property Property3 As String 
+        Public Property Property4 As String 
+        Public Shared Property Property5 As String 
+End Class";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property4, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
+        public void GetClassButExcludeInheritedSharedProperties()
+        {
+            var code = @"
+Public Class Class1
+    Inherits Base*Class
+
+    Public Property Property1 As String
+    Public Property Property2 As String
+End Class
+
+Public Class BaseClass
+    Public Shared Property StaticBaseProperty As String
+    Public Property BaseProperty As String
+End Class";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "<TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
+        public void GetClassAndSubPropertiesExcludesShared()
+        {
+            var recurseProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "Order",
+                        NameContains = "",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+Pu*blic Class Class1
+        Public Property LastOrder As Order
+End Class
+
+Public Class Order
+        Public Shared Property Status As Boolean
+        Public Property OrderId As Integer
+        Public Property OrderPlacedDateTime As DateTime
+        Public Property OrderDescription As String
+End Class";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "<StackPanel>"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
+         + Environment.NewLine + "</StackPanel>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
         }
 
         private void FindNoPropertiesInClass(string code)
