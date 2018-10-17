@@ -57,5 +57,23 @@ namespace RapidXamlToolkit.Tests.Options
                 Assert.IsNotNull(profile.Datacontext.XamlPageAttribute, nameof(DatacontextSettings.XamlPageAttribute));
             }
         }
+
+        [TestMethod]
+        public void EnsureValidXamlInDefaultConfig()
+        {
+            var defSet = ConfiguredSettings.GetDefaultSettings();
+
+            foreach (var profile in defSet.Profiles)
+            {
+                Assert.IsTrue(profile.FallbackOutput.IsValidXamlOutput(), $"{nameof(Profile.FallbackOutput)} in profile {profile.Name}");
+                Assert.IsTrue(profile.SubPropertyOutput.IsValidXamlOutput(), $"{nameof(Profile.SubPropertyOutput)} in profile {profile.Name}");
+                Assert.IsTrue(profile.EnumMemberOutput.IsValidXamlOutput(), $"{nameof(Profile.EnumMemberOutput)} in profile {profile.Name}");
+
+                foreach (var mapping in profile.Mappings)
+                {
+                    Assert.IsTrue(mapping.Output.IsValidXamlOutput(), $"Invalid output: {mapping.Output}");
+                }
+            }
+        }
     }
 }

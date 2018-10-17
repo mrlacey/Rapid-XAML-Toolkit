@@ -1,6 +1,12 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Windows.Documents;
+
 namespace RapidXamlToolkit
 {
     public class Placeholder
@@ -38,5 +44,21 @@ namespace RapidXamlToolkit
         public const string GeneratedXAML = "$genxaml$";
 
         public const string NoOutput = "$nooutput$";
+
+        private static List<string> all = null;
+
+        public static List<string> All()
+        {
+            if (all == null)
+            {
+                Type type = typeof(Placeholder);
+                var flags = BindingFlags.Static | BindingFlags.Public;
+                var fields = type.GetFields(flags).Where(f => f.IsLiteral);
+
+                all = fields.Select(f => f.GetValue(null).ToString()).ToList();
+            }
+
+            return all;
+        }
     }
 }
