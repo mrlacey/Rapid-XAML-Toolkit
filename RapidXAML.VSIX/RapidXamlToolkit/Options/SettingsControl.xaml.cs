@@ -272,7 +272,7 @@ namespace RapidXamlToolkit.Options
                 if (this.DisplayedProfiles.SelectedIndex >= 0)
                 {
                     var selectedProfile = this.SettingsProvider.ActualSettings.Profiles[this.DisplayedProfiles.SelectedIndex];
-                    var profileJson = Newtonsoft.Json.JsonConvert.SerializeObject(selectedProfile, Newtonsoft.Json.Formatting.Indented);
+                    var profileJson = selectedProfile.AsJson();
 
                     var saveFileDialog = new System.Windows.Forms.SaveFileDialog
                     {

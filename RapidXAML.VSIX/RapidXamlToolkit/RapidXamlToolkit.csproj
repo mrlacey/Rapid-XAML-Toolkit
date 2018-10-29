@@ -331,8 +331,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ApiAnalysis.SimpleJsonAnalyzer.vsixuse, Version=1.6.2.0, Culture=neutral, PublicKeyToken=46e3ed752c2ded10, processorArchitecture=MSIL">
-      <HintPath>..\packages\ApiAnalysis.SimpleJsonAnalyzer.vsixuse.1.6.2\lib\net461\ApiAnalysis.SimpleJsonAnalyzer.vsixuse.dll</HintPath>
+    <Reference Include="ApiAnalysis.SimpleJsonAnalyzer.vsixuse, Version=1.7.0.0, Culture=neutral, PublicKeyToken=46e3ed752c2ded10, processorArchitecture=MSIL">
+      <HintPath>..\packages\ApiAnalysis.SimpleJsonAnalyzer.vsixuse.1.7.0\lib\net461\ApiAnalysis.SimpleJsonAnalyzer.vsixuse.dll</HintPath>
     </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>

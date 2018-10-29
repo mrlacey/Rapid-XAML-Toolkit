@@ -101,5 +101,10 @@ namespace RapidXamlToolkit.Options
         {
             this.OnPropertyChanged(nameof(this.Mappings));
         }
+
+        public string AsJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
     }
 }
