@@ -598,4 +598,11 @@
     <value>Rapid XAML Toolkit</value>
     <comment>Name used in vsixlangpack</comment>
   </data>
+  <data name="Info_UndoContextIndertRowDef" xml:space="preserve">
+    <value>Insert RowDefinition</value>
+  </data>
+  <data name="VSCT_InsertGridRowDefinitionCommandId" xml:space="preserve">
+    <value>Insert Row Definition</value>
+    <comment>Command button text for when inserting a new RowDefinition</comment>
+  </data>
 </root>

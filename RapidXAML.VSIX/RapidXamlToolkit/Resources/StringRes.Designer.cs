@@ -583,6 +583,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert RowDefinition.
+        /// </summary>
+        public static string Info_UndoContextIndertRowDef {
+            get {
+                return ResourceManager.GetString("Info_UndoContextIndertRowDef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Using class grouping of &apos;{0}&apos;..
         /// </summary>
         public static string Info_UsingClassGrouping {
@@ -1443,6 +1452,15 @@ namespace RapidXamlToolkit.Resources {
         public static string VSCT__SetDatacontextCommandId {
             get {
                 return ResourceManager.GetString("VSCT__SetDatacontextCommandId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert Row Definition.
+        /// </summary>
+        public static string VSCT_InsertGridRowDefinitionCommandId {
+            get {
+                return ResourceManager.GetString("VSCT_InsertGridRowDefinitionCommandId", resourceCulture);
             }
         }
         

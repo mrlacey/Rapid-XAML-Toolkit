@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -109,6 +110,107 @@ namespace RapidXamlToolkit.Commands
         public bool ActiveDocumentIsCSharp()
         {
             return this.dte.ActiveDocument.Language == "CSharp";
+        }
+
+        public int GetCursorPosition()
+        {
+            var (offset, _) = this.GetCursorPositionAndLineNumber();
+
+            return offset;
+        }
+
+        public (int, int) GetCursorPositionAndLineNumber()
+        {
+            var offset = ((TextSelection)this.dte.ActiveDocument.Selection).AnchorPoint.AbsoluteCharOffset;
+            var lineNo = ((TextSelection)this.dte.ActiveDocument.Selection).CurrentLine;
+
+            return (offset, lineNo);
+        }
+
+        public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions = null)
+        {
+            if (this.dte.ActiveDocument.Object("TextDocument") is TextDocument txtDoc)
+            {
+                // Have to implement search and replace directly as built-in functionality doesn't provide the control to only replace within the desired area
+                // Plus need to allow areas (exclusions) where replacement shouldn't occur.
+                foreach (var (find, replace) in replacements)
+                {
+                    // move to startindex
+                    // find match text
+                    // if > endIndex move next
+                    // delete match text length
+                    // insert replacement text
+                    // repeat find
+                    txtDoc.Selection.MoveToAbsoluteOffset(startIndex);
+
+                    var keepSearching = true;
+
+                    while (keepSearching)
+                    {
+                        if (!txtDoc.Selection.FindText(find, (int)vsFindOptions.vsFindOptionsMatchCase))
+                        {
+                            break; // while
+                        }
+
+                        var curPos = txtDoc.Selection.AnchorPoint.AbsoluteCharOffset;
+
+                        var searchAgain = false;
+
+                        // if in exclusion area then search again
+                        if (exclusions != null)
+                        {
+                            foreach (var exclusion in exclusions)
+                            {
+                                if (curPos >= exclusion.Key && curPos <= exclusion.Value)
+                                {
+                                    searchAgain = true;
+                                    break; // Foreach
+                                }
+                            }
+                        }
+
+                        if (!searchAgain)
+                        {
+                            if (curPos < endIndex)
+                            {
+                                // The find call above selected the search text so this insert pastes over the top of it
+                                txtDoc.Selection.Insert(replace);
+
+                                // Allow for find and replace being different lengths and adjust endpoint accordingly
+                                endIndex += find.Length - replace.Length;
+                            }
+                            else
+                            {
+                                keepSearching = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void InsertIntoActiveDocumentOnNextLine(string text, int pos)
+        {
+            if (this.dte.ActiveDocument.Object("TextDocument") is TextDocument txtDoc)
+            {
+                txtDoc.Selection.MoveToAbsoluteOffset(pos);
+                txtDoc.Selection.EndOfLine();
+                txtDoc.Selection.NewLine();
+                txtDoc.Selection.Insert(text);
+            }
+        }
+
+        public void StartSingleUndoOperation(string name)
+        {
+            if (!this.dte.UndoContext.IsOpen)
+            {
+                this.dte.UndoContext.Open(name);
+            }
+        }
+
+        public void EndSingleUndoOperation()
+        {
+            this.dte.UndoContext.Close();
         }
     }
 }
