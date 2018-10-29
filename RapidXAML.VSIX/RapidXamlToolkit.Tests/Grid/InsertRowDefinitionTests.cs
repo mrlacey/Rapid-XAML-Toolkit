@@ -715,6 +715,300 @@ namespace RapidXamlToolkit.Tests.Grid
             this.EachPositionBetweenStarsShouldReturnExpectedBoundary(xaml, expected);
         }
 
+        [TestMethod]
+        public void HandleNoClosingRowDefinition_GetDefinitionAtCursor()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ☆Height=""Auto"" /
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+
+        <!-- Content omitted -->
+
+    </Grid>
+</Page>";
+
+            var expected = (string.Empty, -1);
+            this.PositionAtStarShouldReturnExpectedDefinition(xaml, expected);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingRowDefinition_GetReplacements()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ☆Height=""Auto"" /
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+
+        <!-- Content omitted -->
+
+    </Grid>
+</Page>";
+
+            this.PositionAtStarShouldReturnExpectedReplacements(xaml, null);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingRowDefinition_GetGridBoundary()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <☆RowDefinition Height=""Auto☆""
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+
+        <!-- Content omitted -->
+
+    </Grid>
+</Page>";
+
+            var expected = (-1, -1, new Dictionary<int, int>());
+
+            this.EachPositionBetweenStarsShouldReturnExpectedBoundary(xaml, expected);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingRowDefinition_GetRowNumber()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ☆Height=""Auto"" /
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+
+        <!-- Content omitted -->
+
+    </Grid>
+</Page>";
+
+            this.PositionAtStarShouldReturnRowNumber(xaml, -1);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingRowDefinition_ShouldEnableCommand()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=""*"" />
+            <RowDefinition ☆Height=""Auto""
+        </Grid.RowDefinitions>
+
+        <!-- Content omitted -->
+
+    </Grid>
+</Page>";
+
+            this.PositionAtStarShouldEnableCommand(xaml, false);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingRowDefinitions_GetDefinitionAtCursor()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ☆Height=""Auto"" />
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefin
+
+        <!-- Content omitted -->
+
+    </Grid>
+</Page>";
+
+            var expected = (string.Empty, -1);
+            this.PositionAtStarShouldReturnExpectedDefinition(xaml, expected);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingRowDefinitions_GetReplacements()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ☆Height=""Auto"" />
+            <RowDefinition Height=""*"" />
+        </Grid.RowDef
+
+        <!-- Content omitted -->
+
+    </Grid>
+</Page>";
+
+            this.PositionAtStarShouldReturnExpectedReplacements(xaml, null);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingRowDefinitions_GetGridBoundary()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <☆RowDefinition Height=""Auto"" /☆>
+            <RowDefinition Height=""*"" />
+        </Gri
+
+        <!-- Content omitted -->
+
+    </Grid>
+</Page>";
+
+            var expected = (-1, -1, new Dictionary<int, int>());
+
+            this.EachPositionBetweenStarsShouldReturnExpectedBoundary(xaml, expected);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingRowDefinitions_GetRowNumber()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ☆Height=""Auto"" />
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefi
+
+        <!-- Content omitted -->
+
+    </Grid>
+</Page>";
+
+            this.PositionAtStarShouldReturnRowNumber(xaml, -1);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingRowDefinitions_ShouldEnableCommand()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ☆Height=""Auto"" />
+            <RowDefinition Height=""*"" />
+        </Grid.RowDe
+
+        <!-- Content omitted -->
+
+    </Grid>
+</Page>";
+
+            this.PositionAtStarShouldEnableCommand(xaml, false);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingGrid_GetDefinitionAtCursor()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ☆Height=""Auto"" />
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+
+        <!-- Content omitted -->
+
+    </Gri
+</Page>";
+
+            var expected = (string.Empty, -1);
+            this.PositionAtStarShouldReturnExpectedDefinition(xaml, expected);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingGrid_GetReplacements()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ☆Height=""Auto"" />
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+
+        <!-- Content omitted -->
+
+    </Gri
+</Page>";
+
+            this.PositionAtStarShouldReturnExpectedReplacements(xaml, null);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingGrid_GetGridBoundary()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <☆RowDefinition Height=""Auto"" /☆>
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+
+        <!-- Content omitted -->
+
+    </Gri
+</Page>";
+
+            var expected = (-1, -1, new Dictionary<int, int>());
+
+            this.EachPositionBetweenStarsShouldReturnExpectedBoundary(xaml, expected);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingGrid_GetRowNumber()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ☆Height=""Auto"" />
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+
+        <!-- Content omitted -->
+
+    </Gri
+</Page>";
+
+            this.PositionAtStarShouldReturnRowNumber(xaml, -1);
+        }
+
+        [TestMethod]
+        public void HandleNoClosingGrid_ShouldEnableCommand()
+        {
+            var xaml = @"
+<Page>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition ☆Height=""Auto"" />
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+
+        <!-- Content omitted -->
+
+    </Gri
+</Page>";
+
+            this.PositionAtStarShouldEnableCommand(xaml, false);
+        }
+
         private InsertGridRowDefinitionCommandLogic SetUpLogic(string xaml)
         {
             var pos = xaml.IndexOf("☆", StringComparison.Ordinal);
@@ -779,13 +1073,16 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var actual = logic.GetReplacements();
 
-            // Assert isn't able to compare lists of tuples automatically so doing the heavy lifting directly
-            Assert.AreEqual(expected.Count, actual.Count);
-
-            for (int i = 0; i < expected.Count; i++)
+            if (expected != null && actual != null)
             {
-                Assert.AreEqual(expected[i].Item1, actual[i].find);
-                Assert.AreEqual(expected[i].Item2, actual[i].replace);
+                // Assert isn't able to compare lists of tuples automatically so doing the heavy lifting directly
+                Assert.AreEqual(expected.Count, actual.Count);
+
+                for (int i = 0; i < expected.Count; i++)
+                {
+                    Assert.AreEqual(expected[i].Item1, actual[i].find);
+                    Assert.AreEqual(expected[i].Item2, actual[i].replace);
+                }
             }
         }
 

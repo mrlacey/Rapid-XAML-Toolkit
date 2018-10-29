@@ -82,21 +82,30 @@ namespace RapidXamlToolkit.Commands
                 var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
                 var vs = new VisualStudioAbstraction(dte);
 
-                var logic = new InsertGridRowDefinitionCommandLogic(this.Logger, vs);
+                var activeDocText = vs.GetActiveDocumentText();
 
-                var replacements = logic.GetReplacements();
-                var (start, end, exclusions) = logic.GetGridBoundary();
-                var (newDefinition, newDefPos) = logic.GetDefinitionAtCursor();
-
-                vs.StartSingleUndoOperation(StringRes.Info_UndoContextIndertRowDef);
-                try
+                if (activeDocText.IsValidXml())
                 {
-                    vs.ReplaceInActiveDoc(replacements, start, end, exclusions);
-                    vs.InsertIntoActiveDocumentOnNextLine(newDefinition, newDefPos);
+                    var logic = new InsertGridRowDefinitionCommandLogic(this.Logger, vs);
+
+                    var replacements = logic.GetReplacements();
+                    var (start, end, exclusions) = logic.GetGridBoundary();
+                    var (newDefinition, newDefPos) = logic.GetDefinitionAtCursor();
+
+                    vs.StartSingleUndoOperation(StringRes.Info_UndoContextIndertRowDef);
+                    try
+                    {
+                        vs.ReplaceInActiveDoc(replacements, start, end, exclusions);
+                        vs.InsertIntoActiveDocumentOnNextLine(newDefinition, newDefPos);
+                    }
+                    finally
+                    {
+                        vs.EndSingleUndoOperation();
+                    }
                 }
-                finally
+                else
                 {
-                    vs.EndSingleUndoOperation();
+                    this.Logger.RecordInfo(StringRes.Info_UnableToInsertRowDefinitionInvalidXaml);
                 }
             }
             catch (Exception exc)

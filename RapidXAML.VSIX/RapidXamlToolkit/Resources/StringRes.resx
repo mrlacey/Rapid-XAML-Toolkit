@@ -605,4 +605,7 @@
     <value>Insert Row Definition</value>
     <comment>Command button text for when inserting a new RowDefinition</comment>
   </data>
+  <data name="Info_UnableToInsertRowDefinitionInvalidXaml" xml:space="preserve">
+    <value>Unable to insert RowDefinition (Invalid XAML)</value>
+  </data>
 </root>

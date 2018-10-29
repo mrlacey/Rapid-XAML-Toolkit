@@ -583,6 +583,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to insert RowDefinition (Invalid XAML).
+        /// </summary>
+        public static string Info_UnableToInsertRowDefinitionInvalidXaml {
+            get {
+                return ResourceManager.GetString("Info_UnableToInsertRowDefinitionInvalidXaml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert RowDefinition.
         /// </summary>
         public static string Info_UndoContextIndertRowDef {

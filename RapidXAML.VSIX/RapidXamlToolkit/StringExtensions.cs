@@ -305,6 +305,22 @@ namespace RapidXamlToolkit
             return true;
         }
 
+        public static bool IsValidXml(this string source)
+        {
+            try
+            {
+                var xdoc = new XmlDocument();
+                xdoc.LoadXml(source);
+
+                // If loaded OK assume it's valid
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         private static List<string> GetPlaceholders(this string source)
         {
             var plchldrRgx = new Regex("([$$][\\w]+[$$])");
