@@ -674,11 +674,11 @@ End Sub",
 
                     new Profile
                     {
-                        Name = "Xamarin.Forms C# StackLayout",
+                        Name = "Xamarin.Forms StackLayout (XAML + C#)",
                         ClassGrouping = "StackLayout",
                         FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
-                        EnumMemberOutput = " <x:String>$elementwithspaces$</x:String>",
+                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
                         Mappings = MappingsForStackLayout(),
                         ViewGeneration = new ViewGenerationSettings
                         {
