@@ -12,6 +12,8 @@ namespace RapidXamlToolkit.Commands
 {
     public class CreateViewCommandLogic
     {
+        private const bool FormatXaml = true;
+
         private readonly Profile profile;
         private readonly ILogger logger;
         private readonly IFileSystemAbstraction fileSystem;
@@ -39,7 +41,7 @@ namespace RapidXamlToolkit.Commands
 
         public string ViewFolder { get; private set; }
 
-        public async Task ExecuteAsync(string selectedFileName)
+        public async Task ExecuteAsync(string selectedFileName, int indent = 0)
         {
             var vmProj = this.vs.GetActiveProject();
 
@@ -146,23 +148,40 @@ namespace RapidXamlToolkit.Commands
 
                         var vmNamespace = $"{vmProjName}.{config.ViewModelDirectoryName}".TrimEnd('.');
 
-                        var replacementValues = (viewProjName, viewNamespace, vmNamespace, viewClassName, vmClassName, analyzerOutput.Output);
+                        var replacementValues = (viewProjName, viewNamespace, vmNamespace, viewClassName, vmClassName);
 
                         this.XamlFileContents = this.ReplacePlaceholders(config.XamlPlaceholder, replacementValues);
+
+                        // This check is here to make it easy to remove formatting, or make it configuable, if desired X-Ref #62
+                        if (FormatXaml)
+                        {
+                            var formattedXaml = analyzerOutput.Output.FormatXaml(indent);
+
+                            var placeholderPos = this.XamlFileContents.IndexOf(Placeholder.GeneratedXAML);
+                            var startOfPlaceholderLine = this.XamlFileContents.Substring(0, placeholderPos).LastIndexOf(Environment.NewLine);
+
+                            var insertIndent = placeholderPos - startOfPlaceholderLine - Environment.NewLine.Length;
+
+                            this.XamlFileContents = this.XamlFileContents.Replace(Placeholder.GeneratedXAML, formattedXaml.Replace(Environment.NewLine, Environment.NewLine + new string(' ', insertIndent)).Trim());
+                        }
+                        else
+                        {
+                            this.XamlFileContents = this.XamlFileContents.Replace(Placeholder.GeneratedXAML, analyzerOutput.Output);
+                        }
+
                         this.CodeFileContents = this.ReplacePlaceholders(config.CodePlaceholder, replacementValues);
                     }
                 }
             }
         }
 
-        private string ReplacePlaceholders(string source, (string projName, string viewNs, string vmNs, string viewClass, string vmClass, string xaml) values)
+        private string ReplacePlaceholders(string source, (string projName, string viewNs, string vmNs, string viewClass, string vmClass) values)
         {
             return source.Replace(Placeholder.ViewProject, values.projName)
                          .Replace(Placeholder.ViewNamespace, values.viewNs)
                          .Replace(Placeholder.ViewModelNamespace, values.vmNs)
                          .Replace(Placeholder.ViewClass, values.viewClass)
-                         .Replace(Placeholder.ViewModelClass, values.vmClass)
-                         .Replace(Placeholder.GeneratedXAML, values.xaml);
+                         .Replace(Placeholder.ViewModelClass, values.vmClass);
         }
     }
 }

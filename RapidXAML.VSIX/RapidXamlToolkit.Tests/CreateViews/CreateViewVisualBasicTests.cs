@@ -44,14 +44,14 @@ End Class",
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb");
+            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb", 4);
 
             var expectedXaml = @"<Page
     x:Class=""App.Files.TestPage"">
     <Grid>
         <StackPanel>
-<TextBlock FB=""True"" Text=""OnlyProperty"" />
-</StackPanel>
+            <TextBlock FB=""True"" Text=""OnlyProperty"" />
+        </StackPanel>
     </Grid>
 </Page>
 ";
@@ -113,14 +113,14 @@ End Class",
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.vb");
+            await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.vb", 4);
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
     <Grid>
         <StackPanel>
-<TextBlock FB=""True"" Text=""OnlyProperty"" />
-</StackPanel>
+            <TextBlock FB=""True"" Text=""OnlyProperty"" />
+        </StackPanel>
     </Grid>
 </Page>
 ";
@@ -187,14 +187,14 @@ End Class",
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.vb");
+            await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.vb", 4);
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
     <Grid>
         <StackPanel>
-<TextBlock FB=""True"" Text=""OnlyProperty"" />
-</StackPanel>
+            <TextBlock FB=""True"" Text=""OnlyProperty"" />
+        </StackPanel>
     </Grid>
 </Page>
 ";

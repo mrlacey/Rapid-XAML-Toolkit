@@ -42,14 +42,14 @@ namespace RapidXamlToolkit.Tests.CreateViews
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.cs");
+            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.cs", 4);
 
             var expectedXaml = @"<Page
     x:Class=""App.Files.TestPage"">
     <Grid>
         <StackPanel>
-<TextBlock FB=""True"" Text=""OnlyProperty"" />
-</StackPanel>
+            <TextBlock FB=""True"" Text=""OnlyProperty"" />
+        </StackPanel>
     </Grid>
 </Page>
 ";
@@ -109,14 +109,14 @@ namespace App.Files
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.cs");
+            await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.cs", 4);
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
     <Grid>
         <StackPanel>
-<TextBlock FB=""True"" Text=""OnlyProperty"" />
-</StackPanel>
+            <TextBlock FB=""True"" Text=""OnlyProperty"" />
+        </StackPanel>
     </Grid>
 </Page>
 ";
@@ -181,14 +181,14 @@ namespace App.Views
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.cs");
+            await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.cs", 4);
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
     <Grid>
         <StackPanel>
-<TextBlock FB=""True"" Text=""OnlyProperty"" />
-</StackPanel>
+            <TextBlock FB=""True"" Text=""OnlyProperty"" />
+        </StackPanel>
     </Grid>
 </Page>
 ";

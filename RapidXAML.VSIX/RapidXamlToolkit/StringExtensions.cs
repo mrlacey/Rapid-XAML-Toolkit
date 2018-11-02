@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
@@ -260,6 +262,50 @@ namespace RapidXamlToolkit
             }
 
             return true;
+        }
+
+        public static string FormatXaml(this string source, int indentSize)
+        {
+            var doc = new XmlDocument();
+
+            bool wrapped = false;
+
+            try
+            {
+                doc.LoadXml(source);
+            }
+            catch (XmlException)
+            {
+                // Assume failures are due to multiple root elemets
+                doc.LoadXml($"<wrap>{source}</wrap>");
+                wrapped = true;
+            }
+
+            var stringWriter = new StringWriter(new StringBuilder());
+
+            var indentString = new string(' ', indentSize);
+
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                Indent = true,
+                IndentChars = indentString,
+                NewLineChars = Environment.NewLine,
+                NewLineHandling = NewLineHandling.Replace,
+                OmitXmlDeclaration = true,
+            };
+
+            var xmlTextWriter = XmlWriter.Create(stringWriter, settings);
+            doc.Save(xmlTextWriter);
+
+            var result = stringWriter.ToString();
+
+            if (wrapped)
+            {
+                // remove the dummy root element, the indentation from the extra root element, and the trailing newline that the wrapping left
+                result = result.Replace("<wrap>", string.Empty).Replace("</wrap>", string.Empty).Replace(Environment.NewLine + indentString, Environment.NewLine).Trim();
+            }
+
+            return result;
         }
 
         private static List<string> GetPlaceholders(this string source)

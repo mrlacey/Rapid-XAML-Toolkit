@@ -170,8 +170,9 @@ namespace RapidXamlToolkit.Commands
                 var profile = AnalyzerBase.GetSettings().GetActiveProfile();
 
                 var logic = new CreateViewCommandLogic(profile, this.Logger, new VisualStudioAbstraction(dte, componentModel));
+                var indent = await this.GetXamlIndentAsync(this.ServiceProvider);
 
-                await logic.ExecuteAsync(this.SelectedFileName);
+                await logic.ExecuteAsync(this.SelectedFileName, indent);
 
                 if (logic.CreateView)
                 {
