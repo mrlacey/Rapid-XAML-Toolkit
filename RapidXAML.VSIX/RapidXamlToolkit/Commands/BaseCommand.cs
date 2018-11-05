@@ -79,5 +79,16 @@ namespace RapidXamlToolkit.Commands
                 return indent.Default;
             }
         }
+
+        protected void SuppressAnyException(Action action)
+        {
+            try
+            {
+                action.Invoke();
+            }
+            catch (Exception)
+            {
+            }
+        }
     }
 }

@@ -80,6 +80,7 @@
     <Compile Include="Commands\SetDataContextCommandLogic.cs" />
     <Compile Include="Commands\VisualStudioAbstraction.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />
+    <Compile Include="DteExtensions.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />
     <Compile Include="Analyzers\VisualBasicAnalyzer.cs" />
     <Compile Include="Commands\CreateViewCommand.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Options\ConfiguredSettings.cs" />
     <Compile Include="Options\ConfiguredSettings.Default.cs" />
     <Compile Include="Options\DatacontextSettings.cs" />
+    <Compile Include="Options\GeneralSettings.cs" />
     <Compile Include="Options\ICanClose.cs" />
     <Compile Include="Options\Mapping.cs" />
     <Compile Include="Options\Profile.cs" />

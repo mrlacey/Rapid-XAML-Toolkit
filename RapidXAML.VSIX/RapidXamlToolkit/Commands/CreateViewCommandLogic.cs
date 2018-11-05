@@ -166,7 +166,9 @@ namespace RapidXamlToolkit.Commands
                         }
                         else
                         {
+#pragma warning disable CS0162 // Unreachable code detected
                             this.XamlFileContents = this.XamlFileContents.Replace(Placeholder.GeneratedXAML, analyzerOutput.Output);
+#pragma warning restore CS0162 // Unreachable code detected
                         }
 
                         this.CodeFileContents = this.ReplacePlaceholders(config.CodePlaceholder, replacementValues);

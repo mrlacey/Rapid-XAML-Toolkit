@@ -598,4 +598,13 @@
     <value>Rapid XAML Toolkit</value>
     <comment>Name used in vsixlangpack</comment>
   </data>
+  <data name="Options_AttemptAutomaticDocumentFormatting" xml:space="preserve">
+    <value>Attempt Automatic Document Formatting</value>
+  </data>
+  <data name="Options_AttemptAutomaticDocumentFormattingDescription" xml:space="preserve">
+    <value>Trigger Visual Studio's automatic document formatting after modifying a document</value>
+  </data>
+  <data name="Options_GeneralHeader" xml:space="preserve">
+    <value>General</value>
+  </data>
 </root>

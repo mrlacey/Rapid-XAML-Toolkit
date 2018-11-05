@@ -169,6 +169,22 @@
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Datacontext.DefaultCodeBehindConstructor, Mode=TwoWay}" Margin="0,4,0,0" />
                 </Grid>
             </TabItem>
+            <TabItem Header="General">
+
+                <Grid Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormatting}" />
+                    <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding General.AttemptAutomaticDocumentFormatting, Mode=TwoWay}" Margin="0,4" />
+                </Grid>
+            </TabItem>
         </TabControl>
 
         <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="{x:Static strings:StringRes.Options_ButtonOk}" Click="OkClicked" Width="70" HorizontalAlignment="Right" Margin="0,8,0,0" />

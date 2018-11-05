@@ -153,6 +153,8 @@ namespace RapidXamlToolkit.Commands
                         }
                     }
                 }
+
+                this.SuppressAnyException(() => dte.FormatDocument(profile));
             }
             catch (Exception exc)
             {
