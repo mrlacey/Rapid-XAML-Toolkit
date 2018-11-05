@@ -185,11 +185,11 @@ namespace RapidXamlToolkit.Tests.Analysis
             {
                 var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
-                var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
+                var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
 
                 Assert.AreEqual(expected.OutputType, actual.OutputType, $"Failure at {pos} ({startPos}-{endPos})");
                 Assert.AreEqual(expected.Name, actual.Name, $"Failure at {pos} ({startPos}-{endPos})");
-                Assert.AreEqual(expected.Output, actual.Output, $"Failure at {pos} ({startPos}-{endPos})");
+                StringAssert.AreEqual(expected.Output, actual.Output, $"Failure at {pos} ({startPos}-{endPos})");
 
                 positionsTested += 1;
             }
@@ -211,11 +211,11 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
 
             Assert.AreEqual(expected.OutputType, actual.OutputType);
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.Output, actual.Output);
+            StringAssert.AreEqual(expected.Output, actual.Output);
         }
 
         protected void PositionAtStarShouldProduceExpectedUsingAdditonalFiles(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalCode)
@@ -245,11 +245,11 @@ namespace RapidXamlToolkit.Tests.Analysis
             var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer
                                     : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
 
             Assert.AreEqual(expected.OutputType, actual.OutputType);
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.Output, actual.Output);
+            StringAssert.AreEqual(expected.Output, actual.Output);
         }
 
         protected void PositionAtStarShouldProduceExpectedUsingAdditonalReferences(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalReferences)
@@ -281,11 +281,11 @@ namespace RapidXamlToolkit.Tests.Analysis
             var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer
                                     : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
 
             Assert.AreEqual(expected.OutputType, actual.OutputType);
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.Output, actual.Output);
+            StringAssert.AreEqual(expected.Output, actual.Output);
         }
 
         protected void PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalLibraryPaths)
@@ -317,11 +317,11 @@ namespace RapidXamlToolkit.Tests.Analysis
             var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer
                                     : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
 
             Assert.AreEqual(expected.OutputType, actual.OutputType);
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.Output, actual.Output);
+            StringAssert.AreEqual(expected.Output, actual.Output);
         }
 
         protected void SelectionBetweenStarsShouldProduceExpected(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload)
@@ -339,11 +339,11 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
 
-            var actual = analyzer.GetSelectionOutput(syntaxTree.GetRoot(), semModel, startPos, endPos, profileOverload);
+            var actual = analyzer.GetSelectionOutput(syntaxTree.GetRoot(), semModel, startPos, endPos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
 
             Assert.AreEqual(expected.OutputType, actual.OutputType);
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.Output, actual.Output);
+            StringAssert.AreEqual(expected.Output, actual.Output);
         }
     }
 }

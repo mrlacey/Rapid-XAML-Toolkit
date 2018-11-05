@@ -50,8 +50,8 @@ End Class",
     x:Class=""App.Files.TestPage"">
     <Grid>
         <StackPanel>
-<TextBlock FB=""True"" Text=""OnlyProperty"" />
-</StackPanel>
+            <TextBlock FB=""True"" Text=""OnlyProperty"" />
+        </StackPanel>
     </Grid>
 </Page>
 ";
@@ -119,8 +119,8 @@ End Class",
     x:Class=""App.Views.TestPage"">
     <Grid>
         <StackPanel>
-<TextBlock FB=""True"" Text=""OnlyProperty"" />
-</StackPanel>
+            <TextBlock FB=""True"" Text=""OnlyProperty"" />
+        </StackPanel>
     </Grid>
 </Page>
 ";
@@ -193,8 +193,8 @@ End Class",
     x:Class=""App.Views.TestPage"">
     <Grid>
         <StackPanel>
-<TextBlock FB=""True"" Text=""OnlyProperty"" />
-</StackPanel>
+            <TextBlock FB=""True"" Text=""OnlyProperty"" />
+        </StackPanel>
     </Grid>
 </Page>
 ";

@@ -79,6 +79,10 @@ namespace $viewns$
     InitializeComponent();
 }",
                         },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
+                        },
                     },
 
                     new Profile
@@ -144,6 +148,10 @@ namespace $viewns$
     InitializeComponent();
 }",
                         },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
+                        },
                     },
 
                     new Profile
@@ -208,6 +216,10 @@ namespace $viewns$
 {
     InitializeComponent();
 }",
+                        },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
                         },
                     },
 
@@ -280,6 +292,10 @@ namespace $viewns$
     InitializeComponent();
 }",
                         },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
+                        },
                     },
 
                     new Profile
@@ -350,6 +366,10 @@ namespace $viewns$
     InitializeComponent();
 }",
                         },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
+                        },
                     },
 
                     new Profile
@@ -416,6 +436,10 @@ namespace $viewns$
     InitializeComponent();
 }",
                         },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
+                        },
                     },
 
                     new Profile
@@ -478,6 +502,10 @@ End Namespace
                             DefaultCodeBehindConstructor = @"Public Sub New()
     Me.InitializeComponent()
 End Sub",
+                        },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
                         },
                     },
 
@@ -542,6 +570,10 @@ End Namespace
     Me.InitializeComponent()
 End Sub",
                         },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
+                        },
                     },
 
                     new Profile
@@ -604,6 +636,10 @@ End Namespace
                             DefaultCodeBehindConstructor = @"Public Sub New()
     Me.InitializeComponent()
 End Sub",
+                        },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
                         },
                     },
 
@@ -669,6 +705,10 @@ End Property",
                             DefaultCodeBehindConstructor = @"Public sub New
     InitializeComponent()
 End Sub",
+                        },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
                         },
                     },
 
@@ -740,6 +780,10 @@ namespace CsXf.Views
 {
     InitializeComponent();
 }",
+                        },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
                         },
                     },
                 },

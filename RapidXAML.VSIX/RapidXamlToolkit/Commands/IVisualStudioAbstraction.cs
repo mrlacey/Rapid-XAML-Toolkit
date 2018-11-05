@@ -23,5 +23,7 @@ namespace RapidXamlToolkit.Commands
         string GetActiveDocumentText();
 
         bool ActiveDocumentIsCSharp();
+
+        Task<int> GetXamlIndentAsync();
     }
 }

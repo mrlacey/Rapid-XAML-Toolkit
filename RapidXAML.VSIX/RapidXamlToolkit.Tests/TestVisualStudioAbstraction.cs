@@ -25,6 +25,8 @@ namespace RapidXamlToolkit.Tests
 
         public bool DocumentIsCSharp { get; set; } = false;
 
+        public int XamlIndent { get; set; } = 4;
+
         public ProjectWrapper GetActiveProject()
         {
             return this.ActiveProject;
@@ -65,6 +67,12 @@ namespace RapidXamlToolkit.Tests
         public bool ActiveDocumentIsCSharp()
         {
             return this.DocumentIsCSharp;
+        }
+
+        public async Task<int> GetXamlIndentAsync()
+        {
+            await Task.CompletedTask;
+            return this.XamlIndent;
         }
     }
 }

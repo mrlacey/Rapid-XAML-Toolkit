@@ -40,6 +40,9 @@ namespace RapidXamlToolkit.Commands
 
                 var semanticModel = await document.GetSemanticModelAsync();
 
+                var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
+                var xamlIndent = await vs.GetXamlIndentAsync();
+
                 IDocumentAnalyzer analyzer = null;
 
                 if (activeDocument.Language == "CSharp")
@@ -52,8 +55,8 @@ namespace RapidXamlToolkit.Commands
                 }
 
                 result = isSelection
-                    ? analyzer?.GetSelectionOutput(await document.GetSyntaxRootAsync(), semanticModel, selection.Start.Position, selection.End.Position)
-                    : analyzer?.GetSingleItemOutput(await document.GetSyntaxRootAsync(), semanticModel, caretPosition.Position);
+                    ? analyzer?.GetSelectionOutput(await document.GetSyntaxRootAsync(), semanticModel, selection.Start.Position, selection.End.Position, xamlIndent)
+                    : analyzer?.GetSingleItemOutput(await document.GetSyntaxRootAsync(), semanticModel, caretPosition.Position, xamlIndent);
             }
             else
             {

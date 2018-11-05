@@ -619,6 +619,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attempt Automatic Document Formatting.
+        /// </summary>
+        public static string Options_AttemptAutomaticDocumentFormatting {
+            get {
+                return ResourceManager.GetString("Options_AttemptAutomaticDocumentFormatting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trigger Visual Studio&apos;s automatic document formatting after modifying a document.
+        /// </summary>
+        public static string Options_AttemptAutomaticDocumentFormattingDescription {
+            get {
+                return ResourceManager.GetString("Options_AttemptAutomaticDocumentFormattingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Options_ButtonAdd {
@@ -840,6 +858,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Options_FallbackOutputDescription {
             get {
                 return ResourceManager.GetString("Options_FallbackOutputDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string Options_GeneralHeader {
+            get {
+                return ResourceManager.GetString("Options_GeneralHeader", resourceCulture);
             }
         }
         

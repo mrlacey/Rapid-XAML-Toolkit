@@ -38,12 +38,13 @@ Public Class Class1
 End Class";
 
             var expectedOutput = "<StackPanel>"
-                + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-                + Environment.NewLine + "<TextBlock Text=\"Property2\" />"
-                + Environment.NewLine + "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"Property5\" Value=\"{x:Bind Property5, Mode=TwoWay}\" />"
-                + Environment.NewLine + "<ItemsControl ItemsSource=\"{x:Bind Property6}\"></ItemsControl>"
-                + Environment.NewLine + "<TextBox Text=\"{x:Bind Property8, Mode=TwoWay}\" />"
-                + Environment.NewLine + "</StackPanel>";
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property2\" />"
+         + Environment.NewLine + "    <Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"Property5\" Value=\"{x:Bind Property5, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <ItemsControl ItemsSource=\"{x:Bind Property6}\">"
+         + Environment.NewLine + "    </ItemsControl>"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property8, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
             {
@@ -75,7 +76,7 @@ Public Class Class1
 End Class";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -115,8 +116,8 @@ Public Class Class100 *
 End Class";
 
             var expectedOutput = "<StackPanel Orientation=\"Horizontal\">"
-                                 + Environment.NewLine + "<TextBlock Text=\"Property1\" />"
-                                 + Environment.NewLine + "</StackPanel>";
+         + Environment.NewLine + "    <TextBlock Text=\"Property1\" />"
+         + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
             {
@@ -156,9 +157,9 @@ Public Class Class100*
 End Class";
 
             var expectedOutput = "<Grid>"
-                                 + Environment.NewLine + "<TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
-                                 + Environment.NewLine + "<TextBlock Text=\"Property2\" Grid.Row=\"1\" />"
-                                 + Environment.NewLine + "</Grid>";
+         + Environment.NewLine + "    <TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property2\" Grid.Row=\"1\" />"
+         + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
             {
@@ -198,12 +199,12 @@ Public Class Class100 *
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<Grid.RowDefinitions>"
-         + Environment.NewLine + "<RowDefinition Height=\"Auto\" />"
-         + Environment.NewLine + "<RowDefinition Height=\"*\" />"
-         + Environment.NewLine + "</Grid.RowDefinitions>"
-         + Environment.NewLine + "<TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
-         + Environment.NewLine + "<TextBlock Text=\"Property2\" Grid.Row=\"1\" />"
+         + Environment.NewLine + "    <Grid.RowDefinitions>"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"*\" />"
+         + Environment.NewLine + "    </Grid.RowDefinitions>"
+         + Environment.NewLine + "    <TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property2\" Grid.Row=\"1\" />"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -244,16 +245,16 @@ Public Class Class100 *
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<Grid.ColumnDefinitions>"
-         + Environment.NewLine + "<ColumnDefinition Width=\"Auto\" />"
-         + Environment.NewLine + "<ColumnDefinition Width=\"*\" />"
-         + Environment.NewLine + "</Grid.ColumnDefinitions>"
-         + Environment.NewLine + "<Grid.RowDefinitions>"
-         + Environment.NewLine + "<RowDefinition Height=\"Auto\" />"
-         + Environment.NewLine + "<RowDefinition Height=\"*\" />"
-         + Environment.NewLine + "</Grid.RowDefinitions>"
-         + Environment.NewLine + "<TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
-         + Environment.NewLine + "<TextBlock Text=\"Property2\" Grid.Row=\"1\" />"
+         + Environment.NewLine + "    <Grid.ColumnDefinitions>"
+         + Environment.NewLine + "        <ColumnDefinition Width=\"Auto\" />"
+         + Environment.NewLine + "        <ColumnDefinition Width=\"*\" />"
+         + Environment.NewLine + "    </Grid.ColumnDefinitions>"
+         + Environment.NewLine + "    <Grid.RowDefinitions>"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"*\" />"
+         + Environment.NewLine + "    </Grid.RowDefinitions>"
+         + Environment.NewLine + "    <TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property2\" Grid.Row=\"1\" />"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -293,10 +294,10 @@ Public Class Class100 *
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<Grid.RowDefinitions>"
-         + Environment.NewLine + "<RowDefinition Height=\"*\" />"
-         + Environment.NewLine + "</Grid.RowDefinitions>"
-         + Environment.NewLine + "<TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
+         + Environment.NewLine + "    <Grid.RowDefinitions>"
+         + Environment.NewLine + "        <RowDefinition Height=\"*\" />"
+         + Environment.NewLine + "    </Grid.RowDefinitions>"
+         + Environment.NewLine + "    <TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -336,14 +337,14 @@ Public Class Class100 *
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<Grid.ColumnDefinitions>"
-         + Environment.NewLine + "<ColumnDefinition Width=\"Auto\" />"
-         + Environment.NewLine + "<ColumnDefinition Width=\"*\" />"
-         + Environment.NewLine + "</Grid.ColumnDefinitions>"
-         + Environment.NewLine + "<Grid.RowDefinitions>"
-         + Environment.NewLine + "<RowDefinition Height=\"*\" />"
-         + Environment.NewLine + "</Grid.RowDefinitions>"
-         + Environment.NewLine + "<TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
+         + Environment.NewLine + "    <Grid.ColumnDefinitions>"
+         + Environment.NewLine + "        <ColumnDefinition Width=\"Auto\" />"
+         + Environment.NewLine + "        <ColumnDefinition Width=\"*\" />"
+         + Environment.NewLine + "    </Grid.ColumnDefinitions>"
+         + Environment.NewLine + "    <Grid.RowDefinitions>"
+         + Environment.NewLine + "        <RowDefinition Height=\"*\" />"
+         + Environment.NewLine + "    </Grid.RowDefinitions>"
+         + Environment.NewLine + "    <TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -501,10 +502,10 @@ Public Class Order
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
-         + Environment.NewLine + "</StackPanel>"
+         + Environment.NewLine + "    <StackPanel>"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderDescription\" />"
+         + Environment.NewLine + "    </StackPanel>"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -546,10 +547,10 @@ Pu*blic Class Class1
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_TestProperty\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_BaseTestProperty\" />"
-         + Environment.NewLine + "</StackPanel>"
+         + Environment.NewLine + "    <StackPanel>"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_TestProperty\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_BaseTestProperty\" />"
+         + Environment.NewLine + "    </StackPanel>"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -596,11 +597,11 @@ Public Class Order
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_TestProperty\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_BaseTestProperty\" />"
-         + Environment.NewLine + "</StackPanel>"
+         + Environment.NewLine + "    <StackPanel>"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_TestProperty\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_BaseTestProperty\" />"
+         + Environment.NewLine + "    </StackPanel>"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -646,10 +647,16 @@ Public Class Order
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
-         + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
+         + Environment.NewLine + "    <ListView>"
+         + Environment.NewLine + "        <ListView.ItemTemplate>"
+         + Environment.NewLine + "            <DataTemplate>"
+         + Environment.NewLine + "                <StackPanel>"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_OrderDescription\" />"
+         + Environment.NewLine + "                </StackPanel>"
+         + Environment.NewLine + "            </DataTemplate>"
+         + Environment.NewLine + "        </ListView.ItemTemplate>"
+         + Environment.NewLine + "    </ListView>"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -695,23 +702,23 @@ Public Class Order
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<Grid>"
-         + Environment.NewLine + "<Grid.ColumnDefinitions>"
-         + Environment.NewLine + "<ColumnDefinition Width=\"Auto\" />"
-         + Environment.NewLine + "<ColumnDefinition Width=\"*\" />"
-         + Environment.NewLine + "</Grid.ColumnDefinitions>"
-         + Environment.NewLine + "<Grid.RowDefinitions>"
-         + Environment.NewLine + "<RowDefinition Height=\"Auto\" />"
-         + Environment.NewLine + "<RowDefinition Height=\"Auto\" />"
-         + Environment.NewLine + "<RowDefinition Height=\"*\" />"
-         + Environment.NewLine + "</Grid.RowDefinitions>"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderId\" Grid.Row=\"0\" Grid.Column=\"0\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderId\" Grid.Row=\"0\" Grid.Column=\"1\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderPlacedDateTime\" Grid.Row=\"1\" Grid.Column=\"0\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderPlacedDateTime\" Grid.Row=\"1\" Grid.Column=\"1\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderDescription\" Grid.Row=\"2\" Grid.Column=\"0\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_OrderDescription\" Grid.Row=\"2\" Grid.Column=\"1\" />"
-         + Environment.NewLine + "</Grid>"
+         + Environment.NewLine + "    <Grid>"
+         + Environment.NewLine + "        <Grid.ColumnDefinitions>"
+         + Environment.NewLine + "            <ColumnDefinition Width=\"Auto\" />"
+         + Environment.NewLine + "            <ColumnDefinition Width=\"*\" />"
+         + Environment.NewLine + "        </Grid.ColumnDefinitions>"
+         + Environment.NewLine + "        <Grid.RowDefinitions>"
+         + Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "            <RowDefinition Height=\"*\" />"
+         + Environment.NewLine + "        </Grid.RowDefinitions>"
+         + Environment.NewLine + "        <TextBlock Text=\"FB_OrderId\" Grid.Row=\"0\" Grid.Column=\"0\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"FB_OrderId\" Grid.Row=\"0\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"FB_OrderPlacedDateTime\" Grid.Row=\"1\" Grid.Column=\"0\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"FB_OrderPlacedDateTime\" Grid.Row=\"1\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"FB_OrderDescription\" Grid.Row=\"2\" Grid.Column=\"0\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"FB_OrderDescription\" Grid.Row=\"2\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "    </Grid>"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -772,12 +779,12 @@ Public Class Clas*s1
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"0\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"1\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"1\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_AnotherProperty\" Grid.Row=\"1\" Grid.Column=\"0\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_AnotherProperty\" Grid.Row=\"1\" Grid.Column=\"1\" />"
-         + Environment.NewLine + "<TextBlock Text=\"FB_AnotherProperty\" Grid.Row=\"1\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"0\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_AnotherProperty\" Grid.Row=\"1\" Grid.Column=\"0\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_AnotherProperty\" Grid.Row=\"1\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_AnotherProperty\" Grid.Row=\"1\" Grid.Column=\"1\" />"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -806,9 +813,9 @@ Public Class BaseClass
 End Class";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -839,9 +846,9 @@ Public Class BaseClass
 End Class";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -879,10 +886,10 @@ Public Class SuperBaseClass
 End Class";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind SuperBaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind SuperBaseProperty, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -910,8 +917,8 @@ Public Class Class2
 End Class";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -952,15 +959,21 @@ Pu*blic Class Class1
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_Length\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_LongLength\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_Rank\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_SyncRoot\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_IsReadOnly\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_IsFixedSize\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_IsSynchronized\" />"
-         + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
+         + Environment.NewLine + "    <ListView>"
+         + Environment.NewLine + "        <ListView.ItemTemplate>"
+         + Environment.NewLine + "            <DataTemplate>"
+         + Environment.NewLine + "                <StackPanel>"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_Length\" />"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_LongLength\" />"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_Rank\" />"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_SyncRoot\" />"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_IsReadOnly\" />"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_IsFixedSize\" />"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_IsSynchronized\" />"
+         + Environment.NewLine + "                </StackPanel>"
+         + Environment.NewLine + "            </DataTemplate>"
+         + Environment.NewLine + "        </ListView.ItemTemplate>"
+         + Environment.NewLine + "    </ListView>"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -1000,10 +1013,16 @@ Pu*blic Class Class1
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_TestProperty\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_BaseTestProperty\" />"
-         + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
+         + Environment.NewLine + "    <ListView>"
+         + Environment.NewLine + "        <ListView.ItemTemplate>"
+         + Environment.NewLine + "            <DataTemplate>"
+         + Environment.NewLine + "                <StackPanel>"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_TestProperty\" />"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_BaseTestProperty\" />"
+         + Environment.NewLine + "                </StackPanel>"
+         + Environment.NewLine + "            </DataTemplate>"
+         + Environment.NewLine + "        </ListView.ItemTemplate>"
+         + Environment.NewLine + "    </ListView>"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -1050,11 +1069,17 @@ Public Class Order
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_TestProperty\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_BaseTestProperty\" />"
-         + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
+         + Environment.NewLine + "    <ListView>"
+         + Environment.NewLine + "        <ListView.ItemTemplate>"
+         + Environment.NewLine + "            <DataTemplate>"
+         + Environment.NewLine + "                <StackPanel>"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_TestProperty\" />"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_BaseTestProperty\" />"
+         + Environment.NewLine + "                </StackPanel>"
+         + Environment.NewLine + "            </DataTemplate>"
+         + Environment.NewLine + "        </ListView.ItemTemplate>"
+         + Environment.NewLine + "    </ListView>"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -1091,7 +1116,7 @@ End Namespace";
             {
                 Name = "Class1",
                 Output = @"<form>
-<Dynamic Name=""SomeProperty"" />
+    <Dynamic Name=""SomeProperty"" />
 </form>",
                 OutputType = AnalyzerOutputType.Class,
             };
@@ -1125,9 +1150,9 @@ End Namespace";
             {
                 Name = "Class1",
                 Output = @"<form>
-<Dyno>
-<DymnProp Value="""" />
-</Dyno>
+    <Dyno>
+        <DymnProp Value="""" />
+    </Dyno>
 </form>",
                 OutputType = AnalyzerOutputType.Class,
             };
@@ -1178,12 +1203,12 @@ End Namespace";
             // Note that using $repint$ on its own in a row (i.e. not after an $incint$) may or may not produce the same output as on the previous line.
             // This is deliberate. $repint$ is not intended to be used on its own.
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<TextBlock Text=\"Property1\" Grid.Row=\"0\" somethingElse=\"0\" />"
-         + Environment.NewLine + "<TextBlock Text=\"Property2\" Grid.Row=\"0\" somethingElse=\"0\" />"
-         + Environment.NewLine + "<Int Text=\"Property3\" Grid.Row=\"0\" somethingElse=\"0\" anotherThing=\"0\" />"
-         + Environment.NewLine + "<TextBlock Text=\"Property4\" Grid.Row=\"1\" somethingElse=\"1\" />"
-         + Environment.NewLine + "<Int Text=\"Property5\" Grid.Row=\"1\" somethingElse=\"1\" anotherThing=\"1\" />"
-         + Environment.NewLine + "<TextBlock Text=\"Property6\" Grid.Row=\"2\" somethingElse=\"2\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property1\" Grid.Row=\"0\" somethingElse=\"0\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property2\" Grid.Row=\"0\" somethingElse=\"0\" />"
+         + Environment.NewLine + "    <Int Text=\"Property3\" Grid.Row=\"0\" somethingElse=\"0\" anotherThing=\"0\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property4\" Grid.Row=\"1\" somethingElse=\"1\" />"
+         + Environment.NewLine + "    <Int Text=\"Property5\" Grid.Row=\"1\" somethingElse=\"1\" anotherThing=\"1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property6\" Grid.Row=\"2\" somethingElse=\"2\" />"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -1209,8 +1234,8 @@ Public Class Class1*
 End Class";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property4, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property4, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -1240,9 +1265,9 @@ Public Class BaseClass
 End Class";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -1289,11 +1314,11 @@ Public Class Order
 End Class";
 
             var expectedOutput = "<Grid>"
-         + Environment.NewLine + "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
-         + Environment.NewLine + "</StackPanel>"
+         + Environment.NewLine + "    <StackPanel>"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderDescription\" />"
+         + Environment.NewLine + "    </StackPanel>"
          + Environment.NewLine + "</Grid>";
 
             var expected = new AnalyzerOutput
@@ -1309,8 +1334,8 @@ End Class";
         private void FindNoPropertiesInClass(string code)
         {
             var expectedOutput = "<StackPanel>"
-                                 + Environment.NewLine + "<!-- No accessible properties when copying as XAML -->"
-                                 + Environment.NewLine + "</StackPanel>";
+         + Environment.NewLine + "    <!-- No accessible properties when copying as XAML -->"
+         + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
             {
@@ -1325,8 +1350,8 @@ End Class";
         private void FindSinglePropertyInClass(string code)
         {
             var expectedOutput = "<StackPanel>"
-                                 + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-                                 + Environment.NewLine + "</StackPanel>";
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
             {

@@ -3,10 +3,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace RapidXamlToolkit
 {
@@ -260,6 +263,60 @@ namespace RapidXamlToolkit
             }
 
             return true;
+        }
+
+        public static string FormatXaml(this string source, int indentSize)
+        {
+            // Use this rather than doc.LoadXml so can ignore namespace aliases
+            var xtr = new XmlTextReader(new StringReader(source))
+            {
+                Namespaces = false,
+            };
+
+            var doc = new XmlDocument();
+
+            bool wrapped = false;
+
+            try
+            {
+                doc.Load(xtr);
+            }
+            catch (XmlException)
+            {
+                // Assume failures are due to multiple root elements
+                xtr = new XmlTextReader(new StringReader($"<wrap>{source}</wrap>"))
+                {
+                    Namespaces = false,
+                };
+
+                doc.Load(xtr);
+
+                wrapped = true;
+            }
+
+            string result;
+
+            using (var sw = new StringWriter())
+            {
+                using (XmlTextWriter tx = new XmlTextWriter(sw))
+                {
+                    tx.Indentation = indentSize;
+                    tx.IndentChar = ' ';
+                    tx.Formatting = Formatting.Indented;
+
+                    doc.WriteTo(tx);
+                    string strXmlText = sw.ToString();
+                    result = strXmlText;
+                }
+            }
+
+            if (wrapped)
+            {
+                // remove the dummy root element, the indentation from the extra root element, and the trailing newline that the wrapping left
+                result = result.Replace("<wrap>", string.Empty).Replace("</wrap>", string.Empty).Replace(Environment.NewLine + new string(' ', indentSize), Environment.NewLine).Trim();
+            }
+
+            return result;
         }
 
         private static List<string> GetPlaceholders(this string source)

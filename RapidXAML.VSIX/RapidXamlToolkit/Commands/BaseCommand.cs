@@ -31,9 +31,7 @@ namespace RapidXamlToolkit.Commands
 
         protected static async Task<Microsoft.VisualStudio.Text.Editor.IWpfTextView> GetTextViewAsync(IAsyncServiceProvider serviceProvider)
         {
-            var textManager = await serviceProvider.GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager;
-
-            if (textManager == null)
+            if (!(await serviceProvider.GetServiceAsync(typeof(SVsTextManager)) is IVsTextManager textManager))
             {
                 return null;
             }
@@ -55,6 +53,42 @@ namespace RapidXamlToolkit.Commands
         {
             var componentModel = await serviceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel;
             return componentModel.GetService<IVsEditorAdaptersFactoryService>();
+        }
+
+        protected async Task<int> GetXamlIndentAsync(IAsyncServiceProvider serviceProvider)
+        {
+            try
+            {
+                var xamlLanguageGuid = new Guid("CD53C9A1-6BC2-412B-BE36-CC715ED8DD41");
+                var languagePreferences = new LANGPREFERENCES3[1];
+
+                languagePreferences[0].guidLang = xamlLanguageGuid;
+
+                var textManager = await serviceProvider.GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager4;
+
+                textManager.GetUserPreferences4(pViewPrefs: null, pLangPrefs: languagePreferences, pColorPrefs: null);
+
+                return (int)languagePreferences[0].uIndentSize;
+            }
+            catch (Exception exc)
+            {
+                this.Logger.RecordException(exc);
+
+                var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();
+
+                return indent.Default;
+            }
+        }
+
+        protected void SuppressAnyException(Action action)
+        {
+            try
+            {
+                action.Invoke();
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }
