@@ -169,7 +169,7 @@
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Datacontext.DefaultCodeBehindConstructor, Mode=TwoWay}" Margin="0,4,0,0" />
                 </Grid>
             </TabItem>
-            <TabItem Header="General">
+            <TabItem Header="{x:Static strings:StringRes.Options_GeneralHeader}">
 
                 <Grid Margin="4">
                     <Grid.ColumnDefinitions>

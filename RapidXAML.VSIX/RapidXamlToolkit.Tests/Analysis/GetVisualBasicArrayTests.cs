@@ -58,8 +58,7 @@ End Namespace";
                 Name = "Class1",
                 Output = @"<Bool />
 <Array />
-<ArrayBool />
-",
+<ArrayBool />",
                 OutputType = AnalyzerOutputType.Class,
             };
 

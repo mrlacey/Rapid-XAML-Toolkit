@@ -193,7 +193,8 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "MyListProperty",
-                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\"></ItemsControl>",
+                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\">" + Environment.NewLine +
+                         "</ItemsControl>",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -225,7 +226,8 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "MyListProperty2",
-                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty2}\"></ItemsControl>",
+                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty2}\">" + Environment.NewLine +
+                         "</ItemsControl>",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -535,9 +537,9 @@ End Namespace";
             // This includes the readonly property as not yet filtering out
             // All types treated as fallback
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderDescription\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -587,8 +589,8 @@ End Namespace";
             // This includes the readonly property as not yet filtering out
             // All types treated as fallback
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderPlacedDateTime\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -637,9 +639,9 @@ Namespace tests
 End Namespace";
 
             var expectedOutput = "<ComboBox>"
-         + Environment.NewLine + "<x:String>Active</x:String>"
-         + Environment.NewLine + "<x:String>OnHold</x:String>"
-         + Environment.NewLine + "<x:String>Closed</x:String>"
+         + Environment.NewLine + "    <x:String>Active</x:String>"
+         + Environment.NewLine + "    <x:String>OnHold</x:String>"
+         + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
             var expected = new AnalyzerOutput
@@ -689,7 +691,7 @@ End Namespace";
 
             var expectedOutput = "<RadioButton Content=\"Active\" GroupName=\"OrderStatus\" />" + Environment.NewLine +
                                  "<RadioButton Content=\"OnHold\" GroupName=\"OrderStatus\" />" + Environment.NewLine +
-                                 "<RadioButton Content=\"Closed\" GroupName=\"OrderStatus\" />" + Environment.NewLine;
+                                 "<RadioButton Content=\"Closed\" GroupName=\"OrderStatus\" />";
 
             var expected = new AnalyzerOutput
             {
@@ -740,9 +742,9 @@ Namespace tests
 End Namespace";
 
             var expectedOutput = "<ComboBox>"
-         + Environment.NewLine + "<x:String>Active</x:String>"
-         + Environment.NewLine + "<x:String>OnHold</x:String>"
-         + Environment.NewLine + "<x:String>Closed</x:String>"
+         + Environment.NewLine + "    <x:String>Active</x:String>"
+         + Environment.NewLine + "    <x:String>OnHold</x:String>"
+         + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
             var expected = new AnalyzerOutput
@@ -784,7 +786,7 @@ Namespace tests
 End Namespace";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -851,7 +853,7 @@ End Namespace";
             {
                 Name = "SomeList",
                 Output = @"<Dyno>
-<DymnProp Value="""" />
+    <DymnProp Value="""" />
 </Dyno>",
                 OutputType = AnalyzerOutputType.Property,
             };

@@ -111,6 +111,7 @@
     <Compile Include="SetDatacontext\SetDatacontextInCSharpTests.cs" />
     <Compile Include="SetDatacontext\SetDatacontextInVisualBasicTests.cs" />
     <Compile Include="SetDatacontext\SetDatacontextInXamlTests.cs" />
+    <Compile Include="StringAssert.cs" />
     <Compile Include="TestFileSystem.cs" />
     <Compile Include="TestProfile.cs" />
     <Compile Include="TestVisualStudioAbstraction.cs" />

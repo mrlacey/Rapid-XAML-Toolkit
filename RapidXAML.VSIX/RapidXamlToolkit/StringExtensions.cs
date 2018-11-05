@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace RapidXamlToolkit
 {
@@ -266,43 +267,53 @@ namespace RapidXamlToolkit
 
         public static string FormatXaml(this string source, int indentSize)
         {
+            // Use this rather than doc.LoadXml so can ignore namespace aliases
+            var xtr = new XmlTextReader(new StringReader(source))
+            {
+                Namespaces = false,
+            };
+
             var doc = new XmlDocument();
 
             bool wrapped = false;
 
             try
             {
-                doc.LoadXml(source);
+                doc.Load(xtr);
             }
             catch (XmlException)
             {
-                // Assume failures are due to multiple root elemets
-                doc.LoadXml($"<wrap>{source}</wrap>");
+                // Assume failures are due to multiple root elements
+                xtr = new XmlTextReader(new StringReader($"<wrap>{source}</wrap>"))
+                {
+                    Namespaces = false,
+                };
+
+                doc.Load(xtr);
+
                 wrapped = true;
             }
 
-            var stringWriter = new StringWriter(new StringBuilder());
+            string result;
 
-            var indentString = new string(' ', indentSize);
-
-            XmlWriterSettings settings = new XmlWriterSettings
+            using (var sw = new StringWriter())
             {
-                Indent = true,
-                IndentChars = indentString,
-                NewLineChars = Environment.NewLine,
-                NewLineHandling = NewLineHandling.Replace,
-                OmitXmlDeclaration = true,
-            };
+                using (XmlTextWriter tx = new XmlTextWriter(sw))
+                {
+                    tx.Indentation = indentSize;
+                    tx.IndentChar = ' ';
+                    tx.Formatting = Formatting.Indented;
 
-            var xmlTextWriter = XmlWriter.Create(stringWriter, settings);
-            doc.Save(xmlTextWriter);
-
-            var result = stringWriter.ToString();
+                    doc.WriteTo(tx);
+                    string strXmlText = sw.ToString();
+                    result = strXmlText;
+                }
+            }
 
             if (wrapped)
             {
                 // remove the dummy root element, the indentation from the extra root element, and the trailing newline that the wrapping left
-                result = result.Replace("<wrap>", string.Empty).Replace("</wrap>", string.Empty).Replace(Environment.NewLine + indentString, Environment.NewLine).Trim();
+                result = result.Replace("<wrap>", string.Empty).Replace("</wrap>", string.Empty).Replace(Environment.NewLine + new string(' ', indentSize), Environment.NewLine).Trim();
             }
 
             return result;

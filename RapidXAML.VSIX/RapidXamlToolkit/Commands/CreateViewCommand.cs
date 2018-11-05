@@ -165,14 +165,12 @@ namespace RapidXamlToolkit.Commands
 
                 this.Logger?.RecordInfo(StringRes.Info_AttemptingToCreateView);
                 var dte = await this.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
-                var componentModel = await this.ServiceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel;
 
                 var profile = AnalyzerBase.GetSettings().GetActiveProfile();
 
-                var logic = new CreateViewCommandLogic(profile, this.Logger, new VisualStudioAbstraction(dte, componentModel));
-                var indent = await this.GetXamlIndentAsync(this.ServiceProvider);
+                var logic = new CreateViewCommandLogic(profile, this.Logger, new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte));
 
-                await logic.ExecuteAsync(this.SelectedFileName, indent);
+                await logic.ExecuteAsync(this.SelectedFileName);
 
                 if (logic.CreateView)
                 {

@@ -62,8 +62,7 @@ namespace tests
                 Name = "Class1",
                 Output = @"<Bool />
 <BoolBrackets />
-<ArrayBool />
-",
+<ArrayBool />",
                 OutputType = AnalyzerOutputType.Class,
             };
 

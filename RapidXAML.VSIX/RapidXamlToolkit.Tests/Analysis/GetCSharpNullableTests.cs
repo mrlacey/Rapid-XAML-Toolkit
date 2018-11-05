@@ -73,8 +73,7 @@ namespace tests
                 Output = @"<Bool />
 <BoolQ />
 <NullBool />
-<NullBool />
-",
+<NullBool />",
                 OutputType = AnalyzerOutputType.Class,
             };
 
@@ -171,13 +170,13 @@ namespace tests
                 Type = "List<bool?>",
                 NameContains = string.Empty,
                 IfReadOnly = false,
-                Output = "<LB? />",
+                Output = "<LBnull />",
             });
 
             var expected = new AnalyzerOutput
             {
                 Name = "MyListOfNullables",
-                Output = @"<LB? />",
+                Output = @"<LBnull />",
                 OutputType = AnalyzerOutputType.Property,
             };
 

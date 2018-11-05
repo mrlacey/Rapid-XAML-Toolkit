@@ -58,7 +58,7 @@ namespace RapidXamlToolkit.Commands
                         var profile = settings.GetActiveProfile();
                         var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
 
-                        var logic = new SetDataContextCommandLogic(profile, this.Logger, new VisualStudioAbstraction(dte));
+                        var logic = new SetDataContextCommandLogic(profile, this.Logger, new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte));
 
                         showCommandButton = logic.ShouldEnableCommand();
                     }
@@ -86,7 +86,7 @@ namespace RapidXamlToolkit.Commands
 
                 var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
 
-                var logic = new SetDataContextCommandLogic(profile, this.Logger, new VisualStudioAbstraction(dte));
+                var logic = new SetDataContextCommandLogic(profile, this.Logger, new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte));
 
                 var inXamlDoc = dte.ActiveDocument.Name.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
 

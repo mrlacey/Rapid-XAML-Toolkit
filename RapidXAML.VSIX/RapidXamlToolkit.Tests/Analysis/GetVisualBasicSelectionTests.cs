@@ -43,7 +43,8 @@ End Namespace";
          + Environment.NewLine + "<TextBlock Text=\"Property3\" />"
          + Environment.NewLine + "<TextBox Text=\"{x:Bind Property4, Mode=TwoWay}\" />"
          + Environment.NewLine + "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"Property5\" Value=\"{x:Bind Property5, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<ItemsControl ItemsSource=\"{x:Bind Property6}\"></ItemsControl>"
+         + Environment.NewLine + "<ItemsControl ItemsSource=\"{x:Bind Property6}\">"
+         + Environment.NewLine + "</ItemsControl>"
          + Environment.NewLine + "<TextBox Text=\"{x:Bind Property7, Mode=TwoWay}\" />"
          + Environment.NewLine + "<TextBox Text=\"{x:Bind Property8, Mode=TwoWay}\" />";
 
@@ -93,9 +94,9 @@ Namespace tests
 End Namespace";
 
             var expectedOutput = "<ComboBox>"
-         + Environment.NewLine + "<x:String>Active</x:String>"
-         + Environment.NewLine + "<x:String>OnHold</x:String>"
-         + Environment.NewLine + "<x:String>Closed</x:String>"
+         + Environment.NewLine + "    <x:String>Active</x:String>"
+         + Environment.NewLine + "    <x:String>OnHold</x:String>"
+         + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
             var expected = new AnalyzerOutput
@@ -337,9 +338,9 @@ End Namespace";
             // This includes the readonly property as not yet filtering out
             // All types treated as fallback
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderDescription\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -406,7 +407,7 @@ End Namespace";
             {
                 Name = "SomeList",
                 Output = @"<Dyno>
-<DymnProp Value="""" />
+    <DymnProp Value="""" />
 </Dyno>",
                 OutputType = AnalyzerOutputType.Selection,
             };

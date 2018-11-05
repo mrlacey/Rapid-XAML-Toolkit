@@ -42,7 +42,7 @@ namespace RapidXamlToolkit.Tests.CreateViews
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.cs", 4);
+            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.cs");
 
             var expectedXaml = @"<Page
     x:Class=""App.Files.TestPage"">
@@ -109,7 +109,7 @@ namespace App.Files
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.cs", 4);
+            await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.cs");
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
@@ -181,7 +181,7 @@ namespace App.Views
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.cs", 4);
+            await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.cs");
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">

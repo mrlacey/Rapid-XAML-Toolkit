@@ -40,8 +40,8 @@ Namespace tests
 End Namespace";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<String Name=\"Property1\" />"
-         + Environment.NewLine + "<Int Name=\"Property2\" />"
+         + Environment.NewLine + "    <String Name=\"Property1\" />"
+         + Environment.NewLine + "    <Int Name=\"Property2\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -131,8 +131,7 @@ End Namespace";
             {
                 Name = "MyListProperty",
                 Output = @"<MyProperty1 />
-<MyProperty2 />
-",
+<MyProperty2 />",
                 OutputType = AnalyzerOutputType.Property,
             };
 

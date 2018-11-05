@@ -24,7 +24,7 @@ namespace RapidXamlToolkit.Analyzers
 
         public override string FileExtension { get; } = "vb";
 
-        public static (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, Profile profile, SemanticModel semModel)
+        public static (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, Profile profile, SemanticModel semModel, int indent)
         {
             var result = new List<string>();
 
@@ -40,7 +40,7 @@ namespace RapidXamlToolkit.Analyzers
                 {
                     Logger?.RecordInfo(StringRes.Info_GettingSubPropertyOutput.WithParams(subprop.Name));
 
-                    var (output, counter) = GetSubPropertyOutputAndCounter(profile, subprop.Name, numericSubstitute: numericSubstitute);
+                    var (output, counter) = GetSubPropertyOutputAndCounter(profile, subprop.Name, numericSubstitute: numericSubstitute, indent: indent);
 
                     numericSubstitute = counter;
                     result.Add(output);
@@ -51,7 +51,7 @@ namespace RapidXamlToolkit.Analyzers
                 Logger?.RecordInfo(StringRes.Info_PropertyTypeHasNoSubProperties.WithParams(property.Name, property.PropertyType));
 
                 // There are no subproperties so leave blank
-                var (output, counter) = GetSubPropertyOutputAndCounter(profile, string.Empty, numericSubstitute: numericSubstitute);
+                var (output, counter) = GetSubPropertyOutputAndCounter(profile, string.Empty, numericSubstitute: numericSubstitute, indent: indent);
 
                 numericSubstitute = counter;
                 result.Add(output);
@@ -197,11 +197,11 @@ namespace RapidXamlToolkit.Analyzers
             return syntaxNode?.ChildTokens().FirstOrDefault(t => t.RawKind == (int)SyntaxKind.IdentifierToken).ValueText;
         }
 
-        public static (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, Profile profileOverload, PropertyDetails prop, int numericCounter = 0)
+        public static (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, Profile profileOverload, PropertyDetails prop, int numericCounter = 0, int indent = 4)
         {
             var (output, counter) = profileOverload == null
-                ? GetPropertyOutputAndCounterForActiveProfile(prop, numericCounter, () => GetSubPropertyOutput(prop, GetSettings().GetActiveProfile(), semModel))
-                : GetPropertyOutputAndCounter(profileOverload, prop, numericCounter, () => GetSubPropertyOutput(prop, profileOverload, semModel));
+                ? GetPropertyOutputAndCounterForActiveProfile(prop, numericCounter, indent, () => GetSubPropertyOutput(prop, GetSettings().GetActiveProfile(), semModel, indent))
+                : GetPropertyOutputAndCounter(profileOverload, prop, numericCounter, indent, () => GetSubPropertyOutput(prop, profileOverload, semModel, indent));
 
             return (output, prop.Name, counter);
         }
@@ -231,7 +231,7 @@ namespace RapidXamlToolkit.Analyzers
             return (propertyNode, classNode);
         }
 
-        public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null)
+        public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, int indent, Profile profileOverload = null)
         {
             Logger?.RecordInfo(StringRes.Info_GetSingleItemOutput);
             var (propertyNode, classNode) = GetNodeUnderCaret(documentRoot, caretPosition);
@@ -332,10 +332,12 @@ namespace RapidXamlToolkit.Analyzers
                     output.Append($"</{FormattedClassGroupingCloser(classGrouping)}>");
                 }
 
+                var finalOutput = output.ToString().FormatXaml(indent);
+
                 return new AnalyzerOutput
                 {
                     Name = className,
-                    Output = output.ToString(),
+                    Output = finalOutput,
                     OutputType = AnalyzerOutputType.Class,
                 };
             }
@@ -344,7 +346,7 @@ namespace RapidXamlToolkit.Analyzers
             return AnalyzerOutput.Empty;
         }
 
-        public AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null)
+        public AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, int indent, Profile profileOverload = null)
         {
             Logger?.RecordInfo(StringRes.Info_GetSelectionOutput);
 
@@ -382,8 +384,8 @@ namespace RapidXamlToolkit.Analyzers
 
                 Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(propDetails.Name));
                 var toAdd = profileOverload == null
-                        ? GetPropertyOutputAndCounterForActiveProfile(propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, GetSettings().GetActiveProfile(), semModel))
-                        : GetPropertyOutputAndCounter(profileOverload, propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, profileOverload, semModel));
+                        ? GetPropertyOutputAndCounterForActiveProfile(propDetails, numericCounter, indent, () => GetSubPropertyOutput(propDetails, GetSettings().GetActiveProfile(), semModel, indent))
+                        : GetPropertyOutputAndCounter(profileOverload, propDetails, numericCounter, indent, () => GetSubPropertyOutput(propDetails, profileOverload, semModel, indent));
 
                 if (!string.IsNullOrWhiteSpace(toAdd.output))
                 {

@@ -25,8 +25,8 @@ namespace tests
 }";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBlock Text=\"Property2\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property2\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -124,8 +124,7 @@ namespace tests
             {
                 Name = "MyListProperty",
                 Output = @"<MyProperty1 />
-<MyProperty2 />
-",
+<MyProperty2 />",
                 OutputType = AnalyzerOutputType.Property,
             };
 

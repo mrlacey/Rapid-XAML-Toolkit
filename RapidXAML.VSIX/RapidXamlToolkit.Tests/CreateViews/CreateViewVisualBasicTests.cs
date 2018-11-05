@@ -44,7 +44,7 @@ End Class",
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb", 4);
+            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb");
 
             var expectedXaml = @"<Page
     x:Class=""App.Files.TestPage"">
@@ -113,7 +113,7 @@ End Class",
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.vb", 4);
+            await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.vb");
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
@@ -187,7 +187,7 @@ End Class",
 
             var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
-            await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.vb", 4);
+            await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.vb");
 
             var expectedXaml = @"<Page
     x:Class=""App.Views.TestPage"">
