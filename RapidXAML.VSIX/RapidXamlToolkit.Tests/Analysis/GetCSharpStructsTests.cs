@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.Tests.Analysis
             var code = @"
 namespace tests
 {
-    struct Str*uctViewModel
+    struct Str☆uctViewModel
     {
         public string Property1 { get; set; }
         public string Property2 { get; private set; }
@@ -56,7 +56,7 @@ namespace tests
 {
     class Class1
     {
-        *public MyStruct Property2 { get; set; }*
+        ☆public MyStruct Property2 { get; set; }☆
     }
 
     struct MyStruct
@@ -110,7 +110,7 @@ namespace tests
 {
     class Class1
     {
-        *public List<MyStruct> MyListProperty { get; set; }*
+        ☆public List<MyStruct> MyListProperty { get; set; }☆
     }
 
     struct MyStruct
@@ -139,8 +139,8 @@ namespace tests
 {
     struct StructViewModel
     {
-       * public string Property1 { get; set; }
-        public string Property2 { get; private set; }*
+       ☆ public string Property1 { get; set; }
+        public string Property2 { get; private set; }☆
     }
 }";
 

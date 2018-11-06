@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.Tests.Analysis
             var code = @"
 Namespace tests
     Public Class SomeClass
-        private _property8 As String    *
+        private _property8 As String    ☆
 
         Public Property Property1 As String
         Public ReadOnly Property Property2 As String
@@ -34,7 +34,7 @@ Namespace tests
             Set
                 _property8 = value
             End Set
-        End Property*
+        End Property☆
     End Class
 End Namespace";
 
@@ -83,7 +83,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property OrderStatus As Status*
+        ☆Public Property OrderStatus As Status☆
     End Class
 
     Enum Status
@@ -114,7 +114,7 @@ End Namespace";
         {
             var code = @"
 Public Class Class1
-        Private _property8 As String    *
+        Private _property8 As String    ☆
 
         Public Property Property1 As String
         Public ReadOnly IsInDesignMode Property2 As Boolean
@@ -125,7 +125,7 @@ Public Class Class1
             Set
                 _property8 = value
             End Set
-        End Property*
+        End Property☆
 End Class";
 
             var expectedOutput = "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />";
@@ -146,7 +146,7 @@ End Class";
             var code = @"
 Namespace tests
     Public Class SomeClass
-        Public Read*Only Property Property2 As S*tring
+        Public Read☆Only Property Property2 As S☆tring
     End Class
 End Namespace";
 
@@ -158,8 +158,8 @@ End Namespace";
         {
             var code = @"
 Namespace tests
-    Public Class SomeCl*ass
-        Public ReadOnly Pro*perty Property2 As String
+    Public Class SomeCl☆ass
+        Public ReadOnly Pro☆perty Property2 As String
     End Class
 End Namespace";
 
@@ -172,8 +172,8 @@ End Namespace";
             var code = @"
 Namespace tests
     Public Class SomeClass
-        Public ReadOnly Proper*ty Property2 As String
-    End Class*
+        Public ReadOnly Proper☆ty Property2 As String
+    End Class☆
 End Namespace";
 
             this.SinglePropertySelectionTest(code);
@@ -184,7 +184,7 @@ End Namespace";
         {
             var code = @"
 Namespace tests
-    *Public Class SomeClass*
+    ☆Public Class SomeClass☆
         Public ReadOnly Property Property2 As String
     End Class
 End Namespace";
@@ -196,9 +196,9 @@ End Namespace";
         public void GetSelectionNothingFoundOverUsingStatements()
         {
             var code = @"
-us*ing System;
+us☆ing System;
 using Windows.Xaml;
-*
+☆
 Namespace tests
     Public Class SomeClass
         Public ReadOnly Property Property2 As String
@@ -214,7 +214,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Public Class SomeClass
- *       Private _someField As Integer = 3*
+ ☆       Private _someField As Integer = 3☆
 
         Public ReadOnly Property Property2 As String
     End Class
@@ -231,9 +231,9 @@ Namespace tests
     Public Class SomeClass
         Public ReadOnly Property Property2 As String
 
-      *  Public Function IsSpecial(someValue As String) As Boolean
+      ☆  Public Function IsSpecial(someValue As String) As Boolean
             Return True
-        End Function*
+        End Function☆
     End Class
 End Namespace";
 
@@ -248,9 +248,9 @@ Namespace tests
     Public Class SomeClass
         Public Property Property2 As String
 
-      * Public Sub New()
+      ☆ Public Sub New()
             Property2 = ""set""
-        End Sub*
+        End Sub☆
     End Class
 End Namespace";
 
@@ -282,8 +282,8 @@ End Namespace";
 Namespace tests
     Public Class Class100
         Public Property Property1 As String
-       * Public Property Property2 As String
-        Public Property Property3 As String *
+       ☆ Public Property Property2 As String
+        Public Property Property3 As String ☆
         Public Property Property4 As String
     End Class
 End Namespace";
@@ -325,7 +325,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Public Class Class1
-        *Public Property LastOrder As Order*
+        ☆Public Property LastOrder As Order☆
     End Class
 
     Class Order
@@ -367,8 +367,8 @@ End Namespace";
 
             var code = @"
 Namespace tests
-    *Class Class1*
-        *Public Property SomeProperty As dynamic*
+    Class Class1
+        ☆Public Property SomeProperty As dynamic☆
     End Class
 End Namespace";
 
@@ -398,7 +398,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property SomeList As List(Of dynamic)*
+        ☆Public Property SomeList As List(Of dynamic)☆
     End Class
 End Namespace";
 
@@ -438,8 +438,8 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property SomeInts As List(Of int)
-        Public Property SomeStrings As List(Of String)*
+        ☆Public Property SomeInts As List(Of int)
+        Public Property SomeStrings As List(Of String)☆
     End Class
 End Namespace";
 

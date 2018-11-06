@@ -20,7 +20,7 @@ namespace tests
 {
     class Class1
     {
-        private string _property8;    *
+        private string _property8;    ☆
 
         public string Property1 { get; set; }          // include NOT readonly
         public string Property2 { get; private set; }  // include readonly
@@ -59,7 +59,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class1    *
+    class Class1    ☆
     {
         private static string _property8;
 
@@ -106,7 +106,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class100 *
+    class Class100 ☆
     {
         public string Property1 { get; set; }
     }
@@ -150,7 +150,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class100 *
+    class Class100 ☆
     {
         public string Property1 { get; set; }
         public string Property2 { get; set; }
@@ -196,7 +196,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class100 *
+    class Class100 ☆
     {
         public string Property1 { get; set; }
         public string Property2 { get; set; }
@@ -246,7 +246,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class100 *
+    class Class100 ☆
     {
         public string Property1 { get; set; }
     }
@@ -293,7 +293,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class100 *
+    class Class100 ☆
     {
         public string Property1 { get; set; }
     }
@@ -344,7 +344,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class100 *
+    class Class100 ☆
     {
         public string Property1 { get; set; }
         public string Property2 { get; set; }
@@ -378,11 +378,11 @@ namespace tests
         public void GetClassBeforeClassDefinitionFindsNothing()
         {
             var code = @"
-*using System;
+☆using System;
 using Awesome.Namespace;
 
 namespace tests
-{*
+{☆
     class Class1
     {
         public string Property1 { get; set; }
@@ -405,11 +405,11 @@ namespace tests
     {
         public string Property1 { get; set; }
     }
-*}
+☆}
 
 
 // something here after the namespace has closed
-*
+☆
 ";
 
             this.ClassNotFoundTest(code);
@@ -425,10 +425,10 @@ namespace tests
     {
         public string Property1 { get; set; }
 
-      *  public bool IsSpecial(string someValue)
+      ☆  public bool IsSpecial(string someValue)
         {
             return true;
-        }*
+        }☆
     }
 }
 ";
@@ -444,7 +444,7 @@ namespace tests
 {
     class Class1
     {
- *       private int _someField = 3;*
+ ☆       private int _someField = 3;☆
 
         public string Property1 { get; set; }
     }
@@ -464,10 +464,10 @@ namespace tests
     {
         public string Property1 { get; set; }
 
-      *  public Class1()
+      ☆  public Class1()
         {
             Property1 = ""set"";
-        }*
+        }☆
     }
 }
 ";
@@ -481,8 +481,8 @@ namespace tests
             var code = @"
 namespace tests
 {
-   * class Class1
-    {*
+   ☆ class Class1
+    {☆
         private string Property1 { get; set; }
         internal string Property2 { get; set; }
         string Property3 { get; set; }
@@ -499,11 +499,11 @@ namespace tests
             var code = @"
 namespace tests
 {
-   * class Class1
+   ☆ class Class1
     {
        // public string Property1 { get; set; }
        //// public string Property2 { get; set; }
-    }*
+    }☆
 }
 ";
 
@@ -516,9 +516,9 @@ namespace tests
             var code = @"
 namespace tests
 {
-   * class Class1
+   ☆ class Class1
     {
-    }*
+    }☆
 }
 ";
 
@@ -549,7 +549,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class C*lass1
+    class C☆lass1
     {
         public Order LastOrder { get; set; }
     }
@@ -606,7 +606,7 @@ using TestLibrary;
 
 namespace tests
 {
-    class C*lass1
+    class C☆lass1
     {
         public TestLibrary.TestClass LastOrder { get; set; }
     }
@@ -655,7 +655,7 @@ using TestLibrary;
 
 namespace tests
 {
-    class C*lass1
+    class C☆lass1
     {
         public Order LastOrder { get; set; }
     }
@@ -708,7 +708,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class C*lass1
+    class C☆lass1
     {
         public ObservableCollection<Order> LastOrder { get; set; }
     }
@@ -769,7 +769,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class C*lass1
+    class C☆lass1
     {
         public Order LastOrder { get; set; }
     }
@@ -818,7 +818,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class1 : BaseCl*ass
+    class Class1 : BaseCl☆ass
     {
         public string Property1 { get; set; }
         public string Property2 { get; set; }
@@ -851,7 +851,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class1 : BaseCl*ass
+    class Class1 : BaseCl☆ass
     {
         public string Property1 { get; set; }
         public string Property2 { get; set; }
@@ -889,7 +889,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class1 : BaseCl*ass
+    class Class1 : BaseCl☆ass
     {
         public string Property1 { get; set; }
         public string Property2 { get; set; }
@@ -937,7 +937,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Clas*s1
+    class Clas☆s1
     {
         public string Property1 { get; set; }
         public string Property2 { get; set; }
@@ -989,7 +989,7 @@ using System;
 
 namespace tests
 {
-    class C*lass1
+    class C☆lass1
     {
         public ObservableCollection<Array> Items { get; set; }
     }
@@ -1047,7 +1047,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class C*lass1
+    class C☆lass1
     {
         public ObservableCollection<TestLibrary.TestClass> Items { get; set; }
     }
@@ -1102,7 +1102,7 @@ using TestLibrary;
 
 namespace tests
 {
-    class C*lass1
+    class C☆lass1
     {
         public ObservableCollection<SomeClass> Items { get; set; }
     }
@@ -1153,8 +1153,8 @@ namespace tests
             var code = @"
 namespace tests
 {
-    *class Class1
-    {*
+    ☆class Class1
+    {☆
         public dynamic SomeProperty { get; set; }
     }
 }";
@@ -1188,8 +1188,8 @@ namespace tests
             var code = @"
 namespace tests
 {
-    *class Class1
-    {*
+    ☆class Class1
+    {☆
         public List<dynamic> SomeList { get; set; }
     }
 }";
@@ -1223,7 +1223,7 @@ namespace tests
             var code = @"
 public class Class1
 {
-        public string Some*Property { get; set; }
+        public string Some☆Property { get; set; }
 }";
 
             var expectedOutput = "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"0\" />"
@@ -1252,7 +1252,7 @@ public class Class1
             };
 
             var code = @"
-public class Clas*s1
+public class Clas☆s1
 {
         public string SomeProperty { get; set; }
         public string AnotherProperty { get; set; }
@@ -1308,7 +1308,7 @@ public class Clas*s1
             var code = @"
 namespace tests
 {
-    class Class100 *
+    class Class100 ☆
     {
         public string Property1 { get; set; }
         public string Property2 { get; set; }
@@ -1346,7 +1346,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class1*
+    class Class1☆
     {
         public static string Property1 { get; set; }
         public string Property2 { get; set; }
@@ -1377,7 +1377,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class Class1 : BaseCl*ass
+    class Class1 : BaseCl☆ass
     {
         public string Property1 { get; set; }
         public string Property2 { get; set; }
@@ -1429,7 +1429,7 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class C*lass1
+    class C☆lass1
     {
         public Order LastOrder { get; set; }
     }

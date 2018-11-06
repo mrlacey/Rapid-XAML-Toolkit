@@ -58,7 +58,7 @@ using System.Collections.Generic;
 
 namespace tests
 {
-    class Cla*ss1
+    class Cla☆ss1
     {
         public bool MyBool { get; set; }
         public bool? MyBoolQ { get; set; }
@@ -90,7 +90,7 @@ namespace tests
 {
     class Class1
     {
-        public bool? MyBoo*lQ { get; set; }
+        public bool? MyBoo☆lQ { get; set; }
     }
 }";
 
@@ -114,7 +114,7 @@ namespace tests
 {
     class Class1
     {
-        public Nullable<bool> MyNull*ableBool { get; set; }
+        public Nullable<bool> MyNull☆ableBool { get; set; }
     }
 }";
 
@@ -136,7 +136,7 @@ namespace tests
 {
     class Class1
     {
-        public System.Nullable<bool> MyFqNullab*leBool { get; set; }
+        public System.Nullable<bool> MyFqNullab☆leBool { get; set; }
     }
 }";
 
@@ -160,7 +160,7 @@ namespace tests
 {
     class Class1
     {
-        public List<bool?> MyListOfNu*llables { get; set; }
+        public List<bool?> MyListOfNu☆llables { get; set; }
     }
 }";
 
@@ -193,10 +193,10 @@ namespace tests
 {
     class Class1
     {
-       * public bool MyBool { get; set; }
+       ☆ public bool MyBool { get; set; }
         public bool? MyBoolQ { get; set; }
         public Nullable<bool> MyNullableBool { get; set; }
-        public System.Nullable<bool> MyFqNullableBool { get; set; }*
+        public System.Nullable<bool> MyFqNullableBool { get; set; }☆
     }
 }";
 

@@ -20,7 +20,7 @@ namespace tests
 {
     class SomeClass
     {
-        private string _property8;    *
+        private string _property8;    ☆
         public string Property1 { get; set; }
         public string Property2 { get; private set; }
         string Property3 { get; }
@@ -28,7 +28,7 @@ namespace tests
         public int Property5 { get; set; }
         public List<string> Property6 { get; set; }
         internal string Property7 { get; set; }
-        public string Property8 { get => _property8; set => _property8 = value; } *
+        public string Property8 { get => _property8; set => _property8 = value; } ☆
     }
 }";
 
@@ -79,7 +79,7 @@ namespace tests
 {
     class Class1
     {
-        *public Status OrderStatus { get; set; }*
+        ☆public Status OrderStatus { get; set; }☆
     }
 
     enum Status
@@ -114,12 +114,12 @@ namespace tests
 {
     class Class1
     {
-        private static string _property8;    *
+        private static string _property8;    ☆
 
         public string Property1 { get; set; }
         public string IsInDesignMode { get; private set; }
         public static string IsInDesignModeStatic { get => _property8; set => _property8 = value; }
-    }*
+    }☆
 }";
 
             var expectedOutput = "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />";
@@ -142,7 +142,7 @@ namespace tests
 {
     class SomeClass
     {
-        public string Prop*erty2 { get; private* set; }
+        public string Prop☆erty2 { get; private☆ set; }
     }
 }";
 
@@ -155,9 +155,9 @@ namespace tests
             var code = @"
 namespace tests
 {
-    class SomeCl*ass
+    class SomeCl☆ass
     {
-        public string Prop*erty2 { get; private set; }
+        public string Prop☆erty2 { get; private set; }
     }
 }";
 
@@ -172,8 +172,8 @@ namespace tests
 {
     class SomeClass
     {
-        public string Prop*erty2 { get; private set; }
-    }*
+        public string Prop☆erty2 { get; private set; }
+    }☆
 }";
 
             this.SinglePropertySelectionTest(code);
@@ -185,8 +185,8 @@ namespace tests
             var code = @"
 namespace tests
 {
-  *  class SomeClass
-    {*
+  ☆  class SomeClass
+    {☆
         public string Property2 { get; private set; }
     }
 }";
@@ -198,9 +198,9 @@ namespace tests
         public void GetSelectionNothingFoundOverUsingStatements()
         {
             var code = @"
-us*ing System;
+us☆ing System;
 using Windows.Xaml;
-*
+☆
 namespace tests
 {
     class SomeClass
@@ -220,7 +220,7 @@ namespace tests
 {
     class SomeClass
     {
- *       private int _someField = 3;*
+ ☆       private int _someField = 3;☆
 
         public string Property2 { get; private set; }
     }
@@ -239,10 +239,10 @@ namespace tests
     {
         public string Property2 { get; private set; }
 
-      *  public bool IsSpecial(string someValue)
+      ☆  public bool IsSpecial(string someValue)
         {
             return true;
-        }*
+        }☆
     }
 }";
 
@@ -259,10 +259,10 @@ namespace tests
     {
         public string Property2 { get; private set; }
 
-      *  public SomeClass()
+      ☆  public SomeClass()
         {
             Property2 = ""set"";
-        }*
+        }☆
     }
 }";
 
@@ -296,8 +296,8 @@ namespace tests
     class Class100
     {
         public string Property1 { get; set; }
-       * public string Property2 { get; set; }
-        public string Property3 { get; set; } *
+       ☆ public string Property2 { get; set; }
+        public string Property3 { get; set; } ☆
         public string Property4 { get; set; }
     }
 }";
@@ -341,7 +341,7 @@ namespace tests
 {
     class Class1
     {
-        *public Order LastOrder { get; set; }*
+        ☆public Order LastOrder { get; set; }☆
     }
 
     class Order
@@ -387,7 +387,7 @@ namespace tests
 {
     class Class1
     {
-        *public dynamic SomeProperty { get; set; }*
+        ☆public dynamic SomeProperty { get; set; }☆
     }
 }";
 
@@ -419,7 +419,7 @@ namespace tests
 {
     class Class1
     {
-        *public List<dynamic> SomeList { get; set; }*
+        ☆public List<dynamic> SomeList { get; set; }☆
     }
 }";
 
@@ -461,8 +461,8 @@ namespace tests
 {
     class Class1
     {
-        *public List<Int> SomeInts { get; set; }
-        public List<String> SomeStrings { get; set; }*
+        ☆public List<Int> SomeInts { get; set; }
+        public List<String> SomeStrings { get; set; }☆
     }
 }";
 

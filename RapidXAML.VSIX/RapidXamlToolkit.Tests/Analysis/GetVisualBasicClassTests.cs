@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.Tests.Analysis
         {
             var code = @"
 Public Class Class1
-        Private _property8 As String    *
+        Private _property8 As String    ☆
 
         Public Property Property1 As String          // include NOT readonly
         Public ReadOnly Property Property2 As String // include readonly
@@ -61,7 +61,7 @@ End Class";
         {
             var code = @"
 Public Class Class1
-        Private _property8 As String    *
+        Private _property8 As String    ☆
 
         Public Property Property1 As String
         Public ReadOnly IsInDesignMode Property2 As Boolean
@@ -111,7 +111,7 @@ End Class";
             };
 
             var code = @"
-Public Class Class100 *
+Public Class Class100 ☆
     Public Property Property1 As String
 End Class";
 
@@ -151,7 +151,7 @@ End Class";
             };
 
             var code = @"
-Public Class Class100*
+Public Class Class100☆
         Public Property Property1 As String
         Public Property Property2 As String
 End Class";
@@ -193,7 +193,7 @@ End Class";
             };
 
             var code = @"
-Public Class Class100 *
+Public Class Class100 ☆
         Public Property Property1 As String
         Public Property Property2 As String
 End Class";
@@ -239,7 +239,7 @@ End Class";
             };
 
             var code = @"
-Public Class Class100 *
+Public Class Class100 ☆
         Public Property Property1 As String
         Public Property Property2 As String
 End Class";
@@ -289,7 +289,7 @@ End Class";
             };
 
             var code = @"
-Public Class Class100 *
+Public Class Class100 ☆
         Public Property Property1 As String
 End Class";
 
@@ -332,7 +332,7 @@ End Class";
             };
 
             var code = @"
-Public Class Class100 *
+Public Class Class100 ☆
         Public Property Property1 As String
 End Class";
 
@@ -361,10 +361,10 @@ End Class";
         public void GetClassBeforeClassDefinitionFindsNothing()
         {
             var code = @"
-*Imports System
+☆Imports System
 Imports Awesome.Namespace
 
-*
+☆
 PublicClass Class1
     Public Property Property1 As String
 End Class";
@@ -382,9 +382,9 @@ Imports Awesome.Namespace
 Public Class Class1
     Public Property Property1 As String
 End Class
-*
+☆
 ' something here after the class has closed
-*
+☆
 ";
 
             this.ClassNotFoundTest(code);
@@ -397,9 +397,9 @@ End Class
 Public Class Class1
         Public Property Property1 As String
 
-      * Public Function IsSpecial(someValue As String) As Boolean
+      ☆ Public Function IsSpecial(someValue As String) As Boolean
             Return True
-        End Function*
+        End Function☆
 End Class
 ";
 
@@ -411,7 +411,7 @@ End Class
         {
             var code = @"
 Public Class Class1
- *       Private _someField As Integer 3*
+ ☆       Private _someField As Integer 3☆
 
         Public Property Property1 As String
 End Class";
@@ -426,9 +426,9 @@ End Class";
 Public Class Class1
         Public Property Property1 As String
 
-      *  Public Sub New()
+      ☆  Public Sub New()
             Property1 = ""set""
-        End Sub*
+        End Sub☆
 End Class";
 
             this.FindSinglePropertyInClass(code);
@@ -438,7 +438,7 @@ End Class";
         public void GetClassWithNoPublicProperties()
         {
             var code = @"
-Public Class C*lass*1
+Public Class C☆lass☆1
         Private Property Property1 As String
         Protected Property Property2 As String
         Friend Property Property3 AsString
@@ -451,10 +451,10 @@ End Class";
         public void GetClassWithCommentedOutProperties()
         {
             var code = @"
-*Public Class Class1
+☆Public Class Class1
     ' Public Property Property1 As String
     ' Public Property Property2 As String
-End Class*";
+End Class☆";
 
             this.FindNoPropertiesInClass(code);
         }
@@ -463,8 +463,8 @@ End Class*";
         public void GetClassWithNoProperties()
         {
             var code = @"
-*Public Class Class1
-End Class*";
+☆Public Class Class1
+End Class☆";
 
             this.FindNoPropertiesInClass(code);
         }
@@ -491,7 +491,7 @@ End Class*";
             };
 
             var code = @"
-Pu*blic Class Class1
+Pu☆blic Class Class1
         Public Property LastOrder As Order
 End Class
 
@@ -542,7 +542,7 @@ End Class";
             var code = @"
 Imports TestLibrary
 
-Pu*blic Class Class1
+Pu☆blic Class Class1
         Public Property LastOrder As TestLibrary.TestClass
 End Class";
 
@@ -586,7 +586,7 @@ End Class";
 
             var code = @"
 Imports TestLibrary
-Pu*blic Class Class1
+Pu☆blic Class Class1
         Public Property LastOrder As Order
 End Class
 
@@ -636,7 +636,7 @@ End Class";
             };
 
             var code = @"
-Pu*blic Class Class1
+Pu☆blic Class Class1
         Public Property PastOrders As ObservableCollection(Of Order)
 End Class
 
@@ -691,7 +691,7 @@ End Class";
             };
 
             var code = @"
-Public Class Cla*ss1
+Public Class Cla☆ss1
         Public Property LastOrder As Order
 End Class
 
@@ -744,7 +744,7 @@ End Class";
 
             var code = @"
 Public Class Class1
-        Public Property Some*Property As String
+        Public Property Some☆Property As String
 End Class";
 
             var expectedOutput = "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"0\" />"
@@ -773,7 +773,7 @@ End Class";
             };
 
             var code = @"
-Public Class Clas*s1
+Public Class Clas☆s1
         Public Property SomeProperty As String
         Public Property AnotherProperty As String
 End Class";
@@ -802,7 +802,7 @@ End Class";
         {
             var code = @"
 Public Class Class1
-    Inherits Base*Class
+    Inherits Base☆Class
 
     Public Property Property1 As String
     Public Property Property2 As String
@@ -833,7 +833,7 @@ End Class";
         {
             var code = @"
 Public Class Class1
-    Inherits Base*Class
+    Inherits Base☆Class
 
     Public Property Property1 As String
     Public Property Property2 As String
@@ -866,7 +866,7 @@ End Class";
         {
             var code = @"
 Public Class Class1
-    Inherits Base*Class
+    Inherits Base☆Class
 
     Public Property Property1 As String
     Public Property Property2 As String
@@ -906,7 +906,7 @@ End Class";
         public void IgnoreOtherClassesInTheSameFile()
         {
             var code = @"
-Public Class Cla*ss1
+Public Class Cla☆ss1
 
     Public Property Property1 As String
     Public Property Property2 As String
@@ -954,7 +954,7 @@ End Class";
 
             var code = @"
 Imports System
-Pu*blic Class Class1
+Pu☆blic Class Class1
         Public Property PastOrders As ObservableCollection(Of Array)
 End Class";
 
@@ -1008,7 +1008,7 @@ End Class";
             };
 
             var code = @"
-Pu*blic Class Class1
+Pu☆blic Class Class1
         Public Property PastOrders As ObservableCollection(Of TestLibrary.TestClass)
 End Class";
 
@@ -1058,7 +1058,7 @@ End Class";
 
             var code = @"
 Imports System
-Pu*blic Class Class1
+Pu☆blic Class Class1
         Public Property PastOrders As ObservableCollection(Of Order)
 End Class
 
@@ -1107,7 +1107,7 @@ End Class";
 
             var code = @"
 Namespace tests
-    *Class Class1*
+    ☆Class Class1☆
         Public Property SomeProperty As dynamic
     End Class
 End Namespace";
@@ -1140,7 +1140,7 @@ End Namespace";
 
             var code = @"
 Namespace tests
-    *Class Class1*
+    ☆Class Class1☆
         Public Property SomeList As List(Of dynamic)
     End Class
 End Namespace";
@@ -1190,7 +1190,7 @@ End Namespace";
 
             var code = @"
 Namespace tests
-    Class Class100 *
+    Class Class100 ☆
         Public Property Property1 As String
         Public Property Property2 As String
         Public Property Property3 as Int
@@ -1225,7 +1225,7 @@ End Namespace";
         public void GetClassIgnoreSharedProperties()
         {
             var code = @"
-Public Class Class1*
+Public Class Class1☆
         Public Shared Property Property1 As String 
         Public Property Property2 As String 
         Public Shared Property Property3 As String 
@@ -1253,7 +1253,7 @@ End Class";
         {
             var code = @"
 Public Class Class1
-    Inherits Base*Class
+    Inherits Base☆Class
 
     Public Property Property1 As String
     Public Property Property2 As String
@@ -1302,7 +1302,7 @@ End Class";
             };
 
             var code = @"
-Pu*blic Class Class1
+Pu☆blic Class Class1
         Public Property LastOrder As Order
 End Class
 

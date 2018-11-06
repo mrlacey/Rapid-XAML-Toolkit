@@ -19,8 +19,8 @@ namespace RapidXamlToolkit.Tests.Analysis
 Public Class Class1
     Public Property Property1 As String
 
-    *Public Property Property2 As String
-*
+    ☆Public Property Property2 As String
+☆
     Public Property Property3 As String
 End Class";
 
@@ -41,8 +41,8 @@ End Class";
 Public Class Class1
     Public Property Property1 As String
 
-    *Public ReadOnly Property Property2 As String
-*
+    ☆Public ReadOnly Property Property2 As String
+☆
     Public Property Property3 As String
 End Class";
 
@@ -68,7 +68,7 @@ Namespace tests
 
         Public Property Property1 As String
 
-        *Public Property Property2 As String
+        ☆Public Property Property2 As String
             Get
                 Return _property2
             End Get
@@ -77,7 +77,7 @@ Namespace tests
                 _property2 = value
             End Set
         End Property
-*
+☆
         Public Property Property3 As String
     End Class
 End Namespace";
@@ -104,7 +104,7 @@ Namespace tests
 
         Public Property Property1 As String
 
-        Pub*lic Property Property2 As String
+        Pub☆lic Property Property2 As String
             Get
                 Return _property2
             End Get
@@ -112,7 +112,7 @@ Namespace tests
             Private Set(ByVal value As String)
                 _property2 = value
             End Set
-        End Property*
+        End Property☆
 
         Public Property Property3 As String
     End Class
@@ -140,12 +140,12 @@ Namespace tests
 
         Public Property Property1 As String
 
-        *Public ReadOnly Property Property2 As String
+        ☆Public ReadOnly Property Property2 As String
             Get
                 Return _property2
             End Get
         End Property
-*
+☆
         Public Property Property3 As String
     End Class
 End Namespace";
@@ -165,7 +165,7 @@ End Namespace";
         {
             var code = @"
 Public Class Class1
-    *Public Property SomeProperty As Integer*
+    ☆Public Property SomeProperty As Integer☆
 End Class";
 
             var expected = new AnalyzerOutput
@@ -186,7 +186,7 @@ Imports System.Collections.Generic
 
 Namespace tests
     Class Class1
-        *Public Property MyListProperty As List(Of String)*
+        ☆Public Property MyListProperty As List(Of String)☆
     End Class
 End Namespace";
 
@@ -211,7 +211,7 @@ Namespace tests
     Class Class1
         Private _myListProperty2 As List(Of String)
 
-        *Public Property MyListProperty2 As List(Of String)
+        ☆Public Property MyListProperty2 As List(Of String)
             Get
                 Return _myListProperty2
             End Get
@@ -219,7 +219,7 @@ Namespace tests
             Set(ByVal value As List(Of String))
                 _myListProperty2 = value
             End Set
-        End Property*
+        End Property☆
     End Class
 End Namespace";
 
@@ -239,7 +239,7 @@ End Namespace";
         {
             var code = @"
 Public Class Class1
-    *Private Property TestProperty As String*
+    ☆Private Property TestProperty As String☆
 End Class";
 
             var expected = new AnalyzerOutput
@@ -257,7 +257,7 @@ End Class";
         {
             var code = @"
 Public Class Class1
-    *Protected Property TestProperty As String*
+    ☆Protected Property TestProperty As String☆
 End Class";
 
             var expected = new AnalyzerOutput
@@ -275,7 +275,7 @@ End Class";
         {
             var code = @"
 Public Class Class1
-    *Protected Property TestProperty As String*
+    ☆Protected Property TestProperty As String☆
 End Class";
 
             var expected = new AnalyzerOutput
@@ -294,7 +294,7 @@ End Class";
             var code = @"
 Namespace Unit.Tests
     Public Class Class1
-        *Public Property TestProperty As String*
+        ☆Public Property TestProperty As String☆
     End Class
 End Namespace";
 
@@ -314,7 +314,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As Order*
+        ☆Public Property LastOrder As Order☆
     End Class
 
     Public Class Order
@@ -339,7 +339,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As Array*
+        ☆Public Property LastOrder As Array☆
     End Class
 End Namespace";
 
@@ -377,7 +377,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As DneType*
+        ☆Public Property LastOrder As DneType☆
     End Class
 End Namespace";
 
@@ -415,7 +415,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        Pu*blic Property LastOrder As Order
+        Pu☆blic Property LastOrder As Order
     End Class
 End Namespace";
 
@@ -443,7 +443,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property SomeProperty As NonDefinedType*
+        ☆Public Property SomeProperty As NonDefinedType☆
     End Class
 End Namespace";
 
@@ -481,7 +481,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As Order*
+        ☆Public Property LastOrder As Order☆
     End Class
 
     Public Class Order
@@ -524,7 +524,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As Order*
+        ☆Public Property LastOrder As Order☆
     End Class
 
     Public Class Order
@@ -576,7 +576,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As Order*
+        ☆Public Property LastOrder As Order☆
     End Class
 
     Public Class Order
@@ -628,7 +628,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property OrderStatus As Status*
+        ☆Public Property OrderStatus As Status☆
     End Class
 
     Enum Status
@@ -679,7 +679,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property OrderStatus As Status*
+        ☆Public Property OrderStatus As Status☆
     End Class
 
     Enum Status
@@ -728,7 +728,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        Public Property OrderStatus* As Status
+        Public Property OrderStatus☆ As Status
     End Class
 End Namespace";
 
@@ -781,7 +781,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Public Class Class1
-        *Public Property LastOrder As String*
+        ☆Public Property LastOrder As String☆
     End Class
 End Namespace";
 
@@ -814,7 +814,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property SomeProperty As dynamic*
+        ☆Public Property SomeProperty As dynamic☆
     End Class
 End Namespace";
 
@@ -844,7 +844,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property SomeList As List(of dynamic)*
+        ☆Public Property SomeList As List(of dynamic)☆
     End Class
 End Namespace";
 
@@ -893,9 +893,9 @@ End Namespace";
             var code = @"
 Namespace tests
     class Class1
-        *Public Property Name As String
+        ☆Public Property Name As String
         Public Property Amount As Int
-        Public Property Value As String*
+        Public Property Value As String☆
     End Class
 End Namespace";
 

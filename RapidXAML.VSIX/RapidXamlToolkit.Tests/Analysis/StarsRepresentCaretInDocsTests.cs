@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.VisualBasic;
@@ -168,11 +169,12 @@ namespace RapidXamlToolkit.Tests.Analysis
 
         protected void EachPositionBetweenStarsShouldProduceExpected(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload)
         {
-            var startPos = code.IndexOf("*", StringComparison.Ordinal);
-            var endPos = code.LastIndexOf("*", StringComparison.Ordinal) - 1;
+            this.EnsureTwoStars(code);
 
-            var syntaxTree = isCSharp ? CSharpSyntaxTree.ParseText(code.Replace("*", string.Empty))
-                                      : VisualBasicSyntaxTree.ParseText(code.Replace("*", string.Empty));
+            var (startPos, endPos, actualCode) = this.GetCodeAndCursorRange(code);
+
+            var syntaxTree = isCSharp ? CSharpSyntaxTree.ParseText(actualCode)
+                                      : VisualBasicSyntaxTree.ParseText(actualCode);
 
             Assert.IsNotNull(syntaxTree);
 
@@ -199,10 +201,12 @@ namespace RapidXamlToolkit.Tests.Analysis
 
         protected void PositionAtStarShouldProduceExpected(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload)
         {
-            var pos = code.IndexOf("*", StringComparison.Ordinal);
+            this.EnsureOneStar(code);
 
-            var syntaxTree = isCSharp ? CSharpSyntaxTree.ParseText(code.Replace("*", string.Empty))
-                                      : VisualBasicSyntaxTree.ParseText(code.Replace("*", string.Empty));
+            var (pos, actualCode) = this.GetCodeAndCursorPos(code);
+
+            var syntaxTree = isCSharp ? CSharpSyntaxTree.ParseText(actualCode)
+                                     : VisualBasicSyntaxTree.ParseText(actualCode);
 
             Assert.IsNotNull(syntaxTree);
 
@@ -213,14 +217,14 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
 
-            Assert.AreEqual(expected.OutputType, actual.OutputType);
-            Assert.AreEqual(expected.Name, actual.Name);
-            StringAssert.AreEqual(expected.Output, actual.Output);
+            this.AssertOutput(expected, actual);
         }
 
         protected void PositionAtStarShouldProduceExpectedUsingAdditonalFiles(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalCode)
         {
-            var pos = code.IndexOf("*", StringComparison.Ordinal);
+            this.EnsureOneStar(code);
+
+            var (pos, actualCode) = this.GetCodeAndCursorPos(code);
 
             var projectId = ProjectId.CreateNewId();
             var documentId = DocumentId.CreateNewId(projectId);
@@ -230,7 +234,7 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var solution = new AdhocWorkspace().CurrentSolution
                                                .AddProject(projectId, "MyProject", "MyProject", language)
-                                               .AddDocument(documentId, $"MyFile.{fileExt}", code.Replace("*", string.Empty));
+                                               .AddDocument(documentId, $"MyFile.{fileExt}", actualCode);
 
             foreach (var addCode in additionalCode)
             {
@@ -247,14 +251,14 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
 
-            Assert.AreEqual(expected.OutputType, actual.OutputType);
-            Assert.AreEqual(expected.Name, actual.Name);
-            StringAssert.AreEqual(expected.Output, actual.Output);
+            this.AssertOutput(expected, actual);
         }
 
         protected void PositionAtStarShouldProduceExpectedUsingAdditonalReferences(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalReferences)
         {
-            var pos = code.IndexOf("*", StringComparison.Ordinal);
+            this.EnsureOneStar(code);
+
+            var (pos, actualCode) = this.GetCodeAndCursorPos(code);
 
             var projectId = ProjectId.CreateNewId();
             var documentId = DocumentId.CreateNewId(projectId);
@@ -264,7 +268,7 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var solution = new AdhocWorkspace().CurrentSolution
                                                .AddProject(projectId, "MyProject", "MyProject", language)
-                                               .AddDocument(documentId, $"MyFile.{fileExt}", code.Replace("*", string.Empty));
+                                               .AddDocument(documentId, $"MyFile.{fileExt}", actualCode);
 
             foreach (var addRef in additionalReferences)
             {
@@ -283,14 +287,14 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
 
-            Assert.AreEqual(expected.OutputType, actual.OutputType);
-            Assert.AreEqual(expected.Name, actual.Name);
-            StringAssert.AreEqual(expected.Output, actual.Output);
+            this.AssertOutput(expected, actual);
         }
 
         protected void PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalLibraryPaths)
         {
-            var pos = code.IndexOf("*", StringComparison.Ordinal);
+            this.EnsureOneStar(code);
+
+            var (pos, actualCode) = this.GetCodeAndCursorPos(code);
 
             var projectId = ProjectId.CreateNewId();
             var documentId = DocumentId.CreateNewId(projectId);
@@ -300,7 +304,7 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var solution = new AdhocWorkspace().CurrentSolution
                                                .AddProject(projectId, "MyProject", "MyProject", language)
-                                               .AddDocument(documentId, $"MyFile.{fileExt}", code.Replace("*", string.Empty));
+                                               .AddDocument(documentId, $"MyFile.{fileExt}", actualCode);
 
             foreach (var libPath in additionalLibraryPaths)
             {
@@ -319,18 +323,17 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
 
-            Assert.AreEqual(expected.OutputType, actual.OutputType);
-            Assert.AreEqual(expected.Name, actual.Name);
-            StringAssert.AreEqual(expected.Output, actual.Output);
+            this.AssertOutput(expected, actual);
         }
 
         protected void SelectionBetweenStarsShouldProduceExpected(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload)
         {
-            var startPos = code.IndexOf("*", StringComparison.Ordinal);
-            var endPos = code.LastIndexOf("*", StringComparison.Ordinal) - 1;
+            this.EnsureTwoStars(code);
 
-            var syntaxTree = isCSharp ? CSharpSyntaxTree.ParseText(code.Replace("*", string.Empty))
-                                      : VisualBasicSyntaxTree.ParseText(code.Replace("*", string.Empty));
+            var (startPos, endPos, actualCode) = this.GetCodeAndCursorRange(code);
+
+            var syntaxTree = isCSharp ? CSharpSyntaxTree.ParseText(actualCode)
+                                      : VisualBasicSyntaxTree.ParseText(actualCode);
 
             Assert.IsNotNull(syntaxTree);
 
@@ -341,9 +344,43 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var actual = analyzer.GetSelectionOutput(syntaxTree.GetRoot(), semModel, startPos, endPos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
 
+            this.AssertOutput(expected, actual);
+        }
+
+        private void AssertOutput(AnalyzerOutput expected, AnalyzerOutput actual)
+        {
             Assert.AreEqual(expected.OutputType, actual.OutputType);
             Assert.AreEqual(expected.Name, actual.Name);
             StringAssert.AreEqual(expected.Output, actual.Output);
+        }
+
+        private (int startPos, int endPos, string actualCode) GetCodeAndCursorRange(string code)
+        {
+            var start = code.IndexOf("☆", StringComparison.Ordinal);
+            var end = code.LastIndexOf("☆", StringComparison.Ordinal) - 1;
+
+            var codeWithoutStar = code.Replace("☆", string.Empty);
+
+            return (start, end, codeWithoutStar);
+        }
+
+        private (int cursorPos, string actualCode) GetCodeAndCursorPos(string code)
+        {
+            var pos = code.IndexOf("☆", StringComparison.Ordinal);
+
+            var codeWithoutStar = code.Replace("☆", string.Empty);
+
+            return (pos, codeWithoutStar);
+        }
+
+        private void EnsureOneStar(string code)
+        {
+            Assert.AreEqual(1, code.Count(c => c.ToString() == "☆"));
+        }
+
+        private void EnsureTwoStars(string code)
+        {
+            Assert.AreEqual(2, code.Count(c => c.ToString() == "☆"));
         }
     }
 }
