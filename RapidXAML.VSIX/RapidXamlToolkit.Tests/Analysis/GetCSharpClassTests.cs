@@ -1461,6 +1461,305 @@ namespace tests
             this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
         }
 
+        [TestMethod]
+        public void GetClassWithNestedLists_SimpleType()
+        {
+            var nestedListProfile = new Profile
+            {
+                Name = "nestedListProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "ObservableCollection<T>|List<T>",
+                        NameContains = string.Empty,
+
+                        // This output is simplified for this test (not valid XF output)
+                        Output = "<ListView ItemsSource=\"{Binding $name$}\"><StackLayout>$subprops$</StackLayout></ListView>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class MainC☆lass
+    {
+        public string SomeProperty { get; set; }
+        public ObservableCollection<Recipe> Recipes { get; set; }
+    }
+
+    class Recipe
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public string Note { get; set; }
+        public List<string> Ingredients { get; set; }
+    }
+}";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_SomeProperty\" />"
+         + Environment.NewLine + "    <ListView ItemsSource=\"{Binding Recipes}\">"
+         + Environment.NewLine + "        <StackLayout>"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Id\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Description\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Note\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Ingredients\" />"
+         + Environment.NewLine + "        </StackLayout>"
+         + Environment.NewLine + "    </ListView>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "MainClass",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, nestedListProfile);
+        }
+
+        [TestMethod]
+        public void GetClassWithNestedLists_CustomType()
+        {
+            var nestedListProfile = new Profile
+            {
+                Name = "nestedListProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "ObservableCollection<T>|List<T>",
+                        NameContains = string.Empty,
+
+                        // This output is simplified for this test (not valid XF output)
+                        Output = "<ListView ItemsSource=\"{Binding $name$}\"><StackLayout>$subprops$</StackLayout></ListView>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class MainC☆lass
+    {
+        public string SomeProperty { get; set; }
+        public ObservableCollection<Recipe> Recipes { get; set; }
+    }
+
+    class Recipe
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public string Note { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
+    }
+
+    public class Ingredient
+    {
+        public int Id { get; set; }
+        public int Sequence { get; set; }
+        public double Quantity { get; set; }
+        public string Measures { get; set; }
+        public string Name { get; set; }
+    }
+}";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_SomeProperty\" />"
+         + Environment.NewLine + "    <ListView ItemsSource=\"{Binding Recipes}\">"
+         + Environment.NewLine + "        <StackLayout>"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Id\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Description\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Note\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Ingredients\" />"
+         + Environment.NewLine + "        </StackLayout>"
+         + Environment.NewLine + "    </ListView>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "MainClass",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, nestedListProfile);
+        }
+
+        [TestMethod]
+        public void GetClassWithNestedLists_CustomTypeMultipleFiles()
+        {
+            var nestedListProfile = new Profile
+            {
+                Name = "nestedListProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "ObservableCollection<T>|List<T>",
+                        NameContains = string.Empty,
+
+                        // This output is simplified for this test (not valid XF output)
+                        Output = "<ListView ItemsSource=\"{Binding $name$}\"><StackLayout>$subprops$</StackLayout></ListView>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var codeFile1 = @"
+namespace tests
+{
+    class MainC☆lass
+    {
+        public string SomeProperty { get; set; }
+        public Ingredient RandomIngredient { get; set; }
+        public ObservableCollection<Recipe> Recipes { get; set; }
+    }
+}";
+
+            var codeFile2 = @"
+namespace tests
+{
+    class Recipe
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public string Note { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
+    }
+}";
+
+            var codeFile3 = @"
+namespace tests
+{
+    public class Ingredient
+    {
+        public int Id { get; set; }
+        public int Sequence { get; set; }
+        public double Quantity { get; set; }
+        public string Measures { get; set; }
+        public string Name { get; set; }
+    }
+}";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_SomeProperty\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_RandomIngredient\" />"
+         + Environment.NewLine + "    <ListView ItemsSource=\"{Binding Recipes}\">"
+         + Environment.NewLine + "        <StackLayout>"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Id\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Description\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Note\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Ingredients\" />"
+         + Environment.NewLine + "        </StackLayout>"
+         + Environment.NewLine + "    </ListView>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "MainClass",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(codeFile1, expected, nestedListProfile, codeFile2, codeFile3);
+        }
+
+        [TestMethod]
+        public void GetClassWithFullQualifiedNestedLists_CustomTypeMultipleFiles()
+        {
+            var nestedListProfile = new Profile
+            {
+                Name = "nestedListProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "ObservableCollection<T>|List<T>",
+                        NameContains = string.Empty,
+
+                        // This output is simplified for this test (not valid XF output)
+                        Output = "<ListView ItemsSource=\"{Binding $name$}\"><StackLayout>$subprops$</StackLayout></ListView>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var codeFile1 = @"
+namespace tests
+{
+    class MainC☆lass
+    {
+        public string SomeProperty { get; set; }
+        public OtherNamespace.Ingredient RandomIngredient { get; set; }
+        public ObservableCollection<Recipe> Recipes { get; set; }
+    }
+}";
+
+            var codeFile2 = @"
+namespace tests
+{
+    class Recipe
+    {
+        public int Id { get; set; }
+        public string Description { get; set; }
+        public OtherNamespace.Ingredient MainIngredient { get; set; }
+        public System.Collection.Generic.List<OtherNamespace.Ingredient> Ingredients { get; set; }
+    }
+}";
+
+            var codeFile3 = @"
+namespace OtherNamespace
+{
+    public class Ingredient
+    {
+        public int Id { get; set; }
+        public int Sequence { get; set; }
+        public double Quantity { get; set; }
+        public string Measures { get; set; }
+        public string Name { get; set; }
+    }
+}";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_SomeProperty\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_RandomIngredient\" />"
+         + Environment.NewLine + "    <ListView ItemsSource=\"{Binding Recipes}\">"
+         + Environment.NewLine + "        <StackLayout>"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Id\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Description\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_MainIngredient\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Ingredients\" />"
+         + Environment.NewLine + "        </StackLayout>"
+         + Environment.NewLine + "    </ListView>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "MainClass",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(codeFile1, expected, nestedListProfile, codeFile2, codeFile3);
+        }
+
         private void ClassNotFoundTest(string code)
         {
             var expected = AnalyzerOutput.Empty;

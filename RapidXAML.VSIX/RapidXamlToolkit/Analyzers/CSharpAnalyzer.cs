@@ -363,6 +363,26 @@ namespace RapidXamlToolkit.Analyzers
         {
             ITypeSymbol typeSymbol = null;
 
+            ITypeSymbol GetWithFallback(TypeSyntax ts, SemanticModel sm, PropertyDeclarationSyntax pds)
+            {
+                ITypeSymbol result;
+
+                try
+                {
+                    result = sm.GetTypeInfo(ts).Type;
+                }
+                catch (Exception)
+                {
+                    // By default, the semanticmodel passed into this method is the one for the active document.
+                    // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
+                    var localSemModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(pds.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
+
+                    result = localSemModel.GetTypeInfo(ts).Type;
+                }
+
+                return result;
+            }
+
             if (propDetails.PropertyType.IsGenericTypeName())
             {
                 Logger?.RecordInfo(StringRes.Info_GettingGenericType);
@@ -371,13 +391,13 @@ namespace RapidXamlToolkit.Analyzers
                 {
                     var t = gns.TypeArgumentList.Arguments.First();
 
-                    typeSymbol = semModel.GetTypeInfo(t).Type;
+                    typeSymbol = GetWithFallback(t, semModel, prop);
                 }
                 else if (prop.Type is QualifiedNameSyntax qns)
                 {
                     var t = ((GenericNameSyntax)qns.Right).TypeArgumentList.Arguments.First();
 
-                    typeSymbol = semModel.GetTypeInfo(t).Type;
+                    typeSymbol = GetWithFallback(t, semModel, prop);
                 }
                 else
                 {
@@ -387,18 +407,7 @@ namespace RapidXamlToolkit.Analyzers
 
             if (typeSymbol == null)
             {
-                try
-                {
-                    typeSymbol = semModel.GetTypeInfo(prop.Type).Type;
-                }
-                catch (Exception)
-                {
-                    // The semanticmodel passed into this method is the one for the active document.
-                    // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
-                    var localSemModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
-
-                    typeSymbol = localSemModel.GetTypeInfo(prop.Type).Type;
-                }
+                typeSymbol = GetWithFallback(prop.Type, semModel, prop);
             }
 
             return typeSymbol;
