@@ -607,4 +607,7 @@
   <data name="Options_GeneralHeader" xml:space="preserve">
     <value>General</value>
   </data>
+  <data name="Info_PropertyCannotBeAnalyzed" xml:space="preserve">
+    <value>Unable to analyze property '{0}'.</value>
+  </data>
 </root>

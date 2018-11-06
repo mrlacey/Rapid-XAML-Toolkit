@@ -363,7 +363,7 @@ namespace RapidXamlToolkit.Analyzers
         {
             ITypeSymbol typeSymbol = null;
 
-            ITypeSymbol GetWithFallback(TypeSyntax ts, SemanticModel sm, PropertyDeclarationSyntax pds)
+            ITypeSymbol GetWithFallback(TypeSyntax ts, SemanticModel sm, SyntaxTree tree)
             {
                 ITypeSymbol result;
 
@@ -375,7 +375,7 @@ namespace RapidXamlToolkit.Analyzers
                 {
                     // By default, the semanticmodel passed into this method is the one for the active document.
                     // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
-                    var localSemModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(pds.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
+                    var localSemModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(tree).GetSemanticModel(tree, ignoreAccessibility: true);
 
                     result = localSemModel.GetTypeInfo(ts).Type;
                 }
@@ -391,13 +391,13 @@ namespace RapidXamlToolkit.Analyzers
                 {
                     var t = gns.TypeArgumentList.Arguments.First();
 
-                    typeSymbol = GetWithFallback(t, semModel, prop);
+                    typeSymbol = GetWithFallback(t, semModel, prop.SyntaxTree);
                 }
                 else if (prop.Type is QualifiedNameSyntax qns)
                 {
                     var t = ((GenericNameSyntax)qns.Right).TypeArgumentList.Arguments.First();
 
-                    typeSymbol = GetWithFallback(t, semModel, prop);
+                    typeSymbol = GetWithFallback(t, semModel, prop.SyntaxTree);
                 }
                 else
                 {
@@ -407,7 +407,12 @@ namespace RapidXamlToolkit.Analyzers
 
             if (typeSymbol == null)
             {
-                typeSymbol = GetWithFallback(prop.Type, semModel, prop);
+                typeSymbol = GetWithFallback(prop.Type, semModel, prop.SyntaxTree);
+            }
+
+            if (typeSymbol == null)
+            {
+                Logger?.RecordInfo(StringRes.Info_PropertyCannotBeAnalyzed.WithParams(prop.ToString()));
             }
 
             return typeSymbol;

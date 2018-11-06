@@ -421,6 +421,26 @@ namespace RapidXamlToolkit.Analyzers
         {
             ITypeSymbol typeSymbol = null;
 
+            ITypeSymbol GetWithFallback(TypeSyntax ts, SemanticModel sm, SyntaxTree tree)
+            {
+                ITypeSymbol result;
+
+                try
+                {
+                    result = sm.GetTypeInfo(ts).Type;
+                }
+                catch (Exception)
+                {
+                    // By default, the semanticmodel passed into this method is the one for the active document.
+                    // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
+                    var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(tree).GetSemanticModel(tree, ignoreAccessibility: true);
+
+                    result = localSemModel.GetTypeInfo(ts).Type;
+                }
+
+                return result;
+            }
+
             if (propDetails.PropertyType.IsGenericTypeName())
             {
                 Logger?.RecordInfo(StringRes.Info_GettingGenericType);
@@ -438,31 +458,23 @@ namespace RapidXamlToolkit.Analyzers
                         {
                             typeSyntax = ((GenericNameSyntax)qns.Right).TypeArgumentList.Arguments.First();
                         }
-                    }
-
-                    if (typeSyntax == null)
-                    {
-                        Logger?.RecordInfo(StringRes.Info_PropertyTypeNotRecognizedAsGeneric.WithParams(propDetails.PropertyType));
+                        else
+                        {
+                            Logger?.RecordInfo(StringRes.Info_PropertyTypeNotRecognizedAsGeneric.WithParams(propDetails.PropertyType));
+                        }
                     }
                 }
-
-                if (prop is PropertyBlockSyntax pbs)
+                else if (prop is PropertyBlockSyntax pbs)
                 {
                     typeSyntax = ((GenericNameSyntax)((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).TypeArgumentList.Arguments.First();
                 }
 
-                try
+                if (typeSyntax == null)
                 {
-                    typeSymbol = semModel.GetTypeInfo(typeSyntax).Type;
+                    Logger?.RecordInfo(StringRes.Info_PropertyCannotBeAnalyzed.WithParams(prop.ToString()));
                 }
-                catch (Exception)
-                {
-                    // The semanticmodel passed into this method is the one for the active document.
-                    // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
-                    var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
 
-                    typeSymbol = localSemModel.GetTypeInfo(typeSyntax).Type;
-                }
+                typeSymbol = GetWithFallback(typeSyntax, semModel, prop.SyntaxTree);
             }
             else
             {
@@ -470,20 +482,7 @@ namespace RapidXamlToolkit.Analyzers
                 {
                     if (pss.AsClause != null)
                     {
-                        try
-                        {
-                            typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
-                        }
-                        catch (Exception)
-                        {
-                            // The semanticmodel passed into this method is the one for the active document.
-                            // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
-                            var localSemModel = VisualBasicCompilation.Create(string.Empty)
-                                                                      .AddSyntaxTrees(prop.SyntaxTree)
-                                                                      .GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
-
-                            typeSymbol = localSemModel.GetTypeInfo(((SimpleAsClauseSyntax)pss.AsClause).Type).Type;
-                        }
+                        typeSymbol = GetWithFallback(((SimpleAsClauseSyntax)pss.AsClause).Type, semModel, prop.SyntaxTree);
                     }
                     else
                     {
@@ -498,6 +497,10 @@ namespace RapidXamlToolkit.Analyzers
 
                                 typeSymbol = propSemModel.GetTypeInfo(propType).Type;
                             }
+                            else
+                            {
+                                Logger?.RecordInfo(StringRes.Info_PropertyCannotBeAnalyzed.WithParams(prop.ToString()));
+                            }
                         }
                         catch (Exception)
                         {
@@ -507,18 +510,11 @@ namespace RapidXamlToolkit.Analyzers
                 }
                 else if (prop is PropertyBlockSyntax pbs)
                 {
-                    try
-                    {
-                        typeSymbol = semModel.GetTypeInfo(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).Type;
-                    }
-                    catch (Exception)
-                    {
-                        // The semanticmodel passed into this method is the one for the active document.
-                        // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
-                        var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(prop.SyntaxTree).GetSemanticModel(prop.SyntaxTree, ignoreAccessibility: true);
-
-                        typeSymbol = localSemModel.GetTypeInfo(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).Type;
-                    }
+                    typeSymbol = GetWithFallback(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type, semModel, prop.SyntaxTree);
+                }
+                else
+                {
+                    Logger?.RecordInfo(StringRes.Info_PropertyCannotBeAnalyzed.WithParams(prop.ToString()));
                 }
             }
 

@@ -862,6 +862,41 @@ End Class";
         }
 
         [TestMethod]
+        public void GetGenericPropertiesInOtherFiles()
+        {
+            var code = @"
+Public Class Clas☆s1
+    Public Property Property1 As String
+    Public Property Property2 As List(Of OtherClass)
+End Class
+";
+
+            var code2 = @"
+Public Class OtherClass
+    Public Property OtherProperty As List(Of ThirdClass)
+End Class";
+
+            var code3 = @"
+Public Class ThirdClass
+    Public Property ThirdProperty As String
+End Class";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FALLBACK_Property2\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, null, code2, code3);
+        }
+
+        [TestMethod]
         public void GetInheritedPropertiesInOtherFilesOverMultipleLevels()
         {
             var code = @"
@@ -1329,6 +1364,82 @@ End Class";
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
+        }
+
+        [TestMethod]
+        public void GetClassWithFullQualifiedNestedLists_CustomTypeMultipleFiles()
+        {
+            var nestedListProfile = new Profile
+            {
+                Name = "nestedListProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "ObservableCollection<T>|List<T>",
+                        NameContains = string.Empty,
+
+                        // This output is simplified for this test (not valid XF output)
+                        Output = "<ListView ItemsSource=\"{Binding $name$}\"><StackLayout>$subprops$</StackLayout></ListView>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var codeFile1 = @"
+Namespace tests
+    Class MainC☆lass
+        Public Property SomeProperty As String
+        Public Property RandomIngredient As OtherNamespace.Ingredient
+        Public Property Recipes As ObservableCollection(Of Recipe)
+    End Class
+End Namespace";
+
+            var codeFile2 = @"
+Namespace tests
+    Class Recipe
+        Public Property Id As Int
+        Public Property Description As String
+        Public Property MainIngredient As OtherNamespace.Ingredient
+        Public Property Ingredients As System.Collection.Generic.List(Of Recipe)
+    End Class
+End Namespace";
+
+            var codeFile3 = @"
+Namespace tests
+    Class Ingredient
+        Public Property Id As Int
+        Public Property Sequence As Int
+        Public Property Quantity As Double
+        Public Property Measures As String
+        Public Property Name As String
+    End Class
+End Namespace";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_SomeProperty\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_RandomIngredient\" />"
+         + Environment.NewLine + "    <ListView ItemsSource=\"{Binding Recipes}\">"
+         + Environment.NewLine + "        <StackLayout>"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Id\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Description\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_MainIngredient\" />"
+         + Environment.NewLine + "            <TextBlock Text=\"SP_Ingredients\" />"
+         + Environment.NewLine + "        </StackLayout>"
+         + Environment.NewLine + "    </ListView>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "MainClass",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(codeFile1, expected, nestedListProfile, codeFile2, codeFile3);
         }
 
         private void FindNoPropertiesInClass(string code)
