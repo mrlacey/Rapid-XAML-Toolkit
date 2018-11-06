@@ -323,7 +323,7 @@ namespace RapidXamlToolkit
                 return false;
             }
         }
-      
+
         public static string FormatXaml(this string source, int indentSize)
         {
             // Use this rather than doc.LoadXml so can ignore namespace aliases

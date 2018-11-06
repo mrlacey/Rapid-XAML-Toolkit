@@ -127,7 +127,7 @@ namespace RapidXamlToolkit.Commands
 
         public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions = null)
         {
-            if (this.dte.ActiveDocument.Object("TextDocument") is TextDocument txtDoc)
+            if (this.dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 // Have to implement search and replace directly as built-in functionality doesn't provide the control to only replace within the desired area
                 // Plus need to allow areas (exclusions) where replacement shouldn't occur.
@@ -189,7 +189,7 @@ namespace RapidXamlToolkit.Commands
 
         public void InsertIntoActiveDocumentOnNextLine(string text, int pos)
         {
-            if (this.dte.ActiveDocument.Object("TextDocument") is TextDocument txtDoc)
+            if (this.dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 txtDoc.Selection.MoveToAbsoluteOffset(pos);
                 txtDoc.Selection.EndOfLine();
@@ -209,7 +209,6 @@ namespace RapidXamlToolkit.Commands
         public void EndSingleUndoOperation()
         {
             this.dte.UndoContext.Close();
-
         }
 
         public async Task<int> GetXamlIndentAsync()

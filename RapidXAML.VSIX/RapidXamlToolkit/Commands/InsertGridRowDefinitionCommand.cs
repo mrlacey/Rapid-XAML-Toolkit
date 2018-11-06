@@ -50,7 +50,7 @@ namespace RapidXamlToolkit.Commands
                 {
                     var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
 
-                    var logic = new InsertGridRowDefinitionCommandLogic(this.Logger, new VisualStudioAbstraction(dte));
+                    var logic = new InsertGridRowDefinitionCommandLogic(this.Logger, new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte));
 
                     var showCommandButton = logic.ShouldEnableCommand();
 
@@ -80,7 +80,7 @@ namespace RapidXamlToolkit.Commands
                 this.Logger?.RecordFeatureUsage(nameof(InsertGridRowDefinitionCommand));
 
                 var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
-                var vs = new VisualStudioAbstraction(dte);
+                var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
 
                 var activeDocText = vs.GetActiveDocumentText();
 
