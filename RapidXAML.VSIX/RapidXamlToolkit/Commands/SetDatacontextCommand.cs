@@ -69,7 +69,7 @@ namespace RapidXamlToolkit.Commands
             catch (Exception exc)
             {
                 this.Logger.RecordException(exc);
-                throw;
+                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -159,7 +159,7 @@ namespace RapidXamlToolkit.Commands
             catch (Exception exc)
             {
                 this.Logger?.RecordException(exc);
-                throw;
+                throw;  // Remove for launch. see issue #90
             }
         }
     }

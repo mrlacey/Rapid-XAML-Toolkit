@@ -84,7 +84,6 @@ namespace RapidXamlToolkit.Commands
             catch (Exception exc)
             {
                 this.Logger.RecordException(exc);
-                throw;
             }
         }
 
@@ -198,7 +197,6 @@ namespace RapidXamlToolkit.Commands
             catch (Exception exc)
             {
                 this.Logger?.RecordException(exc);
-                throw;
             }
         }
     }

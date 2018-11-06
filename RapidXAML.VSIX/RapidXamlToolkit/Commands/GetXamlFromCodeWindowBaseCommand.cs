@@ -73,10 +73,9 @@ namespace RapidXamlToolkit.Commands
                 var dte = await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
                 dte.StatusBar.Text = message;
             }
-            catch (Exception e)
+            catch (Exception exc)
             {
-                Console.WriteLine(e);
-                throw;
+                RapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -97,7 +96,7 @@ namespace RapidXamlToolkit.Commands
             catch (Exception exc)
             {
                 this.Logger.RecordException(exc);
-                throw;
+                throw;  // Remove for launch. see issue #90
             }
         }
     }
