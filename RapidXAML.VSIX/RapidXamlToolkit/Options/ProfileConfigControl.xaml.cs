@@ -58,7 +58,7 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;
+                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -84,7 +84,7 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;
+                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -108,7 +108,7 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;
+                throw;  // Remove for launch. see issue #90
             }
         }
 

@@ -493,6 +493,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to analyze property &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_PropertyCannotBeAnalyzed {
+            get {
+                return ResourceManager.GetString("Info_PropertyCannotBeAnalyzed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Property is read-only so looking for read-only mappings first..
         /// </summary>
         public static string Info_PropertyIsReadOnly {

@@ -202,6 +202,70 @@ End Namespace";
         }
 
         [TestMethod]
+        public void GetGenericListProperty_InMultipleFiles()
+        {
+            var testProfile = new Profile
+            {
+                Name = "GetGenericListProperty_InMultipleFiles",
+                ClassGrouping = "StackPanel",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SUBPROP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "String|int|Integer",
+                        NameContains = string.Empty,
+                        Output = "<TextBlock Text=\"$name$\" />",
+                        IfReadOnly = false,
+                    },
+                    new Mapping
+                    {
+                        Type = "List<T>",
+                        NameContains = string.Empty,
+                        Output = "<ItemsControl ItemsSource=\"{x:Bind $name$}\">$subprops$</ItemsControl>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var codeFile1 = @"
+Imports System.Collections.Generic
+
+Namespace tests
+    Class Class1
+        Public Pro☆perty MyListProperty As List(Of Class2)
+    End Class
+End Namespace";
+            var codeFile2 = @"
+Imports System.Collections.Generic
+
+Namespace tests
+    Class Class2
+         Public Property OtherListProperty As List(Of Class3)
+    End Class
+End Namespace";
+            var codeFile3 = @"
+Namespace tests
+    Class Class3
+         Public Property SimpleId As Int
+         Public Property SimpleProperty As String
+    End Class
+End Namespace";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "MyListProperty",
+                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\">" + Environment.NewLine +
+                         "    <TextBlock Text=\"SUBPROP_OtherListProperty\" />" + Environment.NewLine +
+                         "</ItemsControl>",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(codeFile1, expected, testProfile, codeFile2, codeFile3);
+        }
+
+        [TestMethod]
         public void GetGenericListPropertyWithBackingField()
         {
             var code = @"
