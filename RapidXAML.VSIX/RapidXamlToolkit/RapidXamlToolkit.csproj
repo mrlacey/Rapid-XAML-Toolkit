@@ -73,6 +73,8 @@
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\CreateViewCommandLogic.cs" />
     <Compile Include="Commands\IFileSystemAbstraction.cs" />
+    <Compile Include="Commands\InsertGridRowDefinitionCommand.cs" />
+    <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
     <Compile Include="Commands\IVisualStudioAbstraction.cs" />
     <Compile Include="Commands\OpenOptionsCommand.cs" />
     <Compile Include="Commands\ProjectWrapper.cs" />
@@ -618,6 +620,7 @@
     </VSCTCompile>
     <VSCTCompile Include="RapidXamlPackage.en-US.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
+      <SubType>Designer</SubType>
     </VSCTCompile>
     <VSCTCompile Include="RapidXamlPackage.es-ES.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>

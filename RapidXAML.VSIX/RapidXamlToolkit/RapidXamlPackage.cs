@@ -55,6 +55,7 @@ namespace RapidXamlToolkit
                 await SendToToolboxCommand.InitializeAsync(this, Logger);
                 await OpenOptionsCommand.InitializeAsync(this, Logger);
                 await SetDatacontextCommand.InitializeAsync(this, Logger);
+                await InsertGridRowDefinitionCommand.InitializeAsync(this, Logger);
             }
             catch (Exception exc)
             {

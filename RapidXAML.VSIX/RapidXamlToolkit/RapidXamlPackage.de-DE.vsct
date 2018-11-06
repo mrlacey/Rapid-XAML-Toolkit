@@ -111,6 +111,15 @@
           <ButtonText>Datenkontext festlegen</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidRapidXamlPackageCmdSet" id="InsertGridRowDefinitionCommandId" priority="0x0100" type="Button">
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <!--<CommandFlag>TextChanges</CommandFlag>
+        <CommandFlag>TextChangesButton</CommandFlag>-->
+        <Strings>
+          <ButtonText>Insert Row Definition</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
     <Bitmaps>
       <!--  The bitmap id is defined in a way that is a little bit different from the others:
@@ -173,6 +182,9 @@
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
       <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" />
     </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="InsertGridRowDefinitionCommandId" priority="0x0200">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" />
+    </CommandPlacement>
   </CommandPlacements>
   <Symbols>
     <!-- This is the package guid. -->
@@ -193,6 +205,7 @@
       <IDSymbol name="CreateViewCommandId" value="4130" />
       <IDSymbol name="OpenOptionsCommandId" value="4131" />
       <IDSymbol name="SetDatacontextCommandId" value="4132" />
+      <IDSymbol name="InsertGridRowDefinitionCommandId" value="4133" />
     </GuidSymbol>
     <GuidSymbol name="guidImages" value="{092daafa-627f-4f53-a712-4e3e5fa72e0d}">
       <IDSymbol name="bmpCopyAsXaml" value="1" />

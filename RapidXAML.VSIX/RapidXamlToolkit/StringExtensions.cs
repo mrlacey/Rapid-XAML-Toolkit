@@ -204,6 +204,49 @@ namespace RapidXamlToolkit
             return System.Text.RegularExpressions.Regex.Replace(source, "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))", "$1 ");
         }
 
+        public static int OccurrenceCount(this string source, string substring)
+        {
+            return source.Split(new[] { substring }, StringSplitOptions.None).Length - 1;
+        }
+
+        public static int FirstIndexOf(this string source, params string[] values)
+        {
+            var valuePostions = new Dictionary<string, int>();
+
+            foreach (var value in values)
+            {
+                valuePostions.Add(value, source.IndexOf(value));
+            }
+
+            if (valuePostions.Any(v => v.Value > -1))
+            {
+                var result = valuePostions.Select(v => v.Value).Where(v => v > -1).OrderBy(v => v).FirstOrDefault();
+
+                return result;
+            }
+
+            return -1;
+        }
+
+        public static int LastIndexOf(this string source, params string[] values)
+        {
+            var valuePostions = new Dictionary<string, int>();
+
+            foreach (var value in values)
+            {
+                valuePostions.Add(value, source.LastIndexOf(value));
+            }
+
+            if (valuePostions.Any(v => v.Value > -1))
+            {
+                var result = valuePostions.Select(v => v.Value).Where(v => v > -1).OrderByDescending(v => v).FirstOrDefault();
+
+                return result;
+            }
+
+            return -1;
+        }
+
         public static bool IsValidXamlOutput(this string source)
         {
             const string validText = "ValidText";
@@ -265,6 +308,22 @@ namespace RapidXamlToolkit
             return true;
         }
 
+        public static bool IsValidXml(this string source)
+        {
+            try
+            {
+                var xdoc = new XmlDocument();
+                xdoc.LoadXml(source);
+
+                // If loaded OK assume it's valid
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+      
         public static string FormatXaml(this string source, int indentSize)
         {
             // Use this rather than doc.LoadXml so can ignore namespace aliases
