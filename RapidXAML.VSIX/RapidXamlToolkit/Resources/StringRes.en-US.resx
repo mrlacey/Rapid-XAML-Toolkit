@@ -608,4 +608,16 @@
   <data name="Info_UnableToInsertRowDefinitionInvalidXaml" xml:space="preserve">
     <value>Unable to insert RowDefinition (Invalid XAML)</value>
   </data>
+  <data name="Options_AttemptAutomaticDocumentFormatting" xml:space="preserve">
+    <value>Attempt Automatic Document Formatting</value>
+  </data>
+  <data name="Options_AttemptAutomaticDocumentFormattingDescription" xml:space="preserve">
+    <value>Trigger Visual Studio's automatic document formatting after modifying a document</value>
+  </data>
+  <data name="Options_GeneralHeader" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Info_PropertyCannotBeAnalyzed" xml:space="preserve">
+    <value>Unable to analyze property '{0}'.</value>
+  </data>
 </root>

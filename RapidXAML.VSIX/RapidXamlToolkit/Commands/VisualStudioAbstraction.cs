@@ -10,22 +10,24 @@ using EnvDTE;
 using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
-using Microsoft.VisualStudio.Text.Editor;
-using TextDocument = EnvDTE.TextDocument;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.TextManager.Interop;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.Commands
 {
     public class VisualStudioAbstraction : IVisualStudioAbstraction
     {
+        private readonly ILogger logger;
+        private readonly IAsyncServiceProvider serviceProvider;
         private readonly DTE dte;
-        private readonly IComponentModel componentModel;
-        private readonly IWpfTextView textView;
 
-        public VisualStudioAbstraction(DTE dte, IComponentModel componentModel = null, IWpfTextView textView = null)
+        // Pass in the DTE even though could get it from the ServiceProvider because it's needed in constructors but usage is async
+        public VisualStudioAbstraction(ILogger logger, IAsyncServiceProvider serviceProvider, DTE dte)
         {
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
             this.dte = dte ?? throw new ArgumentNullException(nameof(dte));
-            this.componentModel = componentModel;
-            this.textView = textView;
         }
 
         public string GetActiveDocumentFileName()
@@ -37,7 +39,7 @@ namespace RapidXamlToolkit.Commands
         {
             var activeDoc = this.dte.ActiveDocument;
 
-            if (activeDoc.Object("TextDocument") is TextDocument objectDoc)
+            if (activeDoc.Object("TextDocument") is EnvDTE.TextDocument objectDoc)
             {
                 var docText = objectDoc.StartPoint.CreateEditPoint().GetText(objectDoc.EndPoint);
 
@@ -54,7 +56,8 @@ namespace RapidXamlToolkit.Commands
 
         public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
         {
-            var visualStudioWorkspace = this.componentModel?.GetService<VisualStudioWorkspace>();
+            var componentModel = await this.serviceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel;
+            var visualStudioWorkspace = componentModel?.GetService<VisualStudioWorkspace>();
 
             if (visualStudioWorkspace != null)
             {
@@ -76,11 +79,6 @@ namespace RapidXamlToolkit.Commands
             var semModel = await document.GetSemanticModelAsync();
 
             return (syntaxTree, semModel);
-        }
-
-        public IWpfTextView GetActiveTextView()
-        {
-            return this.textView;
         }
 
         public ProjectWrapper GetProject(string projectName)
@@ -211,6 +209,32 @@ namespace RapidXamlToolkit.Commands
         public void EndSingleUndoOperation()
         {
             this.dte.UndoContext.Close();
+
+        }
+
+        public async Task<int> GetXamlIndentAsync()
+        {
+            try
+            {
+                var xamlLanguageGuid = new Guid("CD53C9A1-6BC2-412B-BE36-CC715ED8DD41");
+                var languagePreferences = new LANGPREFERENCES3[1];
+
+                languagePreferences[0].guidLang = xamlLanguageGuid;
+
+                var textManager = await this.serviceProvider.GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager4;
+
+                textManager.GetUserPreferences4(pViewPrefs: null, pLangPrefs: languagePreferences, pColorPrefs: null);
+
+                return (int)languagePreferences[0].uIndentSize;
+            }
+            catch (Exception exc)
+            {
+                this.logger.RecordException(exc);
+
+                var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();
+
+                return indent.Default;
+            }
         }
     }
 }

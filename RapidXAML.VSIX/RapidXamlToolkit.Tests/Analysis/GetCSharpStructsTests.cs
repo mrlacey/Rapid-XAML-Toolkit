@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.Tests.Analysis
             var code = @"
 namespace tests
 {
-    struct Str*uctViewModel
+    struct Str☆uctViewModel
     {
         public string Property1 { get; set; }
         public string Property2 { get; private set; }
@@ -25,8 +25,8 @@ namespace tests
 }";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-         + Environment.NewLine + "<TextBlock Text=\"Property2\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property2\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -56,7 +56,7 @@ namespace tests
 {
     class Class1
     {
-        *public MyStruct Property2 { get; set; }*
+        ☆public MyStruct Property2 { get; set; }☆
     }
 
     struct MyStruct
@@ -110,7 +110,7 @@ namespace tests
 {
     class Class1
     {
-        *public List<MyStruct> MyListProperty { get; set; }*
+        ☆public List<MyStruct> MyListProperty { get; set; }☆
     }
 
     struct MyStruct
@@ -124,8 +124,7 @@ namespace tests
             {
                 Name = "MyListProperty",
                 Output = @"<MyProperty1 />
-<MyProperty2 />
-",
+<MyProperty2 />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -140,8 +139,8 @@ namespace tests
 {
     struct StructViewModel
     {
-       * public string Property1 { get; set; }
-        public string Property2 { get; private set; }*
+       ☆ public string Property1 { get; set; }
+        public string Property2 { get; private set; }☆
     }
 }";
 

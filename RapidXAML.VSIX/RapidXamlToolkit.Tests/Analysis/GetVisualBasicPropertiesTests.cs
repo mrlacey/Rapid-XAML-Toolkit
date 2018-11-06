@@ -19,8 +19,8 @@ namespace RapidXamlToolkit.Tests.Analysis
 Public Class Class1
     Public Property Property1 As String
 
-    *Public Property Property2 As String
-*
+    ☆Public Property Property2 As String
+☆
     Public Property Property3 As String
 End Class";
 
@@ -41,8 +41,8 @@ End Class";
 Public Class Class1
     Public Property Property1 As String
 
-    *Public ReadOnly Property Property2 As String
-*
+    ☆Public ReadOnly Property Property2 As String
+☆
     Public Property Property3 As String
 End Class";
 
@@ -68,7 +68,7 @@ Namespace tests
 
         Public Property Property1 As String
 
-        *Public Property Property2 As String
+        ☆Public Property Property2 As String
             Get
                 Return _property2
             End Get
@@ -77,7 +77,7 @@ Namespace tests
                 _property2 = value
             End Set
         End Property
-*
+☆
         Public Property Property3 As String
     End Class
 End Namespace";
@@ -104,7 +104,7 @@ Namespace tests
 
         Public Property Property1 As String
 
-        Pub*lic Property Property2 As String
+        Pub☆lic Property Property2 As String
             Get
                 Return _property2
             End Get
@@ -112,7 +112,7 @@ Namespace tests
             Private Set(ByVal value As String)
                 _property2 = value
             End Set
-        End Property*
+        End Property☆
 
         Public Property Property3 As String
     End Class
@@ -140,12 +140,12 @@ Namespace tests
 
         Public Property Property1 As String
 
-        *Public ReadOnly Property Property2 As String
+        ☆Public ReadOnly Property Property2 As String
             Get
                 Return _property2
             End Get
         End Property
-*
+☆
         Public Property Property3 As String
     End Class
 End Namespace";
@@ -165,7 +165,7 @@ End Namespace";
         {
             var code = @"
 Public Class Class1
-    *Public Property SomeProperty As Integer*
+    ☆Public Property SomeProperty As Integer☆
 End Class";
 
             var expected = new AnalyzerOutput
@@ -186,18 +186,83 @@ Imports System.Collections.Generic
 
 Namespace tests
     Class Class1
-        *Public Property MyListProperty As List(Of String)*
+        ☆Public Property MyListProperty As List(Of String)☆
     End Class
 End Namespace";
 
             var expected = new AnalyzerOutput
             {
                 Name = "MyListProperty",
-                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\"></ItemsControl>",
+                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\">" + Environment.NewLine +
+                         "</ItemsControl>",
                 OutputType = AnalyzerOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
+        public void GetGenericListProperty_InMultipleFiles()
+        {
+            var testProfile = new Profile
+            {
+                Name = "GetGenericListProperty_InMultipleFiles",
+                ClassGrouping = "StackPanel",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SUBPROP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "String|int|Integer",
+                        NameContains = string.Empty,
+                        Output = "<TextBlock Text=\"$name$\" />",
+                        IfReadOnly = false,
+                    },
+                    new Mapping
+                    {
+                        Type = "List<T>",
+                        NameContains = string.Empty,
+                        Output = "<ItemsControl ItemsSource=\"{x:Bind $name$}\">$subprops$</ItemsControl>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var codeFile1 = @"
+Imports System.Collections.Generic
+
+Namespace tests
+    Class Class1
+        Public Pro☆perty MyListProperty As List(Of Class2)
+    End Class
+End Namespace";
+            var codeFile2 = @"
+Imports System.Collections.Generic
+
+Namespace tests
+    Class Class2
+         Public Property OtherListProperty As List(Of Class3)
+    End Class
+End Namespace";
+            var codeFile3 = @"
+Namespace tests
+    Class Class3
+         Public Property SimpleId As Int
+         Public Property SimpleProperty As String
+    End Class
+End Namespace";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "MyListProperty",
+                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\">" + Environment.NewLine +
+                         "    <TextBlock Text=\"SUBPROP_OtherListProperty\" />" + Environment.NewLine +
+                         "</ItemsControl>",
+                OutputType = AnalyzerOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(codeFile1, expected, testProfile, codeFile2, codeFile3);
         }
 
         [TestMethod]
@@ -210,7 +275,7 @@ Namespace tests
     Class Class1
         Private _myListProperty2 As List(Of String)
 
-        *Public Property MyListProperty2 As List(Of String)
+        ☆Public Property MyListProperty2 As List(Of String)
             Get
                 Return _myListProperty2
             End Get
@@ -218,14 +283,15 @@ Namespace tests
             Set(ByVal value As List(Of String))
                 _myListProperty2 = value
             End Set
-        End Property*
+        End Property☆
     End Class
 End Namespace";
 
             var expected = new AnalyzerOutput
             {
                 Name = "MyListProperty2",
-                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty2}\"></ItemsControl>",
+                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty2}\">" + Environment.NewLine +
+                         "</ItemsControl>",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -237,7 +303,7 @@ End Namespace";
         {
             var code = @"
 Public Class Class1
-    *Private Property TestProperty As String*
+    ☆Private Property TestProperty As String☆
 End Class";
 
             var expected = new AnalyzerOutput
@@ -255,7 +321,7 @@ End Class";
         {
             var code = @"
 Public Class Class1
-    *Protected Property TestProperty As String*
+    ☆Protected Property TestProperty As String☆
 End Class";
 
             var expected = new AnalyzerOutput
@@ -273,7 +339,7 @@ End Class";
         {
             var code = @"
 Public Class Class1
-    *Protected Property TestProperty As String*
+    ☆Protected Property TestProperty As String☆
 End Class";
 
             var expected = new AnalyzerOutput
@@ -292,7 +358,7 @@ End Class";
             var code = @"
 Namespace Unit.Tests
     Public Class Class1
-        *Public Property TestProperty As String*
+        ☆Public Property TestProperty As String☆
     End Class
 End Namespace";
 
@@ -312,7 +378,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As Order*
+        ☆Public Property LastOrder As Order☆
     End Class
 
     Public Class Order
@@ -337,7 +403,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As Array*
+        ☆Public Property LastOrder As Array☆
     End Class
 End Namespace";
 
@@ -375,7 +441,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As DneType*
+        ☆Public Property LastOrder As DneType☆
     End Class
 End Namespace";
 
@@ -413,7 +479,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        Pu*blic Property LastOrder As Order
+        Pu☆blic Property LastOrder As Order
     End Class
 End Namespace";
 
@@ -441,7 +507,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property SomeProperty As NonDefinedType*
+        ☆Public Property SomeProperty As NonDefinedType☆
     End Class
 End Namespace";
 
@@ -479,7 +545,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As Order*
+        ☆Public Property LastOrder As Order☆
     End Class
 
     Public Class Order
@@ -522,7 +588,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As Order*
+        ☆Public Property LastOrder As Order☆
     End Class
 
     Public Class Order
@@ -535,9 +601,9 @@ End Namespace";
             // This includes the readonly property as not yet filtering out
             // All types treated as fallback
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderDescription\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -574,7 +640,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property LastOrder As Order*
+        ☆Public Property LastOrder As Order☆
     End Class
 
     Public Class Order
@@ -587,8 +653,8 @@ End Namespace";
             // This includes the readonly property as not yet filtering out
             // All types treated as fallback
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderPlacedDateTime\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -626,7 +692,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property OrderStatus As Status*
+        ☆Public Property OrderStatus As Status☆
     End Class
 
     Enum Status
@@ -637,9 +703,9 @@ Namespace tests
 End Namespace";
 
             var expectedOutput = "<ComboBox>"
-         + Environment.NewLine + "<x:String>Active</x:String>"
-         + Environment.NewLine + "<x:String>OnHold</x:String>"
-         + Environment.NewLine + "<x:String>Closed</x:String>"
+         + Environment.NewLine + "    <x:String>Active</x:String>"
+         + Environment.NewLine + "    <x:String>OnHold</x:String>"
+         + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
             var expected = new AnalyzerOutput
@@ -677,7 +743,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property OrderStatus As Status*
+        ☆Public Property OrderStatus As Status☆
     End Class
 
     Enum Status
@@ -689,7 +755,7 @@ End Namespace";
 
             var expectedOutput = "<RadioButton Content=\"Active\" GroupName=\"OrderStatus\" />" + Environment.NewLine +
                                  "<RadioButton Content=\"OnHold\" GroupName=\"OrderStatus\" />" + Environment.NewLine +
-                                 "<RadioButton Content=\"Closed\" GroupName=\"OrderStatus\" />" + Environment.NewLine;
+                                 "<RadioButton Content=\"Closed\" GroupName=\"OrderStatus\" />";
 
             var expected = new AnalyzerOutput
             {
@@ -726,7 +792,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        Public Property OrderStatus* As Status
+        Public Property OrderStatus☆ As Status
     End Class
 End Namespace";
 
@@ -740,9 +806,9 @@ Namespace tests
 End Namespace";
 
             var expectedOutput = "<ComboBox>"
-         + Environment.NewLine + "<x:String>Active</x:String>"
-         + Environment.NewLine + "<x:String>OnHold</x:String>"
-         + Environment.NewLine + "<x:String>Closed</x:String>"
+         + Environment.NewLine + "    <x:String>Active</x:String>"
+         + Environment.NewLine + "    <x:String>OnHold</x:String>"
+         + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
             var expected = new AnalyzerOutput
@@ -779,12 +845,12 @@ End Namespace";
             var code = @"
 Namespace tests
     Public Class Class1
-        *Public Property LastOrder As String*
+        ☆Public Property LastOrder As String☆
     End Class
 End Namespace";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -812,7 +878,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property SomeProperty As dynamic*
+        ☆Public Property SomeProperty As dynamic☆
     End Class
 End Namespace";
 
@@ -842,7 +908,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property SomeList As List(of dynamic)*
+        ☆Public Property SomeList As List(of dynamic)☆
     End Class
 End Namespace";
 
@@ -851,7 +917,7 @@ End Namespace";
             {
                 Name = "SomeList",
                 Output = @"<Dyno>
-<DymnProp Value="""" />
+    <DymnProp Value="""" />
 </Dyno>",
                 OutputType = AnalyzerOutputType.Property,
             };
@@ -891,9 +957,9 @@ End Namespace";
             var code = @"
 Namespace tests
     class Class1
-        *Public Property Name As String
+        ☆Public Property Name As String
         Public Property Amount As Int
-        Public Property Value As String*
+        Public Property Value As String☆
     End Class
 End Namespace";
 

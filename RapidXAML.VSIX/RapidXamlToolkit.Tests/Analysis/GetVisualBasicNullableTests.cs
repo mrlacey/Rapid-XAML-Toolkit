@@ -55,7 +55,7 @@ namespace RapidXamlToolkit.Tests.Analysis
         {
             var code = @"
 Namespace tests
-    Class Cla*ss1
+    Class Cla☆ss1
         Public Property MyBool As Boolean
         Public Property MyBoolQ As Boolean? 
         Public Property MyNullableBool As Nullable(Of Boolean)
@@ -69,8 +69,7 @@ End Namespace";
                 Output = @"<Bool />
 <BoolQ />
 <NullBool />
-<NullBool />
-",
+<NullBool />",
                 OutputType = AnalyzerOutputType.Class,
             };
 
@@ -83,7 +82,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        Public Property MyBo*olQ As Boolean? 
+        Public Property MyBo☆olQ As Boolean? 
     End Class
 End Namespace";
 
@@ -103,7 +102,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        Public Property MyBo*olQ? As Boolean
+        Public Property MyBo☆olQ? As Boolean
     End Class
 End Namespace";
 
@@ -123,7 +122,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        Public Property MyNullable*Bool As Nullable(Of Boolean)
+        Public Property MyNullable☆Bool As Nullable(Of Boolean)
     End Class
 End Namespace";
 
@@ -143,7 +142,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        Public Property MyFqNull*ableBool As System.Nullable(Of Boolean)
+        Public Property MyFqNull☆ableBool As System.Nullable(Of Boolean)
     End Class
 End Namespace";
 
@@ -163,7 +162,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        Public Property MyListOf*Nullables As List(Of Boolean?)
+        Public Property MyListOf☆Nullables As List(Of Boolean?)
     End Class
 End Namespace";
 
@@ -173,13 +172,13 @@ End Namespace";
                 Type = "List(Of Boolean?)",
                 NameContains = string.Empty,
                 IfReadOnly = false,
-                Output = "<LB? />",
+                Output = "<LBnull />",
             });
 
             var expected = new AnalyzerOutput
             {
                 Name = "MyListOfNullables",
-                Output = @"<LB? />",
+                Output = @"<LBnull />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -192,10 +191,10 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property MyBool As Boolean
+        ☆Public Property MyBool As Boolean
         Public Property MyBoolQ As Boolean? 
         Public Property MyNullableBool As Nullable(Of Boolean)
-        Public Property MyFqNullableBool As System.Nullable(Of Boolean)*
+        Public Property MyFqNullableBool As System.Nullable(Of Boolean)☆
     End Class
 End Namespace";
 

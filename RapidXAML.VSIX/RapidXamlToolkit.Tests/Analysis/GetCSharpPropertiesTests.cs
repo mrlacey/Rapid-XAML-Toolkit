@@ -22,8 +22,8 @@ namespace tests
     {
         public string Property1 { get; set; }
 
-        *public string Property2 { get; set; }
-*
+        ☆public string Property2 { get; set; }
+☆
         public string Property3 { get; set; }
     }
 }";
@@ -48,8 +48,8 @@ namespace tests
     {
         public string Property1 { get; set; }
 
-        *public string Property2 { get; }
-*
+        ☆public string Property2 { get; }
+☆
         public string Property3 { get; set; }
     }
 }";
@@ -74,8 +74,8 @@ namespace tests
     {
         public string Property1 { get; set; }
 
-        *public string Property2 { get; private set; }
-*
+        ☆public string Property2 { get; private set; }
+☆
         public string Property3 { get; set; }
     }
 }";
@@ -102,8 +102,8 @@ namespace tests
 
         public string Property1 { get; set; }
 
-        *public string Property2 { get => _property2; set => _property2 = value; }
-*
+        ☆public string Property2 { get => _property2; set => _property2 = value; }
+☆
         public string Property3 { get; set; }
     }
 }";
@@ -130,8 +130,8 @@ namespace tests
 
         public string Property1 { get; set; }
 
-        *public string Property2 { get => _property2; private set => _property2 = value; }
-*
+        ☆public string Property2 { get => _property2; private set => _property2 = value; }
+☆
         public string Property3 { get; set; }
     }
 }";
@@ -158,8 +158,8 @@ namespace tests
 
         public string Property1 { get; set; }
 
-        *public string Property2 { get => _property2; }
-*
+        ☆public string Property2 { get => _property2; }
+☆
         public string Property3 { get; set; }
     }
 }";
@@ -182,7 +182,7 @@ namespace tests
 {
     class Class1
     {
-        *public int SomeProperty { get; set; }*
+        ☆public int SomeProperty { get; set; }☆
     }
 }";
 
@@ -214,7 +214,7 @@ namespace tests
 {
     class Class1
     {
-        *public dynamic SomeProperty { get; set; }*
+        ☆public dynamic SomeProperty { get; set; }☆
     }
 }";
 
@@ -246,7 +246,7 @@ namespace tests
 {
     class Class1
     {
-        *public List<dynamic> SomeList { get; set; }*
+        ☆public List<dynamic> SomeList { get; set; }☆
     }
 }";
 
@@ -255,7 +255,7 @@ namespace tests
             {
                 Name = "SomeList",
                 Output = @"<Dyno>
-<DymnProp Value="""" />
+    <DymnProp Value="""" />
 </Dyno>",
                 OutputType = AnalyzerOutputType.Property,
             };
@@ -273,14 +273,15 @@ namespace tests
 {
     class Class1
     {
-        *public List<string> MyListProperty { get; set; }*
+        ☆public List<string> MyListProperty { get; set; }☆
     }
 }";
 
             var expected = new AnalyzerOutput
             {
                 Name = "MyListProperty",
-                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\"></ItemsControl>",
+                Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\">" + Environment.NewLine +
+                         "</ItemsControl>",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -295,7 +296,7 @@ namespace tests
 {
     class Class1
     {
-        *private string TestProperty { get; set; }*
+        ☆private string TestProperty { get; set; }☆
     }
 }";
 
@@ -317,7 +318,7 @@ namespace tests
 {
     class Class1
     {
-        *protected string TestProperty { get; set; }*
+        ☆protected string TestProperty { get; set; }☆
     }
 }";
 
@@ -339,7 +340,7 @@ namespace tests
 {
     class Class1
     {
-        *internal string TestProperty { get; set; }*
+        ☆internal string TestProperty { get; set; }☆
     }
 }";
 
@@ -361,7 +362,7 @@ namespace tests
 {
     class Class1
     {
-        *string TestProperty { get; set; }*
+        ☆string TestProperty { get; set; }☆
     }
 }";
 
@@ -381,7 +382,7 @@ namespace tests
             var code = @"
 class Class1
 {
-    *string TestProperty { get; set; }*
+    ☆string TestProperty { get; set; }☆
 }";
 
             var expected = new AnalyzerOutput
@@ -402,7 +403,7 @@ namespace tests
 {
     class Class1
     {
-        *public Order LastOrder { get; set; }*
+        ☆public Order LastOrder { get; set; }☆
     }
 
     class Order
@@ -430,7 +431,7 @@ namespace tests
 {
     class Class1
     {
-        *public Array LastOrder { get; set; }*
+        ☆public Array LastOrder { get; set; }☆
     }
 }";
 
@@ -470,7 +471,7 @@ namespace tests
 {
     class Class1
     {
-        *public InvalidType LastOrder { get; set; }*
+        ☆public InvalidType LastOrder { get; set; }☆
     }
 }";
 
@@ -528,7 +529,7 @@ namespace tests
 {
     class Class1
     {
-        *public Order LastOrder { get; set; }*
+        ☆public Order LastOrder { get; set; }☆
     }
 
     class Order
@@ -574,7 +575,7 @@ namespace tests
 {
     class Class1
     {
-        *public Order LastOrder { get; set; }*
+        ☆public Order LastOrder { get; set; }☆
     }
 
     class Order
@@ -588,9 +589,9 @@ namespace tests
             // This includes the readonly property as not yet filtering out
             // All types treated as fallback
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderDescription\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -629,7 +630,7 @@ namespace tests
 {
     class Class1
     {
-        *public Order LastOrder { get; set; }*
+        ☆public Order LastOrder { get; set; }☆
     }
 
     class Order
@@ -643,8 +644,8 @@ namespace tests
             // This includes the readonly property as not yet filtering out
             // All types treated as fallback
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_OrderPlacedDateTime\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -683,12 +684,12 @@ namespace tests
 {
     class Class1
     {
-        *public string LastOrder { get; set; }*
+        ☆public string LastOrder { get; set; }☆
     }
 }";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"SP_\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -728,7 +729,7 @@ namespace tests
 {
     class Class1
     {
-        *public Status OrderStatus { get; set; }*
+        ☆public Status OrderStatus { get; set; }☆
     }
 
     enum Status
@@ -740,9 +741,9 @@ namespace tests
 }";
 
             var expectedOutput = "<ComboBox>"
-         + Environment.NewLine + "<x:String>Active</x:String>"
-         + Environment.NewLine + "<x:String>OnHold</x:String>"
-         + Environment.NewLine + "<x:String>Closed</x:String>"
+         + Environment.NewLine + "    <x:String>Active</x:String>"
+         + Environment.NewLine + "    <x:String>OnHold</x:String>"
+         + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
             var expected = new AnalyzerOutput
@@ -789,7 +790,7 @@ namespace tests
 {
     class Class1
     {
-        *public Status OrderStatus { get; set; }*
+        ☆public Status OrderStatus { get; set; }☆
     }
 
     enum Status
@@ -801,9 +802,9 @@ namespace tests
 }";
 
             var expectedOutput = "<ComboBox>"
-         + Environment.NewLine + "<x:String>Active</x:String>"
-         + Environment.NewLine + "<x:String>OnHold</x:String>"
-         + Environment.NewLine + "<x:String>Closed</x:String>"
+         + Environment.NewLine + "    <x:String>Active</x:String>"
+         + Environment.NewLine + "    <x:String>OnHold</x:String>"
+         + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
             var expected = new AnalyzerOutput
@@ -843,7 +844,7 @@ namespace tests
 {
     class Class1
     {
-        public Status OrderStatus* { get; set; }
+        public Status OrderStatus☆ { get; set; }
     }
 }";
 
@@ -859,9 +860,9 @@ namespace tests
 }";
 
             var expectedOutput = "<ComboBox>"
-         + Environment.NewLine + "<x:String>Active</x:String>"
-         + Environment.NewLine + "<x:String>OnHold</x:String>"
-         + Environment.NewLine + "<x:String>Closed</x:String>"
+         + Environment.NewLine + "    <x:String>Active</x:String>"
+         + Environment.NewLine + "    <x:String>OnHold</x:String>"
+         + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
             var expected = new AnalyzerOutput
@@ -901,7 +902,7 @@ namespace tests
 {
     class Class1
     {
-        *public Status OrderStatus { get; set; }*
+        ☆public Status OrderStatus { get; set; }☆
     }
 
     enum Status
@@ -914,7 +915,7 @@ namespace tests
 
             var expectedOutput = "<RadioButton Content=\"Active\" GroupName=\"OrderStatus\" />" + Environment.NewLine +
                                  "<RadioButton Content=\"OnHold\" GroupName=\"OrderStatus\" />" + Environment.NewLine +
-                                 "<RadioButton Content=\"Closed\" GroupName=\"OrderStatus\" />" + Environment.NewLine;
+                                 "<RadioButton Content=\"Closed\" GroupName=\"OrderStatus\" />";
 
             var expected = new AnalyzerOutput
             {
@@ -934,7 +935,7 @@ namespace tests
 {
     class Class1
     {
-        public Order LastOrd*er { get; set; }
+        public Order LastOrd☆er { get; set; }
     }
 }";
             var code2 = @"
@@ -983,7 +984,7 @@ namespace tests
 {
     class Class1
     {
-        publ*ic NonDefinedType SomeProperty { get; set; }
+        publ☆ic NonDefinedType SomeProperty { get; set; }
     }
 }";
 
@@ -1024,7 +1025,7 @@ namespace tests
 {
     class Class1
     {
-        public Status Order*Status { get; set; }
+        public Status Order☆Status { get; set; }
     }
 
     enum Status
@@ -1036,9 +1037,9 @@ namespace tests
 }";
 
             var expectedOutput = "<ComboBox>"
-         + Environment.NewLine + "<x:String>Active</x:String>"
-         + Environment.NewLine + "<x:String>On Hold</x:String>"
-         + Environment.NewLine + "<x:String>Closed</x:String>"
+         + Environment.NewLine + "    <x:String>Active</x:String>"
+         + Environment.NewLine + "    <x:String>On Hold</x:String>"
+         + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
             var expected = new AnalyzerOutput
@@ -1085,9 +1086,9 @@ namespace tests
 {
     class Class1
     {
-        *public string Name { get; set; }
+        ☆public string Name { get; set; }
         public Int Amount { get; set; }
-        public string Value { get; set; }*
+        public string Value { get; set; }☆
     }
 }";
 

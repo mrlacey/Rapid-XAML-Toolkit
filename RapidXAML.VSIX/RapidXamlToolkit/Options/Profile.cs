@@ -62,6 +62,8 @@ namespace RapidXamlToolkit.Options
 
         public DatacontextSettings Datacontext { get; set; }
 
+        public GeneralSettings General { get; set; }
+
         public static Profile CreateNew()
         {
             return new Profile
@@ -100,6 +102,11 @@ namespace RapidXamlToolkit.Options
         public void RefreshMappings()
         {
             this.OnPropertyChanged(nameof(this.Mappings));
+        }
+
+        public string AsJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
     }
 }

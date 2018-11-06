@@ -33,15 +33,15 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var code = @"
 Namespace tests
-    Structure Str*uctViewModel
+    Structure Str☆uctViewModel
         Public Property Property1 As String
         Public Property Property2 As Integer
     End Structure
 End Namespace";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "<String Name=\"Property1\" />"
-         + Environment.NewLine + "<Int Name=\"Property2\" />"
+         + Environment.NewLine + "    <String Name=\"Property1\" />"
+         + Environment.NewLine + "    <Int Name=\"Property2\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -69,7 +69,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property Property2 As MyStruct*
+        ☆Public Property Property2 As MyStruct☆
     End Class
 
     Structure MyStruct
@@ -118,7 +118,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        *Public Property MyListProperty As List(Of MyStruct)*
+        ☆Public Property MyListProperty As List(Of MyStruct)☆
     End Class
 
     Structure MyStruct
@@ -131,8 +131,7 @@ End Namespace";
             {
                 Name = "MyListProperty",
                 Output = @"<MyProperty1 />
-<MyProperty2 />
-",
+<MyProperty2 />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -161,8 +160,8 @@ End Namespace";
             var code = @"
 Namespace tests
     Structure StructViewModel
-        *Public Property Property1 As String
-        Public Property Property2 As Integer*
+        ☆Public Property Property1 As String
+        Public Property Property2 As Integer☆
     End Structure
 End Namespace";
 

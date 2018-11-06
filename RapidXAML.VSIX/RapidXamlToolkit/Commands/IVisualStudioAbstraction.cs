@@ -31,5 +31,7 @@ namespace RapidXamlToolkit.Commands
         (int, int) GetCursorPositionAndLineNumber();
 
         void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions);
+
+        Task<int> GetXamlIndentAsync();
     }
 }

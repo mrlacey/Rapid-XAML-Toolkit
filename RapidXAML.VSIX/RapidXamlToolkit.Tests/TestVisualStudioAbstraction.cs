@@ -30,6 +30,8 @@ namespace RapidXamlToolkit.Tests
 
         public int LineNumber { get; set; } = 1;  // Assume that everything is on one line for testing. Bypasses the way VS adds extra char for end of line
 
+        public int XamlIndent { get; set; } = 4;
+
         public ProjectWrapper GetActiveProject()
         {
             return this.ActiveProject;
@@ -85,6 +87,12 @@ namespace RapidXamlToolkit.Tests
         public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusion)
         {
             // NOOP
+        }
+
+        public async Task<int> GetXamlIndentAsync()
+        {
+            await Task.CompletedTask;
+            return this.XamlIndent;
         }
     }
 }

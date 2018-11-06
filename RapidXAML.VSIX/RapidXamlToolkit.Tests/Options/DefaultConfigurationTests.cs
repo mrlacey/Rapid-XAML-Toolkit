@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 
@@ -55,6 +57,9 @@ namespace RapidXamlToolkit.Tests.Options
                 Assert.IsNotNull(profile.Datacontext.CodeBehindPageContent, nameof(DatacontextSettings.CodeBehindPageContent));
                 Assert.IsNotNull(profile.Datacontext.DefaultCodeBehindConstructor, nameof(DatacontextSettings.DefaultCodeBehindConstructor));
                 Assert.IsNotNull(profile.Datacontext.XamlPageAttribute, nameof(DatacontextSettings.XamlPageAttribute));
+
+                Assert.IsNotNull(profile.General, $"{nameof(Profile.General)} in profile {profile.Name}");
+                Assert.IsNotNull(profile.General.AttemptAutomaticDocumentFormatting, $"{nameof(Profile.General.AttemptAutomaticDocumentFormatting)} in profile {profile.Name}");
             }
         }
 
@@ -73,6 +78,24 @@ namespace RapidXamlToolkit.Tests.Options
                 {
                     Assert.IsTrue(mapping.Output.IsValidXamlOutput(), $"Invalid output: {mapping.Output}");
                 }
+            }
+        }
+
+        [TestMethod]
+        public async Task EnsureDefaultProfilesCanBeExportedAndImported()
+        {
+            var defSet = ConfiguredSettings.GetDefaultSettings();
+
+            foreach (var profile in defSet.Profiles)
+            {
+                var json = profile.AsJson();
+
+                var analyzer = new ApiAnalysis.SimpleJsonAnalyzer();
+
+                var analyzerResults = await analyzer.AnalyzeJsonAsync(json, typeof(Profile));
+
+                Assert.AreEqual(1, analyzerResults.Count);
+                Assert.AreEqual(analyzer.MessageBuilder.AllGoodMessage, analyzerResults.First());
             }
         }
     }

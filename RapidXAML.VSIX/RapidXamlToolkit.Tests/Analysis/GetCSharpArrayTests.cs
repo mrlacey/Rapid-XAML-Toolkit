@@ -49,7 +49,7 @@ using System;
 
 namespace tests
 {
-    class Cla*ss1
+    class Cla☆ss1
     {
         public bool MyBool { get; set; }
         public bool[] MyBoolBrackets { get; set; }
@@ -62,8 +62,7 @@ namespace tests
                 Name = "Class1",
                 Output = @"<Bool />
 <BoolBrackets />
-<ArrayBool />
-",
+<ArrayBool />",
                 OutputType = AnalyzerOutputType.Class,
             };
 
@@ -78,7 +77,7 @@ namespace tests
 {
     class Class1
     {
-        public bool[] MyBoo*lBrackets { get; set; }
+        public bool[] MyBoo☆lBrackets { get; set; }
     }
 }";
 
@@ -102,7 +101,7 @@ namespace tests
 {
     class Class1
     {
-        public Array<bool> MyAr*rayBool { get; set; }
+        public Array<bool> MyAr☆rayBool { get; set; }
     }
 }";
 
@@ -126,9 +125,9 @@ namespace tests
 {
     class Class1
     {
-       * public bool MyBool { get; set; }
+       ☆ public bool MyBool { get; set; }
         public bool[] MyBoolBrackets { get; set; }
-        public Array<bool> MyArrayBool { get; set; }*
+        public Array<bool> MyArrayBool { get; set; }☆
     }
 }";
 

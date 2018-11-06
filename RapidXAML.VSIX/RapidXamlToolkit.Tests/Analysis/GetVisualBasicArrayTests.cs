@@ -46,7 +46,7 @@ namespace RapidXamlToolkit.Tests.Analysis
         {
             var code = @"
 Namespace tests
-    Class Cla*ss1
+    Class Cla☆ss1
         Public Property MyBool As Boolean 
         Public Property MyArray As Array
         Public Property MyArrayBool() As Boolean
@@ -58,8 +58,7 @@ End Namespace";
                 Name = "Class1",
                 Output = @"<Bool />
 <Array />
-<ArrayBool />
-",
+<ArrayBool />",
                 OutputType = AnalyzerOutputType.Class,
             };
 
@@ -72,7 +71,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        Public Property MyAr*ray As Array
+        Public Property MyAr☆ray As Array
     End Class
 End Namespace";
 
@@ -92,7 +91,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        Public Property MyAr*rayBool() As Boolean
+        Public Property MyAr☆rayBool() As Boolean
     End Class
 End Namespace";
 
@@ -112,9 +111,9 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-       *Public Property MyBool As Boolean 
+       ☆Public Property MyBool As Boolean 
         Public Property MyArray As Array
-        Public Property MyArrayBool() As Boolean*
+        Public Property MyArrayBool() As Boolean☆
     End Class
 End Namespace";
 

@@ -493,6 +493,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to analyze property &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_PropertyCannotBeAnalyzed {
+            get {
+                return ResourceManager.GetString("Info_PropertyCannotBeAnalyzed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Property is read-only so looking for read-only mappings first..
         /// </summary>
         public static string Info_PropertyIsReadOnly {
@@ -633,6 +642,24 @@ namespace RapidXamlToolkit.Resources {
         public static string Options_AllInOneProjectDescription {
             get {
                 return ResourceManager.GetString("Options_AllInOneProjectDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempt Automatic Document Formatting.
+        /// </summary>
+        public static string Options_AttemptAutomaticDocumentFormatting {
+            get {
+                return ResourceManager.GetString("Options_AttemptAutomaticDocumentFormatting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trigger Visual Studio&apos;s automatic document formatting after modifying a document.
+        /// </summary>
+        public static string Options_AttemptAutomaticDocumentFormattingDescription {
+            get {
+                return ResourceManager.GetString("Options_AttemptAutomaticDocumentFormattingDescription", resourceCulture);
             }
         }
         
@@ -858,6 +885,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Options_FallbackOutputDescription {
             get {
                 return ResourceManager.GetString("Options_FallbackOutputDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string Options_GeneralHeader {
+            get {
+                return ResourceManager.GetString("Options_GeneralHeader", resourceCulture);
             }
         }
         
