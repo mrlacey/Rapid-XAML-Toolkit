@@ -185,9 +185,11 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             for (var pos = startPos; pos < endPos; pos++)
             {
-                var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+                var indent = new TestVisualStudioAbstraction().XamlIndent;
+                var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
+                                        : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
 
-                var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
+                var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
                 Assert.AreEqual(expected.OutputType, actual.OutputType, $"Failure at {pos} ({startPos}-{endPos})");
                 Assert.AreEqual(expected.Name, actual.Name, $"Failure at {pos} ({startPos}-{endPos})");
@@ -213,9 +215,11 @@ namespace RapidXamlToolkit.Tests.Analysis
             var semModel = isCSharp ? CSharpCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true)
                                     : VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true);
 
-            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+            var indent = new TestVisualStudioAbstraction().XamlIndent;
+            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
+                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
             this.AssertOutput(expected, actual);
         }
@@ -246,10 +250,12 @@ namespace RapidXamlToolkit.Tests.Analysis
             var semModel = document.GetSemanticModelAsync().Result;
             var syntaxTree = document.GetSyntaxTreeAsync().Result;
 
-            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer
-                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+            var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
+            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
+                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
+
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
             this.AssertOutput(expected, actual);
         }
@@ -282,10 +288,12 @@ namespace RapidXamlToolkit.Tests.Analysis
             var semModel = document.GetSemanticModelAsync().Result;
             var syntaxTree = document.GetSyntaxTreeAsync().Result;
 
-            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer
-                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+            var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
+            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
+                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
+
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
             this.AssertOutput(expected, actual);
         }
@@ -318,10 +326,12 @@ namespace RapidXamlToolkit.Tests.Analysis
             var semModel = document.GetSemanticModelAsync().Result;
             var syntaxTree = document.GetSyntaxTreeAsync().Result;
 
-            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer
-                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+            var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
+            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
+                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
+
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos,  profileOverload);
 
             this.AssertOutput(expected, actual);
         }
@@ -340,9 +350,12 @@ namespace RapidXamlToolkit.Tests.Analysis
             var semModel = isCSharp ? CSharpCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true)
                                     : VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true);
 
-            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create()) as IDocumentAnalyzer : new VisualBasicAnalyzer(DefaultTestLogger.Create());
+            var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var actual = analyzer.GetSelectionOutput(syntaxTree.GetRoot(), semModel, startPos, endPos, new TestVisualStudioAbstraction().XamlIndent, profileOverload);
+            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
+                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
+
+            var actual = analyzer.GetSelectionOutput(syntaxTree.GetRoot(), semModel, startPos, endPos,  profileOverload);
 
             this.AssertOutput(expected, actual);
         }

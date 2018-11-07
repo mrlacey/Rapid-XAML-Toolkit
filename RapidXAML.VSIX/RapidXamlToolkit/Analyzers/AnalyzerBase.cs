@@ -23,7 +23,7 @@ namespace RapidXamlToolkit.Analyzers
 
         internal const string Unknown = "**unknown**";
 
-        public AnalyzerBase(ILogger logger)
+        public AnalyzerBase(ILogger logger, int xamlIndent)
         {
             Logger = logger;
         }
@@ -31,6 +31,8 @@ namespace RapidXamlToolkit.Analyzers
         public static IServiceProvider ServiceProvider { get; set; }
 
         public static ILogger Logger { get; set; }
+
+        public static int XamlIndentSize { get; set; }
 
         public virtual string FileExtension { get; } = string.Empty;
 
@@ -45,11 +47,11 @@ namespace RapidXamlToolkit.Analyzers
             return configuredSettings.ActualSettings;
         }
 
-        public static (string output, int counter) GetPropertyOutputAndCounterForActiveProfile(PropertyDetails property, int numericSubstitute, int indent, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
+        public static (string output, int counter) GetPropertyOutputAndCounterForActiveProfile(PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
         {
             var settings = GetSettings();
             var activeProfile = settings.GetActiveProfile();
-            return GetPropertyOutputAndCounter(activeProfile, property, numericSubstitute, indent, getSubPropertyOutput);
+            return GetPropertyOutputAndCounter(activeProfile, property, numericSubstitute, getSubPropertyOutput);
         }
 
         public static string GetClassGroupingForActiveProfile()
@@ -63,18 +65,18 @@ namespace RapidXamlToolkit.Analyzers
             return result;
         }
 
-        public static string GetPropertyOutput(Profile profile, string type, string name, bool isReadOnly, int indent, Func<(List<string> strings, int count)> getSubProperties = null)
+        public static string GetPropertyOutput(Profile profile, string type, string name, bool isReadOnly, Func<(List<string> strings, int count)> getSubProperties = null)
         {
-            return GetPropertyOutputAndCounter(profile, new PropertyDetails { PropertyType = type, Name = name, IsReadOnly = isReadOnly }, 1, indent, getSubProperties).output;
+            return GetPropertyOutputAndCounter(profile, new PropertyDetails { PropertyType = type, Name = name, IsReadOnly = isReadOnly }, 1, getSubProperties).output;
         }
 
-        public static (string output, int counter) GetSubPropertyOutputAndCounter(Profile profile, string name, int numericSubstitute, int indent)
+        public static (string output, int counter) GetSubPropertyOutputAndCounter(Profile profile, string name, int numericSubstitute)
         {
             // Type is blank as it's can't be used in a subproperty
-            return FormatOutput(profile, profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, symbol: null, indent: indent, getSubPropertyOutput: null);
+            return FormatOutput(profile, profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, symbol: null, getSubPropertyOutput: null);
         }
 
-        public static (string output, int counter) GetPropertyOutputAndCounter(Profile profile, PropertyDetails property, int numericSubstitute, int indent, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
+        public static (string output, int counter) GetPropertyOutputAndCounter(Profile profile, PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
         {
             var mappingOfInterest = GetMappingOfInterest(profile, property);
 
@@ -112,10 +114,10 @@ namespace RapidXamlToolkit.Analyzers
                 return (null, numericSubstitute);
             }
 
-            return FormatOutput(profile, rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, indent, getSubPropertyOutput);
+            return FormatOutput(profile, rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, getSubPropertyOutput);
         }
 
-        public static (string output, int counter) FormatOutput(Profile profile, string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, int indent, Func<(List<string> strings, int count)> getSubPropertyOutput)
+        public static (string output, int counter) FormatOutput(Profile profile, string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, Func<(List<string> strings, int count)> getSubPropertyOutput)
         {
             Logger?.RecordInfo(StringRes.Info_FormattingOutputForProperty.WithParams(name));
 
@@ -292,7 +294,7 @@ namespace RapidXamlToolkit.Analyzers
                 result = string.Empty;
             }
 
-            var finalResult = result.FormatXaml(indent);
+            var finalResult = result.FormatXaml(AnalyzerBase.XamlIndentSize);
 
             return (finalResult, numericSubstitute);
         }

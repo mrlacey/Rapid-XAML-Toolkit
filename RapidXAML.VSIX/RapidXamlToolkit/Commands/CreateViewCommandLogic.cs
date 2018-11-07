@@ -50,15 +50,16 @@ namespace RapidXamlToolkit.Commands
 
             AnalyzerBase analyzer = null;
             var codeBehindExt = string.Empty;
+            var indent = await this.vs.GetXamlIndentAsync();
 
             switch (fileExt)
             {
                 case ".cs":
-                    analyzer = new CSharpAnalyzer(this.logger);
+                    analyzer = new CSharpAnalyzer(this.logger, indent);
                     codeBehindExt = ((CSharpAnalyzer)analyzer).FileExtension;
                     break;
                 case ".vb":
-                    analyzer = new VisualBasicAnalyzer(this.logger);
+                    analyzer = new VisualBasicAnalyzer(this.logger, indent);
                     codeBehindExt = ((VisualBasicAnalyzer)analyzer).FileExtension;
                     break;
             }
@@ -67,10 +68,8 @@ namespace RapidXamlToolkit.Commands
 
             if (analyzer != null)
             {
-                var indent = await this.vs.GetXamlIndentAsync();
-
                 // IndexOf is allowing for "class " in C# and "Class " in VB
-                var analyzerOutput = ((IDocumentAnalyzer)analyzer).GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, fileContents.IndexOf("lass "), indent, this.profile);
+                var analyzerOutput = ((IDocumentAnalyzer)analyzer).GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, fileContents.IndexOf("lass "), this.profile);
 
                 var config = this.profile.ViewGeneration;
 

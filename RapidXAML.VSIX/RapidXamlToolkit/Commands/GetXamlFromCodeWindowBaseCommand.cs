@@ -47,16 +47,16 @@ namespace RapidXamlToolkit.Commands
 
                 if (activeDocument.Language == "CSharp")
                 {
-                    analyzer = new CSharpAnalyzer(this.Logger);
+                    analyzer = new CSharpAnalyzer(this.Logger, xamlIndent);
                 }
                 else if (activeDocument.Language == "Basic")
                 {
-                    analyzer = new VisualBasicAnalyzer(this.Logger);
+                    analyzer = new VisualBasicAnalyzer(this.Logger, xamlIndent);
                 }
 
                 result = isSelection
-                    ? analyzer?.GetSelectionOutput(await document.GetSyntaxRootAsync(), semanticModel, selection.Start.Position, selection.End.Position, xamlIndent)
-                    : analyzer?.GetSingleItemOutput(await document.GetSyntaxRootAsync(), semanticModel, caretPosition.Position, xamlIndent);
+                    ? analyzer?.GetSelectionOutput(await document.GetSyntaxRootAsync(), semanticModel, selection.Start.Position, selection.End.Position)
+                    : analyzer?.GetSingleItemOutput(await document.GetSyntaxRootAsync(), semanticModel, caretPosition.Position);
             }
             else
             {

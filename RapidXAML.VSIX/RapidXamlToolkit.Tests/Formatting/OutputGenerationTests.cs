@@ -22,7 +22,6 @@ namespace RapidXamlToolkit.Tests.Formatting
         private const string ReadWriteIntOutput = "<ReadWriteIntOutput />";
 
         private const string StringPropertyName = "String";
-        private const int UnusedIndentValue = 3;
 
         private readonly Profile testProfile;
 
@@ -78,7 +77,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetsNonFilteredOutputIfNameDoesntMatch()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "MyProperty", false, UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "MyProperty", false);
 
             Assert.AreEqual(ReadWriteStringOutput.Replace("$name$", "MyProperty"), result);
         }
@@ -86,7 +85,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void ReadWritePropertyIsIdentified()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "AnotherProperty", true, UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "AnotherProperty", true);
 
             Assert.AreEqual(ReadonlyStringOutput.Replace("$name$", "AnotherProperty"), result);
         }
@@ -94,7 +93,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void SingleNameContainsIsIdentified()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "int", "number1", false, UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "int", "number1", false);
 
             Assert.AreEqual(ReadWriteNumberIntOutput, result);
         }
@@ -102,7 +101,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void MultipleNameContainsIsIdentified()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "EnteredPassword", false, UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "EnteredPassword", false);
 
             Assert.AreEqual(ReadWritePasswordStringOutput.Replace("$name$", "EnteredPassword"), result);
         }
@@ -110,7 +109,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void ReadOnlyTakesPriorityOverContains()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "EnteredPwd", true, UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "EnteredPwd", true);
 
             Assert.AreEqual(ReadonlyStringOutput.Replace("$name$", "EnteredPwd"), result);
         }
@@ -118,7 +117,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void TypeNameIsCaseInsensitive()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "INT", "number1", false, UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "INT", "number1", false);
 
             Assert.AreEqual(ReadWriteNumberIntOutput, result);
         }
@@ -126,7 +125,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void NameContainsIsCaseInsensitive()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "int", "Number1", false, UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "int", "Number1", false);
 
             Assert.AreEqual(ReadWriteNumberIntOutput, result);
         }
@@ -134,7 +133,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void NoNameContainsIsIdentified()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "int", "numero2", false, UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "int", "numero2", false);
 
             Assert.AreEqual(ReadWriteIntOutput, result);
         }
@@ -142,7 +141,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetFallbackIfTypeNotMapped()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "bool", "IsAdmin", false, UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "bool", "IsAdmin", false);
 
             Assert.AreEqual(FallbackOutput, result);
         }
@@ -168,7 +167,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var result = AnalyzerBase.GetPropertyOutput(gridProfile, StringPropertyName, "MyProperty", false, UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(gridProfile, StringPropertyName, "MyProperty", false);
 
             var expected = "<TextBlock Text=\"MyProperty\" Grid.Row=\"1\" />" + Environment.NewLine +
                            "<TextBlock Text=\"MyProperty\" Grid.Row=\"2\" />";
@@ -196,7 +195,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var result = AnalyzerBase.GetPropertyOutput(readonlyProfile, StringPropertyName, "MyProperty", isReadOnly: true, indent: UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(readonlyProfile, StringPropertyName, "MyProperty", isReadOnly: true);
 
             Assert.AreEqual("<ReadAndWrite />", result);
         }
@@ -221,7 +220,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var result = AnalyzerBase.GetPropertyOutput(readonlyProfile, StringPropertyName, "MyProperty", isReadOnly: false, indent: UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(readonlyProfile, StringPropertyName, "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("<Fallback />", result);
         }
@@ -302,7 +301,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var result = AnalyzerBase.GetPropertyOutput(wildcardGenericsProfile, "List<string>", "MyProperty", isReadOnly: false, indent: UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(wildcardGenericsProfile, "List<string>", "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("<Wildcard />", result);
         }
@@ -334,7 +333,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var result = AnalyzerBase.GetPropertyOutput(wildcardGenericsProfile, "List<string>", "MyProperty", isReadOnly: false, indent: UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(wildcardGenericsProfile, "List<string>", "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("<ListOfStrings />", result);
         }
@@ -351,7 +350,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 Output = "$namewithspaces$",
             });
 
-            var result = AnalyzerBase.GetPropertyOutput(profile, "string", "MyProperty", isReadOnly: false, indent: UnusedIndentValue);
+            var result = AnalyzerBase.GetPropertyOutput(profile, "string", "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("My Property", result);
         }

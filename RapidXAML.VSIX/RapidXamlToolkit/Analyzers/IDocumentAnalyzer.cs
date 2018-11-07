@@ -8,8 +8,8 @@ namespace RapidXamlToolkit.Analyzers
 {
     public interface IDocumentAnalyzer
     {
-        AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, int indent, Profile profileOverload = null);
+        AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null);
 
-        AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, int indent, Profile profileOverload = null);
+        AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null);
     }
 }
