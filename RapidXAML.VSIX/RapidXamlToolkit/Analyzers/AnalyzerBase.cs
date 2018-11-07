@@ -26,13 +26,14 @@ namespace RapidXamlToolkit.Analyzers
         public AnalyzerBase(ILogger logger, int xamlIndent)
         {
             Logger = logger;
+            XamlIndentSize = xamlIndent;
         }
 
         public static IServiceProvider ServiceProvider { get; set; }
 
         public static ILogger Logger { get; set; }
 
-        public static int XamlIndentSize { get; set; }
+        public static int XamlIndentSize { get; set; } = 4;
 
         public virtual string FileExtension { get; } = string.Empty;
 
