@@ -70,3 +70,5 @@ Profile settings and mappings can include placeholders. A placeholder is somethi
 - **$elementwithspaces$** Enum element. Is replaced with the name of an individual enum element and spaces are inserted between words if the name is camelCase or PascalCase.
 - **$enumname$** Enum property name. Is replaced with the name of the enum property.
 - **$nooutput$** No Output. Nothing will be included in the generated XAML when this is in the mapping output.
+- **$xname$** A generated value based on the property name and the XAML element this is used within.
+- **$repxname$** Repeat the last generated $xname$ value. If no $xname$ value has been generated, the attribute this is used within will be omitted from the output.

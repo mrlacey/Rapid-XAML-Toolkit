@@ -45,6 +45,10 @@ namespace RapidXamlToolkit
 
         public const string NoOutput = "$nooutput$";
 
+        public const string XName = "$xname$";
+
+        public const string RepeatingXName = "$repxname$";
+
         private static List<string> all = null;
 
         public static List<string> All()
