@@ -1760,6 +1760,171 @@ namespace OtherNamespace
             this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(codeFile1, expected, nestedListProfile, codeFile2, codeFile3);
         }
 
+        [TestMethod]
+        public void Check_RelativePanel_RepXName_MiddleAttribute()
+        {
+            var relPanelProfile = new Profile
+            {
+                Name = "RelativePanelProfile",
+                ClassGrouping = "RelativePanel",
+                FallbackOutput = "<TextBlock x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" Text=\"FB_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class Class100 ☆
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+        public string Property3 { get; set; }
+    }
+}";
+
+            var expectedOutput = "<RelativePanel>"
+         + Environment.NewLine + "    <TextBlock x:Name=\"Property1TextBlock\" Text=\"FB_Property1\" />"
+         + Environment.NewLine + "    <TextBlock x:Name=\"Property2TextBlock\" RelativePanel.Below=\"Property1TextBlock\" Text=\"FB_Property2\" />"
+         + Environment.NewLine + "    <TextBlock x:Name=\"Property3TextBlock\" RelativePanel.Below=\"Property2TextBlock\" Text=\"FB_Property3\" />"
+         + Environment.NewLine + "</RelativePanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class100",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, relPanelProfile);
+        }
+
+        [TestMethod]
+        public void Check_RelativePanel_RepXName_LastAttribute()
+        {
+            var relPanelProfile = new Profile
+            {
+                Name = "RelativePanelProfile",
+                ClassGrouping = "RelativePanel",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\"/>",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class Class100 ☆
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+        public string Property3 { get; set; }
+    }
+}";
+
+            // XML Formatting will add the space before the closing tag even though it's not in the output above
+            var expectedOutput = "<RelativePanel>"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_Property1\" x:Name=\"Property1TextBlock\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_Property2\" x:Name=\"Property2TextBlock\" RelativePanel.Below=\"Property1TextBlock\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FB_Property3\" x:Name=\"Property3TextBlock\" RelativePanel.Below=\"Property2TextBlock\" />"
+         + Environment.NewLine + "</RelativePanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class100",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, relPanelProfile);
+        }
+
+        [TestMethod]
+        public void Check_RelativePanel_RepXName_LastAttributeNotSelfClosingTag()
+        {
+            var relPanelProfile = new Profile
+            {
+                Name = "RelativePanelProfile",
+                ClassGrouping = "RelativePanel",
+                FallbackOutput = "<TextBlock x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\">FB_$name$</TextBlock>",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class Class100 ☆
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+        public string Property3 { get; set; }
+    }
+}";
+
+            var expectedOutput = "<RelativePanel>"
+         + Environment.NewLine + "    <TextBlock x:Name=\"Property1TextBlock\">FB_Property1</TextBlock>"
+         + Environment.NewLine + "    <TextBlock x:Name=\"Property2TextBlock\" RelativePanel.Below=\"Property1TextBlock\">FB_Property2</TextBlock>"
+         + Environment.NewLine + "    <TextBlock x:Name=\"Property3TextBlock\" RelativePanel.Below=\"Property2TextBlock\">FB_Property3</TextBlock>"
+         + Environment.NewLine + "</RelativePanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class100",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, relPanelProfile);
+        }
+
+        [TestMethod]
+        public void Check_RelativePanel_RepXNameNotInAttribute()
+        {
+            // This will output invalid XAML but testing replacement of $rexname$
+            var relPanelProfile = new Profile
+            {
+                Name = "RelativePanelProfile",
+                ClassGrouping = "RelativePanel",
+                FallbackOutput = "<TextBlock x:Name=\"$xname$\" Text=\"FB_$name$\" /><X$repxname$ />",  // Added X before placeholder so generated XAML is valid
+                Mappings = new ObservableCollection<Mapping>
+                {
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class Class100 ☆
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+        public string Property3 { get; set; }
+    }
+}";
+
+            var expectedOutput = "<RelativePanel>"
+         + Environment.NewLine + "    <TextBlock x:Name=\"Property1TextBlock\" Text=\"FB_Property1\" />"
+         + Environment.NewLine + "    <X />"
+         + Environment.NewLine + "    <TextBlock x:Name=\"Property2TextBlock\" Text=\"FB_Property2\" />"
+         + Environment.NewLine + "    <XProperty1TextBlock />"
+         + Environment.NewLine + "    <TextBlock x:Name=\"Property3TextBlock\" Text=\"FB_Property3\" />"
+         + Environment.NewLine + "    <XProperty2TextBlock />"
+         + Environment.NewLine + "</RelativePanel>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class100",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, relPanelProfile);
+        }
+
         private void ClassNotFoundTest(string code)
         {
             var expected = AnalyzerOutput.Empty;

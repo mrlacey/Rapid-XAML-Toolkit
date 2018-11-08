@@ -378,6 +378,20 @@ namespace RapidXamlToolkit
             return result;
         }
 
+        public static string GetXamlElement(this string source)
+        {
+            var result = string.Empty;
+
+            if (source.TrimStart().StartsWith("<")
+             && source.TrimStart().Length > 3
+             && source.TrimStart().IndexOf(' ') > 0)
+            {
+                result = source.TrimStart().Substring(1, source.TrimStart().IndexOf(' ') - 1);
+            }
+
+            return result;
+        }
+
         private static List<string> GetPlaceholders(this string source)
         {
             var plchldrRgx = new Regex("([$$][\\w]+[$$])");
