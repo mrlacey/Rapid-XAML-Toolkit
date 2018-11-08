@@ -98,7 +98,6 @@ namespace RapidXamlToolkit.Tests
                                 }
                             }
 
-
                             errorMessage = $"Output first differs at position {i} ({FormatChar(expected[i])}-{FormatChar(actual[i])}).";
 
                             if (actual.Contains(Environment.NewLine))

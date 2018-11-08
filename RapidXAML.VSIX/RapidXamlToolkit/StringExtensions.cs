@@ -247,6 +247,7 @@ namespace RapidXamlToolkit
             return -1;
         }
 
+        // TODO: add better checking of $nooutput$
         public static bool IsValidXamlOutput(this string source)
         {
             const string validText = "ValidText";
@@ -392,7 +393,7 @@ namespace RapidXamlToolkit
             return result;
         }
 
-        private static List<string> GetPlaceholders(this string source)
+        public static List<string> GetPlaceholders(this string source)
         {
             var plchldrRgx = new Regex("([$$][\\w]+[$$])");
 
