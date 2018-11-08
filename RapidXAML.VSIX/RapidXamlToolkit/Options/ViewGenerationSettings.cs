@@ -1,28 +1,150 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+
 namespace RapidXamlToolkit.Options
 {
-    public class ViewGenerationSettings
+    public class ViewGenerationSettings : CanNotifyPropertyChanged
     {
+        private bool allInSameProject;
+        private string xamlProjectSuffix;
+        private string xamlFileDirectoryName;
+        private string xamlFileSuffix;
+        private string viewModelProjectSuffix;
+        private string viewModelDirectoryName;
+        private string viewModelFileSuffix;
+
         [AllowedPlaceholders(Placeholder.ViewProject, Placeholder.ViewNamespace, Placeholder.ViewModelNamespace, Placeholder.ViewClass, Placeholder.ViewModelClass, Placeholder.GeneratedXAML)]
         public string XamlPlaceholder { get; set; }
 
         [AllowedPlaceholders(Placeholder.ViewProject, Placeholder.ViewNamespace, Placeholder.ViewModelNamespace, Placeholder.ViewClass, Placeholder.ViewModelClass, Placeholder.GeneratedXAML)]
         public string CodePlaceholder { get; set; }
 
-        public string XamlFileSuffix { get; set; }
+        public bool AllInSameProject
+        {
+            get => this.allInSameProject;
+            set
+            {
+                this.allInSameProject = value;
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(ViewGenerationSettings.Visualization));
+            }
+        }
 
-        public string ViewModelFileSuffix { get; set; }
+        public string XamlFileSuffix
+        {
+            get => this.xamlFileSuffix;
+            set
+            {
+                this.xamlFileSuffix = value;
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(ViewGenerationSettings.Visualization));
+            }
+        }
 
-        public string XamlFileDirectoryName { get; set; }
+        public string ViewModelFileSuffix
+        {
+            get => this.viewModelFileSuffix;
+            set
+            {
+                this.viewModelFileSuffix = value;
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(ViewGenerationSettings.Visualization));
+            }
+        }
 
-        public string ViewModelDirectoryName { get; set; }
+        public string XamlFileDirectoryName
+        {
+            get => this.xamlFileDirectoryName;
+            set
+            {
+                this.xamlFileDirectoryName = value;
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(ViewGenerationSettings.Visualization));
+            }
+        }
 
-        public bool AllInSameProject { get; set; }
+        public string ViewModelDirectoryName
+        {
+            get => this.viewModelDirectoryName;
+            set
+            {
+                this.viewModelDirectoryName = value;
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(ViewGenerationSettings.Visualization));
+            }
+        }
 
-        public string XamlProjectSuffix { get; set; }
+        public string XamlProjectSuffix
+        {
+            get => this.xamlProjectSuffix;
+            set
+            {
+                this.xamlProjectSuffix = value;
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(ViewGenerationSettings.Visualization));
+            }
+        }
 
-        public string ViewModelProjectSuffix { get; set; }
+        public string ViewModelProjectSuffix
+        {
+            get => this.viewModelProjectSuffix;
+            set
+            {
+                this.viewModelProjectSuffix = value;
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(ViewGenerationSettings.Visualization));
+            }
+        }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public Collection<VisualNode> Visualization
+        {
+            get
+            {
+                var solution = new VisualNode("solution");
+
+                var mainView = new VisualNode($"Main{this.XamlFileSuffix}.xaml");
+                var detailView = new VisualNode($"Detail{this.XamlFileSuffix}.xaml");
+
+                var viewFolder = new VisualNode($"{this.XamlFileDirectoryName}");
+                viewFolder.ChildNodes.Add(mainView);
+                viewFolder.ChildNodes.Add(detailView);
+
+                var mainVM = new VisualNode($"Main{this.ViewModelFileSuffix}.cs");
+                var detailVM = new VisualNode($"Detail{this.ViewModelFileSuffix}.cs");
+
+                var vmFolder = new VisualNode($"{this.ViewModelDirectoryName}");
+                vmFolder.ChildNodes.Add(mainVM);
+                vmFolder.ChildNodes.Add(detailVM);
+
+                if (this.AllInSameProject)
+                {
+                    var app = new VisualNode("MyApp");
+                    app.ChildNodes.Add(viewFolder);
+                    app.ChildNodes.Add(vmFolder);
+
+                    solution.ChildNodes.Add(app);
+                }
+                else
+                {
+                    var viewProject = new VisualNode($"MyApp.{this.XamlProjectSuffix}");
+                    viewProject.ChildNodes.Add(viewFolder);
+
+                    var vmProject = new VisualNode($"MyApp.{this.ViewModelProjectSuffix}");
+                    vmProject.ChildNodes.Add(vmFolder);
+
+                    solution.ChildNodes.Add(viewProject);
+                    solution.ChildNodes.Add(vmProject);
+                }
+
+                return new Collection<VisualNode>(new List<VisualNode>() { solution });
+            }
+        }
     }
 }

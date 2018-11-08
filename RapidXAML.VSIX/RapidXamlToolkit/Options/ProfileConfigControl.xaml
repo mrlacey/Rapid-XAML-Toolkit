@@ -32,6 +32,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -48,29 +49,44 @@
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_AllInOneProject}" />
                     <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding ViewGeneration.AllInSameProject, Mode=TwoWay}" Margin="0,4" />
 
+                    <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="7" Padding="4,0,0,0">
+                        <TreeView Name="viewsTreeView" ItemsSource="{Binding ViewGeneration.Visualization}" >
+                            <TreeView.ItemContainerStyle>
+                                <Style TargetType="{x:Type TreeViewItem}">
+                                    <Setter Property="IsExpanded" Value="True"/>
+                                </Style>
+                            </TreeView.ItemContainerStyle>
+                            <TreeView.Resources>
+                                <HierarchicalDataTemplate DataType="{x:Type local:VisualNode}" ItemsSource="{Binding Path=ChildNodes}">
+                                    <TreeViewItem Header="{Binding Path=Caption}" />
+                                </HierarchicalDataTemplate>
+                            </TreeView.Resources>
+                        </TreeView>
+                    </Border>
+
                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlProjectSuffix}" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ViewGeneration.XamlProjectSuffix, Mode=TwoWay}" Margin="0,4,0,0" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ViewGeneration.XamlProjectSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelProjectSuffix}" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelProjectSuffix, Mode=TwoWay}" Margin="0,4,0,0" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelProjectSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlFileDirectoryName}" />
-                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ViewGeneration.XamlFileDirectoryName, Mode=TwoWay}" Margin="0,4,0,0" />
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ViewGeneration.XamlFileDirectoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
                     <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelDirectoryName}" />
-                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelDirectoryName, Mode=TwoWay}" Margin="0,4,0,0" />
+                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelDirectoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
                     <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlFileSuffix}" />
-                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ViewGeneration.XamlFileSuffix, Mode=TwoWay}" Margin="0,4,0,0" />
+                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ViewGeneration.XamlFileSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
                     <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelFileSuffix}" />
-                    <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelFileSuffix, Mode=TwoWay}" Margin="0,4,0,0" />
+                    <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelFileSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
                     <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlPlaceholder}" />
-                    <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding ViewGeneration.XamlPlaceholder, Mode=TwoWay}" Margin="0,4,0,0" TextWrapping="Wrap" AcceptsReturn="True" MinLines="3" VerticalScrollBarVisibility="Auto"/>
+                    <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ViewGeneration.XamlPlaceholder, Mode=TwoWay}" Margin="0,4,0,0" TextWrapping="Wrap" AcceptsReturn="True" MinLines="3" VerticalScrollBarVisibility="Auto"/>
 
                     <TextBlock Grid.Row="8" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_CodeBehindPlaceholder}" />
-                    <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding ViewGeneration.CodePlaceholder, Mode=TwoWay}" Margin="0,4,0,0" TextWrapping="Wrap" AcceptsReturn="True" MinLines="3" VerticalScrollBarVisibility="Auto" />
+                    <TextBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ViewGeneration.CodePlaceholder, Mode=TwoWay}" Margin="0,4,0,0" TextWrapping="Wrap" AcceptsReturn="True" MinLines="3" VerticalScrollBarVisibility="Auto" />
 
                 </Grid>
             </TabItem>
