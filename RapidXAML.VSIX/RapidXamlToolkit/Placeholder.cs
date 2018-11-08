@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Documents;
 
 namespace RapidXamlToolkit
 {
@@ -44,6 +43,10 @@ namespace RapidXamlToolkit
         public const string GeneratedXAML = "$genxaml$";
 
         public const string NoOutput = "$nooutput$";
+
+        public const string XName = "$xname$";
+
+        public const string RepeatingXName = "$repxname$";
 
         private static List<string> all = null;
 

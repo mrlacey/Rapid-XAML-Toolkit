@@ -247,6 +247,7 @@ namespace RapidXamlToolkit
             return -1;
         }
 
+        // TODO: add better checking of $nooutput$
         public static bool IsValidXamlOutput(this string source)
         {
             const string validText = "ValidText";
@@ -378,7 +379,21 @@ namespace RapidXamlToolkit
             return result;
         }
 
-        private static List<string> GetPlaceholders(this string source)
+        public static string GetXamlElement(this string source)
+        {
+            var result = string.Empty;
+
+            if (source.TrimStart().StartsWith("<")
+             && source.TrimStart().Length > 3
+             && source.TrimStart().IndexOf(' ') > 0)
+            {
+                result = source.TrimStart().Substring(1, source.TrimStart().IndexOf(' ') - 1);
+            }
+
+            return result;
+        }
+
+        public static List<string> GetPlaceholders(this string source)
         {
             var plchldrRgx = new Regex("([$$][\\w]+[$$])");
 

@@ -86,7 +86,19 @@ namespace RapidXamlToolkit.Tests
                     {
                         if (expected[i] != actual[i])
                         {
-                            errorMessage = $"Output first differs at position {i} ({expected[i]}-{actual[i]}).";
+                            string FormatChar(char c)
+                            {
+                                if (string.IsNullOrWhiteSpace(c.ToString()))
+                                {
+                                    return $"chr({(int)c})";
+                                }
+                                else
+                                {
+                                    return c.ToString();
+                                }
+                            }
+
+                            errorMessage = $"Output first differs at position {i} ({FormatChar(expected[i])}-{FormatChar(actual[i])}).";
 
                             if (actual.Contains(Environment.NewLine))
                             {

@@ -3,6 +3,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 
@@ -77,6 +78,89 @@ namespace RapidXamlToolkit.Tests.Options
                 foreach (var mapping in profile.Mappings)
                 {
                     Assert.IsTrue(mapping.Output.IsValidXamlOutput(), $"Invalid output: {mapping.Output}");
+                }
+            }
+        }
+
+        [TestMethod]
+        public void EnsureOnlyValidPlaceholdersInDefaultConfig()
+        {
+            var defSet = ConfiguredSettings.GetDefaultSettings();
+            var apv = new AllowedPlaceholderValidator();
+
+            foreach (var profile in defSet.Profiles)
+            {
+                var checkResult = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.FallbackOutput), profile.FallbackOutput);
+
+                if (!checkResult.isValid)
+                {
+                    Assert.Fail($"{nameof(Profile.FallbackOutput)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                }
+
+                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.SubPropertyOutput), profile.SubPropertyOutput);
+
+                if (!checkResult.isValid)
+                {
+                    Assert.Fail($"{nameof(Profile.SubPropertyOutput)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                }
+
+                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.EnumMemberOutput), profile.EnumMemberOutput);
+
+                if (!checkResult.isValid)
+                {
+                    Assert.Fail($"{nameof(Profile.EnumMemberOutput)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                }
+
+                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.CodePlaceholder), profile.ViewGeneration.CodePlaceholder);
+
+                if (!checkResult.isValid)
+                {
+                    Assert.Fail($"{nameof(ViewGenerationSettings)}.{nameof(ViewGenerationSettings.CodePlaceholder)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                }
+
+                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.XamlPlaceholder), profile.ViewGeneration.XamlPlaceholder);
+
+                if (!checkResult.isValid)
+                {
+                    Assert.Fail($"{nameof(ViewGenerationSettings)}.{nameof(ViewGenerationSettings.XamlPlaceholder)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                }
+
+                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.XamlPageAttribute), profile.Datacontext.XamlPageAttribute);
+
+                if (!checkResult.isValid)
+                {
+                    Assert.Fail($"{nameof(DatacontextSettings)}.{nameof(DatacontextSettings.XamlPageAttribute)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                }
+
+                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindPageContent), profile.Datacontext.CodeBehindPageContent);
+
+                if (!checkResult.isValid)
+                {
+                    Assert.Fail($"{nameof(DatacontextSettings)}.{nameof(DatacontextSettings.CodeBehindPageContent)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                }
+
+                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindConstructorContent), profile.Datacontext.CodeBehindConstructorContent);
+
+                if (!checkResult.isValid)
+                {
+                    Assert.Fail($"{nameof(DatacontextSettings)}.{nameof(DatacontextSettings.CodeBehindConstructorContent)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                }
+
+                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.DefaultCodeBehindConstructor), profile.Datacontext.DefaultCodeBehindConstructor);
+
+                if (!checkResult.isValid)
+                {
+                    Assert.Fail($"{nameof(DatacontextSettings)}.{nameof(DatacontextSettings.DefaultCodeBehindConstructor)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                }
+
+                foreach (var mapping in profile.Mappings)
+                {
+                    checkResult = apv.ContainsOnlyValidPlaceholders(typeof(Mapping), nameof(Mapping.Output), mapping.Output);
+
+                    if (!checkResult.isValid)
+                    {
+                        Assert.Fail($"Mapping output in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                    }
                 }
             }
         }

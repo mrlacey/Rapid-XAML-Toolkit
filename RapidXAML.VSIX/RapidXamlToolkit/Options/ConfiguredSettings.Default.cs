@@ -225,6 +225,75 @@ namespace $viewns$
 
                     new Profile
                     {
+                        Name = "UWP C# MVVM Basic RelativePanel",
+                        ClassGrouping = "RelativePanel",
+                        FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
+                        EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
+                        Mappings = MappingsForRelativePanelWithHeader(),
+                        ViewGeneration = new ViewGenerationSettings
+                        {
+                            XamlPlaceholder = @"<Page
+    x:Class=""$viewns$.$viewclass$""
+    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
+    xmlns:local=""using:$viewns$""
+    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
+    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
+    mc:Ignorable=""d"">
+
+    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
+        $genxaml$
+    </Grid>
+</Page>
+",
+                            CodePlaceholder = @"using System;
+using Windows.UI.Xaml.Controls;
+using $viewmodelns$;
+
+namespace $viewns$
+{
+    public sealed partial class $viewclass$ : Page
+    {
+        public $viewmodelclass$ ViewModel { get; } = new $viewmodelclass$();
+
+        public $viewclass$()
+        {
+            InitializeComponent();
+            DataContext = ViewModel;
+        }
+    }
+}
+",
+                            XamlFileSuffix = "Page",
+                            ViewModelFileSuffix = "ViewModel",
+
+                            XamlFileDirectoryName = "Views",
+                            ViewModelDirectoryName = "ViewModels",
+
+                            AllInSameProject = true,
+
+                            XamlProjectSuffix = "n/a",
+                            ViewModelProjectSuffix = "n/a",
+                        },
+                        Datacontext = new DatacontextSettings
+                        {
+                            XamlPageAttribute = string.Empty,
+                            CodeBehindPageContent = "public $viewmodelns$.$viewmodelclass$ ViewModel { get; } = new $viewmodelns$.$viewmodelclass$();",
+                            CodeBehindConstructorContent = "DataContext = ViewModel;",
+                            DefaultCodeBehindConstructor = @"public $viewclass$()
+{
+    InitializeComponent();
+}",
+                        },
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
+                        },
+                    },
+
+                    new Profile
+                    {
                         Name = "UWP C# MVVM Light StackPanel",
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
@@ -1093,6 +1162,160 @@ namespace CsXf.Views
                                 Type = "enum",
                                 NameContains = string.Empty,
                                 Output = "<StackPanel>$members$</StackPanel>",
+                                IfReadOnly = false,
+                            },
+                        };
+        }
+
+        private static ObservableCollection<Mapping> MappingsForRelativePanelWithHeader()
+        {
+            return new ObservableCollection<Mapping>
+                        {
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<TextBox Header=\"$namewithspaces$\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "phone|tel",
+                                Output = "<TextBox Header=\"$namewithspaces$\" InputScope=\"TelephoneNumber\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "email",
+                                Output = "<TextBox Header=\"$namewithspaces$\" InputScope=\"EmailNameOrAddress\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "firstname|lastname|familyname|surname|givenname",
+                                Output = "<TextBox Header=\"$namewithspaces$\" InputScope=\"PersonalFullName\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<TextBox Header=\"$namewithspaces$\" InputScope=\"Url\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "search",
+                                Output = "<AutoSuggestBox Header=\"$namewithspaces$\" PlaceholderText=\"Search\" QueryText=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = "password|pwd",
+                                Output = "<PasswordBox Header=\"$namewithspaces$\" Password=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<HyperlinkButton NavigateUri=\"{x:Bind ViewModel.$name$}\" Content=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "Uri",
+                                NameContains = string.Empty,
+                                Output = "<HyperlinkButton NavigateUri=\"{x:Bind ViewModel.$name$}\" Content=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<Slider Header=\"$namewithspaces$\" Minimum=\"0\" Maximum=\"100\" Value=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTimeOffset",
+                                NameContains = "date",
+                                Output = "<DatePicker Header=\"$namewithspaces$\" Date=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTimeOffset",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = string.Empty,
+                                Output = "<ToggleSwitch Header=\"$namewithspaces$\" IsOn=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = "busy|active",
+                                Output = "<ProgressRing IsActive=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ICommand|Command|RelayCommand",
+                                NameContains = string.Empty,
+                                Output = "<Button Content=\"$name$\" Command=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ObservableCollection<T>|List<T>",
+                                NameContains = string.Empty,
+                                Output = "<ListView Header=\"$namewithspaces$\" ItemsSource=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\"><ListView.ItemTemplate><DataTemplate x:DataType=\"$type$\"><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "List<string>",
+                                NameContains = string.Empty,
+                                Output = "<ItemsControl ItemsSource=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\"></ItemsControl>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "enum",
+                                NameContains = string.Empty,
+                                Output = "<StackPanel x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\">$members$</StackPanel>",
                                 IfReadOnly = false,
                             },
                         };

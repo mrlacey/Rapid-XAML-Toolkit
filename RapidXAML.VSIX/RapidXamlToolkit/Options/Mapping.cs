@@ -13,7 +13,7 @@ namespace RapidXamlToolkit.Options
 
         public bool IfReadOnly { get; set; }
 
-        [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger, Placeholder.EnumMembers, Placeholder.SubProperties)]
+        [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger, Placeholder.EnumMembers, Placeholder.SubProperties, Placeholder.NoOutput, Placeholder.XName, Placeholder.RepeatingXName)]
         public string Output { get; set; }
 
         public static Mapping CreateNew()

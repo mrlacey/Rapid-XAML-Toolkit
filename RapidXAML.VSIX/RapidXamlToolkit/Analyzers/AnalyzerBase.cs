@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Resources;
@@ -23,10 +24,15 @@ namespace RapidXamlToolkit.Analyzers
 
         internal const string Unknown = "**unknown**";
 
+        // Used to store the generated xname for reuse when formatting subsequent properties
+        private static string xname = string.Empty;
+
         public AnalyzerBase(ILogger logger, int xamlIndent)
         {
             Logger = logger;
             XamlIndentSize = xamlIndent;
+
+            xname = string.Empty;  // Reset this on analyzer creation as analyzers created for each new conversion and don't want old values.
         }
 
         public static IServiceProvider ServiceProvider { get; set; }
@@ -124,6 +130,40 @@ namespace RapidXamlToolkit.Analyzers
 
             var result = rawOutput.Replace(Placeholder.PropertyName, name)
                                   .Replace(Placeholder.PropertyNameWithSpaces, name.AddSpacesToCamelCase());
+
+            if (!string.IsNullOrWhiteSpace(xname))
+            {
+                result = result.Replace(Placeholder.RepeatingXName, xname);
+            }
+            else
+            {
+                if (result.Contains(Placeholder.RepeatingXName))
+                {
+                    var placeholderPos = result.IndexOf(Placeholder.RepeatingXName);
+
+                    // If placeholder is in an attribute (expected) then remove the attribute too
+                    if (result.Substring(placeholderPos - 2, 2) == "=\""
+                     && result.Substring(placeholderPos + Placeholder.RepeatingXName.Length, 1) == "\"")
+                    {
+                        var attStartPos = result.Substring(0, placeholderPos).LastIndexOf(' ');
+
+                        result = result.Remove(attStartPos, placeholderPos - attStartPos + Placeholder.RepeatingXName.Length + 1);
+                    }
+                    else
+                    {
+                        result = result.Replace(Placeholder.RepeatingXName, string.Empty);
+                    }
+                }
+            }
+
+            if (result.Contains(Placeholder.XName))
+            {
+                // xname is a combination of propertyname and the type of the UIElement. e.g. IdTextBlock, FirstNameTextBox
+                // Save this for possible future reuse in subsequent properties
+                xname = $"{name}{rawOutput.GetXamlElement()}";
+
+                result = result.Replace(Placeholder.XName, xname);
+            }
 
             if (type.IsGenericTypeName())
             {
