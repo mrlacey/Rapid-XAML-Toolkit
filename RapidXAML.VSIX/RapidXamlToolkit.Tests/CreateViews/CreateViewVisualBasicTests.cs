@@ -78,7 +78,110 @@ End Namespace
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml", sut.XamlFileName);
             Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml.vb", sut.CodeFileName);
-            Assert.AreEqual(expectedXaml, sut.XamlFileContents);
+            StringAssert.AreEqual(expectedXaml, sut.XamlFileContents);
+            Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
+        }
+
+        [TestMethod]
+        public async Task FileJustContainsComments()
+        {
+            var profile = this.GetDefaultTestProfile();
+
+            profile.ViewGeneration.AllInSameProject = true;
+            profile.ViewGeneration.ViewModelDirectoryName = "Files";
+            profile.ViewGeneration.ViewModelFileSuffix = "ViewModel";
+            profile.ViewGeneration.XamlFileDirectoryName = "Files";
+            profile.ViewGeneration.XamlFileSuffix = "Page";
+
+            var fs = new TestFileSystem
+            {
+                FileExistsResponse = false,
+                FileText = @" ' Just comments in this file",
+            };
+
+            var synTree = VisualBasicSyntaxTree.ParseText(fs.FileText);
+            var semModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
+
+            var vsa = new TestVisualStudioAbstraction
+            {
+                SyntaxTree = synTree,
+                SemanticModel = semModel,
+                ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.vbproj" },
+            };
+
+            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+
+            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb");
+
+            Assert.IsFalse(sut.CreateView);
+        }
+
+        [TestMethod]
+        public async Task CorrectOutputInSameFolder_FileContainsModuleNotClassAsync()
+        {
+            var profile = this.GetDefaultTestProfile();
+
+            profile.ViewGeneration.AllInSameProject = true;
+            profile.ViewGeneration.ViewModelDirectoryName = "Files";
+            profile.ViewGeneration.ViewModelFileSuffix = "ViewModel";
+            profile.ViewGeneration.XamlFileDirectoryName = "Files";
+            profile.ViewGeneration.XamlFileSuffix = "Page";
+
+            var fs = new TestFileSystem
+            {
+                FileExistsResponse = false,
+                FileText = @"Public Module TestViewModel
+    Public Property OnlyProperty As String
+End Module",
+            };
+
+            var synTree = VisualBasicSyntaxTree.ParseText(fs.FileText);
+            var semModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
+
+            var vsa = new TestVisualStudioAbstraction
+            {
+                SyntaxTree = synTree,
+                SemanticModel = semModel,
+                ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.vbproj" },
+            };
+
+            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+
+            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb");
+
+            var expectedXaml = @"<Page
+    x:Class=""App.Files.TestPage"">
+    <Grid>
+        <StackPanel>
+            <TextBlock FB=""True"" Text=""OnlyProperty"" />
+        </StackPanel>
+    </Grid>
+</Page>
+";
+
+            var expectedCodeBehind = @"Imports System
+Imports Windows.UI.Xaml.Controls
+Imports App.Files
+
+Namespace Files
+
+    Public NotInheritable Partial Class TestPage
+        Inherits Page
+
+        Public Property ViewModel As TestViewModel
+
+        Public Sub New()
+            Me.InitializeComponent()
+            Me.ViewModel = New TestViewModel()
+        End Sub
+    End Class
+End Namespace
+";
+
+            Assert.IsTrue(sut.CreateView);
+            Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml", sut.XamlFileName);
+            Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml.vb", sut.CodeFileName);
+            StringAssert.AreEqual(expectedXaml, sut.XamlFileContents);
             Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
         }
 
@@ -147,7 +250,7 @@ End Namespace
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml", sut.XamlFileName);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml.vb", sut.CodeFileName);
-            Assert.AreEqual(expectedXaml, sut.XamlFileContents);
+            StringAssert.AreEqual(expectedXaml, sut.XamlFileContents);
             Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
         }
 
@@ -221,7 +324,7 @@ End Namespace
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml", sut.XamlFileName);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml.vb", sut.CodeFileName);
-            Assert.AreEqual(expectedXaml, sut.XamlFileContents);
+            StringAssert.AreEqual(expectedXaml, sut.XamlFileContents);
             Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
         }
 

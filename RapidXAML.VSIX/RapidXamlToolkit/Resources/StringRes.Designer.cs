@@ -196,6 +196,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to find class definition in file &apos;{0}&apos;.
+        /// </summary>
+        public static string Info_CouldNotFindClassInFile {
+            get {
+                return ResourceManager.GetString("Info_CouldNotFindClassInFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created file {0}.
         /// </summary>
         public static string Info_CreatedView {

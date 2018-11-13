@@ -620,4 +620,7 @@
   <data name="Info_PropertyCannotBeAnalyzed" xml:space="preserve">
     <value>Unable to analyze property '{0}'.</value>
   </data>
+  <data name="Info_CouldNotFindClassInFile" xml:space="preserve">
+    <value>Unable to find class definition in file '{0}'</value>
+  </data>
 </root>

@@ -69,7 +69,23 @@ namespace RapidXamlToolkit.Commands
             if (analyzer != null)
             {
                 // IndexOf is allowing for "class " in C# and "Class " in VB
-                var analyzerOutput = ((IDocumentAnalyzer)analyzer).GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, fileContents.IndexOf("lass "), this.profile);
+                var cursorPos = fileContents.IndexOf("lass ");
+
+                if (cursorPos == -1 && codeBehindExt == "vb")
+                {
+                    // If not a class, there may be a module
+                    cursorPos = fileContents.IndexOf("odule ");
+                }
+
+                if (cursorPos < 0)
+                {
+                    this.logger.RecordInfo(StringRes.Info_CouldNotFindClassInFile.WithParams(selectedFileName));
+                    return;
+                }
+
+                var syntaxRoot = await syntaxTree.GetRootAsync();
+
+                var analyzerOutput = ((IDocumentAnalyzer)analyzer).GetSingleItemOutput(syntaxRoot, semModel, cursorPos, this.profile);
 
                 var config = this.profile.ViewGeneration;
 
