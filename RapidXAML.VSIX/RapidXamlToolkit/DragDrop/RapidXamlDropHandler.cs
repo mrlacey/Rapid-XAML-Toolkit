@@ -31,22 +31,15 @@ namespace RapidXamlToolkit.DragDrop
             this.vs = vs ?? throw new ArgumentNullException(nameof(vs));
             this.fileSystem = fileSystem ?? new WindowsFileSystem();
         }
-        //public RapidXamlDropHandler(IWpfTextView view, ITextBufferUndoManager undoManager)
-        //{
-        //    this.view = view;
-        //    this.undoManager = undoManager;
-        //}
 
         public DragDropPointerEffects HandleDataDropped(DragDropInfo dragDropInfo)
         {
             var position = dragDropInfo.VirtualBufferPosition.Position;
-            // string text = string.Format("<xaml2>{0}</xaml2>", this.draggedFilename);
 
             var fileContents = this.fileSystem.GetAllFileText(this.draggedFilename);
             var fileExt = this.fileSystem.GetFileExtension(this.draggedFilename);
 
-            string textOutput;
-
+            // Note. Much of this is also in CreateViewCommandLogic.ExecuteAsync
             ThreadHelper.JoinableTaskFactory.Run(async () =>
             {
                 (var syntaxTree, var semModel) = await this.vs.GetDocumentModelsAsync(this.draggedFilename);
@@ -63,7 +56,7 @@ namespace RapidXamlToolkit.DragDrop
                 // IndexOf is allowing for "class " in C# and "Class " in VB
                 var analyzerOutput = analyzer.GetSingleItemOutput(treeRoot, semModel, fileContents.IndexOf("lass "), profile);
 
-                textOutput = analyzerOutput.Output;
+                string textOutput = analyzerOutput.Output;
 
                 var insertline = this.view.GetTextViewLineContainingBufferPosition(position);
 
@@ -77,57 +70,6 @@ namespace RapidXamlToolkit.DragDrop
 
             return DragDropPointerEffects.Copy;
         }
-
-        ////        public DragDropPointerEffects HandleDataDroppedEx(DragDropInfo dragDropInfo)
-        ////        {
-        ////            this.logger?.RecordFeatureUsage(nameof(RapidXamlDropHandler));
-
-        ////            var task = Task.Run(async () =>
-        ////            {
-        ////                var position = dragDropInfo.VirtualBufferPosition.Position;
-
-        ////                var fileExt = this.fileSystem.GetFileExtension(this.draggedFilename);
-        ////                var fileContents = this.fileSystem.GetAllFileText(this.draggedFilename);
-
-        ////                (var syntaxTree, var semModel) = await this.vs.GetDocumentModelsAsync(this.draggedFilename);
-
-        ////                AnalyzerBase analyzer = null;
-        ////                var indent = await this.vs.GetXamlIndentAsync();
-
-        ////                switch (fileExt)
-        ////                {
-        ////                    case ".cs":
-        ////                        analyzer = new CSharpAnalyzer(this.logger, indent);
-        ////                        break;
-        ////                    case ".vb":
-        ////                        analyzer = new VisualBasicAnalyzer(this.logger, indent);
-        ////                        break;
-        ////                }
-
-        ////                var profile = AnalyzerBase.GetSettings().GetActiveProfile();
-
-        ////                // IndexOf is allowing for "class " in C# and "Class " in VB
-        ////                var analyzerOutput = ((IDocumentAnalyzer)analyzer).GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, fileContents.IndexOf("lass "), profile);
-
-        ////                var text = analyzerOutput.Output;
-
-        ////                var formattedXaml = analyzerOutput.Output.FormatXaml(indent);
-
-        ////                var insertline = this.view.GetTextViewLineContainingBufferPosition(position);
-
-        ////                if (insertline.Length > 0)
-        ////                {
-        ////                    text = text.Replace(Environment.NewLine, Environment.NewLine + new string(' ', insertline.Length));
-        ////                }
-
-        ////                this.view.TextBuffer.Insert(position.Position, text);
-        ////            });
-        ////#pragma warning disable VSTHRD002 // Avoid problematic synchronous waits - Unable to find better solution
-        ////            task.Wait();
-        ////#pragma warning restore VSTHRD002 // Avoid problematic synchronous waits
-
-        ////            return DragDropPointerEffects.Copy;
-        ////        }
 
         public void HandleDragCanceled()
         {
