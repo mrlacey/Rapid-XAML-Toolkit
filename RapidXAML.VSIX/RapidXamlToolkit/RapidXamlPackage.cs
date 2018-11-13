@@ -8,6 +8,7 @@ using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.DragDrop;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Resources;
@@ -56,6 +57,7 @@ namespace RapidXamlToolkit
                 await OpenOptionsCommand.InitializeAsync(this, Logger);
                 await SetDatacontextCommand.InitializeAsync(this, Logger);
                 await InsertGridRowDefinitionCommand.InitializeAsync(this, Logger);
+                await RapidXamlDropHandlerProvider.InitializeAsync(this, Logger);
             }
             catch (Exception exc)
             {
