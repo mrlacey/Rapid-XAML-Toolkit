@@ -44,8 +44,7 @@ namespace RapidXamlToolkit.DragDrop
 
             var vsa = new VisualStudioAbstraction(Logger, Package, dte);
 
-           //// return view.Properties.GetOrCreateSingletonProperty(() => new RapidXamlDropHandler(Logger, view, undoManager, vsa));
-            return view.Properties.GetOrCreateSingletonProperty(() => new RapidXamlDropHandler(view, undoManager));
+            return view.Properties.GetOrCreateSingletonProperty(() => new RapidXamlDropHandler(Logger, view, undoManager, vsa));
         }
     }
 }
