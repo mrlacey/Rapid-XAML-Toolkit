@@ -168,14 +168,12 @@ namespace RapidXamlToolkit.Commands
 
                         this.XamlFileContents = this.ReplacePlaceholders(config.XamlPlaceholder, replacementValues);
 
-                        var formattedXaml = analyzerOutput.Output.FormatXaml(indent);
-
                         var placeholderPos = this.XamlFileContents.IndexOf(Placeholder.GeneratedXAML);
                         var startOfPlaceholderLine = this.XamlFileContents.Substring(0, placeholderPos).LastIndexOf(Environment.NewLine);
 
                         var insertIndent = placeholderPos - startOfPlaceholderLine - Environment.NewLine.Length;
 
-                        this.XamlFileContents = this.XamlFileContents.Replace(Placeholder.GeneratedXAML, formattedXaml.Replace(Environment.NewLine, Environment.NewLine + new string(' ', insertIndent)).Trim());
+                        this.XamlFileContents = this.XamlFileContents.Replace(Placeholder.GeneratedXAML, analyzerOutput.Output.Replace(Environment.NewLine, Environment.NewLine + new string(' ', insertIndent)).Trim());
 
                         this.CodeFileContents = this.ReplacePlaceholders(config.CodePlaceholder, replacementValues);
                     }
