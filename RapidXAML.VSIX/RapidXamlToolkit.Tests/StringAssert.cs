@@ -20,70 +20,82 @@ namespace RapidXamlToolkit.Tests
             {
                 var errorMessage = string.Empty;
 
-                if (expected.TrimStart() == actual)
+                if (expected is null)
                 {
-                    errorMessage = "Whitespace missing at start of output.";
+                    errorMessage = "Expected is null.";
                 }
-                else if (expected == actual.TrimStart())
+                else if (actual is null)
                 {
-                    errorMessage = "Additional whitespace at start of output.";
-                }
-                else if (expected.TrimEnd() == actual)
-                {
-                    errorMessage = "Whitespace missing at end of output.";
-                }
-                else if (expected == actual.TrimEnd())
-                {
-                    errorMessage = "Additional whitespace at end of output.";
+                    errorMessage = "Actual is null.";
                 }
 
                 if (string.IsNullOrWhiteSpace(errorMessage))
                 {
-                    var aLines = actual.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-                    var eLines = expected.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-
-                    if (aLines.Length != eLines.Length)
+                    if (expected.TrimStart() == actual)
                     {
-                        var lines = eLines.Length > 1 ? "lines" : "line";
-
-                        errorMessage = $"Expected {eLines.Length} {lines} in output but had {aLines.Length}.";
-
-                        var aNoLineEndings = actual.Replace("\r", string.Empty).Replace("\n", string.Empty);
-                        var eNoLineEndings = expected.Replace("\r", string.Empty).Replace("\n", string.Empty);
-
-                        if (aNoLineEndings == eNoLineEndings)
-                        {
-                            errorMessage += " Difference is just line endings.";
-                        }
+                        errorMessage = "Whitespace missing at start of output.";
                     }
-                    else
+                    else if (expected == actual.TrimStart())
                     {
-                        for (int i = 0; i < eLines.Length; i++)
-                        {
-                            if (eLines[i] == aLines[i])
-                            {
-                                continue;
-                            }
+                        errorMessage = "Additional whitespace at start of output.";
+                    }
+                    else if (expected.TrimEnd() == actual)
+                    {
+                        errorMessage = "Whitespace missing at end of output.";
+                    }
+                    else if (expected == actual.TrimEnd())
+                    {
+                        errorMessage = "Additional whitespace at end of output.";
+                    }
 
-                            if (eLines[i].TrimStart() == aLines[i])
+                    if (string.IsNullOrWhiteSpace(errorMessage))
+                    {
+                        var aLines = actual.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+                        var eLines = expected.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+                        if (aLines.Length != eLines.Length)
+                        {
+                            var lines = eLines.Length > 1 ? "lines" : "line";
+
+                            errorMessage = $"Expected {eLines.Length} {lines} in output but had {aLines.Length}.";
+
+                            var aNoLineEndings = actual.Replace("\r", string.Empty).Replace("\n", string.Empty);
+                            var eNoLineEndings = expected.Replace("\r", string.Empty).Replace("\n", string.Empty);
+
+                            if (aNoLineEndings == eNoLineEndings)
                             {
-                                errorMessage = $"Whitespace missing at start of line {i + 1} of output.";
-                                break;
+                                errorMessage += " Difference is just line endings.";
                             }
-                            else if (eLines[i] == aLines[i].TrimStart())
+                        }
+                        else
+                        {
+                            for (int i = 0; i < eLines.Length; i++)
                             {
-                                errorMessage = $"Additional whitespace at start of line {i + 1} of output.";
-                                break;
-                            }
-                            else if (eLines[i].TrimEnd() == aLines[i])
-                            {
-                                errorMessage = $"Whitespace missing at end of line {i + 1} of output.";
-                                break;
-                            }
-                            else if (eLines[i] == aLines[i].TrimEnd())
-                            {
-                                errorMessage = $"Additional whitespace at end of line {i + 1} of output.";
-                                break;
+                                if (eLines[i] == aLines[i])
+                                {
+                                    continue;
+                                }
+
+                                if (eLines[i].TrimStart() == aLines[i])
+                                {
+                                    errorMessage = $"Whitespace missing at start of line {i + 1} of output.";
+                                    break;
+                                }
+                                else if (eLines[i] == aLines[i].TrimStart())
+                                {
+                                    errorMessage = $"Additional whitespace at start of line {i + 1} of output.";
+                                    break;
+                                }
+                                else if (eLines[i].TrimEnd() == aLines[i])
+                                {
+                                    errorMessage = $"Whitespace missing at end of line {i + 1} of output.";
+                                    break;
+                                }
+                                else if (eLines[i] == aLines[i].TrimEnd())
+                                {
+                                    errorMessage = $"Additional whitespace at end of line {i + 1} of output.";
+                                    break;
+                                }
                             }
                         }
                     }

@@ -254,6 +254,40 @@ namespace RapidXamlToolkit.Tests.CreateViews
             Assert.IsFalse(sut.CreateView);
         }
 
+        [TestMethod]
+        public async Task HandleFileNotContainingClassDefinition()
+        {
+            var profile = this.GetDefaultTestProfile();
+
+            profile.ViewGeneration.AllInSameProject = true;
+            profile.ViewGeneration.ViewModelDirectoryName = "Files";
+            profile.ViewGeneration.ViewModelFileSuffix = "ViewModel";
+            profile.ViewGeneration.XamlFileDirectoryName = "Files";
+            profile.ViewGeneration.XamlFileSuffix = "Page";
+
+            var fs = new TestFileSystem
+            {
+                FileExistsResponse = false,
+                FileText = " // There's nothing in this file apart from a comment",
+            };
+
+            var synTree = CSharpSyntaxTree.ParseText(fs.FileText);
+            var semModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
+
+            var vsa = new TestVisualStudioAbstraction
+            {
+                SyntaxTree = synTree,
+                SemanticModel = semModel,
+                ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.csproj" },
+            };
+
+            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+
+            await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.cs");
+
+            Assert.IsFalse(sut.CreateView);
+        }
+
         private Profile GetDefaultTestProfile()
         {
             var xamlPlaceholder = "<Page"

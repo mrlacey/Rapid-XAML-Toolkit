@@ -46,8 +46,6 @@ namespace RapidXamlToolkit.Commands
             var fileExt = this.fileSystem.GetFileExtension(selectedFileName);
             var fileContents = this.fileSystem.GetAllFileText(selectedFileName);
 
-            (var syntaxTree, var semModel) = await this.vs.GetDocumentModelsAsync(selectedFileName);
-
             AnalyzerBase analyzer = null;
             var codeBehindExt = string.Empty;
             var indent = await this.vs.GetXamlIndentAsync();
@@ -69,7 +67,25 @@ namespace RapidXamlToolkit.Commands
             if (analyzer != null)
             {
                 // IndexOf is allowing for "class " in C# and "Class " in VB
-                var analyzerOutput = ((IDocumentAnalyzer)analyzer).GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, fileContents.IndexOf("lass "), this.profile);
+                var cursorPos = fileContents.IndexOf("lass ");
+
+                if (cursorPos == -1 && codeBehindExt == "vb")
+                {
+                    // If not a class, there may be a module
+                    cursorPos = fileContents.IndexOf("odule ");
+                }
+
+                if (cursorPos < 0)
+                {
+                    this.logger.RecordInfo(StringRes.Info_CouldNotFindClassInFile.WithParams(selectedFileName));
+                    return;
+                }
+
+                (var syntaxTree, var semModel) = await this.vs.GetDocumentModelsAsync(selectedFileName);
+
+                var syntaxRoot = await syntaxTree.GetRootAsync();
+
+                var analyzerOutput = ((IDocumentAnalyzer)analyzer).GetSingleItemOutput(syntaxRoot, semModel, cursorPos, this.profile);
 
                 var config = this.profile.ViewGeneration;
 
@@ -152,14 +168,12 @@ namespace RapidXamlToolkit.Commands
 
                         this.XamlFileContents = this.ReplacePlaceholders(config.XamlPlaceholder, replacementValues);
 
-                        var formattedXaml = analyzerOutput.Output.FormatXaml(indent);
-
                         var placeholderPos = this.XamlFileContents.IndexOf(Placeholder.GeneratedXAML);
                         var startOfPlaceholderLine = this.XamlFileContents.Substring(0, placeholderPos).LastIndexOf(Environment.NewLine);
 
                         var insertIndent = placeholderPos - startOfPlaceholderLine - Environment.NewLine.Length;
 
-                        this.XamlFileContents = this.XamlFileContents.Replace(Placeholder.GeneratedXAML, formattedXaml.Replace(Environment.NewLine, Environment.NewLine + new string(' ', insertIndent)).Trim());
+                        this.XamlFileContents = this.XamlFileContents.Replace(Placeholder.GeneratedXAML, analyzerOutput.Output.Replace(Environment.NewLine, Environment.NewLine + new string(' ', insertIndent)).Trim());
 
                         this.CodeFileContents = this.ReplacePlaceholders(config.CodePlaceholder, replacementValues);
                     }

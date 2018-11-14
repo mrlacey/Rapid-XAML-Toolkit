@@ -362,7 +362,7 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + "    </Grid>"
 + Environment.NewLine + "</Page>";
 
-            var expected = ("<RowDefinition Height=\"Auto\" />", 57 + (Environment.NewLine.Length * 4)); // 4 = lines 
+            var expected = ("<RowDefinition Height=\"Auto\" />", 57 + (Environment.NewLine.Length * 4)); // 4 = lines
 
             this.PositionAtStarShouldReturnExpectedDefinition(xaml, expected);
         }
