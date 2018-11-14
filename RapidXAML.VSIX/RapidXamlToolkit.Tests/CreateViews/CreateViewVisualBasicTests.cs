@@ -150,34 +150,34 @@ End Module",
 
             await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb");
 
-            var expectedXaml = @"<Page
-    x:Class=""App.Files.TestPage"">
-    <Grid>
-        <StackPanel>
-            <TextBlock FB=""True"" Text=""OnlyProperty"" />
-        </StackPanel>
-    </Grid>
-</Page>
-";
+            var expectedXaml = "<Page"
+       + Environment.NewLine + "    x:Class=\"App.Files.TestPage\">"
+       + Environment.NewLine + "    <Grid>"
+       + Environment.NewLine + "        <StackPanel>"
+       + Environment.NewLine + "            <TextBlock FB=\"True\" Text=\"OnlyProperty\" />"
+       + Environment.NewLine + "        </StackPanel>"
+       + Environment.NewLine + "    </Grid>"
+       + Environment.NewLine + "</Page>"
+       + Environment.NewLine + "";
 
-            var expectedCodeBehind = @"Imports System
-Imports Windows.UI.Xaml.Controls
-Imports App.Files
-
-Namespace Files
-
-    Public NotInheritable Partial Class TestPage
-        Inherits Page
-
-        Public Property ViewModel As TestViewModel
-
-        Public Sub New()
-            Me.InitializeComponent()
-            Me.ViewModel = New TestViewModel()
-        End Sub
-    End Class
-End Namespace
-";
+            var expectedCodeBehind = "Imports System"
+             + Environment.NewLine + "Imports Windows.UI.Xaml.Controls"
+             + Environment.NewLine + "Imports App.Files"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "Namespace Files"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "    Public NotInheritable Partial Class TestPage"
+             + Environment.NewLine + "        Inherits Page"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "        Public Property ViewModel As TestViewModel"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "        Public Sub New()"
+             + Environment.NewLine + "            Me.InitializeComponent()"
+             + Environment.NewLine + "            Me.ViewModel = New TestViewModel()"
+             + Environment.NewLine + "        End Sub"
+             + Environment.NewLine + "    End Class"
+             + Environment.NewLine + "End Namespace"
+             + Environment.NewLine + "";
 
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml", sut.XamlFileName);
