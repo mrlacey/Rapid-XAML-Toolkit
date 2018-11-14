@@ -46,7 +46,10 @@ namespace RapidXamlToolkit.DragDrop
 
                 var textOutput = await logic.ExecuteAsync(this.draggedFilename, insertLineLength);
 
-                this.view.TextBuffer.Insert(position.Position, textOutput);
+                if (!string.IsNullOrEmpty(textOutput))
+                {
+                    this.view.TextBuffer.Insert(position.Position, textOutput);
+                }
             });
 
             return DragDropPointerEffects.Copy;

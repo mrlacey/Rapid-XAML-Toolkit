@@ -118,7 +118,7 @@ End Class",
         }
 
         // Disabled pending further investigation. Issue #100
-        //[TestMethod]
+        ////[TestMethod]
         public async Task CorrectOutputInSameFolder_FileContainsModuleNotClassAsync()
         {
             var profile = this.GetDefaultTestProfile();
