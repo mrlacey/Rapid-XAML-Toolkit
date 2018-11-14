@@ -178,13 +178,13 @@ End Class",
             var (anythingToAdd, lineNoToAddAfter, contentToAdd, constructorAdded)
                 = sut.GetCodeBehindConstructorContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestPage", "TestViewModel");
 
-            var expectedContent = @"
-Sub New()
-    InitializeComponent()
-
-DataContext = ViewModel
-End Sub
-";
+            var expectedContent = ""
+          + Environment.NewLine + "Sub New()"
+          + Environment.NewLine + "    InitializeComponent()"
+          + Environment.NewLine + ""
+          + Environment.NewLine + "DataContext = ViewModel"
+          + Environment.NewLine + "End Sub"
+          + Environment.NewLine + "";
 
             Assert.IsTrue(anythingToAdd);
             Assert.AreEqual(2, lineNoToAddAfter);

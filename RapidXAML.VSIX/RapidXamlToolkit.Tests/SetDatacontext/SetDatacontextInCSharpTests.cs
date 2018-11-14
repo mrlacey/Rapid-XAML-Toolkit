@@ -455,21 +455,25 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
         [TestMethod]
         public void CanDetectWhereAndWhenToInsertConstructorAndPageContentWhenConstructorDoesNotExist()
         {
+            var defaultConstructor = "public $viewclass$()"
+             + Environment.NewLine + "{"
+             + Environment.NewLine + "    this.Initialize();"
+             + Environment.NewLine + "}";
+
+            var pageContent = "public $viewmodelclass$ ViewModel"
+      + Environment.NewLine + "{"
+      + Environment.NewLine + "    get"
+      + Environment.NewLine + "    {"
+      + Environment.NewLine + "        return new $viewmodelclass$();"
+      + Environment.NewLine + "    }"
+      + Environment.NewLine + "}";
+
             var profile = TestProfile.CreateEmpty();
             profile.ViewGeneration.XamlFileSuffix = "Page";
             profile.ViewGeneration.ViewModelFileSuffix = "ViewModel";
             profile.Datacontext.CodeBehindConstructorContent = "this.DataContext = this.ViewModel;";
-            profile.Datacontext.DefaultCodeBehindConstructor = @"public $viewclass$()
-{
-    this.Initialize();
-}";
-            profile.Datacontext.CodeBehindPageContent = @"public $viewmodelclass$ ViewModel
-{
-    get
-    {
-        return new $viewmodelclass$();
-    }
-}";
+            profile.Datacontext.DefaultCodeBehindConstructor = defaultConstructor;
+            profile.Datacontext.CodeBehindPageContent = pageContent;
 
             var logger = DefaultTestLogger.Create();
 

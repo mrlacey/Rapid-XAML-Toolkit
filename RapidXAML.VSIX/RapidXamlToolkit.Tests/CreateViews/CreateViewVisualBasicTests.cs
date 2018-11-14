@@ -228,6 +228,33 @@ End Class",
 
         private Profile GetDefaultTestProfile()
         {
+            var xamlPlaceholder = "<Page"
+          + Environment.NewLine + "    x:Class=\"$viewproject$.$viewns$.$viewclass$\">"
+          + Environment.NewLine + "    <Grid>"
+          + Environment.NewLine + "        $genxaml$"
+          + Environment.NewLine + "    </Grid>"
+          + Environment.NewLine + "</Page>"
+          + Environment.NewLine + "";
+
+            var codePlaceholder = "Imports System"
+          + Environment.NewLine + "Imports Windows.UI.Xaml.Controls"
+          + Environment.NewLine + "Imports $viewmodelns$"
+          + Environment.NewLine + ""
+          + Environment.NewLine + "Namespace $viewns$"
+          + Environment.NewLine + ""
+          + Environment.NewLine + "    Public NotInheritable Partial Class $viewclass$"
+          + Environment.NewLine + "        Inherits Page"
+          + Environment.NewLine + ""
+          + Environment.NewLine + "        Public Property ViewModel As $viewmodelclass$"
+          + Environment.NewLine + ""
+          + Environment.NewLine + "        Public Sub New()"
+          + Environment.NewLine + "            Me.InitializeComponent()"
+          + Environment.NewLine + "            Me.ViewModel = New $viewmodelclass$()"
+          + Environment.NewLine + "        End Sub"
+          + Environment.NewLine + "    End Class"
+          + Environment.NewLine + "End Namespace"
+          + Environment.NewLine + "";
+
             return new Profile
             {
                 Name = "TestProfile",
@@ -237,31 +264,8 @@ End Class",
                 Mappings = new ObservableCollection<Mapping>(),
                 ViewGeneration = new ViewGenerationSettings
                 {
-                    XamlPlaceholder = @"<Page
-    x:Class=""$viewproject$.$viewns$.$viewclass$"">
-    <Grid>
-        $genxaml$
-    </Grid>
-</Page>
-",
-                    CodePlaceholder = @"Imports System
-Imports Windows.UI.Xaml.Controls
-Imports $viewmodelns$
-
-Namespace $viewns$
-
-    Public NotInheritable Partial Class $viewclass$
-        Inherits Page
-
-        Public Property ViewModel As $viewmodelclass$
-
-        Public Sub New()
-            Me.InitializeComponent()
-            Me.ViewModel = New $viewmodelclass$()
-        End Sub
-    End Class
-End Namespace
-",
+                    XamlPlaceholder = xamlPlaceholder,
+                    CodePlaceholder = codePlaceholder,
                     XamlFileSuffix = "Page",
                     ViewModelFileSuffix = "ViewModel",
 
