@@ -1147,12 +1147,14 @@ Namespace tests
     End Class
 End Namespace";
 
+            var expectedXaml = "<form>"
+       + Environment.NewLine + "    <Dynamic Name=\"SomeProperty\" />"
+       + Environment.NewLine + "</form>";
+
             var expected = new AnalyzerOutput
             {
                 Name = "Class1",
-                Output = @"<form>
-    <Dynamic Name=""SomeProperty"" />
-</form>",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Class,
             };
 
@@ -1180,15 +1182,17 @@ Namespace tests
     End Class
 End Namespace";
 
+            var expectedXaml = "<form>"
+       + Environment.NewLine + "    <Dyno>"
+       + Environment.NewLine + "        <DymnProp Value=\"\" />"
+       + Environment.NewLine + "    </Dyno>"
+       + Environment.NewLine + "</form>";
+
             // A single "DymnProp" with no value indicates that no sub-properties of the dynamic type were found
             var expected = new AnalyzerOutput
             {
                 Name = "Class1",
-                Output = @"<form>
-    <Dyno>
-        <DymnProp Value="""" />
-    </Dyno>
-</form>",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Class,
             };
 

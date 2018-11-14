@@ -44,7 +44,17 @@ namespace RapidXamlToolkit.Tests
 
                     if (aLines.Length != eLines.Length)
                     {
-                        errorMessage = $"Expected {eLines.Length} lines in output but had {aLines.Length}.";
+                        var lines = eLines.Length > 1 ? "lines" : "line";
+
+                        errorMessage = $"Expected {eLines.Length} {lines} in output but had {aLines.Length}.";
+
+                        var aNoLineEndings = actual.Replace("\r", string.Empty).Replace("\n", string.Empty);
+                        var eNoLineEndings = expected.Replace("\r", string.Empty).Replace("\n", string.Empty);
+
+                        if (aNoLineEndings == eNoLineEndings)
+                        {
+                            errorMessage += " Difference is just line endings.";
+                        }
                     }
                     else
                     {

@@ -247,7 +247,7 @@ namespace RapidXamlToolkit
             return -1;
         }
 
-        // TODO: add better checking of $nooutput$
+        // TODO: Add better checking of $nooutput$
         public static bool IsValidXamlOutput(this string source)
         {
             const string validText = "ValidText";

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Commands;
 
@@ -12,78 +13,78 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
         [TestMethod]
         public void CanGetLineEndPos_FirstLine()
         {
-            var file = @"abc
-678
-123";
+            var file = "abc"
++ Environment.NewLine + "678"
++ Environment.NewLine + "123";
 
             var testResult = SetDataContextCommandLogic.GetLineEndPos(file, 1);
 
-            Assert.AreEqual(5, testResult);
+            Assert.AreEqual(3 + (Environment.NewLine.Length * 1), testResult);
         }
 
         [TestMethod]
         public void CanGetLineEndPos_SecondLine()
         {
-            var file = @"abc
-67
-012";
+            var file = "abc"
++ Environment.NewLine + "67"
++ Environment.NewLine + "012";
 
             var testResult = SetDataContextCommandLogic.GetLineEndPos(file, 2);
 
-            Assert.AreEqual(9, testResult);
+            Assert.AreEqual(5 + (Environment.NewLine.Length * 2), testResult);
         }
 
         [TestMethod]
         public void CanGetLineEndPos_ThirdLine()
         {
-            var file = @"1
-45
-890
-abcd";
+            var file = "1"
++ Environment.NewLine + "45"
++ Environment.NewLine + "890"
++ Environment.NewLine + "abcd";
 
             var testResult = SetDataContextCommandLogic.GetLineEndPos(file, 3);
 
-            Assert.AreEqual(12, testResult);
+            Assert.AreEqual(6 + (Environment.NewLine.Length * 3), testResult);
         }
 
         [TestMethod]
         public void CanGetLineEndPos_FifthLine()
         {
-            var file = @"1
-
-123
-abcd
--|-|-|-
-12345678";
+            var file = "1"
++ Environment.NewLine + ""
++ Environment.NewLine + "123"
++ Environment.NewLine + "abcd"
++ Environment.NewLine + "-|-|-|-"
++ Environment.NewLine + "12345678";
 
             var testResult = SetDataContextCommandLogic.GetLineEndPos(file, 5);
 
-            Assert.AreEqual(25, testResult);
+            Assert.AreEqual(15 + (Environment.NewLine.Length * 5), testResult);
         }
 
         [TestMethod]
         public void CanGetLineEndPos_BlankFirstLine()
         {
-            var file = @"
-678
-123";
+            var file = ""
++ Environment.NewLine + "678"
++ Environment.NewLine + "123";
 
             var testResult = SetDataContextCommandLogic.GetLineEndPos(file, 1);
 
-            Assert.AreEqual(2, testResult);
+            Assert.AreEqual(Environment.NewLine.Length, testResult);
         }
 
         [TestMethod]
         public void CanGetLineEndPos_BlankThirdLine()
         {
-            var file = @"abc
-
-
-012";
+            var file = "abc"
++ Environment.NewLine + ""
++ Environment.NewLine + ""
++ Environment.NewLine + "012";
 
             var testResult = SetDataContextCommandLogic.GetLineEndPos(file, 3);
 
-            Assert.AreEqual(9, testResult);
+            Assert.AreEqual(3 + (Environment.NewLine.Length * 3), testResult);
         }
 
         [TestMethod]

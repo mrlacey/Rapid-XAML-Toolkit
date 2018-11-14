@@ -71,14 +71,16 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 
             var logger = DefaultTestLogger.Create();
 
+            var activeDocText = "<Page"
+        + Environment.NewLine + "    xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\""
+        + Environment.NewLine + "    >"
+        + Environment.NewLine + "    <!-- Content would go here -->"
+        + Environment.NewLine + "</Page>";
+
             var vs = new TestVisualStudioAbstraction
             {
                 ActiveDocumentFileName = "test.xaml",
-                ActiveDocumentText = @"<Page
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    >
-    <!-- Content would go here -->
-</Page>",
+                ActiveDocumentText = activeDocText,
             };
 
             var fs = new TestFileSystem();
