@@ -20,18 +20,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void CmdEnabledInFirstRowDefinition()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldEnableCommand(xaml, true);
         }
@@ -39,18 +39,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void CmdEnabledInSecondRowDefinition()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition ☆Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldEnableCommand(xaml, true);
         }
@@ -58,18 +58,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void CmdNotEnabledBeforeFirstRowDefinition()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>☆
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>☆"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldEnableCommand(xaml, false);
         }
@@ -77,18 +77,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void CmdNotEnabledAfterDefinitions()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-☆
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + "☆"
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldEnableCommand(xaml, false);
         }
@@ -96,18 +96,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetRowNumberForFirstRowDefinition()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <☆RowDefinition Height=""Auto"" /☆>
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <☆RowDefinition Height=\"Auto\" /☆>"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.EachPositionBetweenStarsShouldReturnRowNumber(xaml, 0);
         }
@@ -115,18 +115,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetRowNumberForSecondRowDefinition()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height=""Auto"" />
-            <☆RowDefinition Height=""*"" /☆>
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <☆RowDefinition Height=\"*\" /☆>"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.EachPositionBetweenStarsShouldReturnRowNumber(xaml, 1);
         }
@@ -134,19 +134,19 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetRowNumberForThirdRowDefinition()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""Auto"" />
-            <☆RowDefinition Height=""*"" /☆>
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <☆RowDefinition Height=\"*\" /☆>"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.EachPositionBetweenStarsShouldReturnRowNumber(xaml, 2);
         }
@@ -154,27 +154,27 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetRowNumberForFirstRowDefinitionInNestedGrid()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-        <Grid Grid.Row=""1"">
-            <Grid.RowDefinitions>
-                <☆RowDefinition Height=""Auto"" /☆>
-                <RowDefinition Height=""*"" />
-            </Grid.RowDefinitions>
-
-            <!-- Content omitted -->
-
-        </Grid>
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <Grid Grid.Row=\"1\">"
++ Environment.NewLine + "            <Grid.RowDefinitions>"
++ Environment.NewLine + "                <☆RowDefinition Height=\"Auto\" /☆>"
++ Environment.NewLine + "                <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "            <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.EachPositionBetweenStarsShouldReturnRowNumber(xaml, 0);
         }
@@ -182,23 +182,23 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetExpectedReplacementsFromFirstDefinition()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             var expected = new List<(string, string)>
             {
@@ -217,23 +217,23 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetExpectedReplacementsFromMiddleDefinition()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             var expected = new List<(string, string)>
             {
@@ -251,23 +251,23 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetExpectedReplacementsFromLastDefinition()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition ☆Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             var expected = new List<(string, string)>
             {
@@ -280,28 +280,28 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetExpectedReplacementsIgnoresSubsequentNestedGrids()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-        <Grid Grid.Row=""2"">
-            <Grid.RowDefinitions>
-                <RowDefinition Height=""Auto"" />
-                <RowDefinition Height=""*"" />
-            </Grid.RowDefinitions>
-
-            <!-- Content omitted -->
-
-        </Grid>
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <Grid Grid.Row=\"2\">"
++ Environment.NewLine + "            <Grid.RowDefinitions>"
++ Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "                <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "            <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             var expected = new List<(string, string)>
             {
@@ -315,28 +315,28 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetExpectedReplacementsInNestedGrid()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-        <Grid Grid.Row=""2"">
-            <Grid.RowDefinitions>
-                <RowDefinition Height=""Auto"" />
-                <RowDefinition☆ Height=""*"" />
-            </Grid.RowDefinitions>
-
-            <!-- Content omitted -->
-
-        </Grid>
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <Grid Grid.Row=\"2\">"
++ Environment.NewLine + "            <Grid.RowDefinitions>"
++ Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "                <RowDefinition☆ Height=\"*\" />"
++ Environment.NewLine + "            </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "            <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             var expected = new List<(string, string)>
             {
@@ -349,20 +349,20 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetDefinitionAtCursor_Auto()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
-
-            var expected = ("<RowDefinition Height=\"Auto\" />", 65);
+            var expected = ("<RowDefinition Height=\"Auto\" />", 57 + (Environment.NewLine.Length * 4)); // 4 = lines 
 
             this.PositionAtStarShouldReturnExpectedDefinition(xaml, expected);
         }
@@ -520,19 +520,19 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetGridBoundary_NoOtherGrids()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            ☆<RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""*"" />☆
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            ☆<RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />☆"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             var gridStartPos = 10 + (Environment.NewLine.Length * 2);
             var expected = (gridStartPos, 259, new Dictionary<int, int>());
@@ -543,43 +543,44 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetGridBoundary_OtherGridsBeforeAndAfter()
         {
-            var xaml = @"
-<Page>
-    <StackPanel>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height=""Auto"" />
-                <RowDefinition Height=""*"" />
-                <RowDefinition Height=""*"" />
-            </Grid.RowDefinitions>
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <StackPanel>"
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "            <Grid.RowDefinitions>"
++ Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "                <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "                <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "            <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "            <Grid.RowDefinitions>"
++ Environment.NewLine + "                ☆<RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "                <RowDefinition Height=\"*\" />☆"
++ Environment.NewLine + "            </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "            <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "            <Grid.RowDefinitions>"
++ Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "                <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "                <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "            <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "    </StackPanel>"
++ Environment.NewLine + "</Page>";
 
-            <!-- Content omitted -->
-
-        </Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                ☆<RowDefinition Height=""Auto"" />
-                <RowDefinition Height=""Auto"" />
-                <RowDefinition Height=""*"" />☆
-            </Grid.RowDefinitions>
-
-            <!-- Content omitted -->
-
-        </Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height=""Auto"" />
-                <RowDefinition Height=""*"" />
-                <RowDefinition Height=""*"" />
-            </Grid.RowDefinitions>
-
-            <!-- Content omitted -->
-
-        </Grid>
-    </StackPanel>
-</Page>";
-
-            var expected = (323, 596, new Dictionary<int, int>());
+            var gridStartPos = 297 + (Environment.NewLine.Length * 13); // adjust for number of previous lines in file
+            var expected = (gridStartPos, 596, new Dictionary<int, int>());
 
             this.EachPositionBetweenStarsShouldReturnExpectedBoundary(xaml, expected);
         }
@@ -666,54 +667,55 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void GetGridBoundary_InNestedGrid()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <Grid Grid.Row=\"0\">"
++ Environment.NewLine + "            <Grid.RowDefinitions>"
++ Environment.NewLine + "                <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "                <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "            <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <Grid Grid.Row=\"1\">"
++ Environment.NewLine + "            <Grid.RowDefinitions>"
++ Environment.NewLine + "                ☆<RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "                <RowDefinition Height=\"*\" />☆"
++ Environment.NewLine + "            </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "            <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <Grid Grid.Row=\"2\">"
++ Environment.NewLine + "            <Grid.RowDefinitions>"
++ Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "                <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "            <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
-        <!-- Content omitted -->
-
-        <Grid Grid.Row=""0"">
-            <Grid.RowDefinitions>
-                <RowDefinition Height=""*"" />
-                <RowDefinition Height=""*"" />
-            </Grid.RowDefinitions>
-
-            <!-- Content omitted -->
-
-        </Grid>
-
-        <Grid Grid.Row=""1"">
-            <Grid.RowDefinitions>
-                ☆<RowDefinition Height=""Auto"" />
-                <RowDefinition Height=""Auto"" />
-                <RowDefinition Height=""*"" />☆
-            </Grid.RowDefinitions>
-
-            <!-- Content omitted -->
-
-        </Grid>
-
-        <Grid Grid.Row=""2"">
-            <Grid.RowDefinitions>
-                <RowDefinition Height=""Auto"" />
-                <RowDefinition Height=""*"" />
-            </Grid.RowDefinitions>
-
-            <!-- Content omitted -->
-
-        </Grid>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
-
-            var expected = (516, 802, new Dictionary<int, int>());
+            var gridStartPos = 474 + (Environment.NewLine.Length * 21); // lines above in file
+            var expected = (gridStartPos, 802, new Dictionary<int, int>());
 
             this.EachPositionBetweenStarsShouldReturnExpectedBoundary(xaml, expected);
         }
@@ -721,18 +723,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingRowDefinition_GetDefinitionAtCursor()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" /
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" /"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             var expected = (string.Empty, -1);
             this.PositionAtStarShouldReturnExpectedDefinition(xaml, expected);
@@ -741,18 +743,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingRowDefinition_GetReplacements()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" /
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" /"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldReturnExpectedReplacements(xaml, null);
         }
@@ -760,18 +762,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingRowDefinition_GetGridBoundary()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <☆RowDefinition Height=""Auto☆""
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <☆RowDefinition Height=\"Auto☆\""
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             var expected = (-1, -1, new Dictionary<int, int>());
 
@@ -781,18 +783,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingRowDefinition_GetRowNumber()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" /
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" /"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldReturnRowNumber(xaml, -1);
         }
@@ -800,18 +802,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingRowDefinition_ShouldEnableCommand()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height=""*"" />
-            <RowDefinition ☆Height=""Auto""
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\""
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldEnableCommand(xaml, false);
         }
@@ -819,18 +821,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingRowDefinitions_GetDefinitionAtCursor()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefin
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefin"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             var expected = (string.Empty, -1);
             this.PositionAtStarShouldReturnExpectedDefinition(xaml, expected);
@@ -839,18 +841,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingRowDefinitions_GetReplacements()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDef
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDef"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldReturnExpectedReplacements(xaml, null);
         }
@@ -858,18 +860,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingRowDefinitions_GetGridBoundary()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <☆RowDefinition Height=""Auto"" /☆>
-            <RowDefinition Height=""*"" />
-        </Gri
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <☆RowDefinition Height=\"Auto\" /☆>"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Gri"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             var expected = (-1, -1, new Dictionary<int, int>());
 
@@ -879,18 +881,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingRowDefinitions_GetRowNumber()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefi
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefi"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldReturnRowNumber(xaml, -1);
         }
@@ -898,18 +900,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingRowDefinitions_ShouldEnableCommand()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDe
-
-        <!-- Content omitted -->
-
-    </Grid>
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDe"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldEnableCommand(xaml, false);
         }
@@ -917,18 +919,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingGrid_GetDefinitionAtCursor()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Gri
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Gri"
++ Environment.NewLine + "</Page>";
 
             var expected = (string.Empty, -1);
             this.PositionAtStarShouldReturnExpectedDefinition(xaml, expected);
@@ -937,18 +939,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingGrid_GetReplacements()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Gri
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Gri"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldReturnExpectedReplacements(xaml, null);
         }
@@ -956,18 +958,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingGrid_GetGridBoundary()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <☆RowDefinition Height=""Auto"" /☆>
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Gri
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <☆RowDefinition Height=\"Auto\" /☆>"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Gri"
++ Environment.NewLine + "</Page>";
 
             var expected = (-1, -1, new Dictionary<int, int>());
 
@@ -977,18 +979,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingGrid_GetRowNumber()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Gri
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Gri"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldReturnRowNumber(xaml, -1);
         }
@@ -996,18 +998,18 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void HandleNoClosingGrid_ShouldEnableCommand()
         {
-            var xaml = @"
-<Page>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition ☆Height=""Auto"" />
-            <RowDefinition Height=""*"" />
-        </Grid.RowDefinitions>
-
-        <!-- Content omitted -->
-
-    </Gri
-</Page>";
+            var xaml = ""
++ Environment.NewLine + "<Page>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition ☆Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Gri"
++ Environment.NewLine + "</Page>";
 
             this.PositionAtStarShouldEnableCommand(xaml, false);
         }

@@ -435,7 +435,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 
             Assert.IsTrue(result[0].anythingToAdd);
             Assert.AreEqual(5, result[0].lineNoToAddAfter);
-            Assert.AreEqual($"{Environment.NewLine}{Environment.NewLine}this.DataContext = this.ViewModel;", result[0].contentToAdd);
+            StringAssert.AreEqual($"{Environment.NewLine}{Environment.NewLine}this.DataContext = this.ViewModel;", result[0].contentToAdd);
 
             var expectedContent = ""
           + Environment.NewLine + ""
@@ -507,7 +507,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 
             Assert.IsTrue(result[0].anythingToAdd);
             Assert.AreEqual(2, result[0].lineNoToAddAfter);
-            Assert.AreEqual(expectedContent0, result[0].contentToAdd);
+            StringAssert.AreEqual(expectedContent0, result[0].contentToAdd);
 
             var expectedContent1 = ""
            + Environment.NewLine + ""
@@ -521,7 +521,7 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 
             Assert.IsTrue(result[1].anythingToAdd);
             Assert.AreEqual(8, result[1].lineNoToAddAfter);
-            Assert.AreEqual(expectedContent1, result[1].contentToAdd);
+            StringAssert.AreEqual(expectedContent1, result[1].contentToAdd);
         }
     }
 }
