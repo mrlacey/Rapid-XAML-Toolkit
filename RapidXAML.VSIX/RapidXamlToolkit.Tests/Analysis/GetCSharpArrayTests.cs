@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
@@ -57,12 +58,14 @@ namespace tests
     }
 }";
 
+            var expectedXaml = "<Bool />"
+       + Environment.NewLine + "<BoolBrackets />"
+       + Environment.NewLine + "<ArrayBool />";
+
             var expected = new AnalyzerOutput
             {
                 Name = "Class1",
-                Output = @"<Bool />
-<BoolBrackets />
-<ArrayBool />",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Class,
             };
 
@@ -84,7 +87,7 @@ namespace tests
             var expected = new AnalyzerOutput
             {
                 Name = "MyBoolBrackets",
-                Output = @"<BoolBrackets />",
+                Output = "<BoolBrackets />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -108,7 +111,7 @@ namespace tests
             var expected = new AnalyzerOutput
             {
                 Name = "MyArrayBool",
-                Output = @"<ArrayBool />",
+                Output = "<ArrayBool />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -131,12 +134,14 @@ namespace tests
     }
 }";
 
+            var expectedXaml = "<Bool />"
+       + Environment.NewLine + "<BoolBrackets />"
+       + Environment.NewLine + "<ArrayBool />";
+
             var expected = new AnalyzerOutput
             {
                 Name = "MyBool, MyBoolBrackets and 1 other property",
-                Output = @"<Bool />
-<BoolBrackets />
-<ArrayBool />",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Selection,
             };
 

@@ -423,13 +423,15 @@ namespace tests
     }
 }";
 
+            var expectedXaml = "<Dyno>"
+       + Environment.NewLine + "    <DymnProp Value=\"\" />"
+       + Environment.NewLine + "</Dyno>";
+
             // A single "DymnProp" with no value indicates that no sub-properties of the dynamic type were found
             var expected = new AnalyzerOutput
             {
                 Name = "SomeList",
-                Output = @"<Dyno>
-    <DymnProp Value="""" />
-</Dyno>",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Selection,
             };
 
@@ -469,8 +471,8 @@ namespace tests
             var expected = new AnalyzerOutput
             {
                 Name = "SomeInts and SomeStrings",
-                Output = @"<Int />
-<String />",
+                Output = "<Int />" + Environment.NewLine
+                       + "<String />",
                 OutputType = AnalyzerOutputType.Selection,
             };
 

@@ -127,11 +127,13 @@ Namespace tests
     End Structure
 End Namespace";
 
+            var expectedXaml = "<MyProperty1 />"
+       + Environment.NewLine + "<MyProperty2 />";
+
             var expected = new AnalyzerOutput
             {
                 Name = "MyListProperty",
-                Output = @"<MyProperty1 />
-<MyProperty2 />",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Property,
             };
 

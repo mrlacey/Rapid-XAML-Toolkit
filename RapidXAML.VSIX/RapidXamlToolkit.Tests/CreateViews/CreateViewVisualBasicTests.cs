@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.VisualBasic;
@@ -46,40 +47,40 @@ End Class",
 
             await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb");
 
-            var expectedXaml = @"<Page
-    x:Class=""App.Files.TestPage"">
-    <Grid>
-        <StackPanel>
-            <TextBlock FB=""True"" Text=""OnlyProperty"" />
-        </StackPanel>
-    </Grid>
-</Page>
-";
+            var expectedXaml = "<Page"
+       + Environment.NewLine + "    x:Class=\"App.Files.TestPage\">"
+       + Environment.NewLine + "    <Grid>"
+       + Environment.NewLine + "        <StackPanel>"
+       + Environment.NewLine + "            <TextBlock FB=\"True\" Text=\"OnlyProperty\" />"
+       + Environment.NewLine + "        </StackPanel>"
+       + Environment.NewLine + "    </Grid>"
+       + Environment.NewLine + "</Page>"
+       + Environment.NewLine + "";
 
-            var expectedCodeBehind = @"Imports System
-Imports Windows.UI.Xaml.Controls
-Imports App.Files
-
-Namespace Files
-
-    Public NotInheritable Partial Class TestPage
-        Inherits Page
-
-        Public Property ViewModel As TestViewModel
-
-        Public Sub New()
-            Me.InitializeComponent()
-            Me.ViewModel = New TestViewModel()
-        End Sub
-    End Class
-End Namespace
-";
+            var expectedCodeBehind = "Imports System"
+             + Environment.NewLine + "Imports Windows.UI.Xaml.Controls"
+             + Environment.NewLine + "Imports App.Files"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "Namespace Files"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "    Public NotInheritable Partial Class TestPage"
+             + Environment.NewLine + "        Inherits Page"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "        Public Property ViewModel As TestViewModel"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "        Public Sub New()"
+             + Environment.NewLine + "            Me.InitializeComponent()"
+             + Environment.NewLine + "            Me.ViewModel = New TestViewModel()"
+             + Environment.NewLine + "        End Sub"
+             + Environment.NewLine + "    End Class"
+             + Environment.NewLine + "End Namespace"
+             + Environment.NewLine + "";
 
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml", sut.XamlFileName);
             Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml.vb", sut.CodeFileName);
-            Assert.AreEqual(expectedXaml, sut.XamlFileContents);
-            Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
+            StringAssert.AreEqual(expectedXaml, sut.XamlFileContents);
+            StringAssert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
         }
 
         [TestMethod]
@@ -115,40 +116,40 @@ End Class",
 
             await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.vb");
 
-            var expectedXaml = @"<Page
-    x:Class=""App.Views.TestPage"">
-    <Grid>
-        <StackPanel>
-            <TextBlock FB=""True"" Text=""OnlyProperty"" />
-        </StackPanel>
-    </Grid>
-</Page>
-";
+            var expectedXaml = "<Page"
+       + Environment.NewLine + "    x:Class=\"App.Views.TestPage\">"
+       + Environment.NewLine + "    <Grid>"
+       + Environment.NewLine + "        <StackPanel>"
+       + Environment.NewLine + "            <TextBlock FB=\"True\" Text=\"OnlyProperty\" />"
+       + Environment.NewLine + "        </StackPanel>"
+       + Environment.NewLine + "    </Grid>"
+       + Environment.NewLine + "</Page>"
+       + Environment.NewLine + "";
 
-            var expectedCodeBehind = @"Imports System
-Imports Windows.UI.Xaml.Controls
-Imports App.ViewModels
-
-Namespace Views
-
-    Public NotInheritable Partial Class TestPage
-        Inherits Page
-
-        Public Property ViewModel As TestViewModel
-
-        Public Sub New()
-            Me.InitializeComponent()
-            Me.ViewModel = New TestViewModel()
-        End Sub
-    End Class
-End Namespace
-";
+            var expectedCodeBehind = "Imports System"
+             + Environment.NewLine + "Imports Windows.UI.Xaml.Controls"
+             + Environment.NewLine + "Imports App.ViewModels"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "Namespace Views"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "    Public NotInheritable Partial Class TestPage"
+             + Environment.NewLine + "        Inherits Page"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "        Public Property ViewModel As TestViewModel"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "        Public Sub New()"
+             + Environment.NewLine + "            Me.InitializeComponent()"
+             + Environment.NewLine + "            Me.ViewModel = New TestViewModel()"
+             + Environment.NewLine + "        End Sub"
+             + Environment.NewLine + "    End Class"
+             + Environment.NewLine + "End Namespace"
+             + Environment.NewLine + "";
 
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml", sut.XamlFileName);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml.vb", sut.CodeFileName);
-            Assert.AreEqual(expectedXaml, sut.XamlFileContents);
-            Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
+            StringAssert.AreEqual(expectedXaml, sut.XamlFileContents);
+            StringAssert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
         }
 
         [TestMethod]
@@ -189,44 +190,71 @@ End Class",
 
             await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.vb");
 
-            var expectedXaml = @"<Page
-    x:Class=""App.Views.TestPage"">
-    <Grid>
-        <StackPanel>
-            <TextBlock FB=""True"" Text=""OnlyProperty"" />
-        </StackPanel>
-    </Grid>
-</Page>
-";
+            var expectedXaml = "<Page"
+       + Environment.NewLine + "    x:Class=\"App.Views.TestPage\">"
+       + Environment.NewLine + "    <Grid>"
+       + Environment.NewLine + "        <StackPanel>"
+       + Environment.NewLine + "            <TextBlock FB=\"True\" Text=\"OnlyProperty\" />"
+       + Environment.NewLine + "        </StackPanel>"
+       + Environment.NewLine + "    </Grid>"
+       + Environment.NewLine + "</Page>"
+       + Environment.NewLine + "";
 
-            var expectedCodeBehind = @"Imports System
-Imports Windows.UI.Xaml.Controls
-Imports App.ViewModels
-
-Namespace Views
-
-    Public NotInheritable Partial Class TestPage
-        Inherits Page
-
-        Public Property ViewModel As TestViewModel
-
-        Public Sub New()
-            Me.InitializeComponent()
-            Me.ViewModel = New TestViewModel()
-        End Sub
-    End Class
-End Namespace
-";
+            var expectedCodeBehind = "Imports System"
+             + Environment.NewLine + "Imports Windows.UI.Xaml.Controls"
+             + Environment.NewLine + "Imports App.ViewModels"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "Namespace Views"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "    Public NotInheritable Partial Class TestPage"
+             + Environment.NewLine + "        Inherits Page"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "        Public Property ViewModel As TestViewModel"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "        Public Sub New()"
+             + Environment.NewLine + "            Me.InitializeComponent()"
+             + Environment.NewLine + "            Me.ViewModel = New TestViewModel()"
+             + Environment.NewLine + "        End Sub"
+             + Environment.NewLine + "    End Class"
+             + Environment.NewLine + "End Namespace"
+             + Environment.NewLine + "";
 
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml", sut.XamlFileName);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml.vb", sut.CodeFileName);
-            Assert.AreEqual(expectedXaml, sut.XamlFileContents);
-            Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
+            StringAssert.AreEqual(expectedXaml, sut.XamlFileContents);
+            StringAssert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
         }
 
         private Profile GetDefaultTestProfile()
         {
+            var xamlPlaceholder = "<Page"
+          + Environment.NewLine + "    x:Class=\"$viewproject$.$viewns$.$viewclass$\">"
+          + Environment.NewLine + "    <Grid>"
+          + Environment.NewLine + "        $genxaml$"
+          + Environment.NewLine + "    </Grid>"
+          + Environment.NewLine + "</Page>"
+          + Environment.NewLine + "";
+
+            var codePlaceholder = "Imports System"
+          + Environment.NewLine + "Imports Windows.UI.Xaml.Controls"
+          + Environment.NewLine + "Imports $viewmodelns$"
+          + Environment.NewLine + ""
+          + Environment.NewLine + "Namespace $viewns$"
+          + Environment.NewLine + ""
+          + Environment.NewLine + "    Public NotInheritable Partial Class $viewclass$"
+          + Environment.NewLine + "        Inherits Page"
+          + Environment.NewLine + ""
+          + Environment.NewLine + "        Public Property ViewModel As $viewmodelclass$"
+          + Environment.NewLine + ""
+          + Environment.NewLine + "        Public Sub New()"
+          + Environment.NewLine + "            Me.InitializeComponent()"
+          + Environment.NewLine + "            Me.ViewModel = New $viewmodelclass$()"
+          + Environment.NewLine + "        End Sub"
+          + Environment.NewLine + "    End Class"
+          + Environment.NewLine + "End Namespace"
+          + Environment.NewLine + "";
+
             return new Profile
             {
                 Name = "TestProfile",
@@ -236,31 +264,8 @@ End Namespace
                 Mappings = new ObservableCollection<Mapping>(),
                 ViewGeneration = new ViewGenerationSettings
                 {
-                    XamlPlaceholder = @"<Page
-    x:Class=""$viewproject$.$viewns$.$viewclass$"">
-    <Grid>
-        $genxaml$
-    </Grid>
-</Page>
-",
-                    CodePlaceholder = @"Imports System
-Imports Windows.UI.Xaml.Controls
-Imports $viewmodelns$
-
-Namespace $viewns$
-
-    Public NotInheritable Partial Class $viewclass$
-        Inherits Page
-
-        Public Property ViewModel As $viewmodelclass$
-
-        Public Sub New()
-            Me.InitializeComponent()
-            Me.ViewModel = New $viewmodelclass$()
-        End Sub
-    End Class
-End Namespace
-",
+                    XamlPlaceholder = xamlPlaceholder,
+                    CodePlaceholder = codePlaceholder,
                     XamlFileSuffix = "Page",
                     ViewModelFileSuffix = "ViewModel",
 

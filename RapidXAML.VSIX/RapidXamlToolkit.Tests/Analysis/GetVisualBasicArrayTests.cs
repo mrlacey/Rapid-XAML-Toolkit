@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
@@ -53,12 +54,14 @@ Namespace tests
     End Class
 End Namespace";
 
+            var expectedXaml = "<Bool />"
+       + Environment.NewLine + "<Array />"
+       + Environment.NewLine + "<ArrayBool />";
+
             var expected = new AnalyzerOutput
             {
                 Name = "Class1",
-                Output = @"<Bool />
-<Array />
-<ArrayBool />",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Class,
             };
 
@@ -78,7 +81,7 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "MyArray",
-                Output = @"<Array />",
+                Output = "<Array />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -98,7 +101,7 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "MyArrayBool",
-                Output = @"<ArrayBool />",
+                Output = "<ArrayBool />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -117,12 +120,14 @@ Namespace tests
     End Class
 End Namespace";
 
+            var expectedXaml = "<Bool />"
+       + Environment.NewLine + "<Array />"
+       + Environment.NewLine + "<ArrayBool />";
+
             var expected = new AnalyzerOutput
             {
                 Name = "MyBool, MyArray and 1 other property",
-                Output = @"<Bool />
-<Array />
-<ArrayBool />",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Selection,
             };
 

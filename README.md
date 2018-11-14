@@ -71,7 +71,7 @@ Learn more about [features](./docs/features.md).
 - The toolkit can't produce the final UI as every app may require unique customization.
 - Everything that is output should be configurable.
 - C# and VB.Net are supported equally.
-- The toolkit won't do things that Visual Studio can already do.
+- The toolkit won't do things that Visual Studio can already do. (Without very good reason.)
 - This toolkit is focused specifically on tooling for working with XAML. It will not include controls, etc.
 
 ## Installation
