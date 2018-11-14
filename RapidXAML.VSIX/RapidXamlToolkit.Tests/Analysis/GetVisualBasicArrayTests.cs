@@ -4,6 +4,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using System;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
@@ -53,12 +54,14 @@ Namespace tests
     End Class
 End Namespace";
 
+            var expectedXaml = "<Bool />"
+       + Environment.NewLine + "<Array />"
+       + Environment.NewLine + "<ArrayBool />";
+
             var expected = new AnalyzerOutput
             {
                 Name = "Class1",
-                Output = @"<Bool />
-<Array />
-<ArrayBool />",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Class,
             };
 
@@ -117,12 +120,14 @@ Namespace tests
     End Class
 End Namespace";
 
+            var expectedXaml = "<Bool />"
+       + Environment.NewLine + "<Array />"
+       + Environment.NewLine + "<ArrayBool />";
+
             var expected = new AnalyzerOutput
             {
                 Name = "MyBool, MyArray and 1 other property",
-                Output = @"<Bool />
-<Array />
-<ArrayBool />",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Selection,
             };
 
