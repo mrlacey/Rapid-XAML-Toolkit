@@ -36,34 +36,15 @@ namespace RapidXamlToolkit.DragDrop
         {
             var position = dragDropInfo.VirtualBufferPosition.Position;
 
-            var fileContents = this.fileSystem.GetAllFileText(this.draggedFilename);
-            var fileExt = this.fileSystem.GetFileExtension(this.draggedFilename);
+            var insertLineLength = this.view.GetTextViewLineContainingBufferPosition(position).Length;
 
-            // Note. Much of this is also in CreateViewCommandLogic.ExecuteAsync
             ThreadHelper.JoinableTaskFactory.Run(async () =>
             {
-                (var syntaxTree, var semModel) = await this.vs.GetDocumentModelsAsync(this.draggedFilename);
-
-                var indent = await this.vs.GetXamlIndentAsync();
-
-                var analyzer = fileExt == ".cs" ? new CSharpAnalyzer(this.logger, indent)
-                                                : (IDocumentAnalyzer)new VisualBasicAnalyzer(this.logger, indent);
-
                 var profile = AnalyzerBase.GetSettings().GetActiveProfile();
 
-                var treeRoot = await syntaxTree.GetRootAsync();
+                var logic = new DropHandlerLogic(profile, this.logger, this.vs, this.fileSystem);
 
-                // IndexOf is allowing for "class " in C# and "Class " in VB
-                var analyzerOutput = analyzer.GetSingleItemOutput(treeRoot, semModel, fileContents.IndexOf("lass "), profile);
-
-                string textOutput = analyzerOutput.Output;
-
-                var insertline = this.view.GetTextViewLineContainingBufferPosition(position);
-
-                if (insertline.Length > 0)
-                {
-                    textOutput = textOutput.Replace(Environment.NewLine, Environment.NewLine + new string(' ', insertline.Length));
-                }
+                var textOutput = await logic.ExecuteAsync(this.draggedFilename, insertLineLength);
 
                 this.view.TextBuffer.Insert(position.Position, textOutput);
             });

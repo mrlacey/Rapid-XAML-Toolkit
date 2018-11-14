@@ -82,6 +82,7 @@
     <Compile Include="Commands\SetDataContextCommandLogic.cs" />
     <Compile Include="Commands\VisualStudioAbstraction.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />
+    <Compile Include="DragDrop\DropHandlerLogic.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandlerProvider.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandler.cs" />
     <Compile Include="DteExtensions.cs" />

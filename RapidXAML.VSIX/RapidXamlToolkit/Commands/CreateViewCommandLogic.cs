@@ -46,8 +46,6 @@ namespace RapidXamlToolkit.Commands
             var fileExt = this.fileSystem.GetFileExtension(selectedFileName);
             var fileContents = this.fileSystem.GetAllFileText(selectedFileName);
 
-            (var syntaxTree, var semModel) = await this.vs.GetDocumentModelsAsync(selectedFileName);
-
             AnalyzerBase analyzer = null;
             var codeBehindExt = string.Empty;
             var indent = await this.vs.GetXamlIndentAsync();
@@ -82,6 +80,8 @@ namespace RapidXamlToolkit.Commands
                     this.logger.RecordInfo(StringRes.Info_CouldNotFindClassInFile.WithParams(selectedFileName));
                     return;
                 }
+
+                (var syntaxTree, var semModel) = await this.vs.GetDocumentModelsAsync(selectedFileName);
 
                 var syntaxRoot = await syntaxTree.GetRootAsync();
 
