@@ -145,10 +145,10 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
         {
             var profile = TestProfile.CreateEmpty();
             profile.Datacontext.CodeBehindConstructorContent = "this.DataContext = this.ViewModel;";
-            profile.Datacontext.DefaultCodeBehindConstructor = @"public $viewclass$()
-{
-    this.Initialize();
-}";
+            profile.Datacontext.DefaultCodeBehindConstructor = "public $viewclass$()" + Environment.NewLine +
+                                                               "{" + Environment.NewLine +
+                                                               "    this.Initialize();" + Environment.NewLine +
+                                                               "}";
 
             var logger = DefaultTestLogger.Create();
 
@@ -274,28 +274,32 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
         [TestMethod]
         public void CanDetectWhereAndWhenToInsertPageContentAndConstructorExists()
         {
+            var pageContent = "public $viewmodelclass$ ViewModel"
+      + Environment.NewLine + "{"
+      + Environment.NewLine + "    get"
+      + Environment.NewLine + "    {"
+      + Environment.NewLine + "        return new $viewmodelclass$();"
+      + Environment.NewLine + "    }"
+      + Environment.NewLine + "}";
+
             var profile = TestProfile.CreateEmpty();
             profile.ViewGeneration.XamlFileSuffix = "Page";
             profile.ViewGeneration.ViewModelFileSuffix = "ViewModel";
-            profile.Datacontext.CodeBehindPageContent = @"public $viewmodelclass$ ViewModel
-{
-    get
-    {
-        return new $viewmodelclass$();
-    }
-}";
+            profile.Datacontext.CodeBehindPageContent = pageContent;
 
             var logger = DefaultTestLogger.Create();
 
+            var fileText = "class TestPage"
+   + Environment.NewLine + "{"
+   + Environment.NewLine + "    public TestPage()"
+   + Environment.NewLine + "    {"
+   + Environment.NewLine + "        this.Initialize();"
+   + Environment.NewLine + "    }"
+   + Environment.NewLine + "}";
+
             var fs = new TestFileSystem
             {
-                FileText = @"class TestPage
-{
-    public TestPage()
-    {
-        this.Initialize();
-    }
-}",
+                FileText = fileText,
             };
 
             var synTree = CSharpSyntaxTree.ParseText(fs.FileText);
@@ -331,16 +335,18 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
         [TestMethod]
         public void CanDetectWhereAndWhenToInsertPageContentAndConstructorDoesNotExist()
         {
+            var pageContent = "public $viewmodelclass$ ViewModel"
+      + Environment.NewLine + "{"
+      + Environment.NewLine + "    get"
+      + Environment.NewLine + "    {"
+      + Environment.NewLine + "        return new $viewmodelclass$();"
+      + Environment.NewLine + "    }"
+      + Environment.NewLine + "}";
+
             var profile = TestProfile.CreateEmpty();
             profile.ViewGeneration.XamlFileSuffix = "Page";
             profile.ViewGeneration.ViewModelFileSuffix = "ViewModel";
-            profile.Datacontext.CodeBehindPageContent = @"public $viewmodelclass$ ViewModel
-{
-    get
-    {
-        return new $viewmodelclass$();
-    }
-}";
+            profile.Datacontext.CodeBehindPageContent = pageContent;
 
             var logger = DefaultTestLogger.Create();
 
