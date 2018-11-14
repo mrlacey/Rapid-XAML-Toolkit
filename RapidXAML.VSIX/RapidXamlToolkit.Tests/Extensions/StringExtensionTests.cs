@@ -434,75 +434,79 @@ namespace RapidXamlToolkit.Tests.Extensions
         [TestMethod]
         public void FormatXaml_OneElementWithSubItems()
         {
-            var origin = @"<StackPanel>
-<TextBlock Text=""SomeProperty"" />
-</StackPanel>";
-            var expected = @"<StackPanel>
-    <TextBlock Text=""SomeProperty"" />
-</StackPanel>";
+            var origin = "<StackPanel>"
+ + Environment.NewLine + "<TextBlock Text=\"SomeProperty\" />"
+ + Environment.NewLine + "</StackPanel>";
+
+            var expected = "<StackPanel>"
+   + Environment.NewLine + "    <TextBlock Text=\"SomeProperty\" />"
+   + Environment.NewLine + "</StackPanel>";
 
             var formatted = origin.FormatXaml(4);
 
-            Assert.AreEqual(expected, formatted);
+            StringAssert.AreEqual(expected, formatted);
         }
 
         [TestMethod]
         public void FormatXaml_OneElementWithSubItems_SmallIndent()
         {
-            var origin = @"<StackPanel>
-<TextBlock Text=""SomeProperty"" />
-</StackPanel>";
-            var expected = @"<StackPanel>
-  <TextBlock Text=""SomeProperty"" />
-</StackPanel>";
+            var origin = "<StackPanel>"
+ + Environment.NewLine + "<TextBlock Text=\"SomeProperty\" />"
+ + Environment.NewLine + "</StackPanel>";
+
+            var expected = "<StackPanel>"
+   + Environment.NewLine + "  <TextBlock Text=\"SomeProperty\" />"
+   + Environment.NewLine + "</StackPanel>";
 
             var formatted = origin.FormatXaml(2);
 
-            Assert.AreEqual(expected, formatted);
+            StringAssert.AreEqual(expected, formatted);
         }
 
         [TestMethod]
         public void FormatXaml_TwoElementNoIndents()
         {
-            var origin = @"<TextBlock Text=""SomeProperty"" />
-<TextBlock Text=""AnotherProperty"" />";
-            var expected = @"<TextBlock Text=""SomeProperty"" />
-<TextBlock Text=""AnotherProperty"" />";
+            var origin = "<TextBlock Text=\"SomeProperty\" />"
+ + Environment.NewLine + "<TextBlock Text=\"AnotherProperty\" />";
+
+            var expected = "<TextBlock Text=\"SomeProperty\" />"
+   + Environment.NewLine + "<TextBlock Text=\"AnotherProperty\" />";
 
             var formatted = origin.FormatXaml(4);
 
-            Assert.AreEqual(expected, formatted);
+            StringAssert.AreEqual(expected, formatted);
         }
 
         [TestMethod]
         public void FormatXaml_FiveElementNoIndents()
         {
-            var origin = @"<TextBlock Text=""SomeProperty"" />
-<TextBlock Text=""AProperty"" />
-<TextBlock Text=""AnotherProperty"" />
-<TextBlock Text=""FourthProperty"" />
-<TextBlock Text=""FinalProperty"" />";
-            var expected = @"<TextBlock Text=""SomeProperty"" />
-<TextBlock Text=""AProperty"" />
-<TextBlock Text=""AnotherProperty"" />
-<TextBlock Text=""FourthProperty"" />
-<TextBlock Text=""FinalProperty"" />";
+            var origin = "<TextBlock Text=\"SomeProperty\" />"
+ + Environment.NewLine + "<TextBlock Text=\"AProperty\" />"
+ + Environment.NewLine + "<TextBlock Text=\"AnotherProperty\" />"
+ + Environment.NewLine + "<TextBlock Text=\"FourthProperty\" />"
+ + Environment.NewLine + "<TextBlock Text=\"FinalProperty\" />";
+
+            var expected = "<TextBlock Text=\"SomeProperty\" />"
+   + Environment.NewLine + "<TextBlock Text=\"AProperty\" />"
+   + Environment.NewLine + "<TextBlock Text=\"AnotherProperty\" />"
+   + Environment.NewLine + "<TextBlock Text=\"FourthProperty\" />"
+   + Environment.NewLine + "<TextBlock Text=\"FinalProperty\" />";
 
             var formatted = origin.FormatXaml(4);
 
-            Assert.AreEqual(expected, formatted);
+            StringAssert.AreEqual(expected, formatted);
         }
 
         [TestMethod]
         public void FormatXaml_ClassWithSubItems()
         {
             var originalInput = "<Grid>"
-         + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
-         + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
-         + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
-         + Environment.NewLine + "</Grid>";
+        + Environment.NewLine + "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>"
+        + Environment.NewLine + "<TextBlock Text=\"SP_OrderId\" />"
+        + Environment.NewLine + "<TextBlock Text=\"SP_OrderPlacedDateTime\" />"
+        + Environment.NewLine + "<TextBlock Text=\"SP_OrderDescription\" />"
+        + Environment.NewLine + "</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>"
+        + Environment.NewLine + "</Grid>";
 
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "    <ListView>"
@@ -520,7 +524,7 @@ namespace RapidXamlToolkit.Tests.Extensions
 
             var formatted = originalInput.FormatXaml(4);
 
-            Assert.AreEqual(expectedOutput, formatted);
+            StringAssert.AreEqual(expectedOutput, formatted);
         }
     }
 }

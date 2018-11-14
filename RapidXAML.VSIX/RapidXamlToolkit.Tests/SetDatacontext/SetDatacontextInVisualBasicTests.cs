@@ -145,11 +145,13 @@ End Class",
         [TestMethod]
         public void CanDetectWhereAndWhenToInsertConstructorContentAndConstructorDoesNotExist()
         {
+            var defaultConstructor = "Sub New()"
+             + Environment.NewLine + "    InitializeComponent()"
+             + Environment.NewLine + "End Sub";
+
             var profile = TestProfile.CreateEmpty();
             profile.Datacontext.CodeBehindConstructorContent = "DataContext = ViewModel";
-            profile.Datacontext.DefaultCodeBehindConstructor = @"Sub New()
-    InitializeComponent()
-End Sub";
+            profile.Datacontext.DefaultCodeBehindConstructor = defaultConstructor;
 
             var logger = DefaultTestLogger.Create();
 
@@ -269,14 +271,16 @@ End Class",
         [TestMethod]
         public void CanDetectWhereAndWhenToInsertPageContentAndConstructorExists()
         {
+            var pageContent = "Public ReadOnly Property ViewModel As $viewmodelclass$"
++ Environment.NewLine + "    Get"
++ Environment.NewLine + "        Return New $viewmodelclass$"
++ Environment.NewLine + "    End Get"
++ Environment.NewLine + "End Property";
+
             var profile = TestProfile.CreateEmpty();
             profile.ViewGeneration.XamlFileSuffix = "Page";
             profile.ViewGeneration.ViewModelFileSuffix = "ViewModel";
-            profile.Datacontext.CodeBehindPageContent = @"Public ReadOnly Property ViewModel As $viewmodelclass$
-    Get
-        Return New $viewmodelclass$
-    End Get
-End Property";
+            profile.Datacontext.CodeBehindPageContent = pageContent;
 
             var logger = DefaultTestLogger.Create();
 
@@ -306,13 +310,13 @@ End Class",
             var (anythingToAdd, lineNoToAddAfter, contentToAdd)
                 = sut.GetCodeBehindPageContentToAdd(vs.ActiveDocumentText, vs.SyntaxTree.GetRoot(), "TestViewModel", "TestVmNamespace");
 
-            var expectedContent = @"
-
-Public ReadOnly Property ViewModel As TestViewModel
-    Get
-        Return New TestViewModel
-    End Get
-End Property";
+            var expectedContent = ""
+          + Environment.NewLine + ""
+          + Environment.NewLine + "Public ReadOnly Property ViewModel As TestViewModel"
+          + Environment.NewLine + "    Get"
+          + Environment.NewLine + "        Return New TestViewModel"
+          + Environment.NewLine + "    End Get"
+          + Environment.NewLine + "End Property";
 
             Assert.IsTrue(anythingToAdd);
             Assert.AreEqual(6, lineNoToAddAfter);
