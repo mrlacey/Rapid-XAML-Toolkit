@@ -186,7 +186,7 @@ End Sub
 
             Assert.IsTrue(anythingToAdd);
             Assert.AreEqual(2, lineNoToAddAfter);
-            Assert.AreEqual(expectedContent, contentToAdd);
+            StringAssert.AreEqual(expectedContent, contentToAdd);
             Assert.IsTrue(constructorAdded);
         }
 
@@ -316,7 +316,7 @@ End Property";
 
             Assert.IsTrue(anythingToAdd);
             Assert.AreEqual(6, lineNoToAddAfter);
-            Assert.AreEqual(expectedContent, contentToAdd);
+            StringAssert.AreEqual(expectedContent, contentToAdd);
         }
 
         [TestMethod]
@@ -366,7 +366,7 @@ End Property";
 
             Assert.IsTrue(anythingToAdd);
             Assert.AreEqual(2, lineNoToAddAfter);
-            Assert.AreEqual(expectedContent, contentToAdd);
+            StringAssert.AreEqual(expectedContent, contentToAdd);
         }
 
         [TestMethod]
@@ -425,7 +425,7 @@ End Property";
 
             Assert.IsTrue(result[1].anythingToAdd);
             Assert.AreEqual(8, result[1].lineNoToAddAfter);
-            Assert.AreEqual(expectedContent, result[1].contentToAdd);
+            StringAssert.AreEqual(expectedContent, result[1].contentToAdd);
         }
 
         [TestMethod]
