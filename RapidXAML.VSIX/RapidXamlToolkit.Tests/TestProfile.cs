@@ -37,6 +37,10 @@ namespace RapidXamlToolkit.Tests
                     DefaultCodeBehindConstructor = string.Empty,
                     XamlPageAttribute = string.Empty,
                 },
+                General = new GeneralSettings
+                {
+                    AttemptAutomaticDocumentFormatting = true,
+                },
             };
         }
     }
