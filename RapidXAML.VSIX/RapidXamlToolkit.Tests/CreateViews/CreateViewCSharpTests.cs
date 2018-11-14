@@ -55,30 +55,30 @@ namespace RapidXamlToolkit.Tests.CreateViews
        + Environment.NewLine + "</Page>"
        + Environment.NewLine + "";
 
-            var expectedCodeBehind = @"using System;
-using Windows.UI.Xaml.Controls;
-using App.Files;
-
-namespace App.Files
-{
-    public sealed partial class TestPage : Page
-    {
-        public TestViewModel ViewModel { get; set; }
-
-        public TestPage()
-        {
-            this.InitializeComponent();
-            this.ViewModel = new TestViewModel();
-        }
-    }
-}
-";
+            var expectedCodeBehind = "using System;"
+             + Environment.NewLine + "using Windows.UI.Xaml.Controls;"
+             + Environment.NewLine + "using App.Files;"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "namespace App.Files"
+             + Environment.NewLine + "{"
+             + Environment.NewLine + "    public sealed partial class TestPage : Page"
+             + Environment.NewLine + "    {"
+             + Environment.NewLine + "        public TestViewModel ViewModel { get; set; }"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "        public TestPage()"
+             + Environment.NewLine + "        {"
+             + Environment.NewLine + "            this.InitializeComponent();"
+             + Environment.NewLine + "            this.ViewModel = new TestViewModel();"
+             + Environment.NewLine + "        }"
+             + Environment.NewLine + "    }"
+             + Environment.NewLine + "}"
+             + Environment.NewLine + "";
 
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml", sut.XamlFileName);
             Assert.AreEqual(@"C:\Test\App\Files\TestPage.xaml.cs", sut.CodeFileName);
-            Assert.AreEqual(expectedXaml, sut.XamlFileContents);
-            Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
+            StringAssert.AreEqual(expectedXaml, sut.XamlFileContents);
+            StringAssert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
         }
 
         [TestMethod]
@@ -122,30 +122,30 @@ namespace App.Files
        + Environment.NewLine + "</Page>"
        + Environment.NewLine + "";
 
-            var expectedCodeBehind = @"using System;
-using Windows.UI.Xaml.Controls;
-using App.ViewModels;
-
-namespace App.Views
-{
-    public sealed partial class TestPage : Page
-    {
-        public TestViewModel ViewModel { get; set; }
-
-        public TestPage()
-        {
-            this.InitializeComponent();
-            this.ViewModel = new TestViewModel();
-        }
-    }
-}
-";
+            var expectedCodeBehind = "using System;"
+             + Environment.NewLine + "using Windows.UI.Xaml.Controls;"
+             + Environment.NewLine + "using App.ViewModels;"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "namespace App.Views"
+             + Environment.NewLine + "{"
+             + Environment.NewLine + "    public sealed partial class TestPage : Page"
+             + Environment.NewLine + "    {"
+             + Environment.NewLine + "        public TestViewModel ViewModel { get; set; }"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "        public TestPage()"
+             + Environment.NewLine + "        {"
+             + Environment.NewLine + "            this.InitializeComponent();"
+             + Environment.NewLine + "            this.ViewModel = new TestViewModel();"
+             + Environment.NewLine + "        }"
+             + Environment.NewLine + "    }"
+             + Environment.NewLine + "}"
+             + Environment.NewLine + "";
 
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml", sut.XamlFileName);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml.cs", sut.CodeFileName);
-            Assert.AreEqual(expectedXaml, sut.XamlFileContents);
-            Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
+            StringAssert.AreEqual(expectedXaml, sut.XamlFileContents);
+            StringAssert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
         }
 
         [TestMethod]
@@ -194,30 +194,30 @@ namespace App.Views
        + Environment.NewLine + "</Page>"
        + Environment.NewLine + "";
 
-            var expectedCodeBehind = @"using System;
-using Windows.UI.Xaml.Controls;
-using App.ViewModels;
-
-namespace App.Views
-{
-    public sealed partial class TestPage : Page
-    {
-        public TestViewModel ViewModel { get; set; }
-
-        public TestPage()
-        {
-            this.InitializeComponent();
-            this.ViewModel = new TestViewModel();
-        }
-    }
-}
-";
+            var expectedCodeBehind = "using System;"
+             + Environment.NewLine + "using Windows.UI.Xaml.Controls;"
+             + Environment.NewLine + "using App.ViewModels;"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "namespace App.Views"
+             + Environment.NewLine + "{"
+             + Environment.NewLine + "    public sealed partial class TestPage : Page"
+             + Environment.NewLine + "    {"
+             + Environment.NewLine + "        public TestViewModel ViewModel { get; set; }"
+             + Environment.NewLine + ""
+             + Environment.NewLine + "        public TestPage()"
+             + Environment.NewLine + "        {"
+             + Environment.NewLine + "            this.InitializeComponent();"
+             + Environment.NewLine + "            this.ViewModel = new TestViewModel();"
+             + Environment.NewLine + "        }"
+             + Environment.NewLine + "    }"
+             + Environment.NewLine + "}"
+             + Environment.NewLine + "";
 
             Assert.IsTrue(sut.CreateView);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml", sut.XamlFileName);
             Assert.AreEqual(@"C:\Test\App\Views\TestPage.xaml.cs", sut.CodeFileName);
-            Assert.AreEqual(expectedXaml, sut.XamlFileContents);
-            Assert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
+            StringAssert.AreEqual(expectedXaml, sut.XamlFileContents);
+            StringAssert.AreEqual(expectedCodeBehind, sut.CodeFileContents);
         }
 
         [TestMethod]
@@ -256,6 +256,33 @@ namespace App.Views
 
         private Profile GetDefaultTestProfile()
         {
+            var xamlPlaceholder = "<Page"
+          + Environment.NewLine + "    x:Class=\"$viewns$.$viewclass$\">"
+          + Environment.NewLine + "    <Grid>"
+          + Environment.NewLine + "        $genxaml$"
+          + Environment.NewLine + "    </Grid>"
+          + Environment.NewLine + "</Page>"
+          + Environment.NewLine + "";
+
+            var codePlaceholder = "using System;"
+          + Environment.NewLine + "using Windows.UI.Xaml.Controls;"
+          + Environment.NewLine + "using $viewmodelns$;"
+          + Environment.NewLine + ""
+          + Environment.NewLine + "namespace $viewns$"
+          + Environment.NewLine + "{"
+          + Environment.NewLine + "    public sealed partial class $viewclass$ : Page"
+          + Environment.NewLine + "    {"
+          + Environment.NewLine + "        public $viewmodelclass$ ViewModel { get; set; }"
+          + Environment.NewLine + ""
+          + Environment.NewLine + "        public $viewclass$()"
+          + Environment.NewLine + "        {"
+          + Environment.NewLine + "            this.InitializeComponent();"
+          + Environment.NewLine + "            this.ViewModel = new $viewmodelclass$();"
+          + Environment.NewLine + "        }"
+          + Environment.NewLine + "    }"
+          + Environment.NewLine + "}"
+          + Environment.NewLine + "";
+
             return new Profile
             {
                 Name = "TestProfile",
@@ -265,31 +292,8 @@ namespace App.Views
                 Mappings = new ObservableCollection<Mapping>(),
                 ViewGeneration = new ViewGenerationSettings
                 {
-                    XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$"">
-    <Grid>
-        $genxaml$
-    </Grid>
-</Page>
-",
-                    CodePlaceholder = @"using System;
-using Windows.UI.Xaml.Controls;
-using $viewmodelns$;
-
-namespace $viewns$
-{
-    public sealed partial class $viewclass$ : Page
-    {
-        public $viewmodelclass$ ViewModel { get; set; }
-
-        public $viewclass$()
-        {
-            this.InitializeComponent();
-            this.ViewModel = new $viewmodelclass$();
-        }
-    }
-}
-",
+                    XamlPlaceholder = xamlPlaceholder,
+                    CodePlaceholder = codePlaceholder,
                     XamlFileSuffix = "Page",
                     ViewModelFileSuffix = "ViewModel",
 
