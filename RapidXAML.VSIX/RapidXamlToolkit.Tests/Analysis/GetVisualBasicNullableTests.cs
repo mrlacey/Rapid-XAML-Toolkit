@@ -89,7 +89,7 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "MyBoolQ",
-                Output = @"<BoolQ />",
+                Output = "<BoolQ />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -109,7 +109,7 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "MyBoolQ",
-                Output = @"<BoolQ />",
+                Output = "<BoolQ />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -129,7 +129,7 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "MyNullableBool",
-                Output = @"<NullBool />",
+                Output = "<NullBool />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -149,7 +149,7 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "MyFqNullableBool",
-                Output = @"<NullBool />",
+                Output = "<NullBool />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -178,7 +178,7 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "MyListOfNullables",
-                Output = @"<LBnull />",
+                Output = "<LBnull />",
                 OutputType = AnalyzerOutputType.Property,
             };
 

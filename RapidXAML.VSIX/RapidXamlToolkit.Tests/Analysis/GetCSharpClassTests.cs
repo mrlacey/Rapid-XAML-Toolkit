@@ -1159,12 +1159,14 @@ namespace tests
     }
 }";
 
+            var expectedXaml = "<form>"
+       + Environment.NewLine + "    <Dynamic Name=\"SomeProperty\" />"
+       + Environment.NewLine + "</form>";
+
             var expected = new AnalyzerOutput
             {
                 Name = "Class1",
-                Output = @"<form>
-    <Dynamic Name=""SomeProperty"" />
-</form>",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Class,
             };
 
@@ -1194,15 +1196,17 @@ namespace tests
     }
 }";
 
+            string expectedXaml = @"<form>
+    <Dyno>
+        <DymnProp Value="""" />
+    </Dyno>
+</form>";
+
             // A single "DymnProp" with no value indicates that no sub-properties of the dynamic type were found
             var expected = new AnalyzerOutput
             {
                 Name = "Class1",
-                Output = @"<form>
-    <Dyno>
-        <DymnProp Value="""" />
-    </Dyno>
-</form>",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Class,
             };
 

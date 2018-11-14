@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp;
@@ -44,15 +45,15 @@ namespace RapidXamlToolkit.Tests.CreateViews
 
             await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.cs");
 
-            var expectedXaml = @"<Page
-    x:Class=""App.Files.TestPage"">
-    <Grid>
-        <StackPanel>
-            <TextBlock FB=""True"" Text=""OnlyProperty"" />
-        </StackPanel>
-    </Grid>
-</Page>
-";
+            var expectedXaml = "<Page"
+       + Environment.NewLine + "    x:Class=\"App.Files.TestPage\">"
+       + Environment.NewLine + "    <Grid>"
+       + Environment.NewLine + "        <StackPanel>"
+       + Environment.NewLine + "            <TextBlock FB=\"True\" Text=\"OnlyProperty\" />"
+       + Environment.NewLine + "        </StackPanel>"
+       + Environment.NewLine + "    </Grid>"
+       + Environment.NewLine + "</Page>"
+       + Environment.NewLine + "";
 
             var expectedCodeBehind = @"using System;
 using Windows.UI.Xaml.Controls;
@@ -111,15 +112,15 @@ namespace App.Files
 
             await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.cs");
 
-            var expectedXaml = @"<Page
-    x:Class=""App.Views.TestPage"">
-    <Grid>
-        <StackPanel>
-            <TextBlock FB=""True"" Text=""OnlyProperty"" />
-        </StackPanel>
-    </Grid>
-</Page>
-";
+            var expectedXaml = "<Page"
+       + Environment.NewLine + "    x:Class=\"App.Views.TestPage\">"
+       + Environment.NewLine + "    <Grid>"
+       + Environment.NewLine + "        <StackPanel>"
+       + Environment.NewLine + "            <TextBlock FB=\"True\" Text=\"OnlyProperty\" />"
+       + Environment.NewLine + "        </StackPanel>"
+       + Environment.NewLine + "    </Grid>"
+       + Environment.NewLine + "</Page>"
+       + Environment.NewLine + "";
 
             var expectedCodeBehind = @"using System;
 using Windows.UI.Xaml.Controls;
@@ -183,15 +184,15 @@ namespace App.Views
 
             await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.cs");
 
-            var expectedXaml = @"<Page
-    x:Class=""App.Views.TestPage"">
-    <Grid>
-        <StackPanel>
-            <TextBlock FB=""True"" Text=""OnlyProperty"" />
-        </StackPanel>
-    </Grid>
-</Page>
-";
+            var expectedXaml = "<Page"
+       + Environment.NewLine + "    x:Class=\"App.Views.TestPage\">"
+       + Environment.NewLine + "    <Grid>"
+       + Environment.NewLine + "        <StackPanel>"
+       + Environment.NewLine + "            <TextBlock FB=\"True\" Text=\"OnlyProperty\" />"
+       + Environment.NewLine + "        </StackPanel>"
+       + Environment.NewLine + "    </Grid>"
+       + Environment.NewLine + "</Page>"
+       + Environment.NewLine + "";
 
             var expectedCodeBehind = @"using System;
 using Windows.UI.Xaml.Controls;

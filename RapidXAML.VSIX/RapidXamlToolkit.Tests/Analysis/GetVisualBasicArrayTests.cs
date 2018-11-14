@@ -78,7 +78,7 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "MyArray",
-                Output = @"<Array />",
+                Output = "<Array />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -98,7 +98,7 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "MyArrayBool",
-                Output = @"<ArrayBool />",
+                Output = "<ArrayBool />",
                 OutputType = AnalyzerOutputType.Property,
             };
 

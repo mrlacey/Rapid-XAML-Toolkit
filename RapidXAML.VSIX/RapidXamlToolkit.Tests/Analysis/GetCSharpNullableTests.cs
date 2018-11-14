@@ -4,6 +4,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using System;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
@@ -67,13 +68,15 @@ namespace tests
     }
 }";
 
+            var expectedXaml = "<Bool />"
+       + Environment.NewLine + "<BoolQ />"
+       + Environment.NewLine + "<NullBool />"
+       + Environment.NewLine + "<NullBool />";
+
             var expected = new AnalyzerOutput
             {
                 Name = "Class1",
-                Output = @"<Bool />
-<BoolQ />
-<NullBool />
-<NullBool />",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Class,
             };
 
@@ -97,7 +100,7 @@ namespace tests
             var expected = new AnalyzerOutput
             {
                 Name = "MyBoolQ",
-                Output = @"<BoolQ />",
+                Output = "<BoolQ />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -121,7 +124,7 @@ namespace tests
             var expected = new AnalyzerOutput
             {
                 Name = "MyNullableBool",
-                Output = @"<NullBool />",
+                Output = "<NullBool />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -143,7 +146,7 @@ namespace tests
             var expected = new AnalyzerOutput
             {
                 Name = "MyFqNullableBool",
-                Output = @"<NullBool />",
+                Output = "<NullBool />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -176,7 +179,7 @@ namespace tests
             var expected = new AnalyzerOutput
             {
                 Name = "MyListOfNullables",
-                Output = @"<LBnull />",
+                Output = "<LBnull />",
                 OutputType = AnalyzerOutputType.Property,
             };
 
@@ -200,13 +203,15 @@ namespace tests
     }
 }";
 
+            var expectedXaml = "<Bool />"
+       + Environment.NewLine + "<BoolQ />"
+       + Environment.NewLine + "<NullBool />"
+       + Environment.NewLine + "<NullBool />";
+
             var expected = new AnalyzerOutput
             {
                 Name = "MyBool, MyBoolQ and 2 other properties",
-                Output = @"<Bool />
-<BoolQ />
-<NullBool />
-<NullBool />",
+                Output = expectedXaml,
                 OutputType = AnalyzerOutputType.Selection,
             };
 
