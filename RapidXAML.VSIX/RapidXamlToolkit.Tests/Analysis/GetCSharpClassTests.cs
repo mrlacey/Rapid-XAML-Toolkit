@@ -1196,11 +1196,11 @@ namespace tests
     }
 }";
 
-            string expectedXaml = @"<form>
-    <Dyno>
-        <DymnProp Value="""" />
-    </Dyno>
-</form>";
+            string expectedXaml = "<form>"
+          + Environment.NewLine + "    <Dyno>"
+          + Environment.NewLine + "        <DymnProp Value=\"\" />"
+          + Environment.NewLine + "    </Dyno>"
+          + Environment.NewLine + "</form>";
 
             // A single "DymnProp" with no value indicates that no sub-properties of the dynamic type were found
             var expected = new AnalyzerOutput
