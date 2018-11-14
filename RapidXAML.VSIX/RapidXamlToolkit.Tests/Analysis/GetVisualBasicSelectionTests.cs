@@ -446,8 +446,8 @@ End Namespace";
             var expected = new AnalyzerOutput
             {
                 Name = "SomeInts and SomeStrings",
-                Output = @"<Int />
-<String />",
+                Output = "<Int />" + Environment.NewLine
+                       + "<String />",
                 OutputType = AnalyzerOutputType.Selection,
             };
 
