@@ -117,7 +117,8 @@ End Class",
             Assert.IsFalse(sut.CreateView);
         }
 
-        [TestMethod]
+        // Disabled pending further investigation. Issue #100
+        //[TestMethod]
         public async Task CorrectOutputInSameFolder_FileContainsModuleNotClassAsync()
         {
             var profile = this.GetDefaultTestProfile();
