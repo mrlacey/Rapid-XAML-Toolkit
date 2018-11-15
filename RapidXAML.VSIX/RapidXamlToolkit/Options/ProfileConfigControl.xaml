@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RapidXamlToolkit.Options"
              xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="4,8,4,4">
@@ -23,7 +24,7 @@
             <TextBlock Foreground="Red" FontWeight="Black" TextDecorations="Underline" Margin="4" PreviewMouseDown="DetailsClicked" Text="{x:Static strings:StringRes.Options_TemporaryUiNotice}" />
         </StackPanel>
         <TextBlock Grid.Row="1" Grid.Column="0" Margin="4,0" Text="{x:Static strings:StringRes.Options_ProfileName}" />
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay}" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay}" x:Name="ReferenceTextBox" />
 
         <TabControl Grid.Row="2" Grid.ColumnSpan="2" Margin="0,8,0,0">
             <TabItem Header="{x:Static strings:StringRes.Options_StructureAndNamingHeader}">
@@ -83,10 +84,10 @@
                     <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelFileSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
                     <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlPlaceholder}" />
-                    <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ViewGeneration.XamlPlaceholder, Mode=TwoWay}" Margin="0,4,0,0" TextWrapping="Wrap" AcceptsReturn="True" MinLines="3" VerticalScrollBarVisibility="Auto"/>
+                    <avalonEdit:TextEditor Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="XML" x:Name="ViewGenXamlPlchldrEntry" Margin="0,4,0,0" VerticalScrollBarVisibility="Auto"/>
 
                     <TextBlock Grid.Row="8" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_CodeBehindPlaceholder}" />
-                    <TextBox Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding ViewGeneration.CodePlaceholder, Mode=TwoWay}" Margin="0,4,0,0" TextWrapping="Wrap" AcceptsReturn="True" MinLines="3" VerticalScrollBarVisibility="Auto" />
+                    <avalonEdit:TextEditor Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="C#" TextChanged="OnCodeChanged" x:Name="ViewGenCodeBehindPlchldrEntry" Margin="0,4,0,0" VerticalScrollBarVisibility="Auto" />
 
                 </Grid>
             </TabItem>
@@ -112,11 +113,11 @@
                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ClassGrouping}" />
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ClassGrouping, Mode=TwoWay}" Margin="0,4" />
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static strings:StringRes.Options_FallbackOutput}" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding FallbackOutput, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
+                    <avalonEdit:TextEditor Grid.Row="2" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="XML" x:Name="FallbackOutputEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" />
                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,4,0" Text="{x:Static strings:StringRes.Options_SubPropertyOutput}" />
-                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SubPropertyOutput, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
+                    <avalonEdit:TextEditor Grid.Row="3" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="XML" x:Name="SubPropertyOutputEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" />
                     <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,4,0" Text="{x:Static strings:StringRes.Options_EnumMappingOutput}" />
-                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding EnumMemberOutput, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
+                    <avalonEdit:TextEditor Grid.Row="4" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="XML" x:Name="EnumMemberOutputEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" />
 
                     <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0" Text="{x:Static strings:StringRes.Options_MappingsHeader}" />
 
@@ -153,7 +154,7 @@
                     <TextBlock Grid.Row="9" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_MappingIfReadOnly}" />
                     <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding SelectedMapping.IfReadOnly, Mode=TwoWay}" Margin="0,4" />
                     <TextBlock Grid.Row="10" Grid.Column="0" Text="{x:Static strings:StringRes.Options_MappingOutput}" />
-                    <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding SelectedMapping.Output, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" MinLines="2" MaxLines="2" VerticalScrollBarVisibility="Auto" />
+                    <avalonEdit:TextEditor Grid.Row="10" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="XML" x:Name="SelectedMappingOutputEntry" TextChanged="OnSelectedMappingOutputChanged" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" />
 
                 </Grid>
             </TabItem>
@@ -176,13 +177,13 @@
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Datacontext.XamlPageAttribute, Mode=TwoWay}" Margin="0,4,0,0" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_CodeBehindPageContent}" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Datacontext.CodeBehindPageContent, Mode=TwoWay}" Margin="0,4,0,0" />
+                    <avalonEdit:TextEditor Grid.Row="1" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="C#" TextChanged="OnCodeChanged" x:Name="CodeBehindPageContentEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" Margin="0,4,0,0" />
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_CodeBehindConstructorContent}" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Datacontext.CodeBehindConstructorContent, Mode=TwoWay}" Margin="0,4,0,0" />
+                    <avalonEdit:TextEditor Grid.Row="2" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="C#" TextChanged="OnCodeChanged" x:Name="CodeBehindConstructorContentEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" Margin="0,4,0,0" />
 
                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_DefaultCodeBehindConstructor}" />
-                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Datacontext.DefaultCodeBehindConstructor, Mode=TwoWay}" Margin="0,4,0,0" />
+                    <avalonEdit:TextEditor Grid.Row="3" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="C#" TextChanged="OnCodeChanged" x:Name="DefaultCodeBehindConstructorEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" Margin="0,4,0,0" />
                 </Grid>
             </TabItem>
             <TabItem Header="{x:Static strings:StringRes.Options_GeneralHeader}">
