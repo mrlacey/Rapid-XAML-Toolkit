@@ -5,16 +5,69 @@ using System;
 
 namespace RapidXamlToolkit.Options
 {
-    public class Mapping : ICloneable
+    public class Mapping : CanNotifyPropertyChanged, ICloneable
     {
-        public string Type { get; set; }
+        private string type;
+        private string nameContains;
+        private bool ifReadOnly;
+        private string output;
 
-        public string NameContains { get; set; }
+        public string Type
+        {
+            get
+            {
+                return this.type;
+            }
 
-        public bool IfReadOnly { get; set; }
+            set
+            {
+                this.type = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public string NameContains
+        {
+            get
+            {
+                return this.nameContains;
+            }
+
+            set
+            {
+                this.nameContains = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public bool IfReadOnly
+        {
+            get
+            {
+                return this.ifReadOnly;
+            }
+
+            set
+            {
+                this.ifReadOnly = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger, Placeholder.EnumMembers, Placeholder.SubProperties, Placeholder.NoOutput, Placeholder.XName, Placeholder.RepeatingXName)]
-        public string Output { get; set; }
+        public string Output
+        {
+            get
+            {
+                return this.output;
+            }
+
+            set
+            {
+                this.output = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         public static Mapping CreateNew()
         {
