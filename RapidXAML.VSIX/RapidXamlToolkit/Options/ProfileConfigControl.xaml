@@ -47,7 +47,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_AllInOneProject}" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_AllInOneProject}" ToolTip="{x:Static strings:StringRes.Options_AllInOneProjectDescription}" />
                     <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding ViewGeneration.AllInSameProject, Mode=TwoWay}" Margin="0,4" />
 
                     <Border Grid.Row="0" Grid.Column="2" Grid.RowSpan="7" Padding="4,0,0,0">
@@ -65,28 +65,28 @@
                         </TreeView>
                     </Border>
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlProjectSuffix}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlProjectSuffix}" ToolTip="{x:Static strings:StringRes.Options_XamlProjectSuffixDescription}" />
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ViewGeneration.XamlProjectSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelProjectSuffix}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelProjectSuffix}" ToolTip="{x:Static strings:StringRes.Options_ViewModelProjectSuffixDescription}" />
                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelProjectSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlFileDirectoryName}" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlFileDirectoryName}" ToolTip="{x:Static strings:StringRes.Options_XamlFileDirectoryNameDescription}" />
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ViewGeneration.XamlFileDirectoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelDirectoryName}" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelDirectoryName}" ToolTip="{x:Static strings:StringRes.Options_ViewModelDirectoryNameDescription}" />
                     <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelDirectoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlFileSuffix}" />
+                    <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlFileSuffix}" ToolTip="{x:Static strings:StringRes.Options_XamlFileSuffixDescription}" />
                     <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ViewGeneration.XamlFileSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelFileSuffix}" />
+                    <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ViewModelFileSuffix}" ToolTip="{x:Static strings:StringRes.Options_ViewModelFileSuffixDescription}" />
                     <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding ViewGeneration.ViewModelFileSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlPlaceholder}" />
+                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlPlaceholder}" ToolTip="{x:Static strings:StringRes.Options_XamlPlaceholderDescription}" />
                     <avalonEdit:TextEditor Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="XML" x:Name="ViewGenXamlPlchldrEntry" Margin="0,4,0,0" VerticalScrollBarVisibility="Auto"/>
 
-                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_CodeBehindPlaceholder}" />
+                    <TextBlock Grid.Row="8" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_CodeBehindPlaceholder}" ToolTip="{x:Static strings:StringRes.Options_CodeBehindPlaceholderDescription}" />
                     <avalonEdit:TextEditor Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="C#" TextChanged="OnCodeChanged" x:Name="ViewGenCodeBehindPlchldrEntry" Margin="0,4,0,0" VerticalScrollBarVisibility="Auto" />
 
                 </Grid>
@@ -110,13 +110,13 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ClassGrouping}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_ClassGrouping}" ToolTip="{x:Static strings:StringRes.Options_ClassGroupingDescription}" />
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ClassGrouping, Mode=TwoWay}" Margin="0,4" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static strings:StringRes.Options_FallbackOutput}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static strings:StringRes.Options_FallbackOutput}" ToolTip="{x:Static strings:StringRes.Options_FallbackOutputDescription}" />
                     <avalonEdit:TextEditor Grid.Row="2" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="XML" x:Name="FallbackOutputEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" />
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,4,0" Text="{x:Static strings:StringRes.Options_SubPropertyOutput}" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,0,4,0" Text="{x:Static strings:StringRes.Options_SubPropertyOutput}" ToolTip="{x:Static strings:StringRes.Options_SubPropertyOutputDescription}" />
                     <avalonEdit:TextEditor Grid.Row="3" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="XML" x:Name="SubPropertyOutputEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" />
-                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,4,0" Text="{x:Static strings:StringRes.Options_EnumMappingOutput}" />
+                    <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,0,4,0" Text="{x:Static strings:StringRes.Options_EnumMappingOutput}" ToolTip="{x:Static strings:StringRes.Options_EnumMappingOutputDescription}" />
                     <avalonEdit:TextEditor Grid.Row="4" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="XML" x:Name="EnumMemberOutputEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" />
 
                     <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,8,0,0" Text="{x:Static strings:StringRes.Options_MappingsHeader}" />
@@ -147,13 +147,13 @@
                         </StackPanel>
                     </Grid>
 
-                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_MappingType}" />
+                    <TextBlock Grid.Row="7" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_MappingType}" ToolTip="{x:Static strings:StringRes.Options_MappingTypeDescription}" />
                     <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedMapping.Type, Mode=TwoWay}" Margin="0,4" />
-                    <TextBlock Grid.Row="8" Grid.Column="0" Text="{x:Static strings:StringRes.Options_MappingNameFilter}" />
+                    <TextBlock Grid.Row="8" Grid.Column="0" Text="{x:Static strings:StringRes.Options_MappingNameFilter}" ToolTip="{x:Static strings:StringRes.Options_MappingNameFilterDescription}" />
                     <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding SelectedMapping.NameContains, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_MappingIfReadOnly}" />
+                    <TextBlock Grid.Row="9" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_MappingIfReadOnly}" ToolTip="{x:Static strings:StringRes.Options_MappingIfReadOnlyDescription}" />
                     <CheckBox Grid.Row="9" Grid.Column="1" IsChecked="{Binding SelectedMapping.IfReadOnly, Mode=TwoWay}" Margin="0,4" />
-                    <TextBlock Grid.Row="10" Grid.Column="0" Text="{x:Static strings:StringRes.Options_MappingOutput}" />
+                    <TextBlock Grid.Row="10" Grid.Column="0" Text="{x:Static strings:StringRes.Options_MappingOutput}" ToolTip="{x:Static strings:StringRes.Options_MappingOutputDescription}" />
                     <avalonEdit:TextEditor Grid.Row="10" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="XML" x:Name="SelectedMappingOutputEntry" TextChanged="OnSelectedMappingOutputChanged" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" />
 
                 </Grid>
@@ -173,16 +173,16 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlPageAttribute}" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_XamlPageAttribute}" ToolTip="{x:Static strings:StringRes.Options_XamlPageAttributeDescription}" />
                     <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Datacontext.XamlPageAttribute, Mode=TwoWay}" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_CodeBehindPageContent}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_CodeBehindPageContent}" ToolTip="{x:Static strings:StringRes.Options_CodeBehindPageContentDescription}" />
                     <avalonEdit:TextEditor Grid.Row="1" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="C#" TextChanged="OnCodeChanged" x:Name="CodeBehindPageContentEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_CodeBehindConstructorContent}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_CodeBehindConstructorContent}" ToolTip="{x:Static strings:StringRes.Options_CodeBehindConstructorContentDescription}" />
                     <avalonEdit:TextEditor Grid.Row="2" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="C#" TextChanged="OnCodeChanged" x:Name="CodeBehindConstructorContentEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" Margin="0,4,0,0" />
 
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_DefaultCodeBehindConstructor}" />
+                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,4" Text="{x:Static strings:StringRes.Options_DefaultCodeBehindConstructor}" ToolTip="{x:Static strings:StringRes.Options_DefaultCodeBehindConstructorDescription}" />
                     <avalonEdit:TextEditor Grid.Row="3" Grid.Column="1" BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}" BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}" SyntaxHighlighting="C#" TextChanged="OnCodeChanged" x:Name="DefaultCodeBehindConstructorEntry" MinHeight="34" HorizontalScrollBarVisibility="Hidden" WordWrap="True" VerticalScrollBarVisibility="Auto" Margin="0,4,0,0" />
                 </Grid>
             </TabItem>
@@ -198,7 +198,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormatting}" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,4,4,4" Text="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormatting}" ToolTip="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormattingDescription}" />
                     <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{Binding General.AttemptAutomaticDocumentFormatting, Mode=TwoWay}" Margin="0,4" />
                 </Grid>
             </TabItem>
