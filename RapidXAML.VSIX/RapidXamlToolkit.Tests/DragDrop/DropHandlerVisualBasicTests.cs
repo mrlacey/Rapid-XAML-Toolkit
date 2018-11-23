@@ -78,18 +78,50 @@ namespace RapidXamlToolkit.Tests.DragDrop
             StringAssert.AreEqual(expected, actual);
         }
 
-        ////[TestMethod]
+        [TestMethod]
         public async Task FileContainsModuleButNoProperties()
         {
-            // See Issue #100
-            await Task.CompletedTask;
+            var profile = this.GetProfileForTesting();
+
+            var fileContents = "Public Module TestViewModel"
+       + Environment.NewLine + "    Private Property OnlyHiddenProperty As String"
+       + Environment.NewLine + "End Module";
+
+            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetAbstractions(fileContents);
+
+            var sut = new DropHandlerLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+
+            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8);
+
+            var expected = "<StackPanel>"
+   + Environment.NewLine + "            <!-- No accessible properties when copying as XAML -->"
+   + Environment.NewLine + "        </StackPanel>";
+
+            StringAssert.AreEqual(expected, actual);
         }
 
-        ////[TestMethod]
+        [TestMethod]
         public async Task FileContainsModuleAndPublicProperties()
         {
-            // See Issue #100
-            await Task.CompletedTask;
+            var profile = this.GetProfileForTesting();
+
+            var fileContents = "Public Module TestViewModel"
+       + Environment.NewLine + "    Public Property FirstProperty As String"
+       + Environment.NewLine + "    Public Property SecondProperty As String"
+       + Environment.NewLine + "End Module";
+
+            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetAbstractions(fileContents);
+
+            var sut = new DropHandlerLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+
+            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8);
+
+            var expected = "<StackPanel>"
+   + Environment.NewLine + "            <TextBlock Text=\"FirstProperty\" />"
+   + Environment.NewLine + "            <TextBlock Text=\"SecondProperty\" />"
+   + Environment.NewLine + "        </StackPanel>";
+
+            StringAssert.AreEqual(expected, actual);
         }
 
         [TestMethod]
