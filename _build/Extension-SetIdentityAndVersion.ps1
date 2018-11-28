@@ -1,4 +1,4 @@
-# THIS SCRITP WILL NEED TO BE SPLITED NEXT TIME, GETTING TO LONG.
+# THIS SCRIPT WILL NEEDS TO BE SPLIT AS IT'S GETTING TO LONG.
 [CmdletBinding()]
 Param(
   [Parameter(Mandatory=$True,Position=1)]
@@ -52,7 +52,7 @@ else{
 ## SET IDENTITY AND VERSION IN VSIX Manifest
 if($vsixIdentity){
   Write-Host
-  Write-Host "Setting Identity in VSIX manifest"
+  Write-Host "Setting Identity in VSIX manifest."
   if(Test-Path($vsixManifestFile)){
     [xml]$manifestContent = Get-Content $vsixManifestFile
     $manifestContent.PackageManifest.Metadata.Identity.Id = $vsixIdentity
@@ -69,7 +69,7 @@ if($vsixIdentity){
         $_.FullName -match "\\RapidXamlToolkit\\"
     }
     if($vsixLangPacks){ 
-      Write-Host "Applying Display Name to vsixlangpack files"
+      Write-Host "Applying Display Name to vsixlangpack files."
       foreach ($langPack in $vsixLangPacks) {
         [xml]$langContent = Get-Content $langPack
         $langContent.VsixLanguagePack.LocalizedName = $vsixDisplayName
@@ -90,7 +90,7 @@ else{
 ## REPLACE Command Guids
 if($cmdSetGuid -and $packageGuid){
   Write-Host
-  Write-Host "Setting PackageGuid and CmdSetGuid in VSCT Files"
+  Write-Host "Setting PackageGuid and CmdSetGuid in VSCT Files."
   $vsctFiles = Get-ChildItem -include "*.vsct" -recurse |  Where-Object{ 
       $_.FullName -notmatch "\\Templates\\" -and 
       $_.FullName -notmatch "\\debug\\" -and
@@ -99,7 +99,7 @@ if($cmdSetGuid -and $packageGuid){
   }
   if($vsctFiles){ 
     Write-Host
-    Write-Host "Applying guids $cmdSetGuid, $packageGuid and command name $vsixCommandMenuName to VSCT Files"
+    Write-Host "Applying guids $cmdSetGuid, $packageGuid and command name $vsixCommandMenuName to VSCT Files."
     foreach ($vsctFile in $vsctFiles) {
       $vsctFileContent = Get-Content $vsctFile
       attrib $vsctFile -r
@@ -128,7 +128,7 @@ if($cmdSetGuid -and $packageGuid){
     Write-Host "$constFile - Guid applied (PackageGuid:$packageGuid)"
   }
   else{
-     throw "BaseCommand.cs constants file not found"
+     throw "RapidXamlPackage.cs constants file not found."
   }
 
   Write-Host
@@ -145,11 +145,11 @@ if($cmdSetGuid -and $packageGuid){
     Write-Host "$constFile - Guid applied (CmdGuid:$cmdSetGuid)"
   }
   else{
-     throw "BaseCommand.cs constants file not found"
+     throw "BaseCommand.cs constants file not found."
   }
 }
 else{
-  throw "PackageGuid and CmdSetGuid are mandatory"
+  throw "PackageGuid and CmdSetGuid are mandatory."
 }
 
 
@@ -177,7 +177,7 @@ else
 }
 
 
-## APPLY VERSION RelayCommandPackage
+## APPLY VERSION RapidXamlPackage
 Write-Host
 Write-Host "Applying version to RapidXamlPackage.cs"
 $files = Get-ChildItem -include "RapidXamlPackage.cs" -Recurse #|  Where-Object{ $_.FullName -notmatch "\\Templates\\" }
@@ -194,5 +194,5 @@ if($files)
 }
 else
 {
-    Write-Warning "No relaycommandPackage found to apply version."
+    Write-Warning "No RapidXamlPackage found to apply version."
 }
