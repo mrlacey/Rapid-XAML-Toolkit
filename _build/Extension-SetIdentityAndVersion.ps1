@@ -32,16 +32,6 @@ Param(
   [string]$targetCmdSetGuid = "8c20aab1-50b0-4523-8d9d-24d512fa8154"
 )
 
-# TODO
-$vsixManifestFile = "RapidXAML.VSIX/RapidXamlToolkit/source.extension.vsixmanifest"
-$vsixIdentity = "RapidXamlToolkit.DevNightly.25067190-b212-4873-aecf-84547ed9b962"
-$vsixDisplayName = "Rapid Xaml Toolkit (dev-nightly)"
-$buildNumber = "1.2.3.4"
-$vsixCommandMenuName = "Rapid Xaml Toolkit (dev-nightly)"
-$packageGuid = "bd81034c-4068-47ea-9983-95e652abaeb8"
-$cmdSetGuid = "343F3EAC-C533-4120-8F96-032E50A8BA18"
-
-
 
 $VersionRegex = "(\d+)\.(\d+)\.(\d+)\.(\d+)"
 
