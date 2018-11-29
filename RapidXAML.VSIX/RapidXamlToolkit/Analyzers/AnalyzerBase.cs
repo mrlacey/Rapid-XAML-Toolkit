@@ -121,6 +121,7 @@ namespace RapidXamlToolkit.Analyzers
 
             if (rawOutput == null)
             {
+                // Should only reach here if profile?.FallbackOutput is null but that shouldn't be possible as profile validation checks for this.
                 return (null, numericSubstitute);
             }
 
