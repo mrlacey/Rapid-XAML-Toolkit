@@ -3,6 +3,8 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
@@ -35,6 +37,7 @@ Public Class Class1
             End Set
         End Property  // include NOT readonly
         Public Shared Property Property9 As String  // Do not include static/shared
+        Default Property Property10(ByVal val As Integer) As Integer  // DO include default preoperties
 End Class";
 
             var expectedOutput = "<StackPanel>"
@@ -44,6 +47,7 @@ End Class";
          + Environment.NewLine + "    <ItemsControl ItemsSource=\"{x:Bind Property6}\">"
          + Environment.NewLine + "    </ItemsControl>"
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property8, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"Property10\" Value=\"{x:Bind Property10, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new AnalyzerOutput
@@ -500,6 +504,55 @@ Public Class Order
         Private Property OrderPlacedDateTime As DateTime
         Public Property OrderDescription As String
 End Class";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <StackPanel>"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderId\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderDescription\" />"
+         + Environment.NewLine + "    </StackPanel>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
+        }
+
+        [TestMethod]
+        public void GetModuleAndSubProperties()
+        {
+            var recurseProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "Order",
+                        NameContains = "",
+                        Output = "<StackPanel>$subprops$</StackPanel>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+Pu☆blic Module Class1
+        Public Property LastOrder As Order
+End Module
+
+Public Module Order
+        Public Property OrderId As Integer
+        Private Property OrderPlacedDateTime As DateTime
+        Public Property OrderDescription As String
+End Module";
 
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "    <StackPanel>"
@@ -1444,6 +1497,26 @@ End Namespace";
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(codeFile1, expected, nestedListProfile, codeFile2, codeFile3);
+        }
+
+        [TestMethod]
+        public void CanGetIdenitifierFromModuleBlockSyntax()
+        {
+            var code = @"
+Public Module Order
+        Public Property OrderId As Integer
+        Private Property OrderPlacedDateTime As DateTime
+        Public Property OrderDescription As String
+End Module";
+            var syntaxTree = Microsoft.CodeAnalysis.VisualBasic.VisualBasicSyntaxTree.ParseText(code);
+
+            var mbs = syntaxTree.GetRoot().ChildNodes().FirstOrDefault(n => n is ModuleBlockSyntax);
+
+            var actual = VisualBasicAnalyzer.GetIdentifier(mbs);
+
+            var expected = "Order";
+
+            Assert.AreEqual(expected, actual);
         }
 
         private void FindNoPropertiesInClass(string code)
