@@ -72,6 +72,7 @@
     <Compile Include="CreateViews\CreateViewCSharpTests.cs" />
     <Compile Include="DefaultTestLogger.cs" />
     <Compile Include="DragDrop\DropHandlerCSharpTests.cs" />
+    <Compile Include="DragDrop\DropHandlerLogicTests.cs" />
     <Compile Include="DragDrop\DropHandlerTestsBase.cs" />
     <Compile Include="DragDrop\DropHandlerVisualBasicTests.cs" />
     <Compile Include="Extensions\StringExtensionTests.cs" />
