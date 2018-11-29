@@ -40,26 +40,26 @@
     <Menus>
       <Menu guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>Développement XAML rapide</CommandName>
-          <ButtonText>Développement XAML rapide</ButtonText>
-          <MenuText>Développement XAML rapide</MenuText>
-          <ToolTipText>Développement XAML rapide</ToolTipText>
+          <CommandName>Développement XAML rapide (local)</CommandName>
+          <ButtonText>Développement XAML rapide (local)</ButtonText>
+          <MenuText>Développement XAML rapide (local)</MenuText>
+          <ToolTipText>Développement XAML rapide (local)</ToolTipText>
         </Strings>
       </Menu>
       <Menu guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>Développement XAML rapide</CommandName>
-          <ButtonText>Développement XAML rapide</ButtonText>
-          <MenuText>Développement XAML rapide</MenuText>
-          <ToolTipText>Développement XAML rapide</ToolTipText>
+          <CommandName>Développement XAML rapide (local)</CommandName>
+          <ButtonText>Développement XAML rapide (local)</ButtonText>
+          <MenuText>Développement XAML rapide (local)</MenuText>
+          <ToolTipText>Développement XAML rapide (local)</ToolTipText>
         </Strings>
       </Menu>
       <Menu guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>Développement XAML rapide</CommandName>
-          <ButtonText>Développement XAML rapide</ButtonText>
-          <MenuText>Développement XAML rapide</MenuText>
-          <ToolTipText>Développement XAML rapide</ToolTipText>
+          <CommandName>Développement XAML rapide (local)</CommandName>
+          <ButtonText>Développement XAML rapide (local)</ButtonText>
+          <MenuText>Développement XAML rapide (local)</MenuText>
+          <ToolTipText>Développement XAML rapide (local)</ToolTipText>
         </Strings>
       </Menu>
     </Menus>
