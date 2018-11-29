@@ -535,15 +535,21 @@ namespace RapidXamlToolkit.Analyzers
                 switch (baseType.Kind)
                 {
                     case SymbolKind.NamedType:
-                        // By default static (shared in VB) properties are excluded from output but if gettin properties for a module (whihc is shared by default) we do want the properties.
-                        if (baseType.TypeKind == TypeKind.Module)
+                        // By default we don't output static/shared properties.
+                        // However, if working with a module (for which all properties are automatically shared)
+                        // we don't exclude shared properties
+                        if (baseType is ITypeSymbol ts && ts.TypeKind == TypeKind.Module)
                         {
-                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property && m.DeclaredAccessibility == Accessibility.Public));
+                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property
+                                                                              && m.DeclaredAccessibility == Accessibility.Public));
                         }
                         else
                         {
-                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property && m.DeclaredAccessibility == Accessibility.Public && !m.IsShared()));
+                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property
+                                                                              && m.DeclaredAccessibility == Accessibility.Public
+                                                                              && !m.IsShared()));
                         }
+
                         break;
                     case SymbolKind.ErrorType:
                         Logger?.RecordInfo(StringRes.Info_CannotGetPropertiesForKnownType.WithParams(baseType.Name));

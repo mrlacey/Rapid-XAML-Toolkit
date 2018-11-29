@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.VisualBasic;
+using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Options;
 
 namespace RapidXamlToolkit.Tests.DragDrop
@@ -14,6 +17,48 @@ namespace RapidXamlToolkit.Tests.DragDrop
             profile.FallbackOutput = "<TextBlock Text=\"$name$\" />";
 
             return profile;
+        }
+
+        protected (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) GetCSAbstractions(string fileContents)
+        {
+            var fs = new TestFileSystem
+            {
+                FileExistsResponse = true,
+                FileText = fileContents,
+            };
+
+            var synTree = CSharpSyntaxTree.ParseText(fs.FileText);
+            var semModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
+
+            var vsa = new TestVisualStudioAbstraction
+            {
+                SyntaxTree = synTree,
+                SemanticModel = semModel,
+                XamlIndent = 4,
+            };
+
+            return (fs, vsa);
+        }
+
+        protected (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) GetVbAbstractions(string fileContents)
+        {
+            var fs = new TestFileSystem
+            {
+                FileExistsResponse = true,
+                FileText = fileContents,
+            };
+
+            var synTree = VisualBasicSyntaxTree.ParseText(fs.FileText);
+            var semModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
+
+            var vsa = new TestVisualStudioAbstraction
+            {
+                SyntaxTree = synTree,
+                SemanticModel = semModel,
+                XamlIndent = 4,
+            };
+
+            return (fs, vsa);
         }
     }
 }

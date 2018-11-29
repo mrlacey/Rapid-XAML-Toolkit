@@ -99,6 +99,7 @@
     <Compile Include="Logging\RxtLogger.cs" />
     <Compile Include="Logging\RxtLoggerWithTelemtry.cs" />
     <Compile Include="Logging\RxtOutputPane.cs" />
+    <Compile Include="NotUnitTestableAttribute.cs" />
     <Compile Include="Options\AllowedPlaceholdersAttribute.cs" />
     <Compile Include="Options\AllowedPlaceholderValidator.cs" />
     <Compile Include="Options\CanNotifyPropertyChanged.cs" />
