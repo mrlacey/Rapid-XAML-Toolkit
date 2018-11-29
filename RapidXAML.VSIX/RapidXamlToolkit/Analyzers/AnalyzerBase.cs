@@ -47,6 +47,7 @@ namespace RapidXamlToolkit.Analyzers
 
         protected static string[] NamesOfPropertiesToExcludeFromOutput { get; } = new[] { "IsInDesignMode", "IsInDesignModeStatic", "DataStore" };
 
+        [NotUnitTestable("Relies on ConfiguredSettings which relies on VS Package infrastructure.")]
         public static Settings GetSettings()
         {
             var configuredSettings = new ConfiguredSettings(ServiceProvider);
@@ -54,6 +55,7 @@ namespace RapidXamlToolkit.Analyzers
             return configuredSettings.ActualSettings;
         }
 
+        [NotUnitTestable("Relies on GetSettings which relies on VS Package infrastructure.")]
         public static (string output, int counter) GetPropertyOutputAndCounterForActiveProfile(PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
         {
             var settings = GetSettings();
@@ -61,6 +63,7 @@ namespace RapidXamlToolkit.Analyzers
             return GetPropertyOutputAndCounter(activeProfile, property, numericSubstitute, getSubPropertyOutput);
         }
 
+        [NotUnitTestable("Relies on GetSettings which relies on VS Package infrastructure. We pass profile around to test other functionality without this.")]
         public static string GetClassGroupingForActiveProfile()
         {
             var settings = GetSettings();
@@ -118,6 +121,7 @@ namespace RapidXamlToolkit.Analyzers
 
             if (rawOutput == null)
             {
+                // Should only reach here if profile?.FallbackOutput is null but that shouldn't be possible as profile validation checks for this.
                 return (null, numericSubstitute);
             }
 

@@ -87,11 +87,11 @@ namespace RapidXamlToolkit.Tests.SetDatacontext
 
             var sut = new SetDataContextCommandLogic(profile, logger, vs, fs);
 
-            var result = sut.GetPageAttributeToAdd("TestViewModel", "Tests");
+            var (anythingToAdd, lineNoToAddAfter, contentToAdd) = sut.GetPageAttributeToAdd("TestViewModel", "Tests");
 
-            Assert.IsTrue(result.anythingToAdd);
-            Assert.AreEqual(2, result.lineNoToAddAfter);
-            Assert.AreEqual($"{Environment.NewLine}    DataContext=\"HasBeenSet\"", result.contentToAdd);
+            Assert.IsTrue(anythingToAdd);
+            Assert.AreEqual(2, lineNoToAddAfter);
+            Assert.AreEqual($"{Environment.NewLine}    DataContext=\"HasBeenSet\"", contentToAdd);
         }
     }
 }

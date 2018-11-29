@@ -813,6 +813,69 @@ namespace tests
         }
 
         [TestMethod]
+        public void GetClassWithGridsForSubProperties()
+        {
+            var recurseProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" />\r\n<TextBlock Text=\"FB_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" />\r\n<TextBlock Text=\"SP_$name$\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "Order",
+                        NameContains = "",
+                        Output = "<GRID-PLUS-ROWDEFS>$subprops$</GRID-PLUS-ROWDEFS>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+namespace tests
+{
+    class C☆lass1
+    {
+        public Order LastOrder { get; set; }
+    }
+
+    class Order
+    {
+        public int OrderId { get; set; }
+        public DateTime OrderPlacedDateTime { get; private set; }
+        public string OrderDescription { get; set; }
+    }
+}";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <Grid>"
+         + Environment.NewLine + "        <Grid.RowDefinitions>"
+         + Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "            <RowDefinition Height=\"*\" />"
+         + Environment.NewLine + "        </Grid.RowDefinitions>"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderId\" Grid.Row=\"0\" Grid.Column=\"0\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderId\" Grid.Row=\"0\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderPlacedDateTime\" Grid.Row=\"1\" Grid.Column=\"0\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderPlacedDateTime\" Grid.Row=\"1\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderDescription\" Grid.Row=\"2\" Grid.Column=\"0\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_OrderDescription\" Grid.Row=\"2\" Grid.Column=\"1\" />"
+         + Environment.NewLine + "    </Grid>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new AnalyzerOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = AnalyzerOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
+        }
+
+        [TestMethod]
         public void GetInheritedPropertiesInTheSameFile()
         {
             var code = @"
