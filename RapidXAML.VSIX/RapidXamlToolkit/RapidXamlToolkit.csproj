@@ -82,6 +82,7 @@
     <Compile Include="Commands\SetDataContextCommandLogic.cs" />
     <Compile Include="Commands\VisualStudioAbstraction.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />
+    <Compile Include="Confguration\RxtSettings.cs" />
     <Compile Include="DragDrop\DropHandlerLogic.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandlerProvider.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandler.cs" />
@@ -277,6 +278,9 @@
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <None Include="app.config" />
+    <None Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Key.snk" />
     <Content Include="cs-CZ\Extension.vsixlangpack" />
     <Content Include="de-DE\Extension.vsixlangpack" />

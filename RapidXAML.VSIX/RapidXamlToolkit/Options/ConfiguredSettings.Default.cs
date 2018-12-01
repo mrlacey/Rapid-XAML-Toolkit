@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using RapidXamlToolkit.Confguration;
 
 namespace RapidXamlToolkit.Options
 {
@@ -10,9 +11,11 @@ namespace RapidXamlToolkit.Options
     {
         public static Settings GetDefaultSettings()
         {
+            var config = new RxtSettings();
+
             return new Settings
             {
-                ExtendedOutputEnabled = true,  // Disable for release builds but want it on by default for testers
+                ExtendedOutputEnabled = config.ExtendedOutputEnabledByDefault,  // Disable for release builds but want it on by default for testers
                 ActiveProfileName = string.Empty,  // No profile should be selected by default
                 Profiles = new List<Profile>
                 {
