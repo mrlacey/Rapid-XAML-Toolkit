@@ -40,26 +40,26 @@
     <Menus>
       <Menu guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>XAML rápido</CommandName>
-          <ButtonText>XAML rápido</ButtonText>
-          <MenuText>XAML rápido</MenuText>
-          <ToolTipText>XAML rápido</ToolTipText>
+          <CommandName>XAML rápido (local)</CommandName>
+          <ButtonText>XAML rápido (local)</ButtonText>
+          <MenuText>XAML rápido (local)</MenuText>
+          <ToolTipText>XAML rápido (local)</ToolTipText>
         </Strings>
       </Menu>
       <Menu guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>XAML rápido</CommandName>
-          <ButtonText>XAML rápido</ButtonText>
-          <MenuText>XAML rápido</MenuText>
-          <ToolTipText>XAML rápido</ToolTipText>
+          <CommandName>XAML rápido (local)</CommandName>
+          <ButtonText>XAML rápido (local)</ButtonText>
+          <MenuText>XAML rápido (local)</MenuText>
+          <ToolTipText>XAML rápido (local)</ToolTipText>
         </Strings>
       </Menu>
       <Menu guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>XAML rápido</CommandName>
-          <ButtonText>XAML rápido</ButtonText>
-          <MenuText>XAML rápido</MenuText>
-          <ToolTipText>XAML rápido</ToolTipText>
+          <CommandName>XAML rápido (local)</CommandName>
+          <ButtonText>XAML rápido (local)</ButtonText>
+          <MenuText>XAML rápido (local)</MenuText>
+          <ToolTipText>XAML rápido (local)</ToolTipText>
         </Strings>
       </Menu>
     </Menus>

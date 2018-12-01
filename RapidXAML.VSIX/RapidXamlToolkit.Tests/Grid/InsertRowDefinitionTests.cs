@@ -1101,7 +1101,7 @@ namespace RapidXamlToolkit.Tests.Grid
             Assert.AreEqual(expected.position, actual.insertPos);
         }
 
-        private void EachPositionBetweenStarsShouldReturnExpectedDefinition(string xaml, (string, int) expected)
+        private void EachPositionBetweenStarsShouldReturnExpectedDefinition(string xaml, (string definition, int position) expected)
         {
             var startPos = xaml.IndexOf("☆", StringComparison.Ordinal);
             var endPos = xaml.LastIndexOf("☆", StringComparison.Ordinal) - 1;
@@ -1122,8 +1122,8 @@ namespace RapidXamlToolkit.Tests.Grid
 
                 var actual = logic.GetDefinitionAtCursor();
 
-                Assert.AreEqual(expected.Item1, actual.Item1, $"Failure at {pos} ({startPos}-{endPos})");
-                Assert.AreEqual(expected.Item2, actual.Item2, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.definition, actual.definition, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.position, actual.insertPos, $"Failure at {pos} ({startPos}-{endPos})");
                 positionsTested += 1;
             }
 
