@@ -8,6 +8,7 @@ using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.Confguration;
 using RapidXamlToolkit.DragDrop;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
@@ -39,9 +40,9 @@ namespace RapidXamlToolkit
 
             var rxtLogger = new RxtLogger();
 
-            var telemKey = string.Empty;
+            var config = new RxtSettings();
 
-            var telemLogger = TelemetryAccessor.Create(rxtLogger, telemKey);
+            var telemLogger = TelemetryAccessor.Create(rxtLogger, config.TelemetryKey);
 
             Logger = new RxtLoggerWithTelemtry(rxtLogger, telemLogger);
 
