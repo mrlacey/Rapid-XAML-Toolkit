@@ -20,7 +20,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             var fileContents = " // Just a comment";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
@@ -42,7 +42,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
        + Environment.NewLine + "    private string SecondProperty { get; set; }"
        + Environment.NewLine + "}";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
@@ -66,7 +66,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
        + Environment.NewLine + "    public string SecondProperty { get; set; }"
        + Environment.NewLine + "}";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
@@ -92,7 +92,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
        + Environment.NewLine + "    public string SecondProperty { get; set; }"
        + Environment.NewLine + "}";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(profile, DefaultTestLogger.Create(), vsa, fs);
 
@@ -102,27 +102,6 @@ namespace RapidXamlToolkit.Tests.DragDrop
    + Environment.NewLine + "        <TextBlock Text=\"SecondProperty\" />";
 
             StringAssert.AreEqual(expected, actual);
-        }
-
-        private (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) GetAbstractions(string fileContents)
-        {
-            var fs = new TestFileSystem
-            {
-                FileExistsResponse = true,
-                FileText = fileContents,
-            };
-
-            var synTree = CSharpSyntaxTree.ParseText(fs.FileText);
-            var semModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(synTree).GetSemanticModel(synTree, ignoreAccessibility: true);
-
-            var vsa = new TestVisualStudioAbstraction
-            {
-                SyntaxTree = synTree,
-                SemanticModel = semModel,
-                XamlIndent = 4,
-            };
-
-            return (fs, vsa);
         }
     }
 }

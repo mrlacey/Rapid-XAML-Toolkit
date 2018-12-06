@@ -72,6 +72,7 @@
     <Compile Include="CreateViews\CreateViewCSharpTests.cs" />
     <Compile Include="DefaultTestLogger.cs" />
     <Compile Include="DragDrop\DropHandlerCSharpTests.cs" />
+    <Compile Include="DragDrop\DropHandlerLogicTests.cs" />
     <Compile Include="DragDrop\DropHandlerTestsBase.cs" />
     <Compile Include="DragDrop\DropHandlerVisualBasicTests.cs" />
     <Compile Include="Extensions\StringExtensionTests.cs" />
@@ -112,9 +113,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
       <Version>1.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.DependencyValidation.Analyzers">
-      <Version>0.9.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.LanguageServices">
       <Version>2.7.0</Version>

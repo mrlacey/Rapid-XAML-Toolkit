@@ -8,6 +8,7 @@ using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.Confguration;
 using RapidXamlToolkit.DragDrop;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
@@ -20,7 +21,7 @@ namespace RapidXamlToolkit
     [ProvideAutoLoad(Microsoft.VisualStudio.Shell.Interop.UIContextGuids.SolutionHasMultipleProjects, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(Microsoft.VisualStudio.Shell.Interop.UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.0.0.0", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
@@ -39,9 +40,9 @@ namespace RapidXamlToolkit
 
             var rxtLogger = new RxtLogger();
 
-            var telemKey = string.Empty;
+            var config = new RxtSettings();
 
-            var telemLogger = TelemetryAccessor.Create(rxtLogger, telemKey);
+            var telemLogger = TelemetryAccessor.Create(rxtLogger, config.TelemetryKey);
 
             Logger = new RxtLoggerWithTelemtry(rxtLogger, telemLogger);
 

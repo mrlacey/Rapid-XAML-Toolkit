@@ -117,8 +117,7 @@ End Class",
             Assert.IsFalse(sut.CreateView);
         }
 
-        // Disabled pending further investigation. Issue #100
-        ////[TestMethod]
+        [TestMethod]
         public async Task CorrectOutputInSameFolder_FileContainsModuleNotClassAsync()
         {
             var profile = this.GetDefaultTestProfile();
@@ -134,6 +133,7 @@ End Class",
                 FileExistsResponse = false,
                 FileText = @"Public Module TestViewModel
     Public Property OnlyProperty As String
+    Private Property HiddenProperty As String
 End Module",
             };
 

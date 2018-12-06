@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.Commands
     {
         private const string RowDefOpening = "<RowDefinition";
 
-        private ILogger logger;
-        private IVisualStudioAbstraction vs;
+        private readonly ILogger logger;
+        private readonly IVisualStudioAbstraction vs;
 
         public InsertGridRowDefinitionCommandLogic(ILogger logger, IVisualStudioAbstraction visualStudioAbstraction)
         {
