@@ -18,6 +18,8 @@ namespace RapidXamlToolkit.Tests.Manual.Options
     {
         private const string PathToExe = @"..\..\..\OptionsEmulator\bin\Debug\OptionsEmulator.exe";
 
+        private const string ArtifactDir = @"C:\UIT\RXT\";
+
         private TestSettings testSettings;
 
         public WindowContentsTests()
@@ -29,13 +31,20 @@ namespace RapidXamlToolkit.Tests.Manual.Options
             {
                 Assert.Fail("Set subscription key in testsettings.json");
             }
+
+            // Need to be admin to save screenshots
+            ExecutionEnvironment.CheckRunningAsAdmin();
         }
 
         [TestMethod]
         public async Task AllTextVisibleInHighContrastModesAsync()
         {
-            const string artifactDir = @"C:\UIT\RXT\";
-            string imagePathFormat = artifactDir + "{0}_{1}.png";
+            if (!Directory.Exists(ArtifactDir))
+            {
+                Directory.CreateDirectory(ArtifactDir);
+            }
+
+            string imagePathFormat = ArtifactDir + "{0}_{1}.png";
 
             async Task GetScreenshotImagesAsync(string identifier)
             {
@@ -116,7 +125,7 @@ namespace RapidXamlToolkit.Tests.Manual.Options
                 // - as text size changes this affects the number of lines shown which results in different text on the screen
                 var pagesToIgnore = new[] { "Mapping", "Profile" };
 
-                foreach (var refFile in Directory.EnumerateFiles(artifactDir, $"*{refIdentifier}*.words.txt"))
+                foreach (var refFile in Directory.EnumerateFiles(ArtifactDir, $"*{refIdentifier}*.words.txt"))
                 {
                     bool skipCheck = false;
                     foreach (var toIgnore in pagesToIgnore)
@@ -225,8 +234,8 @@ namespace RapidXamlToolkit.Tests.Manual.Options
             }
 
             // Now we've got all images and extracted the text, actually do the comparison
-            // It's easier to restart the tests and just do these checcks if something fails.
-            // It's also easier to have all versions avaiable if needing to do manual checks.
+            // It's easier to restart the tests and just do these checks if something fails.
+            // It's also easier to have all versions available if needing to do manual checks.
             CompareWordsText("normal", "HiContrast1");
             CompareWordsText("normal", "HiContrast2");
             CompareWordsText("normal", "HiContrastBlack");
