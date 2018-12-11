@@ -3,6 +3,8 @@
 
 using System;
 using System.ComponentModel.Design;
+using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -52,7 +54,8 @@ namespace RapidXamlToolkit.Commands
             var itemInfo = new TBXITEMINFO[1];
             var tbItem = new OleDataObject();
 
-            var bitmap = new System.Drawing.Bitmap("./Resources/MarkupTag_16x.png");
+            var executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var bitmap = new System.Drawing.Bitmap(Path.Combine(executionPath, "Resources", "MarkupTag_16x.png"));
 
             itemInfo[0].hBmp = bitmap.GetHbitmap();
             itemInfo[0].bstrText = label;
