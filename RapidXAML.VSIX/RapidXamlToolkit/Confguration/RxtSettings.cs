@@ -4,6 +4,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using Newtonsoft.Json.Linq;
 
 namespace RapidXamlToolkit.Confguration
@@ -14,7 +15,10 @@ namespace RapidXamlToolkit.Confguration
 
         public RxtSettings()
         {
-            var rawJson = File.ReadAllText(AppSettingsFileName);
+            var executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var filePath = Path.Combine(executionPath, AppSettingsFileName);
+
+            var rawJson = File.ReadAllText(filePath);
 
             if (!string.IsNullOrWhiteSpace(rawJson))
             {

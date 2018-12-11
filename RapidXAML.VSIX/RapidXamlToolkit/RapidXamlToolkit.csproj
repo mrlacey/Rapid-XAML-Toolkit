@@ -282,9 +282,9 @@
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <None Include="app.config" />
-    <None Include="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Content Include="appsettings.json">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="Key.snk" />
     <Content Include="cs-CZ\Extension.vsixlangpack" />
     <Content Include="de-DE\Extension.vsixlangpack" />
@@ -738,7 +738,6 @@
     </Content>
     <Content Include="Resources\MarkupTag_16x.png">
       <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\RapidXamlPackage.png" />
     <Content Include="Resources\RapidXamlPackage.ico">
