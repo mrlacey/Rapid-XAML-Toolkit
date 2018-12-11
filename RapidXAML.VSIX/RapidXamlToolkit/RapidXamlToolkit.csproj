@@ -284,6 +284,7 @@
     <None Include="app.config" />
     <Content Include="appsettings.json">
       <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Key.snk" />
     <Content Include="cs-CZ\Extension.vsixlangpack" />
