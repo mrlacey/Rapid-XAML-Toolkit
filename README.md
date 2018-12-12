@@ -9,6 +9,11 @@ The functionality of the toolkit is based common conventions but is highly [conf
 
 Consider this project as in an early beta stage. There's still lots to do before it is ready for a full release and there's more functionality we want to add but we're keen to get feedback as soon as possible and focus on the features people want.
 
+| Build | Status | Details |
+|-------|--------|---------|
+| CI | ![CI Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.ci) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/151.md) |
+| nightly | ![Nightly Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.version.create) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/152.md) |
+
 ## Overview
 
 The Rapid XAML Toolkit aims to help developers go from this
@@ -58,6 +63,7 @@ in a couple of clicks.
 The toolkit currently includes the following features
 
 - Create the entire View (XAML & CodeBehind) from the ViewModel file.
+- Create XAML by dragging a ViewModel file onto the designer.
 - Copy a property, selection of properties, or the whole class (from the ViewModel) into the clipboard and paste into the View as XAML.
 - Send a property, selection of properties, or the whole class (from the ViewModel) into the Toolbox and drag into the View as XAML.
 - Set the DataContext in the XAML file.
