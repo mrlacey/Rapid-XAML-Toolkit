@@ -63,6 +63,28 @@ namespace RapidXamlToolkit.Options
                 this.DefaultCodeBehindConstructorEntry.SyntaxHighlighting = null;
 
                 this.SelectedMappingOutputEntry.SyntaxHighlighting = null;
+
+                this.ViewGenXamlPlchldrBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.ViewGenXamlPlchldrBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+                this.ViewGenCodeBehindPlchldrBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.ViewGenCodeBehindPlchldrBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+
+                this.FallbackOutputBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.FallbackOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+                this.SubPropertyOutputBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.SubPropertyOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+                this.EnumMemberOutputBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.EnumMemberOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+
+                this.CodeBehindPageContentBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.CodeBehindPageContentBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+                this.CodeBehindConstructorContentBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.CodeBehindConstructorContentBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+                this.DefaultCodeBehindConstructorBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.DefaultCodeBehindConstructorBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+
+                this.SelectedMappingOutputBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.SelectedMappingOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
             }
         }
 
