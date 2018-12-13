@@ -655,7 +655,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attempt Automatic Document Formatting.
+        ///   Looks up a localized string similar to Attempt automatic document formatting.
         /// </summary>
         public static string Options_AttemptAutomaticDocumentFormatting {
             get {
@@ -1123,7 +1123,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ViewModel Project Suffix.
+        ///   Looks up a localized string similar to ViewModel project suffix.
         /// </summary>
         public static string Options_ViewModelProjectSuffix {
             get {
@@ -1177,7 +1177,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAMLPage attribute.
+        ///   Looks up a localized string similar to XAML page attribute.
         /// </summary>
         public static string Options_XamlPageAttribute {
             get {
@@ -1213,7 +1213,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAML Project Suffix.
+        ///   Looks up a localized string similar to XAML project suffix.
         /// </summary>
         public static string Options_XamlProjectSuffix {
             get {

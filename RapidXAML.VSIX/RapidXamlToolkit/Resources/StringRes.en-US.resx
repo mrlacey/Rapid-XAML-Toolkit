@@ -275,7 +275,7 @@
     <value>The text appended to the end of the name of each ViewModel.</value>
   </data>
   <data name="Options_ViewModelProjectSuffix" xml:space="preserve">
-    <value>ViewModel Project Suffix</value>
+    <value>ViewModel project suffix</value>
   </data>
   <data name="Options_ViewModelProjectSuffixDescription" xml:space="preserve">
     <value>The text from the end of the name of the project that contains the ViewModels. </value>
@@ -293,7 +293,7 @@
     <value>The text appended to the end of the name of each View (XAML file.)</value>
   </data>
   <data name="Options_XamlPageAttribute" xml:space="preserve">
-    <value>XAMLPage attribute</value>
+    <value>XAML page attribute</value>
   </data>
   <data name="Options_XamlPageAttributeDescription" xml:space="preserve">
     <value>The attribute that should be added ot the top level XAMLelement when setting the datacontext.</value>
@@ -305,7 +305,7 @@
     <value>The default file contents when creating a new XAML file.</value>
   </data>
   <data name="Options_XamlProjectSuffix" xml:space="preserve">
-    <value>XAML Project Suffix</value>
+    <value>XAML project suffix</value>
   </data>
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>The text from the end of the name of the project that contains the Views (XAML files.)</value>
@@ -609,7 +609,7 @@
     <value>Unable to insert RowDefinition (Invalid XAML)</value>
   </data>
   <data name="Options_AttemptAutomaticDocumentFormatting" xml:space="preserve">
-    <value>Attempt Automatic Document Formatting</value>
+    <value>Attempt automatic document formatting</value>
   </data>
   <data name="Options_AttemptAutomaticDocumentFormattingDescription" xml:space="preserve">
     <value>Trigger Visual Studio's automatic document formatting after modifying a document</value>
