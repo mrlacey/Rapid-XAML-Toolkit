@@ -206,7 +206,7 @@
     <value>General Settings</value>
   </data>
   <data name="Options_MappingIfReadOnly" xml:space="preserve">
-    <value>Only if readonly</value>
+    <value>Only if read-only</value>
   </data>
   <data name="Options_MappingIfReadOnlyDescription" xml:space="preserve">
     <value>The mapping should only apply if the property has a public setter.</value>

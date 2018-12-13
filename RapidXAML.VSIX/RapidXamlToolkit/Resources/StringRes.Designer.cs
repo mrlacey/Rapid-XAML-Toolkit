@@ -916,7 +916,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only if readonly.
+        ///   Looks up a localized string similar to Only if read-only.
         /// </summary>
         public static string Options_MappingIfReadOnly {
             get {
