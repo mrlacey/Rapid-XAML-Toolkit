@@ -754,7 +754,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Class grouping.
+        ///   Looks up a localized string similar to Class grouping:.
         /// </summary>
         public static string Options_ClassGrouping {
             get {
@@ -772,7 +772,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code-behind constructor content.
+        ///   Looks up a localized string similar to Code-behind constructor content:.
         /// </summary>
         public static string Options_CodeBehindConstructorContent {
             get {
@@ -781,7 +781,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code that should be added to the constructor of the code behind file when setting the datacontext..
+        ///   Looks up a localized string similar to Code that should be added to the constructor of the code-behind file when setting the datacontext..
         /// </summary>
         public static string Options_CodeBehindConstructorContentDescription {
             get {
@@ -790,7 +790,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code-behind page content.
+        ///   Looks up a localized string similar to Code-behind page content:.
         /// </summary>
         public static string Options_CodeBehindPageContent {
             get {
@@ -808,7 +808,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code-behind file default content.
+        ///   Looks up a localized string similar to Code-behind file default content:.
         /// </summary>
         public static string Options_CodeBehindPlaceholder {
             get {
@@ -826,7 +826,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Datacontext.
+        ///   Looks up a localized string similar to DataContext.
         /// </summary>
         public static string Options_DataContextHeader {
             get {
@@ -835,7 +835,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default code-behind constructor.
+        ///   Looks up a localized string similar to Default code-behind constructor:.
         /// </summary>
         public static string Options_DefaultCodeBehindConstructor {
             get {
@@ -862,7 +862,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enum output.
+        ///   Looks up a localized string similar to Enum output:.
         /// </summary>
         public static string Options_EnumMappingOutput {
             get {
@@ -880,7 +880,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fallback output.
+        ///   Looks up a localized string similar to Fallback output:.
         /// </summary>
         public static string Options_FallbackOutput {
             get {
@@ -934,7 +934,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name filter.
+        ///   Looks up a localized string similar to Name filter:.
         /// </summary>
         public static string Options_MappingNameFilter {
             get {
@@ -952,7 +952,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Output.
+        ///   Looks up a localized string similar to Output:.
         /// </summary>
         public static string Options_MappingOutput {
             get {
@@ -979,7 +979,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type.
+        ///   Looks up a localized string similar to Type:.
         /// </summary>
         public static string Options_MappingType {
             get {
@@ -1015,7 +1015,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
+        ///   Looks up a localized string similar to Name:.
         /// </summary>
         public static string Options_ProfileName {
             get {
@@ -1060,7 +1060,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sub-property output.
+        ///   Looks up a localized string similar to Sub-property output:.
         /// </summary>
         public static string Options_SubPropertyOutput {
             get {
@@ -1087,7 +1087,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ViewModel directory name.
+        ///   Looks up a localized string similar to ViewModel directory name:.
         /// </summary>
         public static string Options_ViewModelDirectoryName {
             get {
@@ -1105,7 +1105,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ViewModel file suffix.
+        ///   Looks up a localized string similar to ViewModel file suffix:.
         /// </summary>
         public static string Options_ViewModelFileSuffix {
             get {
@@ -1123,7 +1123,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ViewModel project suffix.
+        ///   Looks up a localized string similar to ViewModel project suffix:.
         /// </summary>
         public static string Options_ViewModelProjectSuffix {
             get {
@@ -1141,7 +1141,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAML file directory name.
+        ///   Looks up a localized string similar to XAML file directory name:.
         /// </summary>
         public static string Options_XamlFileDirectoryName {
             get {
@@ -1159,7 +1159,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAML file suffix.
+        ///   Looks up a localized string similar to XAML file suffix:.
         /// </summary>
         public static string Options_XamlFileSuffix {
             get {
@@ -1177,7 +1177,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAML page attribute.
+        ///   Looks up a localized string similar to XAML page attribute:.
         /// </summary>
         public static string Options_XamlPageAttribute {
             get {
@@ -1195,7 +1195,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAML file default content.
+        ///   Looks up a localized string similar to XAML file default content:.
         /// </summary>
         public static string Options_XamlPlaceholder {
             get {
@@ -1213,7 +1213,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAML project suffix.
+        ///   Looks up a localized string similar to XAML project suffix:.
         /// </summary>
         public static string Options_XamlProjectSuffix {
             get {
