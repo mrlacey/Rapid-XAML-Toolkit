@@ -190,7 +190,7 @@
                             x:Name="ViewGenXamlPlchldrEntry"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                            PreviewKeyDown="OnPreviewKeyDown"
+                            PreviewKeyDown="TextEditorPreviewKeyDown"
                             SyntaxHighlighting="XML"
                             VerticalScrollBarVisibility="Auto">
                             <avalonEdit:TextEditor.Options>
@@ -216,7 +216,7 @@
                             x:Name="ViewGenCodeBehindPlchldrEntry"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                            PreviewKeyDown="OnPreviewKeyDown"
+                            PreviewKeyDown="TextEditorPreviewKeyDown"
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
                             VerticalScrollBarVisibility="Auto">
@@ -274,7 +274,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="OnPreviewKeyDown"
+                            PreviewKeyDown="TextEditorPreviewKeyDown"
                             SyntaxHighlighting="XML"
                             VerticalScrollBarVisibility="Auto"
                             WordWrap="True">
@@ -302,7 +302,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="OnPreviewKeyDown"
+                            PreviewKeyDown="TextEditorPreviewKeyDown"
                             SyntaxHighlighting="XML"
                             VerticalScrollBarVisibility="Auto"
                             WordWrap="True">
@@ -330,7 +330,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="OnPreviewKeyDown"
+                            PreviewKeyDown="TextEditorPreviewKeyDown"
                             SyntaxHighlighting="XML"
                             VerticalScrollBarVisibility="Auto"
                             WordWrap="True">
@@ -363,6 +363,7 @@
                                 CanUserSortColumns="False"
                                 IsReadOnly="True"
                                 ItemsSource="{Binding Mappings}"
+                                PreviewKeyDown="GridPreviewKeyDown"
                                 SelectedItem="{Binding Path=SelectedMapping, Mode=TwoWay}"
                                 SelectionMode="Single"
                                 SelectionUnit="FullRow" />
@@ -375,7 +376,10 @@
                                     <Setter Property="Margin" Value="0,0,0,6" />
                                 </Style>
                             </StackPanel.Resources>
-                            <Button Click="AddClicked" Content="{x:Static strings:StringRes.Options_ButtonAdd}" />
+                            <Button
+                                x:Name="AddMappingButton"
+                                Click="AddClicked"
+                                Content="{x:Static strings:StringRes.Options_ButtonAdd}" />
                             <Button Click="CopyClicked" Content="{x:Static strings:StringRes.Options_ButtonCopy}" />
                             <Button Click="DeleteClicked" Content="{x:Static strings:StringRes.Options_ButtonDelete}" />
                         </StackPanel>
@@ -445,7 +449,7 @@
                                 BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                                 BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                                 HorizontalScrollBarVisibility="Hidden"
-                                PreviewKeyDown="OnPreviewKeyDown"
+                                PreviewKeyDown="TextEditorPreviewKeyDown"
                                 SyntaxHighlighting="XML"
                                 TextChanged="OnSelectedMappingOutputChanged"
                                 VerticalScrollBarVisibility="Auto"
@@ -504,7 +508,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="OnPreviewKeyDown"
+                            PreviewKeyDown="TextEditorPreviewKeyDown"
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
                             VerticalScrollBarVisibility="Auto"
@@ -533,7 +537,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="OnPreviewKeyDown"
+                            PreviewKeyDown="TextEditorPreviewKeyDown"
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
                             VerticalScrollBarVisibility="Auto"
@@ -562,7 +566,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="OnPreviewKeyDown"
+                            PreviewKeyDown="TextEditorPreviewKeyDown"
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
                             VerticalScrollBarVisibility="Auto"

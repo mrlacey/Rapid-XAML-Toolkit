@@ -254,7 +254,7 @@ namespace RapidXamlToolkit.Options
             System.Diagnostics.Process.Start("https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/16");
         }
 
-        private void OnPreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void TextEditorPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Tab)
             {
@@ -267,6 +267,25 @@ namespace RapidXamlToolkit.Options
                 else
                 {
                     (sender as TextEditor).TextArea.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        private void GridPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                var shiftPressed = (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
+
+                if (shiftPressed)
+                {
+                    this.EnumMemberOutputEntry.Focus();
+                }
+                else
+                {
+                    this.AddMappingButton.Focus();
                 }
 
                 e.Handled = true;
