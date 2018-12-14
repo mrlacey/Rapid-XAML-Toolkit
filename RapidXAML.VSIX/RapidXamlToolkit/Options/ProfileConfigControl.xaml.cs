@@ -3,6 +3,7 @@
 
 using System;
 using System.Windows;
+using System.Windows.Input;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using Microsoft.VisualStudio.Shell;
@@ -63,8 +64,6 @@ namespace RapidXamlToolkit.Options
                 this.DefaultCodeBehindConstructorEntry.SyntaxHighlighting = null;
 
                 this.SelectedMappingOutputEntry.SyntaxHighlighting = null;
-                
-                this.SelectedMappingOutputEntry.Options.EnableHyperlinks = false;
 
                 this.ViewGenXamlPlchldrBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
                 this.ViewGenXamlPlchldrBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
@@ -253,6 +252,25 @@ namespace RapidXamlToolkit.Options
         private void DetailsClicked(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/16");
+        }
+
+        private void OnPreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                var shiftPressed = (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
+
+                if (shiftPressed)
+                {
+                    (sender as TextEditor).MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+                }
+                else
+                {
+                    (sender as TextEditor).TextArea.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                }
+
+                e.Handled = true;
+            }
         }
     }
 }

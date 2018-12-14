@@ -190,6 +190,7 @@
                             x:Name="ViewGenXamlPlchldrEntry"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                            PreviewKeyDown="OnPreviewKeyDown"
                             SyntaxHighlighting="XML"
                             VerticalScrollBarVisibility="Auto">
                             <avalonEdit:TextEditor.Options>
@@ -215,6 +216,7 @@
                             x:Name="ViewGenCodeBehindPlchldrEntry"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                            PreviewKeyDown="OnPreviewKeyDown"
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
                             VerticalScrollBarVisibility="Auto">
@@ -272,6 +274,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
+                            PreviewKeyDown="OnPreviewKeyDown"
                             SyntaxHighlighting="XML"
                             VerticalScrollBarVisibility="Auto"
                             WordWrap="True">
@@ -299,6 +302,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
+                            PreviewKeyDown="OnPreviewKeyDown"
                             SyntaxHighlighting="XML"
                             VerticalScrollBarVisibility="Auto"
                             WordWrap="True">
@@ -326,6 +330,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
+                            PreviewKeyDown="OnPreviewKeyDown"
                             SyntaxHighlighting="XML"
                             VerticalScrollBarVisibility="Auto"
                             WordWrap="True">
@@ -440,6 +445,7 @@
                                 BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                                 BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                                 HorizontalScrollBarVisibility="Hidden"
+                                PreviewKeyDown="OnPreviewKeyDown"
                                 SyntaxHighlighting="XML"
                                 TextChanged="OnSelectedMappingOutputChanged"
                                 VerticalScrollBarVisibility="Auto"
@@ -498,6 +504,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
+                            PreviewKeyDown="OnPreviewKeyDown"
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
                             VerticalScrollBarVisibility="Auto"
@@ -526,6 +533,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
+                            PreviewKeyDown="OnPreviewKeyDown"
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
                             VerticalScrollBarVisibility="Auto"
@@ -554,6 +562,7 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
+                            PreviewKeyDown="OnPreviewKeyDown"
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
                             VerticalScrollBarVisibility="Auto"
