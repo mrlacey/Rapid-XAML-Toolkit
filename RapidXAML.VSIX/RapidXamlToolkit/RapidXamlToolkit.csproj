@@ -120,6 +120,7 @@
     <Compile Include="Options\ProfileConfigPage.xaml.cs">
       <DependentUpon>ProfileConfigPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Options\ProfileFontWeightConverter.cs" />
     <Compile Include="Options\ProfileSummary.cs" />
     <Compile Include="Options\Settings.cs" />
     <Compile Include="Options\SettingsConfigPage.cs">

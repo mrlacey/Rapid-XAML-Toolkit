@@ -5,11 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:RapidXamlToolkit"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:options="clr-namespace:RapidXamlToolkit.Options"
     xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
     d:DesignHeight="350"
     d:DesignWidth="400"
     mc:Ignorable="d">
-    <Grid Margin="12">
+    <UserControl.Resources>
+        <options:ProfileFontWeightConverter x:Key="FontWeightConverter" />
+    </UserControl.Resources>
+    <Grid Margin="6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -44,7 +48,7 @@
             ItemsSource="{Binding ProfilesList}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DisplayName}" />
+                    <TextBlock FontWeight="{Binding DisplayName, Converter={StaticResource FontWeightConverter}}" Text="{Binding DisplayName}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
