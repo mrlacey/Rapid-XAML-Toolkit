@@ -71,28 +71,22 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel
+                    <CheckBox
                         Grid.Row="0"
                         Grid.Column="1"
                         Margin="0,0,0,6"
-                        Orientation="Horizontal">
-
-                        <CheckBox
-                            VerticalAlignment="Center"
-                            Content=""
-                            IsChecked="{Binding ViewGeneration.AllInSameProject, Mode=TwoWay}" />
-
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Text="{x:Static strings:StringRes.Options_AllInOneProject}"
-                            ToolTip="{x:Static strings:StringRes.Options_AllInOneProjectDescription}" />
-                    </StackPanel>
+                        IsChecked="{Binding ViewGeneration.AllInSameProject, Mode=TwoWay}">
+                        <TextBlock Text="{x:Static strings:StringRes.Options_AllInOneProject}" ToolTip="{x:Static strings:StringRes.Options_AllInOneProjectDescription}" />
+                    </CheckBox>
                     <Border
                         Grid.Row="0"
                         Grid.RowSpan="7"
                         Grid.Column="2"
                         Padding="6,0,0,6">
-                        <TreeView Name="viewsTreeView" ItemsSource="{Binding ViewGeneration.Visualization}">
+                        <TreeView
+                            Name="viewsTreeView"
+                            Focusable="False"
+                            ItemsSource="{Binding ViewGeneration.Visualization}">
                             <TreeView.ItemContainerStyle>
                                 <Style TargetType="{x:Type TreeViewItem}">
                                     <Setter Property="IsExpanded" Value="True" />
@@ -401,20 +395,13 @@
                             Margin="0,0,0,6"
                             Text="{Binding SelectedMapping.NameContains, Mode=TwoWay}" />
 
-                        <StackPanel
+                        <CheckBox
                             Grid.Row="2"
                             Grid.Column="1"
                             Margin="0,0,0,6"
-                            Orientation="Horizontal">
-                            <CheckBox
-                                VerticalAlignment="Center"
-                                Content=""
-                                IsChecked="{Binding SelectedMapping.IfReadOnly, Mode=TwoWay}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Text="{x:Static strings:StringRes.Options_MappingIfReadOnly}"
-                                ToolTip="{x:Static strings:StringRes.Options_MappingIfReadOnlyDescription}" />
-                        </StackPanel>
+                            IsChecked="{Binding SelectedMapping.IfReadOnly, Mode=TwoWay}">
+                            <TextBlock Text="{x:Static strings:StringRes.Options_MappingIfReadOnly}" ToolTip="{x:Static strings:StringRes.Options_MappingIfReadOnlyDescription}" />
+                        </CheckBox>
 
                         <TextBlock
                             Grid.Row="3"
@@ -550,16 +537,9 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Orientation="Horizontal">
-                        <CheckBox
-                            VerticalAlignment="Center"
-                            Content=""
-                            IsChecked="{Binding General.AttemptAutomaticDocumentFormatting, Mode=TwoWay}" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Text="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormatting}"
-                            ToolTip="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormattingDescription}" />
-                    </StackPanel>
+                    <CheckBox Grid.Row="0" IsChecked="{Binding General.AttemptAutomaticDocumentFormatting, Mode=TwoWay}">
+                        <TextBlock Text="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormatting}" ToolTip="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormattingDescription}" />
+                    </CheckBox>
                 </Grid>
             </TabItem>
         </TabControl>

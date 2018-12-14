@@ -30,13 +30,9 @@
             Margin="0,0,0,12"
             Padding="9"
             Header="{x:Static strings:StringRes.Options_GeneralSettingsHeader}">
-            <StackPanel Orientation="Horizontal">
-                <CheckBox
-                    VerticalAlignment="Center"
-                    Content=""
-                    IsChecked="{Binding ExtendedOutputEnabled, Mode=TwoWay}" />
-                <TextBlock VerticalAlignment="Center" Text="{x:Static strings:StringRes.Options_EnableExtendedLogging}" />
-            </StackPanel>
+            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ExtendedOutputEnabled, Mode=TwoWay}">
+                <TextBlock Text="{x:Static strings:StringRes.Options_EnableExtendedLogging}" ToolTip="{x:Static strings:StringRes.Options_EnableExtendedLoggingDescription}" />
+            </CheckBox>
         </GroupBox>
 
         <TextBlock Grid.Row="1" Text="{x:Static strings:StringRes.Options_ProfilesSectionHeader}" />

@@ -862,6 +862,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Increases the amount of information displayed in the output window. Can be helpful in identifying errors or diagnosing why specific output was produced..
+        /// </summary>
+        public static string Options_EnableExtendedLoggingDescription {
+            get {
+                return ResourceManager.GetString("Options_EnableExtendedLoggingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enum output:.
         /// </summary>
         public static string Options_EnumMappingOutput {

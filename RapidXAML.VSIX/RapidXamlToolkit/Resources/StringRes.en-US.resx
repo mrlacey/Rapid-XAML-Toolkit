@@ -623,4 +623,7 @@
   <data name="Info_CouldNotFindClassInFile" xml:space="preserve">
     <value>Unable to find class definition in file '{0}'</value>
   </data>
+  <data name="Options_EnableExtendedLoggingDescription" xml:space="preserve">
+    <value>Increases the amount of information displayed in the output window. Can be helpful in identifying errors or diagnosing why specific output was produced.</value>
+  </data>
 </root>
