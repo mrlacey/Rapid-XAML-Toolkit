@@ -191,7 +191,11 @@
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             SyntaxHighlighting="XML"
-                            VerticalScrollBarVisibility="Auto" />
+                            VerticalScrollBarVisibility="Auto">
+                            <avalonEdit:TextEditor.Options>
+                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                            </avalonEdit:TextEditor.Options>
+                        </avalonEdit:TextEditor>
                     </themes:ClassicBorderDecorator>
                     <TextBlock
                         Grid.Row="8"
@@ -213,7 +217,11 @@
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
-                            VerticalScrollBarVisibility="Auto" />
+                            VerticalScrollBarVisibility="Auto">
+                            <avalonEdit:TextEditor.Options>
+                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                            </avalonEdit:TextEditor.Options>
+                        </avalonEdit:TextEditor>
                     </themes:ClassicBorderDecorator>
                 </Grid>
             </TabItem>
@@ -266,7 +274,11 @@
                             HorizontalScrollBarVisibility="Hidden"
                             SyntaxHighlighting="XML"
                             VerticalScrollBarVisibility="Auto"
-                            WordWrap="True" />
+                            WordWrap="True">
+                            <avalonEdit:TextEditor.Options>
+                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                            </avalonEdit:TextEditor.Options>
+                        </avalonEdit:TextEditor>
                     </themes:ClassicBorderDecorator>
 
                     <TextBlock
@@ -289,7 +301,11 @@
                             HorizontalScrollBarVisibility="Hidden"
                             SyntaxHighlighting="XML"
                             VerticalScrollBarVisibility="Auto"
-                            WordWrap="True" />
+                            WordWrap="True">
+                            <avalonEdit:TextEditor.Options>
+                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                            </avalonEdit:TextEditor.Options>
+                        </avalonEdit:TextEditor>
                     </themes:ClassicBorderDecorator>
 
                     <TextBlock
@@ -312,7 +328,11 @@
                             HorizontalScrollBarVisibility="Hidden"
                             SyntaxHighlighting="XML"
                             VerticalScrollBarVisibility="Auto"
-                            WordWrap="True" />
+                            WordWrap="True">
+                            <avalonEdit:TextEditor.Options>
+                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                            </avalonEdit:TextEditor.Options>
+                        </avalonEdit:TextEditor>
                     </themes:ClassicBorderDecorator>
 
                     <TextBlock
@@ -423,7 +443,11 @@
                                 SyntaxHighlighting="XML"
                                 TextChanged="OnSelectedMappingOutputChanged"
                                 VerticalScrollBarVisibility="Auto"
-                                WordWrap="True" />
+                                WordWrap="True">
+                                <avalonEdit:TextEditor.Options>
+                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                                </avalonEdit:TextEditor.Options>
+                            </avalonEdit:TextEditor>
                         </themes:ClassicBorderDecorator>
                     </Grid>
 
@@ -477,7 +501,11 @@
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
                             VerticalScrollBarVisibility="Auto"
-                            WordWrap="True" />
+                            WordWrap="True">
+                            <avalonEdit:TextEditor.Options>
+                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                            </avalonEdit:TextEditor.Options>
+                        </avalonEdit:TextEditor>
                     </themes:ClassicBorderDecorator>
 
                     <TextBlock
@@ -501,7 +529,11 @@
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
                             VerticalScrollBarVisibility="Auto"
-                            WordWrap="True" />
+                            WordWrap="True">
+                            <avalonEdit:TextEditor.Options>
+                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                            </avalonEdit:TextEditor.Options>
+                        </avalonEdit:TextEditor>
                     </themes:ClassicBorderDecorator>
 
                     <TextBlock
@@ -525,7 +557,11 @@
                             SyntaxHighlighting="C#"
                             TextChanged="OnCodeChanged"
                             VerticalScrollBarVisibility="Auto"
-                            WordWrap="True" />
+                            WordWrap="True">
+                            <avalonEdit:TextEditor.Options>
+                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                            </avalonEdit:TextEditor.Options>
+                        </avalonEdit:TextEditor>
                     </themes:ClassicBorderDecorator>
                 </Grid>
             </TabItem>

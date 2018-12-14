@@ -63,6 +63,8 @@ namespace RapidXamlToolkit.Options
                 this.DefaultCodeBehindConstructorEntry.SyntaxHighlighting = null;
 
                 this.SelectedMappingOutputEntry.SyntaxHighlighting = null;
+                
+                this.SelectedMappingOutputEntry.Options.EnableHyperlinks = false;
 
                 this.ViewGenXamlPlchldrBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
                 this.ViewGenXamlPlchldrBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
