@@ -40,6 +40,15 @@ namespace RapidXamlToolkit.Options
             this.disabled = true;
         }
 
+        public void SelectFirstProfileInList()
+        {
+            if (this.DisplayedProfiles.SelectedIndex < 0 && ((this.SettingsProvider != null && this.SettingsProvider.ActualSettings.Profiles.Any()) ||
+                (this.DataContext != null && (this.DataContext as Settings).Profiles.Any())))
+            {
+                this.DisplayedProfiles.SelectedIndex = 0;
+            }
+        }
+
         private void SetActiveClicked(object sender, RoutedEventArgs e)
         {
             if (this.disabled)
