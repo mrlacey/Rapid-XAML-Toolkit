@@ -310,7 +310,7 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>Текст в конце имени проекта, который содержит шаблоны View (XAML-файлы).</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
+  <data name="Options_ButtonExport" xml:space="preserve">
     <value>Экспортировать</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">

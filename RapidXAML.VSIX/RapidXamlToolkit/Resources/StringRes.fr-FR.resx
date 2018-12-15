@@ -128,31 +128,31 @@
     <value>Indique que Views et ViewModels (fichiers XAML) sont dans le même projet.</value>
   </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
-    <value>Ajouter</value>
+    <value>_Ajouter</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Copier</value>
+    <value>_Copier</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>_Supprimer</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Modifier</value>
+    <value>_Modifier</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>Importer</value>
+    <value>_Importer</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>Nouveau</value>
+    <value>_Nouveau</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
     <value>Ok</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
-    <value>Réinitialiser</value>
+    <value>_Réinitialiser</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
-    <value>Définir sur Actif</value>
+    <value>_Définir sur Actif</value>
   </data>
   <data name="Options_ClassGrouping" xml:space="preserve">
     <value>Groupe de catégories</value>
@@ -310,8 +310,8 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>Le texte à la fin du nom du projet qui contient les fichiers Views (fichiers XAML).</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
-    <value>Exporter</value>
+  <data name="Options_ButtonExport" xml:space="preserve">
+    <value>_Exporter</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
     <value>Impossible de trouver le projet « {0} » dans la solution.</value>

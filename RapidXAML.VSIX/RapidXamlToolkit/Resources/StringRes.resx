@@ -128,31 +128,31 @@
     <value>Indicate that the ViewModels and Views (XAML files) are in the same project.</value>
   </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
-    <value>Add</value>
+    <value>_Add</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Copy</value>
+    <value>_Copy</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Delete</value>
+    <value>_Delete</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Edit</value>
+    <value>_Edit</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>Import</value>
+    <value>_Import</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>New</value>
+    <value>_New</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
     <value>Ok</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>_Reset</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
-    <value>Set as Active</value>
+    <value>_Set as Active</value>
   </data>
   <data name="Options_ClassGrouping" xml:space="preserve">
     <value>Class grouping:</value>
@@ -310,8 +310,8 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>The text from the end of the name of the project that contains the Views (XAML files.)</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
-    <value>Export</value>
+  <data name="Options_ButtonExport" xml:space="preserve">
+    <value>E_xport</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
     <value>Unable to find project '{0}' in the solution.</value>

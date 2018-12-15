@@ -310,7 +310,7 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>Views (XAML ファイル) を含むプロジェクトの名前の最後の文字です。</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
+  <data name="Options_ButtonExport" xml:space="preserve">
     <value>エクスポート</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">

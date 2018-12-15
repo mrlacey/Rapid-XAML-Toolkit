@@ -628,15 +628,6 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export.
-        /// </summary>
-        public static string Option_ButtonExport {
-            get {
-                return ResourceManager.GetString("Option_ButtonExport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Views &amp; ViewModels are in the same project.
         /// </summary>
         public static string Options_AllInOneProject {
@@ -673,7 +664,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
+        ///   Looks up a localized string similar to _Add.
         /// </summary>
         public static string Options_ButtonAdd {
             get {
@@ -682,7 +673,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy.
+        ///   Looks up a localized string similar to _Copy.
         /// </summary>
         public static string Options_ButtonCopy {
             get {
@@ -691,7 +682,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to _Delete.
         /// </summary>
         public static string Options_ButtonDelete {
             get {
@@ -700,7 +691,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to _Edit.
         /// </summary>
         public static string Options_ButtonEdit {
             get {
@@ -709,7 +700,16 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import.
+        ///   Looks up a localized string similar to E_xport.
+        /// </summary>
+        public static string Options_ButtonExport {
+            get {
+                return ResourceManager.GetString("Options_ButtonExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Import.
         /// </summary>
         public static string Options_ButtonImport {
             get {
@@ -718,7 +718,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New.
+        ///   Looks up a localized string similar to _New.
         /// </summary>
         public static string Options_ButtonNew {
             get {
@@ -736,7 +736,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset.
+        ///   Looks up a localized string similar to _Reset.
         /// </summary>
         public static string Options_ButtonReset {
             get {
@@ -745,7 +745,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set as Active.
+        ///   Looks up a localized string similar to _Set as Active.
         /// </summary>
         public static string Options_ButtonSetAsActive {
             get {
