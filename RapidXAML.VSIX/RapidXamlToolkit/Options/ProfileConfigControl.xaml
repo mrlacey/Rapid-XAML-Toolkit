@@ -46,6 +46,7 @@
             x:Name="ReferenceTextBox"
             Grid.Row="1"
             Grid.Column="1"
+            AutomationProperties.Name="{x:Static strings:StringRes.Options_ProfileName}"
             Text="{Binding Name, Mode=TwoWay}" />
 
         <TabControl
@@ -110,6 +111,8 @@
                         Grid.Row="1"
                         Grid.Column="1"
                         Margin="0,0,0,6"
+                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_XamlProjectSuffixDescription}"
+                        AutomationProperties.Name="{x:Static strings:StringRes.Options_XamlProjectSuffix}"
                         Text="{Binding ViewGeneration.XamlProjectSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock
@@ -122,6 +125,8 @@
                         Grid.Row="2"
                         Grid.Column="1"
                         Margin="0,0,0,6"
+                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_ViewModelProjectSuffixDescription}"
+                        AutomationProperties.Name="{x:Static strings:StringRes.Options_ViewModelProjectSuffix}"
                         Text="{Binding ViewGeneration.ViewModelProjectSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock
@@ -134,6 +139,8 @@
                         Grid.Row="3"
                         Grid.Column="1"
                         Margin="0,0,0,6"
+                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_XamlFileDirectoryNameDescription}"
+                        AutomationProperties.Name="{x:Static strings:StringRes.Options_XamlFileDirectoryName}"
                         Text="{Binding ViewGeneration.XamlFileDirectoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock
@@ -146,6 +153,8 @@
                         Grid.Row="4"
                         Grid.Column="1"
                         Margin="0,0,0,6"
+                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_ViewModelDirectoryNameDescription}"
+                        AutomationProperties.Name="{x:Static strings:StringRes.Options_ViewModelDirectoryName}"
                         Text="{Binding ViewGeneration.ViewModelDirectoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock
@@ -158,6 +167,8 @@
                         Grid.Row="5"
                         Grid.Column="1"
                         Margin="0,0,0,6"
+                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_XamlFileSuffixDescription}"
+                        AutomationProperties.Name="{x:Static strings:StringRes.Options_XamlFileSuffix}"
                         Text="{Binding ViewGeneration.XamlFileSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock
@@ -170,6 +181,8 @@
                         Grid.Row="6"
                         Grid.Column="1"
                         Margin="0,0,0,6"
+                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_ViewModelFileSuffixDescription}"
+                        AutomationProperties.Name="{x:Static strings:StringRes.Options_ViewModelFileSuffix}"
                         Text="{Binding ViewGeneration.ViewModelFileSuffix, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <TextBlock
@@ -188,6 +201,8 @@
                         BorderStyle="Sunken">
                         <avalonEdit:TextEditor
                             x:Name="ViewGenXamlPlchldrEntry"
+                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_XamlPlaceholderDescription}"
+                            AutomationProperties.Name="{x:Static strings:StringRes.Options_XamlPlaceholder}"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             PreviewKeyDown="TextEditorPreviewKeyDown"
@@ -214,6 +229,8 @@
                         BorderStyle="Sunken">
                         <avalonEdit:TextEditor
                             x:Name="ViewGenCodeBehindPlchldrEntry"
+                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_CodeBehindPlaceholderDescription}"
+                            AutomationProperties.Name="{x:Static strings:StringRes.Options_CodeBehindPlaceholder}"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             PreviewKeyDown="TextEditorPreviewKeyDown"
@@ -254,6 +271,8 @@
                         Grid.Row="1"
                         Grid.Column="1"
                         Margin="0,0,0,6"
+                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_ClassGroupingDescription}"
+                        AutomationProperties.Name="{x:Static strings:StringRes.Options_ClassGrouping}"
                         Text="{Binding ClassGrouping, Mode=TwoWay}" />
 
                     <TextBlock
@@ -271,6 +290,8 @@
                         <avalonEdit:TextEditor
                             x:Name="FallbackOutputEntry"
                             MinHeight="34"
+                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_FallbackOutputDescription}"
+                            AutomationProperties.Name="{x:Static strings:StringRes.Options_FallbackOutput}"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
@@ -299,6 +320,8 @@
                         <avalonEdit:TextEditor
                             x:Name="SubPropertyOutputEntry"
                             MinHeight="34"
+                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_SubPropertyOutputDescription}"
+                            AutomationProperties.Name="{x:Static strings:StringRes.Options_SubPropertyOutput}"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
@@ -327,6 +350,8 @@
                         <avalonEdit:TextEditor
                             x:Name="EnumMemberOutputEntry"
                             MinHeight="34"
+                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_EnumMappingOutputDescription}"
+                            AutomationProperties.Name="{x:Static strings:StringRes.Options_EnumMappingOutput}"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
@@ -352,7 +377,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <ScrollViewer>
+                        <ScrollViewer AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingsHeader}">
                             <DataGrid
                                 x:Name="DisplayedMappings"
                                 CanUserAddRows="False"
@@ -410,6 +435,8 @@
                             Grid.Row="0"
                             Grid.Column="1"
                             Margin="0,4,0,6"
+                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingTypeDescription}"
+                            AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingType}"
                             Text="{Binding SelectedMapping.Type, Mode=TwoWay}" />
 
                         <TextBlock
@@ -422,6 +449,8 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             Margin="0,0,0,6"
+                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingNameFilterDescription}"
+                            AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingNameFilter}"
                             Text="{Binding SelectedMapping.NameContains, Mode=TwoWay}" />
 
                         <CheckBox
@@ -446,6 +475,8 @@
                             <avalonEdit:TextEditor
                                 x:Name="SelectedMappingOutputEntry"
                                 MinHeight="34"
+                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingOutputDescription}"
+                                AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingOutput}"
                                 BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                                 BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                                 HorizontalScrollBarVisibility="Hidden"
@@ -488,6 +519,8 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         Margin="0,0,0,6"
+                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_XamlPageAttributeDescription}"
+                        AutomationProperties.Name="{x:Static strings:StringRes.Options_XamlPageAttribute}"
                         Text="{Binding Datacontext.XamlPageAttribute, Mode=TwoWay}" />
 
                     <TextBlock
@@ -505,6 +538,8 @@
                         <avalonEdit:TextEditor
                             x:Name="CodeBehindPageContentEntry"
                             MinHeight="34"
+                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_CodeBehindPageContentDescription}"
+                            AutomationProperties.Name="{x:Static strings:StringRes.Options_CodeBehindPageContent}"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
@@ -534,6 +569,8 @@
                         <avalonEdit:TextEditor
                             x:Name="CodeBehindConstructorContentEntry"
                             MinHeight="34"
+                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_CodeBehindConstructorContentDescription}"
+                            AutomationProperties.Name="{x:Static strings:StringRes.Options_CodeBehindConstructorContent}"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
@@ -563,6 +600,8 @@
                         <avalonEdit:TextEditor
                             x:Name="DefaultCodeBehindConstructorEntry"
                             MinHeight="34"
+                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_DefaultCodeBehindConstructorDescription}"
+                            AutomationProperties.Name="{x:Static strings:StringRes.Options_DefaultCodeBehindConstructor}"
                             BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
                             BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
                             HorizontalScrollBarVisibility="Hidden"
