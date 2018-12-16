@@ -310,7 +310,7 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>보기(XAML 파일)가 포함된 프로젝트 이름 끝의 텍스트입니다.</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
+  <data name="Options_ButtonExport" xml:space="preserve">
     <value>내보내기</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">

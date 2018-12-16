@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using RapidXamlToolkit.Resources;
@@ -48,6 +49,12 @@ namespace RapidXamlToolkit.Options
         {
             get
             {
+                if (this.selectedMapping == null && this.Mappings.Any())
+                {
+                    this.selectedMapping = this.Mappings.First();
+                    this.OnPropertyChanged();
+                }
+
                 return this.selectedMapping;
             }
 

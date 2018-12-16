@@ -128,31 +128,31 @@
     <value>Indique que ViewModels e Modos de exibição (arquivos XAML) estão no mesmo projeto.</value>
   </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
-    <value>Adicionar</value>
+    <value>_Adicionar</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Copiar</value>
+    <value>_Copiar</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Excluir</value>
+    <value>_Excluir</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Editar</value>
+    <value>Edi_tar</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>Importar</value>
+    <value>_Importar</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>Novo</value>
+    <value>_Novo</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
     <value>Ok</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
-    <value>Redefinir</value>
+    <value>_Redefinir</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
-    <value>Definir como Ativo</value>
+    <value>_Definir como Ativo</value>
   </data>
   <data name="Options_ClassGrouping" xml:space="preserve">
     <value>Agrupamento de classes</value>
@@ -310,8 +310,8 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>O texto do fim do nome do projeto que contém os Modos de exibição (arquivos XAML).</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
-    <value>Exportar</value>
+  <data name="Options_ButtonExport" xml:space="preserve">
+    <value>E_xportar</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
     <value>Não é possível encontrar o projeto '{0}' na solução.</value>

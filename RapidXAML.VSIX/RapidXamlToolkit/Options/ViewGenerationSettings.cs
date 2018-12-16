@@ -133,10 +133,12 @@ namespace RapidXamlToolkit.Options
                 }
                 else
                 {
-                    var viewProject = new VisualNode($"MyApp.{this.XamlProjectSuffix}");
+                    var viewDot = string.IsNullOrWhiteSpace(this.XamlProjectSuffix) ? string.Empty : ".";
+                    var viewProject = new VisualNode($"MyApp{viewDot}{this.XamlProjectSuffix}");
                     viewProject.ChildNodes.Add(viewFolder);
 
-                    var vmProject = new VisualNode($"MyApp.{this.ViewModelProjectSuffix}");
+                    var vmDot = string.IsNullOrWhiteSpace(this.ViewModelProjectSuffix) ? string.Empty : ".";
+                    var vmProject = new VisualNode($"MyApp{vmDot}{this.ViewModelProjectSuffix}");
                     vmProject.ChildNodes.Add(vmFolder);
 
                     solution.ChildNodes.Add(viewProject);

@@ -128,31 +128,31 @@
     <value>Udává, že modely zobrazení a zobrazení (soubory XAML) jsou ve stejném projektu.</value>
   </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
-    <value>Přidat</value>
+    <value>_Přidat</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Kopírovat</value>
+    <value>_Kopírovat</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Odstranit</value>
+    <value>_Odstranit</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Upravit</value>
+    <value>_Upravit</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>Importovat</value>
+    <value>_Importovat</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>Nový</value>
+    <value>_Nový</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
-    <value>Resetovat</value>
+    <value>_Resetovat</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
-    <value>Nastavit jako aktivní</value>
+    <value>N_astavit jako aktivní</value>
   </data>
   <data name="Options_ClassGrouping" xml:space="preserve">
     <value>Seskupení tříd</value>
@@ -310,8 +310,8 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>Text z konce názvu projektu, který obsahuje zobrazení (soubory XAML)</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
-    <value>Exportovat</value>
+  <data name="Options_ButtonExport" xml:space="preserve">
+    <value>_Exportovat</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
     <value>Projekt {0} nelze v řešení najít.</value>

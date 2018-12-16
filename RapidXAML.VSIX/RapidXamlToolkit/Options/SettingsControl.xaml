@@ -5,11 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:RapidXamlToolkit"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:options="clr-namespace:RapidXamlToolkit.Options"
     xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
-    d:DesignHeight="300"
-    d:DesignWidth="300"
+    d:DesignHeight="350"
+    d:DesignWidth="400"
     mc:Ignorable="d">
-    <Grid>
+    <UserControl.Resources>
+        <options:ProfileFontWeightConverter x:Key="FontWeightConverter" />
+    </UserControl.Resources>
+    <Grid Margin="6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -23,13 +27,12 @@
         <GroupBox
             Grid.Row="0"
             Grid.ColumnSpan="2"
-            Margin="0,0,0,8"
-            Padding="4"
+            Margin="0,0,0,12"
+            Padding="9"
             Header="{x:Static strings:StringRes.Options_GeneralSettingsHeader}">
-            <StackPanel Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding ExtendedOutputEnabled, Mode=TwoWay}" />
-                <TextBlock Margin="4,0,0,0" Text="{x:Static strings:StringRes.Options_EnableExtendedLogging}" />
-            </StackPanel>
+            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ExtendedOutputEnabled, Mode=TwoWay}">
+                <TextBlock Text="{x:Static strings:StringRes.Options_EnableExtendedLogging}" ToolTip="{x:Static strings:StringRes.Options_EnableExtendedLoggingDescription}" />
+            </CheckBox>
         </GroupBox>
 
         <TextBlock Grid.Row="1" Text="{x:Static strings:StringRes.Options_ProfilesSectionHeader}" />
@@ -41,7 +44,7 @@
             ItemsSource="{Binding ProfilesList}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DisplayName}" />
+                    <TextBlock FontWeight="{Binding DisplayName, Converter={StaticResource FontWeightConverter}}" Text="{Binding DisplayName}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -49,31 +52,22 @@
         <StackPanel
             Grid.Row="2"
             Grid.Column="1"
-            Width="100"
             Margin="8,0,4,0">
             <StackPanel.Resources>
                 <Style TargetType="Button">
+                    <Setter Property="Height" Value="23" />
+                    <Setter Property="Width" Value="100" />
                     <Setter Property="Margin" Value="0,0,0,6" />
                 </Style>
             </StackPanel.Resources>
-            <Button
-                Margin="0,0,0,18"
-                Click="SetActiveClicked"
-                Content="{x:Static strings:StringRes.Options_ButtonSetAsActive}" />
+            <Button Click="SetActiveClicked" Content="{x:Static strings:StringRes.Options_ButtonSetAsActive}" />
             <Button Click="AddClicked" Content="{x:Static strings:StringRes.Options_ButtonAdd}" />
             <Button Click="EditClicked" Content="{x:Static strings:StringRes.Options_ButtonEdit}" />
             <Button Click="CopyClicked" Content="{x:Static strings:StringRes.Options_ButtonCopy}" />
             <Button Click="DeleteClicked" Content="{x:Static strings:StringRes.Options_ButtonDelete}" />
             <Button Click="ImportClicked" Content="{x:Static strings:StringRes.Options_ButtonImport}" />
-            <Button Click="ExportClicked" Content="{x:Static strings:StringRes.Option_ButtonExport}" />
+            <Button Click="ExportClicked" Content="{x:Static strings:StringRes.Options_ButtonExport}" />
+            <Button Click="ResetClicked" Content="{x:Static strings:StringRes.Options_ButtonReset}" />
         </StackPanel>
-        <Button
-            Grid.Row="2"
-            Grid.Column="1"
-            Width="100"
-            Margin="12,0,4,0"
-            VerticalAlignment="Bottom"
-            Click="ResetClicked"
-            Content="{x:Static strings:StringRes.Options_ButtonReset}" />
     </Grid>
 </UserControl>

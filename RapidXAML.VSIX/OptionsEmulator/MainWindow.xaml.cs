@@ -16,6 +16,7 @@ namespace OptionsEmulator
 
             this.Settings.DataContext = ConfiguredSettings.GetDefaultSettings();
             this.Settings.DisableButtonsForEmulator();
+            this.Settings.SelectFirstProfileInList();
 
             if (System.Diagnostics.Debugger.IsAttached)
             {

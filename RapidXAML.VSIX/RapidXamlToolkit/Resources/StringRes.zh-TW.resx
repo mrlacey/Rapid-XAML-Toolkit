@@ -310,7 +310,7 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>包含 View (XAML 檔案) 之專案名稱結尾的文字。</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
+  <data name="Options_ButtonExport" xml:space="preserve">
     <value>匯出</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
