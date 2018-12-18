@@ -8,9 +8,41 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
     xmlns:themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
+    xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
     d:DesignHeight="550"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ControlEditRequiredBackgroundBrushKey}}" />
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Validation.ErrorTemplate">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Grid>
+                                    <AdornedElementPlaceholder />
+                                    <Rectangle
+                                        Width="20"
+                                        Height="20"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        Fill="PaleVioletRed" />
+                                    <Image
+                                        Width="20"
+                                        Height="20"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        Source="pack://application:,,,/Resources/StatusAnnotations_Warning_16xLG_color.png" />
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid Margin="12">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -36,6 +68,35 @@
                 PreviewMouseDown="DetailsClicked"
                 Text="{x:Static strings:StringRes.Options_TemporaryUiNotice}"
                 TextDecorations="Underline" />
+            <Image
+                Width="20"
+                Height="20"
+                Source="pack://application:,,,/Resources/StatusAnnotations_Warning_16xLG_color.png" />
+            <TextBlock Text="X" />
+            <Image
+                Width="20"
+                Height="20"
+                Source="pack://application:,,,/RapidXamlTookitExt;component/Resources/StatusAnnotations_Warning_16xLG_color.png" />
+            <TextBlock Text="X" />
+            <Image
+                Width="20"
+                Height="20"
+                Source="pack://application:,,,/RapidXamlTookitExt;/Resources/StatusAnnotations_Warning_16xLG_color.png" />
+            <TextBlock Text="X" />
+            <Image
+                Width="20"
+                Height="20"
+                Source="pack://RapidXamlTookitExt;component/Resources/StatusAnnotations_Warning_16xLG_color.png" />
+            <TextBlock Text="X" />
+            <Image
+                Width="20"
+                Height="20"
+                Source="/RapidXamlTookitExt;component/Resources/StatusAnnotations_Warning_16xLG_color.png" />
+            <TextBlock Text="X" />
+            <Image
+                Width="20"
+                Height="20"
+                Source="/Resources/StatusAnnotations_Warning_16xLG_color.png" />
         </StackPanel>
         <TextBlock
             Grid.Row="1"
@@ -47,7 +108,7 @@
             Grid.Row="1"
             Grid.Column="1"
             AutomationProperties.Name="{x:Static strings:StringRes.Options_ProfileName}"
-            Text="{Binding Name, Mode=TwoWay}" />
+            Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
         <TabControl
             Grid.Row="2"
@@ -437,7 +498,7 @@
                             Margin="0,4,0,6"
                             AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingTypeDescription}"
                             AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingType}"
-                            Text="{Binding SelectedMapping.Type, Mode=TwoWay}" />
+                            Text="{Binding SelectedMapping.Type, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
                         <TextBlock
                             Grid.Row="1"
@@ -489,6 +550,16 @@
                                     <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
                                 </avalonEdit:TextEditor.Options>
                             </avalonEdit:TextEditor>
+                            <!--<avalonEdit:TextEditor.Style>
+                                <Style TargetType="TextBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ControlEditRequiredBackgroundBrushKey}}" />
+                                            <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </avalonEdit:TextEditor.Style>-->
                         </themes:ClassicBorderDecorator>
                     </Grid>
 

@@ -107,6 +107,7 @@
     <Compile Include="Options\AllowedPlaceholdersAttribute.cs" />
     <Compile Include="Options\AllowedPlaceholderValidator.cs" />
     <Compile Include="Options\CanNotifyPropertyChanged.cs" />
+    <Compile Include="Options\CanNotifyPropertyChangedAndDataErrorInfo.cs" />
     <Compile Include="Options\ConfiguredSettings.cs" />
     <Compile Include="Options\ConfiguredSettings.Default.cs" />
     <Compile Include="Options\DatacontextSettings.cs" />
@@ -297,6 +298,9 @@
     <Content Include="ko-KR\Extension.vsixlangpack" />
     <Content Include="pl-PL\Extension.vsixlangpack" />
     <Content Include="pt-BR\Extension.vsixlangpack" />
+    <Resource Include="Resources\StatusAnnotations_Warning_16xLG_color.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="ru-RU\Extension.vsixlangpack" />
     <Content Include="tr-TR\Extension.vsixlangpack" />
     <Content Include="zh-CN\Extension.vsixlangpack" />

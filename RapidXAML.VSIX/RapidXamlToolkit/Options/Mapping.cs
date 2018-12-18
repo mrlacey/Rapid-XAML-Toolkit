@@ -2,10 +2,12 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace RapidXamlToolkit.Options
 {
-    public class Mapping : CanNotifyPropertyChanged, ICloneable
+    public class Mapping : CanNotifyPropertyChangedAndDataErrorInfo, ICloneable
     {
         private string type;
         private string nameContains;
@@ -22,6 +24,19 @@ namespace RapidXamlToolkit.Options
             set
             {
                 this.type = value;
+
+                if (string.IsNullOrWhiteSpace(this.type))
+                {
+                    this.Errors.Add(nameof(this.Type), "Type must not be blank.");
+                }
+                else
+                {
+                    if (this.Errors.ContainsKey(nameof(this.Type)))
+                    {
+                        this.Errors.Remove(nameof(this.Type));
+                    }
+                }
+
                 this.OnPropertyChanged();
             }
         }
