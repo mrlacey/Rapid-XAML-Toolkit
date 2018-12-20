@@ -23,18 +23,10 @@
                             <ControlTemplate>
                                 <Grid>
                                     <AdornedElementPlaceholder />
-                                    <Rectangle
-                                        Width="20"
-                                        Height="20"
+                                    <local:WarningTriangle
+                                        Margin="1"
                                         HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        Fill="PaleVioletRed" />
-                                    <Image
-                                        Width="20"
-                                        Height="20"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        Source="pack://application:,,,/Resources/StatusAnnotations_Warning_16xLG_color.png" />
+                                        VerticalAlignment="Top" />
                                 </Grid>
                             </ControlTemplate>
                         </Setter.Value>
@@ -68,35 +60,6 @@
                 PreviewMouseDown="DetailsClicked"
                 Text="{x:Static strings:StringRes.Options_TemporaryUiNotice}"
                 TextDecorations="Underline" />
-            <Image
-                Width="20"
-                Height="20"
-                Source="pack://application:,,,/Resources/StatusAnnotations_Warning_16xLG_color.png" />
-            <TextBlock Text="X" />
-            <Image
-                Width="20"
-                Height="20"
-                Source="pack://application:,,,/RapidXamlTookitExt;component/Resources/StatusAnnotations_Warning_16xLG_color.png" />
-            <TextBlock Text="X" />
-            <Image
-                Width="20"
-                Height="20"
-                Source="pack://application:,,,/RapidXamlTookitExt;/Resources/StatusAnnotations_Warning_16xLG_color.png" />
-            <TextBlock Text="X" />
-            <Image
-                Width="20"
-                Height="20"
-                Source="pack://RapidXamlTookitExt;component/Resources/StatusAnnotations_Warning_16xLG_color.png" />
-            <TextBlock Text="X" />
-            <Image
-                Width="20"
-                Height="20"
-                Source="/RapidXamlTookitExt;component/Resources/StatusAnnotations_Warning_16xLG_color.png" />
-            <TextBlock Text="X" />
-            <Image
-                Width="20"
-                Height="20"
-                Source="/Resources/StatusAnnotations_Warning_16xLG_color.png" />
         </StackPanel>
         <TextBlock
             Grid.Row="1"
@@ -272,6 +235,16 @@
                             <avalonEdit:TextEditor.Options>
                                 <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
                             </avalonEdit:TextEditor.Options>
+                            <avalonEdit:TextEditor.Style>
+                                <Style TargetType="avalonEdit:TextEditor">
+                                    <Style.Triggers>
+                                        <Trigger Property="Validation.HasError" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ControlEditRequiredBackgroundBrushKey}}" />
+                                            <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </avalonEdit:TextEditor.Style>
                         </avalonEdit:TextEditor>
                     </themes:ClassicBorderDecorator>
                     <TextBlock
@@ -550,16 +523,6 @@
                                     <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
                                 </avalonEdit:TextEditor.Options>
                             </avalonEdit:TextEditor>
-                            <!--<avalonEdit:TextEditor.Style>
-                                <Style TargetType="TextBox">
-                                    <Style.Triggers>
-                                        <Trigger Property="Validation.HasError" Value="True">
-                                            <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ControlEditRequiredBackgroundBrushKey}}" />
-                                            <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </avalonEdit:TextEditor.Style>-->
                         </themes:ClassicBorderDecorator>
                     </Grid>
 

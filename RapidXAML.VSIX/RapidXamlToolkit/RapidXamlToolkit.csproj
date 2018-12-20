@@ -132,9 +132,22 @@
     </Compile>
     <Compile Include="Options\ViewGenerationSettings.cs" />
     <Compile Include="Options\VisualNode.cs" />
+    <Compile Include="Options\WarningTriangle.xaml.cs">
+      <DependentUpon>WarningTriangle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Placeholder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlPackage.cs" />
+    <Compile Include="Resources\ImageResources.en-us.Designer.cs">
+      <DependentUpon>ImageResources.en-us.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\ImageResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImageResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\StringRes.cs-CZ.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -213,6 +226,14 @@
     <Compile Include="Telemetry\TelemetryProperties.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\ImageResources.en-us.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImageResources.en-us.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ImageResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImageResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\StringRes.cs-CZ.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringRes.cs-CZ.Designer.cs</LastGenOutput>
@@ -298,9 +319,7 @@
     <Content Include="ko-KR\Extension.vsixlangpack" />
     <Content Include="pl-PL\Extension.vsixlangpack" />
     <Content Include="pt-BR\Extension.vsixlangpack" />
-    <Resource Include="Resources\StatusAnnotations_Warning_16xLG_color.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <None Include="Resources\WarningIcon.png" />
     <Content Include="ru-RU\Extension.vsixlangpack" />
     <Content Include="tr-TR\Extension.vsixlangpack" />
     <Content Include="zh-CN\Extension.vsixlangpack" />
@@ -774,6 +793,10 @@
     <Page Include="Options\SettingsControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Options\WarningTriangle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
