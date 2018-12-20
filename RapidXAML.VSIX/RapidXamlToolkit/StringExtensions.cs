@@ -276,6 +276,9 @@ namespace RapidXamlToolkit
                         // For scenarios like : "<x:String>$elementwithspaces$</x:String>"
                         possibleXaml = possibleXaml.Replace(placeholder, validText);
                         break;
+                    case Placeholder.GeneratedXAML:
+                        possibleXaml = possibleXaml.Replace(placeholder, "<GeneratedXaml />");
+                        break;
                     default:
                         possibleXaml = possibleXaml.Replace(placeholder, "Something");
                         break;
@@ -288,8 +291,17 @@ namespace RapidXamlToolkit
                 // ignore whitespace at start or end
                 // ignore placeholders and check is valid XML
                 // Wrap in case there are multiple elements
-                // Remove know prefix so it's ignored
-                var element = XElement.Parse($"<wrapper>{possibleXaml.Trim().Replace("x:", string.Empty)}</wrapper>");
+                // Remove known prefix so it's ignored
+                XElement element;
+
+                if (possibleXaml.TrimStart().StartsWith("<?xml "))
+                {
+                    element = XElement.Parse(possibleXaml.Trim().Replace("x:", string.Empty));
+                }
+                else
+                {
+                    element = XElement.Parse($"<wrapper>{possibleXaml.Trim().Replace("x:", string.Empty)}</wrapper>");
+                }
 
                 foreach (var descendantNode in element.DescendantNodes())
                 {

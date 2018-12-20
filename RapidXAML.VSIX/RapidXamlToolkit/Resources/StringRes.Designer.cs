@@ -1150,6 +1150,33 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid placeholder detected: {0}.
+        /// </summary>
+        public static string Options_Warn_InvalidPlaceholders {
+            get {
+                return ResourceManager.GetString("Options_Warn_InvalidPlaceholders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown placeholder detected: {0}.
+        /// </summary>
+        public static string Options_Warn_UnknownPlaceholders {
+            get {
+                return ResourceManager.GetString("Options_Warn_UnknownPlaceholders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not leave blank. Use &apos;{0}&apos; if no output is required..
+        /// </summary>
+        public static string Options_Warn_UseNoOutputNotBlank {
+            get {
+                return ResourceManager.GetString("Options_Warn_UseNoOutputNotBlank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XAML file directory name:.
         /// </summary>
         public static string Options_XamlFileDirectoryName {

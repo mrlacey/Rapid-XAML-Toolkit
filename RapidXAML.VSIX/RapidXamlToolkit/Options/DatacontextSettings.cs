@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Runtime.Serialization;
 
 namespace RapidXamlToolkit.Options
@@ -30,5 +31,20 @@ namespace RapidXamlToolkit.Options
 
         [AllowedPlaceholders(Placeholder.ViewClass)]
         public string DefaultCodeBehindConstructor { get; set; }
+
+        internal string GetCodeBehindPageContentErrorMessage(string enteredContent)
+        {
+            return OptionsEntryValidator.Validate(enteredContent, typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindPageContent), checkforNoOutput: false);
+        }
+
+        internal string GetCodeBehindConstructorContentErrorMessage(string enteredContent)
+        {
+            return OptionsEntryValidator.Validate(enteredContent, typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindConstructorContent), checkforNoOutput: false);
+        }
+
+        internal string GetCodeBehindDefaultConstructorErrorMessage(string enteredConstructor)
+        {
+              return OptionsEntryValidator.Validate(enteredConstructor, typeof(DatacontextSettings), nameof(DatacontextSettings.DefaultCodeBehindConstructor), checkforNoOutput: false);
+        }
     }
 }

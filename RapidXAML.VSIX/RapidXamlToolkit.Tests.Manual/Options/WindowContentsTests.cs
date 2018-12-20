@@ -20,7 +20,7 @@ namespace RapidXamlToolkit.Tests.Manual.Options
 
         private const string ArtifactDir = @"C:\UIT\RXT\";
 
-        private TestSettings testSettings;
+        private readonly TestSettings testSettings;
 
         public WindowContentsTests()
         {

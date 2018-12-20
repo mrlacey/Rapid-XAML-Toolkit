@@ -38,6 +38,9 @@
   <PropertyGroup>
     <StartupObject>OptionsEmulator.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>RapidXamlPackage.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -97,6 +100,9 @@
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.0-beta006</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RapidXamlPackage.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

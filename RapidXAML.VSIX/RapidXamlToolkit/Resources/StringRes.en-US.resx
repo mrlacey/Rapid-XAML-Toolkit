@@ -131,25 +131,25 @@
     <value>_Add</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Copy</value>
+    <value>_Copy</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Delete</value>
+    <value>_Delete</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Edit</value>
+    <value>_Edit</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>Import</value>
+    <value>_Import</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>New</value>
+    <value>_New</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
     <value>Ok</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>_Reset</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
     <value>_Set as Active</value>
@@ -311,7 +311,7 @@
     <value>The text from the end of the name of the project that contains the Views (XAML files.)</value>
   </data>
   <data name="Options_ButtonExport" xml:space="preserve">
-    <value>Export</value>
+    <value>E_xport</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
     <value>Unable to find project '{0}' in the solution.</value>
@@ -625,5 +625,14 @@
   </data>
   <data name="Options_EnableExtendedLoggingDescription" xml:space="preserve">
     <value>Increases the amount of information displayed in the output window. Can be helpful in identifying errors or diagnosing why specific output was produced.</value>
+  </data>
+  <data name="Options_Warn_InvalidPlaceholders" xml:space="preserve">
+    <value>Invalid placeholder detected: {0}</value>
+  </data>
+  <data name="Options_Warn_UnknownPlaceholders" xml:space="preserve">
+    <value>Unknown placeholder detected: {0}</value>
+  </data>
+  <data name="Options_Warn_UseNoOutputNotBlank" xml:space="preserve">
+    <value>Do not leave blank. Use '{0}' if no output is required.</value>
   </data>
 </root>

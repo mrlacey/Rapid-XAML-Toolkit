@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
@@ -147,6 +148,16 @@ namespace RapidXamlToolkit.Options
 
                 return new Collection<VisualNode>(new List<VisualNode>() { solution });
             }
+        }
+
+        public string GetXamlPlaceholderErrorMessage(string placeholder)
+        {
+            return OptionsEntryValidator.Validate(placeholder, typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.XamlPlaceholder), checkforNoOutput: false);
+        }
+
+        internal string GetCodeBehindPlaceholderErrorMessage(string placeholder)
+        {
+            return OptionsEntryValidator.Validate(placeholder, typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.CodePlaceholder), checkforNoOutput: false);
         }
     }
 }
