@@ -86,7 +86,10 @@
                         Grid.Column="1"
                         Margin="0,0,0,6"
                         IsChecked="{Binding ViewGeneration.AllInSameProject, Mode=TwoWay}">
-                        <TextBlock Text="{x:Static strings:StringRes.Options_AllInOneProject}" ToolTip="{x:Static strings:StringRes.Options_AllInOneProjectDescription}" />
+                        <TextBlock
+                            Text="{x:Static strings:StringRes.Options_AllInOneProject}"
+                            TextWrapping="Wrap"
+                            ToolTip="{x:Static strings:StringRes.Options_AllInOneProjectDescription}" />
                     </CheckBox>
                     <Border
                         Grid.Row="0"
