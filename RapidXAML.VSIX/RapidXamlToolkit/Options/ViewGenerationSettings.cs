@@ -152,41 +152,12 @@ namespace RapidXamlToolkit.Options
 
         public string GetXamlPlaceholderErrorMessage(string placeholder)
         {
-            var apv = new AllowedPlaceholderValidator();
-
-            var result = apv.ContainsOnlyValidPlaceholders(typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.XamlPlaceholder), placeholder);
-
-            // TODO: also test for blank
-            // TODO: also test for unknown placeholders
-            // TODO: Localize these responses
-            if (!result.isValid)
-            {
-                return "there is an invalid palceholder";
-            }
-
-            if (!placeholder.IsValidXamlOutput())
-            {
-                return "This desn't look like valid XAML";
-            }
-
-            return null;
+            return OptionsEntryValidator.Validate(placeholder, typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.XamlPlaceholder), checkforNoOutput: false);
         }
 
         internal string GetCodeBehindPlaceholderErrorMessage(string placeholder)
         {
-            var apv = new AllowedPlaceholderValidator();
-
-            var result = apv.ContainsOnlyValidPlaceholders(typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.CodePlaceholder), placeholder);
-
-            // TODO: also test for blank
-            // TODO: also test for unknown placeholders
-            // TODO: Localize these responses
-            if (!result.isValid)
-            {
-                return "there is an invalid placeholder";
-            }
-
-            return null;
+            return OptionsEntryValidator.Validate(placeholder, typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.CodePlaceholder), checkforNoOutput: false);
         }
     }
 }

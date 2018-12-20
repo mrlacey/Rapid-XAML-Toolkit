@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using RapidXamlToolkit.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -106,21 +107,9 @@ namespace RapidXamlToolkit.Options
             };
         }
 
-        internal string GetOutputErrorMessage(string placeholder)
+        internal string GetOutputErrorMessage(string output)
         {
-            var apv = new AllowedPlaceholderValidator();
-
-            var result = apv.ContainsOnlyValidPlaceholders(typeof(Mapping), nameof(Mapping.Output), placeholder);
-
-            // TODO: also test for blank
-            // TODO: also test for unknown placeholders
-            // TODO: Localize these responses
-            if (!result.isValid)
-            {
-                return "there is an invalid placeholder";
-            }
-
-            return null;
+            return OptionsEntryValidator.Validate(output, typeof(Mapping), nameof(Mapping.Output));
         }
     }
 }

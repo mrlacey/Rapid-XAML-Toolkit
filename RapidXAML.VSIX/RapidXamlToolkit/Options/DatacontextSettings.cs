@@ -32,55 +32,19 @@ namespace RapidXamlToolkit.Options
         [AllowedPlaceholders(Placeholder.ViewClass)]
         public string DefaultCodeBehindConstructor { get; set; }
 
-        internal string GetCodeBehindPageContentErrorMessage(string placeholder)
+        internal string GetCodeBehindPageContentErrorMessage(string enteredContent)
         {
-            var apv = new AllowedPlaceholderValidator();
-
-            var result = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindPageContent), placeholder);
-
-            // TODO: also test for blank
-            // TODO: also test for unknown placeholders
-            // TODO: Localize these responses
-            if (!result.isValid)
-            {
-                return "there is an invalid placeholder";
-            }
-
-            return null;
+            return OptionsEntryValidator.Validate(enteredContent, typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindPageContent), checkforNoOutput: false);
         }
 
-        internal string GetCodeBehindConstructorContentErrorMessage(string placeholder)
+        internal string GetCodeBehindConstructorContentErrorMessage(string enteredContent)
         {
-            var apv = new AllowedPlaceholderValidator();
-
-            var result = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindConstructorContent), placeholder);
-
-            // TODO: also test for blank
-            // TODO: also test for unknown placeholders
-            // TODO: Localize these responses
-            if (!result.isValid)
-            {
-                return "there is an invalid placeholder";
-            }
-
-            return null;
+            return OptionsEntryValidator.Validate(enteredContent, typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindConstructorContent), checkforNoOutput: false);
         }
 
-        internal string GetCodeBehindDefaultConstructorErrorMessage(string placeholder)
+        internal string GetCodeBehindDefaultConstructorErrorMessage(string enteredConstructor)
         {
-            var apv = new AllowedPlaceholderValidator();
-
-            var result = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.DefaultCodeBehindConstructor), placeholder);
-
-            // TODO: also test for blank
-            // TODO: also test for unknown placeholders
-            // TODO: Localize these responses
-            if (!result.isValid)
-            {
-                return "there is an invalid placeholder";
-            }
-
-            return null;
+              return OptionsEntryValidator.Validate(enteredConstructor, typeof(DatacontextSettings), nameof(DatacontextSettings.DefaultCodeBehindConstructor), checkforNoOutput: false);
         }
     }
 }

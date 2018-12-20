@@ -114,6 +114,7 @@
     <Compile Include="Options\GeneralSettings.cs" />
     <Compile Include="Options\ICanClose.cs" />
     <Compile Include="Options\Mapping.cs" />
+    <Compile Include="Options\OptionsEntryValidator.cs" />
     <Compile Include="Options\Profile.cs" />
     <Compile Include="Options\ProfileConfigControl.xaml.cs">
       <DependentUpon>ProfileConfigControl.xaml</DependentUpon>

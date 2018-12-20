@@ -142,55 +142,19 @@ namespace RapidXamlToolkit.Options
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        internal string GetFallbackOutputErrorMessage(string placeholder)
+        internal string GetFallbackOutputErrorMessage(string output)
         {
-            var apv = new AllowedPlaceholderValidator();
-
-            var result = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.FallbackOutput), placeholder);
-
-            // TODO: also test for blank
-            // TODO: also test for unknown placeholders
-            // TODO: Localize these responses
-            if (!result.isValid)
-            {
-                return "there is an invalid placeholder";
-            }
-
-            return null;
+            return OptionsEntryValidator.Validate(output, typeof(Profile), nameof(Profile.FallbackOutput));
         }
 
-        internal string GetSubPropertyOutputErrorMessage(string placeholder)
+        internal string GetSubPropertyOutputErrorMessage(string output)
         {
-            var apv = new AllowedPlaceholderValidator();
-
-            var result = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.SubPropertyOutput), placeholder);
-
-            // TODO: also test for blank
-            // TODO: also test for unknown placeholders
-            // TODO: Localize these responses
-            if (!result.isValid)
-            {
-                return "there is an invalid placeholder";
-            }
-
-            return null;
+            return OptionsEntryValidator.Validate(output, typeof(Profile), nameof(Profile.SubPropertyOutput));
         }
 
-        internal string GetEnumMemberOutputErrorMessage(string placeholder)
+        internal string GetEnumMemberOutputErrorMessage(string output)
         {
-            var apv = new AllowedPlaceholderValidator();
-
-            var result = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.EnumMemberOutput), placeholder);
-
-            // TODO: also test for blank
-            // TODO: also test for unknown placeholders
-            // TODO: Localize these responses
-            if (!result.isValid)
-            {
-                return "there is an invalid placeholder";
-            }
-
-            return null;
+            return OptionsEntryValidator.Validate(output, typeof(Profile), nameof(Profile.EnumMemberOutput), checkforNoOutput: false);
         }
     }
 }
