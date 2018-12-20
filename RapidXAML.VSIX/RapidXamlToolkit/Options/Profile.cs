@@ -141,5 +141,56 @@ namespace RapidXamlToolkit.Options
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
+
+        internal string GetFallbackOutputErrorMessage(string placeholder)
+        {
+            var apv = new AllowedPlaceholderValidator();
+
+            var result = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.FallbackOutput), placeholder);
+
+            // TODO: also test for blank
+            // TODO: also test for unknown placeholders
+            // TODO: Localize these responses
+            if (!result.isValid)
+            {
+                return "there is an invalid placeholder";
+            }
+
+            return null;
+        }
+
+        internal string GetSubPropertyOutputErrorMessage(string placeholder)
+        {
+            var apv = new AllowedPlaceholderValidator();
+
+            var result = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.SubPropertyOutput), placeholder);
+
+            // TODO: also test for blank
+            // TODO: also test for unknown placeholders
+            // TODO: Localize these responses
+            if (!result.isValid)
+            {
+                return "there is an invalid placeholder";
+            }
+
+            return null;
+        }
+
+        internal string GetEnumMemberOutputErrorMessage(string placeholder)
+        {
+            var apv = new AllowedPlaceholderValidator();
+
+            var result = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.EnumMemberOutput), placeholder);
+
+            // TODO: also test for blank
+            // TODO: also test for unknown placeholders
+            // TODO: Localize these responses
+            if (!result.isValid)
+            {
+                return "there is an invalid placeholder";
+            }
+
+            return null;
+        }
     }
 }

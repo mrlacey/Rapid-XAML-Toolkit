@@ -4,8 +4,10 @@
 using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
+using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 
 namespace RapidXamlToolkit.Options
@@ -91,6 +93,8 @@ namespace RapidXamlToolkit.Options
 
         private void OnSelectedMappingOutputChanged(object sender, EventArgs e)
         {
+            this.OnEditorTextChanged(sender, e);
+
             if (this.viewModel?.SelectedMapping == null)
             {
                 return;
@@ -103,6 +107,8 @@ namespace RapidXamlToolkit.Options
         // Use this to ensure that code is highlighted/colored appropriate to the language (C#/VB) being used
         private void OnCodeChanged(object sender, EventArgs e)
         {
+            this.OnEditorTextChanged(sender, e);
+
             bool CodeLooksLikeCSharp(string codeSnippet)
             {
                 // A very quick, hacky test - improve as/when needed.
@@ -289,6 +295,86 @@ namespace RapidXamlToolkit.Options
                 }
 
                 e.Handled = true;
+            }
+        }
+
+        private void OnEditorTextChanged(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("OnTextChanged");
+
+            string validationErrorMessage = null;
+
+            if (sender is TextEditor te)
+            {
+                switch (te.Name)
+                {
+                    case "ViewGenXamlPlchldrEntry":
+                        validationErrorMessage = this.viewModel.ViewGeneration.GetXamlPlaceholderErrorMessage(te.Text);
+                        break;
+                    case "ViewGenCodeBehindPlchldrEntry":
+                        validationErrorMessage = this.viewModel.ViewGeneration.GetCodeBehindPlaceholderErrorMessage(te.Text);
+                        break;
+                    case "FallbackOutputEntry":
+                        validationErrorMessage = this.viewModel.GetFallbackOutputErrorMessage(te.Text);
+                        break;
+                    case "SubPropertyOutputEntry":
+                        validationErrorMessage = this.viewModel.GetSubPropertyOutputErrorMessage(te.Text);
+                        break;
+                    case "EnumMemberOutputEntry":
+                        validationErrorMessage = this.viewModel.GetEnumMemberOutputErrorMessage(te.Text);
+                        break;
+                    case "SelectedMappingOutputEntry":
+                        validationErrorMessage = this.viewModel.SelectedMapping.GetOutputErrorMessage(te.Text);
+                        break;
+                    case "CodeBehindPageContentEntry":
+                        validationErrorMessage = this.viewModel.Datacontext.GetCodeBehindPageContentErrorMessage(te.Text);
+                        break;
+                    case "CodeBehindConstructorContentEntry":
+                        validationErrorMessage = this.viewModel.Datacontext.GetCodeBehindConstructorContentErrorMessage(te.Text);
+                        break;
+                    case "DefaultCodeBehindConstructorEntry":
+                        validationErrorMessage = this.viewModel.Datacontext.GetCodeBehindDefaultConstructorErrorMessage(te.Text);
+                        break;
+                }
+
+                WarningTriangle icon = null;
+                try
+                {
+                    icon = (WarningTriangle)this.FindName($"{te.Name}Warning");
+                }
+                catch (Exception)
+                {
+                }
+
+                if (string.IsNullOrWhiteSpace(validationErrorMessage))
+                {
+                    te.Background = null;
+                    te.ToolTip = null;
+
+                    if (icon != null)
+                    {
+                        icon.Visibility = Visibility.Collapsed;
+                    }
+                }
+                else
+                {
+                    te.ToolTip = validationErrorMessage;
+
+                    if (icon != null)
+                    {
+                        icon.Visibility = Visibility.Visible;
+                    }
+
+                    try
+                    {
+                        var drawingColor = VSColorTheme.GetThemedColor(EnvironmentColors.ControlEditRequiredBackgroundBrushKey);
+                        te.Background = new SolidColorBrush(Color.FromArgb(drawingColor.A, drawingColor.R, drawingColor.G, drawingColor.B));
+                    }
+                    catch (Exception)
+                    {
+                        // VSColorTheme.GetThemedColor will fail in OptionsEmulator
+                    }
+                }
             }
         }
     }

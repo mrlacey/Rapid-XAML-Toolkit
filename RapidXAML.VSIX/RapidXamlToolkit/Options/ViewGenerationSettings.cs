@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
@@ -147,6 +148,45 @@ namespace RapidXamlToolkit.Options
 
                 return new Collection<VisualNode>(new List<VisualNode>() { solution });
             }
+        }
+
+        public string GetXamlPlaceholderErrorMessage(string placeholder)
+        {
+            var apv = new AllowedPlaceholderValidator();
+
+            var result = apv.ContainsOnlyValidPlaceholders(typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.XamlPlaceholder), placeholder);
+
+            // TODO: also test for blank
+            // TODO: also test for unknown placeholders
+            // TODO: Localize these responses
+            if (!result.isValid)
+            {
+                return "there is an invalid palceholder";
+            }
+
+            if (!placeholder.IsValidXamlOutput())
+            {
+                return "This desn't look like valid XAML";
+            }
+
+            return null;
+        }
+
+        internal string GetCodeBehindPlaceholderErrorMessage(string placeholder)
+        {
+            var apv = new AllowedPlaceholderValidator();
+
+            var result = apv.ContainsOnlyValidPlaceholders(typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.CodePlaceholder), placeholder);
+
+            // TODO: also test for blank
+            // TODO: also test for unknown placeholders
+            // TODO: Localize these responses
+            if (!result.isValid)
+            {
+                return "there is an invalid placeholder";
+            }
+
+            return null;
         }
     }
 }

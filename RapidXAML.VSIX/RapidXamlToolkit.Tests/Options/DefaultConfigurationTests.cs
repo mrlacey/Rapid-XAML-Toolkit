@@ -71,9 +71,11 @@ namespace RapidXamlToolkit.Tests.Options
 
             foreach (var profile in defSet.Profiles)
             {
-                Assert.IsTrue(profile.FallbackOutput.IsValidXamlOutput(), $"{nameof(Profile.FallbackOutput)} in profile {profile.Name}");
-                Assert.IsTrue(profile.SubPropertyOutput.IsValidXamlOutput(), $"{nameof(Profile.SubPropertyOutput)} in profile {profile.Name}");
-                Assert.IsTrue(profile.EnumMemberOutput.IsValidXamlOutput(), $"{nameof(Profile.EnumMemberOutput)} in profile {profile.Name}");
+                Assert.IsTrue(profile.ViewGeneration.XamlPlaceholder.IsValidXamlOutput(), $"{nameof(Profile.ViewGeneration.XamlPlaceholder)} in profile '{profile.Name}' is not valid XAML.");
+
+                Assert.IsTrue(profile.FallbackOutput.IsValidXamlOutput(), $"{nameof(Profile.FallbackOutput)} in profile '{profile.Name}' is not valid XAML.");
+                Assert.IsTrue(profile.SubPropertyOutput.IsValidXamlOutput(), $"{nameof(Profile.SubPropertyOutput)} in profile '{profile.Name}' is not valid XAML.");
+                Assert.IsTrue(profile.EnumMemberOutput.IsValidXamlOutput(), $"{nameof(Profile.EnumMemberOutput)} in profile '{profile.Name}' is not valid XAML.");
 
                 foreach (var mapping in profile.Mappings)
                 {

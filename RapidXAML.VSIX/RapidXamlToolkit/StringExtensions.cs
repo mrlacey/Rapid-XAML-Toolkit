@@ -276,6 +276,9 @@ namespace RapidXamlToolkit
                         // For scenarios like : "<x:String>$elementwithspaces$</x:String>"
                         possibleXaml = possibleXaml.Replace(placeholder, validText);
                         break;
+                    case Placeholder.GeneratedXAML:
+                        possibleXaml = possibleXaml.Replace(placeholder, "<GeneratedXaml />");
+                        break;
                     default:
                         possibleXaml = possibleXaml.Replace(placeholder, "Something");
                         break;

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Runtime.Serialization;
 
 namespace RapidXamlToolkit.Options
@@ -30,5 +31,56 @@ namespace RapidXamlToolkit.Options
 
         [AllowedPlaceholders(Placeholder.ViewClass)]
         public string DefaultCodeBehindConstructor { get; set; }
+
+        internal string GetCodeBehindPageContentErrorMessage(string placeholder)
+        {
+            var apv = new AllowedPlaceholderValidator();
+
+            var result = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindPageContent), placeholder);
+
+            // TODO: also test for blank
+            // TODO: also test for unknown placeholders
+            // TODO: Localize these responses
+            if (!result.isValid)
+            {
+                return "there is an invalid placeholder";
+            }
+
+            return null;
+        }
+
+        internal string GetCodeBehindConstructorContentErrorMessage(string placeholder)
+        {
+            var apv = new AllowedPlaceholderValidator();
+
+            var result = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindConstructorContent), placeholder);
+
+            // TODO: also test for blank
+            // TODO: also test for unknown placeholders
+            // TODO: Localize these responses
+            if (!result.isValid)
+            {
+                return "there is an invalid placeholder";
+            }
+
+            return null;
+        }
+
+        internal string GetCodeBehindDefaultConstructorErrorMessage(string placeholder)
+        {
+            var apv = new AllowedPlaceholderValidator();
+
+            var result = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.DefaultCodeBehindConstructor), placeholder);
+
+            // TODO: also test for blank
+            // TODO: also test for unknown placeholders
+            // TODO: Localize these responses
+            if (!result.isValid)
+            {
+                return "there is an invalid placeholder";
+            }
+
+            return null;
+        }
     }
 }

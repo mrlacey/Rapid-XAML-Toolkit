@@ -223,29 +223,28 @@
                         Grid.ColumnSpan="2"
                         Margin="0,0,0,6"
                         BorderStyle="Sunken">
-                        <avalonEdit:TextEditor
-                            x:Name="ViewGenXamlPlchldrEntry"
-                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_XamlPlaceholderDescription}"
-                            AutomationProperties.Name="{x:Static strings:StringRes.Options_XamlPlaceholder}"
-                            BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                            BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                            PreviewKeyDown="TextEditorPreviewKeyDown"
-                            SyntaxHighlighting="XML"
-                            VerticalScrollBarVisibility="Auto">
-                            <avalonEdit:TextEditor.Options>
-                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                            </avalonEdit:TextEditor.Options>
-                            <avalonEdit:TextEditor.Style>
-                                <Style TargetType="avalonEdit:TextEditor">
-                                    <Style.Triggers>
-                                        <Trigger Property="Validation.HasError" Value="True">
-                                            <Setter Property="Background" Value="{DynamicResource {x:Static vs_shell:EnvironmentColors.ControlEditRequiredBackgroundBrushKey}}" />
-                                            <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </avalonEdit:TextEditor.Style>
-                        </avalonEdit:TextEditor>
+                        <Grid>
+                            <avalonEdit:TextEditor
+                                x:Name="ViewGenXamlPlchldrEntry"
+                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_XamlPlaceholderDescription}"
+                                AutomationProperties.Name="{x:Static strings:StringRes.Options_XamlPlaceholder}"
+                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                                PreviewKeyDown="TextEditorPreviewKeyDown"
+                                SyntaxHighlighting="XML"
+                                TextChanged="OnEditorTextChanged"
+                                VerticalScrollBarVisibility="Auto">
+                                <avalonEdit:TextEditor.Options>
+                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                                </avalonEdit:TextEditor.Options>
+                            </avalonEdit:TextEditor>
+                            <local:WarningTriangle
+                                x:Name="ViewGenXamlPlchldrEntryWarning"
+                                Margin="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="Collapsed" />
+                        </Grid>
                     </themes:ClassicBorderDecorator>
                     <TextBlock
                         Grid.Row="8"
@@ -261,20 +260,28 @@
                         Grid.ColumnSpan="2"
                         Margin="0"
                         BorderStyle="Sunken">
-                        <avalonEdit:TextEditor
-                            x:Name="ViewGenCodeBehindPlchldrEntry"
-                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_CodeBehindPlaceholderDescription}"
-                            AutomationProperties.Name="{x:Static strings:StringRes.Options_CodeBehindPlaceholder}"
-                            BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                            BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                            PreviewKeyDown="TextEditorPreviewKeyDown"
-                            SyntaxHighlighting="C#"
-                            TextChanged="OnCodeChanged"
-                            VerticalScrollBarVisibility="Auto">
-                            <avalonEdit:TextEditor.Options>
-                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                            </avalonEdit:TextEditor.Options>
-                        </avalonEdit:TextEditor>
+                        <Grid>
+                            <avalonEdit:TextEditor
+                                x:Name="ViewGenCodeBehindPlchldrEntry"
+                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_CodeBehindPlaceholderDescription}"
+                                AutomationProperties.Name="{x:Static strings:StringRes.Options_CodeBehindPlaceholder}"
+                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                                PreviewKeyDown="TextEditorPreviewKeyDown"
+                                SyntaxHighlighting="C#"
+                                TextChanged="OnCodeChanged"
+                                VerticalScrollBarVisibility="Auto">
+                                <avalonEdit:TextEditor.Options>
+                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                                </avalonEdit:TextEditor.Options>
+                            </avalonEdit:TextEditor>
+                            <local:WarningTriangle
+                                x:Name="ViewGenCodeBehindPlchldrEntryWarning"
+                                Margin="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="Collapsed" />
+                        </Grid>
                     </themes:ClassicBorderDecorator>
                 </Grid>
             </TabItem>
@@ -321,22 +328,31 @@
                         Grid.Column="1"
                         Margin="0,0,0,6"
                         BorderStyle="Sunken">
-                        <avalonEdit:TextEditor
-                            x:Name="FallbackOutputEntry"
-                            MinHeight="34"
-                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_FallbackOutputDescription}"
-                            AutomationProperties.Name="{x:Static strings:StringRes.Options_FallbackOutput}"
-                            BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                            BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                            HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="TextEditorPreviewKeyDown"
-                            SyntaxHighlighting="XML"
-                            VerticalScrollBarVisibility="Auto"
-                            WordWrap="True">
-                            <avalonEdit:TextEditor.Options>
-                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                            </avalonEdit:TextEditor.Options>
-                        </avalonEdit:TextEditor>
+                        <Grid>
+                            <avalonEdit:TextEditor
+                                x:Name="FallbackOutputEntry"
+                                MinHeight="34"
+                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_FallbackOutputDescription}"
+                                AutomationProperties.Name="{x:Static strings:StringRes.Options_FallbackOutput}"
+                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                                HorizontalScrollBarVisibility="Hidden"
+                                PreviewKeyDown="TextEditorPreviewKeyDown"
+                                SyntaxHighlighting="XML"
+                                TextChanged="OnEditorTextChanged"
+                                VerticalScrollBarVisibility="Auto"
+                                WordWrap="True">
+                                <avalonEdit:TextEditor.Options>
+                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                                </avalonEdit:TextEditor.Options>
+                            </avalonEdit:TextEditor>
+                            <local:WarningTriangle
+                                x:Name="FallbackOutputEntryWarning"
+                                Margin="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="Collapsed" />
+                        </Grid>
                     </themes:ClassicBorderDecorator>
 
                     <TextBlock
@@ -351,22 +367,31 @@
                         Grid.Column="1"
                         Margin="0,0,0,6"
                         BorderStyle="Sunken">
-                        <avalonEdit:TextEditor
-                            x:Name="SubPropertyOutputEntry"
-                            MinHeight="34"
-                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_SubPropertyOutputDescription}"
-                            AutomationProperties.Name="{x:Static strings:StringRes.Options_SubPropertyOutput}"
-                            BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                            BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                            HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="TextEditorPreviewKeyDown"
-                            SyntaxHighlighting="XML"
-                            VerticalScrollBarVisibility="Auto"
-                            WordWrap="True">
-                            <avalonEdit:TextEditor.Options>
-                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                            </avalonEdit:TextEditor.Options>
-                        </avalonEdit:TextEditor>
+                        <Grid>
+                            <avalonEdit:TextEditor
+                                x:Name="SubPropertyOutputEntry"
+                                MinHeight="34"
+                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_SubPropertyOutputDescription}"
+                                AutomationProperties.Name="{x:Static strings:StringRes.Options_SubPropertyOutput}"
+                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                                HorizontalScrollBarVisibility="Hidden"
+                                PreviewKeyDown="TextEditorPreviewKeyDown"
+                                SyntaxHighlighting="XML"
+                                TextChanged="OnEditorTextChanged"
+                                VerticalScrollBarVisibility="Auto"
+                                WordWrap="True">
+                                <avalonEdit:TextEditor.Options>
+                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                                </avalonEdit:TextEditor.Options>
+                            </avalonEdit:TextEditor>
+                            <local:WarningTriangle
+                                x:Name="SubPropertyOutputEntryWarning"
+                                Margin="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="Collapsed" />
+                        </Grid>
                     </themes:ClassicBorderDecorator>
 
                     <TextBlock
@@ -381,22 +406,31 @@
                         Grid.Column="1"
                         Margin="0"
                         BorderStyle="Sunken">
-                        <avalonEdit:TextEditor
-                            x:Name="EnumMemberOutputEntry"
-                            MinHeight="34"
-                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_EnumMappingOutputDescription}"
-                            AutomationProperties.Name="{x:Static strings:StringRes.Options_EnumMappingOutput}"
-                            BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                            BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                            HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="TextEditorPreviewKeyDown"
-                            SyntaxHighlighting="XML"
-                            VerticalScrollBarVisibility="Auto"
-                            WordWrap="True">
-                            <avalonEdit:TextEditor.Options>
-                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                            </avalonEdit:TextEditor.Options>
-                        </avalonEdit:TextEditor>
+                        <Grid>
+                            <avalonEdit:TextEditor
+                                x:Name="EnumMemberOutputEntry"
+                                MinHeight="34"
+                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_EnumMappingOutputDescription}"
+                                AutomationProperties.Name="{x:Static strings:StringRes.Options_EnumMappingOutput}"
+                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                                HorizontalScrollBarVisibility="Hidden"
+                                PreviewKeyDown="TextEditorPreviewKeyDown"
+                                SyntaxHighlighting="XML"
+                                TextChanged="OnEditorTextChanged"
+                                VerticalScrollBarVisibility="Auto"
+                                WordWrap="True">
+                                <avalonEdit:TextEditor.Options>
+                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                                </avalonEdit:TextEditor.Options>
+                            </avalonEdit:TextEditor>
+                            <local:WarningTriangle
+                                x:Name="EnumMemberOutputEntryWarning"
+                                Margin="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="Collapsed" />
+                        </Grid>
                     </themes:ClassicBorderDecorator>
 
                     <TextBlock
@@ -506,23 +540,31 @@
                             Grid.Row="3"
                             Grid.Column="1"
                             BorderStyle="Sunken">
-                            <avalonEdit:TextEditor
-                                x:Name="SelectedMappingOutputEntry"
-                                MinHeight="34"
-                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingOutputDescription}"
-                                AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingOutput}"
-                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                                HorizontalScrollBarVisibility="Hidden"
-                                PreviewKeyDown="TextEditorPreviewKeyDown"
-                                SyntaxHighlighting="XML"
-                                TextChanged="OnSelectedMappingOutputChanged"
-                                VerticalScrollBarVisibility="Auto"
-                                WordWrap="True">
-                                <avalonEdit:TextEditor.Options>
-                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                                </avalonEdit:TextEditor.Options>
-                            </avalonEdit:TextEditor>
+                            <Grid>
+                                <avalonEdit:TextEditor
+                                    x:Name="SelectedMappingOutputEntry"
+                                    MinHeight="34"
+                                    AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingOutputDescription}"
+                                    AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingOutput}"
+                                    BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                                    BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                                    HorizontalScrollBarVisibility="Hidden"
+                                    PreviewKeyDown="TextEditorPreviewKeyDown"
+                                    SyntaxHighlighting="XML"
+                                    TextChanged="OnSelectedMappingOutputChanged"
+                                    VerticalScrollBarVisibility="Auto"
+                                    WordWrap="True">
+                                    <avalonEdit:TextEditor.Options>
+                                        <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                                    </avalonEdit:TextEditor.Options>
+                                </avalonEdit:TextEditor>
+                                <local:WarningTriangle
+                                    x:Name="SelectedMappingOutputEntryWarning"
+                                    Margin="2"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Visibility="Collapsed" />
+                            </Grid>
                         </themes:ClassicBorderDecorator>
                     </Grid>
 
@@ -569,23 +611,31 @@
                         Grid.Column="1"
                         Margin="0,0,0,6"
                         BorderStyle="Sunken">
-                        <avalonEdit:TextEditor
-                            x:Name="CodeBehindPageContentEntry"
-                            MinHeight="34"
-                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_CodeBehindPageContentDescription}"
-                            AutomationProperties.Name="{x:Static strings:StringRes.Options_CodeBehindPageContent}"
-                            BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                            BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                            HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="TextEditorPreviewKeyDown"
-                            SyntaxHighlighting="C#"
-                            TextChanged="OnCodeChanged"
-                            VerticalScrollBarVisibility="Auto"
-                            WordWrap="True">
-                            <avalonEdit:TextEditor.Options>
-                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                            </avalonEdit:TextEditor.Options>
-                        </avalonEdit:TextEditor>
+                        <Grid>
+                            <avalonEdit:TextEditor
+                                x:Name="CodeBehindPageContentEntry"
+                                MinHeight="34"
+                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_CodeBehindPageContentDescription}"
+                                AutomationProperties.Name="{x:Static strings:StringRes.Options_CodeBehindPageContent}"
+                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                                HorizontalScrollBarVisibility="Hidden"
+                                PreviewKeyDown="TextEditorPreviewKeyDown"
+                                SyntaxHighlighting="C#"
+                                TextChanged="OnCodeChanged"
+                                VerticalScrollBarVisibility="Auto"
+                                WordWrap="True">
+                                <avalonEdit:TextEditor.Options>
+                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                                </avalonEdit:TextEditor.Options>
+                            </avalonEdit:TextEditor>
+                            <local:WarningTriangle
+                                x:Name="CodeBehindPageContentEntryWarning"
+                                Margin="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="Collapsed" />
+                        </Grid>
                     </themes:ClassicBorderDecorator>
 
                     <TextBlock
@@ -600,23 +650,31 @@
                         Grid.Column="1"
                         Margin="0,0,0,6"
                         BorderStyle="Sunken">
-                        <avalonEdit:TextEditor
-                            x:Name="CodeBehindConstructorContentEntry"
-                            MinHeight="34"
-                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_CodeBehindConstructorContentDescription}"
-                            AutomationProperties.Name="{x:Static strings:StringRes.Options_CodeBehindConstructorContent}"
-                            BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                            BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                            HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="TextEditorPreviewKeyDown"
-                            SyntaxHighlighting="C#"
-                            TextChanged="OnCodeChanged"
-                            VerticalScrollBarVisibility="Auto"
-                            WordWrap="True">
-                            <avalonEdit:TextEditor.Options>
-                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                            </avalonEdit:TextEditor.Options>
-                        </avalonEdit:TextEditor>
+                        <Grid>
+                            <avalonEdit:TextEditor
+                                x:Name="CodeBehindConstructorContentEntry"
+                                MinHeight="34"
+                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_CodeBehindConstructorContentDescription}"
+                                AutomationProperties.Name="{x:Static strings:StringRes.Options_CodeBehindConstructorContent}"
+                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                                HorizontalScrollBarVisibility="Hidden"
+                                PreviewKeyDown="TextEditorPreviewKeyDown"
+                                SyntaxHighlighting="C#"
+                                TextChanged="OnCodeChanged"
+                                VerticalScrollBarVisibility="Auto"
+                                WordWrap="True">
+                                <avalonEdit:TextEditor.Options>
+                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                                </avalonEdit:TextEditor.Options>
+                            </avalonEdit:TextEditor>
+                            <local:WarningTriangle
+                                x:Name="CodeBehindConstructorContentEntryWarning"
+                                Margin="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="Collapsed" />
+                        </Grid>
                     </themes:ClassicBorderDecorator>
 
                     <TextBlock
@@ -631,23 +689,31 @@
                         Grid.Column="1"
                         Margin="0,0,0,6"
                         BorderStyle="Sunken">
-                        <avalonEdit:TextEditor
-                            x:Name="DefaultCodeBehindConstructorEntry"
-                            MinHeight="34"
-                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_DefaultCodeBehindConstructorDescription}"
-                            AutomationProperties.Name="{x:Static strings:StringRes.Options_DefaultCodeBehindConstructor}"
-                            BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                            BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                            HorizontalScrollBarVisibility="Hidden"
-                            PreviewKeyDown="TextEditorPreviewKeyDown"
-                            SyntaxHighlighting="C#"
-                            TextChanged="OnCodeChanged"
-                            VerticalScrollBarVisibility="Auto"
-                            WordWrap="True">
-                            <avalonEdit:TextEditor.Options>
-                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                            </avalonEdit:TextEditor.Options>
-                        </avalonEdit:TextEditor>
+                        <Grid>
+                            <avalonEdit:TextEditor
+                                x:Name="DefaultCodeBehindConstructorEntry"
+                                MinHeight="34"
+                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_DefaultCodeBehindConstructorDescription}"
+                                AutomationProperties.Name="{x:Static strings:StringRes.Options_DefaultCodeBehindConstructor}"
+                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                                HorizontalScrollBarVisibility="Hidden"
+                                PreviewKeyDown="TextEditorPreviewKeyDown"
+                                SyntaxHighlighting="C#"
+                                TextChanged="OnCodeChanged"
+                                VerticalScrollBarVisibility="Auto"
+                                WordWrap="True">
+                                <avalonEdit:TextEditor.Options>
+                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                                </avalonEdit:TextEditor.Options>
+                            </avalonEdit:TextEditor>
+                            <local:WarningTriangle
+                                x:Name="DefaultCodeBehindConstructorEntryWarning"
+                                Margin="2"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="Collapsed" />
+                        </Grid>
                     </themes:ClassicBorderDecorator>
                 </Grid>
             </TabItem>
