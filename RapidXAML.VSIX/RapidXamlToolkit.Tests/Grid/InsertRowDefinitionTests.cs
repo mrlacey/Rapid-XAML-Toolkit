@@ -1095,10 +1095,10 @@ namespace RapidXamlToolkit.Tests.Grid
         {
             var logic = this.SetUpLogic(xaml);
 
-            var actual = logic.GetDefinitionAtCursor();
+            var (actualDefinition, actualInsertPos) = logic.GetDefinitionAtCursor();
 
-            Assert.AreEqual(expected.definition, actual.definition);
-            Assert.AreEqual(expected.position, actual.insertPos);
+            Assert.AreEqual(expected.definition, actualDefinition);
+            Assert.AreEqual(expected.position, actualInsertPos);
         }
 
         private void EachPositionBetweenStarsShouldReturnExpectedDefinition(string xaml, (string definition, int position) expected)
@@ -1120,10 +1120,10 @@ namespace RapidXamlToolkit.Tests.Grid
 
                 var logic = new InsertGridRowDefinitionCommandLogic(DefaultTestLogger.Create(), vsa);
 
-                var actual = logic.GetDefinitionAtCursor();
+                var (actualDefinition, actualInsertPos) = logic.GetDefinitionAtCursor();
 
-                Assert.AreEqual(expected.definition, actual.definition, $"Failure at {pos} ({startPos}-{endPos})");
-                Assert.AreEqual(expected.position, actual.insertPos, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.definition, actualDefinition, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.position, actualInsertPos, $"Failure at {pos} ({startPos}-{endPos})");
                 positionsTested += 1;
             }
 
@@ -1149,17 +1149,17 @@ namespace RapidXamlToolkit.Tests.Grid
 
                 var logic = new InsertGridRowDefinitionCommandLogic(DefaultTestLogger.Create(), vsa);
 
-                var actual = logic.GetGridBoundary();
+                var (actualStart, actualEnd, exclusions) = logic.GetGridBoundary();
 
-                Assert.AreEqual(expected.Item1, actual.start, $"Failure at {pos} ({startPos}-{endPos})");
-                Assert.AreEqual(expected.Item2, actual.end, $"Failure at {pos} ({startPos}-{endPos})");
-                Assert.IsNotNull(actual.exclusions, $"Failure at {pos} ({startPos}-{endPos})");
-                Assert.AreEqual(expected.Item3.Count, actual.exclusions.Count, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.Item1, actualStart, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.Item2, actualEnd, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.IsNotNull(exclusions, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.Item3.Count, exclusions.Count, $"Failure at {pos} ({startPos}-{endPos})");
 
                 foreach (var expectedKey in expected.Item3.Keys)
                 {
-                    Assert.IsTrue(actual.exclusions.ContainsKey(expectedKey), $"Failure at {pos} , Key {expectedKey}");
-                    Assert.AreEqual(actual.exclusions[expectedKey], expected.Item3[expectedKey], $"Failure at {pos} , Value for {expectedKey}");
+                    Assert.IsTrue(exclusions.ContainsKey(expectedKey), $"Failure at {pos} , Key {expectedKey}");
+                    Assert.AreEqual(exclusions[expectedKey], expected.Item3[expectedKey], $"Failure at {pos} , Value for {expectedKey}");
                 }
 
                 positionsTested += 1;
