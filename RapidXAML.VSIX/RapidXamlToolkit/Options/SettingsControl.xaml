@@ -21,7 +21,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" MinWidth="112" />
         </Grid.ColumnDefinitions>
 
         <GroupBox
@@ -56,7 +56,7 @@
             <StackPanel.Resources>
                 <Style TargetType="Button">
                     <Setter Property="Height" Value="23" />
-                    <Setter Property="Width" Value="100" />
+                    <Setter Property="Padding" Value="6,0" />
                     <Setter Property="Margin" Value="0,0,0,6" />
                 </Style>
             </StackPanel.Resources>
