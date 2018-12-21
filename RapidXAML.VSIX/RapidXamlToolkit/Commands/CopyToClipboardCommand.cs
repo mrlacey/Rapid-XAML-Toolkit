@@ -5,8 +5,8 @@ using System;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 using Task = System.Threading.Tasks.Task;
 
@@ -53,7 +53,7 @@ namespace RapidXamlToolkit.Commands
                 this.Logger?.RecordInfo(StringRes.Info_AttemptingToCopy);
                 var output = await this.GetXamlAsync(Instance.ServiceProvider);
 
-                if (output != null && output.OutputType != AnalyzerOutputType.None)
+                if (output != null && output.OutputType != ParserOutputType.None)
                 {
                     var message = output.Output;
 

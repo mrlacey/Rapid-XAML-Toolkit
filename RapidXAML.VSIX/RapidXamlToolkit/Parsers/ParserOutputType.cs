@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-namespace RapidXamlToolkit.Analyzers
+namespace RapidXamlToolkit.Parsers
 {
-    public enum AnalyzerOutputType
+    public enum ParserOutputType
     {
         None,
         Property,

@@ -3,13 +3,13 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
     [TestClass]
-    public class GetCSharpArrayTests : CSharpTestsBase
+    public class GetVisualBasicArrayTests : VisualBasicTestsBase
     {
         private Profile ArrayTestsProfile
         {
@@ -18,21 +18,21 @@ namespace RapidXamlToolkit.Tests.Analysis
                 var profile = TestProfile.CreateEmpty();
                 profile.Mappings.Add(new Mapping
                 {
-                    Type = "bool",
+                    Type = "Boolean",
                     IfReadOnly = false,
                     NameContains = string.Empty,
                     Output = "<Bool />",
                 });
                 profile.Mappings.Add(new Mapping
                 {
-                    Type = "bool[]",
+                    Type = "Array",
                     IfReadOnly = false,
                     NameContains = string.Empty,
-                    Output = "<BoolBrackets />",
+                    Output = "<Array />",
                 });
                 profile.Mappings.Add(new Mapping
                 {
-                    Type = "Array<bool>",
+                    Type = "Boolean()",
                     IfReadOnly = false,
                     NameContains = string.Empty,
                     Output = "<ArrayBool />",
@@ -46,27 +46,43 @@ namespace RapidXamlToolkit.Tests.Analysis
         public void GetArrayPropertiesInClass()
         {
             var code = @"
-using System;
-
-namespace tests
-{
-    class Cla☆ss1
-    {
-        public bool MyBool { get; set; }
-        public bool[] MyBoolBrackets { get; set; }
-        public Array<bool> MyArrayBool { get; set; }
-    }
-}";
+Namespace tests
+    Class Cla☆ss1
+        Public Property MyBool As Boolean 
+        Public Property MyArray As Array
+        Public Property MyArrayBool() As Boolean
+    End Class
+End Namespace";
 
             var expectedXaml = "<Bool />"
-       + Environment.NewLine + "<BoolBrackets />"
+       + Environment.NewLine + "<Array />"
        + Environment.NewLine + "<ArrayBool />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
+        }
+
+        [TestMethod]
+        public void GetArrayProperty()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        Public Property MyAr☆ray As Array
+    End Class
+End Namespace";
+
+            var expected = new ParserOutput
+            {
+                Name = "MyArray",
+                Output = "<Array />",
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
@@ -76,43 +92,17 @@ namespace tests
         public void GetArrayPropertyBrackets()
         {
             var code = @"
-namespace tests
-{
-    class Class1
-    {
-        public bool[] MyBoo☆lBrackets { get; set; }
-    }
-}";
+Namespace tests
+    Class Class1
+        Public Property MyAr☆rayBool() As Boolean
+    End Class
+End Namespace";
 
-            var expected = new AnalyzerOutput
-            {
-                Name = "MyBoolBrackets",
-                Output = "<BoolBrackets />",
-                OutputType = AnalyzerOutputType.Property,
-            };
-
-            this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
-        }
-
-        [TestMethod]
-        public void GetArrayPropertyLonghand()
-        {
-            var code = @"
-using System;
-
-namespace tests
-{
-    class Class1
-    {
-        public Array<bool> MyAr☆rayBool { get; set; }
-    }
-}";
-
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyArrayBool",
                 Output = "<ArrayBool />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
@@ -122,27 +112,23 @@ namespace tests
         public void GetArrayPropertiesInSelection()
         {
             var code = @"
-using System;
-
-namespace tests
-{
-    class Class1
-    {
-       ☆ public bool MyBool { get; set; }
-        public bool[] MyBoolBrackets { get; set; }
-        public Array<bool> MyArrayBool { get; set; }☆
-    }
-}";
+Namespace tests
+    Class Class1
+       ☆Public Property MyBool As Boolean 
+        Public Property MyArray As Array
+        Public Property MyArrayBool() As Boolean☆
+    End Class
+End Namespace";
 
             var expectedXaml = "<Bool />"
-       + Environment.NewLine + "<BoolBrackets />"
+       + Environment.NewLine + "<Array />"
        + Environment.NewLine + "<ArrayBool />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
-                Name = "MyBool, MyBoolBrackets and 1 other property",
+                Name = "MyBool, MyArray and 1 other property",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, this.ArrayTestsProfile);

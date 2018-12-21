@@ -67,12 +67,13 @@
     <NoWarn>,1573,1591,1712,1762</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Analyzers\AnalyzerBase.cs" />
-    <Compile Include="Analyzers\AnalyzerOutput.cs" />
-    <Compile Include="Analyzers\AnalyzerOutputType.cs" />
-    <Compile Include="Analyzers\CSharpAnalyzer.cs" />
-    <Compile Include="Analyzers\IDocumentAnalyzer.cs" />
-    <Compile Include="Analyzers\PropertyDetails.cs" />
+    <Compile Include="Parsers\CodeParserBase.cs" />
+    <Compile Include="Parsers\CSharpParser.cs" />
+    <Compile Include="Parsers\IDocumentParser.cs" />
+    <Compile Include="Parsers\ParserOutput.cs" />
+    <Compile Include="Parsers\ParserOutputType.cs" />
+    <Compile Include="Parsers\PropertyDetails.cs" />
+    <Compile Include="Parsers\VisualBasicParser.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\CreateViewCommandLogic.cs" />
     <Compile Include="Commands\IFileSystemAbstraction.cs" />
@@ -91,7 +92,6 @@
     <Compile Include="DragDrop\RapidXamlDropHandler.cs" />
     <Compile Include="DteExtensions.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />
-    <Compile Include="Analyzers\VisualBasicAnalyzer.cs" />
     <Compile Include="Commands\CreateViewCommand.cs" />
     <Compile Include="Commands\GetXamlFromCodeWindowBaseCommand.cs" />
     <Compile Include="Commands\SendToToolboxCommand.cs" />

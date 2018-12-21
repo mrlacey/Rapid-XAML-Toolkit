@@ -3,9 +3,9 @@
 
 using System;
 using System.Threading.Tasks;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Commands
@@ -46,19 +46,19 @@ namespace RapidXamlToolkit.Commands
             var fileExt = this.fileSystem.GetFileExtension(selectedFileName);
             var fileContents = this.fileSystem.GetAllFileText(selectedFileName);
 
-            AnalyzerBase analyzer = null;
+            CodeParserBase analyzer = null;
             var codeBehindExt = string.Empty;
             var indent = await this.vs.GetXamlIndentAsync();
 
             switch (fileExt)
             {
                 case ".cs":
-                    analyzer = new CSharpAnalyzer(this.logger, indent);
-                    codeBehindExt = ((CSharpAnalyzer)analyzer).FileExtension;
+                    analyzer = new CSharpParser(this.logger, indent);
+                    codeBehindExt = ((CSharpParser)analyzer).FileExtension;
                     break;
                 case ".vb":
-                    analyzer = new VisualBasicAnalyzer(this.logger, indent);
-                    codeBehindExt = ((VisualBasicAnalyzer)analyzer).FileExtension;
+                    analyzer = new VisualBasicParser(this.logger, indent);
+                    codeBehindExt = ((VisualBasicParser)analyzer).FileExtension;
                     break;
             }
 
@@ -85,7 +85,7 @@ namespace RapidXamlToolkit.Commands
 
                 var syntaxRoot = await syntaxTree.GetRootAsync();
 
-                var analyzerOutput = ((IDocumentAnalyzer)analyzer).GetSingleItemOutput(syntaxRoot, semModel, cursorPos, this.profile);
+                var analyzerOutput = ((IDocumentParser)analyzer).GetSingleItemOutput(syntaxRoot, semModel, cursorPos, this.profile);
 
                 var config = this.profile.ViewGeneration;
 
@@ -158,7 +158,7 @@ namespace RapidXamlToolkit.Commands
                     if (this.CreateView)
                     {
                         // Allow for different namespace conventions
-                        var viewNamespace = analyzer is CSharpAnalyzer
+                        var viewNamespace = analyzer is CSharpParser
                                           ? $"{viewProjName}.{config.XamlFileDirectoryName}".TrimEnd('.')
                                           : $"{config.XamlFileDirectoryName}".TrimEnd('.');
 

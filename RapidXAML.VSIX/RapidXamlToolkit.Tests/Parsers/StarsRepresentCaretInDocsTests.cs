@@ -9,8 +9,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
@@ -167,7 +167,7 @@ namespace RapidXamlToolkit.Tests.Analysis
             };
         }
 
-        protected void EachPositionBetweenStarsShouldProduceExpected(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload)
+        protected void EachPositionBetweenStarsShouldProduceExpected(string code, ParserOutput expected, bool isCSharp, Profile profileOverload)
         {
             this.EnsureTwoStars(code);
 
@@ -186,8 +186,8 @@ namespace RapidXamlToolkit.Tests.Analysis
             for (var pos = startPos; pos < endPos; pos++)
             {
                 var indent = new TestVisualStudioAbstraction().XamlIndent;
-                var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
-                                        : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
+                var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
+                                        : new VisualBasicParser(DefaultTestLogger.Create(), indent);
 
                 var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
@@ -201,7 +201,7 @@ namespace RapidXamlToolkit.Tests.Analysis
             this.TestContext.WriteLine($"{positionsTested} different positions tested.");
         }
 
-        protected void PositionAtStarShouldProduceExpected(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload)
+        protected void PositionAtStarShouldProduceExpected(string code, ParserOutput expected, bool isCSharp, Profile profileOverload)
         {
             this.EnsureOneStar(code);
 
@@ -216,15 +216,15 @@ namespace RapidXamlToolkit.Tests.Analysis
                                     : VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true);
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
-            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
-                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
+            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
+                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent);
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
             this.AssertOutput(expected, actual);
         }
 
-        protected void PositionAtStarShouldProduceExpectedUsingAdditonalFiles(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalCode)
+        protected void PositionAtStarShouldProduceExpectedUsingAdditonalFiles(string code, ParserOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalCode)
         {
             this.EnsureOneStar(code);
 
@@ -252,15 +252,15 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
-                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
+            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
+                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent);
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
             this.AssertOutput(expected, actual);
         }
 
-        protected void PositionAtStarShouldProduceExpectedUsingAdditonalReferences(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalReferences)
+        protected void PositionAtStarShouldProduceExpectedUsingAdditonalReferences(string code, ParserOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalReferences)
         {
             this.EnsureOneStar(code);
 
@@ -290,15 +290,15 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
-                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
+            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
+                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent);
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
 
             this.AssertOutput(expected, actual);
         }
 
-        protected void PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalLibraryPaths)
+        protected void PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(string code, ParserOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalLibraryPaths)
         {
             this.EnsureOneStar(code);
 
@@ -328,15 +328,15 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
-                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
+            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
+                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent);
 
             var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos,  profileOverload);
 
             this.AssertOutput(expected, actual);
         }
 
-        protected void SelectionBetweenStarsShouldProduceExpected(string code, AnalyzerOutput expected, bool isCSharp, Profile profileOverload)
+        protected void SelectionBetweenStarsShouldProduceExpected(string code, ParserOutput expected, bool isCSharp, Profile profileOverload)
         {
             this.EnsureTwoStars(code);
 
@@ -352,15 +352,15 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var analyzer = isCSharp ? new CSharpAnalyzer(DefaultTestLogger.Create(), indent) as IDocumentAnalyzer
-                                    : new VisualBasicAnalyzer(DefaultTestLogger.Create(), indent);
+            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
+                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent);
 
             var actual = analyzer.GetSelectionOutput(syntaxTree.GetRoot(), semModel, startPos, endPos,  profileOverload);
 
             this.AssertOutput(expected, actual);
         }
 
-        private void AssertOutput(AnalyzerOutput expected, AnalyzerOutput actual)
+        private void AssertOutput(ParserOutput expected, ParserOutput actual)
         {
             Assert.AreEqual(expected.OutputType, actual.OutputType);
             Assert.AreEqual(expected.Name, actual.Name);

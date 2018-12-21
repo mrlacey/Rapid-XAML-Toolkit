@@ -4,8 +4,8 @@
 using System;
 using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
@@ -24,11 +24,11 @@ Public Class Class1
     Public Property Property3 As String
 End Class";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Property2",
                 Output = "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -46,11 +46,11 @@ Public Class Class1
     Public Property Property3 As String
 End Class";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Property2",
                 Output = "<TextBlock Text=\"Property2\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -82,11 +82,11 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Property2",
                 Output = "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -118,11 +118,11 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Property2",
                 Output = "<TextBlock Text=\"Property2\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -150,11 +150,11 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Property2",
                 Output = "<TextBlock Text=\"Property2\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -168,11 +168,11 @@ Public Class Class1
     ☆Public Property SomeProperty As Integer☆
 End Class";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "SomeProperty",
                 Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"SomeProperty\" Value=\"{x:Bind SomeProperty, Mode=TwoWay}\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -190,12 +190,12 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyListProperty",
                 Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\">" + Environment.NewLine +
                          "</ItemsControl>",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -253,13 +253,13 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyListProperty",
                 Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\">" + Environment.NewLine +
                          "    <TextBlock Text=\"SUBPROP_OtherListProperty\" />" + Environment.NewLine +
                          "</ItemsControl>",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(codeFile1, expected, testProfile, codeFile2, codeFile3);
@@ -287,12 +287,12 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyListProperty2",
                 Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty2}\">" + Environment.NewLine +
                          "</ItemsControl>",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -306,11 +306,11 @@ Public Class Class1
     ☆Private Property TestProperty As String☆
 End Class";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "TestProperty",
                 Output = "<TextBox Text=\"{x:Bind TestProperty, Mode=TwoWay}\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -324,11 +324,11 @@ Public Class Class1
     ☆Protected Property TestProperty As String☆
 End Class";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "TestProperty",
                 Output = "<TextBox Text=\"{x:Bind TestProperty, Mode=TwoWay}\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -342,11 +342,11 @@ Public Class Class1
     ☆Protected Property TestProperty As String☆
 End Class";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "TestProperty",
                 Output = "<TextBox Text=\"{x:Bind TestProperty, Mode=TwoWay}\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -362,11 +362,11 @@ Namespace Unit.Tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "TestProperty",
                 Output = "<TextBox Text=\"{x:Bind TestProperty, Mode=TwoWay}\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -387,11 +387,11 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "LastOrder",
                 Output = "<TextBlock Text=\"FALLBACK_LastOrder\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -425,11 +425,11 @@ End Namespace";
                 },
             };
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "LastOrder",
                 Output = "<TextBlock Text=\"LastOrder\" x:Array=\"true\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, arrayProfile);
@@ -463,11 +463,11 @@ End Namespace";
                 },
             };
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "LastOrder",
                 Output = "<TextBlock Text=\"LastOrder\" x:DneType=\"true\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, dneProfile);
@@ -491,11 +491,11 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "LastOrder",
                 Output = "<TextBlock Text=\"FALLBACK_LastOrder\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, additionalCode: code2);
@@ -511,11 +511,11 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "SomeProperty",
                 Output = "<TextBlock Text=\"FALLBACK_SomeProperty\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -554,11 +554,11 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "LastOrder",
                 Output = "<TextBlock Text=\"LastOrder\" x:Order=\"true\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, orderProfile);
@@ -606,11 +606,11 @@ End Namespace";
          + Environment.NewLine + "    <TextBlock Text=\"SP_OrderDescription\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "LastOrder",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
@@ -657,11 +657,11 @@ End Namespace";
          + Environment.NewLine + "    <TextBlock Text=\"SP_OrderPlacedDateTime\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "LastOrder",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
@@ -708,11 +708,11 @@ End Namespace";
          + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "OrderStatus",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, enumProfile);
@@ -757,11 +757,11 @@ End Namespace";
                                  "<RadioButton Content=\"OnHold\" GroupName=\"OrderStatus\" />" + Environment.NewLine +
                                  "<RadioButton Content=\"Closed\" GroupName=\"OrderStatus\" />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "OrderStatus",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, enumProfile);
@@ -811,11 +811,11 @@ End Namespace";
          + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "OrderStatus",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, enumProfile, code2);
@@ -853,11 +853,11 @@ End Namespace";
          + Environment.NewLine + "    <TextBlock Text=\"SP_\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "LastOrder",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
@@ -882,11 +882,11 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "SomeProperty",
                 Output = "<Dynamic Name=\"SomeProperty\" />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -917,11 +917,11 @@ End Namespace";
        + Environment.NewLine + "</Dyno>";
 
             // A single "DymnProp" with no value indicates that no sub-properties of the dynamic type were found
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "SomeList",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -967,11 +967,11 @@ End Namespace";
 
             var expectedOutput = "<int>Amount</int>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Amount",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, noOutputProfile);

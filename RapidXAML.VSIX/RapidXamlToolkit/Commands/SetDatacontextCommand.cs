@@ -6,8 +6,8 @@ using System.ComponentModel.Design;
 using EnvDTE;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Parsers;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
@@ -51,7 +51,7 @@ namespace RapidXamlToolkit.Commands
                 {
                     bool showCommandButton = false;
 
-                    var settings = AnalyzerBase.GetSettings();
+                    var settings = CodeParserBase.GetSettings();
 
                     if (settings.IsActiveProfileSet)
                     {
@@ -81,7 +81,7 @@ namespace RapidXamlToolkit.Commands
 
                 this.Logger?.RecordFeatureUsage(nameof(SetDatacontextCommand));
 
-                var settings = AnalyzerBase.GetSettings();
+                var settings = CodeParserBase.GetSettings();
                 var profile = settings.GetActiveProfile();
 
                 var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;

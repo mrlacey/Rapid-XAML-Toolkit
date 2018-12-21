@@ -3,13 +3,13 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
     [TestClass]
-    public class GetCSharpNullableTests : CSharpTestsBase
+    public class GetVisualBasicNullableTests : VisualBasicTestsBase
     {
         private Profile NullableTestsProfile
         {
@@ -18,21 +18,21 @@ namespace RapidXamlToolkit.Tests.Analysis
                 var profile = TestProfile.CreateEmpty();
                 profile.Mappings.Add(new Mapping
                 {
-                    Type = "bool",
+                    Type = "Boolean",
                     IfReadOnly = false,
                     NameContains = string.Empty,
                     Output = "<Bool />",
                 });
                 profile.Mappings.Add(new Mapping
                 {
-                    Type = "bool?",
+                    Type = "Boolean?",
                     IfReadOnly = false,
                     NameContains = string.Empty,
                     Output = "<BoolQ />",
                 });
                 profile.Mappings.Add(new Mapping
                 {
-                    Type = "Nullable<bool>",
+                    Type = "Nullable(Of Boolean)",
                     IfReadOnly = false,
                     NameContains = string.Empty,
                     Output = "<NullBool />",
@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.Tests.Analysis
                 // This should never match as the one above will be found first
                 profile.Mappings.Add(new Mapping
                 {
-                    Type = "System.Nullable<bool>",
+                    Type = "System.Nullable(Of Boolean)",
                     IfReadOnly = false,
                     NameContains = string.Empty,
                     Output = "<SysNullBool />",
@@ -55,29 +55,25 @@ namespace RapidXamlToolkit.Tests.Analysis
         public void GetNullablePropertiesInClass()
         {
             var code = @"
-using System.Collections.Generic;
-
-namespace tests
-{
-    class Cla☆ss1
-    {
-        public bool MyBool { get; set; }
-        public bool? MyBoolQ { get; set; }
-        public Nullable<bool> MyNullableBool { get; set; }
-        public System.Nullable<bool> MyFqNullableBool { get; set; }
-    }
-}";
+Namespace tests
+    Class Cla☆ss1
+        Public Property MyBool As Boolean
+        Public Property MyBoolQ As Boolean? 
+        Public Property MyNullableBool As Nullable(Of Boolean)
+        Public Property MyFqNullableBool As System.Nullable(Of Boolean)
+    End Class
+End Namespace";
 
             var expectedXaml = "<Bool />"
        + Environment.NewLine + "<BoolQ />"
        + Environment.NewLine + "<NullBool />"
        + Environment.NewLine + "<NullBool />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -87,21 +83,37 @@ namespace tests
         public void GetNullablePropertyShorthand()
         {
             var code = @"
-using System.Collections.Generic;
+Namespace tests
+    Class Class1
+        Public Property MyBo☆olQ As Boolean? 
+    End Class
+End Namespace";
 
-namespace tests
-{
-    class Class1
-    {
-        public bool? MyBoo☆lQ { get; set; }
-    }
-}";
-
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyBoolQ",
                 Output = "<BoolQ />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
+        }
+
+        [TestMethod]
+        public void GetNullablePropertyIndicatedOnPropertyName()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        Public Property MyBo☆olQ? As Boolean
+    End Class
+End Namespace";
+
+            var expected = new ParserOutput
+            {
+                Name = "MyBoolQ",
+                Output = "<BoolQ />",
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -111,21 +123,17 @@ namespace tests
         public void GetNullablePropertyLonghand()
         {
             var code = @"
-using System.Collections.Generic;
+Namespace tests
+    Class Class1
+        Public Property MyNullable☆Bool As Nullable(Of Boolean)
+    End Class
+End Namespace";
 
-namespace tests
-{
-    class Class1
-    {
-        public Nullable<bool> MyNull☆ableBool { get; set; }
-    }
-}";
-
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyNullableBool",
                 Output = "<NullBool />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -135,19 +143,17 @@ namespace tests
         public void GetNullablePropertyFullyQualified()
         {
             var code = @"
-namespace tests
-{
-    class Class1
-    {
-        public System.Nullable<bool> MyFqNullab☆leBool { get; set; }
-    }
-}";
+Namespace tests
+    Class Class1
+        Public Property MyFqNull☆ableBool As System.Nullable(Of Boolean)
+    End Class
+End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyFqNullableBool",
                 Output = "<NullBool />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -157,30 +163,26 @@ namespace tests
         public void GetListOfNullableProperty()
         {
             var code = @"
-using System.Collections.Generic;
-
-namespace tests
-{
-    class Class1
-    {
-        public List<bool?> MyListOfNu☆llables { get; set; }
-    }
-}";
+Namespace tests
+    Class Class1
+        Public Property MyListOf☆Nullables As List(Of Boolean?)
+    End Class
+End Namespace";
 
             var profile = this.NullableTestsProfile;
             profile.Mappings.Add(new Mapping
             {
-                Type = "List<bool?>",
+                Type = "List(Of Boolean?)",
                 NameContains = string.Empty,
                 IfReadOnly = false,
                 Output = "<LBnull />",
             });
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyListOfNullables",
                 Output = "<LBnull />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
@@ -190,29 +192,25 @@ namespace tests
         public void GetNullablePropertiesInSelection()
         {
             var code = @"
-using System.Collections.Generic;
-
-namespace tests
-{
-    class Class1
-    {
-       ☆ public bool MyBool { get; set; }
-        public bool? MyBoolQ { get; set; }
-        public Nullable<bool> MyNullableBool { get; set; }
-        public System.Nullable<bool> MyFqNullableBool { get; set; }☆
-    }
-}";
+Namespace tests
+    Class Class1
+        ☆Public Property MyBool As Boolean
+        Public Property MyBoolQ As Boolean? 
+        Public Property MyNullableBool As Nullable(Of Boolean)
+        Public Property MyFqNullableBool As System.Nullable(Of Boolean)☆
+    End Class
+End Namespace";
 
             var expectedXaml = "<Bool />"
        + Environment.NewLine + "<BoolQ />"
        + Environment.NewLine + "<NullBool />"
        + Environment.NewLine + "<NullBool />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyBool, MyBoolQ and 2 other properties",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, this.NullableTestsProfile);
