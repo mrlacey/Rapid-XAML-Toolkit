@@ -537,8 +537,9 @@
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>The following issues prevented the profile from being imported
-以下の問題がプロフィールのインポートを妨げています:\r\n\r\n- {0}</value>
+    <value>以下の問題がプロフィールのインポートを妨げています:
+
+- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
     <value>プロフィールをインポートできません</value>
