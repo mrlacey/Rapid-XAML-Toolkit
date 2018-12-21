@@ -12,11 +12,11 @@ using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Resources;
 
-namespace RapidXamlToolkit.Analyzers
+namespace RapidXamlToolkit.Parsers
 {
-    public class CSharpAnalyzer : AnalyzerBase, IDocumentAnalyzer
+    public class CSharpParser : CodeParserBase, IDocumentParser
     {
-        public CSharpAnalyzer(ILogger logger, int xamlIndent = 4)
+        public CSharpParser(ILogger logger, int xamlIndent = 4)
             : base(logger, xamlIndent)
         {
             Logger?.RecordInfo(StringRes.Info_AnalyzingCSharpCode.WithParams(Telemetry.CoreDetails.GetVersion()));
@@ -164,7 +164,7 @@ namespace RapidXamlToolkit.Analyzers
             return (propertyNode, classNode);
         }
 
-        public AnalyzerOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null)
+        public ParserOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null)
         {
             Logger?.RecordInfo(StringRes.Info_GetSingleItemOutput);
             var (propertyNode, classNode) = GetNodeUnderCaret(documentRoot, caretPosition);
@@ -177,11 +177,11 @@ namespace RapidXamlToolkit.Analyzers
 
                 var (output, name, _) = GetOutputToAdd(semModel, profileOverload, propDetails);
 
-                return new AnalyzerOutput
+                return new ParserOutput
                 {
                     Name = name,
                     Output = output,
-                    OutputType = AnalyzerOutputType.Property,
+                    OutputType = ParserOutputType.Property,
                 };
             }
 
@@ -265,21 +265,21 @@ namespace RapidXamlToolkit.Analyzers
                     output.Append($"</{FormattedClassGroupingCloser(classGrouping)}>");
                 }
 
-                var finalOutput = output.ToString().FormatXaml(AnalyzerBase.XamlIndentSize);
+                var finalOutput = output.ToString().FormatXaml(CodeParserBase.XamlIndentSize);
 
-                return new AnalyzerOutput
+                return new ParserOutput
                 {
                     Name = className,
                     Output = finalOutput,
-                    OutputType = AnalyzerOutputType.Class,
+                    OutputType = ParserOutputType.Class,
                 };
             }
 
             Logger?.RecordInfo(StringRes.Info_NoPropertiesToOutput);
-            return AnalyzerOutput.Empty;
+            return ParserOutput.Empty;
         }
 
-        public AnalyzerOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null)
+        public ParserOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null)
         {
             Logger?.RecordInfo(StringRes.Info_GetSelectionOutput);
 
@@ -336,17 +336,17 @@ namespace RapidXamlToolkit.Analyzers
                 Logger?.RecordInfo(StringRes.Info_ReturningOutput.WithParams(outputName));
 
                 // Trim end of output to remove trailing newline
-                return new AnalyzerOutput
+                return new ParserOutput
                 {
                     Name = outputName,
                     Output = output.ToString().TrimEnd(),
-                    OutputType = AnalyzerOutputType.Selection,
+                    OutputType = ParserOutputType.Selection,
                 };
             }
             else
             {
                 Logger?.RecordInfo(StringRes.Info_NoPropertiesToOutput);
-                return AnalyzerOutput.Empty;
+                return ParserOutput.Empty;
             }
         }
 

@@ -12,9 +12,9 @@ using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Resources;
 using IServiceProvider = System.IServiceProvider;
 
-namespace RapidXamlToolkit.Analyzers
+namespace RapidXamlToolkit.Parsers
 {
-    public class AnalyzerBase
+    public class CodeParserBase
     {
         public const string UnknownOrInvalidTypeName = "*UNKNOWN-INVALID-TYPE*";  // Asterisk as first character ensures it is invalid
 
@@ -27,12 +27,12 @@ namespace RapidXamlToolkit.Analyzers
         // Used to store the generated xname for reuse when formatting subsequent properties
         private static string xname = string.Empty;
 
-        public AnalyzerBase(ILogger logger, int xamlIndent)
+        public CodeParserBase(ILogger logger, int xamlIndent)
         {
             Logger = logger;
             XamlIndentSize = xamlIndent;
 
-            xname = string.Empty;  // Reset this on analyzer creation as analyzers created for each new conversion and don't want old values.
+            xname = string.Empty;  // Reset this on parser creation as parsers created for each new conversion and don't want old values.
         }
 
         public static IServiceProvider ServiceProvider { get; set; }
@@ -339,7 +339,7 @@ namespace RapidXamlToolkit.Analyzers
                 result = string.Empty;
             }
 
-            var finalResult = result.FormatXaml(AnalyzerBase.XamlIndentSize);
+            var finalResult = result.FormatXaml(CodeParserBase.XamlIndentSize);
 
             return (finalResult, numericSubstitute);
         }

@@ -3,7 +3,7 @@
 
 using Microsoft.CodeAnalysis;
 
-namespace RapidXamlToolkit.Analyzers
+namespace RapidXamlToolkit.Parsers
 {
     public class PropertyDetails
     {
