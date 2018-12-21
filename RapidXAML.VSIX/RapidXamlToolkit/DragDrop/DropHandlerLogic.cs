@@ -3,10 +3,10 @@
 
 using System;
 using System.Threading.Tasks;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.DragDrop
@@ -33,8 +33,8 @@ namespace RapidXamlToolkit.DragDrop
 
             var indent = await this.vs.GetXamlIndentAsync();
 
-            var analyzer = fileExt == ".cs" ? new CSharpAnalyzer(this.logger, indent)
-                                            : (IDocumentAnalyzer)new VisualBasicAnalyzer(this.logger, indent);
+            var analyzer = fileExt == ".cs" ? new CSharpParser(this.logger, indent)
+                                            : (IDocumentParser)new VisualBasicParser(this.logger, indent);
 
             // IndexOf is allowing for "class " in C# and "Class " in VB
             var cursorPos = fileContents.IndexOf("lass ");

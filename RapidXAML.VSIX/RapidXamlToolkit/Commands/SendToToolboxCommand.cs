@@ -8,8 +8,8 @@ using System.Reflection;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 using Task = System.Threading.Tasks.Task;
 
@@ -77,7 +77,7 @@ namespace RapidXamlToolkit.Commands
                 this.Logger?.RecordInfo(StringRes.Info_AttemptingoAddToToolbox);
                 var analyzerResult = await this.GetXamlAsync(Instance.ServiceProvider);
 
-                if (analyzerResult != null && analyzerResult.OutputType != AnalyzerOutputType.None)
+                if (analyzerResult != null && analyzerResult.OutputType != ParserOutputType.None)
                 {
                     var label = $"{analyzerResult.OutputType}: {analyzerResult.Name}";
 

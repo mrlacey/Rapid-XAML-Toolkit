@@ -6,8 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Commands
@@ -19,11 +19,11 @@ namespace RapidXamlToolkit.Commands
         {
         }
 
-        public async Task<AnalyzerOutput> GetXamlAsync(IAsyncServiceProvider serviceProvider)
+        public async Task<ParserOutput> GetXamlAsync(IAsyncServiceProvider serviceProvider)
         {
-            AnalyzerOutput result = null;
+            ParserOutput result = null;
 
-            if (AnalyzerBase.GetSettings().Profiles.Any())
+            if (CodeParserBase.GetSettings().Profiles.Any())
             {
                 var dte = await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
                 var activeDocument = dte.ActiveDocument;
@@ -43,15 +43,15 @@ namespace RapidXamlToolkit.Commands
                 var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
                 var xamlIndent = await vs.GetXamlIndentAsync();
 
-                IDocumentAnalyzer analyzer = null;
+                IDocumentParser analyzer = null;
 
                 if (activeDocument.Language == "CSharp")
                 {
-                    analyzer = new CSharpAnalyzer(this.Logger, xamlIndent);
+                    analyzer = new CSharpParser(this.Logger, xamlIndent);
                 }
                 else if (activeDocument.Language == "Basic")
                 {
-                    analyzer = new VisualBasicAnalyzer(this.Logger, xamlIndent);
+                    analyzer = new VisualBasicParser(this.Logger, xamlIndent);
                 }
 
                 result = isSelection
@@ -87,7 +87,7 @@ namespace RapidXamlToolkit.Commands
                 {
                     menuCmd.Visible = menuCmd.Enabled = false;
 
-                    if (AnalyzerBase.GetSettings().IsActiveProfileSet)
+                    if (CodeParserBase.GetSettings().IsActiveProfileSet)
                     {
                         menuCmd.Visible = menuCmd.Enabled = true;
                     }

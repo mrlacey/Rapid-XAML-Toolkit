@@ -4,9 +4,9 @@
 using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
@@ -50,7 +50,7 @@ namespace RapidXamlToolkit.Commands
                 {
                     menuCmd.Visible = menuCmd.Enabled = false;
 
-                    if (!AnalyzerBase.GetSettings().IsActiveProfileSet)
+                    if (!CodeParserBase.GetSettings().IsActiveProfileSet)
                     {
                         menuCmd.Visible = menuCmd.Enabled = true;
                     }

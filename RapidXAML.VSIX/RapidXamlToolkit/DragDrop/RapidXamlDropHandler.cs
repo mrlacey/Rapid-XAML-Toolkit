@@ -8,9 +8,9 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Editor.DragDrop;
 using Microsoft.VisualStudio.Text.Operations;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.DragDrop
 {
@@ -40,7 +40,7 @@ namespace RapidXamlToolkit.DragDrop
 
             ThreadHelper.JoinableTaskFactory.Run(async () =>
             {
-                var profile = AnalyzerBase.GetSettings().GetActiveProfile();
+                var profile = CodeParserBase.GetSettings().GetActiveProfile();
 
                 var logic = new DropHandlerLogic(profile, this.logger, this.vs, this.fileSystem);
 

@@ -3,7 +3,7 @@
 
 using System;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Analyzers;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.Logging
 {
@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.Logging
             ThreadHelper.ThrowIfNotOnUIThread();
 
             // Activate the pane (bring to front) so errors are obvious
-            if (AnalyzerBase.GetSettings().ExtendedOutputEnabled)
+            if (CodeParserBase.GetSettings().ExtendedOutputEnabled)
             {
                 RxtOutputPane.Instance.Write(TimeStampMessage(message));
                 RxtOutputPane.Instance.Activate();
@@ -35,7 +35,7 @@ namespace RapidXamlToolkit.Logging
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            if (AnalyzerBase.GetSettings().ExtendedOutputEnabled)
+            if (CodeParserBase.GetSettings().ExtendedOutputEnabled)
             {
                 RxtOutputPane.Instance.Write(TimeStampMessage(message));
             }

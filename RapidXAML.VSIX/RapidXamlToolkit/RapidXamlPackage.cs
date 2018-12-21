@@ -6,12 +6,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Confguration;
 using RapidXamlToolkit.DragDrop;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.Telemetry;
 using Task = System.Threading.Tasks.Task;
@@ -48,8 +48,8 @@ namespace RapidXamlToolkit
 
             try
             {
-                // Set the ServiceProvider of AnalyzerBase as it's needed to get settings
-                AnalyzerBase.ServiceProvider = this;
+                // Set the ServiceProvider of CodeParserBase as it's needed to get settings
+                CodeParserBase.ServiceProvider = this;
                 Logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
 
                 await CreateViewCommand.InitializeAsync(this, Logger);

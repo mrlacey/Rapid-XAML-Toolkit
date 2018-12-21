@@ -11,8 +11,8 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 using Task = System.Threading.Tasks.Task;
 
@@ -74,7 +74,7 @@ namespace RapidXamlToolkit.Commands
 
                     if (transformFileInfo.Name.EndsWith(".cs") || transformFileInfo.Name.EndsWith(".vb"))
                     {
-                        if (AnalyzerBase.GetSettings().IsActiveProfileSet)
+                        if (CodeParserBase.GetSettings().IsActiveProfileSet)
                         {
                             menuCmd.Visible = menuCmd.Enabled = true;
                         }
@@ -165,7 +165,7 @@ namespace RapidXamlToolkit.Commands
                 this.Logger?.RecordInfo(StringRes.Info_AttemptingToCreateView);
                 var dte = await this.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
 
-                var profile = AnalyzerBase.GetSettings().GetActiveProfile();
+                var profile = CodeParserBase.GetSettings().GetActiveProfile();
 
                 var logic = new CreateViewCommandLogic(profile, this.Logger, new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte));
 
