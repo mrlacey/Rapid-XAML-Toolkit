@@ -537,7 +537,9 @@
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>Şu sorunlar profilin içeri aktarılmasını engelledi:\r\n\r\n- {0}</value>
+    <value>Şu sorunlar profilin içeri aktarılmasını engelledi:
+
+- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
     <value>Profil içeri aktarılamıyor</value>

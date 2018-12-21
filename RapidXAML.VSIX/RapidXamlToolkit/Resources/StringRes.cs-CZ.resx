@@ -537,7 +537,9 @@
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>Import profilu se nezdařil kvůli následujícím problémům:\r\n\r\n- {0}</value>
+    <value>Import profilu se nezdařil kvůli následujícím problémům:
+
+- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
     <value>Profil nelze importovat</value>

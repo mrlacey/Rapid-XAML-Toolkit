@@ -537,7 +537,9 @@
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>以下问题已阻止导入配置文件:\r\n\r\n- {0}</value>
+    <value>以下问题已阻止导入配置文件:
+
+- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
     <value>无法导入配置文件</value>
