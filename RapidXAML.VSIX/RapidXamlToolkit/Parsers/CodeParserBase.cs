@@ -27,10 +27,12 @@ namespace RapidXamlToolkit.Parsers
         // Used to store the generated xname for reuse when formatting subsequent properties
         private static string xname = string.Empty;
 
-        public CodeParserBase(ILogger logger, int xamlIndent)
+        public CodeParserBase(ILogger logger, int xamlIndent, Profile profileOverload = null)
         {
             Logger = logger;
             XamlIndentSize = xamlIndent;
+
+            this.Profile = profileOverload ?? GetSettings().GetActiveProfile();
 
             xname = string.Empty;  // Reset this on parser creation as parsers created for each new conversion and don't want old values.
         }
@@ -42,6 +44,8 @@ namespace RapidXamlToolkit.Parsers
         public static int XamlIndentSize { get; set; } = 4;
 
         public virtual string FileExtension { get; } = string.Empty;
+
+        public Profile Profile { get; }
 
         protected static string[] TypesToSkipWhenCheckingForSubProperties { get; } = new[] { "String", "ValueType", "Object" };
 
@@ -55,40 +59,74 @@ namespace RapidXamlToolkit.Parsers
             return configuredSettings.ActualSettings;
         }
 
-        [NotUnitTestable("Relies on GetSettings which relies on VS Package infrastructure.")]
-        public static (string output, int counter) GetPropertyOutputAndCounterForActiveProfile(PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
+        public static string GetSelectionPropertiesName(List<string> names)
         {
-            var settings = GetSettings();
-            var activeProfile = settings.GetActiveProfile();
-            return GetPropertyOutputAndCounter(activeProfile, property, numericSubstitute, getSubPropertyOutput);
-        }
+            if (names == null || !names.Any())
+            {
+                return string.Empty;
+            }
 
-        [NotUnitTestable("Relies on GetSettings which relies on VS Package infrastructure. We pass profile around to test other functionality without this.")]
-        public static string GetClassGroupingForActiveProfile()
-        {
-            var settings = GetSettings();
-            var profile = settings.GetActiveProfile();
-            var result = profile.ClassGrouping.Trim();
+            var result = names.First();
 
-            Logger?.RecordInfo(StringRes.Info_UsingClassGrouping.WithParams(result));
+            if (names.Count == 2)
+            {
+                result = StringRes.UI_SelectionTwoNames.WithParams(names[0], names[1]);
+            }
+            else if (names.Count == 3)
+            {
+                result = StringRes.UI_SelectionThreeNames.WithParams(names[0], names[1]);
+            }
+            else if (names.Count > 3)
+            {
+                result = StringRes.UI_SelectionMoreThanThreeNames.WithParams(names[0], names[1], names.Count - 2);
+            }
 
             return result;
         }
 
-        public static string GetPropertyOutput(Profile profile, string type, string name, bool isReadOnly, Func<(List<string> strings, int count)> getSubProperties = null)
+        public string GetPropertyOutput(string type, string name, bool isReadOnly, Func<(List<string> strings, int count)> getSubProperties = null)
         {
-            return GetPropertyOutputAndCounter(profile, new PropertyDetails { PropertyType = type, Name = name, IsReadOnly = isReadOnly }, 1, getSubProperties).output;
+            return this.GetPropertyOutputAndCounter(new PropertyDetails { PropertyType = type, Name = name, IsReadOnly = isReadOnly }, 1, getSubProperties).output;
         }
 
-        public static (string output, int counter) GetSubPropertyOutputAndCounter(Profile profile, string name, int numericSubstitute)
+        protected static string FormattedClassGroupingOpener(string classGrouping)
+        {
+            switch (classGrouping.ToUpperInvariant())
+            {
+                case GridWithRowDefsIndicator:
+                case GridWithRowDefs2ColsIndicator:
+                    return "Grid";
+                default:
+                    return classGrouping;
+            }
+        }
+
+        protected static string FormattedClassGroupingCloser(string classGrouping)
+        {
+            if (classGrouping.Contains(" "))
+            {
+                return classGrouping.Substring(0, classGrouping.IndexOf(" ", StringComparison.Ordinal));
+            }
+
+            switch (classGrouping.ToUpperInvariant())
+            {
+                case GridWithRowDefsIndicator:
+                case GridWithRowDefs2ColsIndicator:
+                    return "Grid";
+                default:
+                    return classGrouping;
+            }
+        }
+
+        protected (string output, int counter) GetSubPropertyOutputAndCounter(string name, int numericSubstitute)
         {
             // Type is blank as it's can't be used in a subproperty
-            return FormatOutput(profile, profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, symbol: null, getSubPropertyOutput: null);
+            return this.FormatOutput(this.Profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, symbol: null, getSubPropertyOutput: null);
         }
 
-        public static (string output, int counter) GetPropertyOutputAndCounter(Profile profile, PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
+        protected (string output, int counter) GetPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
         {
-            var mappingOfInterest = GetMappingOfInterest(profile, property);
+            var mappingOfInterest = this.GetMappingOfInterest(property);
 
             string rawOutput = null;
 
@@ -104,7 +142,7 @@ namespace RapidXamlToolkit.Parsers
 
                     Logger?.RecordInfo(StringRes.Info_SearchingForMappingWithGenericWildcard.WithParams(wildcardGenericType));
 
-                    mappingOfInterest = GetMappingOfInterest(profile, wildcardGenericType, property.Name, property.IsReadOnly);
+                    mappingOfInterest = this.GetMappingOfInterest(wildcardGenericType, property.Name, property.IsReadOnly);
 
                     if (mappingOfInterest != null)
                     {
@@ -115,7 +153,7 @@ namespace RapidXamlToolkit.Parsers
                 if (rawOutput == null)
                 {
                     Logger?.RecordInfo(StringRes.Info_NoMappingFoundUsingFallback);
-                    rawOutput = profile?.FallbackOutput;
+                    rawOutput = this.Profile?.FallbackOutput;
                 }
             }
 
@@ -125,10 +163,10 @@ namespace RapidXamlToolkit.Parsers
                 return (null, numericSubstitute);
             }
 
-            return FormatOutput(profile, rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, getSubPropertyOutput);
+            return this.FormatOutput(rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, getSubPropertyOutput);
         }
 
-        public static (string output, int counter) FormatOutput(Profile profile, string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, Func<(List<string> strings, int count)> getSubPropertyOutput)
+        private (string output, int counter) FormatOutput(string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, Func<(List<string> strings, int count)> getSubPropertyOutput)
         {
             Logger?.RecordInfo(StringRes.Info_FormattingOutputForProperty.WithParams(name));
 
@@ -297,9 +335,9 @@ namespace RapidXamlToolkit.Parsers
                 {
                     foreach (var member in enumMembers)
                     {
-                        var line = profile.EnumMemberOutput.Replace(Placeholder.EnumElement, member.Name)
-                                                           .Replace(Placeholder.EnumElementWithSpaces, member.Name.AddSpacesToCamelCase())
-                                                           .Replace(Placeholder.EnumPropName, name);
+                        var line = this.Profile.EnumMemberOutput.Replace(Placeholder.EnumElement, member.Name)
+                                                                .Replace(Placeholder.EnumElementWithSpaces, member.Name.AddSpacesToCamelCase())
+                                                                .Replace(Placeholder.EnumPropName, name);
 
                         replacement.AppendLine(line);
                     }
@@ -344,12 +382,12 @@ namespace RapidXamlToolkit.Parsers
             return (finalResult, numericSubstitute);
         }
 
-        public static Mapping GetMappingOfInterest(Profile profile, PropertyDetails property)
+        private Mapping GetMappingOfInterest(PropertyDetails property)
         {
             // Enums can be mapped by name or that they're enums - check enum first
             if (property.Symbol?.BaseType?.Name == "Enum")
             {
-                var enumMapping = GetMappingOfInterest(profile, "enum", property.Name, property.IsReadOnly);
+                var enumMapping = this.GetMappingOfInterest("enum", property.Name, property.IsReadOnly);
 
                 if (enumMapping != null)
                 {
@@ -362,17 +400,12 @@ namespace RapidXamlToolkit.Parsers
                 }
             }
 
-            return GetMappingOfInterest(profile, property.PropertyType, property.Name, property.IsReadOnly);
+            return this.GetMappingOfInterest(property.PropertyType, property.Name, property.IsReadOnly);
         }
 
-        public static Mapping GetMappingOfInterest(Profile profile, string type, string name, bool isReadOnly)
+        private Mapping GetMappingOfInterest(string type, string name, bool isReadOnly)
         {
-            if (profile == null)
-            {
-                return null;
-            }
-
-            var typeMappings = profile.Mappings.Where(m => type.ToCSharpFormat().MatchesAnyOfInCSharpFormat(m.Type)).ToList();
+            var typeMappings = this.Profile.Mappings.Where(m => type.ToCSharpFormat().MatchesAnyOfInCSharpFormat(m.Type)).ToList();
 
             if (!isReadOnly)
             {
@@ -400,60 +433,6 @@ namespace RapidXamlToolkit.Parsers
             }
 
             return mappingOfInterest;
-        }
-
-        public static string GetSelectionPropertiesName(List<string> names)
-        {
-            if (names == null || !names.Any())
-            {
-                return string.Empty;
-            }
-
-            var result = names.First();
-
-            if (names.Count == 2)
-            {
-                result = StringRes.UI_SelectionTwoNames.WithParams(names[0], names[1]);
-            }
-            else if (names.Count == 3)
-            {
-                result = StringRes.UI_SelectionThreeNames.WithParams(names[0], names[1]);
-            }
-            else if (names.Count > 3)
-            {
-                result = StringRes.UI_SelectionMoreThanThreeNames.WithParams(names[0], names[1], names.Count - 2);
-            }
-
-            return result;
-        }
-
-        public static string FormattedClassGroupingOpener(string classGrouping)
-        {
-            switch (classGrouping.ToUpperInvariant())
-            {
-                case GridWithRowDefsIndicator:
-                case GridWithRowDefs2ColsIndicator:
-                    return "Grid";
-                default:
-                    return classGrouping;
-            }
-        }
-
-        public static string FormattedClassGroupingCloser(string classGrouping)
-        {
-            if (classGrouping.Contains(" "))
-            {
-                return classGrouping.Substring(0, classGrouping.IndexOf(" ", StringComparison.Ordinal));
-            }
-
-            switch (classGrouping.ToUpperInvariant())
-            {
-                case GridWithRowDefsIndicator:
-                case GridWithRowDefs2ColsIndicator:
-                    return "Grid";
-                default:
-                    return classGrouping;
-            }
         }
     }
 }

@@ -13,14 +13,12 @@ namespace RapidXamlToolkit.DragDrop
 {
     public class DropHandlerLogic
     {
-        private readonly Profile profile;
         private readonly ILogger logger;
         private readonly IFileSystemAbstraction fileSystem;
         private readonly IVisualStudioAbstraction vs;
 
-        public DropHandlerLogic(Profile profile, ILogger logger, IVisualStudioAbstraction vs, IFileSystemAbstraction fileSystem = null)
+        public DropHandlerLogic(ILogger logger, IVisualStudioAbstraction vs, IFileSystemAbstraction fileSystem = null)
         {
-            this.profile = profile ?? throw new ArgumentNullException(nameof(profile));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.vs = vs ?? throw new ArgumentNullException(nameof(vs));
             this.fileSystem = fileSystem ?? new WindowsFileSystem();
@@ -55,7 +53,7 @@ namespace RapidXamlToolkit.DragDrop
 
             var treeRoot = await syntaxTree.GetRootAsync();
 
-            var analyzerOutput = analyzer.GetSingleItemOutput(treeRoot, semModel, cursorPos, this.profile);
+            var analyzerOutput = analyzer.GetSingleItemOutput(treeRoot, semModel, cursorPos);
 
             string textOutput = analyzerOutput.Output;
 

@@ -40,9 +40,7 @@ namespace RapidXamlToolkit.DragDrop
 
             ThreadHelper.JoinableTaskFactory.Run(async () =>
             {
-                var profile = CodeParserBase.GetSettings().GetActiveProfile();
-
-                var logic = new DropHandlerLogic(profile, this.logger, this.vs, this.fileSystem);
+                var logic = new DropHandlerLogic(this.logger, this.vs, this.fileSystem);
 
                 var textOutput = await logic.ExecuteAsync(this.draggedFilename, insertLineLength);
 
