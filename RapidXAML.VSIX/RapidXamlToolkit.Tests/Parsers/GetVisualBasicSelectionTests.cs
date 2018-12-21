@@ -4,8 +4,8 @@
 using System;
 using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
@@ -48,11 +48,11 @@ End Namespace";
          + Environment.NewLine + "<TextBox Text=\"{x:Bind Property7, Mode=TwoWay}\" />"
          + Environment.NewLine + "<TextBox Text=\"{x:Bind Property8, Mode=TwoWay}\" />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Property1, Property2 and 6 other properties",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected);
@@ -99,11 +99,11 @@ End Namespace";
          + Environment.NewLine + "    <x:String>Closed</x:String>"
          + Environment.NewLine + "</ComboBox>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "OrderStatus",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, enumProfile);
@@ -130,11 +130,11 @@ End Class";
 
             var expectedOutput = "<TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Property1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected);
@@ -291,11 +291,11 @@ End Namespace";
             var expectedOutput = "<TextBlock Text=\"Property2\" Grid.Row=\"1\" />"
          + Environment.NewLine + "<TextBlock Text=\"Property3\" Grid.Row=\"2\" />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Property2 and Property3",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, gridProfile);
@@ -343,11 +343,11 @@ End Namespace";
          + Environment.NewLine + "    <TextBlock Text=\"SP_OrderDescription\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "LastOrder",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
@@ -372,11 +372,11 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "SomeProperty",
                 Output = "<Dynamic Name=\"SomeProperty\" />",
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -407,11 +407,11 @@ End Namespace";
        + Environment.NewLine + "</Dyno>";
 
             // A single "DymnProp" with no value indicates that no sub-properties of the dynamic type were found
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "SomeList",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -445,12 +445,12 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "SomeInts and SomeStrings",
                 Output = "<Int />" + Environment.NewLine
                        + "<String />",
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -460,11 +460,11 @@ End Namespace";
         {
             var expectedOutput = "<TextBlock Text=\"Property2\" />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Property2",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected);
@@ -472,7 +472,7 @@ End Namespace";
 
         private void NoPropertiesFoundInSelectionTest(string code)
         {
-            var expected = AnalyzerOutput.Empty;
+            var expected = ParserOutput.Empty;
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected);
         }

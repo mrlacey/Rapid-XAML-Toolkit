@@ -6,8 +6,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
@@ -50,11 +50,11 @@ End Class";
          + Environment.NewLine + "    <Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"Property10\" Value=\"{x:Bind Property10, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected);
@@ -83,11 +83,11 @@ End Class";
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected);
@@ -123,11 +123,11 @@ End Class";
          + Environment.NewLine + "    <TextBlock Text=\"Property1\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class100",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, extraGroupPropertiesProfile);
@@ -165,11 +165,11 @@ End Class";
          + Environment.NewLine + "    <TextBlock Text=\"Property2\" Grid.Row=\"1\" />"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class100",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, gridProfile);
@@ -211,11 +211,11 @@ End Class";
          + Environment.NewLine + "    <TextBlock Text=\"Property2\" Grid.Row=\"1\" />"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class100",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, gridProfile);
@@ -261,11 +261,11 @@ End Class";
          + Environment.NewLine + "    <TextBlock Text=\"Property2\" Grid.Row=\"1\" />"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class100",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, gridProfile);
@@ -304,11 +304,11 @@ End Class";
          + Environment.NewLine + "    <TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class100",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, gridProfile);
@@ -351,11 +351,11 @@ End Class";
          + Environment.NewLine + "    <TextBlock Text=\"Property1\" Grid.Row=\"0\" />"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class100",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, gridProfile);
@@ -512,11 +512,11 @@ End Class";
          + Environment.NewLine + "    </StackPanel>"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
@@ -561,11 +561,11 @@ End Module";
          + Environment.NewLine + "    </StackPanel>"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
@@ -606,11 +606,11 @@ End Class";
          + Environment.NewLine + "    </StackPanel>"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
@@ -657,11 +657,11 @@ End Class";
          + Environment.NewLine + "    </StackPanel>"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
@@ -712,11 +712,11 @@ End Class";
          + Environment.NewLine + "    </ListView>"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
@@ -774,11 +774,11 @@ End Class";
          + Environment.NewLine + "    </Grid>"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
@@ -804,11 +804,11 @@ End Class";
          + Environment.NewLine + "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"1\" />"
          + Environment.NewLine + "<TextBlock Text=\"FB_SomeProperty\" Grid.Row=\"0\" Grid.Column=\"1\" />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "SomeProperty",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
@@ -840,11 +840,11 @@ End Class";
          + Environment.NewLine + "    <TextBlock Text=\"FB_AnotherProperty\" Grid.Row=\"1\" Grid.Column=\"1\" />"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
@@ -871,11 +871,11 @@ End Class";
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected);
@@ -904,11 +904,11 @@ End Class";
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, profileOverload: null, additionalCode: code2);
@@ -939,11 +939,11 @@ End Class";
          + Environment.NewLine + "    <TextBlock Text=\"FALLBACK_Property2\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, null, code2, code3);
@@ -980,11 +980,11 @@ End Class";
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind SuperBaseProperty, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, profileOverload: null, additionalCode: new[] { code2, code3 });
@@ -1009,11 +1009,11 @@ End Class";
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected);
@@ -1064,11 +1064,11 @@ End Class";
          + Environment.NewLine + "    </ListView>"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalReferences(code, expected, recurseProfile, "System.Array");
@@ -1113,11 +1113,11 @@ End Class";
          + Environment.NewLine + "    </ListView>"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
@@ -1170,11 +1170,11 @@ End Class";
          + Environment.NewLine + "    </ListView>"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
@@ -1204,11 +1204,11 @@ End Namespace";
        + Environment.NewLine + "    <Dynamic Name=\"SomeProperty\" />"
        + Environment.NewLine + "</form>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -1242,11 +1242,11 @@ End Namespace";
        + Environment.NewLine + "</form>";
 
             // A single "DymnProp" with no value indicates that no sub-properties of the dynamic type were found
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -1303,11 +1303,11 @@ End Namespace";
          + Environment.NewLine + "    <TextBlock Text=\"Property6\" Grid.Row=\"2\" somethingElse=\"2\" />"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class100",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, gridProfile);
@@ -1330,11 +1330,11 @@ End Class";
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property4, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected);
@@ -1362,11 +1362,11 @@ End Class";
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind BaseProperty, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected);
@@ -1413,11 +1413,11 @@ End Class";
          + Environment.NewLine + "    </StackPanel>"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, recurseProfile);
@@ -1489,11 +1489,11 @@ End Namespace";
          + Environment.NewLine + "    </ListView>"
          + Environment.NewLine + "</Grid>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MainClass",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(codeFile1, expected, nestedListProfile, codeFile2, codeFile3);
@@ -1512,7 +1512,7 @@ End Module";
 
             var mbs = syntaxTree.GetRoot().ChildNodes().FirstOrDefault(n => n is ModuleBlockSyntax);
 
-            var actual = VisualBasicAnalyzer.GetIdentifier(mbs);
+            var actual = VisualBasicParser.GetIdentifier(mbs);
 
             var expected = "Order";
 
@@ -1525,11 +1525,11 @@ End Module";
          + Environment.NewLine + "    <!-- No accessible properties when copying as XAML -->"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -1541,11 +1541,11 @@ End Module";
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -1553,7 +1553,7 @@ End Module";
 
         private void ClassNotFoundTest(string code)
         {
-            var expected = AnalyzerOutput.Empty;
+            var expected = ParserOutput.Empty;
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
         }

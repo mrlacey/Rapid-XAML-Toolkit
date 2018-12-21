@@ -3,8 +3,8 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
@@ -58,11 +58,11 @@ End Namespace";
        + Environment.NewLine + "<Array />"
        + Environment.NewLine + "<ArrayBool />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
@@ -78,11 +78,11 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyArray",
                 Output = "<Array />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
@@ -98,11 +98,11 @@ Namespace tests
     End Class
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyArrayBool",
                 Output = "<ArrayBool />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
@@ -124,11 +124,11 @@ End Namespace";
        + Environment.NewLine + "<Array />"
        + Environment.NewLine + "<ArrayBool />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyBool, MyArray and 1 other property",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, this.ArrayTestsProfile);

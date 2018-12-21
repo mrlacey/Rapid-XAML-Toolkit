@@ -3,8 +3,8 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
@@ -73,11 +73,11 @@ namespace tests
        + Environment.NewLine + "<NullBool />"
        + Environment.NewLine + "<NullBool />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Class1",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -97,11 +97,11 @@ namespace tests
     }
 }";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyBoolQ",
                 Output = "<BoolQ />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -121,11 +121,11 @@ namespace tests
     }
 }";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyNullableBool",
                 Output = "<NullBool />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -143,11 +143,11 @@ namespace tests
     }
 }";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyFqNullableBool",
                 Output = "<NullBool />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -176,11 +176,11 @@ namespace tests
                 Output = "<LBnull />",
             });
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyListOfNullables",
                 Output = "<LBnull />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
@@ -208,11 +208,11 @@ namespace tests
        + Environment.NewLine + "<NullBool />"
        + Environment.NewLine + "<NullBool />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyBool, MyBoolQ and 2 other properties",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, this.NullableTestsProfile);

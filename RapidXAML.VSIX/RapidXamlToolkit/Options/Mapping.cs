@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-using RapidXamlToolkit.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Options
 {

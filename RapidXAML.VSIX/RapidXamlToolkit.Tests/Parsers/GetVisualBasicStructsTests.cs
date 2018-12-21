@@ -3,8 +3,8 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.Tests.Analysis
 {
@@ -44,11 +44,11 @@ End Namespace";
          + Environment.NewLine + "    <Int Name=\"Property2\" />"
          + Environment.NewLine + "</StackPanel>";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "StructViewModel",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Class,
+                OutputType = ParserOutputType.Class,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
@@ -78,11 +78,11 @@ Namespace tests
     End Structure
 End Namespace";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Property2",
                 Output = "<MyStruct />",
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -130,11 +130,11 @@ End Namespace";
             var expectedXaml = "<MyProperty1 />"
        + Environment.NewLine + "<MyProperty2 />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "MyListProperty",
                 Output = expectedXaml,
-                OutputType = AnalyzerOutputType.Property,
+                OutputType = ParserOutputType.Property,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -170,11 +170,11 @@ End Namespace";
             var expectedOutput = "<String Name=\"Property1\" />"
          + Environment.NewLine + "<Int Name=\"Property2\" />";
 
-            var expected = new AnalyzerOutput
+            var expected = new ParserOutput
             {
                 Name = "Property1 and Property2",
                 Output = expectedOutput,
-                OutputType = AnalyzerOutputType.Selection,
+                OutputType = ParserOutputType.Selection,
             };
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, profile);
