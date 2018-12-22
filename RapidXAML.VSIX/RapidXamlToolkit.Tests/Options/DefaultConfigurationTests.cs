@@ -176,12 +176,12 @@ namespace RapidXamlToolkit.Tests.Options
             {
                 var json = profile.AsJson();
 
-                var analyzer = new ApiAnalysis.SimpleJsonAnalyzer();
+                var parser = new ApiAnalysis.SimpleJsonAnalyzer();
 
-                var analyzerResults = await analyzer.AnalyzeJsonAsync(json, typeof(Profile));
+                var parserResults = await parser.AnalyzeJsonAsync(json, typeof(Profile));
 
-                Assert.AreEqual(1, analyzerResults.Count);
-                Assert.AreEqual(analyzer.MessageBuilder.AllGoodMessage, analyzerResults.First());
+                Assert.AreEqual(1, parserResults.Count);
+                Assert.AreEqual(parser.MessageBuilder.AllGoodMessage, parserResults.First());
             }
         }
     }

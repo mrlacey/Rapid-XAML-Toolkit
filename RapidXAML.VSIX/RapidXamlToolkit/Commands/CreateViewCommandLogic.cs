@@ -46,25 +46,25 @@ namespace RapidXamlToolkit.Commands
             var fileExt = this.fileSystem.GetFileExtension(selectedFileName);
             var fileContents = this.fileSystem.GetAllFileText(selectedFileName);
 
-            CodeParserBase analyzer = null;
+            CodeParserBase parser = null;
             var codeBehindExt = string.Empty;
             var indent = await this.vs.GetXamlIndentAsync();
 
             switch (fileExt)
             {
                 case ".cs":
-                    analyzer = new CSharpParser(this.logger, indent, this.profileOverride);
-                    codeBehindExt = ((CSharpParser)analyzer).FileExtension;
+                    parser = new CSharpParser(this.logger, indent, this.profileOverride);
+                    codeBehindExt = ((CSharpParser)parser).FileExtension;
                     break;
                 case ".vb":
-                    analyzer = new VisualBasicParser(this.logger, indent, this.profileOverride);
-                    codeBehindExt = ((VisualBasicParser)analyzer).FileExtension;
+                    parser = new VisualBasicParser(this.logger, indent, this.profileOverride);
+                    codeBehindExt = ((VisualBasicParser)parser).FileExtension;
                     break;
             }
 
             this.CreateView = false;
 
-            if (analyzer != null)
+            if (parser != null)
             {
                 // IndexOf is allowing for "class " in C# and "Class " in VB
                 var cursorPos = fileContents.IndexOf("lass ");
@@ -85,11 +85,11 @@ namespace RapidXamlToolkit.Commands
 
                 var syntaxRoot = await syntaxTree.GetRootAsync();
 
-                var analyzerOutput = ((IDocumentParser)analyzer).GetSingleItemOutput(syntaxRoot, semModel, cursorPos);
+                var parserOutput = ((IDocumentParser)parser).GetSingleItemOutput(syntaxRoot, semModel, cursorPos);
 
-                var config = analyzer.Profile.ViewGeneration;
+                var config = parser.Profile.ViewGeneration;
 
-                var vmClassName = analyzerOutput.Name;
+                var vmClassName = parserOutput.Name;
 
                 var baseClassName = vmClassName;
 
@@ -158,7 +158,7 @@ namespace RapidXamlToolkit.Commands
                     if (this.CreateView)
                     {
                         // Allow for different namespace conventions
-                        var viewNamespace = analyzer is CSharpParser
+                        var viewNamespace = parser is CSharpParser
                                           ? $"{viewProjName}.{config.XamlFileDirectoryName}".TrimEnd('.')
                                           : $"{config.XamlFileDirectoryName}".TrimEnd('.');
 
@@ -173,7 +173,7 @@ namespace RapidXamlToolkit.Commands
 
                         var insertIndent = placeholderPos - startOfPlaceholderLine - Environment.NewLine.Length;
 
-                        this.XamlFileContents = this.XamlFileContents.Replace(Placeholder.GeneratedXAML, analyzerOutput.Output.Replace(Environment.NewLine, Environment.NewLine + new string(' ', insertIndent)).Trim());
+                        this.XamlFileContents = this.XamlFileContents.Replace(Placeholder.GeneratedXAML, parserOutput.Output.Replace(Environment.NewLine, Environment.NewLine + new string(' ', insertIndent)).Trim());
 
                         this.CodeFileContents = this.ReplacePlaceholders(config.CodePlaceholder, replacementValues);
                     }

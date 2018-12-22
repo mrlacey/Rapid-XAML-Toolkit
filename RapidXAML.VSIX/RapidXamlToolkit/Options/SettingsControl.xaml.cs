@@ -238,11 +238,11 @@ namespace RapidXamlToolkit.Options
                 {
                     var fileContents = File.ReadAllText(openFileDialog.FileName);
 
-                    var analyzer = new ApiAnalysis.SimpleJsonAnalyzer();
+                    var parser = new ApiAnalysis.SimpleJsonAnalyzer();
 
-                    var analyzerResults = await analyzer.AnalyzeJsonAsync(fileContents, typeof(Profile));
+                    var parserResults = await parser.AnalyzeJsonAsync(fileContents, typeof(Profile));
 
-                    if (analyzerResults.Count == 1 && analyzerResults.First() == analyzer.MessageBuilder.AllGoodMessage)
+                    if (parserResults.Count == 1 && parserResults.First() == parser.MessageBuilder.AllGoodMessage)
                     {
                         var profile = Newtonsoft.Json.JsonConvert.DeserializeObject<Profile>(fileContents);
 
@@ -253,7 +253,7 @@ namespace RapidXamlToolkit.Options
                     else
                     {
                         MessageBox.Show(
-                                        StringRes.Prompt_ImportFailedMessage.WithParams(string.Join(Environment.NewLine + "- ", analyzerResults)),
+                                        StringRes.Prompt_ImportFailedMessage.WithParams(string.Join(Environment.NewLine + "- ", parserResults)),
                                         StringRes.Prompt_ImportFailedTitle,
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Error);

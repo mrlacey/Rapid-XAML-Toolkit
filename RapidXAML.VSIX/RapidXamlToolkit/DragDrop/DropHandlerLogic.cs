@@ -33,8 +33,8 @@ namespace RapidXamlToolkit.DragDrop
 
             var indent = await this.vs.GetXamlIndentAsync();
 
-            var analyzer = fileExt == ".cs" ? new CSharpParser(this.logger, indent, this.profileOverride)
-                                            : (IDocumentParser)new VisualBasicParser(this.logger, indent, this.profileOverride);
+            var parser = fileExt == ".cs" ? new CSharpParser(this.logger, indent, this.profileOverride)
+                                          : (IDocumentParser)new VisualBasicParser(this.logger, indent, this.profileOverride);
 
             // IndexOf is allowing for "class " in C# and "Class " in VB
             var cursorPos = fileContents.IndexOf("lass ");
@@ -55,9 +55,9 @@ namespace RapidXamlToolkit.DragDrop
 
             var treeRoot = await syntaxTree.GetRootAsync();
 
-            var analyzerOutput = analyzer.GetSingleItemOutput(treeRoot, semModel, cursorPos);
+            var parserOutput = parser.GetSingleItemOutput(treeRoot, semModel, cursorPos);
 
-            string textOutput = analyzerOutput.Output;
+            string textOutput = parserOutput.Output;
 
             if (insertLineLength > 0)
             {

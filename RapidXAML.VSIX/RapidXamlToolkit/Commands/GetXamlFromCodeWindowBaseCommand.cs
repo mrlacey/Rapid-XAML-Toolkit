@@ -43,20 +43,20 @@ namespace RapidXamlToolkit.Commands
                 var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
                 var xamlIndent = await vs.GetXamlIndentAsync();
 
-                IDocumentParser analyzer = null;
+                IDocumentParser parser = null;
 
                 if (activeDocument.Language == "CSharp")
                 {
-                    analyzer = new CSharpParser(this.Logger, xamlIndent);
+                    parser = new CSharpParser(this.Logger, xamlIndent);
                 }
                 else if (activeDocument.Language == "Basic")
                 {
-                    analyzer = new VisualBasicParser(this.Logger, xamlIndent);
+                    parser = new VisualBasicParser(this.Logger, xamlIndent);
                 }
 
                 result = isSelection
-                    ? analyzer?.GetSelectionOutput(await document.GetSyntaxRootAsync(), semanticModel, selection.Start.Position, selection.End.Position)
-                    : analyzer?.GetSingleItemOutput(await document.GetSyntaxRootAsync(), semanticModel, caretPosition.Position);
+                    ? parser?.GetSelectionOutput(await document.GetSyntaxRootAsync(), semanticModel, selection.Start.Position, selection.End.Position)
+                    : parser?.GetSingleItemOutput(await document.GetSyntaxRootAsync(), semanticModel, caretPosition.Position);
             }
             else
             {

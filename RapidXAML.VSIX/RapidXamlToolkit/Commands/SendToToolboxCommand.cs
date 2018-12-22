@@ -75,13 +75,13 @@ namespace RapidXamlToolkit.Commands
                 this.Logger?.RecordFeatureUsage(nameof(SendToToolboxCommand));
 
                 this.Logger?.RecordInfo(StringRes.Info_AttemptingoAddToToolbox);
-                var analyzerResult = await this.GetXamlAsync(Instance.ServiceProvider);
+                var parserResult = await this.GetXamlAsync(Instance.ServiceProvider);
 
-                if (analyzerResult != null && analyzerResult.OutputType != ParserOutputType.None)
+                if (parserResult != null && parserResult.OutputType != ParserOutputType.None)
                 {
-                    var label = $"{analyzerResult.OutputType}: {analyzerResult.Name}";
+                    var label = $"{parserResult.OutputType}: {parserResult.Name}";
 
-                    await AddToToolboxAsync(label, analyzerResult.Output);
+                    await AddToToolboxAsync(label, parserResult.Output);
 
                     await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.Info_AddedXamlToToolbox.WithParams(label));
                     this.Logger.RecordInfo(StringRes.Info_AddedXamlToToolbox.WithParams(label));
