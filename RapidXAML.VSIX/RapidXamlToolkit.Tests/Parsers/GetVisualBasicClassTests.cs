@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
 
-namespace RapidXamlToolkit.Tests.Analysis
+namespace RapidXamlToolkit.Tests.Parsers
 {
     [TestClass]
     public class GetVisualBasicClassTests : VisualBasicTestsBase
@@ -1503,7 +1503,7 @@ End Namespace";
         public void CanGetIdenitifierFromModuleBlockSyntax()
         {
             var code = @"
-Public Module Order
+Public Module Or☆der
         Public Property OrderId As Integer
         Private Property OrderPlacedDateTime As DateTime
         Public Property OrderDescription As String
@@ -1512,11 +1512,19 @@ End Module";
 
             var mbs = syntaxTree.GetRoot().ChildNodes().FirstOrDefault(n => n is ModuleBlockSyntax);
 
-            var actual = VisualBasicParser.GetIdentifier(mbs);
+            var expectedXaml = "<StackPanel>"
+       + Environment.NewLine + "    <Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"OrderId\" Value=\"{x:Bind OrderId, Mode=TwoWay}\" />"
+       + Environment.NewLine + "    <TextBox Text=\"{x:Bind OrderDescription, Mode=TwoWay}\" />"
+       + Environment.NewLine + "</StackPanel>";
 
-            var expected = "Order";
+            var expected = new ParserOutput
+            {
+                Name = "Order",
+                Output = expectedXaml,
+                OutputType = ParserOutputType.Class,
+            };
 
-            Assert.AreEqual(expected, actual);
+            this.PositionAtStarShouldProduceExpected(code, expected);
         }
 
         private void FindNoPropertiesInClass(string code)

@@ -15,13 +15,15 @@ namespace RapidXamlToolkit.DragDrop
     {
         private readonly ILogger logger;
         private readonly IFileSystemAbstraction fileSystem;
+        private readonly Profile profileOverride;
         private readonly IVisualStudioAbstraction vs;
 
-        public DropHandlerLogic(ILogger logger, IVisualStudioAbstraction vs, IFileSystemAbstraction fileSystem = null)
+        public DropHandlerLogic(ILogger logger, IVisualStudioAbstraction vs, IFileSystemAbstraction fileSystem = null, Profile profileOverride = null)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.vs = vs ?? throw new ArgumentNullException(nameof(vs));
             this.fileSystem = fileSystem ?? new WindowsFileSystem();
+            this.profileOverride = profileOverride;
         }
 
         public async Task<string> ExecuteAsync(string draggedFilename, int insertLineLength)
@@ -31,8 +33,8 @@ namespace RapidXamlToolkit.DragDrop
 
             var indent = await this.vs.GetXamlIndentAsync();
 
-            var analyzer = fileExt == ".cs" ? new CSharpParser(this.logger, indent)
-                                            : (IDocumentParser)new VisualBasicParser(this.logger, indent);
+            var analyzer = fileExt == ".cs" ? new CSharpParser(this.logger, indent, this.profileOverride)
+                                            : (IDocumentParser)new VisualBasicParser(this.logger, indent, this.profileOverride);
 
             // IndexOf is allowing for "class " in C# and "Class " in VB
             var cursorPos = fileContents.IndexOf("lass ");

@@ -12,7 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
 
-namespace RapidXamlToolkit.Tests.Analysis
+namespace RapidXamlToolkit.Tests.Parsers
 {
     public abstract class StarsRepresentCaretInDocsTests
     {
@@ -186,10 +186,10 @@ namespace RapidXamlToolkit.Tests.Analysis
             for (var pos = startPos; pos < endPos; pos++)
             {
                 var indent = new TestVisualStudioAbstraction().XamlIndent;
-                var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
-                                        : new VisualBasicParser(DefaultTestLogger.Create(), indent);
+                var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
+                                        : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
 
-                var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
+                var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos);
 
                 Assert.AreEqual(expected.OutputType, actual.OutputType, $"Failure at {pos} ({startPos}-{endPos})");
                 Assert.AreEqual(expected.Name, actual.Name, $"Failure at {pos} ({startPos}-{endPos})");
@@ -216,10 +216,10 @@ namespace RapidXamlToolkit.Tests.Analysis
                                     : VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true);
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
-            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
-                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent);
+            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
+                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos);
 
             this.AssertOutput(expected, actual);
         }
@@ -252,10 +252,10 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
-                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent);
+            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
+                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos);
 
             this.AssertOutput(expected, actual);
         }
@@ -290,10 +290,10 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
-                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent);
+            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
+                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos, profileOverload);
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos);
 
             this.AssertOutput(expected, actual);
         }
@@ -328,10 +328,10 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
-                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent);
+            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent,profileOverload) as IDocumentParser
+                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
 
-            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos,  profileOverload);
+            var actual = analyzer.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos);
 
             this.AssertOutput(expected, actual);
         }
@@ -352,10 +352,10 @@ namespace RapidXamlToolkit.Tests.Analysis
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent) as IDocumentParser
-                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent);
+            var analyzer = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
+                                    : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
 
-            var actual = analyzer.GetSelectionOutput(syntaxTree.GetRoot(), semModel, startPos, endPos,  profileOverload);
+            var actual = analyzer.GetSelectionOutput(syntaxTree.GetRoot(), semModel, startPos, endPos);
 
             this.AssertOutput(expected, actual);
         }

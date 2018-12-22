@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
 
-            var sut = new DropHandlerLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.cs", 8);
 
@@ -44,7 +44,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
 
-            var sut = new DropHandlerLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.cs", 8);
 
@@ -68,7 +68,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
 
-            var sut = new DropHandlerLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.cs", 8);
 
@@ -94,7 +94,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
 
-            var sut = new DropHandlerLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.cs", 8);
 

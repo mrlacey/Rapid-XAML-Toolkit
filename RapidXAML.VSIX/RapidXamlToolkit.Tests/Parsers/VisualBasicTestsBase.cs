@@ -4,7 +4,7 @@
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
 
-namespace RapidXamlToolkit.Tests.Analysis
+namespace RapidXamlToolkit.Tests.Parsers
 {
     public class VisualBasicTestsBase : StarsRepresentCaretInDocsTests, IStarsRepresentCaretInDocsTests
     {

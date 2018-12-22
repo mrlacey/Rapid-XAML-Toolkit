@@ -43,7 +43,7 @@ End Class",
                 ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.vbproj" },
             };
 
-            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new CreateViewCommandLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb");
 
@@ -110,7 +110,7 @@ End Class",
                 ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.vbproj" },
             };
 
-            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new CreateViewCommandLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb");
 
@@ -147,7 +147,7 @@ End Module",
                 ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.vbproj" },
             };
 
-            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new CreateViewCommandLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.vb");
 
@@ -216,7 +216,7 @@ End Class",
                 ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.vbproj" },
             };
 
-            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new CreateViewCommandLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.vb");
 
@@ -290,7 +290,7 @@ End Class",
                 NamedProject = new ProjectWrapper { Name = "App", FileName = @"C:\Test\App\App.vbproj" },
             };
 
-            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new CreateViewCommandLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.vb");
 
