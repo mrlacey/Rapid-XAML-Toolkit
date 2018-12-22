@@ -12,17 +12,17 @@ namespace RapidXamlToolkit.Commands
 {
     public class CreateViewCommandLogic
     {
-        private readonly Profile profile;
         private readonly ILogger logger;
         private readonly IFileSystemAbstraction fileSystem;
+        private readonly Profile profileOverride;
         private readonly IVisualStudioAbstraction vs;
 
-        public CreateViewCommandLogic(Profile profile, ILogger logger, IVisualStudioAbstraction vs, IFileSystemAbstraction fileSystem = null)
+        public CreateViewCommandLogic(ILogger logger, IVisualStudioAbstraction vs, IFileSystemAbstraction fileSystem = null, Profile profileOverride = null)
         {
-            this.profile = profile ?? throw new ArgumentNullException(nameof(profile));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.vs = vs ?? throw new ArgumentNullException(nameof(vs));
             this.fileSystem = fileSystem ?? new WindowsFileSystem();
+            this.profileOverride = profileOverride;
         }
 
         public bool CreateView { get; private set; }
@@ -53,11 +53,11 @@ namespace RapidXamlToolkit.Commands
             switch (fileExt)
             {
                 case ".cs":
-                    analyzer = new CSharpParser(this.logger, indent);
+                    analyzer = new CSharpParser(this.logger, indent, this.profileOverride);
                     codeBehindExt = ((CSharpParser)analyzer).FileExtension;
                     break;
                 case ".vb":
-                    analyzer = new VisualBasicParser(this.logger, indent);
+                    analyzer = new VisualBasicParser(this.logger, indent, this.profileOverride);
                     codeBehindExt = ((VisualBasicParser)analyzer).FileExtension;
                     break;
             }
@@ -85,9 +85,9 @@ namespace RapidXamlToolkit.Commands
 
                 var syntaxRoot = await syntaxTree.GetRootAsync();
 
-                var analyzerOutput = ((IDocumentParser)analyzer).GetSingleItemOutput(syntaxRoot, semModel, cursorPos, this.profile);
+                var analyzerOutput = ((IDocumentParser)analyzer).GetSingleItemOutput(syntaxRoot, semModel, cursorPos);
 
-                var config = this.profile.ViewGeneration;
+                var config = analyzer.Profile.ViewGeneration;
 
                 var vmClassName = analyzerOutput.Name;
 

@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
 
-namespace RapidXamlToolkit.Tests.Analysis
+namespace RapidXamlToolkit.Tests.Parsers
 {
     [TestClass]
     public class GetCSharpPropertiesTests : CSharpTestsBase

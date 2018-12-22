@@ -16,19 +16,203 @@ namespace RapidXamlToolkit.Parsers
 {
     public class VisualBasicParser : CodeParserBase, IDocumentParser
     {
-        public VisualBasicParser(ILogger logger, int xamlIndent = 4)
-            : base(logger, xamlIndent)
+        public VisualBasicParser(ILogger logger, int xamlIndent = 4, Profile profileOverload = null)
+            : base(logger, xamlIndent, profileOverload)
         {
             Logger?.RecordInfo(StringRes.Info_AnalyzingVisualBasicCode.WithParams(Telemetry.CoreDetails.GetVersion()));
         }
 
         public override string FileExtension { get; } = "vb";
 
-        public static (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, Profile profile, SemanticModel semModel)
+        public ParserOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition)
+        {
+            Logger?.RecordInfo(StringRes.Info_GetSingleItemOutput);
+            var (propertyNode, classNode) = this.GetNodeUnderCaret(documentRoot, caretPosition);
+
+            if (propertyNode != null)
+            {
+                Logger?.RecordInfo(StringRes.Info_GetSinglePropertyOutput);
+
+                var propDetails = this.GetPropertyDetails(propertyNode, semModel);
+
+                var (output, name, _) = this.GetOutputToAdd(semModel, propDetails);
+
+                return new ParserOutput
+                {
+                    Name = name,
+                    Output = output,
+                    OutputType = ParserOutputType.Property,
+                };
+            }
+
+            if (classNode != null)
+            {
+                Logger?.RecordInfo(StringRes.Info_GetSingleClassOutput);
+
+                var className = this.GetIdentifier(classNode);
+
+                var classTypeSymbol = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
+                var properties = this.GetAllPublicProperties(classTypeSymbol, semModel);
+
+                var output = new StringBuilder();
+
+                var classGrouping = this.Profile.ClassGrouping;
+
+                if (!string.IsNullOrWhiteSpace(classGrouping))
+                {
+                    output.AppendLine($"<{FormattedClassGroupingOpener(classGrouping)}>");
+                }
+
+                if (properties.Any())
+                {
+                    Logger?.RecordInfo(StringRes.Info_ClassPropertyCount.WithParams(properties.Count));
+
+                    var propertyOutput = new List<string>();
+
+                    var numericCounter = 0;
+
+                    foreach (var prop in properties)
+                    {
+                        Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(prop.Name));
+                        var toAdd = this.GetOutputToAdd(semModel, prop, numericCounter);
+
+                        numericCounter = toAdd.counter;
+                        propertyOutput.Add(toAdd.output);
+                    }
+
+                    if (classGrouping != null
+                     && (classGrouping.Equals(GridWithRowDefsIndicator, StringComparison.InvariantCultureIgnoreCase)
+                      || classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase)))
+                    {
+                        Logger?.RecordInfo(StringRes.Info_AddingGridToOutput);
+
+                        if (classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            Logger?.RecordInfo(StringRes.Info_AddingColDefsToGrid);
+
+                            output.AppendLine("<Grid.ColumnDefinitions>");
+                            output.AppendLine("<ColumnDefinition Width=\"Auto\" />");
+                            output.AppendLine("<ColumnDefinition Width=\"*\" />");
+                            output.AppendLine("</Grid.ColumnDefinitions>");
+                        }
+
+                        output.AppendLine("<Grid.RowDefinitions>");
+
+                        Logger?.RecordInfo(StringRes.Info_AddedRowDefsCount.WithParams(numericCounter));
+                        for (var i = 1; i <= numericCounter; i++)
+                        {
+                            output.AppendLine(i < numericCounter
+                                ? "<RowDefinition Height=\"Auto\" />"
+                                : "<RowDefinition Height=\"*\" />");
+                        }
+
+                        output.AppendLine("</Grid.RowDefinitions>");
+                    }
+
+                    foreach (var po in propertyOutput)
+                    {
+                        output.AppendLine(po);
+                    }
+                }
+                else
+                {
+                    Logger?.RecordInfo(StringRes.Info_ClassNoPublicProperties);
+                    output.AppendLine(StringRes.UI_NoPropertiesXaml);
+                }
+
+                if (!string.IsNullOrWhiteSpace(classGrouping))
+                {
+                    output.Append($"</{FormattedClassGroupingCloser(classGrouping)}>");
+                }
+
+                var finalOutput = output.ToString().FormatXaml(CodeParserBase.XamlIndentSize);
+
+                return new ParserOutput
+                {
+                    Name = className,
+                    Output = finalOutput,
+                    OutputType = ParserOutputType.Class,
+                };
+            }
+
+            Logger?.RecordInfo(StringRes.Info_NoPropertiesToOutput);
+            return ParserOutput.Empty;
+        }
+
+        public ParserOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd)
+        {
+            Logger?.RecordInfo(StringRes.Info_GetSelectionOutput);
+
+            var allProperties = documentRoot.DescendantNodes().OfType<PropertyStatementSyntax>().ToList();
+
+            Logger?.RecordInfo(StringRes.Info_DocumentPropertyCount.WithParams(allProperties.Count));
+
+            var propertiesOfInterest = new List<PropertyStatementSyntax>();
+
+            foreach (var prop in allProperties)
+            {
+                if (prop.FullSpan.End >= selStart && prop.FullSpan.Start < selEnd)
+                {
+                    propertiesOfInterest.Add(prop);
+                }
+            }
+
+            Logger?.RecordInfo(StringRes.Info_PropertiesInSelectedAreaCount.WithParams(propertiesOfInterest.Count));
+
+            var output = new StringBuilder();
+
+            var numericCounter = 1;
+
+            var propertyNames = new List<string>();
+
+            foreach (var prop in propertiesOfInterest)
+            {
+                var propDetails = this.GetPropertyDetails(prop, semModel);
+
+                if (propDetails.Name.IsOneOf(NamesOfPropertiesToExcludeFromOutput))
+                {
+                    Logger?.RecordInfo(StringRes.Info_NotIncludingExcludedProperty.WithParams(propDetails.Name));
+                    continue;
+                }
+
+                Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(propDetails.Name));
+                var toAdd = this.GetPropertyOutputAndCounter(propDetails, numericCounter, () => this.GetSubPropertyOutput(propDetails, semModel));
+
+                if (!string.IsNullOrWhiteSpace(toAdd.output))
+                {
+                    numericCounter = toAdd.counter;
+                    output.AppendLine(toAdd.output);
+
+                    propertyNames.Add(propDetails.Name);
+                }
+            }
+
+            if (propertyNames.Any())
+            {
+                var outputName = GetSelectionPropertiesName(propertyNames);
+
+                Logger?.RecordInfo(StringRes.Info_ReturningOutput.WithParams(outputName));
+
+                // Trim end of output to remove trailing newline
+                return new ParserOutput
+                {
+                    Name = outputName,
+                    Output = output.ToString().TrimEnd(),
+                    OutputType = ParserOutputType.Selection,
+                };
+            }
+            else
+            {
+                Logger?.RecordInfo(StringRes.Info_NoPropertiesToOutput);
+                return ParserOutput.Empty;
+            }
+        }
+
+        private (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
         {
             var result = new List<string>();
 
-            var subProperties = GetAllPublicProperties(property.Symbol, semModel);
+            var subProperties = this.GetAllPublicProperties(property.Symbol, semModel);
 
             var numericSubstitute = 0;
 
@@ -40,7 +224,7 @@ namespace RapidXamlToolkit.Parsers
                 {
                     Logger?.RecordInfo(StringRes.Info_GettingSubPropertyOutput.WithParams(subprop.Name));
 
-                    var (output, counter) = GetSubPropertyOutputAndCounter(profile, subprop.Name, numericSubstitute: numericSubstitute);
+                    var (output, counter) = this.GetSubPropertyOutputAndCounter(subprop.Name, numericSubstitute: numericSubstitute);
 
                     numericSubstitute = counter;
                     result.Add(output);
@@ -51,7 +235,7 @@ namespace RapidXamlToolkit.Parsers
                 Logger?.RecordInfo(StringRes.Info_PropertyTypeHasNoSubProperties.WithParams(property.Name, property.PropertyType));
 
                 // There are no subproperties so leave blank
-                var (output, counter) = GetSubPropertyOutputAndCounter(profile, string.Empty, numericSubstitute: numericSubstitute);
+                var (output, counter) = this.GetSubPropertyOutputAndCounter(string.Empty, numericSubstitute: numericSubstitute);
 
                 numericSubstitute = counter;
                 result.Add(output);
@@ -60,9 +244,9 @@ namespace RapidXamlToolkit.Parsers
             return (result, numericSubstitute);
         }
 
-        public static PropertyDetails GetPropertyDetails(SyntaxNode propertyNode, SemanticModel semModel)
+        private PropertyDetails GetPropertyDetails(SyntaxNode propertyNode, SemanticModel semModel)
         {
-            var propertyName = GetIdentifier(propertyNode);
+            var propertyName = this.GetIdentifier(propertyNode);
             var propertyType = Unknown;
             bool? propIsReadOnly = null;
 
@@ -170,43 +354,112 @@ namespace RapidXamlToolkit.Parsers
 
             Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
 
-            ITypeSymbol typeSymbol = GetTypeSymbol(semModel, propertyNode, pd);
+            ITypeSymbol typeSymbol = this.GetTypeSymbol(semModel, propertyNode, pd);
 
             pd.Symbol = typeSymbol;
 
             return pd;
         }
 
-        public static string GetIdentifier(SyntaxNode syntaxNode)
+        private (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, PropertyDetails prop, int numericCounter = 0)
+        {
+            var (output, counter) = this.GetPropertyOutputAndCounter(prop, numericCounter, () => this.GetSubPropertyOutput(prop, semModel));
+
+            return (output, prop.Name, counter);
+        }
+
+        private List<PropertyDetails> GetAllPublicProperties(ITypeSymbol typeSymbol, SemanticModel semModel)
+        {
+            var properties = new List<ISymbol>();
+
+            foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
+            {
+                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubProperties))
+                {
+                    continue;
+                }
+
+                switch (baseType.Kind)
+                {
+                    case SymbolKind.NamedType:
+                        // By default we don't output static/shared properties.
+                        // However, if working with a module (for which all properties are automatically shared)
+                        // we don't exclude shared properties
+                        if (baseType is ITypeSymbol ts && ts.TypeKind == TypeKind.Module)
+                        {
+                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property
+                                                                              && m.DeclaredAccessibility == Accessibility.Public));
+                        }
+                        else
+                        {
+                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property
+                                                                              && m.DeclaredAccessibility == Accessibility.Public
+                                                                              && !m.IsShared()));
+                        }
+
+                        break;
+                    case SymbolKind.ErrorType:
+                        Logger?.RecordInfo(StringRes.Info_CannotGetPropertiesForKnownType.WithParams(baseType.Name));
+                        break;
+                }
+            }
+
+            var result = new List<PropertyDetails>();
+
+            foreach (var prop in properties)
+            {
+                if (prop.Name.IsOneOf(NamesOfPropertiesToExcludeFromOutput))
+                {
+                    Logger?.RecordInfo(StringRes.Info_NotIncludingExcludedProperty.WithParams(prop.Name));
+                    continue;
+                }
+
+                var decRefs = prop.OriginalDefinition.DeclaringSyntaxReferences;
+
+                if (decRefs.Any())
+                {
+                    var decRef = decRefs.First();
+
+                    var pbs = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyBlockSyntax>().FirstOrDefault();
+
+                    var syntax = pbs ?? (SyntaxNode)decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyStatementSyntax>().FirstOrDefault();
+
+                    var details = this.GetPropertyDetails(syntax, semModel);
+
+                    Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
+                    result.Add(details);
+                }
+                else
+                {
+                    Logger?.RecordInfo(StringRes.Info_FoundSubPropertyOfUnknownType.WithParams(prop.Name));
+                    result.Add(new PropertyDetails { Name = prop.Name, PropertyType = UnknownOrInvalidTypeName, IsReadOnly = false, Symbol = null });
+                }
+            }
+
+            return result;
+        }
+
+        private string GetIdentifier(SyntaxNode syntaxNode)
         {
             if (syntaxNode is ModuleBlockSyntax)
             {
-                return GetIdentifier(syntaxNode.ChildNodes().FirstOrDefault(n => n is ModuleStatementSyntax));
+                return this.GetIdentifier(syntaxNode.ChildNodes().FirstOrDefault(n => n is ModuleStatementSyntax));
             }
 
             if (syntaxNode is ClassBlockSyntax)
             {
-                return GetIdentifier(syntaxNode.ChildNodes().FirstOrDefault(n => n is ClassStatementSyntax));
+                return this.GetIdentifier(syntaxNode.ChildNodes().FirstOrDefault(n => n is ClassStatementSyntax));
             }
 
             if (syntaxNode is PropertyBlockSyntax pbs)
             {
-                return GetIdentifier(pbs.PropertyStatement);
+                return this.GetIdentifier(pbs.PropertyStatement);
             }
 
             return syntaxNode?.ChildTokens().FirstOrDefault(t => t.RawKind == (int)SyntaxKind.IdentifierToken).ValueText;
         }
 
-        public static (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, Profile profileOverload, PropertyDetails prop, int numericCounter = 0)
-        {
-            var (output, counter) = profileOverload == null
-                ? GetPropertyOutputAndCounterForActiveProfile(prop, numericCounter, () => GetSubPropertyOutput(prop, GetSettings().GetActiveProfile(), semModel))
-                : GetPropertyOutputAndCounter(profileOverload, prop, numericCounter, () => GetSubPropertyOutput(prop, profileOverload, semModel));
-
-            return (output, prop.Name, counter);
-        }
-
-        public static (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        private (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             SyntaxNode propertyNode = null;
             SyntaxNode classNode = null;
@@ -231,193 +484,7 @@ namespace RapidXamlToolkit.Parsers
             return (propertyNode, classNode);
         }
 
-        public ParserOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition, Profile profileOverload = null)
-        {
-            Logger?.RecordInfo(StringRes.Info_GetSingleItemOutput);
-            var (propertyNode, classNode) = GetNodeUnderCaret(documentRoot, caretPosition);
-
-            if (propertyNode != null)
-            {
-                Logger?.RecordInfo(StringRes.Info_GetSinglePropertyOutput);
-
-                var propDetails = GetPropertyDetails(propertyNode, semModel);
-
-                var (output, name, _) = GetOutputToAdd(semModel, profileOverload, propDetails);
-
-                return new ParserOutput
-                {
-                    Name = name,
-                    Output = output,
-                    OutputType = ParserOutputType.Property,
-                };
-            }
-
-            if (classNode != null)
-            {
-                Logger?.RecordInfo(StringRes.Info_GetSingleClassOutput);
-
-                var className = GetIdentifier(classNode);
-
-                var classTypeSymbol = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
-                var properties = GetAllPublicProperties(classTypeSymbol, semModel);
-
-                var output = new StringBuilder();
-
-                var classGrouping = profileOverload == null ? GetClassGroupingForActiveProfile() : profileOverload.ClassGrouping;
-
-                if (!string.IsNullOrWhiteSpace(classGrouping))
-                {
-                    output.AppendLine($"<{FormattedClassGroupingOpener(classGrouping)}>");
-                }
-
-                if (properties.Any())
-                {
-                    Logger?.RecordInfo(StringRes.Info_ClassPropertyCount.WithParams(properties.Count));
-
-                    var propertyOutput = new List<string>();
-
-                    var numericCounter = 0;
-
-                    foreach (var prop in properties)
-                    {
-                        Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(prop.Name));
-                        var toAdd = GetOutputToAdd(semModel, profileOverload, prop, numericCounter);
-
-                        numericCounter = toAdd.counter;
-                        propertyOutput.Add(toAdd.output);
-                    }
-
-                    if (classGrouping != null
-                     && (classGrouping.Equals(GridWithRowDefsIndicator, StringComparison.InvariantCultureIgnoreCase)
-                      || classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase)))
-                    {
-                        Logger?.RecordInfo(StringRes.Info_AddingGridToOutput);
-
-                        if (classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            Logger?.RecordInfo(StringRes.Info_AddingColDefsToGrid);
-
-                            output.AppendLine("<Grid.ColumnDefinitions>");
-                            output.AppendLine("<ColumnDefinition Width=\"Auto\" />");
-                            output.AppendLine("<ColumnDefinition Width=\"*\" />");
-                            output.AppendLine("</Grid.ColumnDefinitions>");
-                        }
-
-                        output.AppendLine("<Grid.RowDefinitions>");
-
-                        Logger?.RecordInfo(StringRes.Info_AddedRowDefsCount.WithParams(numericCounter));
-                        for (var i = 1; i <= numericCounter; i++)
-                        {
-                            output.AppendLine(i < numericCounter
-                                ? "<RowDefinition Height=\"Auto\" />"
-                                : "<RowDefinition Height=\"*\" />");
-                        }
-
-                        output.AppendLine("</Grid.RowDefinitions>");
-                    }
-
-                    foreach (var po in propertyOutput)
-                    {
-                        output.AppendLine(po);
-                    }
-                }
-                else
-                {
-                    Logger?.RecordInfo(StringRes.Info_ClassNoPublicProperties);
-                    output.AppendLine(StringRes.UI_NoPropertiesXaml);
-                }
-
-                if (!string.IsNullOrWhiteSpace(classGrouping))
-                {
-                    output.Append($"</{FormattedClassGroupingCloser(classGrouping)}>");
-                }
-
-                var finalOutput = output.ToString().FormatXaml(CodeParserBase.XamlIndentSize);
-
-                return new ParserOutput
-                {
-                    Name = className,
-                    Output = finalOutput,
-                    OutputType = ParserOutputType.Class,
-                };
-            }
-
-            Logger?.RecordInfo(StringRes.Info_NoPropertiesToOutput);
-            return ParserOutput.Empty;
-        }
-
-        public ParserOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd, Profile profileOverload = null)
-        {
-            Logger?.RecordInfo(StringRes.Info_GetSelectionOutput);
-
-            var allProperties = documentRoot.DescendantNodes().OfType<PropertyStatementSyntax>().ToList();
-
-            Logger?.RecordInfo(StringRes.Info_DocumentPropertyCount.WithParams(allProperties.Count));
-
-            var propertiesOfInterest = new List<PropertyStatementSyntax>();
-
-            foreach (var prop in allProperties)
-            {
-                if (prop.FullSpan.End >= selStart && prop.FullSpan.Start < selEnd)
-                {
-                    propertiesOfInterest.Add(prop);
-                }
-            }
-
-            Logger?.RecordInfo(StringRes.Info_PropertiesInSelectedAreaCount.WithParams(propertiesOfInterest.Count));
-
-            var output = new StringBuilder();
-
-            var numericCounter = 1;
-
-            var propertyNames = new List<string>();
-
-            foreach (var prop in propertiesOfInterest)
-            {
-                var propDetails = GetPropertyDetails(prop, semModel);
-
-                if (propDetails.Name.IsOneOf(NamesOfPropertiesToExcludeFromOutput))
-                {
-                    Logger?.RecordInfo(StringRes.Info_NotIncludingExcludedProperty.WithParams(propDetails.Name));
-                    continue;
-                }
-
-                Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(propDetails.Name));
-                var toAdd = profileOverload == null
-                        ? GetPropertyOutputAndCounterForActiveProfile(propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, GetSettings().GetActiveProfile(), semModel))
-                        : GetPropertyOutputAndCounter(profileOverload, propDetails, numericCounter, () => GetSubPropertyOutput(propDetails, profileOverload, semModel));
-
-                if (!string.IsNullOrWhiteSpace(toAdd.output))
-                {
-                    numericCounter = toAdd.counter;
-                    output.AppendLine(toAdd.output);
-
-                    propertyNames.Add(propDetails.Name);
-                }
-            }
-
-            if (propertyNames.Any())
-            {
-                var outputName = GetSelectionPropertiesName(propertyNames);
-
-                Logger?.RecordInfo(StringRes.Info_ReturningOutput.WithParams(outputName));
-
-                // Trim end of output to remove trailing newline
-                return new ParserOutput
-                {
-                    Name = outputName,
-                    Output = output.ToString().TrimEnd(),
-                    OutputType = ParserOutputType.Selection,
-                };
-            }
-            else
-            {
-                Logger?.RecordInfo(StringRes.Info_NoPropertiesToOutput);
-                return ParserOutput.Empty;
-            }
-        }
-
-        private static ITypeSymbol GetTypeSymbol(SemanticModel semModel, SyntaxNode prop, PropertyDetails propDetails)
+        private ITypeSymbol GetTypeSymbol(SemanticModel semModel, SyntaxNode prop, PropertyDetails propDetails)
         {
             ITypeSymbol typeSymbol = null;
 
@@ -519,77 +586,6 @@ namespace RapidXamlToolkit.Parsers
             }
 
             return typeSymbol;
-        }
-
-        private static List<PropertyDetails> GetAllPublicProperties(ITypeSymbol typeSymbol, SemanticModel semModel)
-        {
-            var properties = new List<ISymbol>();
-
-            foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
-            {
-                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubProperties))
-                {
-                    continue;
-                }
-
-                switch (baseType.Kind)
-                {
-                    case SymbolKind.NamedType:
-                        // By default we don't output static/shared properties.
-                        // However, if working with a module (for which all properties are automatically shared)
-                        // we don't exclude shared properties
-                        if (baseType is ITypeSymbol ts && ts.TypeKind == TypeKind.Module)
-                        {
-                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property
-                                                                              && m.DeclaredAccessibility == Accessibility.Public));
-                        }
-                        else
-                        {
-                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property
-                                                                              && m.DeclaredAccessibility == Accessibility.Public
-                                                                              && !m.IsShared()));
-                        }
-
-                        break;
-                    case SymbolKind.ErrorType:
-                        Logger?.RecordInfo(StringRes.Info_CannotGetPropertiesForKnownType.WithParams(baseType.Name));
-                        break;
-                }
-            }
-
-            var result = new List<PropertyDetails>();
-
-            foreach (var prop in properties)
-            {
-                if (prop.Name.IsOneOf(NamesOfPropertiesToExcludeFromOutput))
-                {
-                    Logger?.RecordInfo(StringRes.Info_NotIncludingExcludedProperty.WithParams(prop.Name));
-                    continue;
-                }
-
-                var decRefs = prop.OriginalDefinition.DeclaringSyntaxReferences;
-
-                if (decRefs.Any())
-                {
-                    var decRef = decRefs.First();
-
-                    var pbs = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyBlockSyntax>().FirstOrDefault();
-
-                    var syntax = pbs ?? (SyntaxNode)decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyStatementSyntax>().FirstOrDefault();
-
-                    var details = GetPropertyDetails(syntax, semModel);
-
-                    Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
-                    result.Add(details);
-                }
-                else
-                {
-                    Logger?.RecordInfo(StringRes.Info_FoundSubPropertyOfUnknownType.WithParams(prop.Name));
-                    result.Add(new PropertyDetails { Name = prop.Name, PropertyType = UnknownOrInvalidTypeName, IsReadOnly = false, Symbol = null });
-                }
-            }
-
-            return result;
         }
     }
 }
