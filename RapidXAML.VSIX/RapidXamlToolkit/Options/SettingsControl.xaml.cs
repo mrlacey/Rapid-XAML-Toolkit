@@ -225,7 +225,7 @@ namespace RapidXamlToolkit.Options
 
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 var openFileDialog = new System.Windows.Forms.OpenFileDialog
                 {
