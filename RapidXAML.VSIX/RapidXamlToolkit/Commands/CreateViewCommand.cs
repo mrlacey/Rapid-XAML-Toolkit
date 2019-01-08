@@ -44,17 +44,17 @@ namespace RapidXamlToolkit.Commands
         public static async Task InitializeAsync(AsyncPackage package, ILogger logger)
         {
             // Verify the current thread is the UI thread - the call to AddCommand in CreateViewCommand's constructor requires the UI thread.
-            ThreadHelper.ThrowIfNotOnUIThread();
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new CreateViewCommand(package, commandService, logger);
         }
 
-        private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
+        private async void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 if (sender is OleMenuCommand menuCmd)
                 {
@@ -69,7 +69,7 @@ namespace RapidXamlToolkit.Commands
                     ((IVsProject)hierarchy).GetMkDocument(itemid, out var itemFullPath);
                     var transformFileInfo = new FileInfo(itemFullPath);
 
-                    // Save the name of the selected file so we whave it when the command is executed
+                    // Save the name of the selected file so we have it when the command is executed
                     this.SelectedFileName = transformFileInfo.FullName;
 
                     if (transformFileInfo.Name.EndsWith(".cs") || transformFileInfo.Name.EndsWith(".vb"))
@@ -158,7 +158,7 @@ namespace RapidXamlToolkit.Commands
         {
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 this.Logger?.RecordFeatureUsage(nameof(CreateViewCommand));
 
