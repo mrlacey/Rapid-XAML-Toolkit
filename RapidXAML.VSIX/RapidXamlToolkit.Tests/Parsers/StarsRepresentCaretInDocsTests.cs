@@ -328,7 +328,7 @@ namespace RapidXamlToolkit.Tests.Parsers
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent,profileOverload) as IDocumentParser
+            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
                                   : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
 
             var actual = parser.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos);
