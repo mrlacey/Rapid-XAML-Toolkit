@@ -515,7 +515,7 @@
     <PackageReference Include="AvalonEdit">
       <Version>5.0.4</Version>
     </PackageReference>
-    <PackageReference Include="Madskristensen.VisualStudio.SDK">
+    <PackageReference Include="Madskristensen.VisualStudio.SDK" ExcludeAssets="runtime">
       <Version>15.8.81-pre</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.ApplicationInsights">
