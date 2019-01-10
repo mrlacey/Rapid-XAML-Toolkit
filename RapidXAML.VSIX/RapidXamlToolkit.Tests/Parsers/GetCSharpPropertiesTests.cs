@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
@@ -820,7 +821,7 @@ namespace tests
         }
 
         [TestMethod]
-        public void HandlePropertyBeingAnEnumInAnotherFile()
+        public async Task HandlePropertyBeingAnEnumInAnotherFile()
         {
             var enumProfile = new Profile
             {
@@ -874,7 +875,7 @@ namespace tests
                 OutputType = ParserOutputType.Property,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, enumProfile, code2);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, enumProfile, code2);
         }
 
         [TestMethod]
@@ -930,7 +931,7 @@ namespace tests
         }
 
         [TestMethod]
-        public void GetCustomProperty_InOtherFile()
+        public async Task GetCustomProperty_InOtherFile()
         {
             var code = @"
 namespace tests
@@ -975,7 +976,7 @@ namespace tests
                 OutputType = ParserOutputType.Property,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, orderProfile, code2);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, orderProfile, code2);
         }
 
         [TestMethod]

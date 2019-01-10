@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Threading.Tasks;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
 
@@ -22,25 +23,25 @@ namespace RapidXamlToolkit.Tests.Parsers
             this.PositionAtStarShouldProduceExpected(code, expected, isCSharp: true, profileOverload: profile);
         }
 
-        public void PositionAtStarShouldProduceExpectedUsingAdditonalFiles(string code, ParserOutput expected, Profile profileOverload, params string[] additionalCode)
+        public async Task PositionAtStarShouldProduceExpectedUsingAdditionalFiles(string code, ParserOutput expected, Profile profileOverload, params string[] additionalCode)
         {
             var profile = profileOverload ?? this.DefaultProfile;
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, isCSharp: true, profileOverload: profile, additionalCode: additionalCode);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, isCSharp: true, profileOverload: profile, additionalCode: additionalCode);
         }
 
-        public void PositionAtStarShouldProduceExpectedUsingAdditonalReferences(string code, ParserOutput expected, Profile profileOverload, params string[] additionalReferences)
+        public async Task PositionAtStarShouldProduceExpectedUsingAdditionalReferences(string code, ParserOutput expected, Profile profileOverload, params string[] additionalReferences)
         {
             var profile = profileOverload ?? this.DefaultProfile;
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalReferences(code, expected, isCSharp: true, profileOverload: profile, additionalReferences: additionalReferences);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalReferences(code, expected, isCSharp: true, profileOverload: profile, additionalReferences: additionalReferences);
         }
 
-        public void PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(string code, ParserOutput expected, Profile profileOverload, params string[] additionalLibraryPaths)
+        public async Task PositionAtStarShouldProduceExpectedUsingAdditionalLibraries(string code, ParserOutput expected, Profile profileOverload, params string[] additionalLibraryPaths)
         {
             var profile = profileOverload ?? this.DefaultProfile;
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, isCSharp: true, profileOverload: profile, additionalLibraryPaths: additionalLibraryPaths);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalLibraries(code, expected, isCSharp: true, profileOverload: profile, additionalLibraryPaths: additionalLibraryPaths);
         }
 
         public void SelectionBetweenStarsShouldProduceExpected(string code, ParserOutput expected, Profile profileOverload = null)

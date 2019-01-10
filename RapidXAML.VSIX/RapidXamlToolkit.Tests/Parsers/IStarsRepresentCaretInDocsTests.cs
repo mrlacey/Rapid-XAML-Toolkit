@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Threading.Tasks;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
 
@@ -14,10 +15,10 @@ namespace RapidXamlToolkit.Tests.Parsers
 
         void SelectionBetweenStarsShouldProduceExpected(string code, ParserOutput expected, Profile profileOverload);
 
-        void PositionAtStarShouldProduceExpectedUsingAdditonalFiles(string code, ParserOutput expected, Profile profileOverload, params string[] additionalCode);
+        Task PositionAtStarShouldProduceExpectedUsingAdditionalFiles(string code, ParserOutput expected, Profile profileOverload, params string[] additionalCode);
 
-        void PositionAtStarShouldProduceExpectedUsingAdditonalReferences(string code, ParserOutput expected, Profile profileOverload, params string[] additionalReferences);
+        Task PositionAtStarShouldProduceExpectedUsingAdditionalReferences(string code, ParserOutput expected, Profile profileOverload, params string[] additionalReferences);
 
-        void PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(string code, ParserOutput expected, Profile profileOverload, params string[] additionalLibraryPaths);
+        Task PositionAtStarShouldProduceExpectedUsingAdditionalLibraries(string code, ParserOutput expected, Profile profileOverload, params string[] additionalLibraryPaths);
     }
 }
