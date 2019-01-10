@@ -4,6 +4,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EnvDTE;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Logging;
@@ -26,9 +27,7 @@ namespace RapidXamlToolkit.Commands
 
             if (CodeParserBase.GetSettings().Profiles.Any())
             {
-                var dte = await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
-
-                if (dte == null)
+                if (!(await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) is DTE dte))
                 {
                     RapidXamlPackage.Logger?.RecordError("Failed to get DTE in GetXamlFromCodeWindowBaseCommand.GetXamlAsync");
                 }
@@ -79,15 +78,13 @@ namespace RapidXamlToolkit.Commands
         {
             try
             {
-                var dte = await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
-
-                if (dte == null)
+                if (await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) is DTE dte)
                 {
-                    RapidXamlPackage.Logger?.RecordError("Failed to get DTE in GetXamlFromCodeWindowBaseCommand.ShowStatusBarMessageAsync");
+                    dte.StatusBar.Text = message;
                 }
                 else
                 {
-                    dte.StatusBar.Text = message;
+                    RapidXamlPackage.Logger?.RecordError("Failed to get DTE in GetXamlFromCodeWindowBaseCommand.ShowStatusBarMessageAsync");
                 }
             }
             catch (Exception exc)

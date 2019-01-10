@@ -84,9 +84,7 @@ namespace RapidXamlToolkit.Commands
                 var settings = CodeParserBase.GetSettings();
                 var profile = settings.GetActiveProfile();
 
-                var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
-
-                if (dte == null)
+                if (!(await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) is DTE dte))
                 {
                     RapidXamlPackage.Logger?.RecordError("Failed to get DTE in SetDatacontextCommand.Execute");
                 }

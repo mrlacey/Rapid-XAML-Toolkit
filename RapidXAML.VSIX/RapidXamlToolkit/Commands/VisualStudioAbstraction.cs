@@ -220,9 +220,7 @@ namespace RapidXamlToolkit.Commands
 
                 languagePreferences[0].guidLang = xamlLanguageGuid;
 
-                var textManager = await this.serviceProvider.GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager4;
-
-                if (textManager == null)
+                if (!(await this.serviceProvider.GetServiceAsync(typeof(SVsTextManager)) is IVsTextManager4 textManager))
                 {
                     RapidXamlPackage.Logger?.RecordError("Failed to get IVsTextManager4 in VisualStudioAbstraction.GetXamlIndentAsync");
                 }

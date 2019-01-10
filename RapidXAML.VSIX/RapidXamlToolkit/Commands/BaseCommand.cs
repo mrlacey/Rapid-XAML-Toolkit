@@ -51,9 +51,7 @@ namespace RapidXamlToolkit.Commands
 
         protected static async Task<IVsEditorAdaptersFactoryService> GetEditorAdaptersFactoryServiceAsync(IAsyncServiceProvider serviceProvider)
         {
-            var componentModel = await serviceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel;
-
-            if (componentModel != null)
+            if (await serviceProvider.GetServiceAsync(typeof(SComponentModel)) is IComponentModel componentModel)
             {
                 return componentModel.GetService<IVsEditorAdaptersFactoryService>();
             }
@@ -74,9 +72,7 @@ namespace RapidXamlToolkit.Commands
 
                 languagePreferences[0].guidLang = xamlLanguageGuid;
 
-                var textManager = await serviceProvider.GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager4;
-
-                if (textManager != null)
+                if (await serviceProvider.GetServiceAsync(typeof(SVsTextManager)) is IVsTextManager4 textManager)
                 {
                     textManager.GetUserPreferences4(pViewPrefs: null, pLangPrefs: languagePreferences, pColorPrefs: null);
 
