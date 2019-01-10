@@ -52,7 +52,17 @@ namespace RapidXamlToolkit.Commands
         protected static async Task<IVsEditorAdaptersFactoryService> GetEditorAdaptersFactoryServiceAsync(IAsyncServiceProvider serviceProvider)
         {
             var componentModel = await serviceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel;
-            return componentModel.GetService<IVsEditorAdaptersFactoryService>();
+
+            if (componentModel != null)
+            {
+                return componentModel.GetService<IVsEditorAdaptersFactoryService>();
+            }
+            else
+            {
+                RapidXamlPackage.Logger?.RecordError("Failed to get IComponentModel in BaseCommand.GetEditorAdaptersFactoryServiceAsync");
+
+                return null;
+            }
         }
 
         protected async Task<int> GetXamlIndentAsync(IAsyncServiceProvider serviceProvider)
@@ -66,18 +76,25 @@ namespace RapidXamlToolkit.Commands
 
                 var textManager = await serviceProvider.GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager4;
 
-                textManager.GetUserPreferences4(pViewPrefs: null, pLangPrefs: languagePreferences, pColorPrefs: null);
+                if (textManager != null)
+                {
+                    textManager.GetUserPreferences4(pViewPrefs: null, pLangPrefs: languagePreferences, pColorPrefs: null);
 
-                return (int)languagePreferences[0].uIndentSize;
+                    return (int)languagePreferences[0].uIndentSize;
+                }
+                else
+                {
+                    RapidXamlPackage.Logger?.RecordError("Failed to get IVsTextManager4 in BaseCommand.GetXamlIndentAsync");
+                }
             }
             catch (Exception exc)
             {
                 this.Logger.RecordException(exc);
-
-                var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();
-
-                return indent.Default;
             }
+
+            var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();
+
+            return indent.Default;
         }
 
         protected void SuppressAnyException(Action action)

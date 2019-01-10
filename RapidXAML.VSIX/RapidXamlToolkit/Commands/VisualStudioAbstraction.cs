@@ -222,18 +222,25 @@ namespace RapidXamlToolkit.Commands
 
                 var textManager = await this.serviceProvider.GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager4;
 
-                textManager.GetUserPreferences4(pViewPrefs: null, pLangPrefs: languagePreferences, pColorPrefs: null);
+                if (textManager == null)
+                {
+                    RapidXamlPackage.Logger?.RecordError("Failed to get IVsTextManager4 in VisualStudioAbstraction.GetXamlIndentAsync");
+                }
+                else
+                {
+                    textManager.GetUserPreferences4(pViewPrefs: null, pLangPrefs: languagePreferences, pColorPrefs: null);
 
-                return (int)languagePreferences[0].uIndentSize;
+                    return (int) languagePreferences[0].uIndentSize;
+                }
             }
             catch (Exception exc)
             {
                 this.logger.RecordException(exc);
 
-                var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();
+            }
+            var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();
 
                 return indent.Default;
-            }
         }
     }
 }
