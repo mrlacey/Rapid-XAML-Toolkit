@@ -93,6 +93,7 @@ namespace RapidXamlToolkit.Commands
                 else
                 {
                     var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
+                    var logic = new SetDataContextCommandLogic(profile, this.Logger, vs);
 
                     var inXamlDoc = dte.ActiveDocument.Name.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
 

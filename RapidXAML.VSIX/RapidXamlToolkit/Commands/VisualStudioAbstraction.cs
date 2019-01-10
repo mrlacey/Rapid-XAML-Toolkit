@@ -230,17 +230,17 @@ namespace RapidXamlToolkit.Commands
                 {
                     textManager.GetUserPreferences4(pViewPrefs: null, pLangPrefs: languagePreferences, pColorPrefs: null);
 
-                    return (int) languagePreferences[0].uIndentSize;
+                    return (int)languagePreferences[0].uIndentSize;
                 }
             }
             catch (Exception exc)
             {
                 this.logger.RecordException(exc);
-
             }
+
             var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();
 
-                return indent.Default;
+            return indent.Default;
         }
     }
 }
