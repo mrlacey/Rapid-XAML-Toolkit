@@ -4,6 +4,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
@@ -572,7 +573,7 @@ End Module";
         }
 
         [TestMethod]
-        public void GetClassAndSubProperties_ClassInExternalLibrary()
+        public async Task GetClassAndSubProperties_ClassInExternalLibrary()
         {
             var recurseProfile = new Profile
             {
@@ -613,11 +614,11 @@ End Class";
                 OutputType = ParserOutputType.Class,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalLibraries(code, expected, recurseProfile, TestLibraryPath);
         }
 
         [TestMethod]
-        public void GetClassAndSubProperties_ClassWithBaseInExternalLibrary()
+        public async Task GetClassAndSubProperties_ClassWithBaseInExternalLibrary()
         {
             var recurseProfile = new Profile
             {
@@ -664,7 +665,7 @@ End Class";
                 OutputType = ParserOutputType.Class,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalLibraries(code, expected, recurseProfile, TestLibraryPath);
         }
 
         [TestMethod]
@@ -882,7 +883,7 @@ End Class";
         }
 
         [TestMethod]
-        public void GetInheritedPropertiesInOtherFile()
+        public async Task GetInheritedPropertiesInOtherFile()
         {
             var code = @"
 Public Class Class1
@@ -911,11 +912,11 @@ End Class";
                 OutputType = ParserOutputType.Class,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, profileOverload: null, additionalCode: code2);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, profileOverload: null, additionalCode: code2);
         }
 
         [TestMethod]
-        public void GetGenericPropertiesInOtherFiles()
+        public async Task GetGenericPropertiesInOtherFiles()
         {
             var code = @"
 Public Class Clas☆s1
@@ -946,11 +947,11 @@ End Class";
                 OutputType = ParserOutputType.Class,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, null, code2, code3);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, null, code2, code3);
         }
 
         [TestMethod]
-        public void GetInheritedPropertiesInOtherFilesOverMultipleLevels()
+        public async Task GetInheritedPropertiesInOtherFilesOverMultipleLevels()
         {
             var code = @"
 Public Class Class1
@@ -987,7 +988,7 @@ End Class";
                 OutputType = ParserOutputType.Class,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, profileOverload: null, additionalCode: new[] { code2, code3 });
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, profileOverload: null, additionalCode: new[] { code2, code3 });
         }
 
         [TestMethod]
@@ -1020,7 +1021,7 @@ End Class";
         }
 
         [TestMethod]
-        public void GetClassAndSubPropertiesInGenericList_ForNativeTypes()
+        public async Task GetClassAndSubPropertiesInGenericList_ForNativeTypes()
         {
             var recurseProfile = new Profile
             {
@@ -1071,11 +1072,11 @@ End Class";
                 OutputType = ParserOutputType.Class,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalReferences(code, expected, recurseProfile, "System.Array");
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalReferences(code, expected, recurseProfile, "System.Array");
         }
 
         [TestMethod]
-        public void GetClassAndSubPropertiesInGenericList_ForClassInExternalLibrary()
+        public async Task GetClassAndSubPropertiesInGenericList_ForClassInExternalLibrary()
         {
             var recurseProfile = new Profile
             {
@@ -1120,11 +1121,11 @@ End Class";
                 OutputType = ParserOutputType.Class,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalLibraries(code, expected, recurseProfile, TestLibraryPath);
         }
 
         [TestMethod]
-        public void GetClassAndSubPropertiesInGenericList_ForClassWithBaseInExternalLibrary()
+        public async Task GetClassAndSubPropertiesInGenericList_ForClassWithBaseInExternalLibrary()
         {
             var recurseProfile = new Profile
             {
@@ -1177,7 +1178,7 @@ End Class";
                 OutputType = ParserOutputType.Class,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(code, expected, recurseProfile, TestLibraryPath);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalLibraries(code, expected, recurseProfile, TestLibraryPath);
         }
 
         [TestMethod]
@@ -1424,7 +1425,7 @@ End Class";
         }
 
         [TestMethod]
-        public void GetClassWithFullQualifiedNestedLists_CustomTypeMultipleFiles()
+        public async Task GetClassWithFullQualifiedNestedLists_CustomTypeMultipleFiles()
         {
             var nestedListProfile = new Profile
             {
@@ -1496,7 +1497,7 @@ End Namespace";
                 OutputType = ParserOutputType.Class,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(codeFile1, expected, nestedListProfile, codeFile2, codeFile3);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(codeFile1, expected, nestedListProfile, codeFile2, codeFile3);
         }
 
         [TestMethod]

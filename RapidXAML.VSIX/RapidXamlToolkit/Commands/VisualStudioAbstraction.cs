@@ -220,20 +220,25 @@ namespace RapidXamlToolkit.Commands
 
                 languagePreferences[0].guidLang = xamlLanguageGuid;
 
-                var textManager = await this.serviceProvider.GetServiceAsync(typeof(SVsTextManager)) as IVsTextManager4;
+                if (!(await this.serviceProvider.GetServiceAsync(typeof(SVsTextManager)) is IVsTextManager4 textManager))
+                {
+                    RapidXamlPackage.Logger?.RecordError("Failed to get IVsTextManager4 in VisualStudioAbstraction.GetXamlIndentAsync");
+                }
+                else
+                {
+                    textManager.GetUserPreferences4(pViewPrefs: null, pLangPrefs: languagePreferences, pColorPrefs: null);
 
-                textManager.GetUserPreferences4(pViewPrefs: null, pLangPrefs: languagePreferences, pColorPrefs: null);
-
-                return (int)languagePreferences[0].uIndentSize;
+                    return (int)languagePreferences[0].uIndentSize;
+                }
             }
             catch (Exception exc)
             {
                 this.logger.RecordException(exc);
-
-                var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();
-
-                return indent.Default;
             }
+
+            var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();
+
+            return indent.Default;
         }
     }
 }

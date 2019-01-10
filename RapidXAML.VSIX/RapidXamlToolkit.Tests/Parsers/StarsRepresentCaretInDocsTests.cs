@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.VisualBasic;
@@ -224,7 +225,7 @@ namespace RapidXamlToolkit.Tests.Parsers
             this.AssertOutput(expected, actual);
         }
 
-        protected void PositionAtStarShouldProduceExpectedUsingAdditonalFiles(string code, ParserOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalCode)
+        protected async Task PositionAtStarShouldProduceExpectedUsingAdditionalFiles(string code, ParserOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalCode)
         {
             this.EnsureOneStar(code);
 
@@ -247,20 +248,20 @@ namespace RapidXamlToolkit.Tests.Parsers
 
             var document = solution.GetDocument(documentId);
 
-            var semModel = document.GetSemanticModelAsync().Result;
-            var syntaxTree = document.GetSyntaxTreeAsync().Result;
+            var semModel = await document.GetSemanticModelAsync();
+            var syntaxTree = await document.GetSyntaxTreeAsync();
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
             var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
                                   : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
 
-            var actual = parser.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos);
+            var actual = parser.GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, pos);
 
             this.AssertOutput(expected, actual);
         }
 
-        protected void PositionAtStarShouldProduceExpectedUsingAdditonalReferences(string code, ParserOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalReferences)
+        protected async Task PositionAtStarShouldProduceExpectedUsingAdditionalReferences(string code, ParserOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalReferences)
         {
             this.EnsureOneStar(code);
 
@@ -285,20 +286,20 @@ namespace RapidXamlToolkit.Tests.Parsers
 
             var document = solution.GetDocument(documentId);
 
-            var semModel = document.GetSemanticModelAsync().Result;
-            var syntaxTree = document.GetSyntaxTreeAsync().Result;
+            var semModel = await document.GetSemanticModelAsync();
+            var syntaxTree = await document.GetSyntaxTreeAsync();
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
             var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
                                   : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
 
-            var actual = parser.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos);
+            var actual = parser.GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, pos);
 
             this.AssertOutput(expected, actual);
         }
 
-        protected void PositionAtStarShouldProduceExpectedUsingAdditonalLibraries(string code, ParserOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalLibraryPaths)
+        protected async Task PositionAtStarShouldProduceExpectedUsingAdditionalLibraries(string code, ParserOutput expected, bool isCSharp, Profile profileOverload, params string[] additionalLibraryPaths)
         {
             this.EnsureOneStar(code);
 
@@ -323,15 +324,15 @@ namespace RapidXamlToolkit.Tests.Parsers
 
             var document = solution.GetDocument(documentId);
 
-            var semModel = document.GetSemanticModelAsync().Result;
-            var syntaxTree = document.GetSyntaxTreeAsync().Result;
+            var semModel = await document.GetSemanticModelAsync();
+            var syntaxTree = await document.GetSyntaxTreeAsync();
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
             var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
                                   : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
 
-            var actual = parser.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos);
+            var actual = parser.GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, pos);
 
             this.AssertOutput(expected, actual);
         }

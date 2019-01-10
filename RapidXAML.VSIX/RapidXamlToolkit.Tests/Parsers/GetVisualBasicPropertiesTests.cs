@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
@@ -202,7 +203,7 @@ End Namespace";
         }
 
         [TestMethod]
-        public void GetGenericListProperty_InMultipleFiles()
+        public async Task GetGenericListProperty_InMultipleFiles()
         {
             var testProfile = new Profile
             {
@@ -262,7 +263,7 @@ End Namespace";
                 OutputType = ParserOutputType.Property,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(codeFile1, expected, testProfile, codeFile2, codeFile3);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(codeFile1, expected, testProfile, codeFile2, codeFile3);
         }
 
         [TestMethod]
@@ -474,7 +475,7 @@ End Namespace";
         }
 
         [TestMethod]
-        public void GetCustomProperty_InOtherFile()
+        public async Task GetCustomProperty_InOtherFile()
         {
             var code = @"
 Namespace tests
@@ -498,7 +499,7 @@ End Namespace";
                 OutputType = ParserOutputType.Property,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, additionalCode: code2);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, additionalCode: code2);
         }
 
         [TestMethod]
@@ -768,7 +769,7 @@ End Namespace";
         }
 
         [TestMethod]
-        public void HandlePropertyBeingAnEnumInAnotherFile()
+        public async Task HandlePropertyBeingAnEnumInAnotherFile()
         {
             var enumProfile = new Profile
             {
@@ -818,7 +819,7 @@ End Namespace";
                 OutputType = ParserOutputType.Property,
             };
 
-            this.PositionAtStarShouldProduceExpectedUsingAdditonalFiles(code, expected, enumProfile, code2);
+            await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, enumProfile, code2);
         }
 
         [TestMethod]
