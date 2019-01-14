@@ -1,6 +1,9 @@
 
 # Rapid XAML Toolkit
 
+[![Build status](https://ci.appveyor.com/api/projects/status/kryvt4vdvy39940m/branch/dev?svg=true)](https://ci.appveyor.com/project/mrlacey/rapid-xaml-toolkit/branch/dev)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 Creating a XAML UI can be slow or require lots of manual effort. These tools aim to reduce the time and effort required to get the basics working and allow you to customize the UI to meet your preferences or the specific needs of your app.
 We can't and don't try to create the whole app for you but we can make creating and working with XAML faster easier.
 The functionality of the toolkit is based common conventions but is highly [configurable](./docs/configuration.md).
