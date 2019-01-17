@@ -637,4 +637,7 @@
   <data name="Options_Warn_UseNoOutputNotBlank" xml:space="preserve">
     <value>Do not leave blank. Use '{0}' if no output is required.</value>
   </data>
+  <data name="Info_ProblemsInstructionsAndLink" xml:space="preserve">
+    <value>If you have problems with this extension, or suggestions for improvement, report them at https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/new/choose </value>
+  </data>
 </root>

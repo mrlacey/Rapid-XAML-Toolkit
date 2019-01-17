@@ -50,6 +50,7 @@ namespace RapidXamlToolkit
             {
                 // Set the ServiceProvider of CodeParserBase as it's needed to get settings
                 CodeParserBase.ServiceProvider = this;
+                Logger.RecordInfo(StringRes.Info_ProblemsInstructionsAndLink);
                 Logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
 
                 await CreateViewCommand.InitializeAsync(this, Logger);

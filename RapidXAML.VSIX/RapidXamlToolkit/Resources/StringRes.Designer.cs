@@ -493,6 +493,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you have problems with this extension, or suggestions for improvement, report them at https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/new/choose .
+        /// </summary>
+        public static string Info_ProblemsInstructionsAndLink {
+            get {
+                return ResourceManager.GetString("Info_ProblemsInstructionsAndLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} properties within the selection area..
         /// </summary>
         public static string Info_PropertiesInSelectedAreaCount {
@@ -1348,7 +1357,9 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following issues prevented the profile from being imported:\r\n\r\n- {0}.
+        ///   Looks up a localized string similar to The following issues prevented the profile from being imported:
+        ///
+        ///- {0}.
         /// </summary>
         public static string Prompt_ImportFailedMessage {
             get {
