@@ -146,10 +146,10 @@ namespace RapidXamlToolkit.Telemetry
             client.Context.Session.Id = sessionId;
             client.Context.Component.Version = CoreDetails.GetVersion();
 
-            client.Context.Properties.Add(TelemetryProperties.VisualStudioEdition, TelemetryService.DefaultSession?.GetSharedProperty("VS.Core.SkuName"));
-            client.Context.Properties.Add(TelemetryProperties.VisualStudioExeVersion, TelemetryService.DefaultSession?.GetSharedProperty("VS.Core.ExeVersion"));
-            client.Context.Properties.Add(TelemetryProperties.VisualStudioCulture, TelemetryService.DefaultSession?.GetSharedProperty("VS.Core.Locale.ProductLocaleName"));
-            client.Context.Properties.Add(TelemetryProperties.VisualStudioManifestId, TelemetryService.DefaultSession?.GetSharedProperty("VS.Core.ManifestId"));
+            client.Context.GlobalProperties.Add(TelemetryProperties.VisualStudioEdition, TelemetryService.DefaultSession?.GetSharedProperty("VS.Core.SkuName"));
+            client.Context.GlobalProperties.Add(TelemetryProperties.VisualStudioExeVersion, TelemetryService.DefaultSession?.GetSharedProperty("VS.Core.ExeVersion"));
+            client.Context.GlobalProperties.Add(TelemetryProperties.VisualStudioCulture, TelemetryService.DefaultSession?.GetSharedProperty("VS.Core.Locale.ProductLocaleName"));
+            client.Context.GlobalProperties.Add(TelemetryProperties.VisualStudioManifestId, TelemetryService.DefaultSession?.GetSharedProperty("VS.Core.ManifestId"));
         }
 
         private static bool VsTelemetryIsOptedIn(ILogger logger)
