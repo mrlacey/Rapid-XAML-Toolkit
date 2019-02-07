@@ -66,6 +66,11 @@
     <NoWarn>,1573,1591,1712,1762</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ErrorList\ErrorListService.cs" />
+    <Compile Include="ErrorList\SinkManager.cs" />
+    <Compile Include="ErrorList\TableDataSource.cs" />
+    <Compile Include="ErrorList\TableEntriesSnapshot.cs" />
+    <Compile Include="ErrorList\ValidationResult.cs" />
     <Compile Include="Parsers\CodeParserBase.cs" />
     <Compile Include="Parsers\CSharpParser.cs" />
     <Compile Include="Parsers\IDocumentParser.cs" />

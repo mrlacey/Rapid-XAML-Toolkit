@@ -14,6 +14,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
 using Microsoft.VisualStudio.Utilities;
+using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Tagging;
 using Task = System.Threading.Tasks.Task;
 
@@ -131,6 +132,18 @@ namespace RapidXamlToolkit.Suggestions
                 {
 
                     list.AddRange(CreateActionSet(InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rapidXamlTag,  _file, _view)));
+
+
+
+                    var result = new ValidationResult();
+                    result.Project = "a-project";
+                    result.Url = "a-url";
+                    result.Errors = new List<Error>();
+
+                    result.Errors.Add(new Error{ Extract = rapidXamlTag.ActionType.ToString(), Message = "rxt - insertrowdef"});
+
+                    ErrorListService.Process(result);
+
                 }
             }
 
