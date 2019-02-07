@@ -23,7 +23,10 @@ namespace RapidXamlToolkit.Tagging
 
         public static void Update(string file, string text)
         {
-            cache[file] = RapidXamlDocument.Create(text);
+            if (cache[file].RawText != text)
+            {
+                cache[file] = RapidXamlDocument.Create(text);
+            }
         }
 
         public static List<IRapidXamlTag> Tags(string fileName)
@@ -46,11 +49,15 @@ namespace RapidXamlToolkit.Tagging
             this.SuggestionTags = new List<IRapidXamlTag>();
         }
 
+        public string RawText { get; set; }
+
         public List<IRapidXamlTag> SuggestionTags { get; set; }
 
         public static RapidXamlDocument Create(string text)
         {
             var result = new RapidXamlDocument();
+
+            result.RawText = text;
 
             // TODO: offload the creation of tags to separate classes for handling each XAML element
             var count = 0;

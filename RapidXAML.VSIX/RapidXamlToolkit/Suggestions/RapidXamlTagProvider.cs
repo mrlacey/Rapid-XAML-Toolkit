@@ -83,9 +83,19 @@ namespace RapidXamlToolkit.Suggestions
             _view = view;
             _file = file;
 
+            _view.LayoutChanged += this.OnViewLayoutChanged;
 
             RapidXamlDocumentCache.Add(_file, textBuffer.CurrentSnapshot.GetText());
+        }
 
+        private void OnViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
+        {
+            // Layout change can happen a lot, but only interested in if the text has changed
+            if (e.OldSnapshot != e.NewSnapshot)
+            {
+                // TODO: handle just the changed lines, rather than the whole document - would improve perf but might be very difficult for abstracted taggers
+                RapidXamlDocumentCache.Update(_file, e.NewViewState.EditSnapshot.GetText());
+            }
         }
 
         public Task<bool> HasSuggestedActionsAsync(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
