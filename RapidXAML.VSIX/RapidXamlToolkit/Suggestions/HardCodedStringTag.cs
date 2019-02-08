@@ -1,5 +1,6 @@
-﻿using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Text.Tagging;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+
 using RapidXamlToolkit.Suggestions;
 
 namespace RapidXamlToolkit.Tagging
@@ -10,6 +11,7 @@ namespace RapidXamlToolkit.Tagging
         {
             this.ActionType = ActionTypes.HardCodedString;
             this.ToolTip = "HardCoded string message";
+            this.ErrorCode = "RXT???"; // TODO Need to assign a proper error code
         }
     }
 }

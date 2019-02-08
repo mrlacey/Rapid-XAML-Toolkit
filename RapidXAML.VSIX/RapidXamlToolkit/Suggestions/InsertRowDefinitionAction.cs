@@ -8,9 +8,6 @@ namespace RapidXamlToolkit.Suggestions
 {
     public class InsertRowDefinitionAction : BaseSuggestedAction
     {
-        private string file;
-        private string linkUrl;
-        private ITextView view;
         public InsertRowDefinitionTag tag;
 
         public override string DisplayText
@@ -25,30 +22,11 @@ namespace RapidXamlToolkit.Suggestions
 
         public override void Execute(CancellationToken cancellationToken)
         {
-            // TODO: Do insertion
-        }
-
-        // TODO call this after having made the change to force reevaluation of actions - move to base?
-        private void RaiseBufferChange()
-        {
-            // Adding and deleting a char in order to force taggers re-evaluation
-            string text = " ";
-            view.TextBuffer.Insert(0, text);
-            view.TextBuffer.Delete(new Span(0, text.Length));
+            // TODO: Do insertion - use code from existing command - may need to abstract for reuse
         }
 
         public static InsertRowDefinitionAction Create(InsertRowDefinitionTag tag, string file, ITextView view)
         {
-            // var errorTag = errorTags
-            //     .Select(m => m.Tag as InsertRowDefinitionTag)
-            //     .Where(tag => tag != null)
-            //     .FirstOrDefault();
-            //
-            // if (errorTag == null)
-            // {
-            //     return null;
-            // }
-
             var result = new InsertRowDefinitionAction
             {
                 // linkUrl = errorTag.Url,

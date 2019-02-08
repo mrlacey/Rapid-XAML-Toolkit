@@ -22,12 +22,19 @@ namespace RapidXamlToolkit.Tagging
 
             try
             {
-
-
                 var text = snapshot.GetText();
                 result.RawText = text;
 
                 // TODO: offload the creation of tags to separate classes for handling each XAML element
+                // Register handlers and the elements they are looking for
+
+                // walk the file until find an element that's registered
+                // Keep walking until get to the end of that element
+                // pass the text of the element (and position offset) to the handler
+                // handler processes the passed text and may add items to the SuggestionTags
+
+
+
                 var count = 0;
 
                 var rowDefIndex = text.IndexOf("<RowDefinition");
@@ -69,6 +76,11 @@ namespace RapidXamlToolkit.Tagging
             }
             catch (Exception e)
             {
+                result.SuggestionTags.Add(new UnexpectedErrorTag
+                {
+                    Span = new Span(0, 0),
+                    Message = "Unexpected error occurred while parsing XAML. Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: " + e,
+                });
                 // TODO: add a new view error to suggested tags that indicates the error. - Like the below
               //  yield return new XamlError
               //  {
@@ -84,5 +96,18 @@ namespace RapidXamlToolkit.Tagging
 
             return result;
         }
+    }
+
+    public static class XamlElementExtractor
+    {
+        public static void Parse(string xaml, List<(string element, XamlElementProcessor procesor)> processors)
+        {
+
+        }
+    }
+
+    public class XamlElementProcessor
+    {
+
     }
 }

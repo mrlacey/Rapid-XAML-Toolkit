@@ -21,6 +21,10 @@ namespace RapidXamlToolkit.Tagging
 
         public ITextSnapshot Snapshot { get; set; }
 
+        public string ErrorCode { get; set; }
+
+        public bool IsFatal { get; protected set; }
+
         public ITagSpan<IErrorTag> AsErrorTag()
         {
             var span = new SnapshotSpan(this.Snapshot, this.Span);
@@ -34,6 +38,8 @@ namespace RapidXamlToolkit.Tagging
                 ExtendedMessage = this.ActionType.ToString(),
                 Span = new SnapshotSpan(this.Snapshot, this.Span),
                 Message = this.Message,
+                ErrorCode = this.ErrorCode,
+                IsFatal = this.IsFatal,
             };
         }
     }

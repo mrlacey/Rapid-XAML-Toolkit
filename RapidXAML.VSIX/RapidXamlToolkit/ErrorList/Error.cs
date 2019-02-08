@@ -9,5 +9,9 @@ namespace RapidXamlToolkit.ErrorList
         public string Message { get; set; }
 
         public SnapshotSpan Span { get; set; }
+
+        public string ErrorCode { get; internal set; }
+
+        public bool IsFatal { get; internal set; }
     }
 }

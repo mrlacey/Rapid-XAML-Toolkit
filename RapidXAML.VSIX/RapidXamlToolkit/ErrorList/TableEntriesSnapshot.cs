@@ -36,12 +36,12 @@ namespace RapidXamlToolkit.ErrorList
         {
             content = null;
 
-            if (index < 0 || index >= Errors.Count)
+            if (index < 0 || index >= this.Errors.Count)
             {
                 return false;
             }
 
-            var error = Errors[index];
+            var error = this.Errors[index];
 
             switch (columnName)
             {
@@ -56,10 +56,10 @@ namespace RapidXamlToolkit.ErrorList
                     return true;
                 case StandardTableKeyNames.PriorityImage:
                 case StandardTableKeyNames.ErrorSeverityImage:
-                    content = KnownMonikers.ReportWarning;
+                    content = error.IsFatal ? KnownMonikers.ProcessError : KnownMonikers.ReportWarning;
                     return true;
                 case StandardTableKeyNames.ErrorSeverity:
-                    content = __VSERRORCATEGORY.EC_WARNING;
+                    content = error.IsFatal ? __VSERRORCATEGORY.EC_ERROR : __VSERRORCATEGORY.EC_WARNING;
                     return true;
                 case StandardTableKeyNames.Priority:
                     content = vsTaskPriority.vsTaskPriorityMedium;
@@ -68,7 +68,7 @@ namespace RapidXamlToolkit.ErrorList
                     content = ErrorSource.Other;
                     return true;
                 case StandardTableKeyNames.ErrorCode:
-                    content = "RXT00?";
+                    content = error.ErrorCode;
                     return true;
                 case StandardTableKeyNames.ProjectName:
                     content = _projectName;
@@ -97,7 +97,7 @@ namespace RapidXamlToolkit.ErrorList
 
         public override bool TryCreateDetailsStringContent(int index, out string content)
         {
-            var error = Errors[index];
+            var error = this.Errors[index];
             content = error.ExtendedMessage;
             return true;
         }
