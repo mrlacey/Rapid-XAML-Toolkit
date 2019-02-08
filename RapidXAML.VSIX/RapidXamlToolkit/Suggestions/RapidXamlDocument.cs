@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Adornments;
 using Microsoft.VisualStudio.Text.Tagging;
 using RapidXamlToolkit.Suggestions;
 using RapidXamlToolkit.Tagging;
@@ -178,7 +179,7 @@ public class HardCodedStringTag : IRapidXamlViewTag
     public ITagSpan<IErrorTag> AsErrorTag()
     {
         var span = new SnapshotSpan(this.Snapshot, this.Span);
-        return new TagSpan<IErrorTag>(span, new ErrorTag("Intellisense", "HardCoded string message"));
+        return new TagSpan<IErrorTag>(span, new ErrorTag(PredefinedErrorTypeNames.Warning, "HardCoded string message"));
     }
 
     public XamlWarning AsXamlWarning()
