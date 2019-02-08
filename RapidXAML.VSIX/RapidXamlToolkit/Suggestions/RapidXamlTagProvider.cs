@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.Suggestions
 {
     [Export(typeof(ITaggerProvider))]
     [TagType(typeof(IErrorTag))]
-    [ContentType("XAML")]
+    [ContentType(KnownContentTypes.Xaml)]
     public class RapidXamlTagProvider : ITaggerProvider
     {
         [Import]
@@ -44,7 +44,7 @@ namespace RapidXamlToolkit.Suggestions
 
     [Export(typeof(ISuggestedActionsSourceProvider))]
     [Name("Rapid XAML Suggested Actions")]
-    [ContentType("XAML")]
+    [ContentType(KnownContentTypes.Xaml)]
     class SuggestedActionsSourceProvider : ISuggestedActionsSourceProvider
     {
         ITextDocumentFactoryService TextDocumentFactoryService { get; set; }

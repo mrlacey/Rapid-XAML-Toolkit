@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.DragDrop
     [Export(typeof(IDropHandlerProvider))]
     [DropFormat("CF_VSSTGPROJECTITEMS")]
     [Name("RapidXamlDropHandler")]
-    [ContentType("XAML")]
+    [ContentType(KnownContentTypes.Xaml)]
     [Order(Before = "DefaultFileDropHandler")]
     internal class RapidXamlDropHandlerProvider : IDropHandlerProvider
     {

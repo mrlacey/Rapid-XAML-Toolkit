@@ -164,6 +164,7 @@ public class InsertRowDefinitionTag : IRapidXamlTag
 
     public Span Span { get; set; }
 }
+
 public class HardCodedStringTag : IRapidXamlViewTag
 {
     public ActionTypes ActionType => ActionTypes.HardCodedString;
