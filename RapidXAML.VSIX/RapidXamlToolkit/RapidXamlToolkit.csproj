@@ -246,7 +246,6 @@
     <Compile Include="Suggestions\RapidXamlWarningTag.cs" />
     <Compile Include="Suggestions\SuggestedActionsSource.cs" />
     <Compile Include="Suggestions\SuggestedActionsSourceProvider.cs" />
-    <Compile Include="Suggestions\XamlWarning.cs" />
     <Compile Include="Telemetry\CoreDetails.cs" />
     <Compile Include="Telemetry\TelemetryAccessor.cs" />
     <Compile Include="Telemetry\TelemetryEvents.cs" />

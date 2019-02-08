@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -40,14 +43,12 @@ namespace RapidXamlToolkit.Suggestions
 
         public Task<bool> HasSuggestedActionsAsync(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
         {
-            return Task.Factory.StartNew(() =>
-            {
-                return GetTags(range).Any();
-            });
+            return Task.Factory.StartNew(() => this.GetTags(range).Any(), cancellationToken);
         }
 
         public IEnumerable<SuggestedActionSet> GetSuggestedActions(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
         {
+            /*
             var span = new SnapshotSpan(_view.Selection.Start.Position, _view.Selection.End.Position);
             var startLine = span.Start.GetContainingLine().Extent;
             var endLine = span.End.GetContainingLine().Extent;
@@ -55,9 +56,9 @@ namespace RapidXamlToolkit.Suggestions
             var selectionStart = _view.Selection.Start.Position.Position;
             var selectionEnd = _view.Selection.End.Position.Position;
             var SelectedSpan = new SnapshotSpan(span.Snapshot, selectionStart, selectionEnd - selectionStart);
+            */
 
             var list = new List<SuggestedActionSet>();
-
 
             var rxTags = GetTags(range);
 
