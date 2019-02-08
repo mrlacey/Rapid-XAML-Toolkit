@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
+using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Suggestions;
 
 namespace RapidXamlToolkit.Tagging
@@ -11,6 +12,8 @@ namespace RapidXamlToolkit.Tagging
         public Span Span { get; set; }
 
         public string ToolTip { get; set; }
+
+        public string Message { get; set; }
 
         public int Line { get; set; }
 
@@ -24,12 +27,14 @@ namespace RapidXamlToolkit.Tagging
             return new TagSpan<IErrorTag>(span, new RapidXamlWarningTag(this.ToolTip));
         }
 
-        public XamlWarning AsXamlWarning()
+        public ErrorRow AsErrorRow()
         {
-            var span = new SnapshotSpan(this.Snapshot, this.Span);
-            var result = new XamlWarning(span);
-
-            return result;
+            return new ErrorRow
+            {
+                ExtendedMessage = this.ActionType.ToString(),
+                Span = new SnapshotSpan(this.Snapshot, this.Span),
+                Message = this.Message,
+            };
         }
     }
 }

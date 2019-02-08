@@ -37,12 +37,7 @@ namespace RapidXamlToolkit.Tagging
 
             foreach (var viewTag in visibleErrors)
             {
-                result.Errors.Add(new ErrorRow
-                {
-                    ExtendedMessage = viewTag.ActionType.ToString(),
-                    Span = new SnapshotSpan(viewTag.Snapshot, viewTag.Span),
-                    Message = "rxt - viewtag",
-                });
+                result.Errors.Add(viewTag.AsErrorRow());
             }
 
             ErrorListService.Process(result);

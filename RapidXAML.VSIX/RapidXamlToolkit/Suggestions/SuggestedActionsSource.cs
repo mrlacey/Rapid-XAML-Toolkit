@@ -43,10 +43,6 @@ namespace RapidXamlToolkit.Suggestions
             return Task.Factory.StartNew(() =>
             {
                 return GetTags(range).Any();
-
-                //    return true; // If range intersects with any known issues
-
-                // return !_view.Selection.IsEmpty;
             });
         }
 
