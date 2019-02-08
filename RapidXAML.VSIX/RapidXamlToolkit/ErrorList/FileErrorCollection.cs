@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace RapidXamlToolkit.ErrorList
 {
-    public class ValidationResult
+    public class FileErrorCollection
     {
         public string FilePath { get; set; }
 
         public string Project { get; set; }
 
-        public List<Error> Errors { get; set; } = new List<Error>();
+        public List<ErrorRow> Errors { get; set; } = new List<ErrorRow>();
     }
 }

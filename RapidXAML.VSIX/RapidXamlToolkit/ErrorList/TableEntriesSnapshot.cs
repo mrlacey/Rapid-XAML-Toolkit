@@ -14,14 +14,14 @@ namespace RapidXamlToolkit.ErrorList
     {
         private string _projectName;
 
-        internal TableEntriesSnapshot(ValidationResult result)
+        internal TableEntriesSnapshot(FileErrorCollection result)
         {
             _projectName = result.Project;
             Errors.AddRange(result.Errors);
             FilePath = result.FilePath;
         }
 
-        public List<Error> Errors { get; } = new List<Error>();
+        public List<ErrorRow> Errors { get; } = new List<ErrorRow>();
 
         public override int VersionNumber { get; } = 1;
 
@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.ErrorList
                 return false;
             }
 
-            Error error = Errors[index];
+            var error = Errors[index];
 
             switch (columnName)
             {

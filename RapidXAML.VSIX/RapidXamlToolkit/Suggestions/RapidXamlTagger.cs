@@ -33,11 +33,11 @@ namespace RapidXamlToolkit.Tagging
         {
             var visibleErrors = RapidXamlDocumentCache.ViewTags(_file);
 
-            var result = new ValidationResult { Project = "a-project", FilePath = _file };
+            var result = new FileErrorCollection { Project = "a-project", FilePath = _file };
 
             foreach (var viewTag in visibleErrors)
             {
-                result.Errors.Add(new Error
+                result.Errors.Add(new ErrorRow
                 {
                     ExtendedMessage = viewTag.ActionType.ToString(),
                     Span = new SnapshotSpan(viewTag.Snapshot, viewTag.Span),

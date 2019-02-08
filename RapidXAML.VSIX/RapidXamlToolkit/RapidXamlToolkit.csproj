@@ -71,7 +71,7 @@
     <Compile Include="ErrorList\SinkManager.cs" />
     <Compile Include="ErrorList\TableDataSource.cs" />
     <Compile Include="ErrorList\TableEntriesSnapshot.cs" />
-    <Compile Include="ErrorList\ValidationResult.cs" />
+    <Compile Include="ErrorList\FileErrorCollection.cs" />
     <Compile Include="KnownContentTypes.cs" />
     <Compile Include="Parsers\CodeParserBase.cs" />
     <Compile Include="Parsers\CSharpParser.cs" />

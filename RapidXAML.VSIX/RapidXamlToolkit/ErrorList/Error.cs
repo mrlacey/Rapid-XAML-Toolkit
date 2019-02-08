@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.Text;
 
 namespace RapidXamlToolkit.ErrorList
 {
-    public class Error
+    public class ErrorRow
     {
         public string ExtendedMessage { get; set; }
 

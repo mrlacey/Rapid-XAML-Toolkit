@@ -100,7 +100,7 @@ namespace RapidXamlToolkit.ErrorList
             }
         }
 
-        public void AddErrors(ValidationResult result)
+        public void AddErrors(FileErrorCollection result)
         {
             if (result == null || !result.Errors.Any())
                 return;
