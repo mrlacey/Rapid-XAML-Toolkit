@@ -27,7 +27,8 @@ namespace RapidXamlToolkit.ErrorList
             manager.AddSource(this, StandardTableColumnDefinitions.DetailsExpander, StandardTableColumnDefinitions.BuildTool,
                                     StandardTableColumnDefinitions.ErrorSeverity, StandardTableColumnDefinitions.ErrorCode,
                                     StandardTableColumnDefinitions.ErrorSource, StandardTableColumnDefinitions.ErrorCategory,
-                                    StandardTableColumnDefinitions.Text, StandardTableColumnDefinitions.DocumentName);
+                                    StandardTableColumnDefinitions.Text, StandardTableColumnDefinitions.DocumentName,
+                                    StandardTableColumnDefinitions.Line, StandardTableColumnDefinitions.Column);
         }
 
         public static TableDataSource Instance
@@ -107,7 +108,7 @@ namespace RapidXamlToolkit.ErrorList
             result.Errors = result.Errors.Where(v => !_snapshots.Any(s => s.Value.Errors.Contains(v))).ToList();
 
             var snapshot = new TableEntriesSnapshot(result);
-            _snapshots[result.Url] = snapshot;
+            _snapshots[result.FilePath] = snapshot;
 
             UpdateAllSinks();
         }

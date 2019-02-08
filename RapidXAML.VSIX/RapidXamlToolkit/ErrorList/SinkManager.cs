@@ -28,7 +28,7 @@ namespace RapidXamlToolkit.ErrorList
         {
             foreach (var snapshot in snapshots)
             {
-                var existing = _snapshots.FirstOrDefault(s => s.Url == snapshot.Url);
+                var existing = _snapshots.FirstOrDefault(s => s.FilePath == snapshot.FilePath);
 
                 if (existing != null)
                 {
@@ -48,7 +48,7 @@ namespace RapidXamlToolkit.ErrorList
         {
             foreach (string url in urls)
             {
-                var existing = _snapshots.FirstOrDefault(s => s.Url == url);
+                var existing = _snapshots.FirstOrDefault(s => s.FilePath == url);
 
                 if (existing != null)
                 {

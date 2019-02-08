@@ -33,17 +33,19 @@ namespace RapidXamlToolkit.Tagging
         {
             var visibleErrors = RapidXamlDocumentCache.ViewTags(_file);
 
+            var result = new ValidationResult { Project = "a-project", FilePath = _file };
+
             foreach (var viewTag in visibleErrors)
             {
-                var result = new ValidationResult();
-                result.Project = "a-project";
-                result.Url = $"{viewTag.Line} - {viewTag.Column}";
-                result.Errors = new List<Error>();
-
-                result.Errors.Add(new Error { Extract = viewTag.ActionType.ToString(), Message = "rxt - viewtag" });
-
-                ErrorListService.Process(result);
+                result.Errors.Add(new Error
+                {
+                    ExtendedMessage = viewTag.ActionType.ToString(),
+                    Span = new SnapshotSpan(viewTag.Snapshot, viewTag.Span),
+                    Message = "rxt - viewtag",
+                });
             }
+
+            ErrorListService.Process(result);
 
             // As the tags that are shown in the error list might have changed, trigger that to be updated too.
             if (e != null)

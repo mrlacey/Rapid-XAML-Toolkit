@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+
+using System.Collections.Generic;
 using EnvDTE;
-using EnvDTE80;
 using Microsoft.VisualStudio.Imaging;
-using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
@@ -12,14 +13,12 @@ namespace RapidXamlToolkit.ErrorList
     public class TableEntriesSnapshot : WpfTableEntriesSnapshotBase
     {
         private string _projectName;
-        private DTE2 _dte;
 
         internal TableEntriesSnapshot(ValidationResult result)
         {
-            _dte = (DTE2)Package.GetGlobalService(typeof(DTE));
             _projectName = result.Project;
             Errors.AddRange(result.Errors);
-            Url = result.Url;
+            FilePath = result.FilePath;
         }
 
         public List<Error> Errors { get; } = new List<Error>();
@@ -31,7 +30,7 @@ namespace RapidXamlToolkit.ErrorList
             get { return Errors.Count; }
         }
 
-        public string Url { get; set; }
+        public string FilePath { get; set; }
 
         public override bool TryGetValue(int index, string columnName, out object content)
         {
@@ -47,7 +46,7 @@ namespace RapidXamlToolkit.ErrorList
             switch (columnName)
             {
                 case StandardTableKeyNames.ErrorCategory:
-                    content = vsTaskCategories.vsTaskCategoryHTML;
+                    content = vsTaskCategories.vsTaskCategoryMisc;
                     return true;
                 case StandardTableKeyNames.BuildTool:
                     content = "RXT";
@@ -69,10 +68,21 @@ namespace RapidXamlToolkit.ErrorList
                     content = ErrorSource.Other;
                     return true;
                 case StandardTableKeyNames.ErrorCode:
-                    content = "W3C";
+                    content = "RXT00?";
                     return true;
                 case StandardTableKeyNames.ProjectName:
                     content = _projectName;
+                    return true;
+                case StandardTableKeyNames.DocumentName:
+                    content = FilePath;
+                    return true;
+                case StandardTableKeyNames.Line:
+                    content = error.Span.Start.GetContainingLine().LineNumber;
+                    return true;
+                case StandardTableKeyNames.Column:
+                    var position = this.Errors[index].Span.Start;
+                    var line = position.GetContainingLine();
+                    content = position.Position - line.Start.Position;
                     return true;
                 default:
                     content = null;
@@ -82,13 +92,13 @@ namespace RapidXamlToolkit.ErrorList
 
         public override bool CanCreateDetailsContent(int index)
         {
-            return !string.IsNullOrEmpty(Errors[index].Extract);
+            return !string.IsNullOrEmpty(Errors[index].ExtendedMessage);
         }
 
         public override bool TryCreateDetailsStringContent(int index, out string content)
         {
             var error = Errors[index];
-            content = error.Extract;
+            content = error.ExtendedMessage;
             return true;
         }
     }

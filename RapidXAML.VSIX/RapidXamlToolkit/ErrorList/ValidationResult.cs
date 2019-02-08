@@ -7,10 +7,10 @@ namespace RapidXamlToolkit.ErrorList
 {
     public class ValidationResult
     {
-        public string Url { get; set; }
+        public string FilePath { get; set; }
 
         public string Project { get; set; }
 
-        public List<Error> Errors { get; set; }
+        public List<Error> Errors { get; set; } = new List<Error>();
     }
 }
