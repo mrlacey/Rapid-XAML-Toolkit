@@ -25,6 +25,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             XamlElementExtractor.Parse(xaml, processors, outputTags);
 
+            Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
             Assert.AreEqual(xaml, processor.XamlElement);
         }
