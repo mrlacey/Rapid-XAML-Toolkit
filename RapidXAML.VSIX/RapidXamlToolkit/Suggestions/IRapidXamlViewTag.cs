@@ -1,18 +1,22 @@
-﻿using Microsoft.VisualStudio.Text.Tagging;
+﻿using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Tagging;
+using RapidXamlToolkit.Suggestions;
 using RapidXamlToolkit.Tagging;
 
-namespace RapidXamlToolkit.Suggestions
+namespace RapidXamlToolkit.Tagging
 {
     public interface IRapidXamlViewTag : IRapidXamlTag
     {
+        string ToolTip { get; set; }
+
         int Line { get; set; }
 
         int Column { get; set; }
 
-        // TODO: move the following to an abstract base class?
+        ITextSnapshot Snapshot { get; set; }
+
         ITagSpan<IErrorTag> AsErrorTag();
 
         XamlWarning AsXamlWarning();
-
     }
 }

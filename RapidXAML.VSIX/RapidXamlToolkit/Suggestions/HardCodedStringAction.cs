@@ -3,6 +3,7 @@ using System.Threading;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Text.Editor;
+using RapidXamlToolkit.Tagging;
 
 namespace RapidXamlToolkit.Suggestions
 {
@@ -28,7 +29,6 @@ namespace RapidXamlToolkit.Suggestions
         {
             var result = new HardCodedStringAction
             {
-                // linkUrl = errorTag.Url,
                 tag = tag,
                 file = file,
                 view = view,

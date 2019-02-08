@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Suggestions;
 
@@ -19,47 +20,66 @@ namespace RapidXamlToolkit.Tagging
         {
             var result = new RapidXamlDocument();
 
-            var text = snapshot.GetText();
-            result.RawText = text;
-
-            // TODO: offload the creation of tags to separate classes for handling each XAML element
-            var count = 0;
-
-            var rowDefIndex = text.IndexOf("<RowDefinition");
-            while (rowDefIndex >= 0)
+            try
             {
-                var endPos = text.IndexOf('>', rowDefIndex);
 
-                var tag = new InsertRowDefinitionTag
+
+                var text = snapshot.GetText();
+                result.RawText = text;
+
+                // TODO: offload the creation of tags to separate classes for handling each XAML element
+                var count = 0;
+
+                var rowDefIndex = text.IndexOf("<RowDefinition");
+                while (rowDefIndex >= 0)
                 {
-                    Span = new Span(rowDefIndex, endPos - rowDefIndex),
-                    RowId = count,
-                };
+                    var endPos = text.IndexOf('>', rowDefIndex);
 
-                result.SuggestionTags.Add(tag);
+                    var tag = new InsertRowDefinitionTag
+                    {
+                        Span = new Span(rowDefIndex, endPos - rowDefIndex),
+                        RowId = count,
+                    };
 
-                count = count + 1;
+                    result.SuggestionTags.Add(tag);
 
-                rowDefIndex = text.IndexOf("<RowDefinition", endPos);
+                    count = count + 1;
+
+                    rowDefIndex = text.IndexOf("<RowDefinition", endPos);
+                }
+
+
+                var tbIndex = text.IndexOf("<TextBlock Text=\"");
+
+                if (tbIndex >= 0)
+                {
+                    var tbEnd = text.IndexOf(">", tbIndex);
+
+                    var line = snapshot.GetLineFromPosition(tbIndex);
+                    var col = tbEnd - line.Start.Position;
+
+                    result.SuggestionTags.Add(new HardCodedStringTag
+                    {
+                        Span = new Span(tbIndex, tbEnd - tbIndex),
+                        Line = line.LineNumber,
+                        Column = col,
+                        Snapshot = snapshot,
+                    });
+                }
             }
-
-
-            var tbIndex = text.IndexOf("<TextBlock Text=\"");
-
-            if (tbIndex >= 0)
+            catch (Exception e)
             {
-                var tbEnd = text.IndexOf(">", tbIndex);
-
-                var line = snapshot.GetLineFromPosition(tbIndex);
-                var col = tbEnd - line.Start.Position;
-
-                result.SuggestionTags.Add(new HardCodedStringTag
-                {
-                    Span = new Span(tbIndex, tbEnd - tbIndex),
-                    Line = line.LineNumber,
-                    Column = col,
-                    Snapshot = snapshot,
-                });
+                // TODO: add a new view error to suggested tags that indicates the error. - Like the below
+              //  yield return new XamlError
+              //  {
+              //      File = file,
+              //      Message = "Unexpected error occurred while parsing XAML. Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: " + exception,
+              //      Line = 0,
+              //      Column = 0,
+              //      ErrorCode = "RXT0000",
+              //      Fatal = true,
+              //      Span = new Span(doc.Span.Start, doc.Span.Length),
+              //  };
             }
 
             return result;

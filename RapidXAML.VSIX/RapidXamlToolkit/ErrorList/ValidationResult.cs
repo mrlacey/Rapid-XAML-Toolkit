@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RapidXamlToolkit.ErrorList
 {
-    class ValidationResult
+    public class ValidationResult
     {
         public string Url { get; set; }
 
