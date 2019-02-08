@@ -86,7 +86,7 @@ namespace RapidXamlToolkit.Suggestions
 
             _view.LayoutChanged += this.OnViewLayoutChanged;
 
-            RapidXamlDocumentCache.Add(_file, textBuffer.CurrentSnapshot.GetText());
+            RapidXamlDocumentCache.Add(_file, textBuffer.CurrentSnapshot);
         }
 
         private void OnViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
@@ -95,7 +95,7 @@ namespace RapidXamlToolkit.Suggestions
             if (e.OldSnapshot != e.NewSnapshot)
             {
                 // TODO: handle just the changed lines, rather than the whole document - would improve perf but might be very difficult for abstracted taggers
-                RapidXamlDocumentCache.Update(_file, e.NewViewState.EditSnapshot.GetText());
+                RapidXamlDocumentCache.Update(_file, e.NewViewState.EditSnapshot);
             }
         }
 
@@ -105,9 +105,9 @@ namespace RapidXamlToolkit.Suggestions
             {
                 return GetTags(range).Any();
 
-            //    return true; // If range intersects with any known issues
+                //    return true; // If range intersects with any known issues
 
-                 // return !_view.Selection.IsEmpty;
+                // return !_view.Selection.IsEmpty;
             });
         }
 
@@ -130,38 +130,13 @@ namespace RapidXamlToolkit.Suggestions
             {
                 if (rapidXamlTag.ActionType == ActionTypes.InsertRowDefinition)
                 {
-
-                    list.AddRange(CreateActionSet(InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rapidXamlTag,  _file, _view)));
-
-
-
-                    var result = new ValidationResult();
-                    result.Project = "a-project";
-                    result.Url = "a-url";
-                    result.Errors = new List<Error>();
-
-                    result.Errors.Add(new Error{ Extract = rapidXamlTag.ActionType.ToString(), Message = "rxt - insertrowdef"});
-
-                    ErrorListService.Process(result);
-
+                    list.AddRange(CreateActionSet(InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rapidXamlTag, _file, _view)));
+                }
+                else if (rapidXamlTag.ActionType == ActionTypes.HardCodedString)
+                {
+                    list.AddRange(CreateActionSet(HardCodedStringAction.Create((HardCodedStringTag)rapidXamlTag, _file, _view)));
                 }
             }
-
-
-
-       //   var tagspans = GetErrorTags(_view, SelectedSpan);
-       //
-       //   foreach (var tagspan in tagspans)
-       //   {
-       //       if (tagspan.Tag.ActionType == ActionTypes.InsertRowDefinition)
-       //       {
-       //           var action = InsertRowDefinitionAction.Create(tagspan, _file, _view);
-       //           if (action != null)
-       //           {
-       //               list.AddRange(CreateActionSet(action));
-       //           }
-       //       }
-       //   }
 
             return list;
         }
@@ -203,6 +178,20 @@ namespace RapidXamlToolkit.Suggestions
     public enum ActionTypes
     {
         InsertRowDefinition,
+        HardCodedString,
+    }
+
+    public interface IRapidXamlViewTag : IRapidXamlTag
+    {
+        int Line { get; set; }
+
+        int Column { get; set; }
+
+        // TODO: move the following to an abstract base class?
+        ITagSpan<IErrorTag> AsErrorTag();
+
+        XamlWarning AsXamlWarning();
+
     }
 
     public interface IRapidXamlTag : ITag
@@ -212,7 +201,7 @@ namespace RapidXamlToolkit.Suggestions
         Span Span { get; set; }
     }
 
-    abstract class BaseSuggestedAction : ISuggestedAction
+    public abstract class BaseSuggestedAction : ISuggestedAction
     {
         public abstract string DisplayText { get; }
 
@@ -343,6 +332,38 @@ namespace RapidXamlToolkit.Suggestions
             // }
 
             var result = new InsertRowDefinitionAction
+            {
+                // linkUrl = errorTag.Url,
+                tag = tag,
+                file = file,
+                view = view,
+            };
+
+            return result;
+        }
+    }
+
+    public class HardCodedStringAction : BaseSuggestedAction
+    {
+        private string file;
+        private ITextView view;
+        public HardCodedStringTag tag;
+
+        public override ImageMoniker IconMoniker => KnownMonikers.GenerateResource;
+
+        public override string DisplayText
+        {
+            get { return "Move hard coded string to resource file."; }
+        }
+
+        public override void Execute(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static HardCodedStringAction Create(HardCodedStringTag tag, string file, ITextView view)
+        {
+            var result = new HardCodedStringAction
             {
                 // linkUrl = errorTag.Url,
                 tag = tag,

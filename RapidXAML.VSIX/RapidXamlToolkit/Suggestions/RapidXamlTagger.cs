@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
+using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Suggestions;
 
 namespace RapidXamlToolkit.Tagging
@@ -23,6 +24,8 @@ namespace RapidXamlToolkit.Tagging
             _buffer = buffer;
             _file = file;
 
+            RapidXamlDocumentCache.Parsed += this.OnXamlDocParsed;
+
             RapidXamlAnalyzerFactory.Parsed += XamlParsed;
 
             // Init parsing
@@ -31,6 +34,85 @@ namespace RapidXamlToolkit.Tagging
         }
 
         public event EventHandler<SnapshotSpanEventArgs> TagsChanged;
+
+        private void OnXamlDocParsed(object sender, RapidXamlParsingEventArgs e)
+        {
+
+            var visibleErrors = RapidXamlDocumentCache.ViewTags(_file);
+
+            foreach (var viewTag in visibleErrors)
+            {
+                var result = new ValidationResult();
+                result.Project = "a-project";
+                result.Url = $"{viewTag.Line} - {viewTag.Column}";
+                result.Errors = new List<Error>();
+
+                result.Errors.Add(new Error { Extract = viewTag.ActionType.ToString(), Message = "rxt - viewtag" });
+
+                ErrorListService.Process(result);
+            }
+
+            var span = new SnapshotSpan(e.Snapshot, 0, e.Snapshot.Length);
+            TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(span));
+
+            /*
+            var span = new SnapshotSpan(e.Snapshot, 0, e.Snapshot.Length);
+            TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(span));
+
+
+
+
+
+
+
+            // Translate all the spelling errors to the new snapshot (and remove anything that is a dirty region since we will need to check that again).
+            var oldErrors = this.Factory.CurrentSnapshot;
+            var newErrors = new ErrorsSnapshot(_file, oldErrors.VersionNumber + 1);
+
+            // Copy all of the old errors to the new errors unless the error was affected by the text change
+            foreach (var error in oldErrors.Errors)
+            {
+                Debug.Assert(error.NextIndex == -1);
+
+                var newError = XamlWarning.CloneAndTranslateTo(error, e.Snapshot);
+
+                if (newError != null)
+                {
+                    Debug.Assert(newError.Span.Length == error.Span.Length);
+
+                    error.NextIndex = newErrors.Errors.Count;
+                    newErrors.Errors.Add(newError);
+                }
+            }
+
+
+
+            if (newErrors.Count == 0)
+            {
+
+                var errors = RapidXamlDocumentCache.ViewTags(e.File);
+
+
+                foreach (var viewTag in errors)
+                {
+                    if (span.IntersectsWith(span))
+                    {
+                        newErrors.Errors.Add(viewTag.AsXamlWarning());
+                    }
+                }
+            }
+
+            this.Factory.UpdateErrors(newErrors);
+
+
+            TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(span));
+
+
+
+
+            _provider.UpdateAllSinks();
+            */
+        }
 
         public IEnumerable<ITagSpan<IErrorTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
@@ -83,6 +165,35 @@ namespace RapidXamlToolkit.Tagging
         }
     }
 
+
+    public class XamlWarning
+    {
+        public readonly SnapshotSpan Span;
+
+        // This is used by ErrorsSnapshot.TranslateTo() to map this error to the corresponding error in the next snapshot.
+        public int NextIndex = -1;
+
+        public XamlWarning(SnapshotSpan span)
+        {
+            this.Span = span;
+        }
+
+        public static XamlWarning Clone(XamlWarning error)
+        {
+            return new XamlWarning(error.Span);
+        }
+
+        public static XamlWarning CloneAndTranslateTo(XamlWarning error, ITextSnapshot newSnapshot)
+        {
+            var newSpan = error.Span.TranslateTo(newSnapshot, SpanTrackingMode.EdgeExclusive);
+
+            // We want to only translate the error if the length of the error span did not change (if it did change, it would imply that
+            // there was some text edit inside the error and, therefore, that the error is no longer valid).
+            return (newSpan.Length == error.Span.Length)
+                ? new XamlWarning(newSpan)
+                : null;
+        }
+    }
 
     public class ParsingEventArgs : EventArgs
     {
@@ -270,7 +381,7 @@ namespace RapidXamlToolkit.Tagging
 
             try
             {
-             //   xamlDocument = RapidXamlDocument.Create(text);
+                //   xamlDocument = RapidXamlDocument.Create(text);
                 xamlDocument = new XamlDocument();
             }
             catch (Exception ex)
