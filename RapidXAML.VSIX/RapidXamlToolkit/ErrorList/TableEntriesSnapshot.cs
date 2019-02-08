@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.Shell.TableManager;
 
 namespace RapidXamlToolkit.ErrorList
 {
-    class TableEntriesSnapshot : WpfTableEntriesSnapshotBase
+    public class TableEntriesSnapshot : WpfTableEntriesSnapshotBase
     {
         private string _projectName;
         private DTE2 _dte;

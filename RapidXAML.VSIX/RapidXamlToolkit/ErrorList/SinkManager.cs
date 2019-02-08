@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.Shell.TableManager;
 
 namespace RapidXamlToolkit.ErrorList
 {
-    class SinkManager : IDisposable
+    public class SinkManager : IDisposable
     {
         private readonly ITableDataSink _sink;
         private TableDataSource _errorList;

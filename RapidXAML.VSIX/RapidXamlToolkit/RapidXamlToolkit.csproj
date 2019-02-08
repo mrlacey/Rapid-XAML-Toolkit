@@ -66,6 +66,7 @@
     <NoWarn>,1573,1591,1712,1762</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ErrorList\Error.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="ErrorList\SinkManager.cs" />
     <Compile Include="ErrorList\TableDataSource.cs" />
@@ -226,9 +227,29 @@
     </Compile>
     <Compile Include="SolutionExtensions.cs" />
     <Compile Include="StringExtensions.cs" />
+    <Compile Include="Suggestions\ActionTypes.cs" />
+    <Compile Include="Suggestions\BaseSuggestedAction.cs" />
+    <Compile Include="Suggestions\DataEntry.cs" />
+    <Compile Include="Suggestions\HardCodedStringAction.cs" />
+    <Compile Include="Suggestions\HardCodedStringTag.cs" />
+    <Compile Include="Suggestions\InsertRowDefinitionAction.cs" />
+    <Compile Include="Suggestions\InsertRowDefinitionTag.cs" />
+    <Compile Include="Suggestions\IRapidXamlTag.cs" />
+    <Compile Include="Suggestions\IRapidXamlViewTag.cs" />
+    <Compile Include="Suggestions\ParsedAction.cs" />
+    <Compile Include="Suggestions\ParsingEventArgs.cs" />
+    <Compile Include="Suggestions\ProjectHelpers.cs" />
+    <Compile Include="Suggestions\RapidXamlAnalyzerFactory.cs" />
     <Compile Include="Suggestions\RapidXamlDocument.cs" />
+    <Compile Include="Suggestions\RapidXamlDocumentCache.cs" />
+    <Compile Include="Suggestions\RapidXamlParsingEventArgs.cs" />
     <Compile Include="Suggestions\RapidXamlTagger.cs" />
     <Compile Include="Suggestions\RapidXamlTagProvider.cs" />
+    <Compile Include="Suggestions\SuggestedActionsSource.cs" />
+    <Compile Include="Suggestions\SuggestedActionsSourceProvider.cs" />
+    <Compile Include="Suggestions\XamlDocument.cs" />
+    <Compile Include="Suggestions\XamlError.cs" />
+    <Compile Include="Suggestions\XamlWarning.cs" />
     <Compile Include="Telemetry\CoreDetails.cs" />
     <Compile Include="Telemetry\TelemetryAccessor.cs" />
     <Compile Include="Telemetry\TelemetryEvents.cs" />

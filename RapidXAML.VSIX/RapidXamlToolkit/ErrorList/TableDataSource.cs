@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.Shell.TableManager;
 
 namespace RapidXamlToolkit.ErrorList
 {
-    class TableDataSource : ITableDataSource
+    public class TableDataSource : ITableDataSource
     {
         private static TableDataSource _instance;
         private readonly List<SinkManager> _managers = new List<SinkManager>();
