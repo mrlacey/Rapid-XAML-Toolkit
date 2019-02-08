@@ -242,6 +242,7 @@
     <Compile Include="Suggestions\RapidXamlParsingEventArgs.cs" />
     <Compile Include="Suggestions\RapidXamlTagger.cs" />
     <Compile Include="Suggestions\RapidXamlTagProvider.cs" />
+    <Compile Include="Suggestions\RapidXamlViewTag.cs" />
     <Compile Include="Suggestions\RapidXamlWarningTag.cs" />
     <Compile Include="Suggestions\SuggestedActionsSource.cs" />
     <Compile Include="Suggestions\SuggestedActionsSourceProvider.cs" />
