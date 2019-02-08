@@ -69,6 +69,7 @@ namespace RapidXamlToolkit.Tagging
     {
         Add,
         Update,
+        Unknown
     }
 
     public class RapidXamlParsingEventArgs : EventArgs

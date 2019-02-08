@@ -26,11 +26,15 @@ namespace RapidXamlToolkit.Tagging
 
             RapidXamlDocumentCache.Parsed += this.OnXamlDocParsed;
 
-            RapidXamlAnalyzerFactory.Parsed += XamlParsed;
+            // Docs may have already been parsed when we get here (will happen if document was opened with the project) so process what has been parsed
+            this.OnXamlDocParsed(this, new RapidXamlParsingEventArgs(
+                null, _file, _buffer.CurrentSnapshot, ParsedAction.Unknown));
+
+          //  RapidXamlAnalyzerFactory.Parsed += XamlParsed;
 
             // Init parsing
-            var doc = _buffer.CurrentSnapshot.ParseToXaml(_file);
-            _errors = doc.Validate(_file);
+           // var doc = _buffer.CurrentSnapshot.ParseToXaml(_file);
+          //  _errors = doc.Validate(_file);
         }
 
         public event EventHandler<SnapshotSpanEventArgs> TagsChanged;
@@ -52,8 +56,12 @@ namespace RapidXamlToolkit.Tagging
                 ErrorListService.Process(result);
             }
 
-            var span = new SnapshotSpan(e.Snapshot, 0, e.Snapshot.Length);
-            TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(span));
+            if (e != null)
+            {
+                var span = new SnapshotSpan(e.Snapshot, 0, e.Snapshot.Length);
+                TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(span));
+            }
+
 
             /*
             var span = new SnapshotSpan(e.Snapshot, 0, e.Snapshot.Length);
@@ -116,26 +124,40 @@ namespace RapidXamlToolkit.Tagging
 
         public IEnumerable<ITagSpan<IErrorTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
-            if (spans.Count == 0 || _errors == null)
+            if (spans.Count == 0)
             {
                 yield break;
             }
 
-            // Check cache
-            var isCached = _errorsCached != null;
-            var errors = isCached ? _errorsCached : _errors;
-            if (!isCached) _errorsCached = new List<XamlError>();
+            var errors = RapidXamlDocumentCache.ViewTags(_file);
 
-            foreach (var error in errors)
+            foreach (var viewTag in errors)
             {
-                if (!isCached) _errorsCached.Add(error);
-                var errorTag = GenerateTag(error);
-
-                if (errorTag != null)
+                foreach (var span in spans)
                 {
-                    yield return errorTag;
+                    if (span.IntersectsWith(viewTag.Span))
+                    {
+                        yield return viewTag.AsErrorTag();
+                    }
                 }
             }
+
+
+            //   // Check cache
+            //   var isCached = _errorsCached != null;
+            //   var errors = isCached ? _errorsCached : _errors;
+            //   if (!isCached) _errorsCached = new List<XamlError>();
+            //
+            //   foreach (var error in errors)
+            //   {
+            //       if (!isCached) _errorsCached.Add(error);
+            //       var errorTag = GenerateTag(error);
+            //
+            //       if (errorTag != null)
+            //       {
+            //           yield return errorTag;
+            //       }
+            //   }
         }
 
         private TagSpan<IErrorTag> GenerateTag(XamlError error)
