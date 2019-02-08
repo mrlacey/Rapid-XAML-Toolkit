@@ -31,8 +31,8 @@ namespace RapidXamlToolkit.Suggestions
             {
                 // linkUrl = errorTag.Url,
                 tag = tag,
-                file = file,
-                view = view,
+                File = file,
+                View = view,
             };
 
             return result;

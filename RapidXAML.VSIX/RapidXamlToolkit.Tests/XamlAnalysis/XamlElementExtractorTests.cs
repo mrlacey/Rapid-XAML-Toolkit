@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.Suggestions;
 using RapidXamlToolkit.Tagging;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis
@@ -15,22 +16,17 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var processor = new FakeXamlElementProcessor();
 
-            var processors = new List<(string, XamlElementProcessor)>();
-            processors.Add(("Grid", processor));
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
 
+            var outputTags = new List<IRapidXamlTag>();
 
+            XamlElementExtractor.Parse(xaml, processors, outputTags);
 
-            XamlElementExtractor.Parse(xaml, processors);
-
-
-        }
-    }
-
-    public class FakeXamlElementProcessor : XamlElementProcessor
-    {
-        public void Process(int offset, string xamlElement)
-        {
-
+            Assert.AreEqual(0, processor.Offset);
+            Assert.AreEqual(xaml, processor.XamlElement);
         }
     }
 }
