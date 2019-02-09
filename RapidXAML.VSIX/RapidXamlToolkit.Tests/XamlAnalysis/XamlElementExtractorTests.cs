@@ -496,14 +496,18 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(28, processor.AllOffsets[1]);
             Assert.AreEqual(@"<Grid />", processor.AllXamlElements[1]);
             Assert.AreEqual(46, processor.AllOffsets[2]);
-            Assert.AreEqual(@"<Grid>
-        </Grid>", processor.AllXamlElements[2]);
+            Assert.AreEqual(
+                @"<Grid>
+        </Grid>",
+                processor.AllXamlElements[2]);
             Assert.AreEqual(12, processor.AllOffsets[3]);
-            Assert.AreEqual(@"<Grid>
+            Assert.AreEqual(
+                @"<Grid>
         <Grid />
         <Grid>
         </Grid>
-    </Grid>", processor.AllXamlElements[3]);
+    </Grid>",
+                processor.AllXamlElements[3]);
             Assert.AreEqual(0, processor.AllOffsets[4]);
             Assert.AreEqual(xaml, processor.AllXamlElements[4]);
         }
@@ -580,19 +584,23 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.IsTrue(childProc.ProcessCalled);
             Assert.AreEqual(1, childProc.ProcessCalledCount);
             Assert.AreEqual(12, childProc.Offset);
-            Assert.AreEqual(@"<Child>
+            Assert.AreEqual(
+                @"<Child>
         <GrandChild />
         <GrandChild>
         </GrandChild>
-    </Child>", childProc.XamlElement);
+    </Child>",
+                childProc.XamlElement);
 
             Assert.IsTrue(grandChildProc.ProcessCalled);
             Assert.AreEqual(2, grandChildProc.ProcessCalledCount);
             Assert.AreEqual(29, grandChildProc.AllOffsets[1]);
             Assert.AreEqual(@"<GrandChild />", grandChildProc.AllXamlElements[1]);
             Assert.AreEqual(53, grandChildProc.AllOffsets[2]);
-            Assert.AreEqual(@"<GrandChild>
-        </GrandChild>", grandChildProc.AllXamlElements[2]);
+            Assert.AreEqual(
+                @"<GrandChild>
+        </GrandChild>",
+                grandChildProc.AllXamlElements[2]);
         }
     }
 }

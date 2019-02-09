@@ -15,23 +15,23 @@ namespace RapidXamlToolkit.XamlAnalysis
     [ContentType(KnownContentTypes.Xaml)]
     public class SuggestedActionsSourceProvider : ISuggestedActionsSourceProvider
     {
-        ITextDocumentFactoryService TextDocumentFactoryService { get; set; }
-
-        IViewTagAggregatorFactoryService ViewTagAggregatorFactoryService { get; set; }
-
         [ImportingConstructor]
         public SuggestedActionsSourceProvider(IViewTagAggregatorFactoryService viewTagAggregatorFactoryService, ITextDocumentFactoryService textDocumentFactoryService)
         {
-            ViewTagAggregatorFactoryService = viewTagAggregatorFactoryService;
-            TextDocumentFactoryService = textDocumentFactoryService;
+            this.ViewTagAggregatorFactoryService = viewTagAggregatorFactoryService;
+            this.TextDocumentFactoryService = textDocumentFactoryService;
         }
+
+        public ITextDocumentFactoryService TextDocumentFactoryService { get; set; }
+
+        public IViewTagAggregatorFactoryService ViewTagAggregatorFactoryService { get; set; }
 
         public ISuggestedActionsSource CreateSuggestedActionsSource(ITextView textView, ITextBuffer textBuffer)
         {
-            if (TextDocumentFactoryService.TryGetTextDocument(textView.TextBuffer, out var document))
+            if (this.TextDocumentFactoryService.TryGetTextDocument(textView.TextBuffer, out var document))
             {
                 return textView.Properties.GetOrCreateSingletonProperty(() =>
-                    new SuggestedActionsSource(ViewTagAggregatorFactoryService, textView, textBuffer, document.FilePath));
+                    new SuggestedActionsSource(this.ViewTagAggregatorFactoryService, textView, textBuffer, document.FilePath));
             }
 
             return null;
