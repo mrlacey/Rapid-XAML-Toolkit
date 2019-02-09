@@ -103,10 +103,10 @@ namespace RapidXamlToolkit.XamlAnalysis
                         isIdentifyingElement = false;
                     }
 
-                            // closing blocks can be blank or named (e.g. ' />' or '</Grid>')
+                    // closing blocks can be blank or named (e.g. ' />' or '</Grid>')
                     if (isClosingElement)
                     {
-                        var nameOfInterest = string.Empty;
+                        var nameOfInterest = closingElementName;
 
                         if (string.IsNullOrWhiteSpace(closingElementName))
                         {
@@ -116,15 +116,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                         {
                             nameOfInterest = lastElementName;
                         }
-                        else
-                        {
-                            nameOfInterest = closingElementName;
-                        }
 
                         var toProcess = elementsBeingTracked.Where(g => g.ElementName == nameOfInterest)
-                            .OrderByDescending(f => f.StartPos)
-                            .Select(e => e)
-                            .FirstOrDefault();
+                                                            .OrderByDescending(f => f.StartPos)
+                                                            .Select(e => e)
+                                                            .FirstOrDefault();
 
                         if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                         {

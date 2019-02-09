@@ -145,9 +145,59 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
+        public void CanGetRootElement_AndChild_OverMultipleLines()
+        {
+            var xaml = @"<Grid>
+    <Child />
+
+</Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            var outputTags = new List<IRapidXamlTag>();
+
+            XamlElementExtractor.Parse(xaml, processors, outputTags);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(0, processor.Offset);
+            Assert.AreEqual(xaml, processor.XamlElement);
+        }
+
+        [TestMethod]
         public void CanGetRootElement_AndChildren()
         {
             var xaml = @"<Grid><Child1 /><Child2 /></Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            var outputTags = new List<IRapidXamlTag>();
+
+            XamlElementExtractor.Parse(xaml, processors, outputTags);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(0, processor.Offset);
+            Assert.AreEqual(xaml, processor.XamlElement);
+        }
+
+        [TestMethod]
+        public void CanGetRootElement_AndChildren_OverMultipleLines()
+        {
+            var xaml = @"<Grid>
+
+    <Child1 />
+
+    <Child2 />
+</Grid>";
 
             var processor = new FakeXamlElementProcessor();
 
@@ -187,6 +237,32 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
+        public void CanGetRootElement_AndGrandChildren_OverMultipleLines()
+        {
+            var xaml = @"<Grid>
+    <Child>
+        <GrandChild />
+        <GrandChild></GrandChild>
+    </Child>
+</Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            var outputTags = new List<IRapidXamlTag>();
+
+            XamlElementExtractor.Parse(xaml, processors, outputTags);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(0, processor.Offset);
+            Assert.AreEqual(xaml, processor.XamlElement);
+        }
+
+        [TestMethod]
         public void CanGetChildElement_NamedClosing()
         {
             var xaml = @"<Grid><Inner></Inner></Grid>";
@@ -205,6 +281,33 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(6, processor.Offset);
             Assert.AreEqual("<Inner></Inner>", processor.XamlElement);
+        }
+
+        [TestMethod]
+        public void CanGetChildElement_NamedClosing_OverMutipleLines()
+        {
+            var xaml = @"<Grid>
+    <Inner>
+    </Inner>
+</Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Inner", processor),
+            };
+
+            var outputTags = new List<IRapidXamlTag>();
+
+            XamlElementExtractor.Parse(xaml, processors, outputTags);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(12, processor.Offset);
+            Assert.AreEqual(
+                @"<Inner>
+    </Inner>",
+                processor.XamlElement);
         }
 
         [TestMethod]
@@ -361,6 +464,46 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(@"<Grid></Grid>", processor.AllXamlElements[2]);
             Assert.AreEqual(6, processor.AllOffsets[3]);
             Assert.AreEqual(@"<Grid><Grid /><Grid></Grid></Grid>", processor.AllXamlElements[3]);
+            Assert.AreEqual(0, processor.AllOffsets[4]);
+            Assert.AreEqual(xaml, processor.AllXamlElements[4]);
+        }
+
+        [TestMethod]
+        public void CanGetMultipleNestedElements_OverMultipleLines()
+        {
+            var xaml = @"<Grid>
+    <Grid>
+        <Grid />
+        <Grid>
+        </Grid>
+    </Grid>
+</Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            var outputTags = new List<IRapidXamlTag>();
+
+            XamlElementExtractor.Parse(xaml, processors, outputTags);
+
+            // The order processed, and so listed here, is the order in which they're closed.
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(4, processor.ProcessCalledCount);
+            Assert.AreEqual(28, processor.AllOffsets[1]);
+            Assert.AreEqual(@"<Grid />", processor.AllXamlElements[1]);
+            Assert.AreEqual(46, processor.AllOffsets[2]);
+            Assert.AreEqual(@"<Grid>
+        </Grid>", processor.AllXamlElements[2]);
+            Assert.AreEqual(12, processor.AllOffsets[3]);
+            Assert.AreEqual(@"<Grid>
+        <Grid />
+        <Grid>
+        </Grid>
+    </Grid>", processor.AllXamlElements[3]);
             Assert.AreEqual(0, processor.AllOffsets[4]);
             Assert.AreEqual(xaml, processor.AllXamlElements[4]);
         }
