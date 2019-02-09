@@ -2,9 +2,8 @@
 // Licensed under the MIT license.
 
 using System.Collections.Generic;
-using RapidXamlToolkit.Suggestions;
 
-namespace RapidXamlToolkit.Tagging
+namespace RapidXamlToolkit.XamlAnalysis
 {
     public abstract class XamlElementProcessor
     {

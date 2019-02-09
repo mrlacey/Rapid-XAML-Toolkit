@@ -66,7 +66,7 @@
     <NoWarn>,1573,1591,1712,1762</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ErrorList\Error.cs" />
+    <Compile Include="ErrorList\ErrorRow.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="ErrorList\SinkManager.cs" />
     <Compile Include="ErrorList\TableDataSource.cs" />
@@ -227,28 +227,28 @@
     </Compile>
     <Compile Include="SolutionExtensions.cs" />
     <Compile Include="StringExtensions.cs" />
-    <Compile Include="Suggestions\ActionTypes.cs" />
-    <Compile Include="Suggestions\BaseSuggestedAction.cs" />
-    <Compile Include="Suggestions\HardCodedStringAction.cs" />
-    <Compile Include="Suggestions\HardCodedStringTag.cs" />
-    <Compile Include="Suggestions\InsertRowDefinitionAction.cs" />
-    <Compile Include="Suggestions\InsertRowDefinitionTag.cs" />
-    <Compile Include="Suggestions\IRapidXamlTag.cs" />
-    <Compile Include="Suggestions\IRapidXamlViewTag.cs" />
-    <Compile Include="Suggestions\ParsedAction.cs" />
-    <Compile Include="Suggestions\ProjectHelpers.cs" />
-    <Compile Include="Suggestions\RapidXamlDocument.cs" />
-    <Compile Include="Suggestions\RapidXamlDocumentCache.cs" />
-    <Compile Include="Suggestions\RapidXamlParsingEventArgs.cs" />
-    <Compile Include="Suggestions\RapidXamlTagger.cs" />
-    <Compile Include="Suggestions\RapidXamlTagProvider.cs" />
-    <Compile Include="Suggestions\RapidXamlViewTag.cs" />
-    <Compile Include="Suggestions\RapidXamlWarningTag.cs" />
-    <Compile Include="Suggestions\SuggestedActionsSource.cs" />
-    <Compile Include="Suggestions\SuggestedActionsSourceProvider.cs" />
-    <Compile Include="Suggestions\UnexpectedErrorTag.cs" />
-    <Compile Include="Suggestions\XamlElementExtractor.cs" />
-    <Compile Include="Suggestions\XamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\ActionTypes.cs" />
+    <Compile Include="XamlAnalysis\BaseSuggestedAction.cs" />
+    <Compile Include="XamlAnalysis\HardCodedStringAction.cs" />
+    <Compile Include="XamlAnalysis\HardCodedStringTag.cs" />
+    <Compile Include="XamlAnalysis\InsertRowDefinitionAction.cs" />
+    <Compile Include="XamlAnalysis\InsertRowDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\IRapidXamlTag.cs" />
+    <Compile Include="XamlAnalysis\IRapidXamlViewTag.cs" />
+    <Compile Include="XamlAnalysis\ParsedAction.cs" />
+    <Compile Include="XamlAnalysis\ProjectHelpers.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlParsingEventArgs.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlTagger.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlTagProvider.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlViewTag.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlWarningTag.cs" />
+    <Compile Include="XamlAnalysis\SuggestedActionsSource.cs" />
+    <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
+    <Compile Include="XamlAnalysis\UnexpectedErrorTag.cs" />
+    <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
+    <Compile Include="XamlAnalysis\XamlElementProcessor.cs" />
     <Compile Include="Telemetry\CoreDetails.cs" />
     <Compile Include="Telemetry\TelemetryAccessor.cs" />
     <Compile Include="Telemetry\TelemetryEvents.cs" />

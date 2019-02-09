@@ -1,7 +1,10 @@
-﻿using System;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+
+using System;
 using Microsoft.VisualStudio.Text;
 
-namespace RapidXamlToolkit.Tagging
+namespace RapidXamlToolkit.XamlAnalysis
 {
     public class RapidXamlParsingEventArgs : EventArgs
     {

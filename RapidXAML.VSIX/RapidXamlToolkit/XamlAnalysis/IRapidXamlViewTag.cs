@@ -1,10 +1,11 @@
-﻿using Microsoft.VisualStudio.Text;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+
+using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using RapidXamlToolkit.ErrorList;
-using RapidXamlToolkit.Suggestions;
-using RapidXamlToolkit.Tagging;
 
-namespace RapidXamlToolkit.Tagging
+namespace RapidXamlToolkit.XamlAnalysis
 {
     public interface IRapidXamlViewTag : IRapidXamlTag
     {

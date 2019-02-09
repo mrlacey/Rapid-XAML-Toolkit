@@ -1,14 +1,13 @@
-﻿using System;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using RapidXamlToolkit.ErrorList;
 
-namespace RapidXamlToolkit.Tagging
+namespace RapidXamlToolkit.XamlAnalysis
 {
     public class RapidXamlTagger : ITagger<IErrorTag>
     {

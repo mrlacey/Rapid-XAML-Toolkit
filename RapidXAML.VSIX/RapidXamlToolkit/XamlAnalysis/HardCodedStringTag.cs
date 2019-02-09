@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-using RapidXamlToolkit.Suggestions;
-
-namespace RapidXamlToolkit.Tagging
+namespace RapidXamlToolkit.XamlAnalysis
 {
     public class HardCodedStringTag : RapidXamlViewTag
     {

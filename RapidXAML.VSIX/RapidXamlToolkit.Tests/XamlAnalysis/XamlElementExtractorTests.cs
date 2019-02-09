@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Suggestions;
-using RapidXamlToolkit.Tagging;
+using RapidXamlToolkit.XamlAnalysis;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis
 {

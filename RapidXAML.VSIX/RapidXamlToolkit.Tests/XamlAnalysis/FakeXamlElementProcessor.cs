@@ -2,8 +2,7 @@
 // Licensed under the MIT license.
 
 using System.Collections.Generic;
-using RapidXamlToolkit.Suggestions;
-using RapidXamlToolkit.Tagging;
+using RapidXamlToolkit.XamlAnalysis;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis
 {

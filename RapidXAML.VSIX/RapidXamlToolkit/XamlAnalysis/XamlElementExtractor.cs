@@ -4,9 +4,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using RapidXamlToolkit.Suggestions;
 
-namespace RapidXamlToolkit.Tagging
+namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {

@@ -1,10 +1,12 @@
-﻿using System.Threading;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+
+using System.Threading;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
-using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 
-namespace RapidXamlToolkit.Suggestions
+namespace RapidXamlToolkit.XamlAnalysis
 {
     public class InsertRowDefinitionAction : BaseSuggestedAction
     {

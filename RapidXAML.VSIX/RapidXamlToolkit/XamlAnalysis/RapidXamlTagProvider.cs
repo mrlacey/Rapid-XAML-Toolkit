@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.Composition;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+
+using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using Microsoft.VisualStudio.Utilities;
-using RapidXamlToolkit.ErrorList;
-using RapidXamlToolkit.Tagging;
 
-namespace RapidXamlToolkit.Suggestions
+namespace RapidXamlToolkit.XamlAnalysis
 {
     [Export(typeof(ITaggerProvider))]
     [TagType(typeof(IErrorTag))]

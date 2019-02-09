@@ -1,8 +1,11 @@
-﻿using EnvDTE;
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+
+using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 
-namespace RapidXamlToolkit.Suggestions
+namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class ProjectHelpers
     {
