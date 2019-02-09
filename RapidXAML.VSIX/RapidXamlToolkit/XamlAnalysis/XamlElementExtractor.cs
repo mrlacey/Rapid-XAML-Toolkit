@@ -103,68 +103,40 @@ namespace RapidXamlToolkit.XamlAnalysis
                         isIdentifyingElement = false;
                     }
 
+                            // closing blocks can be blank or named (e.g. ' />' or '</Grid>')
                     if (isClosingElement)
                     {
-                        // closing blocks can be blank or named (e.g. ' />' or '</Grid>')
+                        var nameOfInterest = string.Empty;
+
                         if (string.IsNullOrWhiteSpace(closingElementName))
                         {
-                            var toProcess = elementsBeingTracked.Where(g => g.ElementName == currentElementName)
-                                .OrderByDescending(f => f.StartPos)
-                                .Select(e => e)
-                                .FirstOrDefault();
-
-                            if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
-                            {
-                                foreach (var p in processors)
-                                {
-                                    if (p.element == toProcess.ElementName)
-                                    {
-                                        p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), tags);
-                                    }
-                                }
-
-                                elementsBeingTracked.Remove(toProcess);
-                            }
+                            nameOfInterest = currentElementName;
                         }
                         else if (closingElementName == lastElementName)
                         {
-                            var toProcess = elementsBeingTracked.Where(g => g.ElementName == lastElementName)
-                                .OrderByDescending(f => f.StartPos)
-                                .Select(e => e)
-                                .FirstOrDefault();
-
-                            if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
-                            {
-                                foreach (var p in processors)
-                                {
-                                    if (p.element == toProcess.ElementName)
-                                    {
-                                        p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), tags);
-                                    }
-                                }
-
-                                elementsBeingTracked.Remove(toProcess);
-                            }
+                            nameOfInterest = lastElementName;
                         }
                         else
                         {
-                            for (int j = elementsBeingTracked.Count - 1; j >= 0; j--)
+                            nameOfInterest = closingElementName;
+                        }
+
+                        var toProcess = elementsBeingTracked.Where(g => g.ElementName == nameOfInterest)
+                            .OrderByDescending(f => f.StartPos)
+                            .Select(e => e)
+                            .FirstOrDefault();
+
+                        if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
+                        {
+                            foreach (var p in processors)
                             {
-                                if (elementsBeingTracked[j].ElementName == closingElementName)
+                                if (p.element == toProcess.ElementName)
                                 {
-                                    foreach (var p in processors)
-                                    {
-                                        if (p.element == closingElementName)
-                                        {
-                                            p.processor.Process(elementsBeingTracked[j].StartPos, elementsBeingTracked[j].ElementBody.ToString(), tags);
-                                        }
-                                    }
-
-                                    elementsBeingTracked.RemoveAt(j);
-
-                                    break;
+                                    p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), tags);
                                 }
                             }
+
+                            elementsBeingTracked.Remove(toProcess);
                         }
 
                         // Reset this so know what we should be tracking
