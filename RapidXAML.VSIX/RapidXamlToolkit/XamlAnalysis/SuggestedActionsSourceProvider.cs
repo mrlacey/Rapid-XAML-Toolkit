@@ -28,9 +28,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public ISuggestedActionsSource CreateSuggestedActionsSource(ITextView textView, ITextBuffer textBuffer)
         {
-            ITextDocument document;
-
-            if (TextDocumentFactoryService.TryGetTextDocument(textView.TextBuffer, out document))
+            if (TextDocumentFactoryService.TryGetTextDocument(textView.TextBuffer, out var document))
             {
                 return textView.Properties.GetOrCreateSingletonProperty(() =>
                     new SuggestedActionsSource(ViewTagAggregatorFactoryService, textView, textBuffer, document.FilePath));

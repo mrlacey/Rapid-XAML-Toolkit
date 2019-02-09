@@ -19,9 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         public ITagger<T> CreateTagger<T>(ITextBuffer buffer)
             where T : ITag
         {
-            ITextDocument document;
-
-            if (!TextDocumentFactoryService.TryGetTextDocument(buffer, out document))
+            if (!TextDocumentFactoryService.TryGetTextDocument(buffer, out var document))
             {
                 return null;
             }

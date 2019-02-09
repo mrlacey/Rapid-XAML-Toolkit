@@ -29,14 +29,6 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 // TODO: offload the creation of tags to separate classes for handling each XAML element
                 // Register handlers and the elements they are looking for
-
-                // walk the file until find an element that's registered
-                // Keep walking until get to the end of that element
-                // pass the text of the element (and position offset) to the handler
-                // handler processes the passed text and may add items to the SuggestionTags
-
-
-
                 var count = 0;
 
                 var rowDefIndex = text.IndexOf("<RowDefinition");
@@ -56,7 +48,6 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                     rowDefIndex = text.IndexOf("<RowDefinition", endPos);
                 }
-
 
                 var tbIndex = text.IndexOf("<TextBlock Text=\"");
 

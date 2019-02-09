@@ -13,7 +13,7 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         private string file;
         private ITextView view;
-        public HardCodedStringTag tag;
+        private HardCodedStringTag tag;
 
         public override ImageMoniker IconMoniker => KnownMonikers.GenerateResource;
 
