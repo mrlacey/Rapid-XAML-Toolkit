@@ -129,6 +129,8 @@ namespace RapidXamlToolkit.Tagging
                                         p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), tags);
                                     }
                                 }
+
+                                elementsBeingTracked.Remove(toProcess);
                             }
                         }
                         else if (closingElementName == lastElementName)
@@ -147,11 +149,13 @@ namespace RapidXamlToolkit.Tagging
                                         p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), tags);
                                     }
                                 }
+
+                                elementsBeingTracked.Remove(toProcess);
                             }
                         }
                         else
                         {
-                            for (int j = elementsBeingTracked.Count -1; j >= 0; j--)
+                            for (int j = elementsBeingTracked.Count - 1; j >= 0; j--)
                             {
                                 if (elementsBeingTracked[j].ElementName == closingElementName)
                                 {
@@ -162,6 +166,8 @@ namespace RapidXamlToolkit.Tagging
                                             p.processor.Process(elementsBeingTracked[j].StartPos, elementsBeingTracked[j].ElementBody.ToString(), tags);
                                         }
                                     }
+
+                                    elementsBeingTracked.RemoveAt(j);
 
                                     break;
                                 }

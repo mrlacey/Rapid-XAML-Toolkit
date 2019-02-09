@@ -263,5 +263,34 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(27, processor.AllOffsets[2]);
             Assert.AreEqual(@"<GrandChild></GrandChild>", processor.AllXamlElements[2]);
         }
+
+        [TestMethod]
+        public void CanGetMultipleNestedElements()
+        {
+            var xaml = @"<Grid><Grid><Grid /><Grid></Grid></Grid></Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            var outputTags = new List<IRapidXamlTag>();
+
+            XamlElementExtractor.Parse(xaml, processors, outputTags);
+
+            // The order processed, and so listed here, is the order in which they're closed.
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(4, processor.ProcessCalledCount);
+            Assert.AreEqual(12, processor.AllOffsets[1]);
+            Assert.AreEqual(@"<Grid />", processor.AllXamlElements[1]);
+            Assert.AreEqual(20, processor.AllOffsets[2]);
+            Assert.AreEqual(@"<Grid></Grid>", processor.AllXamlElements[2]);
+            Assert.AreEqual(6, processor.AllOffsets[3]);
+            Assert.AreEqual(@"<Grid><Grid /><Grid></Grid></Grid>", processor.AllXamlElements[3]);
+            Assert.AreEqual(0, processor.AllOffsets[4]);
+            Assert.AreEqual(xaml, processor.AllXamlElements[4]);
+        }
     }
 }
