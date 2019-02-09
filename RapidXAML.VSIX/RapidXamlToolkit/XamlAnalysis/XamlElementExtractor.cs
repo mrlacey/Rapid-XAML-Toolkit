@@ -9,15 +9,6 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        private struct TrackingElement
-        {
-            public int StartPos { get; set; }
-
-            public string ElementName { get; set; }
-
-            public StringBuilder ElementBody { get; set; }
-        }
-
         public static bool Parse(string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlTag> tags)
         {
             var elementsOfInterest = processors.Select(p => p.element).ToList();
@@ -190,6 +181,15 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
             return true;
+        }
+
+        private struct TrackingElement
+        {
+            public int StartPos { get; set; }
+
+            public string ElementName { get; set; }
+
+            public StringBuilder ElementBody { get; set; }
         }
     }
 }

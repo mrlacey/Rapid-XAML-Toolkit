@@ -26,12 +26,19 @@ namespace RapidXamlToolkit.ErrorList
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
             compositionService.DefaultCompositionService.SatisfyImportsOnce(this);
 
-            var manager = TableManagerProvider.GetTableManager(StandardTables.ErrorsTable);
-            manager.AddSource(this, StandardTableColumnDefinitions.DetailsExpander, StandardTableColumnDefinitions.BuildTool,
-                                    StandardTableColumnDefinitions.ErrorSeverity, StandardTableColumnDefinitions.ErrorCode,
-                                    StandardTableColumnDefinitions.ErrorSource, StandardTableColumnDefinitions.ErrorCategory,
-                                    StandardTableColumnDefinitions.Text, StandardTableColumnDefinitions.DocumentName,
-                                    StandardTableColumnDefinitions.Line, StandardTableColumnDefinitions.Column);
+            var manager = this.TableManagerProvider.GetTableManager(StandardTables.ErrorsTable);
+            manager.AddSource(
+                              this,
+                              StandardTableColumnDefinitions.DetailsExpander,
+                              StandardTableColumnDefinitions.BuildTool,
+                              StandardTableColumnDefinitions.ErrorSeverity,
+                              StandardTableColumnDefinitions.ErrorCode,
+                              StandardTableColumnDefinitions.ErrorSource,
+                              StandardTableColumnDefinitions.ErrorCategory,
+                              StandardTableColumnDefinitions.Text,
+                              StandardTableColumnDefinitions.DocumentName,
+                              StandardTableColumnDefinitions.Line,
+                              StandardTableColumnDefinitions.Column);
         }
 
         public static TableDataSource Instance
@@ -39,7 +46,9 @@ namespace RapidXamlToolkit.ErrorList
             get
             {
                 if (_instance == null)
+                {
                     _instance = new TableDataSource();
+                }
 
                 return _instance;
             }
@@ -50,7 +59,6 @@ namespace RapidXamlToolkit.ErrorList
             get { return _snapshots.Any(); }
         }
 
-        #region ITableDataSource members
         public string SourceTypeIdentifier
         {
             get { return StandardTableDataSources.ErrorTableDataSource; }
@@ -70,7 +78,6 @@ namespace RapidXamlToolkit.ErrorList
         {
             return new SinkManager(this, sink);
         }
-        #endregion
 
         public void AddSinkManager(SinkManager manager)
         {
@@ -106,14 +113,16 @@ namespace RapidXamlToolkit.ErrorList
         public void AddErrors(FileErrorCollection result)
         {
             if (result == null || !result.Errors.Any())
+            {
                 return;
+            }
 
             result.Errors = result.Errors.Where(v => !_snapshots.Any(s => s.Value.Errors.Contains(v))).ToList();
 
             var snapshot = new TableEntriesSnapshot(result);
             _snapshots[result.FilePath] = snapshot;
 
-            UpdateAllSinks();
+            this.UpdateAllSinks();
         }
 
         public void CleanErrors(params string[] urls)
@@ -135,7 +144,7 @@ namespace RapidXamlToolkit.ErrorList
                 }
             }
 
-            UpdateAllSinks();
+            this.UpdateAllSinks();
         }
 
         public void CleanAllErrors()
@@ -159,7 +168,7 @@ namespace RapidXamlToolkit.ErrorList
                 }
             }
 
-            UpdateAllSinks();
+            this.UpdateAllSinks();
         }
     }
 }

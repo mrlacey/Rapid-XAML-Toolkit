@@ -84,6 +84,10 @@ namespace RapidXamlToolkit.ErrorList
                     var line = position.GetContainingLine();
                     content = position.Position - line.Start.Position;
                     return true;
+                case StandardTableKeyNames.ErrorCodeToolTip:
+                case StandardTableKeyNames.HelpLink:
+                    content = $"https://github.com/microsoft/Rapd-XAML-Toolkit/docs/errors/{error.ErrorCode}.md"; // TODO: create error code docs
+                    return true;
                 default:
                     content = null;
                     return false;

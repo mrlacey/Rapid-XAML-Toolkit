@@ -64,6 +64,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         Line = line.LineNumber,
                         Column = col,
                         Snapshot = snapshot,
+                        Message = "TextBlock should not contain a hardcoded value for Text. Use a localized resource instead.",
                     });
                 }
             }
