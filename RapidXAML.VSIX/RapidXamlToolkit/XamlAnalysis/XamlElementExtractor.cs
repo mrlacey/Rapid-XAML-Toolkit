@@ -25,17 +25,15 @@ namespace RapidXamlToolkit.XamlAnalysis
             string currentElementBody = string.Empty;
             string closingElementName = string.Empty;
 
-            // TODO: see if can only call this once per for-loop iteration
-            void AddToTrackedElements(char toAppend)
-            {
-                for (var j = 0; j < elementsBeingTracked.Count; j++)
-                {
-                    elementsBeingTracked[j].ElementBody.Append(toAppend);
-                }
-            }
-
             for (int i = 0; i < xaml.Length; i++)
             {
+                currentElementBody += xaml[i];
+
+                for (var j = 0; j < elementsBeingTracked.Count; j++)
+                {
+                    elementsBeingTracked[j].ElementBody.Append(xaml[i]);
+                }
+
                 if (xaml[i] == '<')
                 {
                     isIdentifyingElement = true;
@@ -43,8 +41,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                     lastElementName = currentElementName;
                     currentElementName = string.Empty;
                     currentElementBody = "<";
-
-                    AddToTrackedElements(xaml[i]);
                 }
                 else if (char.IsLetterOrDigit(xaml[i]))
                 {
@@ -56,17 +52,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         closingElementName += xaml[i];
                     }
-
-                    currentElementBody += xaml[i];
-
-                    AddToTrackedElements(xaml[i]);
                 }
                 else if (char.IsWhiteSpace(xaml[i]))
                 {
-                    currentElementBody += xaml[i];
-
-                    AddToTrackedElements(xaml[i]);
-
                     if (isIdentifyingElement)
                     {
                         if (elementsOfInterest.Contains(currentElementName))
@@ -82,17 +70,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                     isClosingElement = true;
                     closingElementName = string.Empty;
                     isIdentifyingElement = false;
-
-                    currentElementBody += xaml[i];
-
-                    AddToTrackedElements(xaml[i]);
                 }
                 else if (xaml[i] == '>')
                 {
-                    currentElementBody += xaml[i];
-
-                    AddToTrackedElements(xaml[i]);
-
                     if (isIdentifyingElement)
                     {
                         if (elementsOfInterest.Contains(currentElementName))
@@ -138,15 +118,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         // Reset this so know what we should be tracking
                         currentElementStartPos = -1;
                         isClosingElement = false;
-                    }
-                }
-                else
-                {
-                    if (currentElementStartPos >= 0)
-                    {
-                        currentElementBody += xaml[i];
-
-                        AddToTrackedElements(xaml[i]);
                     }
                 }
             }
