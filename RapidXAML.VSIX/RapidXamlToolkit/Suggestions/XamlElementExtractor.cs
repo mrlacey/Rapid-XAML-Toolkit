@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using RapidXamlToolkit.Suggestions;
 
 namespace RapidXamlToolkit.Tagging
@@ -15,7 +16,7 @@ namespace RapidXamlToolkit.Tagging
 
             public string ElementName { get; set; }
 
-            public string ElementBody { get; set; }
+            public StringBuilder ElementBody { get; set; }
         }
 
         public static bool Parse(string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlTag> tags)
@@ -24,11 +25,6 @@ namespace RapidXamlToolkit.Tagging
 
             var elementsBeingTracked = new List<TrackingElement>();
 
-            // walk the file until find an element that's registered
-            // Keep walking until get to the end of that element
-            // pass the text of the element (and position offset) to the handler
-            // handler processes the passed text and may add items to the SuggestionTags
-
             bool isIdentifyingElement = false;
             bool isClosingElement = false;
             int currentElementStartPos = -1;
@@ -36,6 +32,14 @@ namespace RapidXamlToolkit.Tagging
             string currentElementName = string.Empty;
             string currentElementBody = string.Empty;
             string closingElementName = string.Empty;
+
+            void AddToTrackedElements(char toAppend)
+            {
+                for (var j = 0; j < elementsBeingTracked.Count; j++)
+                {
+                    elementsBeingTracked[j].ElementBody.Append(toAppend);
+                }
+            }
 
             for (int i = 0; i < xaml.Length; i++)
             {
@@ -47,12 +51,7 @@ namespace RapidXamlToolkit.Tagging
                     currentElementName = string.Empty;
                     currentElementBody = "<";
 
-                    for (var j = 0; j < elementsBeingTracked.Count; j++)
-                    {
-                        var ebt = elementsBeingTracked[j];
-                        ebt.ElementBody += xaml[i];
-                        elementsBeingTracked[j] = ebt;
-                    }
+                    AddToTrackedElements(xaml[i]);
                 }
                 else if (char.IsLetterOrDigit(xaml[i]))
                 {
@@ -65,14 +64,9 @@ namespace RapidXamlToolkit.Tagging
                         closingElementName += xaml[i];
                     }
 
-                    currentElementBody += xaml[i];  // not sure if need this
+                    currentElementBody += xaml[i];
 
-                    for (var j = 0; j < elementsBeingTracked.Count; j++)
-                    {
-                        var ebt = elementsBeingTracked[j];
-                        ebt.ElementBody += xaml[i];
-                        elementsBeingTracked[j] = ebt;
-                    }
+                    AddToTrackedElements(xaml[i]);
                 }
                 else if (char.IsWhiteSpace(xaml[i]))
                 {
@@ -80,18 +74,13 @@ namespace RapidXamlToolkit.Tagging
                     {
                         if (elementsOfInterest.Contains(currentElementName))
                         {
-                            elementsBeingTracked.Add(new TrackingElement { StartPos = currentElementStartPos, ElementName = currentElementName, ElementBody = currentElementBody });
+                            elementsBeingTracked.Add(new TrackingElement { StartPos = currentElementStartPos, ElementName = currentElementName, ElementBody = new StringBuilder(currentElementBody) });
                         }
                     }
 
                     isIdentifyingElement = false;
 
-                    for (var j = 0; j < elementsBeingTracked.Count; j++)
-                    {
-                        var ebt = elementsBeingTracked[j];
-                        ebt.ElementBody += xaml[i];
-                        elementsBeingTracked[j] = ebt;
-                    }
+                    AddToTrackedElements(xaml[i]);
                 }
                 else if (xaml[i] == '/')
                 {
@@ -99,28 +88,20 @@ namespace RapidXamlToolkit.Tagging
                     isIdentifyingElement = false;
 
                     currentElementBody += xaml[i];
-                    for (var j = 0; j < elementsBeingTracked.Count; j++)
-                    {
-                        var ebt = elementsBeingTracked[j];
-                        ebt.ElementBody += xaml[i];
-                        elementsBeingTracked[j] = ebt;
-                    }
+
+                    AddToTrackedElements(xaml[i]);
                 }
                 else if (xaml[i] == '>')
                 {
                     currentElementBody += xaml[i];
-                    for (var j = 0; j < elementsBeingTracked.Count; j++)
-                    {
-                        var ebt = elementsBeingTracked[j];
-                        ebt.ElementBody += xaml[i];
-                        elementsBeingTracked[j] = ebt;
-                    }
+
+                    AddToTrackedElements(xaml[i]);
 
                     if (isIdentifyingElement)
                     {
                         if (elementsOfInterest.Contains(currentElementName))
                         {
-                            elementsBeingTracked.Add(new TrackingElement { StartPos = currentElementStartPos, ElementName = currentElementName, ElementBody = currentElementBody });
+                            elementsBeingTracked.Add(new TrackingElement { StartPos = currentElementStartPos, ElementName = currentElementName, ElementBody = new StringBuilder(currentElementBody) });
                         }
 
                         isIdentifyingElement = false;
@@ -142,7 +123,7 @@ namespace RapidXamlToolkit.Tagging
                                 {
                                     if (p.element == toProcess.ElementName)
                                     {
-                                        p.processor.Process(toProcess.StartPos, toProcess.ElementBody, tags);
+                                        p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), tags);
                                     }
                                 }
                             }
@@ -158,12 +139,8 @@ namespace RapidXamlToolkit.Tagging
                     if (currentElementStartPos >= 0)
                     {
                         currentElementBody += xaml[i];
-                        for (var j = 0; j < elementsBeingTracked.Count; j++)
-                        {
-                            var ebt = elementsBeingTracked[j];
-                            ebt.ElementBody += xaml[i];
-                            elementsBeingTracked[j] = ebt;
-                        }
+
+                        AddToTrackedElements(xaml[i]);
                     }
                 }
             }
