@@ -247,6 +247,7 @@
     <Compile Include="Suggestions\SuggestedActionsSource.cs" />
     <Compile Include="Suggestions\SuggestedActionsSourceProvider.cs" />
     <Compile Include="Suggestions\UnexpectedErrorTag.cs" />
+    <Compile Include="Suggestions\XamlElementExtractor.cs" />
     <Compile Include="Suggestions\XamlElementProcessor.cs" />
     <Compile Include="Telemetry\CoreDetails.cs" />
     <Compile Include="Telemetry\TelemetryAccessor.cs" />
