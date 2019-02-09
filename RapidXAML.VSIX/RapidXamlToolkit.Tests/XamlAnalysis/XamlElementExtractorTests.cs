@@ -32,6 +32,28 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
+        public void CanGetRootElement_WithLineEnding()
+        {
+            var xaml = @"<Grid>
+</Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            var outputTags = new List<IRapidXamlTag>();
+
+            XamlElementExtractor.Parse(xaml, processors, outputTags);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(0, processor.Offset);
+            Assert.AreEqual(xaml, processor.XamlElement);
+        }
+
+        [TestMethod]
         public void CanGetRootElement_WithAttribute()
         {
             var xaml = @"<Grid attr=""value""></Grid>";
@@ -50,6 +72,55 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
             Assert.AreEqual(xaml, processor.XamlElement);
+        }
+
+        [TestMethod]
+        public void CanGetRootElement_WithMultipleAttributes()
+        {
+            var xaml = @"<Grid attr1=""value1"" attr2=""value2"" attr3=""value3"" attr4=""value4""></Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            var outputTags = new List<IRapidXamlTag>();
+
+            XamlElementExtractor.Parse(xaml, processors, outputTags);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(0, processor.Offset);
+            Assert.AreEqual(xaml, processor.XamlElement);
+        }
+
+        [TestMethod]
+        public void CanGetRootElement_WithMultipleAttributes_OnDifferentLines()
+        {
+            var xaml = @"
+<Grid
+    attr1=""value1""
+    attr2=""value2""
+    attr3=""value3""
+    attr4=""value4""
+    >
+</Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            var outputTags = new List<IRapidXamlTag>();
+
+            XamlElementExtractor.Parse(xaml, processors, outputTags);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(2, processor.Offset);
+            Assert.AreEqual(xaml.TrimStart(), processor.XamlElement);
         }
 
         [TestMethod]

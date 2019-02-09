@@ -18,11 +18,14 @@ namespace RapidXamlToolkit.XamlAnalysis
             bool isIdentifyingElement = false;
             bool isClosingElement = false;
             int currentElementStartPos = -1;
+
+            // TODO: change these to stringbuilders to improve perf
             string lastElementName = string.Empty;
             string currentElementName = string.Empty;
             string currentElementBody = string.Empty;
             string closingElementName = string.Empty;
 
+            // TODO: see if can only call this once per for-loop iteration
             void AddToTrackedElements(char toAppend)
             {
                 for (var j = 0; j < elementsBeingTracked.Count; j++)
