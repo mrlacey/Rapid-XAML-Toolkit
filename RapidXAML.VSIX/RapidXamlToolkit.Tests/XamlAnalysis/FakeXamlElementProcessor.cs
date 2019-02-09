@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System.Collections.Generic;
+using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.XamlAnalysis;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis
@@ -21,7 +22,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
         public Dictionary<int, string> AllXamlElements { get; private set; } = new Dictionary<int, string>();
 
-        public override void Process(int offset, string xamlElement, List<IRapidXamlTag> tags)
+        public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlTag> tags)
         {
             this.ProcessCalled = true;
             this.ProcessCalledCount += 1;

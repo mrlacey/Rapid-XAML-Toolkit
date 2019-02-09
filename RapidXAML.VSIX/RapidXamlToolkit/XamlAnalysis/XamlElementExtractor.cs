@@ -4,12 +4,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.VisualStudio.Text;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        public static bool Parse(string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlTag> tags)
+        public static bool Parse(ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlTag> tags)
         {
             var elementsOfInterest = processors.Select(p => p.element).ToList();
 
@@ -108,7 +109,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                             {
                                 if (p.element == toProcess.ElementName)
                                 {
-                                    p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), tags);
+                                    p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), snapshot, tags);
                                 }
                             }
 

@@ -229,6 +229,7 @@
     <Compile Include="StringExtensions.cs" />
     <Compile Include="XamlAnalysis\ActionTypes.cs" />
     <Compile Include="XamlAnalysis\BaseSuggestedAction.cs" />
+    <Compile Include="XamlAnalysis\GridProcessor.cs" />
     <Compile Include="XamlAnalysis\HardCodedStringAction.cs" />
     <Compile Include="XamlAnalysis\HardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\InsertRowDefinitionAction.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="XamlAnalysis\RapidXamlWarningTag.cs" />
     <Compile Include="XamlAnalysis\SuggestedActionsSource.cs" />
     <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
+    <Compile Include="XamlAnalysis\TextBlockProcessor.cs" />
     <Compile Include="XamlAnalysis\UnexpectedErrorTag.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
     <Compile Include="XamlAnalysis\XamlElementProcessor.cs" />

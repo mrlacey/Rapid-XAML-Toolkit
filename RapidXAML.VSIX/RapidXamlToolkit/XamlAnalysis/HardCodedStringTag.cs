@@ -8,7 +8,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         public HardCodedStringTag()
         {
             this.ActionType = ActionTypes.HardCodedString;
-            this.ToolTip = "HardCoded string message";
+            this.ToolTip = "HardCoded string message"; // TODO: need to customize this???
             this.ErrorCode = "RXT???"; // TODO Need to assign a proper error code
         }
     }

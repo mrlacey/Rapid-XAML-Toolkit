@@ -29,44 +29,15 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 // TODO: offload the creation of tags to separate classes for handling each XAML element
                 // Register handlers and the elements they are looking for
-                var count = 0;
 
-                var rowDefIndex = text.IndexOf("<RowDefinition");
-                while (rowDefIndex >= 0)
+
+                var processors = new List<(string, XamlElementProcessor)>
                 {
-                    var endPos = text.IndexOf('>', rowDefIndex);
+                    ("Grid", new GridProcessor()),
+                    ("TextBlock", new TextBlockProcessor()),
+                };
 
-                    var tag = new InsertRowDefinitionTag
-                    {
-                        Span = new Span(rowDefIndex, endPos - rowDefIndex),
-                        RowId = count,
-                    };
-
-                    result.SuggestionTags.Add(tag);
-
-                    count = count + 1;
-
-                    rowDefIndex = text.IndexOf("<RowDefinition", endPos);
-                }
-
-                var tbIndex = text.IndexOf("<TextBlock Text=\"");
-
-                if (tbIndex >= 0)
-                {
-                    var tbEnd = text.IndexOf(">", tbIndex);
-
-                    var line = snapshot.GetLineFromPosition(tbIndex);
-                    var col = tbEnd - line.Start.Position;
-
-                    result.SuggestionTags.Add(new HardCodedStringTag
-                    {
-                        Span = new Span(tbIndex, tbEnd - tbIndex),
-                        Line = line.LineNumber,
-                        Column = col,
-                        Snapshot = snapshot,
-                        Message = "TextBlock should not contain a hardcoded value for Text. Use a localized resource instead.",
-                    });
-                }
+                XamlElementExtractor.Parse(snapshot, text, processors, result.SuggestionTags);
             }
             catch (Exception e)
             {

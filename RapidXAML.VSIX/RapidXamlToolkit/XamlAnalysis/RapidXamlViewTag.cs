@@ -35,6 +35,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public ErrorRow AsErrorRow()
         {
+            // TODO: add a property for Extended message, rather than just using the action type
             return new ErrorRow
             {
                 ExtendedMessage = this.ActionType.ToString(),
