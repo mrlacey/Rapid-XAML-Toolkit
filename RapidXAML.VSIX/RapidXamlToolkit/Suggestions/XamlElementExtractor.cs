@@ -70,6 +70,10 @@ namespace RapidXamlToolkit.Tagging
                 }
                 else if (char.IsWhiteSpace(xaml[i]))
                 {
+                    currentElementBody += xaml[i];
+
+                    AddToTrackedElements(xaml[i]);
+
                     if (isIdentifyingElement)
                     {
                         if (elementsOfInterest.Contains(currentElementName))
@@ -79,8 +83,6 @@ namespace RapidXamlToolkit.Tagging
                     }
 
                     isIdentifyingElement = false;
-
-                    AddToTrackedElements(xaml[i]);
                 }
                 else if (xaml[i] == '/')
                 {
@@ -110,7 +112,25 @@ namespace RapidXamlToolkit.Tagging
                     if (isClosingElement)
                     {
                         // closing blocks can be blank or named (e.g. ' />' or '</Grid>')
-                        if (string.IsNullOrEmpty(closingElementName) || closingElementName == lastElementName)
+                        if (string.IsNullOrWhiteSpace(closingElementName))
+                        {
+                            var toProcess = elementsBeingTracked.Where(g => g.ElementName == currentElementName)
+                                .OrderByDescending(f => f.StartPos)
+                                .Select(e => e)
+                                .FirstOrDefault();
+
+                            if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
+                            {
+                                foreach (var p in processors)
+                                {
+                                    if (p.element == toProcess.ElementName)
+                                    {
+                                        p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), tags);
+                                    }
+                                }
+                            }
+                        }
+                        else if (closingElementName == lastElementName)
                         {
                             var toProcess = elementsBeingTracked.Where(g => g.ElementName == lastElementName)
                                 .OrderByDescending(f => f.StartPos)
