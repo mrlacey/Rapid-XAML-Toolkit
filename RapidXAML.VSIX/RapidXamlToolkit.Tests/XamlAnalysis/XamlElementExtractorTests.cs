@@ -239,5 +239,29 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(13, processor.Offset);
             Assert.AreEqual(@"<GrandChild />", processor.XamlElement);
         }
+
+        [TestMethod]
+        public void CanGetGrandChildrenElements()
+        {
+            var xaml = @"<Grid><Child><GrandChild /><GrandChild></GrandChild></Child></Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("GrandChild", processor),
+            };
+
+            var outputTags = new List<IRapidXamlTag>();
+
+            XamlElementExtractor.Parse(xaml, processors, outputTags);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(2, processor.ProcessCalledCount);
+            Assert.AreEqual(13, processor.AllOffsets[1]);
+            Assert.AreEqual(@"<GrandChild />", processor.AllXamlElements[1]);
+            Assert.AreEqual(27, processor.AllOffsets[2]);
+            Assert.AreEqual(@"<GrandChild></GrandChild>", processor.AllXamlElements[2]);
+        }
     }
 }

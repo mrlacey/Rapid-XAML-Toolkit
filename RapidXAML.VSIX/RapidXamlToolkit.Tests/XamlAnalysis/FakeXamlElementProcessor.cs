@@ -12,15 +12,26 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
     {
         public bool ProcessCalled { get; set; } = false;
 
+        public int ProcessCalledCount { get; private set; } = 0;
+
         public string XamlElement { get; set; } = string.Empty;
 
         public int Offset { get; set; } = -1;
 
+        public Dictionary<int, int> AllOffsets { get; private set; } = new Dictionary<int, int>();
+
+        public Dictionary<int, string> AllXamlElements { get; private set; } = new Dictionary<int, string>();
+
         public override void Process(int offset, string xamlElement, List<IRapidXamlTag> tags)
         {
             this.ProcessCalled = true;
+            this.ProcessCalledCount += 1;
+
             this.Offset = offset;
+            this.AllOffsets.Add(this.ProcessCalledCount, offset);
+
             this.XamlElement = xamlElement;
+            this.AllXamlElements.Add(this.ProcessCalledCount, xamlElement);
         }
     }
 }
