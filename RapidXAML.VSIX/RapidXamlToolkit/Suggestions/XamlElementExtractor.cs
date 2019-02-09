@@ -87,6 +87,7 @@ namespace RapidXamlToolkit.Tagging
                 else if (xaml[i] == '/')
                 {
                     isClosingElement = true;
+                    closingElementName = string.Empty;
                     isIdentifyingElement = false;
 
                     currentElementBody += xaml[i];
@@ -145,6 +146,24 @@ namespace RapidXamlToolkit.Tagging
                                     {
                                         p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), tags);
                                     }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int j = elementsBeingTracked.Count -1; j >= 0; j--)
+                            {
+                                if (elementsBeingTracked[j].ElementName == closingElementName)
+                                {
+                                    foreach (var p in processors)
+                                    {
+                                        if (p.element == closingElementName)
+                                        {
+                                            p.processor.Process(elementsBeingTracked[j].StartPos, elementsBeingTracked[j].ElementBody.ToString(), tags);
+                                        }
+                                    }
+
+                                    break;
                                 }
                             }
                         }
