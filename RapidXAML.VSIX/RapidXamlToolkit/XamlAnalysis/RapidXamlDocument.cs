@@ -25,6 +25,11 @@ namespace RapidXamlToolkit.XamlAnalysis
             try
             {
                 var text = snapshot.GetText();
+
+                // TODO: only try and parse doc if valid XML - need to consider when to redo tags, etc, while invalid
+                if (text.IsValidXml())
+                { }
+
                 result.RawText = text;
 
                 // TODO: offload the creation of tags to separate classes for handling each XAML element

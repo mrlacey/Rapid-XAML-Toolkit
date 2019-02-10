@@ -105,7 +105,7 @@ namespace RapidXamlToolkit.Commands
                 }
                 else
                 {
-                    this.Logger.RecordInfo(StringRes.Info_UnableToInsertRowDefinitionInvalidXaml);
+                    this.Logger?.RecordInfo(StringRes.Info_UnableToInsertRowDefinitionInvalidXaml);
                 }
             }
             catch (Exception exc)
