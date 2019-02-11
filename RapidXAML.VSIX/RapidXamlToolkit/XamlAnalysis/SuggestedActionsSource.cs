@@ -34,7 +34,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         private void OnViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
         {
-            // TODO: buffer this so doesn't fire until after a period of inactivity (1 second?)
+            // TODO: throttle this so doesn't fire until after a period of inactivity (1 second?)
             // Layout change can happen a lot, but only interested in if the text has changed
             if (e.OldSnapshot != e.NewSnapshot)
             {
@@ -93,7 +93,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         private IEnumerable<IRapidXamlTag> GetTags(SnapshotSpan span)
         {
-            return RapidXamlDocumentCache.Tags(_file).Where(t => t.Span.IntersectsWith(span)).Select(t => t);
+            return RapidXamlDocumentCache.AdornmentTags(_file).Where(t => t.Span.IntersectsWith(span)).Select(t => t);
         }
 
         private IEnumerable<IMappingTagSpan<IRapidXamlTag>> GetErrorTags(ITextView view, SnapshotSpan span)

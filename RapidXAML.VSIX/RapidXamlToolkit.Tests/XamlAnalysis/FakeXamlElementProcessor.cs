@@ -23,7 +23,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
         public Dictionary<int, string> AllXamlElements { get; private set; } = new Dictionary<int, string>();
 
-        public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlTag> tags)
+        public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             this.ProcessCalled = true;
             this.ProcessCalledCount += 1;

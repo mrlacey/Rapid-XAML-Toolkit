@@ -11,7 +11,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class RapidXamlDocumentCache
     {
-        private static Dictionary<string, RapidXamlDocument> cache = new Dictionary<string, RapidXamlDocument>();
+        private static readonly Dictionary<string, RapidXamlDocument> cache = new Dictionary<string, RapidXamlDocument>();
 
         public static event EventHandler<RapidXamlParsingEventArgs> Parsed;
 
@@ -41,25 +41,25 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
         }
 
-        public static List<IRapidXamlTag> Tags(string fileName)
+        public static List<IRapidXamlAdornmentTag> AdornmentTags(string fileName)
         {
-            var result = new List<IRapidXamlTag>();
+            var result = new List<IRapidXamlAdornmentTag>();
 
             if (cache.ContainsKey(fileName))
             {
-                result.AddRange(cache[fileName].SuggestionTags);
+                result.AddRange(cache[fileName].Tags);
             }
 
             return result;
         }
 
-        public static List<IRapidXamlWarningTag> AdornedTags(string fileName)
+        public static List<IRapidXamlErrorListTag> ErrorListTags(string fileName)
         {
-            var result = new List<IRapidXamlWarningTag>();
+            var result = new List<IRapidXamlErrorListTag>();
 
             if (cache.ContainsKey(fileName))
             {
-                result.AddRange(cache[fileName].SuggestionTags.OfType<IRapidXamlWarningTag>());
+                result.AddRange(cache[fileName].Tags.OfType<IRapidXamlErrorListTag>());
             }
 
             return result;

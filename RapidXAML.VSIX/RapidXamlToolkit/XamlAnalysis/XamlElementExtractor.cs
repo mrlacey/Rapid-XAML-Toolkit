@@ -11,7 +11,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        public static bool Parse(ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlTag> tags)
+        public static bool Parse(ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlAdornmentTag> tags)
         {
             var elementsOfInterest = processors.Select(p => p.element).ToList();
 

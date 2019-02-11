@@ -23,7 +23,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -45,7 +45,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -66,7 +66,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -87,7 +87,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -115,7 +115,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -136,7 +136,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -160,7 +160,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -181,7 +181,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -207,7 +207,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -228,7 +228,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -254,7 +254,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -275,7 +275,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Inner", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -299,7 +299,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Inner", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -323,7 +323,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Inner", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -344,7 +344,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Inner", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -365,7 +365,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Inner", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -386,7 +386,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Child", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -407,7 +407,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("GrandChild", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -428,7 +428,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("GrandChild", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -452,7 +452,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -487,7 +487,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -529,7 +529,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("GrandChild", grandChildProc),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -573,7 +573,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("GrandChild", grandChildProc),
             };
 
-            var outputTags = new List<IRapidXamlTag>();
+            var outputTags = new List<IRapidXamlAdornmentTag>();
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
@@ -604,7 +604,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 grandChildProc.AllXamlElements[2]);
         }
 
-        private void TestParsingWithoutSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlTag> tags)
+        private void TestParsingWithoutSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlAdornmentTag> tags)
         {
             XamlElementExtractor.Parse(null, xaml, processors, tags);
         }

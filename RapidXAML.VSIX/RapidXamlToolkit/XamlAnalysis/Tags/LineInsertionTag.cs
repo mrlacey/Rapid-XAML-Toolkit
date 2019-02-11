@@ -5,11 +5,12 @@ using Microsoft.VisualStudio.Text;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public abstract class LineInsertionTag : IRapidXamlTag
+    public abstract class LineInsertionTag : RapidXamlOptionalTag
     {
-        public ActionTypes ActionType { get; }
-
-        public Span Span { get; set; }
+        protected LineInsertionTag(Span span, ITextSnapshot snapshot)
+            : base(span, snapshot)
+        {
+        }
 
         public int InsertLine { get; set; }
     }

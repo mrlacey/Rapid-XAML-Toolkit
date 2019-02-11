@@ -6,16 +6,17 @@ using Microsoft.VisualStudio.Text;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public class InsertRowDefinitionTag : IRapidXamlTag
+    public class InsertRowDefinitionTag : RapidXamlOptionalTag
     {
-        public ActionTypes ActionType => ActionTypes.InsertRowDefinition;
+        public InsertRowDefinitionTag(Span span, ITextSnapshot snapshot)
+            : base(span, snapshot)
+        {
+        }
 
         // Used for text in suggested action ("Insert new row {RowId}")
         public int RowId { get; set; }
 
         public int RowCount { get; set; }
-
-        public Span Span { get; set; }
 
         public string XamlTag { get; set; }
 

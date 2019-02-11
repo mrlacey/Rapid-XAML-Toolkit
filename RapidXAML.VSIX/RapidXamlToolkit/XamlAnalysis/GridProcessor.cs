@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         // TODO: also need to add all other grid related tag creation
         // TODO: add tests for this
-        public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlTag> tags)
+        public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             const string gridOpenSpace = "<Grid ";
             const string gridOpenComplete = "<Grid>";
@@ -37,9 +37,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             if (!hasRowDef)
             {
-                var tag = new AddRowDefinitionsTag
+                var tag = new AddRowDefinitionsTag(new Span(offset, endOfOpening), snapshot)
                 {
-                    Span = new Span(offset, endOfOpening),
                     InsertLine = snapshot.GetLineNumberFromPosition(offset + endOfOpening) + 1,
                 };
                 tags.Add(tag);
@@ -47,9 +46,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             if (!hasColDef)
             {
-                var tag = new AddColumnDefinitionsTag
+                var tag = new AddColumnDefinitionsTag(new Span(offset, endOfOpening), snapshot)
                 {
-                    Span = new Span(offset, endOfOpening),
                     InsertLine = snapshot.GetLineNumberFromPosition(offset + endOfOpening) + 1,
                 };
                 tags.Add(tag);
@@ -57,9 +55,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             if (!hasRowDef && !hasColDef)
             {
-                var tag = new AddRowAndColumnDefinitionsTag
+                var tag = new AddRowAndColumnDefinitionsTag(new Span(offset, endOfOpening), snapshot)
                 {
-                    Span = new Span(offset, endOfOpening),
                     InsertLine = snapshot.GetLineNumberFromPosition(offset + endOfOpening) + 1,
                 };
                 tags.Add(tag);
@@ -77,9 +74,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 var endPos = xamlElement.IndexOf('>', rowDefIndex);
 
-                var tag = new InsertRowDefinitionTag
+                var tag = new InsertRowDefinitionTag(new Span(offset + rowDefIndex, endPos - rowDefIndex + 1), snapshot)
                 {
-                    Span = new Span(offset + rowDefIndex, endPos - rowDefIndex + 1),
                     RowId = count,
                     GridStartPos = offset,
                     GridLength = xamlElement.Length,

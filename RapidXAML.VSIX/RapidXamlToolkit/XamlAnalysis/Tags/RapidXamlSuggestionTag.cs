@@ -6,9 +6,9 @@ using Microsoft.VisualStudio.Text.Tagging;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public abstract class RapidXamlWarningTag : RapidXamlErrorListTag
+    public abstract class RapidXamlSuggestionTag : RapidXamlErrorListTag
     {
-        protected RapidXamlWarningTag(Span span, ITextSnapshot snapshot)
+        protected RapidXamlSuggestionTag(Span span, ITextSnapshot snapshot)
             : base(span, snapshot)
         {
         }
@@ -16,7 +16,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public override ITagSpan<IErrorTag> AsErrorTag()
         {
             var span = new SnapshotSpan(this.Snapshot, this.Span);
-            return new TagSpan<IErrorTag>(span, new RapidXamlWarningAdornmentTag(this.ToolTip));
+            return new TagSpan<IErrorTag>(span, new RapidXamlSuggestionAdornmentTag(this.ToolTip));
         }
-    }
+        }
 }

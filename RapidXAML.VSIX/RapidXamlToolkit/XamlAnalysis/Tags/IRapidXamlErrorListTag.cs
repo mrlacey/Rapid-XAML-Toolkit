@@ -7,11 +7,18 @@ using RapidXamlToolkit.ErrorList;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public interface IRapidXamlWarningTag : IRapidXamlTag
+    public interface IRapidXamlErrorListTag : IRapidXamlAdornmentTag
+    {
+        ErrorRow AsErrorRow();
+    }
+
+    public interface IRapidXamlAdornmentTag : IRapidXamlTag
     {
         string ToolTip { get; set; }
 
         string Message { get; set; }
+
+        string ExtendedMessage { get; set; }
 
         int Line { get; set; }
 
@@ -19,8 +26,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         ITextSnapshot Snapshot { get; set; }
 
-        ITagSpan<IErrorTag> AsErrorTag();
+        string ErrorCode { get; set; }
 
-        ErrorRow AsErrorRow();
+        bool IsFatal { get; }
+
+        ITagSpan<IErrorTag> AsErrorTag();
     }
 }

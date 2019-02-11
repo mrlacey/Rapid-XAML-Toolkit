@@ -9,6 +9,6 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public abstract class XamlElementProcessor
     {
-        public abstract void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlTag> tags);
+        public abstract void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags);
     }
 }

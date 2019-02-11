@@ -10,7 +10,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class TextBlockProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlTag> tags)
+        public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             const string searchText = "Text=\"";
 
@@ -25,12 +25,10 @@ namespace RapidXamlToolkit.XamlAnalysis
                     var line = snapshot.GetLineFromPosition(offset + tbIndex);
                     var col = offset + tbIndex - line.Start.Position;
 
-                    tags.Add(new HardCodedStringTag
+                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, tbEnd - tbIndex + 1), snapshot)
                     {
-                        Span = new Span(offset + tbIndex, tbEnd - tbIndex + 1),
                         Line = line.LineNumber,
                         Column = col,
-                        Snapshot = snapshot,
                         Message = "TextBlock should not contain a hardcoded value for Text. Use a localized resource instead.",
                     });
                 }

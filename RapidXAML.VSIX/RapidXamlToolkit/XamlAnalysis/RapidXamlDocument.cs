@@ -12,12 +12,12 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         public RapidXamlDocument()
         {
-            this.SuggestionTags = new List<IRapidXamlTag>();
+            this.Tags = new List<IRapidXamlAdornmentTag>();
         }
 
         public string RawText { get; set; }
 
-        public List<IRapidXamlTag> SuggestionTags { get; set; }
+        public List<IRapidXamlAdornmentTag> Tags { get; set; }
 
         public static RapidXamlDocument Create(ITextSnapshot snapshot)
         {
@@ -39,13 +39,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                     ("TextBlock", new TextBlockProcessor()),
                 };
 
-                XamlElementExtractor.Parse(snapshot, text, processors, result.SuggestionTags);
+                XamlElementExtractor.Parse(snapshot, text, processors, result.Tags);
             }
             catch (Exception e)
             {
-                result.SuggestionTags.Add(new UnexpectedErrorTag
+                // TODO: also log this
+                result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot)
                 {
-                    Span = new Span(0, 0),
                     Message = "Unexpected error occurred while parsing XAML.",
                     ExtendedMessage = "Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: " + e,
                 });
