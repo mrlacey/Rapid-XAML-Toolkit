@@ -237,7 +237,7 @@
     <Compile Include="XamlAnalysis\InsertRowDefinitionAction.cs" />
     <Compile Include="XamlAnalysis\InsertRowDefinitionTag.cs" />
     <Compile Include="XamlAnalysis\IRapidXamlTag.cs" />
-    <Compile Include="XamlAnalysis\IRapidXamlViewTag.cs" />
+    <Compile Include="XamlAnalysis\IRapidXamlWarningTag.cs" />
     <Compile Include="XamlAnalysis\ParsedAction.cs" />
     <Compile Include="XamlAnalysis\ProjectHelpers.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
@@ -245,7 +245,7 @@
     <Compile Include="XamlAnalysis\RapidXamlParsingEventArgs.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagger.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagProvider.cs" />
-    <Compile Include="XamlAnalysis\RapidXamlViewTag.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlWarningAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\RapidXamlWarningTag.cs" />
     <Compile Include="XamlAnalysis\SuggestedActionsSource.cs" />
     <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />

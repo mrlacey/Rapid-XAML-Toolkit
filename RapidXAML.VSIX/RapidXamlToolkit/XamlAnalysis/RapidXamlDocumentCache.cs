@@ -52,13 +52,13 @@ namespace RapidXamlToolkit.XamlAnalysis
             return result;
         }
 
-        public static List<IRapidXamlViewTag> ViewTags(string fileName)
+        public static List<IRapidXamlWarningTag> AdornedTags(string fileName)
         {
-            var result = new List<IRapidXamlViewTag>();
+            var result = new List<IRapidXamlWarningTag>();
 
             if (cache.ContainsKey(fileName))
             {
-                result.AddRange(cache[fileName].SuggestionTags.OfType<IRapidXamlViewTag>());
+                result.AddRange(cache[fileName].SuggestionTags.OfType<IRapidXamlWarningTag>());
             }
 
             return result;

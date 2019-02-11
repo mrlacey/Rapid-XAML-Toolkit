@@ -32,10 +32,6 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 result.RawText = text;
 
-                // TODO: offload the creation of tags to separate classes for handling each XAML element
-                // Register handlers and the elements they are looking for
-
-
                 var processors = new List<(string, XamlElementProcessor)>
                 {
                     ("Grid", new GridProcessor()),
@@ -49,7 +45,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                 result.SuggestionTags.Add(new UnexpectedErrorTag
                 {
                     Span = new Span(0, 0),
-                    Message = "Unexpected error occurred while parsing XAML. Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: " + e,
+                    Message = "Unexpected error occurred while parsing XAML.",
+                    ExtendedMessage = "Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: " + e,
                 });
             }
 

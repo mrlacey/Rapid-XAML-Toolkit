@@ -7,7 +7,7 @@ using RapidXamlToolkit.ErrorList;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
-    public interface IRapidXamlViewTag : IRapidXamlTag
+    public interface IRapidXamlWarningTag : IRapidXamlTag
     {
         string ToolTip { get; set; }
 

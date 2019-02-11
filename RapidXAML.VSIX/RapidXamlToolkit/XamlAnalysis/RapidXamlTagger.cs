@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         // This handles adding and removing things from the error list
         private void OnXamlDocParsed(object sender, RapidXamlParsingEventArgs e)
         {
-            var visibleErrors = RapidXamlDocumentCache.ViewTags(_file);
+            var visibleErrors = RapidXamlDocumentCache.AdornedTags(_file);
 
             var result = new FileErrorCollection { Project = "a-project", FilePath = _file };
 
@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 yield break;
             }
 
-            var errors = RapidXamlDocumentCache.ViewTags(_file);
+            var errors = RapidXamlDocumentCache.AdornedTags(_file);
 
             foreach (var viewTag in errors)
             {

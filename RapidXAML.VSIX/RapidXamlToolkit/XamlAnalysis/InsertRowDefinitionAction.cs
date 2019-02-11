@@ -48,8 +48,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             var replacements = GetReplacements(tag.RowId, tag.RowCount);
             var exclusions = GetExclusions(text);
 
-            // TODO extract to separate mehtod and test - also need to add linebreak and whitespace
-            var previewText = SwapReplacements(text, replacements, exclusions).Insert(tag.InsertPoint - tag.GridStartPos, tag.XamlTag);
+            var previewText = GetPreviewText(text, replacements, exclusions, tag);
 
             var result = new InsertRowDefinitionAction
             {
@@ -64,6 +63,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             return result;
         }
 
+        // TODO: need to allow for changing the Row of nested grids
         public static Dictionary<int, int> GetExclusions(string xaml)
         {
             const string gridOpen = "<Grid";
@@ -108,6 +108,18 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
             return result;
+        }
+
+        public static string GetPreviewText(string original, List<(string find, string replace)> replacements, Dictionary<int, int> exclusions, InsertRowDefinitionTag tag)
+        {
+            var withReplacements = SwapReplacements(original, replacements, exclusions);
+
+            var insertLineStart = withReplacements.Substring(0, tag.InsertPoint).LastIndexOf('\n') + 1;
+
+            var toInsert = new string(' ', tag.InsertPoint - insertLineStart) + tag.XamlTag + Environment.NewLine;
+            var withInsertion = withReplacements.Insert(tag.InsertPoint - tag.GridStartPos, toInsert);
+
+            return withInsertion;
         }
 
         public override Task<object> GetPreviewAsync(CancellationToken cancellationToken)

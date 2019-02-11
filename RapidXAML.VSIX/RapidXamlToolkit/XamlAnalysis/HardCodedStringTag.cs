@@ -3,7 +3,7 @@
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
-    public class HardCodedStringTag : RapidXamlViewTag
+    public class HardCodedStringTag : RapidXamlWarningTag
     {
         public HardCodedStringTag()
         {

@@ -3,7 +3,7 @@
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
-    public class UnexpectedErrorTag : RapidXamlViewTag
+    public class UnexpectedErrorTag : RapidXamlWarningTag
     {
         public UnexpectedErrorTag()
         {

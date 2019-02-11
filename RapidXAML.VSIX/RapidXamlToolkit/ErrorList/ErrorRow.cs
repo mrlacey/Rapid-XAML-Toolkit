@@ -7,7 +7,6 @@ namespace RapidXamlToolkit.ErrorList
 {
     public class ErrorRow
     {
-        // TODO: need to pass this in
         public string ExtendedMessage { get; set; }
 
         public string Message { get; set; }
