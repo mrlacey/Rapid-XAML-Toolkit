@@ -21,15 +21,14 @@ namespace RapidXamlToolkit.XamlAnalysis
             bool isClosingElement = false;
             int currentElementStartPos = -1;
 
-            // TODO: change these to stringbuilders to improve perf
             string lastElementName = string.Empty;
-            string currentElementName = string.Empty;
-            string currentElementBody = string.Empty;
-            string closingElementName = string.Empty;
+            StringBuilder currentElementName = new StringBuilder();
+            StringBuilder currentElementBody = new StringBuilder();
+            StringBuilder closingElementName = new StringBuilder();
 
             for (int i = 0; i < xaml.Length; i++)
             {
-                currentElementBody += xaml[i];
+                currentElementBody.Append(xaml[i]);
 
                 for (var j = 0; j < elementsBeingTracked.Count; j++)
                 {
@@ -40,28 +39,34 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     isIdentifyingElement = true;
                     currentElementStartPos = i;
-                    lastElementName = currentElementName;
-                    currentElementName = string.Empty;
-                    currentElementBody = "<";
+                    lastElementName = currentElementName.ToString();
+                    currentElementName.Clear();
+                    currentElementBody = new StringBuilder("<");
                 }
                 else if (char.IsLetterOrDigit(xaml[i]))
                 {
                     if (isIdentifyingElement)
                     {
-                        currentElementName += xaml[i];
+                        currentElementName.Append(xaml[i]);
                     }
                     else if (isClosingElement)
                     {
-                        closingElementName += xaml[i];
+                        closingElementName.Append(xaml[i]);
                     }
                 }
                 else if (char.IsWhiteSpace(xaml[i]))
                 {
                     if (isIdentifyingElement)
                     {
-                        if (elementsOfInterest.Contains(currentElementName))
+                        if (elementsOfInterest.Contains(currentElementName.ToString()))
                         {
-                            elementsBeingTracked.Add(new TrackingElement { StartPos = currentElementStartPos, ElementName = currentElementName, ElementBody = new StringBuilder(currentElementBody) });
+                            elementsBeingTracked.Add(
+                                new TrackingElement
+                                {
+                                    StartPos = currentElementStartPos,
+                                    ElementName = currentElementName.ToString(),
+                                    ElementBody = new StringBuilder(currentElementBody.ToString()),
+                                });
                         }
                     }
 
@@ -70,16 +75,22 @@ namespace RapidXamlToolkit.XamlAnalysis
                 else if (xaml[i] == '/')
                 {
                     isClosingElement = true;
-                    closingElementName = string.Empty;
+                    closingElementName.Clear();
                     isIdentifyingElement = false;
                 }
                 else if (xaml[i] == '>')
                 {
                     if (isIdentifyingElement)
                     {
-                        if (elementsOfInterest.Contains(currentElementName))
+                        if (elementsOfInterest.Contains(currentElementName.ToString()))
                         {
-                            elementsBeingTracked.Add(new TrackingElement { StartPos = currentElementStartPos, ElementName = currentElementName, ElementBody = new StringBuilder(currentElementBody) });
+                            elementsBeingTracked.Add(
+                                new TrackingElement
+                                {
+                                    StartPos = currentElementStartPos,
+                                    ElementName = currentElementName.ToString(),
+                                    ElementBody = new StringBuilder(currentElementBody.ToString()),
+                                });
                         }
 
                         isIdentifyingElement = false;
@@ -88,13 +99,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                     // closing blocks can be blank or named (e.g. ' />' or '</Grid>')
                     if (isClosingElement)
                     {
-                        var nameOfInterest = closingElementName;
+                        var nameOfInterest = closingElementName.ToString();
 
-                        if (string.IsNullOrWhiteSpace(closingElementName))
+                        if (string.IsNullOrWhiteSpace(nameOfInterest))
                         {
-                            nameOfInterest = currentElementName;
+                            nameOfInterest = currentElementName.ToString();
                         }
-                        else if (closingElementName == lastElementName)
+                        else if (nameOfInterest == lastElementName)
                         {
                             nameOfInterest = lastElementName;
                         }
