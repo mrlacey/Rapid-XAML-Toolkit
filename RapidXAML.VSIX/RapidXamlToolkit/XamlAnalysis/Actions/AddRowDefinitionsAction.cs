@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
     <RowDefinition Height=""*"" />
 </Grid.RowDefinitions>";
 
-            this.UndoOperationName = StringRes.Info_UndoContextIndertRowDef;  // TODO: need correct resource
+            this.UndoOperationName = StringRes.Info_UndoContextAddRowDefinitions;
         }
 
         public override ImageMoniker IconMoniker => KnownMonikers.TwoRows;

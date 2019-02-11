@@ -619,6 +619,33 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add ColumnDefinitions.
+        /// </summary>
+        public static string Info_UndoContextAddColumnDefinitons {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddColumnDefinitons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add RowDefinitions and ColumnDefinitions.
+        /// </summary>
+        public static string Info_UndoContextAddRowAndColumnDefinitions {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddRowAndColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add RowDefinitions.
+        /// </summary>
+        public static string Info_UndoContextAddRowDefinitions {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddRowDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert RowDefinition.
         /// </summary>
         public static string Info_UndoContextIndertRowDef {
