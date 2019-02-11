@@ -23,7 +23,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public int GridStartPos { get; set; }
 
-        public int GridEndPos { get; set; }
+        public int GridLength { get; set; }
 
         public Dictionary<int, int> ExclusionAreas { get; set; }
     }

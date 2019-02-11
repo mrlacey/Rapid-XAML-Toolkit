@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Parsers;
+using RapidXamlToolkit.VisualStudioIntegration;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands

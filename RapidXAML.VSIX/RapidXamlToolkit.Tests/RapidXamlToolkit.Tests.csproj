@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Grid\GridExclusionsTests.cs" />
+    <Compile Include="Grid\GridReplacementTests.cs" />
     <Compile Include="Parsers\CSharpTestsBase.cs" />
     <Compile Include="Parsers\GetVisualBasicArrayTests.cs" />
     <Compile Include="Parsers\GetCSharpClassTests.cs" />

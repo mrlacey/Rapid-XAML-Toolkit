@@ -7,7 +7,6 @@ namespace RapidXamlToolkit.ErrorList
     {
         public static void Process(FileErrorCollection result)
         {
-            // TODO: need to update this for Rapid XAML warnings
             TableDataSource.Instance.CleanErrors(result.FilePath);
             TableDataSource.Instance.AddErrors(result);
         }

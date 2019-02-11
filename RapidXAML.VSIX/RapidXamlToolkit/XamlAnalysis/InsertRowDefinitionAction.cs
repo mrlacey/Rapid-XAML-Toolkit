@@ -4,17 +4,36 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
     public class InsertRowDefinitionAction : BaseSuggestedAction
     {
         public InsertRowDefinitionTag tag;
+
+        public override bool HasPreview
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public List<(string find, string replace)> Replacements { get; private set; }
+
+        public Dictionary<int, int> Exclusions { get; private set; }
+
+        public string PreviewText { get; private set; }
 
         public override string DisplayText
         {
@@ -25,40 +44,24 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static InsertRowDefinitionAction Create(InsertRowDefinitionTag tag, string file, ITextView view)
         {
+            var text = view.TextSnapshot.GetText(tag.GridStartPos, tag.GridLength);
+            var replacements = GetReplacements(tag.RowId, tag.RowCount);
+            var exclusions = GetExclusions(text);
+
+            // TODO extract to separate mehtod and test - also need to add linebreak and whitespace
+            var previewText = SwapReplacements(text, replacements, exclusions).Insert(tag.InsertPoint - tag.GridStartPos, tag.XamlTag);
+
             var result = new InsertRowDefinitionAction
             {
                 tag = tag,
                 File = file,
                 View = view,
+                Replacements = replacements,
+                Exclusions = exclusions,
+                PreviewText = previewText,
             };
 
             return result;
-        }
-
-        public override void Execute(CancellationToken cancellationToken)
-        {
-            // TODO: Do insertion - use code from existing command - may need to abstract for reuse
-
-            // TODO: review simplifying this for just the bits needed here - may need to break VSA into multiple interfaces
-          //  var vs = new VisualStudioAbstraction(RapidXamlPackage.Logger, this.ServiceProvider, dte);
-
-          //  var logic = new InsertGridRowDefinitionCommandLogic(RapidXamlPackage.Logger, vs);
-
-            // TODO Move this logic here - need to also add total number of definitions to tag (so don't need to look up)
-       //     var replacements = logic.GetReplacements();
-
-            var exclusions = GetExclusions(View.TextSnapshot.GetText());
-
-      //      vs.StartSingleUndoOperation(StringRes.Info_UndoContextIndertRowDef);
-      //      try
-      //      {
-      //          vs.ReplaceInActiveDoc(replacements, this.tag.GridStartPos, this.tag.GridEndPos, exclusions);
-      //          vs.InsertIntoActiveDocumentOnNextLine(this.tag.XamlTag, this.tag.InsertPoint);
-      //      }
-      //      finally
-      //      {
-      //          vs.EndSingleUndoOperation();
-      //      }
         }
 
         public static Dictionary<int, int> GetExclusions(string xaml)
@@ -89,6 +92,93 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
             return exclusions;
+        }
+
+        public static List<(string find, string replace)> GetReplacements(int rowNumber, int totalRows)
+        {
+            var result = new List<(string, string)>();
+
+            if (rowNumber > -1)
+            {
+                // subtract 1 from total rows to allow for zero indexing
+                for (int i = totalRows - 1; i >= rowNumber; i--)
+                {
+                    result.Add(($" Grid.Row=\"{i}\"", $" Grid.Row=\"{i + 1}\""));
+                }
+            }
+
+            return result;
+        }
+
+        public override Task<object> GetPreviewAsync(CancellationToken cancellationToken)
+        {
+            var textBlock = new TextBlock();
+            textBlock.Padding = new Thickness(5);
+            textBlock.Inlines.Add(new Run() { Text = this.PreviewText });
+
+            return Task.FromResult<object>(textBlock);
+        }
+
+        public override void Execute(CancellationToken cancellationToken)
+        {
+            var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
+            vs.StartSingleUndoOperation(StringRes.Info_UndoContextIndertRowDef);
+            try
+            {
+                vs.ReplaceInActiveDoc(this.Replacements, this.tag.GridStartPos, this.tag.GridStartPos + this.tag.GridLength, this.Exclusions);
+                vs.InsertIntoActiveDocumentOnNextLine(this.tag.XamlTag, this.tag.InsertPoint);
+            }
+            finally
+            {
+                vs.EndSingleUndoOperation();
+            }
+        }
+
+        // TODO: add tests for this
+        public static string SwapReplacements(string originalXaml, List<(string find, string replace)> replacements, Dictionary<int, int> exclusions = null)
+        {
+            var result = originalXaml;
+
+            // Have to implement search and replace directly as built-in functionality doesn't provide the control to only replace outside of exclusion areas.
+            // Mimics the process in VisualStudioTextManipulation.ReplaceInActiveDoc
+            foreach (var (find, replace) in replacements)
+            {
+                var pos = 0;
+
+                while (true)
+                {
+                    pos = result.Substring(pos).IndexOf(find, StringComparison.Ordinal);
+
+                    if (pos < 0)
+                    {
+                        break; // while
+                    }
+
+                    var searchAgain = false;
+
+                    // if in exclusion area then search again
+                    if (exclusions != null)
+                    {
+                        foreach (var exclusion in exclusions)
+                        {
+                            if (pos >= exclusion.Key && pos <= exclusion.Value)
+                            {
+                                searchAgain = true;
+                                break; // Foreach
+                            }
+                        }
+                    }
+
+                    if (!searchAgain)
+                    {
+                        var before = result.Substring(0, pos);
+                        var after = result.Substring(pos + find.Length);
+                        result = before + replace + after;
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

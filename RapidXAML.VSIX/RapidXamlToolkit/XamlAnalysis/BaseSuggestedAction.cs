@@ -15,13 +15,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public abstract class BaseSuggestedAction : ISuggestedAction
     {
-        protected string File { get; set; }
-
-        protected ITextView View { get; set; }
-
         public abstract string DisplayText { get; }
 
         public virtual bool IsEnabled { get; } = true;
+
+        protected string File { get; set; }
+
+        protected ITextView View { get; set; }
 
         public virtual bool HasActionSets
         {
@@ -58,7 +58,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             return Task.FromResult<IEnumerable<SuggestedActionSet>>(null);
         }
 
-        public Task<object> GetPreviewAsync(CancellationToken cancellationToken)
+        public virtual Task<object> GetPreviewAsync(CancellationToken cancellationToken)
         {
             return null;
         }
@@ -67,12 +67,12 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             try
             {
-                ProjectHelpers.DTE.UndoContext.Open(DisplayText);
-                Execute(cancellationToken);
+                ProjectHelpers.Dte2.UndoContext.Open(this.DisplayText);
+                this.Execute(cancellationToken);
             }
             finally
             {
-                ProjectHelpers.DTE.UndoContext.Close();
+                ProjectHelpers.Dte2.UndoContext.Close();
             }
         }
 

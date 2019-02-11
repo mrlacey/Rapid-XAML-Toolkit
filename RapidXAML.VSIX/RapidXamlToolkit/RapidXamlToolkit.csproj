@@ -66,6 +66,8 @@
     <NoWarn>,1573,1591,1712,1762</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="VisualStudioIntegration\IVisualStudioTextManipulation.cs" />
+    <Compile Include="VisualStudioIntegration\VisualStudioTextManipulation.cs" />
     <Compile Include="ErrorList\ErrorRow.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="ErrorList\SinkManager.cs" />
@@ -85,12 +87,12 @@
     <Compile Include="Commands\IFileSystemAbstraction.cs" />
     <Compile Include="Commands\InsertGridRowDefinitionCommand.cs" />
     <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
-    <Compile Include="Commands\IVisualStudioAbstraction.cs" />
+    <Compile Include="VisualStudioIntegration\IVisualStudioAbstraction.cs" />
     <Compile Include="Commands\OpenOptionsCommand.cs" />
     <Compile Include="Commands\ProjectWrapper.cs" />
     <Compile Include="Commands\SetDatacontextCommand.cs" />
     <Compile Include="Commands\SetDataContextCommandLogic.cs" />
-    <Compile Include="Commands\VisualStudioAbstraction.cs" />
+    <Compile Include="VisualStudioIntegration\VisualStudioAbstraction.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />
     <Compile Include="Confguration\RxtSettings.cs" />
     <Compile Include="DragDrop\DropHandlerLogic.cs" />

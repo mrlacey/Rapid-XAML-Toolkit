@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests
 {
@@ -85,6 +86,21 @@ namespace RapidXamlToolkit.Tests
         }
 
         public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusion)
+        {
+            // NOOP
+        }
+
+        public void InsertIntoActiveDocumentOnNextLine(string text, int pos)
+        {
+            // NOOP
+        }
+
+        public void StartSingleUndoOperation(string name)
+        {
+            // NOOP
+        }
+
+        public void EndSingleUndoOperation()
         {
             // NOOP
         }

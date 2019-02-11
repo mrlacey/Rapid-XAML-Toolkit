@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.DragDrop;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests.DragDrop
 {

@@ -86,7 +86,7 @@ namespace RapidXamlToolkit.ErrorList
                     return true;
                 case StandardTableKeyNames.ErrorCodeToolTip:
                 case StandardTableKeyNames.HelpLink:
-                    content = $"https://github.com/microsoft/Rapd-XAML-Toolkit/docs/errors/{error.ErrorCode}.md"; // TODO: create error code docs
+                    content = $"https://github.com/microsoft/Rapd-XAML-Toolkit/docs/warnings/{error.ErrorCode}.md"; // TODO: create error code docs
                     return true;
                 default:
                     content = null;

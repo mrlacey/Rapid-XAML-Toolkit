@@ -11,9 +11,12 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         static ProjectHelpers()
         {
-            DTE = (DTE2)Package.GetGlobalService(typeof(DTE));
+            Dte = (DTE)Package.GetGlobalService(typeof(DTE));
+            Dte2 = (DTE2)Package.GetGlobalService(typeof(DTE));
         }
 
-        public static DTE2 DTE { get; }
+        public static DTE Dte { get; }
+
+        public static DTE2 Dte2 { get; }
     }
 }
