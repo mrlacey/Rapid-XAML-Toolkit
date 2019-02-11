@@ -4,6 +4,8 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.XamlAnalysis;
+using RapidXamlToolkit.XamlAnalysis.Actions;
+using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.Tests.Grid
 {

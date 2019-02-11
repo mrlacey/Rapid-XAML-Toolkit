@@ -4,19 +4,12 @@
 using Microsoft.VisualStudio.Text.Adornments;
 using Microsoft.VisualStudio.Text.Tagging;
 
-namespace RapidXamlToolkit.XamlAnalysis
+namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class RapidXamlWarningAdornmentTag : ErrorTag
     {
         public RapidXamlWarningAdornmentTag(string tooltip)
             : base(PredefinedErrorTypeNames.Warning, tooltip)
-        {
-        }
-    }
-    public class RapidXamlSuggestionAdornmentTag : ErrorTag
-    {
-        public RapidXamlSuggestionAdornmentTag(string tooltip)
-            : base(PredefinedErrorTypeNames.HintedSuggestion, tooltip)
         {
         }
     }

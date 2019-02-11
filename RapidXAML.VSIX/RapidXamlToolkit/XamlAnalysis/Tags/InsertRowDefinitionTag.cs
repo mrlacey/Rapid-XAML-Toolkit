@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 
-namespace RapidXamlToolkit.XamlAnalysis
+namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class InsertRowDefinitionTag : IRapidXamlTag
     {
@@ -26,29 +26,5 @@ namespace RapidXamlToolkit.XamlAnalysis
         public int GridLength { get; set; }
 
         public Dictionary<int, int> ExclusionAreas { get; set; }
-    }
-    public class AddRowDefinitionsTag : IRapidXamlTag
-    {
-        public ActionTypes ActionType => ActionTypes.AddRowDefinitions;
-
-        public Span Span { get; set; }
-
-        public int InsertLine { get; set; }
-    }
-    public class AddColumnDefinitionsTag : IRapidXamlTag
-    {
-        public ActionTypes ActionType => ActionTypes.AddColumnDefinitions;
-
-        public Span Span { get; set; }
-
-        public int InsertLine { get; set; }
-    }
-    public class AddRowAndColumnDefinitionsTag : IRapidXamlTag
-    {
-        public ActionTypes ActionType => ActionTypes.AddRowAndColumnDefinitions;
-
-        public Span Span { get; set; }
-
-        public int InsertLine { get; set; }
     }
 }

@@ -6,8 +6,9 @@ using System.Threading;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Text.Editor;
+using RapidXamlToolkit.XamlAnalysis.Tags;
 
-namespace RapidXamlToolkit.XamlAnalysis
+namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public class HardCodedStringAction : BaseSuggestedAction
     {

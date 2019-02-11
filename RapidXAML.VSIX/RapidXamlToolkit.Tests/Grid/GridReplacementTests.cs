@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.XamlAnalysis;
+using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.Tests.Grid
 {
