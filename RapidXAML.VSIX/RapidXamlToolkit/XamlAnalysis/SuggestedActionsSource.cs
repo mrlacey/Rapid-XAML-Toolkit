@@ -60,7 +60,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             var list = new List<SuggestedActionSet>();
 
-            var rxTags = GetTags(range);
+            var rxTags = this.GetTags(range);
 
             foreach (var rapidXamlTag in rxTags)
             {
@@ -71,6 +71,18 @@ namespace RapidXamlToolkit.XamlAnalysis
                 else if (rapidXamlTag.ActionType == ActionTypes.HardCodedString)
                 {
                     list.AddRange(CreateActionSet(HardCodedStringAction.Create((HardCodedStringTag)rapidXamlTag, _file, _view)));
+                }
+                else if (rapidXamlTag.ActionType == ActionTypes.AddRowDefinitions)
+                {
+                    list.AddRange(CreateActionSet(AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rapidXamlTag)));
+                }
+                else if (rapidXamlTag.ActionType == ActionTypes.AddColumnDefinitions)
+                {
+                    list.AddRange(CreateActionSet(AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rapidXamlTag)));
+                }
+                else if (rapidXamlTag.ActionType == ActionTypes.AddRowAndColumnDefinitions)
+                {
+                    list.AddRange(CreateActionSet(AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rapidXamlTag)));
                 }
             }
 

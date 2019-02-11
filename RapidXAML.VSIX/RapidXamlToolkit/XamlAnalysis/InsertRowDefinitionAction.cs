@@ -21,13 +21,7 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         public InsertRowDefinitionTag tag;
 
-        public override bool HasPreview
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool HasPreview => true;
 
         public List<(string find, string replace)> Replacements { get; private set; }
 
@@ -131,21 +125,6 @@ namespace RapidXamlToolkit.XamlAnalysis
             return Task.FromResult<object>(textBlock);
         }
 
-        public override void Execute(CancellationToken cancellationToken)
-        {
-            var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
-            vs.StartSingleUndoOperation(StringRes.Info_UndoContextIndertRowDef);
-            try
-            {
-                vs.ReplaceInActiveDoc(this.Replacements, this.tag.GridStartPos, this.tag.GridStartPos + this.tag.GridLength, this.Exclusions);
-                vs.InsertIntoActiveDocumentOnNextLine(this.tag.XamlTag, this.tag.InsertPoint);
-            }
-            finally
-            {
-                vs.EndSingleUndoOperation();
-            }
-        }
-
         // TODO: add tests for this
         public static string SwapReplacements(string originalXaml, List<(string find, string replace)> replacements, Dictionary<int, int> exclusions = null)
         {
@@ -191,6 +170,173 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
             return result;
+        }
+
+        public override void Execute(CancellationToken cancellationToken)
+        {
+            var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
+            vs.StartSingleUndoOperation(StringRes.Info_UndoContextIndertRowDef);
+            try
+            {
+                vs.ReplaceInActiveDoc(this.Replacements, this.tag.GridStartPos, this.tag.GridStartPos + this.tag.GridLength, this.Exclusions);
+                vs.InsertIntoActiveDocumentOnNextLine(this.tag.XamlTag, this.tag.InsertPoint);
+            }
+            finally
+            {
+                vs.EndSingleUndoOperation();
+            }
+        }
+    }
+    // TODO: abstract duplication in the following actions
+    public class AddRowDefinitionsAction : BaseSuggestedAction
+    {
+        private const string InjectedXaml = @"<Grid.RowDefinitions>
+    <RowDefinition Height=""Auto"" />
+    <RowDefinition Height=""*"" />
+</Grid.RowDefinitions>";
+
+        public AddRowDefinitionsTag tag;
+
+        public override bool HasPreview => true;
+
+        public override ImageMoniker IconMoniker => KnownMonikers.TwoRows;
+
+        public override string DisplayText { get; } = "Add RowDefinitions";
+
+        public static AddRowDefinitionsAction Create(AddRowDefinitionsTag tag)
+        {
+            var result = new AddRowDefinitionsAction
+            {
+                tag = tag,
+            };
+
+            return result;
+        }
+
+        public override Task<object> GetPreviewAsync(CancellationToken cancellationToken)
+        {
+            var textBlock = new TextBlock();
+            textBlock.Padding = new Thickness(5);
+            textBlock.Inlines.Add(new Run() { Text = InjectedXaml });
+
+            return Task.FromResult<object>(textBlock);
+        }
+
+        public override void Execute(CancellationToken cancellationToken)
+        {
+            var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
+            vs.StartSingleUndoOperation(StringRes.Info_UndoContextIndertRowDef); // TODO: need correct resource
+            try
+            {
+                // TODO: pad lines with appropriate whitespace
+                vs.InsertAtEndOfLine(this.tag.InsertLine, Environment.NewLine + InjectedXaml);
+            }
+            finally
+            {
+                vs.EndSingleUndoOperation();
+            }
+        }
+    }
+    public class AddColumnDefinitionsAction : BaseSuggestedAction
+    {
+        public AddColumnDefinitionsTag tag;
+
+        private const string InjectedXaml = @"<Grid.ColumnDefinitions>
+    <ColumnDefinition Width=""*"" />
+    <ColumnDefinition Width=""*"" />
+</Grid.ColumnDefinitions>";
+
+        public override bool HasPreview => true;
+
+        public override ImageMoniker IconMoniker => KnownMonikers.TwoColumns;
+
+        public override string DisplayText { get; } = "Add ColumnDefinitions";
+
+        public static AddColumnDefinitionsAction Create(AddColumnDefinitionsTag tag)
+        {
+            var result = new AddColumnDefinitionsAction
+            {
+                tag = tag,
+            };
+
+            return result;
+        }
+
+        public override Task<object> GetPreviewAsync(CancellationToken cancellationToken)
+        {
+            var textBlock = new TextBlock();
+            textBlock.Padding = new Thickness(5);
+            textBlock.Inlines.Add(new Run() { Text = InjectedXaml });
+
+            return Task.FromResult<object>(textBlock);
+        }
+
+        public override void Execute(CancellationToken cancellationToken)
+        {
+            var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
+            vs.StartSingleUndoOperation(StringRes.Info_UndoContextIndertRowDef); // TODO: need correct resource
+            try
+            {
+                // TODO: pad lines with appropriate whitespace
+                vs.InsertAtEndOfLine(this.tag.InsertLine, Environment.NewLine + InjectedXaml);
+            }
+            finally
+            {
+                vs.EndSingleUndoOperation();
+            }
+        }
+    }
+    public class AddRowAndColumnDefinitionsAction : BaseSuggestedAction
+    {
+        public AddRowAndColumnDefinitionsTag tag;
+
+        private const string InjectedXaml = @"<Grid.RowDefinitions>
+    <RowDefinition Height=""Auto"" />
+    <RowDefinition Height=""*"" />
+</Grid.RowDefinitions>
+<Grid.ColumnDefinitions>
+    <ColumnDefinition Width=""*"" />
+    <ColumnDefinition Width=""*"" />
+</Grid.ColumnDefinitions>";
+
+        public override bool HasPreview => true;
+
+        public override ImageMoniker IconMoniker => KnownMonikers.TwoRowsTwoColumns;
+
+        public override string DisplayText { get; } = "Add RowDefinitions and ColumnDefinitions";
+
+        public static AddRowAndColumnDefinitionsAction Create(AddRowAndColumnDefinitionsTag tag)
+        {
+            var result = new AddRowAndColumnDefinitionsAction
+            {
+                tag = tag,
+            };
+
+            return result;
+        }
+
+        public override Task<object> GetPreviewAsync(CancellationToken cancellationToken)
+        {
+            var textBlock = new TextBlock();
+            textBlock.Padding = new Thickness(5);
+            textBlock.Inlines.Add(new Run() { Text = InjectedXaml });
+
+            return Task.FromResult<object>(textBlock);
+        }
+
+        public override void Execute(CancellationToken cancellationToken)
+        {
+            var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
+            vs.StartSingleUndoOperation(StringRes.Info_UndoContextIndertRowDef); // TODO: need correct resource
+            try
+            {
+                // TODO: pad lines with appropriate whitespace
+                vs.InsertAtEndOfLine(this.tag.InsertLine, Environment.NewLine + InjectedXaml);
+            }
+            finally
+            {
+                vs.EndSingleUndoOperation();
+            }
         }
     }
 }

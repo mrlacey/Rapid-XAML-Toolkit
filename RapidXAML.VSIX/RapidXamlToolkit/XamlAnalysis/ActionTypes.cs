@@ -8,5 +8,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         InsertRowDefinition,
         HardCodedString,
         UnexpectedError,
+        AddRowDefinitions,
+        AddColumnDefinitions,
+        AddRowAndColumnDefinitions,
     }
 }

@@ -13,6 +13,57 @@ namespace RapidXamlToolkit.XamlAnalysis
         // TODO: add tests for this
         public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlTag> tags)
         {
+            const string gridOpenSpace = "<Grid ";
+            const string gridOpenComplete = "<Grid>";
+
+            var endOfOpening = xamlElement.IndexOf(">", StringComparison.Ordinal) + 1;
+            var firstNestedGrid = xamlElement.FirstIndexOf(gridOpenSpace, gridOpenComplete);
+
+            var rowDefPos = xamlElement.IndexOf("<Grid.RowDefinitions", StringComparison.Ordinal);
+            var colDefPos = xamlElement.IndexOf("<Grid.ColumnDefinitions", StringComparison.Ordinal);
+
+            var hasRowDef = false;
+            if (rowDefPos > 0)
+            {
+                hasRowDef = firstNestedGrid <= 0 || rowDefPos < firstNestedGrid;
+            }
+
+            var hasColDef = false;
+            if (colDefPos > 0)
+            {
+                hasColDef = firstNestedGrid <= 0 || colDefPos < firstNestedGrid;
+            }
+
+            if (!hasRowDef)
+            {
+                var tag = new AddRowDefinitionsTag
+                {
+                    Span = new Span(offset, endOfOpening),
+                    InsertLine = snapshot.GetLineNumberFromPosition(offset + endOfOpening) + 1,
+                };
+                tags.Add(tag);
+            }
+
+            if (!hasColDef)
+            {
+                var tag = new AddColumnDefinitionsTag
+                {
+                    Span = new Span(offset, endOfOpening),
+                    InsertLine = snapshot.GetLineNumberFromPosition(offset + endOfOpening) + 1,
+                };
+                tags.Add(tag);
+            }
+
+            if (!hasRowDef && !hasColDef)
+            {
+                var tag = new AddRowAndColumnDefinitionsTag
+                {
+                    Span = new Span(offset, endOfOpening),
+                    InsertLine = snapshot.GetLineNumberFromPosition(offset + endOfOpening) + 1,
+                };
+                tags.Add(tag);
+            }
+
             const string rowDefStart = "<RowDefinition";
 
             var count = 0;

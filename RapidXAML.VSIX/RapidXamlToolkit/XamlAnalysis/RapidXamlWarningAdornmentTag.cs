@@ -13,4 +13,11 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
         }
     }
+    public class RapidXamlSuggestionAdornmentTag : ErrorTag
+    {
+        public RapidXamlSuggestionAdornmentTag(string tooltip)
+            : base(PredefinedErrorTypeNames.HintedSuggestion, tooltip)
+        {
+        }
+    }
 }

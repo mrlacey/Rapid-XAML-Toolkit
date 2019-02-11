@@ -78,6 +78,15 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
         }
 
+        public void InsertIntoActiveDocument(string text, int pos)
+        {
+            if (this.dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
+            {
+                txtDoc.Selection.MoveToAbsoluteOffset(pos);
+                txtDoc.Selection.Insert(text);
+            }
+        }
+
         public void InsertIntoActiveDocumentOnNextLine(string text, int pos)
         {
             if (this.dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
@@ -100,6 +109,16 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         public void EndSingleUndoOperation()
         {
             this.dte.UndoContext.Close();
+        }
+
+        public void InsertAtEndOfLine(int lineNumber, string toInsert)
+        {
+            if (this.dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
+            {
+                txtDoc.Selection.MoveToLineAndOffset(lineNumber, 1);
+                txtDoc.Selection.EndOfLine();
+                txtDoc.Selection.Insert(toInsert);
+            }
         }
     }
 }
