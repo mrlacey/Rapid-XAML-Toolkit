@@ -45,16 +45,10 @@ namespace RapidXamlToolkit.XamlAnalysis
             return Task.Factory.StartNew(
                 () =>
                 {
-                    if (this.GetTags(range).Any(t => t is RapidXamlErrorListTag))
-                    {
-                        return this._suggestedActionCategoryRegistry.CreateSuggestedActionCategorySet(
-                            PredefinedSuggestedActionCategoryNames.Any);
-                    }
-                    else
-                    {
-                        return this._suggestedActionCategoryRegistry.CreateSuggestedActionCategorySet(
-                            PredefinedSuggestedActionCategoryNames.Refactoring);
-                    }
+                    // Setting the only category to be "REFACTORING" causes the screwdriver icon to be shown, otherwise get the light bulb.
+                    return this._suggestedActionCategoryRegistry.CreateSuggestedActionCategorySet(
+                        this.GetTags(range).Any(t => t is RapidXamlErrorListTag) ? PredefinedSuggestedActionCategoryNames.Any
+                                                                                 : PredefinedSuggestedActionCategoryNames.Refactoring);
                 },
                 cancellationToken,
                 TaskCreationOptions.None,
@@ -63,7 +57,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public Task<bool> HasSuggestedActionsAsync(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
         {
-            return Task.Factory.StartNew(() => { return this.GetTags(range).Any(); }, cancellationToken);
+            return Task.Factory.StartNew(() => { return this.GetTags(range).Any(); }, cancellationToken, TaskCreationOptions.None, TaskScheduler.Current);
         }
 
         public IEnumerable<SuggestedActionSet> GetSuggestedActions(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
@@ -74,29 +68,27 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             foreach (var rapidXamlTag in rxTags)
             {
-                if (rapidXamlTag.SuggestedAction == typeof(InsertRowDefinitionAction))
+                switch (rapidXamlTag.SuggestedAction.Name)
                 {
-                    list.AddRange(this.CreateActionSet(InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rapidXamlTag, this._file, this._view)));
-                }
-                else if (rapidXamlTag.SuggestedAction == typeof(HardCodedStringAction))
-                {
-                    list.AddRange(this.CreateActionSet(HardCodedStringAction.Create((HardCodedStringTag)rapidXamlTag, this._file, this._view)));
-                }
-                else if (rapidXamlTag.SuggestedAction == typeof(OtherHardCodedStringAction))
-                {
-                    list.AddRange(this.CreateActionSet(OtherHardCodedStringAction.Create((OtherHardCodedStringTag)rapidXamlTag, this._file, this._view)));
-                }
-                else if (rapidXamlTag.SuggestedAction == typeof(AddRowAndColumnDefinitionsAction))
-                {
-                    list.AddRange(this.CreateActionSet(AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rapidXamlTag)));
-                }
-                else if (rapidXamlTag.SuggestedAction == typeof(AddColumnDefinitionsAction))
-                {
-                    list.AddRange(this.CreateActionSet(AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rapidXamlTag)));
-                }
-                else if (rapidXamlTag.SuggestedAction == typeof(AddRowAndColumnDefinitionsAction))
-                {
-                    list.AddRange(this.CreateActionSet(AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rapidXamlTag)));
+                    case nameof(InsertRowDefinitionAction):
+                        list.AddRange(this.CreateActionSet(InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rapidXamlTag, this._file, this._view)));
+                        break;
+                    case nameof(HardCodedStringAction):
+                        list.AddRange(this.CreateActionSet(HardCodedStringAction.Create((HardCodedStringTag)rapidXamlTag, this._file, this._view)));
+                        break;
+                    case nameof(OtherHardCodedStringAction):
+                        list.AddRange(this.CreateActionSet(OtherHardCodedStringAction.Create((OtherHardCodedStringTag)rapidXamlTag, this._file, this._view)));
+                        break;
+                    case nameof(AddRowDefinitionsAction):
+                        list.AddRange(this.CreateActionSet(AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rapidXamlTag)));
+                        break;
+                    case nameof(AddColumnDefinitionsAction):
+                        list.AddRange(this.CreateActionSet(AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rapidXamlTag)));
+                        break;
+                    case nameof(AddRowAndColumnDefinitionsAction):
+                        list.AddRange(this.CreateActionSet(AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rapidXamlTag)));
+
+                        break;
                 }
             }
 
