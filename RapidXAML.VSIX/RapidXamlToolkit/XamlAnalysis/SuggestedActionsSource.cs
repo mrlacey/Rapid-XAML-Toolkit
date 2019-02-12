@@ -87,33 +87,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                         break;
                     case nameof(AddRowAndColumnDefinitionsAction):
                         list.AddRange(this.CreateActionSet(AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rapidXamlTag)));
-
                         break;
                 }
             }
 
             return list;
-        }
-
-        private void OnViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
-        {
-            // TODO: throttle this so doesn't fire until after a period of inactivity (1 second?)
-            // Layout change can happen a lot, but only interested in if the text has changed
-            if (e.OldSnapshot != e.NewSnapshot)
-            {
-                // TODO: SUPER OPTIMIZATION handle just the changed lines, rather than the whole document - would improve perf but might be very difficult for abstracted taggers
-                RapidXamlDocumentCache.Update(this._file, e.NewViewState.EditSnapshot);
-            }
-        }
-
-        private IEnumerable<IRapidXamlTag> GetTags(SnapshotSpan span)
-        {
-            return RapidXamlDocumentCache.AdornmentTags(this._file).Where(t => t.Span.IntersectsWith(span)).Select(t => t);
-        }
-
-        private IEnumerable<IMappingTagSpan<IRapidXamlTag>> GetErrorTags(ITextView view, SnapshotSpan span)
-        {
-            return this._tagService.CreateTagAggregator<IRapidXamlTag>(view).GetTags(span);
         }
 
         public IEnumerable<SuggestedActionSet> CreateActionSet(params BaseSuggestedAction[] actions)
@@ -138,6 +116,27 @@ namespace RapidXamlToolkit.XamlAnalysis
             // TODO: find out if we need this and what value to use if we do
             telemetryId = Guid.Empty;
             return false;
+        }
+
+        private void OnViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
+        {
+            // TODO: throttle this so doesn't fire until after a period of inactivity (1 second?)
+            // Layout change can happen a lot, but only interested in if the text has changed
+            if (e.OldSnapshot != e.NewSnapshot)
+            {
+                // TODO: SUPER OPTIMIZATION handle just the changed lines, rather than the whole document - would improve perf but might be very difficult for abstracted taggers
+                RapidXamlDocumentCache.Update(this._file, e.NewViewState.EditSnapshot);
+            }
+        }
+
+        private IEnumerable<IRapidXamlTag> GetTags(SnapshotSpan span)
+        {
+            return RapidXamlDocumentCache.AdornmentTags(this._file).Where(t => t.Span.IntersectsWith(span)).Select(t => t);
+        }
+
+        private IEnumerable<IMappingTagSpan<IRapidXamlTag>> GetErrorTags(ITextView view, SnapshotSpan span)
+        {
+            return this._tagService.CreateTagAggregator<IRapidXamlTag>(view).GetTags(span);
         }
     }
 }

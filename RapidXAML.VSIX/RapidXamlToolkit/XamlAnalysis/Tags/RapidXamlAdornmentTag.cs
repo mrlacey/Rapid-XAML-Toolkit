@@ -17,29 +17,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Snapshot = snapshot ?? throw new ArgumentNullException(nameof(snapshot));
         }
 
+        public string ToolTip { get; set; }
+
         public Type SuggestedAction { get; set; }
 
         public Span Span { get; set; }
 
-        // TODO: Need to ensure not null?
-        public string ToolTip { get; set; }
-
-        public string Message { get; set; }
-
-        // This is shown when the row is expanded
-        public string ExtendedMessage { get; set; }
-
-        public int Line { get; set; }
-
-        public int Column { get; set; }
-
         public ITextSnapshot Snapshot { get; set; }
-
-        public string ErrorCode { get; set; }
-
-        public bool IsMessage { get; protected set; }
-
-        public bool IsError { get; protected set; }
 
         public abstract ITagSpan<IErrorTag> AsErrorTag();
     }

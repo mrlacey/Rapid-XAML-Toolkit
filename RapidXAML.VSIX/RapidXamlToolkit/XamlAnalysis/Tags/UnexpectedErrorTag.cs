@@ -8,10 +8,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     public class UnexpectedErrorTag : RapidXamlWarningTag
     {
         public UnexpectedErrorTag(Span span, ITextSnapshot snapshot)
-            : base(span, snapshot)
+            : base(span, snapshot, "RXT999")
         {
             this.ToolTip = string.Empty;
-            this.ErrorCode = "RXT999";
             this.IsError = true;
         }
     }

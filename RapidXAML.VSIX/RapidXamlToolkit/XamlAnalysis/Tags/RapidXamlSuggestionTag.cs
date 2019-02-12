@@ -6,11 +6,10 @@ using Microsoft.VisualStudio.Text.Tagging;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    // TODO: make these show as screwdriver in the margin, not a lightbulb
     public abstract class RapidXamlSuggestionTag : RapidXamlErrorListTag
     {
-        protected RapidXamlSuggestionTag(Span span, ITextSnapshot snapshot)
-            : base(span, snapshot)
+        protected RapidXamlSuggestionTag(Span span, ITextSnapshot snapshot, string errorCode)
+            : base(span, snapshot, errorCode)
         {
             this.IsMessage = true;
         }

@@ -8,12 +8,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class HardCodedStringTag : RapidXamlWarningTag
     {
+        // TODO Need to assign a proper error code
         public HardCodedStringTag(Span span, ITextSnapshot snapshot)
-            : base(span, snapshot)
+            : base(span, snapshot, "RXT???")
         {
             this.SuggestedAction = typeof(HardCodedStringAction);
             this.ToolTip = "HardCoded string message"; // TODO: need to customize this???
-            this.ErrorCode = "RXT???"; // TODO Need to assign a proper error code
         }
     }
 }
