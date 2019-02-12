@@ -45,7 +45,7 @@ namespace RapidXamlToolkit.Tests.Grid
             {
                 XamlTag = "<RowDefinition Height=\"XXX\">",
                 InsertPoint = original.IndexOf("☆", StringComparison.Ordinal),
-                GridStartPos = 12
+                GridStartPos = 12,
             };
 
             var actual = InsertRowDefinitionAction.GetPreviewText(original.Replace("☆", string.Empty), InsertRowDefinitionAction.GetReplacements(1, 3), null, tag);

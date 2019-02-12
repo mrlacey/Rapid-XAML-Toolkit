@@ -6,12 +6,13 @@ using Microsoft.VisualStudio.Text.Tagging;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    // TODO: make these show as screwdriver in the margin, not a lightbuln
+    // TODO: make these show as screwdriver in the margin, not a lightbulb
     public abstract class RapidXamlSuggestionTag : RapidXamlErrorListTag
     {
         protected RapidXamlSuggestionTag(Span span, ITextSnapshot snapshot)
             : base(span, snapshot)
         {
+            this.IsMessage = true;
         }
 
         public override ITagSpan<IErrorTag> AsErrorTag()

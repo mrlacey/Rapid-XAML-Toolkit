@@ -23,11 +23,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             get { return "Move hard coded string to resource file."; }
         }
 
-        public override void Execute(CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
         public static HardCodedStringAction Create(HardCodedStringTag tag, string file, ITextView view)
         {
             var result = new HardCodedStringAction
@@ -38,6 +33,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             };
 
             return result;
+        }
+
+        public override void Execute(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

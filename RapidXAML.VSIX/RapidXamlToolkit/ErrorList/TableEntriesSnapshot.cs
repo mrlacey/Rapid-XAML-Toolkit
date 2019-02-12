@@ -16,9 +16,9 @@ namespace RapidXamlToolkit.ErrorList
 
         internal TableEntriesSnapshot(FileErrorCollection result)
         {
-            _projectName = result.Project;
-            Errors.AddRange(result.Errors);
-            FilePath = result.FilePath;
+            this._projectName = result.Project;
+            this.Errors.AddRange(result.Errors);
+            this.FilePath = result.FilePath;
         }
 
         public List<ErrorRow> Errors { get; } = new List<ErrorRow>();
@@ -27,7 +27,7 @@ namespace RapidXamlToolkit.ErrorList
 
         public override int Count
         {
-            get { return Errors.Count; }
+            get { return this.Errors.Count; }
         }
 
         public string FilePath { get; set; }
@@ -56,10 +56,10 @@ namespace RapidXamlToolkit.ErrorList
                     return true;
                 case StandardTableKeyNames.PriorityImage:
                 case StandardTableKeyNames.ErrorSeverityImage:
-                    content = error.IsFatal ? KnownMonikers.ProcessError : KnownMonikers.ReportWarning;
+                    content = error.IsMessage ? KnownMonikers.StatusInformationOutline : error.IsError ? KnownMonikers.ProcessError : KnownMonikers.ReportWarning;
                     return true;
                 case StandardTableKeyNames.ErrorSeverity:
-                    content = error.IsFatal ? __VSERRORCATEGORY.EC_ERROR : __VSERRORCATEGORY.EC_WARNING;
+                    content = error.IsMessage ? __VSERRORCATEGORY.EC_MESSAGE : error.IsError ? __VSERRORCATEGORY.EC_ERROR : __VSERRORCATEGORY.EC_WARNING;
                     return true;
                 case StandardTableKeyNames.Priority:
                     content = vsTaskPriority.vsTaskPriorityMedium;
@@ -71,10 +71,10 @@ namespace RapidXamlToolkit.ErrorList
                     content = error.ErrorCode;
                     return true;
                 case StandardTableKeyNames.ProjectName:
-                    content = _projectName;
+                    content = this._projectName;
                     return true;
                 case StandardTableKeyNames.DocumentName:
-                    content = FilePath;
+                    content = this.FilePath;
                     return true;
                 case StandardTableKeyNames.Line:
                     content = error.Span.Start.GetContainingLine().LineNumber;
@@ -96,7 +96,7 @@ namespace RapidXamlToolkit.ErrorList
 
         public override bool CanCreateDetailsContent(int index)
         {
-            return !string.IsNullOrEmpty(Errors[index].ExtendedMessage);
+            return !string.IsNullOrEmpty(this.Errors[index].ExtendedMessage);
         }
 
         public override bool TryCreateDetailsStringContent(int index, out string content)

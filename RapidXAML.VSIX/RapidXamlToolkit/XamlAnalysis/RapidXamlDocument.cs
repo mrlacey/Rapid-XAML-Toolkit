@@ -29,7 +29,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 // TODO: only try and parse doc if valid XML - need to consider when to redo tags, etc, while invalid
                 if (text.IsValidXml())
-                { }
+                {
+                }
 
                 result.RawText = text;
 
@@ -37,6 +38,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     ("Grid", new GridProcessor()),
                     ("TextBlock", new TextBlockProcessor()),
+                    ("Button", new ButtonProcessor()),
                 };
 
                 XamlElementExtractor.Parse(snapshot, text, processors, result.Tags);

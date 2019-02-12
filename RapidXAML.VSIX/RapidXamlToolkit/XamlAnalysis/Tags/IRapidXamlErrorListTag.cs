@@ -28,7 +28,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         string ErrorCode { get; set; }
 
-        bool IsFatal { get; }
+        bool IsMessage { get; }
+
+        bool IsError { get; }
 
         ITagSpan<IErrorTag> AsErrorTag();
     }

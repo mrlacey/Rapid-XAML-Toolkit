@@ -21,7 +21,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 Span = new SnapshotSpan(this.Snapshot, this.Span),
                 Message = this.Message,
                 ErrorCode = this.ErrorCode,
-                IsFatal = this.IsFatal,
+                IsMessage = this.IsMessage,
+                IsError = this.IsError,
             };
         }
     }

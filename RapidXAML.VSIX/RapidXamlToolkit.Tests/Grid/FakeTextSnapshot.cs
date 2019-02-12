@@ -11,6 +11,20 @@ namespace RapidXamlToolkit.Tests.Grid
 {
     public class FakeTextSnapshot : ITextSnapshot
     {
+        public ITextBuffer TextBuffer { get; }
+
+        public IContentType ContentType { get; }
+
+        public ITextVersion Version { get; }
+
+        public int Length { get; }
+
+        public int LineCount { get; }
+
+        public IEnumerable<ITextSnapshotLine> Lines { get; }
+
+        public char this[int position] => throw new NotImplementedException();
+
         public string GetText(Span span)
         {
             throw new NotImplementedException();
@@ -61,8 +75,7 @@ namespace RapidXamlToolkit.Tests.Grid
             throw new NotImplementedException();
         }
 
-        public ITrackingSpan CreateTrackingSpan(int start, int length, SpanTrackingMode trackingMode,
-            TrackingFidelityMode trackingFidelity)
+        public ITrackingSpan CreateTrackingSpan(int start, int length, SpanTrackingMode trackingMode, TrackingFidelityMode trackingFidelity)
         {
             throw new NotImplementedException();
         }
@@ -91,19 +104,5 @@ namespace RapidXamlToolkit.Tests.Grid
         {
             throw new NotImplementedException();
         }
-
-        public ITextBuffer TextBuffer { get; }
-
-        public IContentType ContentType { get; }
-
-        public ITextVersion Version { get; }
-
-        public int Length { get; }
-
-        public int LineCount { get; }
-
-        public char this[int position] => throw new NotImplementedException();
-
-        public IEnumerable<ITextSnapshotLine> Lines { get; }
     }
 }

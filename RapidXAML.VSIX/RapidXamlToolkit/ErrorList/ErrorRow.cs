@@ -15,6 +15,8 @@ namespace RapidXamlToolkit.ErrorList
 
         public string ErrorCode { get; internal set; }
 
-        public bool IsFatal { get; internal set; }
+        public bool IsMessage { get; internal set; }
+
+        public bool IsError { get; internal set; }
     }
 }

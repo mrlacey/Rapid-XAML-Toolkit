@@ -23,13 +23,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public SuggestedActionsSource(IViewTagAggregatorFactoryService tagService, ITextView view, ITextBuffer textBuffer, string file)
         {
-            _tagService = tagService;
-            _view = view;
-            _file = file;
+            this._tagService = tagService;
+            this._view = view;
+            this._file = file;
 
-            _view.LayoutChanged += this.OnViewLayoutChanged;
+            this._view.LayoutChanged += this.OnViewLayoutChanged;
 
-            RapidXamlDocumentCache.Add(_file, textBuffer.CurrentSnapshot);
+            RapidXamlDocumentCache.Add(this._file, textBuffer.CurrentSnapshot);
         }
 
         private void OnViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
@@ -68,23 +68,23 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 if (rapidXamlTag.ActionType == ActionTypes.InsertRowDefinition)
                 {
-                    list.AddRange(CreateActionSet(InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rapidXamlTag, _file, _view)));
+                    list.AddRange(this.CreateActionSet(InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rapidXamlTag, this._file, this._view)));
                 }
                 else if (rapidXamlTag.ActionType == ActionTypes.HardCodedString)
                 {
-                    list.AddRange(CreateActionSet(HardCodedStringAction.Create((HardCodedStringTag)rapidXamlTag, _file, _view)));
+                    list.AddRange(this.CreateActionSet(HardCodedStringAction.Create((HardCodedStringTag)rapidXamlTag, this._file, this._view)));
                 }
                 else if (rapidXamlTag.ActionType == ActionTypes.AddRowDefinitions)
                 {
-                    list.AddRange(CreateActionSet(AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rapidXamlTag)));
+                    list.AddRange(this.CreateActionSet(AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rapidXamlTag)));
                 }
                 else if (rapidXamlTag.ActionType == ActionTypes.AddColumnDefinitions)
                 {
-                    list.AddRange(CreateActionSet(AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rapidXamlTag)));
+                    list.AddRange(this.CreateActionSet(AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rapidXamlTag)));
                 }
                 else if (rapidXamlTag.ActionType == ActionTypes.AddRowAndColumnDefinitions)
                 {
-                    list.AddRange(CreateActionSet(AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rapidXamlTag)));
+                    list.AddRange(this.CreateActionSet(AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rapidXamlTag)));
                 }
             }
 
@@ -93,12 +93,12 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         private IEnumerable<IRapidXamlTag> GetTags(SnapshotSpan span)
         {
-            return RapidXamlDocumentCache.AdornmentTags(_file).Where(t => t.Span.IntersectsWith(span)).Select(t => t);
+            return RapidXamlDocumentCache.AdornmentTags(this._file).Where(t => t.Span.IntersectsWith(span)).Select(t => t);
         }
 
         private IEnumerable<IMappingTagSpan<IRapidXamlTag>> GetErrorTags(ITextView view, SnapshotSpan span)
         {
-            return _tagService.CreateTagAggregator<IRapidXamlTag>(view).GetTags(span);
+            return this._tagService.CreateTagAggregator<IRapidXamlTag>(view).GetTags(span);
         }
 
         public IEnumerable<SuggestedActionSet> CreateActionSet(params BaseSuggestedAction[] actions)

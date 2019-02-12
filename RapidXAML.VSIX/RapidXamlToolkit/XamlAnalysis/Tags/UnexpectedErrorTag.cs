@@ -13,7 +13,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.ActionType = ActionTypes.UnexpectedError;
             this.ToolTip = string.Empty;
             this.ErrorCode = "RXT999";
-            this.IsFatal = true;
+            this.IsError = true;
         }
     }
 }
