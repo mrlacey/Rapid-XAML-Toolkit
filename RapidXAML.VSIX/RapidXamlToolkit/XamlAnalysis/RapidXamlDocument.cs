@@ -27,21 +27,20 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 var text = snapshot.GetText();
 
-                // TODO: only try and parse doc if valid XML - need to consider when to redo tags, etc, while invalid
+                // TODO: review when to redo tags, etc, while invalid, or remove any tags created previously
                 if (text.IsValidXml())
                 {
+                    result.RawText = text;
+
+                    var processors = new List<(string, XamlElementProcessor)>
+                    {
+                        ("Grid", new GridProcessor()),
+                        ("TextBlock", new TextBlockProcessor()),
+                        ("Button", new ButtonProcessor()),
+                    };
+
+                    XamlElementExtractor.Parse(snapshot, text, processors, result.Tags);
                 }
-
-                result.RawText = text;
-
-                var processors = new List<(string, XamlElementProcessor)>
-                {
-                    ("Grid", new GridProcessor()),
-                    ("TextBlock", new TextBlockProcessor()),
-                    ("Button", new ButtonProcessor()),
-                };
-
-                XamlElementExtractor.Parse(snapshot, text, processors, result.Tags);
             }
             catch (Exception e)
             {

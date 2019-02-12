@@ -121,10 +121,11 @@ namespace RapidXamlToolkit.XamlAnalysis
         private void OnViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
         {
             // TODO: throttle this so doesn't fire until after a period of inactivity (1 second?)
-            // Layout change can happen a lot, but only interested in if the text has changed
+            // Layout change can happen a lot, but only interested in if the text has changed.
+            // It would be "nice" to only reparse the changed lines in large documents but would need to keep track or any processors that work on the encapsulated changes.
+            // Caching processors for partial re-parsing would be complicated. Considering this a low priority optimization.
             if (e.OldSnapshot != e.NewSnapshot)
             {
-                // TODO: SUPER OPTIMIZATION handle just the changed lines, rather than the whole document - would improve perf but might be very difficult for abstracted taggers
                 RapidXamlDocumentCache.Update(this._file, e.NewViewState.EditSnapshot);
             }
         }
