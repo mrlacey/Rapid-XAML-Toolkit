@@ -16,34 +16,34 @@ namespace RapidXamlToolkit.ErrorList
 
         internal SinkManager(TableDataSource errorList, ITableDataSink sink)
         {
-            _sink = sink;
-            _errorList = errorList;
+            this._sink = sink;
+            this._errorList = errorList;
 
             errorList.AddSinkManager(this);
         }
 
         internal void Clear()
         {
-            _sink.RemoveAllSnapshots();
+            this._sink.RemoveAllSnapshots();
         }
 
         internal void UpdateSink(IEnumerable<TableEntriesSnapshot> snapshots)
         {
             foreach (var snapshot in snapshots)
             {
-                var existing = _snapshots.FirstOrDefault(s => s.FilePath == snapshot.FilePath);
+                var existing = this._snapshots.FirstOrDefault(s => s.FilePath == snapshot.FilePath);
 
                 if (existing != null)
                 {
-                    _snapshots.Remove(existing);
-                    _sink.ReplaceSnapshot(existing, snapshot);
+                    this._snapshots.Remove(existing);
+                    this._sink.ReplaceSnapshot(existing, snapshot);
                 }
                 else
                 {
-                    _sink.AddSnapshot(snapshot);
+                    this._sink.AddSnapshot(snapshot);
                 }
 
-                _snapshots.Add(snapshot);
+                this._snapshots.Add(snapshot);
             }
         }
 
@@ -51,12 +51,12 @@ namespace RapidXamlToolkit.ErrorList
         {
             foreach (string url in urls)
             {
-                var existing = _snapshots.FirstOrDefault(s => s.FilePath == url);
+                var existing = this._snapshots.FirstOrDefault(s => s.FilePath == url);
 
                 if (existing != null)
                 {
-                    _snapshots.Remove(existing);
-                    _sink.RemoveSnapshot(existing);
+                    this._snapshots.Remove(existing);
+                    this._sink.RemoveSnapshot(existing);
                 }
             }
         }
@@ -64,7 +64,7 @@ namespace RapidXamlToolkit.ErrorList
         public void Dispose()
         {
             // Called when the person who subscribed to the data source disposes of the cookie (== this object) they were given.
-            _errorList.RemoveSinkManager(this);
+            this._errorList.RemoveSinkManager(this);
         }
     }
 }

@@ -18,9 +18,6 @@ namespace RapidXamlToolkit.ErrorList
         private readonly List<SinkManager> _managers = new List<SinkManager>();
         private static Dictionary<string, TableEntriesSnapshot> _snapshots = new Dictionary<string, TableEntriesSnapshot>();
 
-        [Import]
-        private ITableManagerProvider TableManagerProvider { get; set; } = null;
-
         private TableDataSource()
         {
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
@@ -40,6 +37,9 @@ namespace RapidXamlToolkit.ErrorList
                               StandardTableColumnDefinitions.Line,
                               StandardTableColumnDefinitions.Column);
         }
+
+        [Import]
+        private ITableManagerProvider TableManagerProvider { get; set; } = null;
 
         public static TableDataSource Instance
         {
@@ -83,9 +83,9 @@ namespace RapidXamlToolkit.ErrorList
         {
             // This call can, in theory, happen from any thread so be appropriately thread safe.
             // In practice, it will probably be called only once from the UI thread (by the error list tool window).
-            lock (_managers)
+            lock (this._managers)
             {
-                _managers.Add(manager);
+                this._managers.Add(manager);
             }
         }
 
@@ -93,17 +93,17 @@ namespace RapidXamlToolkit.ErrorList
         {
             // This call can, in theory, happen from any thread so be appropriately thread safe.
             // In practice, it will probably be called only once from the UI thread (by the error list tool window).
-            lock (_managers)
+            lock (this._managers)
             {
-                _managers.Remove(manager);
+                this._managers.Remove(manager);
             }
         }
 
         public void UpdateAllSinks()
         {
-            lock (_managers)
+            lock (this._managers)
             {
-                foreach (var manager in _managers)
+                foreach (var manager in this._managers)
                 {
                     manager.UpdateSink(_snapshots.Values);
                 }
@@ -136,9 +136,9 @@ namespace RapidXamlToolkit.ErrorList
                 }
             }
 
-            lock (_managers)
+            lock (this._managers)
             {
-                foreach (var manager in _managers)
+                foreach (var manager in this._managers)
                 {
                     manager.RemoveSnapshots(urls);
                 }
@@ -152,17 +152,14 @@ namespace RapidXamlToolkit.ErrorList
             foreach (string url in _snapshots.Keys)
             {
                 var snapshot = _snapshots[url];
-                if (snapshot != null)
-                {
-                    snapshot.Dispose();
-                }
+                snapshot?.Dispose();
             }
 
             _snapshots.Clear();
 
-            lock (_managers)
+            lock (this._managers)
             {
-                foreach (var manager in _managers)
+                foreach (var manager in this._managers)
                 {
                     manager.Clear();
                 }

@@ -489,7 +489,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var outputTags = new List<IRapidXamlAdornmentTag>();
 
-            TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
             // The order processed, and so listed here, is the order in which they're closed.
             Assert.IsTrue(processor.ProcessCalled);

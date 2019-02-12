@@ -31,7 +31,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override string DisplayText
         {
-            get { return $"Insert new definition for row {tag.RowId}"; }
+            get { return $"Insert new definition for row {this.tag.RowId}"; }
         }
 
         public override ImageMoniker IconMoniker => KnownMonikers.InsertClause;

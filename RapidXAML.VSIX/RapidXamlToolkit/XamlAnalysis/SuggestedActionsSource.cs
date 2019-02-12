@@ -32,6 +32,12 @@ namespace RapidXamlToolkit.XamlAnalysis
             RapidXamlDocumentCache.Add(this._file, textBuffer.CurrentSnapshot);
         }
 
+        public event EventHandler<EventArgs> SuggestedActionsChanged
+        {
+            add { }
+            remove { }
+        }
+
         private void OnViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
         {
             // TODO: throttle this so doesn't fire until after a period of inactivity (1 second?)
@@ -39,7 +45,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             if (e.OldSnapshot != e.NewSnapshot)
             {
                 // TODO: SUPER OPTIMIZATION handle just the changed lines, rather than the whole document - would improve perf but might be very difficult for abstracted taggers
-                RapidXamlDocumentCache.Update(_file, e.NewViewState.EditSnapshot);
+                RapidXamlDocumentCache.Update(this._file, e.NewViewState.EditSnapshot);
             }
         }
 
@@ -116,12 +122,6 @@ namespace RapidXamlToolkit.XamlAnalysis
             // This is a sample provider and doesn't participate in LightBulb telemetry
             telemetryId = Guid.Empty;
             return false;
-        }
-
-        public event EventHandler<EventArgs> SuggestedActionsChanged
-        {
-            add { }
-            remove { }
         }
     }
 }
