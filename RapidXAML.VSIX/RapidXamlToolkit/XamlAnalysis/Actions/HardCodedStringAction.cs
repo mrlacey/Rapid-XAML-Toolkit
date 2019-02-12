@@ -20,7 +20,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override string DisplayText
         {
-            get { return "Move hard coded string to resource file."; }
+            get { return "Move hard coded string to resource file."; } // TODO: localize
         }
 
         public static HardCodedStringAction Create(HardCodedStringTag tag, string file, ITextView view)

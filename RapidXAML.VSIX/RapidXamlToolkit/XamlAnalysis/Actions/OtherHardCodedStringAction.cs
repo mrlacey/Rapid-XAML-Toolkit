@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override string DisplayText
         {
-            get { return "Move Other hard coded string to resource file."; }
+            get { return "Move Other hard coded string to resource file."; }  // TODO: localize (hardcoded)
         }
 
         public static OtherHardCodedStringAction Create(OtherHardCodedStringTag tag, string file, ITextView view)

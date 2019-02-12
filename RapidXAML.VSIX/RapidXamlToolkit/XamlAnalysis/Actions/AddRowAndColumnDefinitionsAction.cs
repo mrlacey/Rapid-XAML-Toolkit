@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override ImageMoniker IconMoniker => KnownMonikers.TwoRowsTwoColumns;
 
-        public override string DisplayText { get; } = "Add RowDefinitions and ColumnDefinitions";
+        public override string DisplayText { get; } = "Add RowDefinitions and ColumnDefinitions"; // TODO: localize
 
         public static AddRowAndColumnDefinitionsAction Create(AddRowAndColumnDefinitionsTag tag)
         {
