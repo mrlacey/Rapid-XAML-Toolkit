@@ -229,8 +229,9 @@
     </Compile>
     <Compile Include="SolutionExtensions.cs" />
     <Compile Include="StringExtensions.cs" />
-    <Compile Include="XamlAnalysis\ActionTypes.cs" />
+    <Compile Include="XamlAnalysis\Actions\OtherHardCodedStringAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\ButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\AddColumnDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Actions\AddRowAndColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="XamlAnalysis\Actions\InjectFixedXamlSuggestedAction.cs" />
     <Compile Include="XamlAnalysis\Actions\InsertRowDefinitionAction.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertRowDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\IRapidXamlAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\Tags\IRapidXamlTag.cs" />
     <Compile Include="XamlAnalysis\Tags\IRapidXamlErrorListTag.cs" />
     <Compile Include="XamlAnalysis\Tags\LineInsertionTag.cs" />
@@ -253,6 +255,7 @@
     <Compile Include="XamlAnalysis\RapidXamlParsingEventArgs.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagger.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagProvider.cs" />
+    <Compile Include="XamlAnalysis\Tags\OtherHardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlErrorListTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlOptionalTag.cs" />

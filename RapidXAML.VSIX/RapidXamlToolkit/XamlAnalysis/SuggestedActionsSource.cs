@@ -15,15 +15,17 @@ using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
-    public class SuggestedActionsSource : ISuggestedActionsSource
+    public class SuggestedActionsSource : ISuggestedActionsSource, ISuggestedActionsSource2
     {
         private readonly ITextView _view;
         private string _file;
         private IViewTagAggregatorFactoryService _tagService;
+        private readonly ISuggestedActionCategoryRegistryService _suggestedActionCategoryRegistry;
 
-        public SuggestedActionsSource(IViewTagAggregatorFactoryService tagService, ITextView view, ITextBuffer textBuffer, string file)
+        public SuggestedActionsSource(IViewTagAggregatorFactoryService tagService, ISuggestedActionCategoryRegistryService suggestedActionCategoryRegistry, ITextView view, ITextBuffer textBuffer, string file)
         {
             this._tagService = tagService;
+            this._suggestedActionCategoryRegistry = suggestedActionCategoryRegistry;
             this._view = view;
             this._file = file;
 
@@ -38,6 +40,69 @@ namespace RapidXamlToolkit.XamlAnalysis
             remove { }
         }
 
+        public Task<ISuggestedActionCategorySet> GetSuggestedActionCategoriesAsync(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
+        {
+            return Task.Factory.StartNew(
+                () =>
+                {
+                    if (this.GetTags(range).Any(t => t is RapidXamlErrorListTag))
+                    {
+                        return this._suggestedActionCategoryRegistry.CreateSuggestedActionCategorySet(
+                            PredefinedSuggestedActionCategoryNames.Any);
+                    }
+                    else
+                    {
+                        return this._suggestedActionCategoryRegistry.CreateSuggestedActionCategorySet(
+                            PredefinedSuggestedActionCategoryNames.Refactoring);
+                    }
+                },
+                cancellationToken,
+                TaskCreationOptions.None,
+                TaskScheduler.Current);
+        }
+
+        public Task<bool> HasSuggestedActionsAsync(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
+        {
+            return Task.Factory.StartNew(() => { return this.GetTags(range).Any(); }, cancellationToken);
+        }
+
+        public IEnumerable<SuggestedActionSet> GetSuggestedActions(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
+        {
+            var list = new List<SuggestedActionSet>();
+
+            var rxTags = this.GetTags(range);
+
+            foreach (var rapidXamlTag in rxTags)
+            {
+                if (rapidXamlTag.SuggestedAction == typeof(InsertRowDefinitionAction))
+                {
+                    list.AddRange(this.CreateActionSet(InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rapidXamlTag, this._file, this._view)));
+                }
+                else if (rapidXamlTag.SuggestedAction == typeof(HardCodedStringAction))
+                {
+                    list.AddRange(this.CreateActionSet(HardCodedStringAction.Create((HardCodedStringTag)rapidXamlTag, this._file, this._view)));
+                }
+                else if (rapidXamlTag.SuggestedAction == typeof(OtherHardCodedStringAction))
+                {
+                    list.AddRange(this.CreateActionSet(OtherHardCodedStringAction.Create((OtherHardCodedStringTag)rapidXamlTag, this._file, this._view)));
+                }
+                else if (rapidXamlTag.SuggestedAction == typeof(AddRowAndColumnDefinitionsAction))
+                {
+                    list.AddRange(this.CreateActionSet(AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rapidXamlTag)));
+                }
+                else if (rapidXamlTag.SuggestedAction == typeof(AddColumnDefinitionsAction))
+                {
+                    list.AddRange(this.CreateActionSet(AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rapidXamlTag)));
+                }
+                else if (rapidXamlTag.SuggestedAction == typeof(AddRowAndColumnDefinitionsAction))
+                {
+                    list.AddRange(this.CreateActionSet(AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rapidXamlTag)));
+                }
+            }
+
+            return list;
+        }
+
         private void OnViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
         {
             // TODO: throttle this so doesn't fire until after a period of inactivity (1 second?)
@@ -47,54 +112,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                 // TODO: SUPER OPTIMIZATION handle just the changed lines, rather than the whole document - would improve perf but might be very difficult for abstracted taggers
                 RapidXamlDocumentCache.Update(this._file, e.NewViewState.EditSnapshot);
             }
-        }
-
-        public Task<bool> HasSuggestedActionsAsync(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
-        {
-            return Task.Factory.StartNew(() => this.GetTags(range).Any(), cancellationToken);
-        }
-
-        public IEnumerable<SuggestedActionSet> GetSuggestedActions(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
-        {
-            /*
-            var span = new SnapshotSpan(_view.Selection.Start.Position, _view.Selection.End.Position);
-            var startLine = span.Start.GetContainingLine().Extent;
-            var endLine = span.End.GetContainingLine().Extent;
-
-            var selectionStart = _view.Selection.Start.Position.Position;
-            var selectionEnd = _view.Selection.End.Position.Position;
-            var SelectedSpan = new SnapshotSpan(span.Snapshot, selectionStart, selectionEnd - selectionStart);
-            */
-
-            var list = new List<SuggestedActionSet>();
-
-            var rxTags = this.GetTags(range);
-
-            foreach (var rapidXamlTag in rxTags)
-            {
-                if (rapidXamlTag.ActionType == ActionTypes.InsertRowDefinition)
-                {
-                    list.AddRange(this.CreateActionSet(InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rapidXamlTag, this._file, this._view)));
-                }
-                else if (rapidXamlTag.ActionType == ActionTypes.HardCodedString)
-                {
-                    list.AddRange(this.CreateActionSet(HardCodedStringAction.Create((HardCodedStringTag)rapidXamlTag, this._file, this._view)));
-                }
-                else if (rapidXamlTag.ActionType == ActionTypes.AddRowDefinitions)
-                {
-                    list.AddRange(this.CreateActionSet(AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rapidXamlTag)));
-                }
-                else if (rapidXamlTag.ActionType == ActionTypes.AddColumnDefinitions)
-                {
-                    list.AddRange(this.CreateActionSet(AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rapidXamlTag)));
-                }
-                else if (rapidXamlTag.ActionType == ActionTypes.AddRowAndColumnDefinitions)
-                {
-                    list.AddRange(this.CreateActionSet(AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rapidXamlTag)));
-                }
-            }
-
-            return list;
         }
 
         private IEnumerable<IRapidXamlTag> GetTags(SnapshotSpan span)
@@ -110,7 +127,14 @@ namespace RapidXamlToolkit.XamlAnalysis
         public IEnumerable<SuggestedActionSet> CreateActionSet(params BaseSuggestedAction[] actions)
         {
             var enabledActions = actions.Where(action => action.IsEnabled);
-            return new[] { new SuggestedActionSet(enabledActions) };
+            return new[]
+            {
+                new SuggestedActionSet(
+                    PredefinedSuggestedActionCategoryNames.Refactoring,
+                    actions: enabledActions,
+                    title: "Rapid XAML",
+                    priority: SuggestedActionSetPriority.None),
+            };
         }
 
         public void Dispose()
@@ -119,7 +143,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public bool TryGetTelemetryId(out Guid telemetryId)
         {
-            // This is a sample provider and doesn't participate in LightBulb telemetry
+            // TODO: find out if we need this and what value to use if we do
             telemetryId = Guid.Empty;
             return false;
         }

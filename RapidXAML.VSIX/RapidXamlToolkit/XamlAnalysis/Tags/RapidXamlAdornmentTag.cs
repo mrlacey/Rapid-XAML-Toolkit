@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Snapshot = snapshot ?? throw new ArgumentNullException(nameof(snapshot));
         }
 
-        public ActionTypes ActionType { get; protected set; }
+        public Type SuggestedAction { get; set; }
 
         public Span Span { get; set; }
 

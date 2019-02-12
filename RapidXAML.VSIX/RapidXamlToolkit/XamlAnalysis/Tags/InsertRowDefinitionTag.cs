@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -11,6 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public InsertRowDefinitionTag(Span span, ITextSnapshot snapshot)
             : base(span, snapshot)
         {
+            this.SuggestedAction = typeof(InsertRowDefinitionAction);
         }
 
         // Used for text in suggested action ("Insert new row {RowId}")

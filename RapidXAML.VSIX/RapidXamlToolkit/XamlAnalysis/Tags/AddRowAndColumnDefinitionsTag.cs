@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -10,8 +11,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public AddRowAndColumnDefinitionsTag(Span span, ITextSnapshot snapshot)
             : base(span, snapshot)
         {
+            this.SuggestedAction = typeof(AddRowAndColumnDefinitionsAction);
         }
-
-        public new ActionTypes ActionType => ActionTypes.AddRowAndColumnDefinitions;
     }
 }

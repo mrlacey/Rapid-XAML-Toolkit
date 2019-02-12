@@ -10,7 +10,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public UnexpectedErrorTag(Span span, ITextSnapshot snapshot)
             : base(span, snapshot)
         {
-            this.ActionType = ActionTypes.UnexpectedError;
             this.ToolTip = string.Empty;
             this.ErrorCode = "RXT999";
             this.IsError = true;

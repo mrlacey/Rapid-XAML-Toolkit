@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -11,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public OtherHardCodedStringTag(Span span, ITextSnapshot snapshot)
             : base(span, snapshot)
         {
-            this.ActionType = ActionTypes.HardCodedString;
+            this.SuggestedAction = typeof(OtherHardCodedStringAction);
             this.ToolTip = "SUGGESTION HardCoded string message"; // TODO: need to customize this???
             this.ErrorCode = "RXT???"; // TODO Need to assign a proper error code
         }

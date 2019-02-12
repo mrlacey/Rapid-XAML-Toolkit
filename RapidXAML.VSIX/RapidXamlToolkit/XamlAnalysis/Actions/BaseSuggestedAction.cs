@@ -93,7 +93,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             return span.Snapshot.Lines.Where(l => l.LineNumber >= startLine.LineNumber && l.LineNumber <= endLine.LineNumber);
         }
 
-        // Call this after having made the change to force reevaluation of actions
+        // Call this after having made the change if need to force reevaluation of actions
         private void RaiseBufferChange()
         {
             // Adding and deleting a char in order to force taggers re-evaluation
