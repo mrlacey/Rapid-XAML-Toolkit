@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis
@@ -21,7 +22,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                     tags.Add(new OtherHardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col)
                     {
-                        Description = $"Button contains hardcoded Content value '{value}'.",
+                        Description = StringRes.Info_XamlAnalysisHardcodedStringButtonContentMessage.WithParams(value),
                     });
                 }
             }

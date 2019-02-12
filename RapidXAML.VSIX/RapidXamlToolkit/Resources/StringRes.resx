@@ -649,4 +649,16 @@
   <data name="Info_UndoContextAddRowDefinitions" xml:space="preserve">
     <value>Add RowDefinitions</value>
   </data>
+  <data name="Info_XamlAnalysisHardcodedStringButtonContentMessage" xml:space="preserve">
+    <value>Button contains hardcoded Content value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringExtendedMessage" xml:space="preserve">
+    <value>Do not use hard coded values. Use a localized resource instead.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTextblockTextMessage" xml:space="preserve">
+    <value>TextBlock contains hardcoded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTooltip" xml:space="preserve">
+    <value>Hard coded string</value>
+  </data>
 </root>

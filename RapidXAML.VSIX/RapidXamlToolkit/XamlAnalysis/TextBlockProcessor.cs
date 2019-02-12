@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis
@@ -21,7 +22,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                     tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col)
                     {
-                        Description = $"TextBlock contains hardcoded Text value '{value}'.",
+                        Description = StringRes.Info_XamlAnalysisHardcodedStringTextblockTextMessage.WithParams(value),
                     });
                 }
             }

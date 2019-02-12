@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
@@ -13,8 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, "RXT???", line, column)
         {
             this.SuggestedAction = typeof(HardCodedStringAction);
-            this.ToolTip = "Hard coded string"; // TODO: localize
-            this.ExtendedMessage = "Do not use hard coded values. Use a localized resource instead."; // TODO: localize
+            this.ToolTip = StringRes.Info_XamlAnalysisHardcodedStringTooltip;
+            this.ExtendedMessage = StringRes.Info_XamlAnalysisHardcodedStringExtendedMessage;
         }
     }
 }

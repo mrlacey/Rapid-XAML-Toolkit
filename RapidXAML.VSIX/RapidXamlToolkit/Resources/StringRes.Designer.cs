@@ -664,6 +664,42 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Button contains hardcoded Content value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringButtonContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringButtonContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not use hard coded values. Use a localized resource instead..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TextBlock contains hardcoded Text value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringTextblockTextMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTextblockTextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hard coded string.
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringTooltip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Views &amp; ViewModels are in the same project.
         /// </summary>
         public static string Options_AllInOneProject {
