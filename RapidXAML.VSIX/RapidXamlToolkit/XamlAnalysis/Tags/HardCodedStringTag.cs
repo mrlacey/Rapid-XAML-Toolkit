@@ -13,7 +13,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, "RXT???", line, column)
         {
             this.SuggestedAction = typeof(HardCodedStringAction);
-            this.ToolTip = "HardCoded string message"; // TODO: need to customize this???
+            this.ToolTip = "Hard coded string"; // TODO: localize
+            this.ExtendedMessage = "Do not use hard coded values. Use a localized resource instead."; // TODO: localize
         }
     }
 }
