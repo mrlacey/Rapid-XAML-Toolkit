@@ -32,8 +32,9 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var visibleErrors = RapidXamlDocumentCache.ErrorListTags(this._file);
 
-            // TODO: need to get and pass project name
-            var result = new FileErrorCollection { Project = "a-project", FilePath = this._file };
+            var projectName = this.GetProjectName(this._file);
+
+            var result = new FileErrorCollection { Project = projectName, FilePath = this._file };
 
             foreach (var viewTag in visibleErrors)
             {
@@ -47,6 +48,18 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 var span = new SnapshotSpan(e.Snapshot, 0, e.Snapshot.Length);
                 this.TagsChanged?.Invoke(this, new SnapshotSpanEventArgs(span));
+            }
+        }
+
+        private string GetProjectName(string fileName)
+        {
+            try
+            {
+                return ProjectHelpers.Dte2.Solution.FindProjectItem(fileName).ContainingProject.Name;
+            }
+            catch (Exception e)
+            {
+                return string.Empty;
             }
         }
 
