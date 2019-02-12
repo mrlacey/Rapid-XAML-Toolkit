@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Language.Intellisense;
@@ -29,9 +30,23 @@ namespace RapidXamlToolkit.XamlAnalysis
             this._view = view;
             this._file = file;
 
-            this._view.LayoutChanged += this.OnViewLayoutChanged;
+            // Don't want every change event as that is a lot during editing. Wait for a second of inactivity before reparsing.
+            this.WhenViewLayoutChanged.Throttle(TimeSpan.FromSeconds(1)).Subscribe(e => this.OnViewLayoutChanged(this, e));
 
             RapidXamlDocumentCache.Add(this._file, textBuffer.CurrentSnapshot);
+        }
+
+        // Observable event wrapper
+        public IObservable<TextViewLayoutChangedEventArgs> WhenViewLayoutChanged
+        {
+            get
+            {
+                return Observable
+                    .FromEventPattern<EventHandler<TextViewLayoutChangedEventArgs>, TextViewLayoutChangedEventArgs>(
+                        h => this._view.LayoutChanged += h,
+                        h => this._view.LayoutChanged -= h)
+                    .Select(x => x.EventArgs);
+            }
         }
 
         public event EventHandler<EventArgs> SuggestedActionsChanged
@@ -113,14 +128,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public bool TryGetTelemetryId(out Guid telemetryId)
         {
-            // TODO: find out if we need this and what value to use if we do
+            // TODO: find out if we need a LightBulbTelemetryGuid and what value to use if we do
             telemetryId = Guid.Empty;
             return false;
         }
 
         private void OnViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
         {
-            // TODO: throttle this so doesn't fire until after a period of inactivity (1 second?)
             // Layout change can happen a lot, but only interested in if the text has changed.
             // It would be "nice" to only reparse the changed lines in large documents but would need to keep track or any processors that work on the encapsulated changes.
             // Caching processors for partial re-parsing would be complicated. Considering this a low priority optimization.

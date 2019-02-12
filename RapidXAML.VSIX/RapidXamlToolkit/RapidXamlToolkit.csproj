@@ -614,6 +614,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.Reactive">
+      <Version>4.1.2</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Options\ProfileConfigControl.xaml">
