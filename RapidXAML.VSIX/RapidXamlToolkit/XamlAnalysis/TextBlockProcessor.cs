@@ -25,11 +25,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                     var line = snapshot.GetLineFromPosition(offset + tbIndex);
                     var col = offset + tbIndex - line.Start.Position;
 
-                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, tbEnd - tbIndex + 1), snapshot)
+                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, tbEnd - tbIndex + 1), snapshot, line.LineNumber, col)
                     {
-                        Line = line.LineNumber,
-                        Column = col,
-                        Message = "TextBlock should not contain a hardcoded value for Text. Use a localized resource instead.",
+                        Description = "TextBlock should not contain a hardcoded value for Text. Use a localized resource instead.",
                     });
                 }
             }

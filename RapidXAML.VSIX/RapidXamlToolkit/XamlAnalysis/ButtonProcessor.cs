@@ -25,11 +25,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                     var line = snapshot.GetLineFromPosition(offset + tbIndex);
                     var col = offset + tbIndex - line.Start.Position;
 
-                    tags.Add(new OtherHardCodedStringTag(new Span(offset + tbIndex, tbEnd - tbIndex + 1), snapshot)
+                    tags.Add(new OtherHardCodedStringTag(new Span(offset + tbIndex, tbEnd - tbIndex + 1), snapshot, line.LineNumber, col)
                     {
-                        Line = line.LineNumber,
-                        Column = col,
-                        Message = "Buttons should not contain a hardcoded value for Content. Use a localized resource instead.",
+                        Description = "Buttons should not contain a hardcoded value for Content. Use a localized resource instead.",
                     });
                 }
             }

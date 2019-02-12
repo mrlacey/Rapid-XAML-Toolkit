@@ -8,8 +8,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlSuggestionTag : RapidXamlErrorListTag
     {
-        protected RapidXamlSuggestionTag(Span span, ITextSnapshot snapshot, string errorCode)
-            : base(span, snapshot, errorCode)
+        protected RapidXamlSuggestionTag(Span span, ITextSnapshot snapshot, string errorCode, int line, int column)
+            : base(span, snapshot, errorCode, line, column)
         {
             this.IsMessage = true;
         }

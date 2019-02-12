@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     public class OtherHardCodedStringTag : RapidXamlSuggestionTag
     {
         // TODO Need to assign a proper error code
-        public OtherHardCodedStringTag(Span span, ITextSnapshot snapshot)
-            : base(span, snapshot, "RXT???")
+        public OtherHardCodedStringTag(Span span, ITextSnapshot snapshot, int line, int column)
+            : base(span, snapshot, "RXT???", line, column)
         {
             this.SuggestedAction = typeof(OtherHardCodedStringAction);
             this.ToolTip = "SUGGESTION HardCoded string message"; // TODO: need to customize this???

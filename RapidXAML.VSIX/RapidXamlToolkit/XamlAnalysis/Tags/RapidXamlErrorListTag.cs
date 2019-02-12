@@ -8,22 +8,29 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlErrorListTag : RapidXamlAdornmentTag, IRapidXamlErrorListTag
     {
-        protected RapidXamlErrorListTag(Span span, ITextSnapshot snapshot, string errorCode)
+        protected RapidXamlErrorListTag(Span span, ITextSnapshot snapshot, string errorCode, int line, int column)
             : base(span, snapshot)
         {
             this.ErrorCode = errorCode;
+            this.Line = line;
+            this.Column = column;
         }
 
-        public string Message { get; set; }
+        public string Description { get; set; }
 
-        // This is shown when the row is expanded
+        /// <summary>
+        /// Gets or sets the message shown when the error row is expanded.
+        /// </summary>
         public string ExtendedMessage { get; set; }
 
-        public int Line { get; set; }
+        public int Line { get; }
 
-        public int Column { get; set; }
+        public int Column { get; }
 
-        public string ErrorCode { get; set; }
+        /// <summary>
+        /// Gets the code shown in the error list. Also used as the file name in the help link.
+        /// </summary>
+        public string ErrorCode { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the tag is for something that should show in the Messages tab of the error list.
@@ -42,7 +49,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             {
                 ExtendedMessage = this.ExtendedMessage,
                 Span = new SnapshotSpan(this.Snapshot, this.Span),
-                Message = this.Message,
+                Message = this.Description,
                 ErrorCode = this.ErrorCode,
                 IsMessage = this.IsMessage,
                 IsError = this.IsError,

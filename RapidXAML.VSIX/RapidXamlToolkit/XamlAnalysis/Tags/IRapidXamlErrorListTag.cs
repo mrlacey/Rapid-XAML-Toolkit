@@ -7,15 +7,15 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public interface IRapidXamlErrorListTag : IRapidXamlAdornmentTag
     {
-        string Message { get; set; }
+        string Description { get; set; }
 
         string ExtendedMessage { get; set; }
 
-        int Line { get; set; }
+        int Line { get; }
 
-        int Column { get; set; }
+        int Column { get; }
 
-        string ErrorCode { get; set; }
+        string ErrorCode { get; }
 
         bool IsMessage { get; }
 
