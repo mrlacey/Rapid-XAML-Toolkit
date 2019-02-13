@@ -92,7 +92,8 @@ namespace RapidXamlToolkit.Tests.Grid
 
         public int GetLineNumberFromPosition(int position)
         {
-            throw new NotImplementedException();
+            // This is sufficient for current testing needs
+            return -1;
         }
 
         public void Write(TextWriter writer, Span span)

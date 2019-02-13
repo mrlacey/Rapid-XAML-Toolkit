@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class GridProcessor : XamlElementProcessor
     {
-        // TODO: Add detection for assigned Row (and col) values without definitions: then add corresponding actions
-        // TODO: add tests for this
+        // TODO: Add detection for assigned Row (and col) values without definitions: then add corresponding actions & tests
+        // TODO: find a way to abstract out the need to pass in an ITextSnapshot so can bulk test without one (VS) ???
         public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             const string gridOpenSpace = "<Grid ";

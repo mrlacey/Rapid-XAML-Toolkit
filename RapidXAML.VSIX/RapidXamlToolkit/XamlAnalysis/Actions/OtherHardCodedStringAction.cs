@@ -36,7 +36,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override void Execute(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            // Not really doing anything here as this action is just for development reference.
+            System.Diagnostics.Debug.WriteLine("Executing OtherHardCodedStringAction");
         }
     }
 }
