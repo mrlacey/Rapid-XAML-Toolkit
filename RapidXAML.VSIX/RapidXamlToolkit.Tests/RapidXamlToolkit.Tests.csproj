@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Grid\FakeTextSnapshot.cs" />
+    <Compile Include="Grid\FakeTextSnapshotLine.cs" />
     <Compile Include="Grid\GridExclusionsTests.cs" />
     <Compile Include="Grid\GridInsertRowPreviewTests.cs" />
     <Compile Include="Grid\GridProcessTests.cs" />
@@ -92,7 +93,9 @@
     <Compile Include="TestFileSystem.cs" />
     <Compile Include="TestProfile.cs" />
     <Compile Include="TestVisualStudioAbstraction.cs" />
+    <Compile Include="XamlAnalysis\ButtonProcessTests.cs" />
     <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\TextBlockProcessTests.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractorTests.cs" />
   </ItemGroup>
   <ItemGroup>

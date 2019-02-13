@@ -14,8 +14,6 @@ namespace RapidXamlToolkit.Tests.Grid
     [TestClass]
     public class GridProcessTests
     {
-        public TestContext TestContext { get; set; }
-
         // This should detect for and return as many tags as possible
         [TestMethod]
         public void CreatesMultipleTags()

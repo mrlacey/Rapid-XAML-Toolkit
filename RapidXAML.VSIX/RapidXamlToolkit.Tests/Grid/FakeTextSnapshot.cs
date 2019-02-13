@@ -87,7 +87,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
         public ITextSnapshotLine GetLineFromPosition(int position)
         {
-            throw new NotImplementedException();
+            return new FakeTextSnapshotLine(this);
         }
 
         public int GetLineNumberFromPosition(int position)
