@@ -44,12 +44,13 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception e)
             {
-                // TODO: also log this
                 result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot)
                 {
                     Description = "Unexpected error occurred while parsing XAML.",
                     ExtendedMessage = "Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: " + e,
                 });
+
+                RapidXamlPackage.Logger?.RecordException(e);
             }
 
             return result;
