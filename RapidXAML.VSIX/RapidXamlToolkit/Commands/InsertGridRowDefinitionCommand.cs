@@ -12,6 +12,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
 {
+    // TODO: remove this once the XA code is fully working
     internal sealed class InsertGridRowDefinitionCommand : BaseCommand
     {
         public const int CommandId = 4133;

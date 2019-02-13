@@ -10,7 +10,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class GridProcessor : XamlElementProcessor
     {
-        // TODO: also need to add all other grid related tag creation
+        // TODO: Add detection for assigned Row (and col) values without definitions: then add corresponding actions
         // TODO: add tests for this
         public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {

@@ -11,6 +11,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class TextBlockProcessor : XamlElementProcessor
     {
+        // TODO: add tests
         public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             if (TryGetAttribute(xamlElement, "Text", out int tbIndex, out int length, out string value))
