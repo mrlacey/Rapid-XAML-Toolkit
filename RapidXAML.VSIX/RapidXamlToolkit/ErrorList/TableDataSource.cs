@@ -15,8 +15,8 @@ namespace RapidXamlToolkit.ErrorList
     public class TableDataSource : ITableDataSource
     {
         private static TableDataSource _instance;
-        private readonly List<SinkManager> _managers = new List<SinkManager>();
         private static Dictionary<string, TableEntriesSnapshot> _snapshots = new Dictionary<string, TableEntriesSnapshot>();
+        private readonly List<SinkManager> managers = new List<SinkManager>();
 
         private TableDataSource()
         {
@@ -83,9 +83,9 @@ namespace RapidXamlToolkit.ErrorList
         {
             // This call can, in theory, happen from any thread so be appropriately thread safe.
             // In practice, it will probably be called only once from the UI thread (by the error list tool window).
-            lock (this._managers)
+            lock (this.managers)
             {
-                this._managers.Add(manager);
+                this.managers.Add(manager);
             }
         }
 
@@ -93,17 +93,17 @@ namespace RapidXamlToolkit.ErrorList
         {
             // This call can, in theory, happen from any thread so be appropriately thread safe.
             // In practice, it will probably be called only once from the UI thread (by the error list tool window).
-            lock (this._managers)
+            lock (this.managers)
             {
-                this._managers.Remove(manager);
+                this.managers.Remove(manager);
             }
         }
 
         public void UpdateAllSinks()
         {
-            lock (this._managers)
+            lock (this.managers)
             {
-                foreach (var manager in this._managers)
+                foreach (var manager in this.managers)
                 {
                     manager.UpdateSink(_snapshots.Values);
                 }
@@ -136,9 +136,9 @@ namespace RapidXamlToolkit.ErrorList
                 }
             }
 
-            lock (this._managers)
+            lock (this.managers)
             {
-                foreach (var manager in this._managers)
+                foreach (var manager in this.managers)
                 {
                     manager.RemoveSnapshots(urls);
                 }
@@ -157,9 +157,9 @@ namespace RapidXamlToolkit.ErrorList
 
             _snapshots.Clear();
 
-            lock (this._managers)
+            lock (this.managers)
             {
-                foreach (var manager in this._managers)
+                foreach (var manager in this.managers)
                 {
                     manager.Clear();
                 }

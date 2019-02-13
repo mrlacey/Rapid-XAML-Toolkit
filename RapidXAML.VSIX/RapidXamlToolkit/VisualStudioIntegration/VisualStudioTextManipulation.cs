@@ -9,16 +9,16 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 {
     public class VisualStudioTextManipulation : IVisualStudioTextManipulation
     {
-        protected readonly DTE dte;
-
         public VisualStudioTextManipulation(DTE dte)
         {
-            this.dte = dte ?? throw new ArgumentNullException(nameof(dte));
+            this.Dte = dte ?? throw new ArgumentNullException(nameof(dte));
         }
+
+        protected DTE Dte { get; }
 
         public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions = null)
         {
-            if (this.dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
+            if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 // Have to implement search and replace directly as built-in functionality doesn't provide the control to only replace within the desired area
                 // Plus need to allow areas (exclusions) where replacement shouldn't occur.
@@ -80,7 +80,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void InsertIntoActiveDocument(string text, int pos)
         {
-            if (this.dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
+            if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 txtDoc.Selection.MoveToAbsoluteOffset(pos);
                 txtDoc.Selection.Insert(text);
@@ -89,7 +89,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void InsertIntoActiveDocumentOnNextLine(string text, int pos)
         {
-            if (this.dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
+            if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 txtDoc.Selection.MoveToAbsoluteOffset(pos);
                 txtDoc.Selection.EndOfLine();
@@ -100,20 +100,20 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void StartSingleUndoOperation(string name)
         {
-            if (!this.dte.UndoContext.IsOpen)
+            if (!this.Dte.UndoContext.IsOpen)
             {
-                this.dte.UndoContext.Open(name);
+                this.Dte.UndoContext.Open(name);
             }
         }
 
         public void EndSingleUndoOperation()
         {
-            this.dte.UndoContext.Close();
+            this.Dte.UndoContext.Close();
         }
 
         public void InsertAtEndOfLine(int lineNumber, string toInsert)
         {
-            if (this.dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
+            if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 txtDoc.Selection.MoveToLineAndOffset(lineNumber, 1);
                 txtDoc.Selection.EndOfLine();

@@ -661,4 +661,19 @@
   <data name="Info_XamlAnalysisHardcodedStringTooltip" xml:space="preserve">
     <value>Hard coded string</value>
   </data>
+  <data name="UI_AddColumnDefinitions" xml:space="preserve">
+    <value>Add ColumnDefinitions</value>
+  </data>
+  <data name="UI_AddRowAndColumnDefinitions" xml:space="preserve">
+    <value>Add RowDefinitions and ColumnDefinitions</value>
+  </data>
+  <data name="UI_AddRowDefinitions" xml:space="preserve">
+    <value>Add RowDefinitions</value>
+  </data>
+  <data name="UI_InsertNewDefinitionForRow" xml:space="preserve">
+    <value>Insert new definition for row {this.tag.RowId}</value>
+  </data>
+  <data name="UI_MoveHardCodedString" xml:space="preserve">
+    <value>Move hard coded string to resource file.</value>
+  </data>
 </root>

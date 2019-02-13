@@ -6,6 +6,7 @@ using System.Threading;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Text.Editor;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
@@ -18,10 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override ImageMoniker IconMoniker => KnownMonikers.GenerateResource;
 
-        public override string DisplayText
-        {
-            get { return "Move hard coded string to resource file."; } // TODO: localize
-        }
+        public override string DisplayText => StringRes.UI_MoveHardCodedString;
 
         public static HardCodedStringAction Create(HardCodedStringTag tag, string file, ITextView view)
         {

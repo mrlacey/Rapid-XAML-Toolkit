@@ -36,6 +36,12 @@ namespace RapidXamlToolkit.XamlAnalysis
             RapidXamlDocumentCache.Add(this._file, textBuffer.CurrentSnapshot);
         }
 
+        public event EventHandler<EventArgs> SuggestedActionsChanged
+        {
+            add { }
+            remove { }
+        }
+
         // Observable event wrapper
         public IObservable<TextViewLayoutChangedEventArgs> WhenViewLayoutChanged
         {
@@ -47,12 +53,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         h => this._view.LayoutChanged -= h)
                     .Select(x => x.EventArgs);
             }
-        }
-
-        public event EventHandler<EventArgs> SuggestedActionsChanged
-        {
-            add { }
-            remove { }
         }
 
         public Task<ISuggestedActionCategorySet> GetSuggestedActionCategoriesAsync(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)

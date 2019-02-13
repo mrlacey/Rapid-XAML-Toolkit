@@ -59,6 +59,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e);
                 return string.Empty;
             }
         }

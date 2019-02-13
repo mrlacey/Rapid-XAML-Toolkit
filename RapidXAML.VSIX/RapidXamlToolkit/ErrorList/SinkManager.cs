@@ -14,18 +14,18 @@ namespace RapidXamlToolkit.ErrorList
         private readonly TableDataSource errorList;
         private List<TableEntriesSnapshot> snapshots = new List<TableEntriesSnapshot>();
 
-        public void Dispose()
-        {
-            // Called when the person who subscribed to the data source disposes of the cookie (== this object) they were given.
-            this.errorList.RemoveSinkManager(this);
-        }
-
         internal SinkManager(TableDataSource errorList, ITableDataSink sink)
         {
             this.sink = sink;
             this.errorList = errorList;
 
             errorList.AddSinkManager(this);
+        }
+
+        public void Dispose()
+        {
+            // Called when the person who subscribed to the data source disposes of the cookie (== this object) they were given.
+            this.errorList.RemoveSinkManager(this);
         }
 
         internal void Clear()

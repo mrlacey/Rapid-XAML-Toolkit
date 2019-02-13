@@ -31,12 +31,12 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public string GetActiveDocumentFileName()
         {
-            return this.dte.ActiveDocument.Name;
+            return this.Dte.ActiveDocument.Name;
         }
 
         public string GetActiveDocumentText()
         {
-            var activeDoc = this.dte.ActiveDocument;
+            var activeDoc = this.Dte.ActiveDocument;
 
             if (activeDoc.Object("TextDocument") is EnvDTE.TextDocument objectDoc)
             {
@@ -50,7 +50,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public ProjectWrapper GetActiveProject()
         {
-            return new ProjectWrapper(((Array)this.dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project);
+            return new ProjectWrapper(((Array)this.Dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project);
         }
 
         public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
@@ -82,7 +82,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public ProjectWrapper GetProject(string projectName)
         {
-            foreach (var project in this.dte.Solution.GetAllProjects())
+            foreach (var project in this.Dte.Solution.GetAllProjects())
             {
                 if (project.Name == projectName)
                 {
@@ -106,7 +106,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public bool ActiveDocumentIsCSharp()
         {
-            return this.dte.ActiveDocument.Language == "CSharp";
+            return this.Dte.ActiveDocument.Language == "CSharp";
         }
 
         public int GetCursorPosition()
@@ -118,8 +118,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public (int, int) GetCursorPositionAndLineNumber()
         {
-            var offset = ((TextSelection)this.dte.ActiveDocument.Selection).AnchorPoint.AbsoluteCharOffset;
-            var lineNo = ((TextSelection)this.dte.ActiveDocument.Selection).CurrentLine;
+            var offset = ((TextSelection)this.Dte.ActiveDocument.Selection).AnchorPoint.AbsoluteCharOffset;
+            var lineNo = ((TextSelection)this.Dte.ActiveDocument.Selection).CurrentLine;
 
             return (offset, lineNo);
         }

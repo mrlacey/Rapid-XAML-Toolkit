@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override ImageMoniker IconMoniker => KnownMonikers.TwoColumns;
 
-        public override string DisplayText { get; } = "Add ColumnDefinitions";  // TODO: localize
+        public override string DisplayText { get; } = StringRes.UI_AddColumnDefinitions;
 
         public static AddColumnDefinitionsAction Create(AddColumnDefinitionsTag tag)
         {

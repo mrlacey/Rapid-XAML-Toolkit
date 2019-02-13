@@ -1467,6 +1467,33 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add ColumnDefinitions.
+        /// </summary>
+        public static string UI_AddColumnDefinitions {
+            get {
+                return ResourceManager.GetString("UI_AddColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add RowDefinitions and ColumnDefinitions.
+        /// </summary>
+        public static string UI_AddRowAndColumnDefinitions {
+            get {
+                return ResourceManager.GetString("UI_AddRowAndColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add RowDefinitions.
+        /// </summary>
+        public static string UI_AddRowDefinitions {
+            get {
+                return ResourceManager.GetString("UI_AddRowDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} (copy).
         /// </summary>
         public static string UI_CopiedProfileName {
@@ -1481,6 +1508,24 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_CreatingOutputPaneFailed {
             get {
                 return ResourceManager.GetString("UI_CreatingOutputPaneFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert new definition for row {this.tag.RowId}.
+        /// </summary>
+        public static string UI_InsertNewDefinitionForRow {
+            get {
+                return ResourceManager.GetString("UI_InsertNewDefinitionForRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move hard coded string to resource file..
+        /// </summary>
+        public static string UI_MoveHardCodedString {
+            get {
+                return ResourceManager.GetString("UI_MoveHardCodedString", resourceCulture);
             }
         }
         

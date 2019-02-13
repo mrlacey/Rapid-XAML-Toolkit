@@ -34,10 +34,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override bool HasPreview => true;
 
-        public override string DisplayText
-        {
-            get { return $"Insert new definition for row {this.tag.RowId}"; }  // TODO: localize
-        }
+        public override string DisplayText => StringRes.UI_InsertNewDefinitionForRow.WithParams(this.tag.RowId);
 
         public override ImageMoniker IconMoniker => KnownMonikers.InsertClause;
 

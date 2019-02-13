@@ -11,20 +11,20 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class RapidXamlDocumentCache
     {
-        private static readonly Dictionary<string, RapidXamlDocument> cache = new Dictionary<string, RapidXamlDocument>();
+        private static readonly Dictionary<string, RapidXamlDocument> Cache = new Dictionary<string, RapidXamlDocument>();
 
         public static event EventHandler<RapidXamlParsingEventArgs> Parsed;
 
         public static void Add(string file, ITextSnapshot snapshot)
         {
-            if (cache.ContainsKey(file))
+            if (Cache.ContainsKey(file))
             {
                 Update(file, snapshot);
             }
             else
             {
                 var doc = RapidXamlDocument.Create(snapshot);
-                cache.Add(file, doc);
+                Cache.Add(file, doc);
 
                 Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Add));
             }
@@ -32,10 +32,10 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static void Update(string file, ITextSnapshot snapshot)
         {
-            if (cache[file].RawText != snapshot.GetText())
+            if (Cache[file].RawText != snapshot.GetText())
             {
                 var doc = RapidXamlDocument.Create(snapshot);
-                cache[file] = doc;
+                Cache[file] = doc;
 
                 Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Update));
             }
@@ -45,9 +45,9 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var result = new List<IRapidXamlAdornmentTag>();
 
-            if (cache.ContainsKey(fileName))
+            if (Cache.ContainsKey(fileName))
             {
-                result.AddRange(cache[fileName].Tags);
+                result.AddRange(Cache[fileName].Tags);
             }
 
             return result;
@@ -57,9 +57,9 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var result = new List<IRapidXamlErrorListTag>();
 
-            if (cache.ContainsKey(fileName))
+            if (Cache.ContainsKey(fileName))
             {
-                result.AddRange(cache[fileName].Tags.OfType<IRapidXamlErrorListTag>());
+                result.AddRange(Cache[fileName].Tags.OfType<IRapidXamlErrorListTag>());
             }
 
             return result;
