@@ -118,7 +118,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             return withInsertion;
         }
 
-        // TODO: add tests for this
+        // TODO: add tests for this which include exclusions
         public static string SwapReplacements(string originalXaml, List<(string find, string replace)> replacements, Dictionary<int, int> exclusions = null)
         {
             var result = originalXaml;
