@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.ErrorList
         private TableDataSource()
         {
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
-            compositionService.DefaultCompositionService.SatisfyImportsOnce(this);
+            compositionService?.DefaultCompositionService.SatisfyImportsOnce(this);
 
             var manager = this.TableManagerProvider.GetTableManager(StandardTables.ErrorsTable);
             manager.AddSource(
