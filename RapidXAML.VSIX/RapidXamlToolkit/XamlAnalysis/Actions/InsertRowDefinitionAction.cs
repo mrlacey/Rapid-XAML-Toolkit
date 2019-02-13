@@ -59,7 +59,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         }
 
         // TODO: need to allow for changing the Row of nested grids
-        // TODO: add test for this
         public static Dictionary<int, int> GetExclusions(string xaml)
         {
             const string gridOpen = "<Grid";
