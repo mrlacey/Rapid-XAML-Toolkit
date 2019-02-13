@@ -19,15 +19,20 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public class InsertRowDefinitionAction : BaseSuggestedAction
     {
-        public InsertRowDefinitionTag tag;
+        private readonly InsertRowDefinitionTag tag;
 
-        public override bool HasPreview => true;
+        private InsertRowDefinitionAction(InsertRowDefinitionTag tag)
+        {
+            this.tag = tag;
+        }
 
         public List<(string find, string replace)> Replacements { get; private set; }
 
         public Dictionary<int, int> Exclusions { get; private set; }
 
         public string PreviewText { get; private set; }
+
+        public override bool HasPreview => true;
 
         public override string DisplayText
         {
@@ -44,9 +49,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             var previewText = GetPreviewText(text, replacements, exclusions, tag);
 
-            var result = new InsertRowDefinitionAction
+            var result = new InsertRowDefinitionAction(tag)
             {
-                tag = tag,
                 File = file,
                 View = view,
                 Replacements = replacements,
@@ -58,6 +62,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         }
 
         // TODO: need to allow for changing the Row of nested grids
+        // TODO: add test for this
         public static Dictionary<int, int> GetExclusions(string xaml)
         {
             const string gridOpen = "<Grid";
@@ -117,15 +122,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             return withInsertion;
         }
 
-        public override Task<object> GetPreviewAsync(CancellationToken cancellationToken)
-        {
-            var textBlock = new TextBlock();
-            textBlock.Padding = new Thickness(5);
-            textBlock.Inlines.Add(new Run() { Text = this.PreviewText });
-
-            return Task.FromResult<object>(textBlock);
-        }
-
         // TODO: add tests for this
         public static string SwapReplacements(string originalXaml, List<(string find, string replace)> replacements, Dictionary<int, int> exclusions = null)
         {
@@ -171,6 +167,15 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             }
 
             return result;
+        }
+
+        public override Task<object> GetPreviewAsync(CancellationToken cancellationToken)
+        {
+            var textBlock = new TextBlock();
+            textBlock.Padding = new Thickness(5);
+            textBlock.Inlines.Add(new Run() { Text = this.PreviewText });
+
+            return Task.FromResult<object>(textBlock);
         }
 
         public override void Execute(CancellationToken cancellationToken)
