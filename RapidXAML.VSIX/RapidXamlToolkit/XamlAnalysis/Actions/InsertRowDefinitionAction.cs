@@ -31,7 +31,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override string DisplayText
         {
-            get { return $"Insert new definition for row {this.tag.RowId}"; }
+            get { return $"Insert new definition for row {this.tag.RowId}"; }  // TODO: localize
         }
 
         public override ImageMoniker IconMoniker => KnownMonikers.InsertClause;
@@ -104,14 +104,15 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             return result;
         }
 
+        // TODO: add more tests for grid nesting
         public static string GetPreviewText(string original, List<(string find, string replace)> replacements, Dictionary<int, int> exclusions, InsertRowDefinitionTag tag)
         {
             var withReplacements = SwapReplacements(original, replacements, exclusions);
 
-            var insertLineStart = withReplacements.Substring(0, tag.InsertPoint).LastIndexOf('\n') + 1;
+            var insertLineStart = withReplacements.Substring(tag.GridStartPos, tag.InsertPoint - tag.GridStartPos).LastIndexOf('\n') + 1;
 
-            var toInsert = new string(' ', tag.InsertPoint - insertLineStart) + tag.XamlTag + Environment.NewLine;
-            var withInsertion = withReplacements.Insert(tag.InsertPoint - tag.GridStartPos, toInsert);
+            var toInsert = tag.XamlTag + Environment.NewLine + new string(' ', tag.InsertPoint - tag.GridStartPos - insertLineStart);
+            var withInsertion = withReplacements.Insert(tag.InsertPoint, toInsert);
 
             return withInsertion;
         }

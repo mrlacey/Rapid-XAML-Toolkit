@@ -79,37 +79,44 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var list = new List<SuggestedActionSet>();
 
-            var rxTags = this.GetTags(range);
-
-            foreach (var rapidXamlTag in rxTags)
+            try
             {
-                switch (rapidXamlTag.SuggestedAction.Name)
+                var rxTags = this.GetTags(range);
+
+                foreach (var rxTag in rxTags)
                 {
-                    case nameof(InsertRowDefinitionAction):
-                        list.AddRange(this.CreateActionSet(InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rapidXamlTag, this._file, this._view)));
-                        break;
-                    case nameof(HardCodedStringAction):
-                        list.AddRange(this.CreateActionSet(HardCodedStringAction.Create((HardCodedStringTag)rapidXamlTag, this._file, this._view)));
-                        break;
-                    case nameof(OtherHardCodedStringAction):
-                        list.AddRange(this.CreateActionSet(OtherHardCodedStringAction.Create((OtherHardCodedStringTag)rapidXamlTag, this._file, this._view)));
-                        break;
-                    case nameof(AddRowDefinitionsAction):
-                        list.AddRange(this.CreateActionSet(AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rapidXamlTag)));
-                        break;
-                    case nameof(AddColumnDefinitionsAction):
-                        list.AddRange(this.CreateActionSet(AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rapidXamlTag)));
-                        break;
-                    case nameof(AddRowAndColumnDefinitionsAction):
-                        list.AddRange(this.CreateActionSet(AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rapidXamlTag)));
-                        break;
+                    switch (rxTag.SuggestedAction.Name)
+                    {
+                        case nameof(InsertRowDefinitionAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rxTag, this._file, this._view)));
+                            break;
+                        case nameof(HardCodedStringAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, HardCodedStringAction.Create((HardCodedStringTag)rxTag, this._file, this._view)));
+                            break;
+                        case nameof(OtherHardCodedStringAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, OtherHardCodedStringAction.Create((OtherHardCodedStringTag)rxTag, this._file, this._view)));
+                            break;
+                        case nameof(AddRowDefinitionsAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rxTag)));
+                            break;
+                        case nameof(AddColumnDefinitionsAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rxTag)));
+                            break;
+                        case nameof(AddRowAndColumnDefinitionsAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rxTag)));
+                            break;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                RapidXamlPackage.Logger?.RecordException(e);
             }
 
             return list;
         }
 
-        public IEnumerable<SuggestedActionSet> CreateActionSet(params BaseSuggestedAction[] actions)
+        public IEnumerable<SuggestedActionSet> CreateActionSet(Span span, params BaseSuggestedAction[] actions)
         {
             var enabledActions = actions.Where(action => action.IsEnabled);
             return new[]
@@ -118,7 +125,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                     PredefinedSuggestedActionCategoryNames.Refactoring,
                     actions: enabledActions,
                     title: "Rapid XAML",
-                    priority: SuggestedActionSetPriority.None),
+                    priority: SuggestedActionSetPriority.None,
+                    applicableToSpan: span),
             };
         }
 
