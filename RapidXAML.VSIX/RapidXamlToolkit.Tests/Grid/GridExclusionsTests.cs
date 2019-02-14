@@ -31,7 +31,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var expected = new Dictionary<int, int>();
 
-            this.ShouldReturnExpectedBoundary(xaml, expected);
+            this.ShouldReturnExpectedExclusions(xaml, expected);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var expected = new Dictionary<int, int> { { 244, 542 } };
 
-            this.ShouldReturnExpectedBoundary(xaml, expected);
+            this.ShouldReturnExpectedExclusions(xaml, expected);
         }
 
         [TestMethod]
@@ -102,7 +102,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var expected = new Dictionary<int, int> { { 244, 542 }, { 554, 798 } };
 
-            this.ShouldReturnExpectedBoundary(xaml, expected);
+            this.ShouldReturnExpectedExclusions(xaml, expected);
         }
 
         [TestMethod]
@@ -132,7 +132,7 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + "                <!-- Content omitted -->"
 + Environment.NewLine + ""
 + Environment.NewLine + "            </Grid>"
- + Environment.NewLine + ""
++ Environment.NewLine + ""
 + Environment.NewLine + "            <!-- Content omitted -->"
 + Environment.NewLine + ""
 + Environment.NewLine + "        </Grid>"
@@ -154,10 +154,10 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var expected = new Dictionary<int, int>() { { 199, 672 }, { 743, 1036 } };
 
-            this.ShouldReturnExpectedBoundary(xaml, expected);
+            this.ShouldReturnExpectedExclusions(xaml, expected);
         }
 
-        private void ShouldReturnExpectedBoundary(string xaml, Dictionary<int, int> expected)
+        private void ShouldReturnExpectedExclusions(string xaml, Dictionary<int, int> expected)
         {
             var exclusions = InsertRowDefinitionAction.GetExclusions(xaml);
 

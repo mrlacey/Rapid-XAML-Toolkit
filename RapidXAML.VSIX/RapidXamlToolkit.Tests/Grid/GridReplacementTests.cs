@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.Tests.Grid
                 (" Grid.Row=\"0\"", " Grid.Row=\"1\""),
             };
 
-            this.PositionAtStarShouldReturnExpectedReplacements(0, 7, expected);
+            this.GeneratesExpectedReplacements(0, 7, expected);
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@ namespace RapidXamlToolkit.Tests.Grid
                 (" Grid.Row=\"1\"", " Grid.Row=\"2\""),
             };
 
-            this.PositionAtStarShouldReturnExpectedReplacements(1, 7, expected);
+            this.GeneratesExpectedReplacements(1, 7, expected);
         }
 
         [TestMethod]
@@ -53,7 +53,7 @@ namespace RapidXamlToolkit.Tests.Grid
                 (" Grid.Row=\"6\"", " Grid.Row=\"7\""),
             };
 
-            this.PositionAtStarShouldReturnExpectedReplacements(6, 7, expected);
+            this.GeneratesExpectedReplacements(6, 7, expected);
         }
 
         [TestMethod]
@@ -65,10 +65,10 @@ namespace RapidXamlToolkit.Tests.Grid
                 (" Grid.Row=\"1\"", " Grid.Row=\"2\""),
             };
 
-            this.PositionAtStarShouldReturnExpectedReplacements(1, 3, expected);
+            this.GeneratesExpectedReplacements(1, 3, expected);
         }
 
-        private void PositionAtStarShouldReturnExpectedReplacements(int row, int total, List<(string, string)> expected)
+        private void GeneratesExpectedReplacements(int row, int total, List<(string, string)> expected)
         {
             var actual = InsertRowDefinitionAction.GetReplacements(row, total);
 
