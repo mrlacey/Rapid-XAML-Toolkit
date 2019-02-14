@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.XamlAnalysis;
@@ -31,7 +32,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var expected = new Dictionary<int, int>();
 
-            this.ShouldReturnExpectedExclusions(xaml, expected);
+            this.ShouldReturnExclusionsMarkedByStars(xaml);
         }
 
         [TestMethod]
@@ -46,7 +47,7 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "        <!-- Content omitted -->"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        <Grid Grid.Row=\"1\">"
++ Environment.NewLine + "        ☆<Grid Grid.Row=\"1\">"
 + Environment.NewLine + "            <Grid.RowDefinitions>"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
@@ -55,12 +56,10 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "            <!-- Content omitted -->"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "        </Grid>☆"
 + Environment.NewLine + "    </Grid>";
 
-            var expected = new Dictionary<int, int> { { 244, 542 } };
-
-            this.ShouldReturnExpectedExclusions(xaml, expected);
+            this.ShouldReturnExclusionsMarkedByStars(xaml);
         }
 
         [TestMethod]
@@ -75,7 +74,7 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "        <!-- Content omitted -->"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        <Grid Grid.Row=\"1\">"
++ Environment.NewLine + "        ☆<Grid Grid.Row=\"1\">"
 + Environment.NewLine + "            <Grid.RowDefinitions>"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
@@ -84,9 +83,9 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "            <!-- Content omitted -->"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "        </Grid>☆"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        <Grid Grid.Row=\"2\">"
++ Environment.NewLine + "        ☆<Grid Grid.Row=\"2\">"
 + Environment.NewLine + "            <Grid.RowDefinitions>"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
 + Environment.NewLine + "                <RowDefinition Height=\"*\" />"
@@ -94,15 +93,13 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "            <!-- Content omitted -->"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "        </Grid>☆"
 + Environment.NewLine + ""
 + Environment.NewLine + "        <!-- Content omitted -->"
 + Environment.NewLine + ""
 + Environment.NewLine + "    </Grid>";
 
-            var expected = new Dictionary<int, int> { { 244, 542 }, { 554, 798 } };
-
-            this.ShouldReturnExpectedExclusions(xaml, expected);
+            this.ShouldReturnExclusionsMarkedByStars(xaml);
         }
 
         [TestMethod]
@@ -116,7 +113,7 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "        <!-- Content omitted -->"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        <Grid Grid.Row=\"0\">"
++ Environment.NewLine + "        ☆<Grid Grid.Row=\"0\">"
 + Environment.NewLine + "            <Grid.RowDefinitions>"
 + Environment.NewLine + "                <RowDefinition Height=\"*\" />"
 + Environment.NewLine + "                <RowDefinition Height=\"*\" />"
@@ -135,9 +132,9 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "            <!-- Content omitted -->"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "        </Grid>☆"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        <Grid Grid.Row=\"1\">"
++ Environment.NewLine + "        ☆<Grid Grid.Row=\"1\">"
 + Environment.NewLine + "            <Grid.RowDefinitions>"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
@@ -146,20 +143,36 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "            <!-- Content omitted -->"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "        </Grid>☆"
 + Environment.NewLine + ""
 + Environment.NewLine + "        <!-- Content omitted -->"
 + Environment.NewLine + ""
 + Environment.NewLine + "    </Grid>";
 
-            var expected = new Dictionary<int, int>() { { 199, 672 }, { 743, 1036 } };
-
-            this.ShouldReturnExpectedExclusions(xaml, expected);
+            this.ShouldReturnExclusionsMarkedByStars(xaml);
         }
 
-        private void ShouldReturnExpectedExclusions(string xaml, Dictionary<int, int> expected)
+        private void ShouldReturnExclusionsMarkedByStars(string xamlWithStars)
         {
-            var exclusions = InsertRowDefinitionAction.GetExclusions(xaml);
+            // Stars mark the boundaries of the excluded areas - there should always be an even number
+            Assert.AreEqual(0, xamlWithStars.Count(c => c.ToString() == "☆") % 2, "Missing '☆' in xaml.");
+
+            var expected = new Dictionary<int, int>() { };
+
+            var actualXaml = xamlWithStars;
+
+            while (actualXaml.Contains("☆"))
+            {
+                var areaStart = actualXaml.IndexOf("☆", StringComparison.Ordinal);
+                var areaEnd = actualXaml.IndexOf("☆", areaStart + 1, StringComparison.Ordinal) - 1; // remove 1 to account for the opening placeholder
+
+                expected.Add(areaStart, areaEnd);
+
+                actualXaml = actualXaml.Remove(areaStart, 1);
+                actualXaml = actualXaml.Remove(areaEnd, 1);
+            }
+
+            var exclusions = InsertRowDefinitionAction.GetExclusions(actualXaml);
 
             Assert.IsNotNull(exclusions);
             Assert.AreEqual(expected.Count, exclusions.Count);

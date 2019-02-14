@@ -74,7 +74,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             {
                 var endPos = xaml.IndexOf(gridClose, nextOpening, StringComparison.Ordinal) + gridClose.Length;
 
-                exclusions.Add(nextOpening, endPos);
+                exclusions.Add(nextOpening + gridOpen.Length, endPos);
 
                 var searchFrom = endPos + 1;
 
