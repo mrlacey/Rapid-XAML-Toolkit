@@ -267,6 +267,7 @@
     <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
     <Compile Include="XamlAnalysis\TextBlockProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
+    <Compile Include="XamlAnalysis\XamlAnalysisHelpers.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
     <Compile Include="XamlAnalysis\XamlElementProcessor.cs" />
     <Compile Include="Telemetry\CoreDetails.cs" />

@@ -68,22 +68,99 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             var exclusions = new Dictionary<int, int>();
 
-            var nextOpening = xaml.Substring(gridOpen.Length).FirstIndexOf(gridOpenComplete, gridOpenSpace);
+            var tagOfInterestPos = xaml.Substring(gridOpen.Length).FirstIndexOf(gridOpenComplete, gridOpenSpace) + gridOpen.Length;
 
-            while (nextOpening > -1 && nextOpening < xaml.Length)
+            var openings = 0;
+
+            int startClosePos = 0;
+
+            while (tagOfInterestPos > gridOpen.Length && tagOfInterestPos < xaml.Length)
             {
-                var endPos = xaml.IndexOf(gridClose, nextOpening, StringComparison.Ordinal) + gridClose.Length;
+                if (xaml.Substring(tagOfInterestPos, 2) == "</")
+                {
+                    if (openings == 1)
+                    {
+                        exclusions.Add(startClosePos + 1, tagOfInterestPos + gridClose.Length);
+                        openings = 0;
+                    }
+                    else
+                    {
+                        openings -= 1;
+                    }
+                }
+                else
+                {
+                    if (!XamlAnalysisHelpers.IsSelfClosing(xaml, tagOfInterestPos))
+                    {
+                        if (openings <= 0)
+                        {
+                            startClosePos = xaml.IndexOf(">", tagOfInterestPos, StringComparison.Ordinal);
+                            openings = 1;
+                        }
+                        else
+                        {
+                            openings += 1;
+                        }
+                    }
+                }
 
-                exclusions.Add(nextOpening + gridOpen.Length, endPos);
-
-                var searchFrom = endPos + 1;
-
-                nextOpening = xaml.Substring(searchFrom).FirstIndexOf(gridOpenComplete, gridOpenSpace);
+                var nextOpening = xaml.Substring(tagOfInterestPos + gridOpen.Length).FirstIndexOf(gridOpenComplete, gridOpenSpace);
 
                 if (nextOpening > -1)
                 {
-                    nextOpening += searchFrom;
+                    nextOpening += tagOfInterestPos + gridOpen.Length;
                 }
+
+                var nextClosing = xaml.IndexOf(gridClose, tagOfInterestPos + gridOpen.Length, StringComparison.Ordinal);
+
+                tagOfInterestPos = nextOpening > -1 && nextOpening < nextClosing ? nextOpening : nextClosing;
+
+                //   int searchFrom;
+                //
+                //   if (XamlAnalysisHelpers.IsSelfClosing(xaml, nextOpening))
+                //   {
+                //       searchFrom = nextOpening + gridOpenSpace.Length;
+                //   }
+                //   else
+                //   {
+                //       if (subGridCount <= 0)
+                //       {
+                //           startClosePos = xaml.IndexOf(">", nextOpening, StringComparison.Ordinal);
+                //           subGridCount = 0;
+                //       }
+                //
+                //       var subsequentOpen = xaml.Substring(nextOpening + gridOpen.Length).FirstIndexOf(gridOpenComplete, gridOpenSpace);
+                //
+                //       var endPos = xaml.IndexOf(gridClose, nextOpening, StringComparison.Ordinal) + gridClose.Length;
+                //
+                //       if (subsequentOpen > -1 && subsequentOpen + nextOpening + gridOpen.Length < endPos)
+                //       {
+                //           subGridCount += 1;
+                //           searchFrom = subsequentOpen + nextOpening + gridOpen.Length;
+                //       }
+                //       else
+                //       {
+                //           if (subGridCount == 1)
+                //           {
+                //               endPos = xaml.IndexOf(gridClose, endPos + 1, StringComparison.Ordinal) + gridClose.Length;
+                //           }
+                //
+                //           subGridCount -= 1;
+                //           searchFrom = endPos + 1;
+                //       }
+                //
+                //       if (subGridCount <= 0)
+                //       {
+                //           exclusions.Add(startClosePos + 1, endPos);
+                //       }
+                //   }
+                //
+                //   nextOpening = xaml.Substring(searchFrom).FirstIndexOf(gridOpenComplete, gridOpenSpace);
+                //
+                //   if (nextOpening > -1)
+                //   {
+                //       nextOpening += searchFrom;
+                //   }
             }
 
             return exclusions;

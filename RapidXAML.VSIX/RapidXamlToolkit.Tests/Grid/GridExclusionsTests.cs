@@ -47,7 +47,7 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "        <!-- Content omitted -->"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        ☆<Grid Grid.Row=\"1\">"
++ Environment.NewLine + "        <Grid Grid.Row=\"1\">☆"
 + Environment.NewLine + "            <Grid.RowDefinitions>"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
@@ -57,6 +57,24 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + "            <!-- Content omitted -->"
 + Environment.NewLine + ""
 + Environment.NewLine + "        </Grid>☆"
++ Environment.NewLine + "    </Grid>";
+
+            this.ShouldReturnExclusionsMarkedByStars(xaml);
+        }
+
+        [TestMethod]
+        public void GetGridBoundary_SingleNestedEmptyGrid_NotTreatedAsExclusion()
+        {
+            var xaml = "<Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"Auto\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <!-- Content omitted -->"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <Grid Grid.Row=\"1\" />"
 + Environment.NewLine + "    </Grid>";
 
             this.ShouldReturnExclusionsMarkedByStars(xaml);
@@ -74,7 +92,7 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "        <!-- Content omitted -->"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        ☆<Grid Grid.Row=\"1\">"
++ Environment.NewLine + "        <Grid Grid.Row=\"1\">☆"
 + Environment.NewLine + "            <Grid.RowDefinitions>"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
@@ -85,7 +103,7 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "        </Grid>☆"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        ☆<Grid Grid.Row=\"2\">"
++ Environment.NewLine + "        <Grid Grid.Row=\"2\">☆"
 + Environment.NewLine + "            <Grid.RowDefinitions>"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
 + Environment.NewLine + "                <RowDefinition Height=\"*\" />"
@@ -113,7 +131,7 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "        <!-- Content omitted -->"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        ☆<Grid Grid.Row=\"0\">"
++ Environment.NewLine + "        <Grid Grid.Row=\"0\">☆"
 + Environment.NewLine + "            <Grid.RowDefinitions>"
 + Environment.NewLine + "                <RowDefinition Height=\"*\" />"
 + Environment.NewLine + "                <RowDefinition Height=\"*\" />"
@@ -134,7 +152,7 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "        </Grid>☆"
 + Environment.NewLine + ""
-+ Environment.NewLine + "        ☆<Grid Grid.Row=\"1\">"
++ Environment.NewLine + "        <Grid Grid.Row=\"1\">☆"
 + Environment.NewLine + "            <Grid.RowDefinitions>"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
 + Environment.NewLine + "                <RowDefinition Height=\"Auto\" />"
@@ -148,6 +166,61 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + "        <!-- Content omitted -->"
 + Environment.NewLine + ""
 + Environment.NewLine + "    </Grid>";
+
+            this.ShouldReturnExclusionsMarkedByStars(xaml);
+        }
+
+        [TestMethod]
+        public void GetGridBoundary_MultipleLevelNestedGrids_NestingNotFirst()
+        {
+            var xaml = "<Grid>"
++ Environment.NewLine + "    <Grid>☆"
++ Environment.NewLine + "    </Grid>☆"
++ Environment.NewLine + "    <Grid>☆"
++ Environment.NewLine + "    </Grid>☆"
++ Environment.NewLine + "    <Grid>☆"
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "    </Grid>☆"
++ Environment.NewLine + "</Grid>";
+
+            this.ShouldReturnExclusionsMarkedByStars(xaml);
+        }
+
+        [TestMethod]
+        public void GetGridBoundary_MultipleMultipleLevelNestedGrids()
+        {
+            var xaml = "<Grid>"
++ Environment.NewLine + "    <Grid>☆"
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "    </Grid>☆"
++ Environment.NewLine + "    <Grid>☆"
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "    </Grid>☆"
++ Environment.NewLine + "    <Grid>☆"
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "    </Grid>☆"
++ Environment.NewLine + "</Grid>";
+
+            this.ShouldReturnExclusionsMarkedByStars(xaml);
+        }
+
+        [TestMethod]
+        public void GetGridBoundary_MultipleLevelNestedGrids_VeryDeep()
+        {
+            var xaml = "<Grid>"
++ Environment.NewLine + "    <Grid>☆"
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "            <Grid>"
++ Environment.NewLine + "                <Grid>"
++ Environment.NewLine + "                </Grid>"
++ Environment.NewLine + "            </Grid>"
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "    </Grid>☆"
++ Environment.NewLine + "</Grid>";
 
             this.ShouldReturnExclusionsMarkedByStars(xaml);
         }

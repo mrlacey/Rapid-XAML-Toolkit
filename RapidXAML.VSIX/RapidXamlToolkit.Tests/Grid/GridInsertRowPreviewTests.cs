@@ -181,7 +181,6 @@ namespace RapidXamlToolkit.Tests.Grid
             StringAssert.AreEqual(expected, actual);
         }
 
-
         [TestMethod]
         public void RealWorldExample()
         {
