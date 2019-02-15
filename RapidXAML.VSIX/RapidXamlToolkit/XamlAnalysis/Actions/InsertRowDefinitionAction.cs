@@ -58,7 +58,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             return result;
         }
 
-        // TODO: need to allow for changing the Row of nested grids
+        // TODO: abstract this logic into XamlAnalysisHelpers and make tag agnostic
         public static Dictionary<int, int> GetExclusions(string xaml)
         {
             const string gridOpen = "<Grid";
@@ -68,16 +68,21 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             var exclusions = new Dictionary<int, int>();
 
+            // This is the opening position of the next opening (here) or closing (when set subsequently) tag
             var tagOfInterestPos = xaml.Substring(gridOpen.Length).FirstIndexOf(gridOpenComplete, gridOpenSpace) + gridOpen.Length;
 
+            // track the number of open tags seen so know when get to the corresponding closing one.
             var openings = 0;
 
+            // Track this outside the loop as may have nesting.
             int startClosePos = 0;
 
             while (tagOfInterestPos > gridOpen.Length && tagOfInterestPos < xaml.Length)
             {
+                // closing tags
                 if (xaml.Substring(tagOfInterestPos, 2) == "</")
                 {
+                    // Allow for having seen multiple openings before the closing
                     if (openings == 1)
                     {
                         exclusions.Add(startClosePos + 1, tagOfInterestPos + gridClose.Length);
@@ -90,8 +95,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 }
                 else
                 {
+                    // ignore self closing tags as nothing to exclude
                     if (!XamlAnalysisHelpers.IsSelfClosing(xaml, tagOfInterestPos))
                     {
+                        // opening tag s
                         if (openings <= 0)
                         {
                             startClosePos = xaml.IndexOf(">", tagOfInterestPos, StringComparison.Ordinal);
@@ -104,6 +111,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     }
                 }
 
+                // Find next opening or closing tag
                 var nextOpening = xaml.Substring(tagOfInterestPos + gridOpen.Length).FirstIndexOf(gridOpenComplete, gridOpenSpace);
 
                 if (nextOpening > -1)
@@ -114,53 +122,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 var nextClosing = xaml.IndexOf(gridClose, tagOfInterestPos + gridOpen.Length, StringComparison.Ordinal);
 
                 tagOfInterestPos = nextOpening > -1 && nextOpening < nextClosing ? nextOpening : nextClosing;
-
-                //   int searchFrom;
-                //
-                //   if (XamlAnalysisHelpers.IsSelfClosing(xaml, nextOpening))
-                //   {
-                //       searchFrom = nextOpening + gridOpenSpace.Length;
-                //   }
-                //   else
-                //   {
-                //       if (subGridCount <= 0)
-                //       {
-                //           startClosePos = xaml.IndexOf(">", nextOpening, StringComparison.Ordinal);
-                //           subGridCount = 0;
-                //       }
-                //
-                //       var subsequentOpen = xaml.Substring(nextOpening + gridOpen.Length).FirstIndexOf(gridOpenComplete, gridOpenSpace);
-                //
-                //       var endPos = xaml.IndexOf(gridClose, nextOpening, StringComparison.Ordinal) + gridClose.Length;
-                //
-                //       if (subsequentOpen > -1 && subsequentOpen + nextOpening + gridOpen.Length < endPos)
-                //       {
-                //           subGridCount += 1;
-                //           searchFrom = subsequentOpen + nextOpening + gridOpen.Length;
-                //       }
-                //       else
-                //       {
-                //           if (subGridCount == 1)
-                //           {
-                //               endPos = xaml.IndexOf(gridClose, endPos + 1, StringComparison.Ordinal) + gridClose.Length;
-                //           }
-                //
-                //           subGridCount -= 1;
-                //           searchFrom = endPos + 1;
-                //       }
-                //
-                //       if (subGridCount <= 0)
-                //       {
-                //           exclusions.Add(startClosePos + 1, endPos);
-                //       }
-                //   }
-                //
-                //   nextOpening = xaml.Substring(searchFrom).FirstIndexOf(gridOpenComplete, gridOpenSpace);
-                //
-                //   if (nextOpening > -1)
-                //   {
-                //       nextOpening += searchFrom;
-                //   }
             }
 
             return exclusions;
