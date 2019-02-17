@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis
@@ -32,11 +33,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     result.RawText = text;
 
+                    // TODO: Need to limit processors to only run on appropriate platform (UWP/WPF/XF)
                     var processors = new List<(string, XamlElementProcessor)>
                     {
-                        ("Grid", new GridProcessor()),
-                        ("TextBlock", new TextBlockProcessor()),
-                        ("Button", new ButtonProcessor()),
+                        (Elements.Grid, new GridProcessor()),
+                        (Elements.TextBlock, new TextBlockProcessor()),
+                        (Elements.Button, new ButtonProcessor()),
+                        (Elements.Entry, new EntryProcessor()),
                     };
 
                     XamlElementExtractor.Parse(snapshot, text, processors, result.Tags);

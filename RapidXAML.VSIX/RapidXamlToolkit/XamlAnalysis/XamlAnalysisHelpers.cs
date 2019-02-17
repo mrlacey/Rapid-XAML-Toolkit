@@ -5,6 +5,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlAnalysisHelpers
     {
+        // TODO: Add Tests for XAH.IsSelfClosing
         public static bool IsSelfClosing(string xaml, int startPoint = 0)
         {
             var foundSelfCloser = false;
@@ -25,6 +26,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             // Shouldn't ever get here if passed valid XAML and startPoint is valid
             return false;
+        }
+
+        // TODO: Add Tests for XAH.HasAttribute
+        public static bool HasAttribute(string attributeName)
+        {
+            // TODO: implement HasAttribute
+            return true;
         }
     }
 }

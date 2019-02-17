@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis
@@ -21,10 +22,10 @@ namespace RapidXamlToolkit.XamlAnalysis
             bool isClosingElement = false;
             int currentElementStartPos = -1;
 
-            string lastElementName = string.Empty;
-            StringBuilder currentElementName = new StringBuilder();
-            StringBuilder currentElementBody = new StringBuilder();
-            StringBuilder closingElementName = new StringBuilder();
+            var lastElementName = string.Empty;
+            var currentElementName = new StringBuilder();
+            var currentElementBody = new StringBuilder();
+            var closingElementName = new StringBuilder();
 
             for (int i = 0; i < xaml.Length; i++)
             {

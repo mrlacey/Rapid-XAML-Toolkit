@@ -3,11 +3,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
-namespace RapidXamlToolkit.XamlAnalysis
+namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public abstract class XamlElementProcessor
     {

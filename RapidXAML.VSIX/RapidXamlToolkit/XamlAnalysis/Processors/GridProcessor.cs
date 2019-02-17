@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
-namespace RapidXamlToolkit.XamlAnalysis
+namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class GridProcessor : XamlElementProcessor
     {
