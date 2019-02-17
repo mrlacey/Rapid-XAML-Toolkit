@@ -5,7 +5,6 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlAnalysisHelpers
     {
-        // TODO: Add Tests for XAH.IsSelfClosing
         public static bool IsSelfClosing(string xaml, int startPoint = 0)
         {
             var foundSelfCloser = false;

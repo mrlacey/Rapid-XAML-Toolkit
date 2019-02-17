@@ -96,6 +96,7 @@
     <Compile Include="XamlAnalysis\ButtonProcessTests.cs" />
     <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\TextBlockProcessTests.cs" />
+    <Compile Include="XamlAnalysis\XamlAnalysisHelpersTests.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractorTests.cs" />
   </ItemGroup>
   <ItemGroup>

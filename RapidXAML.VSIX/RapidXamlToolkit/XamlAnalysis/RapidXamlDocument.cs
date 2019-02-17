@@ -47,6 +47,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception e)
             {
+                // TODO: localize this content
                 result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot)
                 {
                     Description = "Unexpected error occurred while parsing XAML.",

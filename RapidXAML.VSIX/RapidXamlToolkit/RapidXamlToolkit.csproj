@@ -232,6 +232,7 @@
     <Compile Include="XamlAnalysis\Actions\OtherHardCodedStringAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Attributes.cs" />
+    <Compile Include="XamlAnalysis\Elements.cs" />
     <Compile Include="XamlAnalysis\Processors\ButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\EntryProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\AddColumnDefinitionsTag.cs" />

@@ -6,7 +6,9 @@ namespace RapidXamlToolkit.XamlAnalysis
     public class Attributes
     {
         public static string Content => "Content";
+
         public static string Keyboard => "Keyboard";
+
         public static string Text => "Text";
     }
 }
