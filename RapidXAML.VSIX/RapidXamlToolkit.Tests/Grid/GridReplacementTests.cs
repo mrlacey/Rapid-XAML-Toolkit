@@ -68,6 +68,48 @@ namespace RapidXamlToolkit.Tests.Grid
             this.GeneratesExpectedReplacements(1, 3, expected);
         }
 
+        [TestMethod]
+        public void SwapReplacements_Simple()
+        {
+            Assert.Inconclusive("Implement this test");
+        }
+
+        [TestMethod]
+        public void SwapReplacements_NothingToReplace()
+        {
+            Assert.Inconclusive("Implement this test");
+        }
+
+        [TestMethod]
+        public void SwapReplacements_NotAllIndexesDefined()
+        {
+            Assert.Inconclusive("Implement this test");
+        }
+
+        [TestMethod]
+        public void SwapReplacements_MultipleIndexInstances()
+        {
+            Assert.Inconclusive("Implement this test");
+        }
+
+        [TestMethod]
+        public void SwapReplacements_MultipleIndexInstances_NotInOrder()
+        {
+            Assert.Inconclusive("Implement this test");
+        }
+
+        [TestMethod]
+        public void SwapReplacements_IgnoresSingleExclusion()
+        {
+            Assert.Inconclusive("Implement this test");
+        }
+
+        [TestMethod]
+        public void SwapReplacements_IgnoresMultipleExclusions()
+        {
+            Assert.Inconclusive("Implement this test");
+        }
+
         private void GeneratesExpectedReplacements(int row, int total, List<(string, string)> expected)
         {
             var actual = InsertRowDefinitionAction.GetReplacements(row, total);

@@ -270,6 +270,39 @@ namespace RapidXamlToolkit.Tests.Grid
             this.ShouldReturnExclusionsMarkedByStars(xaml);
         }
 
+        [TestMethod]
+        public void GetGridBoundary_MultipleDeepNestedChildGrids_VaryingDepths_Plus_TrailingWhitespace()
+        {
+            var xaml = "<Grid>"
+                       + Environment.NewLine + "    <Grid>☆"
+                       + Environment.NewLine + "        <Grid>"
+                       + Environment.NewLine + "            <Grid />"
+                       + Environment.NewLine + "            <Grid />"
+                       + Environment.NewLine + "            <Grid>"
+                       + Environment.NewLine + "                <Grid>"
+                       + Environment.NewLine + "                    <Grid />"
+                       + Environment.NewLine + "                </Grid>"
+                       + Environment.NewLine + "                <Grid>"
+                       + Environment.NewLine + "                    <Grid />"
+                       + Environment.NewLine + "                </Grid>"
+                       + Environment.NewLine + "            </Grid>"
+                       + Environment.NewLine + "        </Grid>"
+                       + Environment.NewLine + "        <Grid>"
+                       + Environment.NewLine + "        </Grid>"
+                       + Environment.NewLine + "    </Grid>☆"
+                       + Environment.NewLine + "    <Grid>☆"
+                       + Environment.NewLine + "    </Grid>☆"
+                       + Environment.NewLine + "</Grid>    "
+                       + Environment.NewLine + "       "
+                       + Environment.NewLine + "      "
+                       + Environment.NewLine + "          "
+                       + Environment.NewLine + "     "
+                       + Environment.NewLine + ""
+                       + Environment.NewLine + "";
+
+            this.ShouldReturnExclusionsMarkedByStars(xaml);
+        }
+
         private void ShouldReturnExclusionsMarkedByStars(string xamlWithStars)
         {
             // Stars mark the boundaries of the excluded areas - there should always be an even number
