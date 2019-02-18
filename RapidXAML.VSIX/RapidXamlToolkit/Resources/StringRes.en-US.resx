@@ -676,4 +676,10 @@
   <data name="UI_MoveHardCodedString" xml:space="preserve">
     <value>Move hard coded string to resource file.</value>
   </data>
+  <data name="Error_XamlAnalysisDescription" xml:space="preserve">
+    <value>Unexpected error occurred while parsing XAML.</value>
+  </data>
+  <data name="Error_XamlAnalysisExtendedMessage" xml:space="preserve">
+    <value>Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: {0}</value>
+  </data>
 </root>

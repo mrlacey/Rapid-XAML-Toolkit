@@ -70,6 +70,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unexpected error occurred while parsing XAML..
+        /// </summary>
+        public static string Error_XamlAnalysisDescription {
+            get {
+                return ResourceManager.GetString("Error_XamlAnalysisDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: {0}.
+        /// </summary>
+        public static string Error_XamlAnalysisExtendedMessage {
+            get {
+                return ResourceManager.GetString("Error_XamlAnalysisExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding {0} row definitions..
         /// </summary>
         public static string Info_AddedRowDefsCount {

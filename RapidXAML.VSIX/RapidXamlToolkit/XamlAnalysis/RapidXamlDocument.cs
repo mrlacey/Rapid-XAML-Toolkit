@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -47,11 +48,10 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception e)
             {
-                // TODO: localize this content
                 result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot)
                 {
-                    Description = "Unexpected error occurred while parsing XAML.",
-                    ExtendedMessage = "Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: " + e,
+                    Description = StringRes.Error_XamlAnalysisDescription,
+                    ExtendedMessage = StringRes.Error_XamlAnalysisExtendedMessage.WithParams(e),
                 });
 
                 RapidXamlPackage.Logger?.RecordException(e);
