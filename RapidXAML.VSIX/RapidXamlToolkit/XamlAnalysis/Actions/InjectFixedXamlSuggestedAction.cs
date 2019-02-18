@@ -37,7 +37,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         public override void Execute(CancellationToken cancellationToken)
         {
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
-            vs.StartSingleUndoOperation(StringRes.Info_UndoContextIndertRowDef);
+            vs.StartSingleUndoOperation(this.UndoOperationName);
             try
             {
                 // TODO: pad lines with appropriate whitespace
