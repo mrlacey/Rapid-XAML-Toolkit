@@ -357,6 +357,42 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.IsFalse(this.StarIndicatesOffsetHasAttribute("Attr", xaml));
         }
 
+        [TestMethod]
+        public void HasDefaultValue()
+        {
+            Assert.IsTrue(XamlAnalysisHelpers.HasDefaultValue("<TextBlock>Hello World</TextBlock>"));
+        }
+
+        [TestMethod]
+        public void HasDefaultValue_Whitespace()
+        {
+            Assert.IsTrue(XamlAnalysisHelpers.HasDefaultValue("<TextBlock>     </TextBlock>"));
+        }
+
+        [TestMethod]
+        public void NotHasDefaultValue_IfEmpty()
+        {
+            Assert.IsFalse(XamlAnalysisHelpers.HasDefaultValue("<TextBlock></TextBlock>"));
+        }
+
+        [TestMethod]
+        public void NotHasDefaultValue_IfOtherChildElements()
+        {
+            Assert.IsFalse(XamlAnalysisHelpers.HasDefaultValue("<TextBlock><TextBlock.Text>Hello World</TextBlock.Text></TextBlock>"));
+        }
+
+        [TestMethod]
+        public void NotHasDefaultValue_IfSelfClosingChildElement()
+        {
+            Assert.IsFalse(XamlAnalysisHelpers.HasDefaultValue("<Element><ChildElement Value=\"Value1\" /></TextBlock>"));
+        }
+
+        [TestMethod]
+        public void NotHasDefaultValue_IfSelfClosing()
+        {
+            Assert.IsFalse(XamlAnalysisHelpers.HasDefaultValue("<TextBlock Text=\"Hello World\" />"));
+        }
+
         private bool StarIndicatesOffsetHasAttribute(string attribute, string xaml)
         {
             var offset = xaml.IndexOf('☆');

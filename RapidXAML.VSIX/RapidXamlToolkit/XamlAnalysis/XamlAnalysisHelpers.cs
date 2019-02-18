@@ -2,17 +2,17 @@
 // Licensed under the MIT license.
 
 using System;
-using System.Text;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
+    // TODO: Merge with XamlElementExtractor?
     public static class XamlAnalysisHelpers
     {
         public static bool IsSelfClosing(string xaml, int startPoint = 0)
         {
             var foundSelfCloser = false;
 
-            for (int i = startPoint; i < xaml.Length; i++)
+            for (var i = startPoint; i < xaml.Length; i++)
             {
                 switch (xaml[i])
                 {
@@ -34,7 +34,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var searchText = $"{attributeName}=\"";
 
-            var tbIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
+            var tbIndex = xaml.IndexOf(searchText, startPoint, StringComparison.Ordinal);
 
             if (tbIndex == -1)
             {
@@ -53,6 +53,23 @@ namespace RapidXamlToolkit.XamlAnalysis
             else
             {
                 return true;
+            }
+        }
+
+        public static bool HasDefaultValue(string xaml, int startPoint = 0)
+        {
+            if (IsSelfClosing(xaml, startPoint))
+            {
+                return false;
+            }
+            else
+            {
+                var openEnd = xaml.IndexOf('>', startPoint);
+                var closeStart = xaml.IndexOf('<', openEnd);
+
+                var value = xaml.Substring(openEnd + 1, closeStart - openEnd - 1);
+
+                return !string.IsNullOrEmpty(value) && value.IndexOf('<') == -1;
             }
         }
     }
