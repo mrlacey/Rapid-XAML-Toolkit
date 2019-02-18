@@ -143,7 +143,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             return result;
         }
 
-        // TODO: add more tests for grid nesting
         public static string GetPreviewText(string original, List<(string find, string replace)> replacements, Dictionary<int, int> exclusions, InsertRowDefinitionTag tag)
         {
             var withReplacements = SwapReplacements(original, replacements, exclusions);
@@ -156,7 +155,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             return withInsertion;
         }
 
-        // TODO: add tests for this which include exclusions
         public static string SwapReplacements(string originalXaml, List<(string find, string replace)> replacements, Dictionary<int, int> exclusions = null)
         {
             var result = originalXaml;
@@ -169,12 +167,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                 while (true)
                 {
-                    pos = result.Substring(pos).IndexOf(find, StringComparison.Ordinal);
+                    var next = result.Substring(pos).IndexOf(find, StringComparison.Ordinal);
 
-                    if (pos < 0)
+                    if (next < 0)
                     {
                         break; // while
                     }
+
+                    pos += next;
 
                     var searchAgain = false;
 
@@ -191,7 +191,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         }
                     }
 
-                    if (!searchAgain)
+                    if (searchAgain)
+                    {
+                        pos += find.Length;
+                    }
+                    else
                     {
                         var before = result.Substring(0, pos);
                         var after = result.Substring(pos + find.Length);
@@ -205,8 +209,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override Task<object> GetPreviewAsync(CancellationToken cancellationToken)
         {
-            var textBlock = new TextBlock();
-            textBlock.Padding = new Thickness(5);
+            var textBlock = new TextBlock
+            {
+                Padding = new Thickness(5),
+            };
             textBlock.Inlines.Add(new Run() { Text = this.PreviewText });
 
             return Task.FromResult<object>(textBlock);
