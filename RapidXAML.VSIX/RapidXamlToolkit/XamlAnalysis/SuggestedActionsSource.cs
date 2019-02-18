@@ -19,9 +19,9 @@ namespace RapidXamlToolkit.XamlAnalysis
     public class SuggestedActionsSource : ISuggestedActionsSource, ISuggestedActionsSource2
     {
         private readonly ITextView _view;
+        private readonly ISuggestedActionCategoryRegistryService _suggestedActionCategoryRegistry;
         private string _file;
         private IViewTagAggregatorFactoryService _tagService;
-        private readonly ISuggestedActionCategoryRegistryService _suggestedActionCategoryRegistry;
 
         public SuggestedActionsSource(IViewTagAggregatorFactoryService tagService, ISuggestedActionCategoryRegistryService suggestedActionCategoryRegistry, ITextView view, ITextBuffer textBuffer, string file)
         {
