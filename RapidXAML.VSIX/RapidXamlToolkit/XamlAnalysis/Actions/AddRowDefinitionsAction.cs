@@ -18,11 +18,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 </Grid.RowDefinitions>";
 
             this.UndoOperationName = StringRes.Info_UndoContextAddRowDefinitions;
+            this.DisplayText = StringRes.UI_AddRowDefinitions;
         }
 
         public override ImageMoniker IconMoniker => KnownMonikers.TwoRows;
-
-        public override string DisplayText { get; } = StringRes.UI_AddRowDefinitions;
 
         public static AddRowDefinitionsAction Create(AddRowDefinitionsTag tag)
         {

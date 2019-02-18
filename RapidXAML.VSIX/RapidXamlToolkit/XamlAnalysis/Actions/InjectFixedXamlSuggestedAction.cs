@@ -19,11 +19,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public string UndoOperationName { get; protected set; }
 
+        public int LeftPadLength { get; protected set; }
+
         public LineInsertionTag Tag { get; set; }
 
         public override bool HasPreview => true;
-
-        public override string DisplayText { get; }
 
         public override Task<object> GetPreviewAsync(CancellationToken cancellationToken)
         {

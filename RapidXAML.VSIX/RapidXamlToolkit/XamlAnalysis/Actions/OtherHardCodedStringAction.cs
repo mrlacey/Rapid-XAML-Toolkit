@@ -18,9 +18,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         private ITextView view;
         private OtherHardCodedStringTag tag;
 
-        public override ImageMoniker IconMoniker => KnownMonikers.GenerateResource;
+        public OtherHardCodedStringAction()
+        {
+            this.DisplayText = StringRes.UI_MoveHardCodedString;
+        }
 
-        public override string DisplayText => StringRes.UI_MoveHardCodedString;
+        public override ImageMoniker IconMoniker => KnownMonikers.GenerateResource;
 
         public static OtherHardCodedStringAction Create(OtherHardCodedStringTag tag, string file, ITextView view)
         {

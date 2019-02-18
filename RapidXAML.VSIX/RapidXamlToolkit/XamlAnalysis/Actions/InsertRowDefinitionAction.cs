@@ -24,6 +24,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         private InsertRowDefinitionAction(InsertRowDefinitionTag tag)
         {
             this.tag = tag;
+            this.DisplayText = StringRes.UI_InsertNewDefinitionForRow.WithParams(this.tag.RowId);
         }
 
         public List<(string find, string replace)> Replacements { get; private set; }
@@ -33,8 +34,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         public string PreviewText { get; private set; }
 
         public override bool HasPreview => true;
-
-        public override string DisplayText => StringRes.UI_InsertNewDefinitionForRow.WithParams(this.tag.RowId);
 
         public override ImageMoniker IconMoniker => KnownMonikers.InsertClause;
 

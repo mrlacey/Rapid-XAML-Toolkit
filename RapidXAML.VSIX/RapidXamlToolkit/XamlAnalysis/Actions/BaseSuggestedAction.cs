@@ -15,7 +15,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public abstract class BaseSuggestedAction : ISuggestedAction
     {
-        public abstract string DisplayText { get; }
+        public string DisplayText { get; protected set; }
 
         public virtual bool IsEnabled { get; } = true;
 

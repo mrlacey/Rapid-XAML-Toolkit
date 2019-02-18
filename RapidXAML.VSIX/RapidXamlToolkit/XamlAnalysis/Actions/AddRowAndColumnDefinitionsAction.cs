@@ -22,11 +22,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 </Grid.ColumnDefinitions>";
 
             this.UndoOperationName = StringRes.Info_UndoContextAddRowAndColumnDefinitions;
+            this.DisplayText = StringRes.UI_AddRowAndColumnDefinitions;
         }
 
         public override ImageMoniker IconMoniker => KnownMonikers.TwoRowsTwoColumns;
-
-        public override string DisplayText { get; } = StringRes.UI_AddRowAndColumnDefinitions;
 
         public static AddRowAndColumnDefinitionsAction Create(AddRowAndColumnDefinitionsTag tag)
         {
