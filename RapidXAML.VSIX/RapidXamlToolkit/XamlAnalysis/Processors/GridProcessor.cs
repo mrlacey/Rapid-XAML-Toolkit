@@ -35,7 +35,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 hasColDef = firstNestedGrid <= 0 || colDefPos < firstNestedGrid;
             }
 
-            // TODO: add tests for tabs, spaces & conbination
             var leftPad = linePadding.Contains("\t") ? linePadding + "\t" : linePadding + "    ";
 
             if (!hasRowDef)

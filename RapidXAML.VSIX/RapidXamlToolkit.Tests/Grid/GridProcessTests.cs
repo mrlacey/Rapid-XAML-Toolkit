@@ -143,5 +143,93 @@ namespace RapidXamlToolkit.Tests.Grid
 
             Assert.AreEqual(0, outputTags.Count);
         }
+
+        [TestMethod]
+        public void CreateRowDefinitionTags_WithCorrectLeftPad_Spaces()
+        {
+            var xaml = @"<Grid>
+    <Grid.ColumnDefinitions />
+
+    <!-- Grid contents -->
+</Grid>";
+
+            var outputTags = new List<IRapidXamlAdornmentTag>();
+
+            var sut = new GridProcessor();
+
+            var snapshot = new FakeTextSnapshot();
+
+            sut.Process(0, xaml, "    ", snapshot, outputTags);
+
+            Assert.AreEqual(1, outputTags.Count);
+            Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
+            Assert.AreEqual("        ", ((AddRowDefinitionsTag)outputTags[0]).LeftPad);
+        }
+
+        [TestMethod]
+        public void CreateRowDefinitionTags_WithCorrectLeftPad_Tab()
+        {
+            var xaml = @"<Grid>
+	<Grid.ColumnDefinitions />
+
+	<!-- Grid contents -->
+</Grid>";
+
+            var outputTags = new List<IRapidXamlAdornmentTag>();
+
+            var sut = new GridProcessor();
+
+            var snapshot = new FakeTextSnapshot();
+
+            sut.Process(1, xaml, "	", snapshot, outputTags);
+
+            Assert.AreEqual(1, outputTags.Count);
+            Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
+            Assert.AreEqual("		", ((AddRowDefinitionsTag)outputTags[0]).LeftPad);
+        }
+
+        [TestMethod]
+        public void CreateRowDefinitionTags_WithCorrectLeftPad_TabSpaces()
+        {
+            var xaml = @"<Grid>
+	<Grid.ColumnDefinitions />
+
+	<!-- Grid contents -->
+</Grid>";
+
+            var outputTags = new List<IRapidXamlAdornmentTag>();
+
+            var sut = new GridProcessor();
+
+            var snapshot = new FakeTextSnapshot();
+
+            sut.Process(1, xaml, "	    ", snapshot, outputTags);
+
+            Assert.AreEqual(1, outputTags.Count);
+            Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
+            Assert.AreEqual("	    	", ((AddRowDefinitionsTag)outputTags[0]).LeftPad);
+        }
+
+        [TestMethod]
+        public void CreateRowDefinitionTags_WithCorrectLeftPad_SpacesTab()
+        {
+            var xaml = @"<Grid>
+	<Grid.ColumnDefinitions />
+
+	<!-- Grid contents -->
+</Grid>";
+
+            var outputTags = new List<IRapidXamlAdornmentTag>();
+
+            var sut = new GridProcessor();
+
+            var snapshot = new FakeTextSnapshot();
+
+            sut.Process(1, xaml, "    	", snapshot, outputTags);
+
+            Assert.AreEqual(1, outputTags.Count);
+            Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
+            Assert.AreEqual("    		", ((AddRowDefinitionsTag)outputTags[0]).LeftPad);
+        }
     }
 }
