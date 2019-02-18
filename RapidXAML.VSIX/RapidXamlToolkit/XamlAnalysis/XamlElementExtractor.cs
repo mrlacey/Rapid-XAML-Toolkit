@@ -20,12 +20,14 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             bool isIdentifyingElement = false;
             bool isClosingElement = false;
+            bool inLineOpeningWhitespace = true;
             int currentElementStartPos = -1;
 
             var lastElementName = string.Empty;
             var currentElementName = new StringBuilder();
             var currentElementBody = new StringBuilder();
             var closingElementName = new StringBuilder();
+            var lineIndent = new StringBuilder();
 
             for (int i = 0; i < xaml.Length; i++)
             {
@@ -39,6 +41,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 if (xaml[i] == '<')
                 {
                     isIdentifyingElement = true;
+                    inLineOpeningWhitespace = false;
                     currentElementStartPos = i;
                     lastElementName = currentElementName.ToString();
                     currentElementName.Clear();
@@ -53,6 +56,16 @@ namespace RapidXamlToolkit.XamlAnalysis
                     else if (isClosingElement)
                     {
                         closingElementName.Append(xaml[i]);
+                    }
+
+                    inLineOpeningWhitespace = false;
+                }
+                else if (xaml[i] == '\r' || xaml[i] == '\n')
+                {
+                    if (!isIdentifyingElement)
+                    {
+                        lineIndent.Clear();
+                        inLineOpeningWhitespace = true;
                     }
                 }
                 else if (char.IsWhiteSpace(xaml[i]))
@@ -71,6 +84,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                         }
                     }
 
+                    if (inLineOpeningWhitespace)
+                    {
+                        lineIndent.Append(xaml[i]);
+                    }
+
                     isIdentifyingElement = false;
                 }
                 else if (xaml[i] == '/')
@@ -78,9 +96,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                     isClosingElement = true;
                     closingElementName.Clear();
                     isIdentifyingElement = false;
+                    inLineOpeningWhitespace = false;
                 }
                 else if (xaml[i] == '>')
                 {
+                    inLineOpeningWhitespace = false;
+
                     if (isIdentifyingElement)
                     {
                         if (elementsOfInterest.Contains(currentElementName.ToString()))
@@ -122,7 +143,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                             {
                                 if (p.element == toProcess.ElementName)
                                 {
-                                    p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), snapshot, tags);
+                                    p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
                                 }
                             }
 

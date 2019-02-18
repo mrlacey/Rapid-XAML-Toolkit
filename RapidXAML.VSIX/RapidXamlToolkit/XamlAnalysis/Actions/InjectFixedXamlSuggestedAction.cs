@@ -15,13 +15,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public abstract class InjectFixedXamlSuggestedAction : BaseSuggestedAction
     {
+        // Injected XAML should not be fully indented to allow for it to be used in previews.
         public string InjectedXaml { get; protected set; }
 
         public string UndoOperationName { get; protected set; }
 
-        public int LeftPadLength { get; protected set; }
-
-        public LineInsertionTag Tag { get; set; }
+        public InsertionTag Tag { get; set; }
 
         public override bool HasPreview => true;
 
@@ -40,8 +39,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             vs.StartSingleUndoOperation(this.UndoOperationName);
             try
             {
-                // TODO: pad lines with appropriate whitespace
-                vs.InsertAtEndOfLine(this.Tag.InsertLine, Environment.NewLine + this.InjectedXaml);
+                var toInsert = Environment.NewLine + this.InjectedXaml;
+
+                toInsert = toInsert.Replace("\n", "\n" + this.Tag.LeftPad);
+
+                var lineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;
+
+                vs.InsertAtEndOfLine(lineNumber, toInsert);
             }
             finally
             {

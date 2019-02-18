@@ -27,6 +27,28 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public event EventHandler<SnapshotSpanEventArgs> TagsChanged;
 
+        // This creates the underlying tags that are shown on the designer.
+        public IEnumerable<ITagSpan<IErrorTag>> GetTags(NormalizedSnapshotSpanCollection spans)
+        {
+            if (spans.Count == 0)
+            {
+                yield break;
+            }
+
+            var errors = RapidXamlDocumentCache.AdornmentTags(this._file);
+
+            foreach (var viewTag in errors)
+            {
+                foreach (var span in spans)
+                {
+                    if (span.IntersectsWith(viewTag.Span))
+                    {
+                        yield return viewTag.AsErrorTag();
+                    }
+                }
+            }
+        }
+
         // This handles adding and removing things from the error list
         private void OnXamlDocParsed(object sender, RapidXamlParsingEventArgs e)
         {
@@ -61,28 +83,6 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 System.Diagnostics.Debug.WriteLine(e);
                 return string.Empty;
-            }
-        }
-
-        // This creates the underlying tags that are shown on the designer.
-        public IEnumerable<ITagSpan<IErrorTag>> GetTags(NormalizedSnapshotSpanCollection spans)
-        {
-            if (spans.Count == 0)
-            {
-                yield break;
-            }
-
-            var errors = RapidXamlDocumentCache.AdornmentTags(this._file);
-
-            foreach (var viewTag in errors)
-            {
-                foreach (var span in spans)
-                {
-                    if (span.IntersectsWith(viewTag.Span))
-                    {
-                        yield return viewTag.AsErrorTag();
-                    }
-                }
             }
         }
     }

@@ -38,9 +38,6 @@ namespace RapidXamlToolkit.ErrorList
                               StandardTableColumnDefinitions.Column);
         }
 
-        [Import]
-        private ITableManagerProvider TableManagerProvider { get; set; } = null;
-
         public static TableDataSource Instance
         {
             get
@@ -73,6 +70,9 @@ namespace RapidXamlToolkit.ErrorList
         {
             get { return "Rapid XAML Toolkit"; }
         }
+
+        [Import]
+        private ITableManagerProvider TableManagerProvider { get; set; } = null;
 
         public IDisposable Subscribe(ITableDataSink sink)
         {

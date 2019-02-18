@@ -9,7 +9,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class EntryProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             if (!XamlAnalysisHelpers.HasAttribute(Attributes.Keyboard, xamlElement))
             {

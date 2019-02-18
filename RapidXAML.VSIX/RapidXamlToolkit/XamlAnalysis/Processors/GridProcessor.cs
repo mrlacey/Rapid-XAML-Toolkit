@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
     {
         // TODO: Add detection for assigned Row (and col) values without definitions: then add corresponding actions & tests
         // TODO: find a way to abstract out the need to pass in an ITextSnapshot so can bulk test without one (VS) ???
-        public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             const string gridOpenSpace = "<Grid ";
             const string gridOpenComplete = "<Grid>";
@@ -35,11 +35,15 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 hasColDef = firstNestedGrid <= 0 || colDefPos < firstNestedGrid;
             }
 
+            // TODO: add tests for tabs, spaces & conbination
+            var leftPad = linePadding.Contains("\t") ? linePadding + "\t" : linePadding + "    ";
+
             if (!hasRowDef)
             {
                 var tag = new AddRowDefinitionsTag(new Span(offset, endOfOpening), snapshot)
                 {
-                    InsertLine = snapshot.GetLineNumberFromPosition(offset + endOfOpening) + 1,
+                    InsertPosition = offset + endOfOpening,
+                    LeftPad = leftPad,
                 };
                 tags.Add(tag);
             }
@@ -48,7 +52,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var tag = new AddColumnDefinitionsTag(new Span(offset, endOfOpening), snapshot)
                 {
-                    InsertLine = snapshot.GetLineNumberFromPosition(offset + endOfOpening) + 1,
+                    InsertPosition = offset + endOfOpening,
+                    LeftPad = leftPad,
                 };
                 tags.Add(tag);
             }
@@ -57,7 +62,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var tag = new AddRowAndColumnDefinitionsTag(new Span(offset, endOfOpening), snapshot)
                 {
-                    InsertLine = snapshot.GetLineNumberFromPosition(offset + endOfOpening) + 1,
+                    InsertPosition = offset + endOfOpening,
+                    LeftPad = leftPad,
                 };
                 tags.Add(tag);
             }

@@ -13,7 +13,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         // TODO: need to allow for default value as well as being an attribute
         // TODO: allow for attribute value being set as a child element (e.g. <TextBlock><TextBlock.Text>Click here</TextBlock.Text></TextBlock>)
         // TODO: Need to let action deal with whether attribute/child-element-attribute/default-value
-        public override void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             if (TryGetAttribute(xamlElement, Attributes.Text, out int tbIndex, out int length, out string value))
             {

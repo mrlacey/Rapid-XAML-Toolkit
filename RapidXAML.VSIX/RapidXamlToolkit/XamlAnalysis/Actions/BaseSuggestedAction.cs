@@ -19,10 +19,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public virtual bool IsEnabled { get; } = true;
 
-        protected string File { get; set; }
-
-        protected ITextView View { get; set; }
-
         public virtual bool HasActionSets
         {
             get { return false; }
@@ -47,6 +43,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         {
             get { return null; }
         }
+
+        protected string File { get; set; }
+
+        protected ITextView View { get; set; }
 
         public virtual void Dispose()
         {

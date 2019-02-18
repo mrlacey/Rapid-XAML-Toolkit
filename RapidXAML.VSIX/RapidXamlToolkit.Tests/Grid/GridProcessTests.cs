@@ -32,7 +32,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(0, xaml, snapshot, outputTags);
+            sut.Process(0, xaml, string.Empty, snapshot, outputTags);
 
             Assert.AreEqual(3, outputTags.Count);
             Assert.AreEqual(2, outputTags.OfType<InsertRowDefinitionTag>().Count());
@@ -52,7 +52,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(0, xaml, snapshot, outputTags);
+            sut.Process(0, xaml, string.Empty, snapshot, outputTags);
 
             Assert.AreEqual(3, outputTags.Count);
             Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
@@ -75,7 +75,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(0, xaml, snapshot, outputTags);
+            sut.Process(0, xaml, string.Empty, snapshot, outputTags);
 
             Assert.AreEqual(1, outputTags.Count);
             Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
@@ -96,7 +96,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(0, xaml, snapshot, outputTags);
+            sut.Process(0, xaml, string.Empty, snapshot, outputTags);
 
             Assert.AreEqual(1, outputTags.Count);
             Assert.AreEqual(1, outputTags.OfType<AddColumnDefinitionsTag>().Count());
@@ -118,7 +118,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(0, xaml, snapshot, outputTags);
+            sut.Process(0, xaml, string.Empty, snapshot, outputTags);
 
             Assert.AreEqual(0, outputTags.Count);
         }
@@ -139,7 +139,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(0, xaml, snapshot, outputTags);
+            sut.Process(0, xaml, string.Empty , snapshot, outputTags);
 
             Assert.AreEqual(0, outputTags.Count);
         }

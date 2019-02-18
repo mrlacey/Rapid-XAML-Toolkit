@@ -10,7 +10,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public abstract class XamlElementProcessor
     {
-        public abstract void Process(int offset, string xamlElement, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags);
+        public abstract void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags);
 
         // This should wrap XAH.HasAttribute & GetAttribute - and/or more there
         protected static bool TryGetAttribute(string xaml, string attributeName, out int index, out int length, out string value)

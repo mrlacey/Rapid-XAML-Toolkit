@@ -6,7 +6,7 @@ using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public class AddRowDefinitionsTag : LineInsertionTag
+    public class AddRowDefinitionsTag : InsertionTag
     {
         public AddRowDefinitionsTag(Span span, ITextSnapshot snapshot)
             : base(span, snapshot)

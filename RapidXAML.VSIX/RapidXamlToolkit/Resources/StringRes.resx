@@ -650,16 +650,16 @@
     <value>Add RowDefinitions</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringButtonContentMessage" xml:space="preserve">
-    <value>Button contains hardcoded Content value '{0}'.</value>
+    <value>Button contains hard-coded Content value '{0}'.</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringExtendedMessage" xml:space="preserve">
-    <value>Do not use hard coded values. Use a localized resource instead.</value>
+    <value>Do not use hard-coded values. Use a localized resource instead.</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringTextblockTextMessage" xml:space="preserve">
-    <value>TextBlock contains hardcoded Text value '{0}'.</value>
+    <value>TextBlock contains hard-coded Text value '{0}'.</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringTooltip" xml:space="preserve">
-    <value>Hard coded string</value>
+    <value>Hard-coded string</value>
   </data>
   <data name="UI_AddColumnDefinitions" xml:space="preserve">
     <value>Add ColumnDefinitions</value>
@@ -674,7 +674,7 @@
     <value>Insert new definition for row {this.tag.RowId}</value>
   </data>
   <data name="UI_MoveHardCodedString" xml:space="preserve">
-    <value>Move hard coded string to resource file.</value>
+    <value>Move hard-coded string to resource file.</value>
   </data>
   <data name="Error_XamlAnalysisDescription" xml:space="preserve">
     <value>Unexpected error occurred while parsing XAML.</value>

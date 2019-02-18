@@ -682,7 +682,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Button contains hardcoded Content value &apos;{0}&apos;..
+        ///   Looks up a localized string similar to Button contains hard-coded Content value &apos;{0}&apos;..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringButtonContentMessage {
             get {
@@ -691,7 +691,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do not use hard coded values. Use a localized resource instead..
+        ///   Looks up a localized string similar to Do not use hard-coded values. Use a localized resource instead..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringExtendedMessage {
             get {
@@ -700,7 +700,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TextBlock contains hardcoded Text value &apos;{0}&apos;..
+        ///   Looks up a localized string similar to TextBlock contains hard-coded Text value &apos;{0}&apos;..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringTextblockTextMessage {
             get {
@@ -709,7 +709,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hard coded string.
+        ///   Looks up a localized string similar to Hard-coded string.
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringTooltip {
             get {
@@ -1539,7 +1539,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move hard coded string to resource file..
+        ///   Looks up a localized string similar to Move hard-coded string to resource file..
         /// </summary>
         public static string UI_MoveHardCodedString {
             get {

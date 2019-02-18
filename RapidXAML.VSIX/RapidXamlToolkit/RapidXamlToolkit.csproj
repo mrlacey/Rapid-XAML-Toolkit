@@ -250,7 +250,7 @@
     <Compile Include="XamlAnalysis\Tags\IRapidXamlAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\Tags\IRapidXamlTag.cs" />
     <Compile Include="XamlAnalysis\Tags\IRapidXamlErrorListTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\LineInsertionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />
     <Compile Include="XamlAnalysis\ParsedAction.cs" />
     <Compile Include="XamlAnalysis\ProjectHelpers.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
