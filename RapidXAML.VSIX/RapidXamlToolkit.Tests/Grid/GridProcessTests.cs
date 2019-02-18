@@ -139,7 +139,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(0, xaml, string.Empty , snapshot, outputTags);
+            sut.Process(0, xaml, string.Empty, snapshot, outputTags);
 
             Assert.AreEqual(0, outputTags.Count);
         }

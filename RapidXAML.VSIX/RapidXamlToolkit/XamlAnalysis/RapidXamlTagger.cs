@@ -11,18 +11,18 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class RapidXamlTagger : ITagger<IErrorTag>
     {
-        private ITextBuffer _buffer;
-        private string _file;
+        private ITextBuffer buffer;
+        private string file;
 
         public RapidXamlTagger(ITextBuffer buffer, string file)
         {
-            this._buffer = buffer;
-            this._file = file;
+            this.buffer = buffer;
+            this.file = file;
 
             RapidXamlDocumentCache.Parsed += this.OnXamlDocParsed;
 
             // Docs may have already been parsed when we get here (will happen if document was opened with the project) so process what has been parsed
-            this.OnXamlDocParsed(this, new RapidXamlParsingEventArgs(null, this._file, this._buffer.CurrentSnapshot, ParsedAction.Unknown));
+            this.OnXamlDocParsed(this, new RapidXamlParsingEventArgs(null, this.file, this.buffer.CurrentSnapshot, ParsedAction.Unknown));
         }
 
         public event EventHandler<SnapshotSpanEventArgs> TagsChanged;
@@ -35,7 +35,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 yield break;
             }
 
-            var errors = RapidXamlDocumentCache.AdornmentTags(this._file);
+            var errors = RapidXamlDocumentCache.AdornmentTags(this.file);
 
             foreach (var viewTag in errors)
             {
@@ -52,11 +52,11 @@ namespace RapidXamlToolkit.XamlAnalysis
         // This handles adding and removing things from the error list
         private void OnXamlDocParsed(object sender, RapidXamlParsingEventArgs e)
         {
-            var visibleErrors = RapidXamlDocumentCache.ErrorListTags(this._file);
+            var visibleErrors = RapidXamlDocumentCache.ErrorListTags(this.file);
 
-            var projectName = this.GetProjectName(this._file);
+            var projectName = this.GetProjectName(this.file);
 
-            var result = new FileErrorCollection { Project = projectName, FilePath = this._file };
+            var result = new FileErrorCollection { Project = projectName, FilePath = this.file };
 
             foreach (var viewTag in visibleErrors)
             {

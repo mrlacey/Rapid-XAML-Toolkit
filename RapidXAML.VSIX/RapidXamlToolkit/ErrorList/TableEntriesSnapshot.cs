@@ -12,11 +12,11 @@ namespace RapidXamlToolkit.ErrorList
 {
     public class TableEntriesSnapshot : WpfTableEntriesSnapshotBase
     {
-        private string _projectName;
+        private string projectName;
 
         internal TableEntriesSnapshot(FileErrorCollection result)
         {
-            this._projectName = result.Project;
+            this.projectName = result.Project;
             this.Errors.AddRange(result.Errors);
             this.FilePath = result.FilePath;
         }
@@ -71,7 +71,7 @@ namespace RapidXamlToolkit.ErrorList
                     content = error.ErrorCode;
                     return true;
                 case StandardTableKeyNames.ProjectName:
-                    content = this._projectName;
+                    content = this.projectName;
                     return true;
                 case StandardTableKeyNames.DocumentName:
                     content = this.FilePath;

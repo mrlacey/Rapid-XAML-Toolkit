@@ -18,22 +18,22 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class SuggestedActionsSource : ISuggestedActionsSource, ISuggestedActionsSource2
     {
-        private readonly ITextView _view;
-        private readonly ISuggestedActionCategoryRegistryService _suggestedActionCategoryRegistry;
-        private string _file;
-        private IViewTagAggregatorFactoryService _tagService;
+        private readonly ITextView view;
+        private readonly ISuggestedActionCategoryRegistryService suggestedActionCategoryRegistry;
+        private string file;
+        private IViewTagAggregatorFactoryService tagService;
 
         public SuggestedActionsSource(IViewTagAggregatorFactoryService tagService, ISuggestedActionCategoryRegistryService suggestedActionCategoryRegistry, ITextView view, ITextBuffer textBuffer, string file)
         {
-            this._tagService = tagService;
-            this._suggestedActionCategoryRegistry = suggestedActionCategoryRegistry;
-            this._view = view;
-            this._file = file;
+            this.tagService = tagService;
+            this.suggestedActionCategoryRegistry = suggestedActionCategoryRegistry;
+            this.view = view;
+            this.file = file;
 
             // Don't want every change event as that is a lot during editing. Wait for a second of inactivity before reparsing.
             this.WhenViewLayoutChanged.Throttle(TimeSpan.FromSeconds(1)).Subscribe(e => this.OnViewLayoutChanged(this, e));
 
-            RapidXamlDocumentCache.Add(this._file, textBuffer.CurrentSnapshot);
+            RapidXamlDocumentCache.Add(this.file, textBuffer.CurrentSnapshot);
         }
 
         public event EventHandler<EventArgs> SuggestedActionsChanged
@@ -49,8 +49,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 return Observable
                     .FromEventPattern<EventHandler<TextViewLayoutChangedEventArgs>, TextViewLayoutChangedEventArgs>(
-                        h => this._view.LayoutChanged += h,
-                        h => this._view.LayoutChanged -= h)
+                        h => this.view.LayoutChanged += h,
+                        h => this.view.LayoutChanged -= h)
                     .Select(x => x.EventArgs);
             }
         }
@@ -61,7 +61,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 () =>
                 {
                     // Setting the only category to be "REFACTORING" causes the screwdriver icon to be shown, otherwise get the light bulb.
-                    return this._suggestedActionCategoryRegistry.CreateSuggestedActionCategorySet(
+                    return this.suggestedActionCategoryRegistry.CreateSuggestedActionCategorySet(
                         this.GetTags(range).Any(t => t is RapidXamlErrorListTag) ? PredefinedSuggestedActionCategoryNames.Any
                                                                                  : PredefinedSuggestedActionCategoryNames.Refactoring);
                 },
@@ -88,13 +88,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                     switch (rxTag.SuggestedAction.Name)
                     {
                         case nameof(InsertRowDefinitionAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rxTag, this._file, this._view)));
+                            list.AddRange(this.CreateActionSet(rxTag.Span, InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rxTag, this.file, this.view)));
                             break;
                         case nameof(HardCodedStringAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, HardCodedStringAction.Create((HardCodedStringTag)rxTag, this._file, this._view)));
+                            list.AddRange(this.CreateActionSet(rxTag.Span, HardCodedStringAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
                             break;
                         case nameof(OtherHardCodedStringAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, OtherHardCodedStringAction.Create((OtherHardCodedStringTag)rxTag, this._file, this._view)));
+                            list.AddRange(this.CreateActionSet(rxTag.Span, OtherHardCodedStringAction.Create((OtherHardCodedStringTag)rxTag, this.file, this.view)));
                             break;
                         case nameof(AddRowDefinitionsAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rxTag)));
@@ -148,18 +148,18 @@ namespace RapidXamlToolkit.XamlAnalysis
             // Caching processors for partial re-parsing would be complicated. Considering this a low priority optimization.
             if (e.OldSnapshot != e.NewSnapshot)
             {
-                RapidXamlDocumentCache.Update(this._file, e.NewViewState.EditSnapshot);
+                RapidXamlDocumentCache.Update(this.file, e.NewViewState.EditSnapshot);
             }
         }
 
         private IEnumerable<IRapidXamlTag> GetTags(SnapshotSpan span)
         {
-            return RapidXamlDocumentCache.AdornmentTags(this._file).Where(t => t.Span.IntersectsWith(span)).Select(t => t);
+            return RapidXamlDocumentCache.AdornmentTags(this.file).Where(t => t.Span.IntersectsWith(span)).Select(t => t);
         }
 
         private IEnumerable<IMappingTagSpan<IRapidXamlTag>> GetErrorTags(ITextView view, SnapshotSpan span)
         {
-            return this._tagService.CreateTagAggregator<IRapidXamlTag>(view).GetTags(span);
+            return this.tagService.CreateTagAggregator<IRapidXamlTag>(view).GetTags(span);
         }
     }
 }

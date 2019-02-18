@@ -9,8 +9,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlAdornmentTag : IRapidXamlAdornmentTag
     {
-        private readonly ITextSnapshot _snapshot;
-
         public RapidXamlAdornmentTag(Span span, ITextSnapshot snapshot)
         {
             this.Span = span;
