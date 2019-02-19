@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
@@ -13,9 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, "RXT???", line, column)
         {
             this.SuggestedAction = typeof(AddMissingRowDefinitionsAction);
-            // TODO: Localize
-            this.ToolTip = "No corresponding row definition";
-            this.ExtendedMessage = "The use of undefined rows can lead to unexpected layout behavior. It can also be confusing for other people looking at the code.";
+            this.ToolTip = StringRes.Info_XamlAnalysisMissingRowDefinitionTooltip;
+            this.ExtendedMessage = StringRes.Info_XamlAnalysisMissingRowDefinitionExtendedMessage;
         }
     }
 }

@@ -221,7 +221,7 @@
     <value>Output:</value>
   </data>
   <data name="Options_MappingOutputDescription" xml:space="preserve">
-    <value>The output that shoudl be generated if this mapping is used.</value>
+    <value>The output that should be generated if this mapping is used.</value>
   </data>
   <data name="Options_MappingsHeader" xml:space="preserve">
     <value>Mappings</value>
@@ -650,16 +650,16 @@
     <value>Add RowDefinitions</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringButtonContentMessage" xml:space="preserve">
-    <value>Button contains hardcoded Content value '{0}'.</value>
+    <value>Button contains hard-coded Content value '{0}'.</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringExtendedMessage" xml:space="preserve">
-    <value>Do not use hard coded values. Use a localized resource instead.</value>
+    <value>Do not use hard-coded values. Use a localized resource instead.</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringTextblockTextMessage" xml:space="preserve">
-    <value>TextBlock contains hardcoded Text value '{0}'.</value>
+    <value>TextBlock contains hard-coded Text value '{0}'.</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringTooltip" xml:space="preserve">
-    <value>Hard coded string</value>
+    <value>Hard-coded string</value>
   </data>
   <data name="UI_AddColumnDefinitions" xml:space="preserve">
     <value>Add ColumnDefinitions</value>
@@ -674,12 +674,42 @@
     <value>Insert new definition for row {this.tag.RowId}</value>
   </data>
   <data name="UI_MoveHardCodedString" xml:space="preserve">
-    <value>Move hard coded string to resource file.</value>
+    <value>Move hard-coded string to resource file.</value>
   </data>
   <data name="Error_XamlAnalysisDescription" xml:space="preserve">
     <value>Unexpected error occurred while parsing XAML.</value>
   </data>
   <data name="Error_XamlAnalysisExtendedMessage" xml:space="preserve">
     <value>Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: {0}</value>
+  </data>
+  <data name="Info_UndoContextAddMissingColumnDefinitions" xml:space="preserve">
+    <value>Add missing column definitions</value>
+  </data>
+  <data name="Info_UndoContextAddMissingRowDefinitions" xml:space="preserve">
+    <value>Add missing row definitions</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingColumnDefinitionDescription" xml:space="preserve">
+    <value>Use of undefined Column '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingColumnDefinitionExtendedMessage" xml:space="preserve">
+    <value>The use of undefined columns can lead to unexpected layout behavior. It can also be confusing for other people looking at the code.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingColumnDefinitionTooltip" xml:space="preserve">
+    <value>No corresponding column definition</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingRowDefinitionDescription" xml:space="preserve">
+    <value>Use of undefined Row '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingRowDefinitionExtendedMessage" xml:space="preserve">
+    <value>The use of undefined rows can lead to unexpected layout behavior. It can also be confusing for other people looking at the code.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingRowDefinitionTooltip" xml:space="preserve">
+    <value>No corresponding row definition</value>
+  </data>
+  <data name="UI_AddMissingColumnDefinitions" xml:space="preserve">
+    <value>Add missing column definitions.</value>
+  </data>
+  <data name="UI_AddMissingRowDefinitions" xml:space="preserve">
+    <value>Add missing row definitions.</value>
   </data>
 </root>

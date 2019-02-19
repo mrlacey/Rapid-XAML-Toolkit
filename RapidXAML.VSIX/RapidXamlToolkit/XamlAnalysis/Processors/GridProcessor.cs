@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
@@ -151,8 +152,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 col)
                             {
                                 AssignedInt = assignedInt,
-                                // TODO : localize
-                                Description = "Use of undefined row {0}".WithParams(assignedInt),
+                                Description = StringRes.Info_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
                             });
                         }
 
@@ -180,8 +180,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 col)
                             {
                                 AssignedInt = assignedInt,
-                                // TODO : localize
-                                Description = "Use of undefined column {0}".WithParams(assignedInt),
+                                Description = StringRes.Info_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
                             });
                         }
 

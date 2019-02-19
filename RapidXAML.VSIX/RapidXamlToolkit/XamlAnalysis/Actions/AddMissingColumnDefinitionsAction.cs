@@ -4,6 +4,7 @@
 using System.Threading;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
@@ -12,9 +13,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
     {
         public AddMissingColumnDefinitionsAction()
         {
-            // localize
-            this.UndoOperationName = "Add missing column definitions.";
-            this.DisplayText = "Assigned column {0} has not been defined.".WithParams(this.Tag.AssignedInt);
+            this.UndoOperationName = StringRes.Info_UndoContextAddMissingColumnDefinitions;
+            this.DisplayText = StringRes.UI_AddMissingColumnDefinitions;
         }
 
         public override ImageMoniker IconMoniker => KnownMonikers.FourthOfFourColumns;

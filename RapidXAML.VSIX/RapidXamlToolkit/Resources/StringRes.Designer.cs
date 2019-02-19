@@ -646,6 +646,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add missing column definitions.
+        /// </summary>
+        public static string Info_UndoContextAddMissingColumnDefinitions {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddMissingColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add missing row definitions.
+        /// </summary>
+        public static string Info_UndoContextAddMissingRowDefinitions {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddMissingRowDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add RowDefinitions and ColumnDefinitions.
         /// </summary>
         public static string Info_UndoContextAddRowAndColumnDefinitions {
@@ -714,6 +732,60 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_XamlAnalysisHardcodedStringTooltip {
             get {
                 return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use of undefined Column &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisMissingColumnDefinitionDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingColumnDefinitionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The use of undefined columns can lead to unexpected layout behavior. It can also be confusing for other people looking at the code..
+        /// </summary>
+        public static string Info_XamlAnalysisMissingColumnDefinitionExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingColumnDefinitionExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No corresponding column definition.
+        /// </summary>
+        public static string Info_XamlAnalysisMissingColumnDefinitionTooltip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingColumnDefinitionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use of undefined Row &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisMissingRowDefinitionDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingRowDefinitionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The use of undefined rows can lead to unexpected layout behavior. It can also be confusing for other people looking at the code..
+        /// </summary>
+        public static string Info_XamlAnalysisMissingRowDefinitionExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingRowDefinitionExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No corresponding row definition.
+        /// </summary>
+        public static string Info_XamlAnalysisMissingRowDefinitionTooltip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingRowDefinitionTooltip", resourceCulture);
             }
         }
         
@@ -1060,7 +1132,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The output that shoudl be generated if this mapping is used..
+        ///   Looks up a localized string similar to The output that should be generated if this mapping is used..
         /// </summary>
         public static string Options_MappingOutputDescription {
             get {
@@ -1490,6 +1562,24 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_AddColumnDefinitions {
             get {
                 return ResourceManager.GetString("UI_AddColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add missing column definitions..
+        /// </summary>
+        public static string UI_AddMissingColumnDefinitions {
+            get {
+                return ResourceManager.GetString("UI_AddMissingColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add missing row definitions..
+        /// </summary>
+        public static string UI_AddMissingRowDefinitions {
+            get {
+                return ResourceManager.GetString("UI_AddMissingRowDefinitions", resourceCulture);
             }
         }
         
