@@ -120,5 +120,15 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 txtDoc.Selection.Insert(toInsert);
             }
         }
+
+        public void DeleteFromEndOfLine(int lineNumber, int charsToDelete)
+        {
+            if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
+            {
+                txtDoc.Selection.MoveToLineAndOffset(lineNumber, 1);
+                txtDoc.Selection.EndOfLine();
+                txtDoc.Selection.DeleteLeft(charsToDelete);
+            }
+        }
     }
 }

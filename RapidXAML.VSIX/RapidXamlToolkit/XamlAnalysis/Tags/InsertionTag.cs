@@ -12,6 +12,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         {
         }
 
+        public bool GridNeedsExpanding { get; set; }
+
         public int InsertPosition { get; set; }
 
         // Whitespace to put before each line when added to the document (but not in preview).

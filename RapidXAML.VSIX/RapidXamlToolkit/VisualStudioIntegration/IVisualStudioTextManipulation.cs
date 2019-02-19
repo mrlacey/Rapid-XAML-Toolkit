@@ -13,6 +13,10 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         void InsertIntoActiveDocumentOnNextLine(string text, int pos);
 
+        void InsertAtEndOfLine(int lineNumber, string toInsert);
+
+        void DeleteFromEndOfLine(int lineNumber, int charsToDelete);
+
         void StartSingleUndoOperation(string name);
 
         void EndSingleUndoOperation();

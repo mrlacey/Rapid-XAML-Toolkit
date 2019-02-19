@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             // TODO: need to create missing resource
             // assign UID (name if not UWP) to element if it doesn't have one - how to determine this
             // determine which file to add to - need setting for rule on creation if none exist
-            // remove exisiting tag
+            // remove existing tag
             // create entry in the resource file (& open it? - configurable?)
         }
     }

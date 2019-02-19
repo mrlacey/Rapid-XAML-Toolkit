@@ -22,6 +22,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var rowDefPos = xamlElement.IndexOf("<Grid.RowDefinitions", StringComparison.Ordinal);
             var colDefPos = xamlElement.IndexOf("<Grid.ColumnDefinitions", StringComparison.Ordinal);
 
+            var gridIsSelfClosing = XamlAnalysisHelpers.IsSelfClosing(xamlElement);
+
             var hasRowDef = false;
             if (rowDefPos > 0)
             {
@@ -42,6 +44,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 {
                     InsertPosition = offset + endOfOpening,
                     LeftPad = leftPad,
+                    GridNeedsExpanding = gridIsSelfClosing,
                 };
                 tags.Add(tag);
             }
@@ -52,6 +55,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 {
                     InsertPosition = offset + endOfOpening,
                     LeftPad = leftPad,
+                    GridNeedsExpanding = gridIsSelfClosing,
                 };
                 tags.Add(tag);
             }
@@ -62,6 +66,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 {
                     InsertPosition = offset + endOfOpening,
                     LeftPad = leftPad,
+                    GridNeedsExpanding = gridIsSelfClosing,
                 };
                 tags.Add(tag);
             }
@@ -103,16 +108,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             const string colDef = "<ColumnDefinition";
 
             var colDefsCount = 0;
-            var colDefOffset = 0;
 
             var colDefIndex = xamlElement.IndexOf(colDef, StringComparison.Ordinal);
 
             while (colDefIndex > -1)
             {
-                colDefOffset += colDefIndex + colDef.Length;
                 colDefsCount += 1;
 
-                colDefIndex = xamlElement.IndexOf(colDef, colDefOffset, StringComparison.Ordinal);
+                colDefIndex = xamlElement.IndexOf(colDef, colDefIndex + 1, StringComparison.Ordinal);
             }
 
             const string rowDefUse = "Grid.Row=\"";

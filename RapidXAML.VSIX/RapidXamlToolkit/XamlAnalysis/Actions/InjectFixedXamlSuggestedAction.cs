@@ -26,8 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override Task<object> GetPreviewAsync(CancellationToken cancellationToken)
         {
-            var textBlock = new TextBlock();
-            textBlock.Padding = new Thickness(5);
+            var textBlock = new TextBlock { Padding = new Thickness(5) };
             textBlock.Inlines.Add(new Run() { Text = this.InjectedXaml });
 
             return Task.FromResult<object>(textBlock);
@@ -39,13 +38,32 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             vs.StartSingleUndoOperation(this.UndoOperationName);
             try
             {
-                var toInsert = Environment.NewLine + this.InjectedXaml;
-
-                toInsert = toInsert.Replace("\n", "\n" + this.Tag.LeftPad);
-
                 var lineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;
 
+                string toInsert;
+                if (this.Tag.GridNeedsExpanding)
+                {
+                    vs.DeleteFromEndOfLine(lineNumber, 3);
+
+                    toInsert = $">{Environment.NewLine}{this.InjectedXaml}";
+
+                    toInsert = toInsert.Replace("\n", "\n" + this.Tag.LeftPad);
+
+                    string shortPad = this.Tag.LeftPad.EndsWith("\t")
+                        ? this.Tag.LeftPad.Substring(0, this.Tag.LeftPad.Length - 1)
+                        : this.Tag.LeftPad.Substring(0, this.Tag.LeftPad.Length - 4);
+
+                    toInsert += $"{Environment.NewLine}{shortPad}</Grid>";
+                }
+                else
+                {
+                    toInsert = Environment.NewLine + this.InjectedXaml;
+                    toInsert = toInsert.Replace("\n", "\n" + this.Tag.LeftPad);
+                }
+
                 vs.InsertAtEndOfLine(lineNumber, toInsert);
+
+                // TODO: need to force re-parsing of document to update tags/suggested-actions
             }
             finally
             {

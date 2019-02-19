@@ -100,6 +100,16 @@ namespace RapidXamlToolkit.Tests
             // NOOP
         }
 
+        public void InsertAtEndOfLine(int lineNumber, string toInsert)
+        {
+            // NOOP
+        }
+
+        public void DeleteFromEndOfLine(int lineNumber, int charsToDelete)
+        {
+            // NOOP
+        }
+
         public void StartSingleUndoOperation(string name)
         {
             // NOOP

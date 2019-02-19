@@ -139,11 +139,11 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                         {
-                            foreach (var p in processors)
+                            foreach (var (element, processor) in processors)
                             {
-                                if (p.element == toProcess.ElementName)
+                                if (element == toProcess.ElementName)
                                 {
-                                    p.processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
+                                    processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
                                 }
                             }
 

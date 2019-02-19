@@ -30,6 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
         }
 
+        // TODO: Need to force calling this on document save
         public static void Update(string file, ITextSnapshot snapshot)
         {
             if (Cache[file].RawText != snapshot.GetText())
