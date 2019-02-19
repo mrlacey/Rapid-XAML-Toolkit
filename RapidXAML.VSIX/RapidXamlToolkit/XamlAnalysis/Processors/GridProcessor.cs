@@ -10,8 +10,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class GridProcessor : XamlElementProcessor
     {
-        // TODO: Add detection for assigned Row (and col) values without definitions: then add corresponding actions & tests
-        // TODO: find a way to abstract out the need to pass in an ITextSnapshot so can bulk test without one (VS) ???
         public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             const string gridOpenSpace = "<Grid ";
@@ -69,7 +67,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             const string rowDefStart = "<RowDefinition";
 
-            var count = 0;
+            var rowDefsCount = 0;
 
             var toAdd = new List<InsertRowDefinitionTag>();
 
@@ -81,14 +79,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 var tag = new InsertRowDefinitionTag(new Span(offset + rowDefIndex, endPos - rowDefIndex + 1), snapshot)
                 {
-                    RowId = count,
+                    RowId = rowDefsCount,
                     GridStartPos = offset,
                     GridLength = xamlElement.Length,
                     XamlTag = xamlElement.Substring(rowDefIndex, endPos - rowDefIndex + 1),
                     InsertPoint = offset + rowDefIndex,
                 };
 
-                count += 1;
+                rowDefsCount += 1;
 
                 toAdd.Add(tag);
 
@@ -97,8 +95,111 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             foreach (var tag in toAdd)
             {
-                tag.RowCount = count;
+                tag.RowCount = rowDefsCount;
                 tags.Add(tag);
+            }
+
+            const string colDef = "<ColumnDefinition";
+
+            var colDefsCount = 0;
+            var colDefOffset = 0;
+
+            var colDefIndex = xamlElement.IndexOf(colDef, StringComparison.Ordinal);
+
+            while (colDefIndex > -1)
+            {
+                colDefOffset += colDefIndex + colDef.Length;
+                colDefsCount += 1;
+
+                colDefIndex = xamlElement.IndexOf(colDef, colDefOffset, StringComparison.Ordinal);
+            }
+
+            const string rowDefUse = "Grid.Row=\"";
+            const string colDefUse = "Grid.Column=\"";
+
+            int highestAssignedRow = -1;
+            int highestAssignedCol = -1;
+
+            var undefinedTags = new List<MissingDefinitionTag>();
+
+            var nextDefUseIndex = xamlElement.FirstIndexOf(rowDefUse, colDefUse);
+            var defUseOffset = 0;
+
+            while (nextDefUseIndex >= 0)
+            {
+                defUseOffset += nextDefUseIndex;
+
+                var line = snapshot.GetLineFromPosition(offset + defUseOffset);
+                var col = offset + defUseOffset - line.Start.Position;
+
+                // Get assigned value
+                if (xamlElement.Substring(defUseOffset).StartsWith(rowDefUse))
+                {
+                    var valueStartPos = defUseOffset + rowDefUse.Length;
+                    var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
+
+                    var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
+
+                    if (int.TryParse(assignedStr, out int assignedInt))
+                    {
+                        if (assignedInt >= rowDefsCount)
+                        {
+                            undefinedTags.Add(new MissingRowDefinitionTag(
+                                new Span(offset + defUseOffset, closePos - defUseOffset + 1),
+                                snapshot,
+                                line.LineNumber,
+                                col)
+                            {
+                                AssignedInt = assignedInt,
+                                // TODO : localize
+                                Description = "Use of undefined row {0}".WithParams(assignedInt),
+                            });
+                        }
+
+                        if (assignedInt > highestAssignedRow)
+                        {
+                            highestAssignedRow = assignedInt;
+                        }
+                    }
+                }
+                else if (xamlElement.Substring(defUseOffset).StartsWith(colDefUse))
+                {
+                    var valueStartPos = defUseOffset + colDefUse.Length;
+                    var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
+
+                    var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
+
+                    if (int.TryParse(assignedStr, out int assignedInt))
+                    {
+                        if (assignedInt >= colDefsCount)
+                        {
+                            undefinedTags.Add(new MissingColumnDefinitionTag(
+                                new Span(offset + rowDefIndex, closePos - rowDefIndex + 1),
+                                snapshot,
+                                line.LineNumber,
+                                col)
+                            {
+                                AssignedInt = assignedInt,
+                                // TODO : localize
+                                Description = "Use of undefined column {0}".WithParams(assignedInt),
+                            });
+                        }
+
+                        if (assignedInt > highestAssignedCol)
+                        {
+                            highestAssignedCol = assignedInt;
+                        }
+                    }
+                }
+
+                nextDefUseIndex = xamlElement.Substring(defUseOffset + 1).FirstIndexOf(colDefUse, rowDefUse);
+            }
+
+            foreach (var undefinedTag in undefinedTags)
+            {
+                undefinedTag.TotalDefsRequired = undefinedTag is MissingRowDefinitionTag ? highestAssignedRow
+                                                                                         : highestAssignedCol;
+                tags.Add(undefinedTag);
             }
         }
     }

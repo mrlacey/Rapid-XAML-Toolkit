@@ -229,6 +229,9 @@
     </Compile>
     <Compile Include="SolutionExtensions.cs" />
     <Compile Include="StringExtensions.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\OtherHardCodedStringAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Attributes.cs" />
@@ -258,6 +261,9 @@
     <Compile Include="XamlAnalysis\RapidXamlParsingEventArgs.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagger.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagProvider.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingColumnDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingRowDefinitionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\OtherHardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlErrorListTag.cs" />

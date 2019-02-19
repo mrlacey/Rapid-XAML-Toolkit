@@ -105,6 +105,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(AddRowAndColumnDefinitionsAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rxTag)));
                             break;
+                        case nameof(AddMissingRowDefinitionsAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AddMissingRowDefinitionsAction.Create((MissingRowDefinitionTag)rxTag)));
+                            break;
+                        case nameof(AddMissingColumnDefinitionsAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AddMissingColumnDefinitionsAction.Create((MissingColumnDefinitionTag)rxTag)));
+                            break;
                     }
                 }
             }

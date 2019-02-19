@@ -10,6 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public abstract class XamlElementProcessor
     {
+        // Use of snapshot in the Process implementation should be kept to a minimum as will need test workarounds
+        // - better to just pass through to where needed in VS initiated functionality.
         public abstract void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags);
 
         // This should wrap XAH.HasAttribute & GetAttribute - and/or more there
