@@ -14,6 +14,7 @@ using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.Telemetry;
+using RapidXamlToolkit.XamlAnalysis;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit
@@ -32,6 +33,7 @@ namespace RapidXamlToolkit
 
         public static ILogger Logger { get; private set; }
 
+        // TODO: handle solution load, open & close correctly
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
@@ -60,12 +62,25 @@ namespace RapidXamlToolkit
                 await SetDatacontextCommand.InitializeAsync(this, Logger);
                 await InsertGridRowDefinitionCommand.InitializeAsync(this, Logger);
                 await RapidXamlDropHandlerProvider.InitializeAsync(this, Logger);
+
+                await this.SetUpRunningDocumentTableEventsAsync(cancellationToken);
             }
             catch (Exception exc)
             {
                 Logger.RecordException(exc);
                 throw;  // Remove for launch. see issue #90
             }
+        }
+
+        private async Task SetUpRunningDocumentTableEventsAsync(CancellationToken cancellationToken)
+        {
+            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+            var runningDocumentTable = new RunningDocumentTable(this);
+
+            var plugin = new RapidXamlRunningDocTableEvents(this, runningDocumentTable);
+
+            runningDocumentTable.Advise(plugin);
         }
     }
 }

@@ -238,6 +238,7 @@
     <Compile Include="XamlAnalysis\Elements.cs" />
     <Compile Include="XamlAnalysis\Processors\ButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\EntryProcessor.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlRunningDocTableEvents.cs" />
     <Compile Include="XamlAnalysis\Tags\AddColumnDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Actions\AddRowAndColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />

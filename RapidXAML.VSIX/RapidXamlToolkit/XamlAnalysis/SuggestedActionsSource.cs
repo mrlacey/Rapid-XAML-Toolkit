@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 using RapidXamlToolkit.XamlAnalysis.Tags;
+using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
@@ -36,11 +37,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             RapidXamlDocumentCache.Add(this.file, textBuffer.CurrentSnapshot);
         }
 
-        public event EventHandler<EventArgs> SuggestedActionsChanged
-        {
-            add { }
-            remove { }
-        }
+        public event EventHandler<EventArgs> SuggestedActionsChanged;
 
         // Observable event wrapper
         public IObservable<TextViewLayoutChangedEventArgs> WhenViewLayoutChanged
@@ -72,7 +69,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public Task<bool> HasSuggestedActionsAsync(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
         {
-            return Task.Factory.StartNew(() => { return this.GetTags(range).Any(); }, cancellationToken, TaskCreationOptions.None, TaskScheduler.Current);
+            return Task.Factory.StartNew(() => this.GetTags(range).Any(), cancellationToken, TaskCreationOptions.None, TaskScheduler.Current);
         }
 
         public IEnumerable<SuggestedActionSet> GetSuggestedActions(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
@@ -149,7 +146,6 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         private void OnViewLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
         {
-            // Layout change can happen a lot, but only interested in if the text has changed.
             // It would be "nice" to only reparse the changed lines in large documents but would need to keep track or any processors that work on the encapsulated changes.
             // Caching processors for partial re-parsing would be complicated. Considering this a low priority optimization.
             if (e.OldSnapshot != e.NewSnapshot)
@@ -163,9 +159,9 @@ namespace RapidXamlToolkit.XamlAnalysis
             return RapidXamlDocumentCache.AdornmentTags(this.file).Where(t => t.Span.IntersectsWith(span)).Select(t => t);
         }
 
-        private IEnumerable<IMappingTagSpan<IRapidXamlTag>> GetErrorTags(ITextView view, SnapshotSpan span)
+        private IEnumerable<IMappingTagSpan<IRapidXamlTag>> GetErrorTags(ITextView textView, SnapshotSpan span)
         {
-            return this.tagService.CreateTagAggregator<IRapidXamlTag>(view).GetTags(span);
+            return this.tagService.CreateTagAggregator<IRapidXamlTag>(textView).GetTags(span);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 // Plus need to allow areas (exclusions) where replacement shouldn't occur.
                 foreach (var (find, replace) in replacements)
                 {
-                    // move to startindex
+                    // move to startIndex
                     // find match text
                     // if > endIndex move next
                     // delete match text length
