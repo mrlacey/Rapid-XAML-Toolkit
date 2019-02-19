@@ -9,9 +9,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class HardCodedStringTag : RapidXamlWarningTag
     {
-        // TODO Need to assign a proper error code
         public HardCodedStringTag(Span span, ITextSnapshot snapshot, int line, int column)
-            : base(span, snapshot, "RXT???", line, column)
+            : base(span, snapshot, "RXT200", line, column)
         {
             this.SuggestedAction = typeof(HardCodedStringAction);
             this.ToolTip = StringRes.Info_XamlAnalysisHardcodedStringTooltip;

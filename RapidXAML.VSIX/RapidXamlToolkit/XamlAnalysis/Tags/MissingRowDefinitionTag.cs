@@ -9,9 +9,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class MissingRowDefinitionTag : MissingDefinitionTag
     {
-        // TODO: Need to assign a proper error code
         public MissingRowDefinitionTag(Span span, ITextSnapshot snapshot, int line, int column)
-            : base(span, snapshot, "RXT???", line, column)
+            : base(span, snapshot, "RXT101", line, column)
         {
             this.SuggestedAction = typeof(AddMissingRowDefinitionsAction);
             this.ToolTip = StringRes.Info_XamlAnalysisMissingRowDefinitionTooltip;

@@ -10,7 +10,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     // TODO: remove and replace with an actual useful tag - this is just for testing suggestionTags until have an actual one
     public class OtherHardCodedStringTag : RapidXamlSuggestionTag
     {
-        // TODO Need to assign a proper error code
         public OtherHardCodedStringTag(Span span, ITextSnapshot snapshot, int line, int column)
             : base(span, snapshot, "RXT???", line, column)
         {
