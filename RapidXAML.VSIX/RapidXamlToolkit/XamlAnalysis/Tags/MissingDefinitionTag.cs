@@ -22,5 +22,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public int TotalDefsRequired { get; set; }
 
         public int InsertPosition { get; set; }
+
+        public string LeftPad { get; set; }
     }
 }

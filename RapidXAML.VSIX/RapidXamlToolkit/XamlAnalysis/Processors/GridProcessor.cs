@@ -69,6 +69,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     GridNeedsExpanding = gridIsSelfClosing,
                 };
                 tags.Add(tag);
+
+                colDefsClosingPos = xamlElement.IndexOf(">", StringComparison.Ordinal);
             }
             else
             {
@@ -174,6 +176,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 ExistingDefsCount = rowDefsCount,
                                 HasSomeDefinitions = hasRowDef,
                                 InsertPosition = offset + rowDefsClosingPos,
+                                LeftPad = leftPad,
                             });
                         }
 
@@ -205,6 +208,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 ExistingDefsCount = colDefsCount,
                                 HasSomeDefinitions = hasColDef,
                                 InsertPosition = offset + colDefsClosingPos,
+                                LeftPad = leftPad,
                             });
                         }
 

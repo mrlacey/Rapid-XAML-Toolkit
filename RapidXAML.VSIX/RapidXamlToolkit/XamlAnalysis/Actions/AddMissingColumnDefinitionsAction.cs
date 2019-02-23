@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Threading;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
@@ -35,21 +36,31 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         {
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
             vs.StartSingleUndoOperation(StringRes.Info_UndoContextAddColumnDefinitions);
+
             try
             {
-                // TODO: may need to add "<Grid.ColumnDefinitions>" - can this be combined with AddColumnDefinitionsAction ?
+                var insert = string.Empty;
 
                 const string def = "<ColumnDefinition Width=\"*\" />";
 
-                var insert = string.Empty;
+                var leftPad = this.Tag.LeftPad.Contains("\t") ? this.Tag.LeftPad + "\t" : this.Tag.LeftPad + "    ";
 
-                // TODO: add line wrapping and left padding
                 for (var i = 0; i <= this.Tag.TotalDefsRequired - this.Tag.ExistingDefsCount; i++)
                 {
-                    insert += def;
+                    insert += $"{Environment.NewLine}{leftPad}{def}";
                 }
 
-                vs.InsertAtEndOfLine(this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition), insert);
+                var insertLine = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition);
+
+                if (!this.Tag.HasSomeDefinitions)
+                {
+                    insert = $"{Environment.NewLine}{this.Tag.LeftPad}<Grid.ColumnDefinitions>{insert}{Environment.NewLine}{this.Tag.LeftPad}</Grid.ColumnDefinitions>";
+
+                    // Account for different reference position - end-of-start vs start-of-end
+                    insertLine += 1;
+                }
+
+                vs.InsertAtEndOfLine(insertLine, insert);
 
                 RapidXamlDocumentCache.TryUpdate(this.File);
             }
