@@ -69,7 +69,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                 vs.InsertAtEndOfLine(lineNumber, toInsert);
 
-                // TODO: need to force re-parsing of document to update tags/suggested-actions
+                RapidXamlDocumentCache.TryUpdate(this.File);
             }
             finally
             {
