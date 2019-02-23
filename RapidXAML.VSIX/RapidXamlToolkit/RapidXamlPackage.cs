@@ -64,6 +64,7 @@ namespace RapidXamlToolkit
                 await RapidXamlDropHandlerProvider.InitializeAsync(this, Logger);
 
                 await this.SetUpRunningDocumentTableEventsAsync(cancellationToken);
+                RapidXamlDocumentCache.Initialize(this);
             }
             catch (Exception exc)
             {

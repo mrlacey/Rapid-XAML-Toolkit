@@ -9,8 +9,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
     {
         void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions);
 
-        void InsertIntoActiveDocument(string text, int pos);
-
         void InsertIntoActiveDocumentOnNextLine(string text, int pos);
 
         void InsertAtEndOfLine(int lineNumber, string toInsert);

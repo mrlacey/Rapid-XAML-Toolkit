@@ -7,6 +7,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public abstract class MissingDefinitionsAction : BaseSuggestedAction
     {
+        protected MissingDefinitionsAction(string file)
+            : base(file)
+        {
+        }
+
         public string UndoOperationName { get; protected set; }
 
         public MissingDefinitionTag Tag { get; set; }

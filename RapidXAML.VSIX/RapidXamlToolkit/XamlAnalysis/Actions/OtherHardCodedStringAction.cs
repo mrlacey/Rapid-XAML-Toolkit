@@ -14,11 +14,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
     // TODO: remove when not needed - this exists for testing SuggestionTags/Actions
     public class OtherHardCodedStringAction : BaseSuggestedAction
     {
-        private string file;
-        private ITextView view;
         private OtherHardCodedStringTag tag;
 
-        public OtherHardCodedStringAction()
+        public OtherHardCodedStringAction(string file)
+            : base(file)
         {
             this.DisplayText = StringRes.UI_MoveHardCodedString;
         }
@@ -27,11 +26,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public static OtherHardCodedStringAction Create(OtherHardCodedStringTag tag, string file, ITextView view)
         {
-            var result = new OtherHardCodedStringAction
+            var result = new OtherHardCodedStringAction(file)
             {
                 tag = tag,
-                file = file,
-                view = view,
+                View = view,
             };
 
             return result;

@@ -13,11 +13,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public class HardCodedStringAction : BaseSuggestedAction
     {
-        private string file;
-        private ITextView view;
         private HardCodedStringTag tag;
 
-        public HardCodedStringAction()
+        public HardCodedStringAction(string file)
+            : base(file)
         {
             this.DisplayText = StringRes.UI_MoveHardCodedString;
         }
@@ -26,11 +25,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public static HardCodedStringAction Create(HardCodedStringTag tag, string file, ITextView view)
         {
-            var result = new HardCodedStringAction
+            var result = new HardCodedStringAction(file)
             {
                 tag = tag,
-                file = file,
-                view = view,
+                View = view,
             };
 
             return result;

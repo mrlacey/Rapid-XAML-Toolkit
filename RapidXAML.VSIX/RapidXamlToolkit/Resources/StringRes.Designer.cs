@@ -639,9 +639,9 @@ namespace RapidXamlToolkit.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Add ColumnDefinitions.
         /// </summary>
-        public static string Info_UndoContextAddColumnDefinitons {
+        public static string Info_UndoContextAddColumnDefinitions {
             get {
-                return ResourceManager.GetString("Info_UndoContextAddColumnDefinitons", resourceCulture);
+                return ResourceManager.GetString("Info_UndoContextAddColumnDefinitions", resourceCulture);
             }
         }
         

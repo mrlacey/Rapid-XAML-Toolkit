@@ -90,11 +90,6 @@ namespace RapidXamlToolkit.Tests
             // NOOP
         }
 
-        public void InsertIntoActiveDocument(string text, int pos)
-        {
-            // NOOP
-        }
-
         public void InsertIntoActiveDocumentOnNextLine(string text, int pos)
         {
             // NOOP

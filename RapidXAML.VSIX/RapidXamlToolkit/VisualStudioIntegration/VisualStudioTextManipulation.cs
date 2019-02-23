@@ -78,15 +78,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
         }
 
-        public void InsertIntoActiveDocument(string text, int pos)
-        {
-            if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
-            {
-                txtDoc.Selection.MoveToAbsoluteOffset(pos);
-                txtDoc.Selection.Insert(text);
-            }
-        }
-
         public void InsertIntoActiveDocumentOnNextLine(string text, int pos)
         {
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)

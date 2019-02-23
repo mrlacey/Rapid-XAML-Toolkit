@@ -94,19 +94,19 @@ namespace RapidXamlToolkit.XamlAnalysis
                             list.AddRange(this.CreateActionSet(rxTag.Span, OtherHardCodedStringAction.Create((OtherHardCodedStringTag)rxTag, this.file, this.view)));
                             break;
                         case nameof(AddRowDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rxTag)));
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rxTag, this.file)));
                             break;
                         case nameof(AddColumnDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rxTag)));
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rxTag, this.file)));
                             break;
                         case nameof(AddRowAndColumnDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rxTag)));
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rxTag, this.file)));
                             break;
                         case nameof(AddMissingRowDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddMissingRowDefinitionsAction.Create((MissingRowDefinitionTag)rxTag)));
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AddMissingRowDefinitionsAction.Create((MissingRowDefinitionTag)rxTag, this.file)));
                             break;
                         case nameof(AddMissingColumnDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddMissingColumnDefinitionsAction.Create((MissingColumnDefinitionTag)rxTag)));
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AddMissingColumnDefinitionsAction.Create((MissingColumnDefinitionTag)rxTag, this.file)));
                             break;
                     }
                 }

@@ -21,7 +21,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
     {
         private readonly InsertRowDefinitionTag tag;
 
-        private InsertRowDefinitionAction(InsertRowDefinitionTag tag)
+        private InsertRowDefinitionAction(string file, InsertRowDefinitionTag tag)
+            : base(file)
         {
             this.tag = tag;
             this.DisplayText = StringRes.UI_InsertNewDefinitionForRow.WithParams(this.tag.RowId);
@@ -45,9 +46,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             var previewText = GetPreviewText(text, replacements, exclusions, tag);
 
-            var result = new InsertRowDefinitionAction(tag)
+            var result = new InsertRowDefinitionAction(file, tag)
             {
-                File = file,
                 View = view,
                 Replacements = replacements,
                 Exclusions = exclusions,

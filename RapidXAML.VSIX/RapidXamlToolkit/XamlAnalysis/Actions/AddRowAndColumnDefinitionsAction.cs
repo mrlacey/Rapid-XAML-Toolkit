@@ -10,7 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public class AddRowAndColumnDefinitionsAction : InjectFixedXamlSuggestedAction
     {
-        public AddRowAndColumnDefinitionsAction()
+        public AddRowAndColumnDefinitionsAction(string file)
+            : base(file)
         {
             this.InjectedXaml = @"<Grid.RowDefinitions>
     <RowDefinition Height=""Auto"" />
@@ -27,9 +28,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override ImageMoniker IconMoniker => KnownMonikers.TwoRowsTwoColumns;
 
-        public static AddRowAndColumnDefinitionsAction Create(AddRowAndColumnDefinitionsTag tag)
+        public static AddRowAndColumnDefinitionsAction Create(AddRowAndColumnDefinitionsTag tag, string file)
         {
-            var result = new AddRowAndColumnDefinitionsAction
+            var result = new AddRowAndColumnDefinitionsAction(file)
             {
                 Tag = tag,
             };

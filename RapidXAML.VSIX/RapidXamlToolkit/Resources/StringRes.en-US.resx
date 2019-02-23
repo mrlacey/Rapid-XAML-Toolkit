@@ -640,7 +640,7 @@
   <data name="Info_ProblemsInstructionsAndLink" xml:space="preserve">
     <value>If you have problems with this extension, or suggestions for improvement, report them at https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/new/choose </value>
   </data>
-  <data name="Info_UndoContextAddColumnDefinitons" xml:space="preserve">
+  <data name="Info_UndoContextAddColumnDefinitions" xml:space="preserve">
     <value>Add ColumnDefinitions</value>
   </data>
   <data name="Info_UndoContextAddRowAndColumnDefinitions" xml:space="preserve">

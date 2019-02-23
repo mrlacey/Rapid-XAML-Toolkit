@@ -4,7 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.ComponentModelHost;
+using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.TextManager.Interop;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis
@@ -12,8 +18,14 @@ namespace RapidXamlToolkit.XamlAnalysis
     public static class RapidXamlDocumentCache
     {
         private static readonly Dictionary<string, RapidXamlDocument> Cache = new Dictionary<string, RapidXamlDocument>();
+        private static RapidXamlPackage package;
 
         public static event EventHandler<RapidXamlParsingEventArgs> Parsed;
+
+        public static void Initialize(RapidXamlPackage rxPackage)
+        {
+            package = rxPackage;
+        }
 
         public static void Add(string file, ITextSnapshot snapshot)
         {
@@ -30,8 +42,59 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
         }
 
+        // For when don't have access to an ITextSnapshot but the document is open.
+        public static void TryUpdate(string file)
+        {
+            if (package == null)
+            {
+                return;
+            }
+
+            bool DocIsOpenInLogicalView(string path, Guid logicalView, out IVsWindowFrame windowFrame)
+            {
+                if (package != null)
+                {
+                    return VsShellUtilities.IsDocumentOpen(
+                        package,
+                        path,
+                        VSConstants.LOGVIEWID_TextView,
+                        out var dummyHierarchy2,
+                        out var dummyItemId2,
+                        out windowFrame);
+                }
+                else
+                {
+                    windowFrame = null;
+                    return false;
+                }
+            }
+
+            var docIsOpenInTextView =
+                DocIsOpenInLogicalView(file, VSConstants.LOGVIEWID_Code, out var windowFrameForTextView) ||
+                DocIsOpenInLogicalView(file, VSConstants.LOGVIEWID_TextView, out windowFrameForTextView);
+
+            if (docIsOpenInTextView && windowFrameForTextView != null)
+            {
+                var view = VsShellUtilities.GetTextView(windowFrameForTextView);
+
+                if (view != null)
+                {
+                    view.GetBuffer(out var curDocTextLines);
+
+                    var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
+
+                    var adaptersFactory = componentModel.GetService<IVsEditorAdaptersFactoryService>();
+
+                    var docBuffer = adaptersFactory.GetDocumentBuffer(curDocTextLines as IVsTextBuffer);
+
+                    RapidXamlDocumentCache.Update(file, docBuffer.CurrentSnapshot);
+                }
+            }
+        }
+
         public static void Update(string file, ITextSnapshot snapshot)
         {
+            // TODO: avoid multiple copies of the same text being parsed at once. - For if this is triggered from multiple places
             if (Cache[file].RawText != snapshot.GetText())
             {
                 var doc = RapidXamlDocument.Create(snapshot);

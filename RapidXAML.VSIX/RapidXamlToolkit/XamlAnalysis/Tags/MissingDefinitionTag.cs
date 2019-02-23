@@ -13,8 +13,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         {
         }
 
+        public bool HasSomeDefinitions { get; set; }
+
         public int AssignedInt { get; set; }
 
+        public int ExistingDefsCount { get; set; }
+
         public int TotalDefsRequired { get; set; }
+
+        public int InsertPosition { get; set; }
     }
 }

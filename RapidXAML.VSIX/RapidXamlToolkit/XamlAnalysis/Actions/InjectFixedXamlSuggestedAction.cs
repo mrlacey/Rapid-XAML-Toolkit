@@ -15,6 +15,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public abstract class InjectFixedXamlSuggestedAction : BaseSuggestedAction
     {
+        protected InjectFixedXamlSuggestedAction(string file)
+            : base(file)
+        {
+        }
+
         // Injected XAML should not be fully indented to allow for it to be used in previews.
         public string InjectedXaml { get; protected set; }
 

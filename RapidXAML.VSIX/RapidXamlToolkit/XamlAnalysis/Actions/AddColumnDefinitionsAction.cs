@@ -10,22 +10,23 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public class AddColumnDefinitionsAction : InjectFixedXamlSuggestedAction
     {
-        public AddColumnDefinitionsAction()
+        public AddColumnDefinitionsAction(string file)
+            : base(file)
         {
             this.InjectedXaml = @"<Grid.ColumnDefinitions>
     <ColumnDefinition Width=""*"" />
     <ColumnDefinition Width=""*"" />
 </Grid.ColumnDefinitions>";
 
-            this.UndoOperationName = StringRes.Info_UndoContextAddColumnDefinitons;
+            this.UndoOperationName = StringRes.Info_UndoContextAddColumnDefinitions;
             this.DisplayText = StringRes.UI_AddColumnDefinitions;
         }
 
         public override ImageMoniker IconMoniker => KnownMonikers.TwoColumns;
 
-        public static AddColumnDefinitionsAction Create(AddColumnDefinitionsTag tag)
+        public static AddColumnDefinitionsAction Create(AddColumnDefinitionsTag tag, string file)
         {
-            var result = new AddColumnDefinitionsAction
+            var result = new AddColumnDefinitionsAction(file)
             {
                 Tag = tag,
             };

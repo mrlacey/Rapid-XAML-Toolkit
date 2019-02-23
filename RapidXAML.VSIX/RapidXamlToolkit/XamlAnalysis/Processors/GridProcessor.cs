@@ -38,6 +38,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             var leftPad = linePadding.Contains("\t") ? linePadding + "\t" : linePadding + "    ";
 
+            var rowDefsClosingPos = -1;
+
             if (!hasRowDef)
             {
                 var tag = new AddRowDefinitionsTag(new Span(offset, endOfOpening), snapshot)
@@ -48,6 +50,15 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 };
                 tags.Add(tag);
             }
+            else
+            {
+                rowDefsClosingPos = xamlElement.IndexOf("</Grid.RowDefinitions", StringComparison.Ordinal);
+
+               // var lastLine = xamlElement.Substring(0, rowDefsClosingPos).LastIndexOf(">");
+               // rowDefsClosingPos = lastLine;
+            }
+
+            var colDefsClosingPos = -1;
 
             if (!hasColDef)
             {
@@ -58,6 +69,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     GridNeedsExpanding = gridIsSelfClosing,
                 };
                 tags.Add(tag);
+            }
+            else
+            {
+                colDefsClosingPos = xamlElement.IndexOf("</Grid.ColumnDefinitions", StringComparison.Ordinal);
             }
 
             if (!hasRowDef && !hasColDef)
@@ -129,7 +144,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var nextDefUseIndex = xamlElement.FirstIndexOf(rowDefUse, colDefUse);
             var defUseOffset = 0;
 
-            while (nextDefUseIndex >= 0)
+            while (nextDefUseIndex > 0)
             {
                 defUseOffset += nextDefUseIndex;
 
@@ -156,6 +171,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                             {
                                 AssignedInt = assignedInt,
                                 Description = StringRes.Info_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
+                                ExistingDefsCount = rowDefsCount,
+                                HasSomeDefinitions = hasRowDef,
+                                InsertPosition = offset + rowDefsClosingPos,
                             });
                         }
 
@@ -177,13 +195,16 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                         if (assignedInt >= colDefsCount)
                         {
                             undefinedTags.Add(new MissingColumnDefinitionTag(
-                                new Span(offset + rowDefIndex, closePos - rowDefIndex + 1),
+                                new Span(offset + defUseOffset, closePos - defUseOffset + 1),
                                 snapshot,
                                 line.LineNumber,
                                 col)
                             {
                                 AssignedInt = assignedInt,
                                 Description = StringRes.Info_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
+                                ExistingDefsCount = colDefsCount,
+                                HasSomeDefinitions = hasColDef,
+                                InsertPosition = offset + colDefsClosingPos,
                             });
                         }
 
@@ -194,7 +215,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
                 }
 
-                nextDefUseIndex = xamlElement.Substring(defUseOffset + 1).FirstIndexOf(colDefUse, rowDefUse);
+                nextDefUseIndex = xamlElement.Substring(defUseOffset + 1).FirstIndexOf(colDefUse, rowDefUse) + 1;
             }
 
             foreach (var undefinedTag in undefinedTags)

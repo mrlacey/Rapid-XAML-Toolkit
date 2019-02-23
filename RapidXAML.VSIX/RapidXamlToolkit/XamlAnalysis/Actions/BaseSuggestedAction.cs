@@ -15,6 +15,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public abstract class BaseSuggestedAction : ISuggestedAction
     {
+        protected BaseSuggestedAction(string file)
+        {
+            this.File = file;
+        }
+
         public string DisplayText { get; protected set; }
 
         public virtual bool IsEnabled { get; } = true;
@@ -44,7 +49,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             get { return null; }
         }
 
-        protected string File { get; set; }
+        protected string File { get; }
 
         protected ITextView View { get; set; }
 

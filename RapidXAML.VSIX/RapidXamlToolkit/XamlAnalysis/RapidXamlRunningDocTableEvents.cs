@@ -41,46 +41,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             if (Path.GetExtension(documentPath) == ".xaml")
             {
-                bool DocIsOpenInLogicalView(string path, Guid logicalView, out IVsWindowFrame windowFrame)
-                {
-                    if (package != null)
-                    {
-                        return VsShellUtilities.IsDocumentOpen(
-                            package,
-                            path,
-                            VSConstants.LOGVIEWID_TextView,
-                            out var dummyHierarchy2,
-                            out var dummyItemId2,
-                            out windowFrame);
-                    }
-                    else
-                    {
-                        windowFrame = null;
-                        return false;
-                    }
-                }
-
-                var docIsOpenInTextView =
-                    DocIsOpenInLogicalView(documentPath, VSConstants.LOGVIEWID_Code, out var windowFrameForTextView) ||
-                    DocIsOpenInLogicalView(documentPath, VSConstants.LOGVIEWID_TextView, out windowFrameForTextView);
-
-                if (docIsOpenInTextView && windowFrameForTextView != null)
-                {
-                    var view = VsShellUtilities.GetTextView(windowFrameForTextView);
-
-                    if (view != null)
-                    {
-                        view.GetBuffer(out var curDocTextLines);
-
-                        var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
-
-                        var adaptersFactory = componentModel.GetService<IVsEditorAdaptersFactoryService>();
-
-                        var docBuffer = adaptersFactory.GetDocumentBuffer(curDocTextLines as IVsTextBuffer);
-
-                        RapidXamlDocumentCache.Update(documentPath, docBuffer.CurrentSnapshot);
-                    }
-                }
+                RapidXamlDocumentCache.TryUpdate(documentPath);
             }
 
             return VSConstants.S_OK;
