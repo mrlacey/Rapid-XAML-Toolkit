@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Threading;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
@@ -33,14 +34,35 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override void Execute(CancellationToken cancellationToken)
         {
-            // TODO: implement add missing row definitions
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
             vs.StartSingleUndoOperation(StringRes.Info_UndoContextAddRowDefinitions);
+
             try
             {
-                // may need to add "<Grid.RowDefinitions>"
-                // add appropriate number of <RowDefinition Height="*" />
-                // Force reparse of document - to remove tags that have now been added
+                var insert = string.Empty;
+
+                const string def = "<RowDefinition Height=\"*\" />";
+
+                var leftPad = this.Tag.LeftPad.Contains("\t") ? this.Tag.LeftPad + "\t" : this.Tag.LeftPad + "    ";
+
+                for (var i = 0; i <= this.Tag.TotalDefsRequired - this.Tag.ExistingDefsCount; i++)
+                {
+                    insert += $"{Environment.NewLine}{leftPad}{def}";
+                }
+
+                var insertLine = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition);
+
+                if (!this.Tag.HasSomeDefinitions)
+                {
+                    insert = $"{Environment.NewLine}{this.Tag.LeftPad}<Grid.RowDefinitions>{insert}{Environment.NewLine}{this.Tag.LeftPad}</Grid.RowDefinitions>";
+
+                    // Account for different reference position - end-of-start vs start-of-end
+                    insertLine += 1;
+                }
+
+                vs.InsertAtEndOfLine(insertLine, insert);
+
+                RapidXamlDocumentCache.TryUpdate(this.File);
             }
             finally
             {
