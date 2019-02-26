@@ -10,5 +10,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string Keyboard => "Keyboard";
 
         public static string Text => "Text";
+
+        public static string Uid => "x:Uid";
     }
 }

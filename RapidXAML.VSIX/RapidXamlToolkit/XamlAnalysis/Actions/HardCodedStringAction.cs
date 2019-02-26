@@ -2,11 +2,13 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
@@ -37,10 +39,29 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         public override void Execute(CancellationToken cancellationToken)
         {
             // TODO: need to create missing resource
-            // assign UID (name if not UWP) to element if it doesn't have one - how to determine this
             // determine which file to add to - need setting for rule on creation if none exist
-            // remove existing tag
             // create entry in the resource file (& open it? - configurable?)
+
+            var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
+            vs.StartSingleUndoOperation(StringRes.Info_UndoContextMoveStringToResourceFile);
+
+            try
+            {
+                if (this.tag.UidExists)
+                {
+                    vs.ReplaceInActiveDocOnLine($"Text=\"{this.tag.Value}\"", string.Empty, this.tag.Snapshot.GetLineNumberFromPosition(this.tag.Span.Start) + 1);
+                }
+                else
+                {
+                    vs.ReplaceInActiveDocOnLine($"Text=\"{this.tag.Value}\"", $"x:Uid=\"{this.tag.UidValue}\"", this.tag.Snapshot.GetLineNumberFromPosition(this.tag.Span.Start) + 1);
+                }
+
+                RapidXamlDocumentCache.TryUpdate(this.File);
+            }
+            finally
+            {
+                vs.EndSingleUndoOperation();
+            }
         }
     }
 }

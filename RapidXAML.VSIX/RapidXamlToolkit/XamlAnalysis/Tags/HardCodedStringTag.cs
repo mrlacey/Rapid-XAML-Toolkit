@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Actions;
@@ -16,5 +17,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.ToolTip = StringRes.Info_XamlAnalysisHardcodedStringTooltip;
             this.ExtendedMessage = StringRes.Info_XamlAnalysisHardcodedStringExtendedMessage;
         }
+
+        public string Value { get; set; }
+
+        public bool UidExists { get; set; }
+
+        public string UidValue { get; set; }
     }
 }

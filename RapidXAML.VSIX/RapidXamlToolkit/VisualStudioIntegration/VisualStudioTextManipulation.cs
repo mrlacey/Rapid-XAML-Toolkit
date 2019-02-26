@@ -16,6 +16,25 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         protected DTE Dte { get; }
 
+        public void ReplaceInActiveDocOnLine(string find, string replace, int lineNumber)
+        {
+            if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
+            {
+                txtDoc.Selection.MoveToLineAndOffset(lineNumber, 1);
+
+                if (txtDoc.Selection.FindText(find, (int)vsFindOptions.vsFindOptionsMatchCase))
+                {
+                    // The FindText call  selected the search text so this insert pastes over the top of it
+                    txtDoc.Selection.Insert(replace);
+                }
+            }
+        }
+
+        public void ReplaceInActiveDoc(string find, string replace, int startIndex, int endIndex)
+        {
+            this.ReplaceInActiveDoc(new List<(string find, string replace)> { (find, replace) }, startIndex, endIndex, null);
+        }
+
         public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions = null)
         {
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
@@ -62,7 +81,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                         {
                             if (curPos < endIndex)
                             {
-                                // The find call above selected the search text so this insert pastes over the top of it
+                                // The FindText call above selected the search text so this insert pastes over the top of it
                                 txtDoc.Selection.Insert(replace);
 
                                 // Allow for find and replace being different lengths and adjust endpoint accordingly

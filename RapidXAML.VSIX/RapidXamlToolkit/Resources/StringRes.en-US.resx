@@ -712,4 +712,7 @@
   <data name="UI_AddMissingRowDefinitions" xml:space="preserve">
     <value>Add missing row definitions.</value>
   </data>
+  <data name="Info_UndoContextMoveStringToResourceFile" xml:space="preserve">
+    <value>Move string to resource file</value>
+  </data>
 </root>

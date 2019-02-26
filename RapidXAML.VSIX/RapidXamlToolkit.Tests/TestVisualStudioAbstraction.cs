@@ -85,6 +85,16 @@ namespace RapidXamlToolkit.Tests
             return (this.CursorPosition, this.LineNumber);
         }
 
+        public void ReplaceInActiveDocOnLine(string find, string replace, int lineNumber)
+        {
+            // NOOP
+        }
+
+        public void ReplaceInActiveDoc(string find, string replace, int startIndex, int endIndex)
+        {
+            // NOOP
+        }
+
         public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusion)
         {
             // NOOP

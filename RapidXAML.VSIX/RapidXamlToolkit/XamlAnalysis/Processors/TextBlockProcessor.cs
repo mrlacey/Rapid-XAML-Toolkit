@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -22,9 +24,19 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     var line = snapshot.GetLineFromPosition(offset + tbIndex);
                     var col = offset + tbIndex - line.Start.Position;
 
+                    var uidExists = TryGetAttribute(xamlElement, Attributes.Uid, out int _, out int _, out string uid);
+
+                    if (!uidExists)
+                    {
+                        uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value)}TextBlock";
+                    }
+
                     tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col)
                     {
+                        Value = value,
                         Description = StringRes.Info_XamlAnalysisHardcodedStringTextblockTextMessage.WithParams(value),
+                        UidExists = uidExists,
+                        UidValue = uid,
                     });
                 }
             }

@@ -691,6 +691,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move string to resource file.
+        /// </summary>
+        public static string Info_UndoContextMoveStringToResourceFile {
+            get {
+                return ResourceManager.GetString("Info_UndoContextMoveStringToResourceFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Using class grouping of &apos;{0}&apos;..
         /// </summary>
         public static string Info_UsingClassGrouping {
