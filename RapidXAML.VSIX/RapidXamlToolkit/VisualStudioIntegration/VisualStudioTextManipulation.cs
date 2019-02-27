@@ -16,6 +16,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         protected DTE Dte { get; }
 
+        public void RemoveInActiveDocOnLine(string find, int lineNumber)
+        {
+            this.ReplaceInActiveDocOnLine(find, string.Empty, lineNumber);
+        }
+
         public void ReplaceInActiveDocOnLine(string find, string replace, int lineNumber)
         {
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)

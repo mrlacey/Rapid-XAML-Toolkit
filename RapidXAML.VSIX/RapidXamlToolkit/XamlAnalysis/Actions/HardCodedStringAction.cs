@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
+using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
@@ -47,13 +48,16 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             try
             {
+                var currentTag = $"Text=\"{this.tag.Value}\"";
+
                 if (this.tag.UidExists)
                 {
-                    vs.ReplaceInActiveDocOnLine($"Text=\"{this.tag.Value}\"", string.Empty, this.tag.Snapshot.GetLineNumberFromPosition(this.tag.Span.Start) + 1);
+                    vs.RemoveInActiveDocOnLine(currentTag, this.tag.GetDesignerLineNumber());
                 }
                 else
                 {
-                    vs.ReplaceInActiveDocOnLine($"Text=\"{this.tag.Value}\"", $"x:Uid=\"{this.tag.UidValue}\"", this.tag.Snapshot.GetLineNumberFromPosition(this.tag.Span.Start) + 1);
+                    var uidTag = $"x:Uid=\"{this.tag.UidValue}\"";
+                    vs.ReplaceInActiveDocOnLine(currentTag, uidTag, this.tag.GetDesignerLineNumber());
                 }
 
                 RapidXamlDocumentCache.TryUpdate(this.File);

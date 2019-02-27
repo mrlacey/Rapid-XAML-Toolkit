@@ -37,6 +37,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             RapidXamlDocumentCache.Add(this.file, textBuffer.CurrentSnapshot);
         }
 
+        // TODO: investigate if/when should be calling this
         public event EventHandler<EventArgs> SuggestedActionsChanged;
 
         // Observable event wrapper
