@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using System.Xml.Linq;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Text;
@@ -39,20 +41,16 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override void Execute(CancellationToken cancellationToken)
         {
-            // TODO: need to create missing resource
-            // determine which file to add to - need setting for rule on creation if none exist
-            // create entry in the resource file (& open it? - configurable?)
-
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
             vs.StartSingleUndoOperation(StringRes.Info_UndoContextMoveStringToResourceFile);
 
             try
             {
-                // TODO: get path of resw file to add to
-                // TODO: see if resw file is open in RDT - if it is, force saving it
-                // TODO: create entry in the resw file & save it
+                var resPath = this.GetResourceFilePath();
 
+                // TODO: work out what to do if the resfile is open and has unsaved changes - can't force save, so what?
 
+                this.AddResource(resPath, $"{this.tag.UidValue}.Text", this.tag.Value);
 
                 var currentTag = $"Text=\"{this.tag.Value}\"";
 
@@ -71,6 +69,81 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             finally
             {
                 vs.EndSingleUndoOperation();
+            }
+        }
+
+        private void AddResource(string resPath, string name, string value)
+        {
+            // TODO: check not creating duplicate entries - having dupes doesn't break anything but is bad to do.
+            var doc = XDocument.Load(resPath);
+            var newData = new XElement("data");
+
+            newData.Add(new XAttribute("name", name));
+
+            newData.Add(new XAttribute(XNamespace.Xml + "space", "preserve"));
+            newData.Add(new XElement("value", value));
+            doc.Element("root").Add(newData);
+            doc.Save(resPath);
+        }
+
+        // TODO: support .resx too - will need to know which to use of project includes both
+        private string GetResourceFilePath()
+        {
+            var reswFiles = new List<string>();
+
+            // See also https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.shell.interop.ivssolution.getprojectenum?view=visualstudiosdk-2017#Microsoft_VisualStudio_Shell_Interop_IVsSolution_GetProjectEnum_System_UInt32_System_Guid__Microsoft_VisualStudio_Shell_Interop_IEnumHierarchies__
+            void IterateProjItems(EnvDTE.ProjectItem projectItem)
+            {
+                var item = projectItem.ProjectItems.GetEnumerator();
+
+                while (item.MoveNext())
+                {
+                    if (item.Current is EnvDTE.ProjectItem projItem)
+                    {
+                        if (projItem.ProjectItems.Count > 0)
+                        {
+                            IterateProjItems(projItem);
+                        }
+                        else if (projItem.Name.EndsWith(".resw"))
+                        {
+                            reswFiles.Add(projItem.FileNames[0]);
+                        }
+                    }
+                }
+            }
+
+            void IterateProject(EnvDTE.Project project)
+            {
+                var item = project.ProjectItems.GetEnumerator();
+
+                while (item.MoveNext())
+                {
+                    if (item.Current is EnvDTE.ProjectItem projItem)
+                    {
+                        IterateProjItems(projItem);
+                    }
+                }
+            }
+
+            var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.File);
+
+            // For very large projects this can be very inefficient. When an issue, consider caching or querying the file system directly.
+            IterateProject(proj);
+
+            if (reswFiles.Count == 0)
+            {
+                // Don't try and create one if none exists.
+                // TODO: work out how to provide feedback to the user that none exists and they first need to create one
+                return null;
+            }
+            else if (reswFiles.Count == 1)
+            {
+                return reswFiles.First();
+            }
+            else
+            {
+                // TODO: If multiples, find the default locale and use that
+                return @"C:\Users\matt\source\repos\RxtDevTesting\UwpApp\Strings\en-us\Resources.resw";
             }
         }
     }
