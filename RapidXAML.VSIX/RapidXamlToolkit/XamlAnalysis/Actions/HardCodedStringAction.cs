@@ -48,6 +48,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             try
             {
+                // TODO: get path of resw file to add to
+                // TODO: see if resw file is open in RDT - if it is, force saving it
+                // TODO: create entry in the resw file & save it
+
+
+
                 var currentTag = $"Text=\"{this.tag.Value}\"";
 
                 if (this.tag.UidExists)
