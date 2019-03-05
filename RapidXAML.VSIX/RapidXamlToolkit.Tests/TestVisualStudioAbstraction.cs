@@ -133,7 +133,7 @@ namespace RapidXamlToolkit.Tests
 
         public void ReplaceInActiveDocOnLineOrAbove(string find, string replace, int lineNumber)
         {
-            throw new System.NotImplementedException();
+            // NOOP
         }
     }
 }

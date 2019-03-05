@@ -50,7 +50,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 var resPath = this.GetResourceFilePath();
 
                 // TODO: work out what to do if the resfile is open and has unsaved changes - can't force save, so what?
-
                 this.AddResource(resPath, $"{this.tag.UidValue}.Text", this.tag.Value);
 
                 if (this.tag.AttributeType == AttributeType.Inline)

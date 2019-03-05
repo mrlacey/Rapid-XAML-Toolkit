@@ -64,7 +64,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             }
 
-
             attributeType = AttributeType.None;
             index = -1;
             length = 0;
