@@ -39,6 +39,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         (Elements.Grid, new GridProcessor()),
                         (Elements.TextBlock, new TextBlockProcessor()),
+                        (Elements.TextBox, new TextBoxProcessor()),
                         (Elements.Button, new ButtonProcessor()),
                         (Elements.Entry, new EntryProcessor()),
                     };

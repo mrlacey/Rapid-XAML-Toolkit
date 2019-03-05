@@ -12,5 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string Grid => "Grid";
 
         public static string TextBlock => "TextBlock";
+
+        public static string TextBox => "TextBox";
     }
 }

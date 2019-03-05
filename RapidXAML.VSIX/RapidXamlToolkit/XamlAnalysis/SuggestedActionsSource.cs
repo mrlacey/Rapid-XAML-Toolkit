@@ -88,8 +88,14 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(InsertRowDefinitionAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rxTag, this.file, this.view)));
                             break;
-                        case nameof(HardCodedStringAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, HardCodedStringAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                        case nameof(TextBlockTextAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, TextBlockTextAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(TextBoxHeaderAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, TextBoxHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(TextBoxPlaceholderAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, TextBoxPlaceholderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
                             break;
                         case nameof(OtherHardCodedStringAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, OtherHardCodedStringAction.Create((OtherHardCodedStringTag)rxTag, this.file, this.view)));

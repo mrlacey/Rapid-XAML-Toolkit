@@ -35,10 +35,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 }
             }
 
+            var elementName = xaml.Substring(1, xaml.IndexOfAny(new[] { ' ', '>' }) - 1);
+
             if (attributeTypesToCheck.HasFlag(AttributeType.Element))
             {
-                var elementName = xaml.Substring(1, xaml.IndexOfAny(new[] { ' ', '>' }) - 1);
-
                 var searchText = $"<{elementName}.{attributeName}>";
 
                 var startIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
@@ -61,7 +61,23 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (attributeTypesToCheck.HasFlag(AttributeType.DefaultValue))
             {
+                var endOfOpening = xaml.IndexOf(">");
+                var closingTag = $"</{elementName}>";
+                var startOfClosing = xaml.IndexOf(closingTag, StringComparison.Ordinal);
 
+                if (startOfClosing > 0 && startOfClosing > endOfOpening)
+                {
+                    var defaultValue = xaml.Substring(endOfOpening + 1, startOfClosing - endOfOpening - 1);
+
+                    if (!string.IsNullOrWhiteSpace(defaultValue))
+                    {
+                        attributeType = AttributeType.DefaultValue;
+                        index = 0;
+                        length = xaml.Length;
+                        value = defaultValue;
+                        return true;
+                    }
+                }
             }
 
             attributeType = AttributeType.None;

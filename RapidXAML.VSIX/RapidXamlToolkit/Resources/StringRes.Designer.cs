@@ -736,6 +736,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TextBox contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringTextboxHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTextboxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TextBox contains hard-coded PlaceholderText value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hard-coded string.
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringTooltip {

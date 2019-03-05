@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
@@ -10,10 +11,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class HardCodedStringTag : RapidXamlWarningTag
     {
-        public HardCodedStringTag(Span span, ITextSnapshot snapshot, int line, int column)
+        public HardCodedStringTag(Span span, ITextSnapshot snapshot, int line, int column, Type action)
             : base(span, snapshot, "RXT200", line, column)
         {
-            this.SuggestedAction = typeof(HardCodedStringAction);
+            this.SuggestedAction = action;
             this.ToolTip = StringRes.Info_XamlAnalysisHardcodedStringTooltip;
             this.ExtendedMessage = StringRes.Info_XamlAnalysisHardcodedStringExtendedMessage;
         }

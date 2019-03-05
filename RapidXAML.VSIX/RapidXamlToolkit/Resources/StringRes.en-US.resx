@@ -715,4 +715,10 @@
   <data name="Info_UndoContextMoveStringToResourceFile" xml:space="preserve">
     <value>Move string to resource file</value>
   </data>
+  <data name="Info_XamlAnalysisHardcodedStringTextboxHeaderMessage" xml:space="preserve">
+    <value>TextBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage" xml:space="preserve">
+    <value>TextBox contains hard-coded PlaceholderText value '{0}'.</value>
+  </data>
 </root>

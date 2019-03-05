@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.XamlAnalysis.Actions;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class TextBlockProcessor : XamlElementProcessor
     {
-        // TODO: need to allow for default value as well as being an attribute
         public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             if (TryGetAttribute(xamlElement, Attributes.Text, AttributeType.Any, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
@@ -27,9 +27,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     if (!uidExists)
                     {
                         uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value)}TextBlock";
+                        uid = uid.RemoveAllWhitespace();
                     }
 
-                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col)
+                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col, typeof(TextBlockTextAction))
                     {
                         AttributeType = foundAttributeType,
                         Value = value,

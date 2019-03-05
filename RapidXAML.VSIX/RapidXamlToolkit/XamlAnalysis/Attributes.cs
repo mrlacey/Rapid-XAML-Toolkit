@@ -7,7 +7,11 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         public static string Content => "Content";
 
+        public static string Header => "Header";
+
         public static string Keyboard => "Keyboard";
+
+        public static string PlaceholderText => "PlaceholderText";
 
         public static string Text => "Text";
 

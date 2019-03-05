@@ -18,28 +18,23 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public class HardCodedStringAction : BaseSuggestedAction
     {
-        private HardCodedStringTag tag;
-
-        public HardCodedStringAction(string file)
+        public HardCodedStringAction(string file, ITextView view, string elementName, string attributeName)
             : base(file)
         {
+            this.View = view;
             this.DisplayText = StringRes.UI_MoveHardCodedString;
+            this.ElementName = elementName;
+            this.AttributeName = attributeName;
         }
 
         public override ImageMoniker IconMoniker => KnownMonikers.GenerateResource;
 
-        public static HardCodedStringAction Create(HardCodedStringTag tag, string file, ITextView view)
-        {
-            var result = new HardCodedStringAction(file)
-            {
-                tag = tag,
-                View = view,
-            };
+        public HardCodedStringTag Tag { get; protected set; }
 
-            return result;
-        }
+        public string ElementName { get; }
 
-        // TODO: Need to deal with whether attribute/child-element-attribute/default-value
+        public string AttributeName { get; }
+
         public override void Execute(CancellationToken cancellationToken)
         {
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
@@ -49,34 +44,41 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             {
                 var resPath = this.GetResourceFilePath();
 
-                // TODO: work out what to do if the resfile is open and has unsaved changes - can't force save, so what?
-                this.AddResource(resPath, $"{this.tag.UidValue}.Text", this.tag.Value);
+                // If the resource file is open with unsaved changes VS will prompt about data being lost.
+                this.AddResource(resPath, $"{this.Tag.UidValue}.{this.AttributeName}", this.Tag.Value);
 
-                if (this.tag.AttributeType == AttributeType.Inline)
+                if (this.Tag.AttributeType == AttributeType.Inline)
                 {
-                    var currentAttribute = $"Text=\"{this.tag.Value}\"";
+                    var currentAttribute = $"{this.AttributeName}=\"{this.Tag.Value}\"";
 
-                    if (this.tag.UidExists)
+                    if (this.Tag.UidExists)
                     {
-                        vs.RemoveInActiveDocOnLine(currentAttribute, this.tag.GetDesignerLineNumber());
+                        vs.RemoveInActiveDocOnLine(currentAttribute, this.Tag.GetDesignerLineNumber());
                     }
                     else
                     {
-                        var uidTag = $"x:Uid=\"{this.tag.UidValue}\"";
-                        vs.ReplaceInActiveDocOnLine(currentAttribute, uidTag, this.tag.GetDesignerLineNumber());
+                        var uidTag = $"x:Uid=\"{this.Tag.UidValue}\"";
+                        vs.ReplaceInActiveDocOnLine(currentAttribute, uidTag, this.Tag.GetDesignerLineNumber());
                     }
                 }
-                else if (this.tag.AttributeType == AttributeType.Element)
+                else if (this.Tag.AttributeType == AttributeType.Element)
                 {
-                    var currentAttribute = $"<TextBlock.Text>{this.tag.Value}</TextBlock.Text>";
+                    var currentAttribute = $"<{this.ElementName}.{this.AttributeName}>{this.Tag.Value}</{this.ElementName}.{this.AttributeName}>";
 
-                    vs.RemoveInActiveDocOnLine(currentAttribute, this.tag.GetDesignerLineNumber());
+                    vs.RemoveInActiveDocOnLine(currentAttribute, this.Tag.GetDesignerLineNumber());
 
-                    if (!this.tag.UidExists)
+                    if (!this.Tag.UidExists)
                     {
-                        var uidTag = $"<TextBlock x:Uid=\"{this.tag.UidValue}\"";
-                        vs.ReplaceInActiveDocOnLineOrAbove("<TextBlock", uidTag, this.tag.GetDesignerLineNumber());
+                        var uidTag = $"<{this.ElementName} x:Uid=\"{this.Tag.UidValue}\"";
+                        vs.ReplaceInActiveDocOnLineOrAbove($"<{this.ElementName}", uidTag, this.Tag.GetDesignerLineNumber());
                     }
+                }
+                else if (this.Tag.AttributeType == AttributeType.DefaultValue)
+                {
+                    var current = $">{this.Tag.Value}</{this.ElementName}>";
+                    var replaceWith = this.Tag.UidExists ? " />" : $" x:Uid=\"{this.Tag.UidValue}\" />";
+
+                    vs.ReplaceInActiveDocOnLine(current, replaceWith, this.Tag.GetDesignerLineNumber());
                 }
 
                 RapidXamlDocumentCache.TryUpdate(this.File);
@@ -116,7 +118,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             }
         }
 
-        // TODO: support .resx too - will need to know which to use of project includes both
+        // TODO: support .resx too - will need to know which to use if project includes both
         private string GetResourceFilePath()
         {
             var reswFiles = new List<string>();
