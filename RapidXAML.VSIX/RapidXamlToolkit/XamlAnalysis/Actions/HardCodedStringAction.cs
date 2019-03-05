@@ -74,16 +74,31 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         private void AddResource(string resPath, string name, string value)
         {
-            // TODO: check not creating duplicate entries - having dupes doesn't break anything but is bad to do.
-            var doc = XDocument.Load(resPath);
-            var newData = new XElement("data");
+            var xdoc = XDocument.Load(resPath);
 
-            newData.Add(new XAttribute("name", name));
+            // Don't want to create a duplicate entry.
+            var alreadyExists = false;
 
-            newData.Add(new XAttribute(XNamespace.Xml + "space", "preserve"));
-            newData.Add(new XElement("value", value));
-            doc.Element("root").Add(newData);
-            doc.Save(resPath);
+            foreach (var element in xdoc.Descendants("data"))
+            {
+                if (element.Attribute("name")?.Value == name)
+                {
+                    alreadyExists = true;
+                    break;
+                }
+            }
+
+            if (!alreadyExists)
+            {
+                var newData = new XElement("data");
+
+                newData.Add(new XAttribute("name", name));
+
+                newData.Add(new XAttribute(XNamespace.Xml + "space", "preserve"));
+                newData.Add(new XElement("value", value));
+                xdoc.Element("root").Add(newData);
+                xdoc.Save(resPath);
+            }
         }
 
         // TODO: support .resx too - will need to know which to use of project includes both

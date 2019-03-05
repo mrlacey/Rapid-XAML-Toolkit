@@ -33,7 +33,6 @@ namespace RapidXamlToolkit
 
         public static ILogger Logger { get; private set; }
 
-        // TODO: handle solution load, open & close correctly
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
