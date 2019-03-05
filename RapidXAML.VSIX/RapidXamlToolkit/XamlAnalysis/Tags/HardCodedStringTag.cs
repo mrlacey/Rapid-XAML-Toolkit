@@ -18,6 +18,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.ExtendedMessage = StringRes.Info_XamlAnalysisHardcodedStringExtendedMessage;
         }
 
+        public AttributeType AttributeType { get; set; }
+
         public string Value { get; set; }
 
         public bool UidExists { get; set; }

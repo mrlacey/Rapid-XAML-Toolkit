@@ -130,5 +130,10 @@ namespace RapidXamlToolkit.Tests
             await Task.CompletedTask;
             return this.XamlIndent;
         }
+
+        public void ReplaceInActiveDocOnLineOrAbove(string find, string replace, int lineNumber)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

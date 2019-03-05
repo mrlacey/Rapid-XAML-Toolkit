@@ -15,28 +15,61 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         public abstract void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags);
 
         // This should wrap XAH.HasAttribute & GetAttribute - and/or more there
-        protected static bool TryGetAttribute(string xaml, string attributeName, out int index, out int length, out string value)
+        protected static bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
         {
-            var searchText = $"{attributeName}=\"";
-
-            var tbIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
-
-            if (tbIndex >= 0)
+            if (attributeTypesToCheck.HasFlag(AttributeType.Inline))
             {
-                var tbEnd = xaml.IndexOf("\"", tbIndex + searchText.Length, StringComparison.Ordinal);
+                var searchText = $"{attributeName}=\"";
 
-                index = tbIndex;
-                length = tbEnd - tbIndex + 1;
-                value = xaml.Substring(tbIndex + searchText.Length, tbEnd - tbIndex - searchText.Length);
-                return true;
+                var tbIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
+
+                if (tbIndex >= 0)
+                {
+                    var tbEnd = xaml.IndexOf("\"", tbIndex + searchText.Length, StringComparison.Ordinal);
+
+                    attributeType = AttributeType.Inline;
+                    index = tbIndex;
+                    length = tbEnd - tbIndex + 1;
+                    value = xaml.Substring(tbIndex + searchText.Length, tbEnd - tbIndex - searchText.Length);
+                    return true;
+                }
             }
-            else
+
+            if (attributeTypesToCheck.HasFlag(AttributeType.Element))
             {
-                index = -1;
-                length = 0;
-                value = string.Empty;
-                return false;
+                var elementName = xaml.Substring(1, xaml.IndexOfAny(new[] { ' ', '>' }) - 1);
+
+                var searchText = $"<{elementName}.{attributeName}>";
+
+                var startIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
+
+                if (startIndex > -1)
+                {
+                    var closingElement = $"</{elementName}.{attributeName}>";
+                    var endPos = xaml.IndexOf(closingElement, startIndex, StringComparison.Ordinal);
+
+                    if (endPos > -1)
+                    {
+                        attributeType = AttributeType.Element;
+                        index = startIndex;
+                        length = endPos - startIndex + closingElement.Length;
+                        value = xaml.Substring(startIndex + searchText.Length, endPos - startIndex - searchText.Length);
+                        return true;
+                    }
+                }
             }
+
+            if (attributeTypesToCheck.HasFlag(AttributeType.DefaultValue))
+            {
+
+            }
+
+
+            attributeType = AttributeType.None;
+            index = -1;
+            length = 0;
+            value = string.Empty;
+            return false;
         }
     }
 }

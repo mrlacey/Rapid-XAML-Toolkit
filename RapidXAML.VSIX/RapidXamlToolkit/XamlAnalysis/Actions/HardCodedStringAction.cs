@@ -39,6 +39,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             return result;
         }
 
+        // TODO: Need to deal with whether attribute/child-element-attribute/default-value
         public override void Execute(CancellationToken cancellationToken)
         {
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
@@ -52,16 +53,31 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                 this.AddResource(resPath, $"{this.tag.UidValue}.Text", this.tag.Value);
 
-                var currentTag = $"Text=\"{this.tag.Value}\"";
+                if (this.tag.AttributeType == AttributeType.Inline)
+                {
+                    var currentAttribute = $"Text=\"{this.tag.Value}\"";
 
-                if (this.tag.UidExists)
-                {
-                    vs.RemoveInActiveDocOnLine(currentTag, this.tag.GetDesignerLineNumber());
+                    if (this.tag.UidExists)
+                    {
+                        vs.RemoveInActiveDocOnLine(currentAttribute, this.tag.GetDesignerLineNumber());
+                    }
+                    else
+                    {
+                        var uidTag = $"x:Uid=\"{this.tag.UidValue}\"";
+                        vs.ReplaceInActiveDocOnLine(currentAttribute, uidTag, this.tag.GetDesignerLineNumber());
+                    }
                 }
-                else
+                else if (this.tag.AttributeType == AttributeType.Element)
                 {
-                    var uidTag = $"x:Uid=\"{this.tag.UidValue}\"";
-                    vs.ReplaceInActiveDocOnLine(currentTag, uidTag, this.tag.GetDesignerLineNumber());
+                    var currentAttribute = $"<TextBlock.Text>{this.tag.Value}</TextBlock.Text>";
+
+                    vs.RemoveInActiveDocOnLine(currentAttribute, this.tag.GetDesignerLineNumber());
+
+                    if (!this.tag.UidExists)
+                    {
+                        var uidTag = $"<TextBlock x:Uid=\"{this.tag.UidValue}\"";
+                        vs.ReplaceInActiveDocOnLineOrAbove("<TextBlock", uidTag, this.tag.GetDesignerLineNumber());
+                    }
                 }
 
                 RapidXamlDocumentCache.TryUpdate(this.File);

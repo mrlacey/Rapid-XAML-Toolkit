@@ -14,7 +14,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         // TODO: allow for attribute value being set as a child element (e.g. <Button><Button.Content>Click here</Button.Content></Button>)
         public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
-            if (TryGetAttribute(xamlElement, Attributes.Content, out int tbIndex, out int length, out string value))
+            if (TryGetAttribute(xamlElement, Attributes.Content, AttributeType.Any, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {

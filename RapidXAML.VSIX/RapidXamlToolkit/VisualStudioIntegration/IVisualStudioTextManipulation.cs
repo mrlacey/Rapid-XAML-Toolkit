@@ -9,6 +9,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
     {
         void ReplaceInActiveDocOnLine(string find, string replace, int lineNumber);
 
+        void ReplaceInActiveDocOnLineOrAbove(string find, string replace, int lineNumber);
+
         // TODO: remove this?
         void ReplaceInActiveDoc(string find, string replace, int startIndex, int endIndex);
 
