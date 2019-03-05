@@ -75,6 +75,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 ProjectHelpers.Dte2.UndoContext.Open(this.DisplayText);
                 this.Execute(cancellationToken);
             }
+            catch (Exception exc)
+            {
+                RapidXamlPackage.Logger?.RecordException(exc);
+            }
             finally
             {
                 ProjectHelpers.Dte2.UndoContext.Close();
