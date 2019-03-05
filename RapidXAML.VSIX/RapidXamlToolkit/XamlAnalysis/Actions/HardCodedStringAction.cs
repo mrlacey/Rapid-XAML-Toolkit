@@ -37,13 +37,18 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override void Execute(CancellationToken cancellationToken)
         {
+            var resPath = this.GetResourceFilePath();
+
+            if (resPath == null)
+            {
+                return;
+            }
+
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
             vs.StartSingleUndoOperation(StringRes.Info_UndoContextMoveStringToResourceFile);
 
             try
             {
-                var resPath = this.GetResourceFilePath();
-
                 // If the resource file is open with unsaved changes VS will prompt about data being lost.
                 this.AddResource(resPath, $"{this.Tag.UidValue}.{this.AttributeName}", this.Tag.Value);
 
@@ -164,8 +169,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             if (reswFiles.Count == 0)
             {
-                // Don't try and create one if none exists.
-                // TODO: work out how to provide feedback to the user that none exists and they first need to create one
+                RapidXamlPackage.Logger?.RecordInfo(StringRes.Info_NoResourceFileFound);
                 return null;
             }
             else if (reswFiles.Count == 1)

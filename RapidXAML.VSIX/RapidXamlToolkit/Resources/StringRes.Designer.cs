@@ -448,6 +448,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No resource file was found in the project. Add one and then try again..
+        /// </summary>
+        public static string Info_NoResourceFileFound {
+            get {
+                return ResourceManager.GetString("Info_NoResourceFileFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No XAML added to toolbox..
         /// </summary>
         public static string Info_NothingAddedToToolbox {

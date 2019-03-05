@@ -721,4 +721,7 @@
   <data name="Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage" xml:space="preserve">
     <value>TextBox contains hard-coded PlaceholderText value '{0}'.</value>
   </data>
+  <data name="Info_NoResourceFileFound" xml:space="preserve">
+    <value>No resource file was found in the project. Add one and then try again.</value>
+  </data>
 </root>
