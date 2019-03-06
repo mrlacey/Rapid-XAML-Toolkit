@@ -187,9 +187,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 {
                     var xProj = XDocument.Load(proj.FileName);
 
-                    var defLang = xProj.Descendants("DefaultLanguage").FirstOrDefault().Value;
+                    XNamespace xmlns = "http://schemas.microsoft.com/developer/msbuild/2003";
 
-                    langOfInterest = defLang;
+                    var defLang = xProj.Descendants(xmlns + "DefaultLanguage").FirstOrDefault();
+
+                    if (defLang != null)
+                    {
+                        langOfInterest = defLang.Value;
+                    }
                 }
                 else
                 {
@@ -198,7 +203,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                 if (!string.IsNullOrWhiteSpace(langOfInterest))
                 {
-                    return reswFiles.FirstOrDefault(f => f.Contains(langOfInterest));
+                    return reswFiles.FirstOrDefault(f => f.IndexOf(langOfInterest, StringComparison.OrdinalIgnoreCase) > 0);
                 }
                 else
                 {
