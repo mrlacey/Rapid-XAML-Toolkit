@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.Imaging;
@@ -178,8 +179,33 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             }
             else
             {
-                // TODO: If multiples, find the default locale and use that
-                return @"C:\Users\matt\source\repos\RxtDevTesting\UwpApp\Strings\en-us\Resources.resw";
+                var langOfInterest = string.Empty;
+
+                var neutralLang = proj.Properties.Item("NeutralResourcesLanguage").Value.ToString();
+
+                if (string.IsNullOrWhiteSpace(neutralLang))
+                {
+                    var xProj = XDocument.Load(proj.FileName);
+
+                    var defLang = xProj.Descendants("DefaultLanguage").FirstOrDefault().Value;
+
+                    langOfInterest = defLang;
+                }
+                else
+                {
+                    langOfInterest = neutralLang;
+                }
+
+                if (!string.IsNullOrWhiteSpace(langOfInterest))
+                {
+                    return reswFiles.FirstOrDefault(f => f.Contains(langOfInterest));
+                }
+                else
+                {
+                    // Find neutral language file to return
+                    // RegEx to match if lang identifier in path or file name
+                    return reswFiles.FirstOrDefault(f => Regex.Matches(f, "([\\.][a-zA-Z]{2}-[a-zA-Z]{2}[\\.])").Count == 0);
+                }
             }
         }
     }
