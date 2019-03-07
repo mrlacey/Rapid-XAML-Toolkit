@@ -16,57 +16,49 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             // TODO: remove the duplication here and in TextBlockProcessor
-            if (TryGetAttribute(xamlElement, Attributes.Header, AttributeType.Inline | AttributeType.Element, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
+            var uidExists = TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
+
+            if (!uidExists)
             {
-                if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
+                TryGetAttribute(xamlElement, Attributes.Header, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out string headerValue);
+
+                if (!string.IsNullOrWhiteSpace(headerValue))
                 {
-                    var line = snapshot.GetLineFromPosition(offset + tbIndex);
-                    var col = offset + tbIndex - line.Start.Position;
+                    uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(headerValue)}TextBox";
 
-                    var uidExists = TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
-
-                    if (!uidExists)
-                    {
-                        uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value)}TextBox";
-                        uid = uid.RemoveAllWhitespace();
-                    }
-
-                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col, typeof(TextBoxHeaderAction))
-                    {
-                        AttributeType = foundAttributeType,
-                        Value = value,
-                        Description = StringRes.Info_XamlAnalysisHardcodedStringTextboxHeaderMessage.WithParams(value),
-                        UidExists = uidExists,
-                        UidValue = uid,
-                    });
+                    // TODO: remove non-alphanumerics
+                    uid = uid.RemoveAllWhitespace();
+                }
+                else
+                {
+                    // This is just a large random number created to hopefully avoid collisions
+                    uid = $"TextBox{new Random().Next(10001, 99999)}";
                 }
             }
 
-            if (TryGetAttribute(xamlElement, Attributes.PlaceholderText, AttributeType.Inline | AttributeType.Element, out foundAttributeType, out tbIndex, out length, out value))
-            {
-                if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
-                {
-                    var line = snapshot.GetLineFromPosition(offset + tbIndex);
-                    var col = offset + tbIndex - line.Start.Position;
+            this.CheckForHardCodedAttribute(
+                xamlElement,
+                Attributes.Header,
+                AttributeType.Inline | AttributeType.Element,
+                snapshot,
+                offset,
+                uidExists,
+                uid,
+                StringRes.Info_XamlAnalysisHardcodedStringTextboxHeaderMessage,
+                typeof(TextBoxHeaderAction),
+                tags);
 
-                    var uidExists = TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
-
-                    if (!uidExists)
-                    {
-                        uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value)}TextBox";
-                        uid = uid.RemoveAllWhitespace();
-                    }
-
-                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col, typeof(TextBoxPlaceholderAction))
-                    {
-                        AttributeType = foundAttributeType,
-                        Value = value,
-                        Description = StringRes.Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage.WithParams(value),
-                        UidExists = uidExists,
-                        UidValue = uid,
-                    });
-                }
-            }
+            this.CheckForHardCodedAttribute(
+                xamlElement,
+                Attributes.PlaceholderText,
+                AttributeType.Inline | AttributeType.Element,
+                snapshot,
+                offset,
+                uidExists,
+                uid,
+                StringRes.Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage,
+                typeof(TextBoxPlaceholderAction),
+                tags);
         }
     }
 }

@@ -86,5 +86,26 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             value = string.Empty;
             return false;
         }
+
+        protected void CheckForHardCodedAttribute(string xamlElement, string attributeName, AttributeType types, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, string descriptionFormat, Type action, List<IRapidXamlAdornmentTag> tags)
+        {
+            if (TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
+            {
+                if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
+                {
+                    var line = snapshot.GetLineFromPosition(offset + tbIndex);
+                    var col = offset + tbIndex - line.Start.Position;
+
+                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col, action)
+                    {
+                        AttributeType = foundAttributeType,
+                        Value = value,
+                        Description = descriptionFormat.WithParams(value),
+                        UidExists = uidExists,
+                        UidValue = uidValue,
+                    });
+                }
+            }
+        }
     }
 }
