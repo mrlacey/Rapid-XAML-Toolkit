@@ -147,6 +147,21 @@ namespace RapidXamlToolkit
             return System.Text.RegularExpressions.Regex.Replace(source, @"\s+", string.Empty);
         }
 
+        public static string RemoveNonAlphaNumerics(this string source)
+        {
+            var result = new StringBuilder(source.Length);
+
+            for (int i = 0; i < source.Length; i++)
+            {
+                if (char.IsLetterOrDigit(source[i]))
+                {
+                    result.Append(source[i]);
+                }
+            }
+
+            return result.ToString();
+        }
+
         public static string Append(this string value, string toAdd)
         {
             if (value == null)

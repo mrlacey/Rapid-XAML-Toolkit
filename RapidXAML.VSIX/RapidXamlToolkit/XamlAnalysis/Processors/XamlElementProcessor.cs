@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -106,6 +107,32 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     });
                 }
             }
+        }
+
+        protected (bool uidExists, string uidValue) GetOrGenerateUid(string xamlElement, string attributeName)
+        {
+            var uidExists = TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
+
+            if (!uidExists)
+            {
+                TryGetAttribute(xamlElement, attributeName, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out string value);
+
+                var elementName = xamlElement.Substring(1, xamlElement.IndexOfAny(new[] { ' ', '>' }) - 1);
+
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value)}{elementName}";
+
+                    uid = uid.RemoveAllWhitespace().RemoveNonAlphaNumerics();
+                }
+                else
+                {
+                    // This is just a large random number created to hopefully avoid collisions
+                    uid = $"{elementName}{new Random().Next(10001, 89999)}";
+                }
+            }
+
+            return (uidExists, uid);
         }
     }
 }
