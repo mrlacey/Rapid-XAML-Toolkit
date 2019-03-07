@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Commands;
-using RapidXamlToolkit.Confguration;
+using RapidXamlToolkit.Configuration;
 using RapidXamlToolkit.DragDrop;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;

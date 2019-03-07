@@ -7,7 +7,7 @@ using System.IO;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
 
-namespace RapidXamlToolkit.Confguration
+namespace RapidXamlToolkit.Configuration
 {
     public class RxtSettings
     {
