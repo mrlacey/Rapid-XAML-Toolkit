@@ -15,7 +15,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Content);
 
-                this.CheckForHardCodedAttribute(
+            this.CheckForHardCodedAttribute(
                 Attributes.Content,
                 AttributeType.Any,
                 StringRes.Info_XamlAnalysisHardcodedStringButtonContentMessage,

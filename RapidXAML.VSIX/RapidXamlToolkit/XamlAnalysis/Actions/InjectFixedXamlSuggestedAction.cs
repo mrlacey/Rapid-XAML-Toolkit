@@ -48,8 +48,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 string toInsert;
                 if (this.Tag.GridNeedsExpanding)
                 {
-                    // TODO: could use txtDoc.ReplaceText instead?
-                    vs.DeleteFromEndOfLine(lineNumber, 3);
+                    vs.RemoveInActiveDocOnLine(" />", lineNumber);
 
                     toInsert = $">{Environment.NewLine}{this.InjectedXaml}";
 
