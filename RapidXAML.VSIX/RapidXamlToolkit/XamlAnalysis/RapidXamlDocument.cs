@@ -34,17 +34,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     result.RawText = text;
 
-                    // TODO: Issue#134 - Need to limit processors to only run on appropriate platform (UWP/WPF/XF)
-                    var processors = new List<(string, XamlElementProcessor)>
-                    {
-                        (Elements.Grid, new GridProcessor()),
-                        (Elements.TextBlock, new TextBlockProcessor()),
-                        (Elements.TextBox, new TextBoxProcessor()),
-                        (Elements.Button, new ButtonProcessor()),
-                        (Elements.Entry, new EntryProcessor()),
-                    };
-
-                    XamlElementExtractor.Parse(snapshot, text, processors, result.Tags);
+                    XamlElementExtractor.Parse(snapshot, text, GetAllProcessors(), result.Tags);
                 }
             }
             catch (Exception e)
@@ -59,6 +49,19 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
             return result;
+        }
+
+        public static List<(string, XamlElementProcessor)> GetAllProcessors()
+        {
+            // TODO: Issue#134 - Need to limit processors to only run on appropriate platform (UWP/WPF/XF)
+            return new List<(string, XamlElementProcessor)>
+                    {
+                        (Elements.Grid, new GridProcessor()),
+                        (Elements.TextBlock, new TextBlockProcessor()),
+                        (Elements.TextBox, new TextBoxProcessor()),
+                        (Elements.Button, new ButtonProcessor()),
+                        (Elements.Entry, new EntryProcessor()),
+                    };
         }
     }
 }
