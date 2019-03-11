@@ -11,7 +11,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
     {
         public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
-            if (!XamlAnalysisHelpers.HasAttribute(Attributes.Keyboard, xamlElement))
+            if (!this.TryGetAttribute(xamlElement, Attributes.Keyboard, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
                 // TODO: Create tag that indicates adding a Keyboard attribute
                 // Get Tag insert point

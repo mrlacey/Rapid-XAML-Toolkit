@@ -97,6 +97,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(TextBoxPlaceholderAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, TextBoxPlaceholderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
                             break;
+                        case nameof(ButtonContentAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, ButtonContentAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
                         case nameof(OtherHardCodedStringAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, OtherHardCodedStringAction.Create((OtherHardCodedStringTag)rxTag, this.file, this.view)));
                             break;

@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var outputTags = this.Act(xaml);
 
             Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<OtherHardCodedStringTag>().Count());
+            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var outputTags = this.Act(xaml);
 
             Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<OtherHardCodedStringTag>().Count());
+            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
         }
 
         [TestMethod]

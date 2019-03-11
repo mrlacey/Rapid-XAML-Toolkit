@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var rowDefPos = xamlElement.IndexOf("<Grid.RowDefinitions", StringComparison.Ordinal);
             var colDefPos = xamlElement.IndexOf("<Grid.ColumnDefinitions", StringComparison.Ordinal);
 
-            var gridIsSelfClosing = XamlAnalysisHelpers.IsSelfClosing(xamlElement);
+            var gridIsSelfClosing = XamlElementProcessor.IsSelfClosing(xamlElement);
 
             var hasRowDef = false;
             if (rowDefPos > 0)
@@ -54,8 +54,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 rowDefsClosingPos = xamlElement.IndexOf("</Grid.RowDefinitions", StringComparison.Ordinal);
 
-               // var lastLine = xamlElement.Substring(0, rowDefsClosingPos).LastIndexOf(">");
-               // rowDefsClosingPos = lastLine;
+                // var lastLine = xamlElement.Substring(0, rowDefsClosingPos).LastIndexOf(">");
+                // rowDefsClosingPos = lastLine;
             }
 
             var colDefsClosingPos = -1;

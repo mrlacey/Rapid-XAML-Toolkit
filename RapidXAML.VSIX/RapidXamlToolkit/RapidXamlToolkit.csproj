@@ -231,6 +231,7 @@
     <Compile Include="StringExtensions.cs" />
     <Compile Include="XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\ButtonContentAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\OtherHardCodedStringAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
@@ -283,7 +284,6 @@
     <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBlockProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
-    <Compile Include="XamlAnalysis\XamlAnalysisHelpers.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
     <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />
     <Compile Include="Telemetry\CoreDetails.cs" />

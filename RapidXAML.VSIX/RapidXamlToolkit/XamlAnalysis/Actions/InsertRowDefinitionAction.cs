@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
+using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
@@ -95,7 +96,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 else
                 {
                     // ignore self closing tags as nothing to exclude
-                    if (!XamlAnalysisHelpers.IsSelfClosing(xaml, tagOfInterestPos))
+                    if (!XamlElementProcessor.IsSelfClosing(xaml, tagOfInterestPos))
                     {
                         // opening tag s
                         if (openings <= 0)

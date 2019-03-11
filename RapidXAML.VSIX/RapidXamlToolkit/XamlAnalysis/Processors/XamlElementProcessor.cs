@@ -11,12 +11,33 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public abstract class XamlElementProcessor
     {
+        public static bool IsSelfClosing(string xaml, int startPoint = 0)
+        {
+            var foundSelfCloser = false;
+
+            for (var i = startPoint; i < xaml.Length; i++)
+            {
+                switch (xaml[i])
+                {
+                    case '/':
+                        foundSelfCloser = true;
+                        break;
+                    case '>':
+                        return foundSelfCloser;
+                    default:
+                        break;
+                }
+            }
+
+            // Shouldn't ever get here if passed valid XAML and startPoint is valid
+            return false;
+        }
+
         // Use of snapshot in the Process implementation should be kept to a minimum as will need test workarounds
         // - better to just pass through to where needed in VS initiated functionality.
         public abstract void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags);
 
-        // This should wrap XAH.HasAttribute & GetAttribute - and/or more there
-        protected static bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
+        public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
         {
             if (attributeTypesToCheck.HasFlag(AttributeType.Inline))
             {
@@ -70,7 +91,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 {
                     var defaultValue = xaml.Substring(endOfOpening + 1, startOfClosing - endOfOpening - 1);
 
-                    if (!string.IsNullOrWhiteSpace(defaultValue))
+                    if (!string.IsNullOrWhiteSpace(defaultValue) && !defaultValue.TrimStart().StartsWith("<"))
                     {
                         attributeType = AttributeType.DefaultValue;
                         index = 0;
@@ -88,9 +109,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return false;
         }
 
-        protected void CheckForHardCodedAttribute(string xamlElement, string attributeName, AttributeType types, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, string descriptionFormat, Type action, List<IRapidXamlAdornmentTag> tags)
+        protected void CheckForHardCodedAttribute(string attributeName, AttributeType types, string descriptionFormat, Type action, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, List<IRapidXamlAdornmentTag> tags)
         {
-            if (TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
+            if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {

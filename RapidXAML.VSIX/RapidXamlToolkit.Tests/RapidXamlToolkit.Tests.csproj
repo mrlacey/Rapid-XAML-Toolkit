@@ -95,9 +95,10 @@
     <Compile Include="TestVisualStudioAbstraction.cs" />
     <Compile Include="XamlAnalysis\ButtonProcessTests.cs" />
     <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\TestableXamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\TextBlockProcessTests.cs" />
-    <Compile Include="XamlAnalysis\XamlAnalysisHelpersTests.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractorTests.cs" />
+    <Compile Include="XamlAnalysis\XamlElementProcessorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
