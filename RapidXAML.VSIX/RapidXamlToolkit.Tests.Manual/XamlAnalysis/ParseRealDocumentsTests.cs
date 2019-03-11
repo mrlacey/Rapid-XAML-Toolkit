@@ -39,7 +39,7 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
             {
                 result.RawText = text;
 
-                var snapshot = new RapidXamlToolkit.Tests.Grid.FakeTextSnapshot();
+                var snapshot = new RapidXamlToolkit.Tests.FakeTextSnapshot();
 
                 XamlElementExtractor.Parse(snapshot, text, RapidXamlDocument.GetAllProcessors(), result.Tags);
 
@@ -49,7 +49,7 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
                 {
                     if (result.Tags.Count > 10)
                     {
-                      //  Debugger.Break();
+                      // Debugger.Break();
                     }
 
                     this.TestContext.WriteLine($"Found {result.Tags.Count} taggable issues in '{filePath}'.");

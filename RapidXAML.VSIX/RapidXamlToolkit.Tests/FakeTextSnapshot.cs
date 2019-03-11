@@ -7,7 +7,7 @@ using System.IO;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Utilities;
 
-namespace RapidXamlToolkit.Tests.Grid
+namespace RapidXamlToolkit.Tests
 {
     public class FakeTextSnapshot : ITextSnapshot
     {

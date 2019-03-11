@@ -49,8 +49,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Grid\FakeTextSnapshot.cs" />
-    <Compile Include="Grid\FakeTextSnapshotLine.cs" />
+    <Compile Include="FakeTextSnapshot.cs" />
+    <Compile Include="FakeTextSnapshotLine.cs" />
     <Compile Include="Grid\GridExclusionsTests.cs" />
     <Compile Include="Grid\GridInsertRowPreviewTests.cs" />
     <Compile Include="Grid\GridProcessTests.cs" />
