@@ -153,68 +153,71 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 var line = snapshot.GetLineFromPosition(offset + defUseOffset);
                 var col = offset + defUseOffset - line.Start.Position;
 
-                // Get assigned value
-                if (xamlElement.Substring(defUseOffset).StartsWith(rowDefUse))
+                if (nextDefUseIndex > endOfOpening)
                 {
-                    var valueStartPos = defUseOffset + rowDefUse.Length;
-                    var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
-
-                    var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
-
-                    if (int.TryParse(assignedStr, out int assignedInt))
+                    // Get assigned value
+                    if (xamlElement.Substring(defUseOffset).StartsWith(rowDefUse))
                     {
-                        if (assignedInt > 0 && assignedInt >= rowDefsCount)
-                        {
-                            undefinedTags.Add(new MissingRowDefinitionTag(
-                                new Span(offset + defUseOffset, closePos - defUseOffset + 1),
-                                snapshot,
-                                line.LineNumber,
-                                col)
-                            {
-                                AssignedInt = assignedInt,
-                                Description = StringRes.Info_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
-                                ExistingDefsCount = rowDefsCount,
-                                HasSomeDefinitions = hasRowDef,
-                                InsertPosition = offset + rowDefsClosingPos,
-                                LeftPad = leftPad,
-                            });
-                        }
+                        var valueStartPos = defUseOffset + rowDefUse.Length;
+                        var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
 
-                        if (assignedInt > highestAssignedRow)
+                        var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
+
+                        if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            highestAssignedRow = assignedInt;
+                            if (assignedInt > 0 && assignedInt >= rowDefsCount)
+                            {
+                                undefinedTags.Add(new MissingRowDefinitionTag(
+                                    new Span(offset + defUseOffset, closePos - defUseOffset + 1),
+                                    snapshot,
+                                    line.LineNumber,
+                                    col)
+                                {
+                                    AssignedInt = assignedInt,
+                                    Description = StringRes.Info_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
+                                    ExistingDefsCount = rowDefsCount,
+                                    HasSomeDefinitions = hasRowDef,
+                                    InsertPosition = offset + rowDefsClosingPos,
+                                    LeftPad = leftPad,
+                                });
+                            }
+
+                            if (assignedInt > highestAssignedRow)
+                            {
+                                highestAssignedRow = assignedInt;
+                            }
                         }
                     }
-                }
-                else if (xamlElement.Substring(defUseOffset).StartsWith(colDefUse))
-                {
-                    var valueStartPos = defUseOffset + colDefUse.Length;
-                    var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
-
-                    var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
-
-                    if (int.TryParse(assignedStr, out int assignedInt))
+                    else if (xamlElement.Substring(defUseOffset).StartsWith(colDefUse))
                     {
-                        if (assignedInt > 0 && assignedInt >= colDefsCount)
-                        {
-                            undefinedTags.Add(new MissingColumnDefinitionTag(
-                                new Span(offset + defUseOffset, closePos - defUseOffset + 1),
-                                snapshot,
-                                line.LineNumber,
-                                col)
-                            {
-                                AssignedInt = assignedInt,
-                                Description = StringRes.Info_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
-                                ExistingDefsCount = colDefsCount,
-                                HasSomeDefinitions = hasColDef,
-                                InsertPosition = offset + colDefsClosingPos,
-                                LeftPad = leftPad,
-                            });
-                        }
+                        var valueStartPos = defUseOffset + colDefUse.Length;
+                        var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
 
-                        if (assignedInt > highestAssignedCol)
+                        var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
+
+                        if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            highestAssignedCol = assignedInt;
+                            if (assignedInt > 0 && assignedInt >= colDefsCount)
+                            {
+                                undefinedTags.Add(new MissingColumnDefinitionTag(
+                                    new Span(offset + defUseOffset, closePos - defUseOffset + 1),
+                                    snapshot,
+                                    line.LineNumber,
+                                    col)
+                                {
+                                    AssignedInt = assignedInt,
+                                    Description = StringRes.Info_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
+                                    ExistingDefsCount = colDefsCount,
+                                    HasSomeDefinitions = hasColDef,
+                                    InsertPosition = offset + colDefsClosingPos,
+                                    LeftPad = leftPad,
+                                });
+                            }
+
+                            if (assignedInt > highestAssignedCol)
+                            {
+                                highestAssignedCol = assignedInt;
+                            }
                         }
                     }
                 }

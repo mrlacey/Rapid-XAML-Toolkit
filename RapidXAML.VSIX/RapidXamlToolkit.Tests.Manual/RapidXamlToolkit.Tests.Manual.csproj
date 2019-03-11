@@ -55,6 +55,7 @@
     <Compile Include="TestSettings.cs" />
     <Compile Include="TestsUsingWinAppDriver.cs" />
     <Compile Include="XamlAnalysis\ParseRealDocumentsTests.cs" />
+    <Compile Include="XamlAnalysis\TestDocsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
@@ -87,6 +88,12 @@
       <Project>{053a3048-276a-49ed-bd34-9c3ab1273a26}</Project>
       <Name>RapidXamlToolkit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XamlAnalysis\TestDocs\Generic.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

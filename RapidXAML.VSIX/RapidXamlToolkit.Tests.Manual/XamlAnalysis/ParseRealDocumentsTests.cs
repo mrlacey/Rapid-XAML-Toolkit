@@ -5,9 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.XamlAnalysis;
+using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
 {
@@ -37,8 +39,6 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
 
             if (text.IsValidXml())
             {
-                result.RawText = text;
-
                 var snapshot = new RapidXamlToolkit.Tests.FakeTextSnapshot();
 
                 XamlElementExtractor.Parse(snapshot, text, RapidXamlDocument.GetAllProcessors(), result.Tags);
@@ -47,9 +47,10 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
 
                 if (result.Tags.Count > 0)
                 {
-                    if (result.Tags.Count > 10)
+                    // if (result.Tags.Count > 10)
+                    if (result.Tags.OfType<RapidXamlWarningTag>().Any())
                     {
-                      // Debugger.Break();
+                        Debugger.Break();
                     }
 
                     this.TestContext.WriteLine($"Found {result.Tags.Count} taggable issues in '{filePath}'.");

@@ -133,6 +133,30 @@ namespace RapidXamlToolkit.Tests.Grid
             Assert.AreEqual(0, actualTags.OfType<MissingColumnDefinitionTag>().Count());
         }
 
+        [TestMethod]
+        public void RowAssignmentInRoot_NotReportedIfNoOwnDefinitions()
+        {
+            var xaml = @"<Grid Grid.Row=""2"">
+	<TextBlock Text=""hello world"" />
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void ColumnAssignmentInRoot_NotReportedIfNoOwnDefinitions()
+        {
+            var xaml = @"<Grid Grid.Column=""2"">
+	<TextBlock Text=""hello world"" />
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingColumnDefinitionTag>().Count());
+        }
+
         private List<IRapidXamlAdornmentTag> ProcessGrid(string xaml)
         {
             var outputTags = new List<IRapidXamlAdornmentTag>();
