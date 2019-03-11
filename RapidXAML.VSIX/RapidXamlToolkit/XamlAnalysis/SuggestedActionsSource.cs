@@ -118,6 +118,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(AddMissingColumnDefinitionsAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, AddMissingColumnDefinitionsAction.Create((MissingColumnDefinitionTag)rxTag, this.file)));
                             break;
+                        case nameof(AddEntryKeyboardAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AddEntryKeyboardAction.Create((AddEntryKeyboardTag)rxTag, this.file)));
+                            break;
                     }
                 }
             }

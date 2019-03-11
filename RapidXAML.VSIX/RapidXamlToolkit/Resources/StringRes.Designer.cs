@@ -655,6 +655,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Keyboard property..
+        /// </summary>
+        public static string Info_UndoContextAddEntryKeyboard {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddEntryKeyboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add missing column definitions.
         /// </summary>
         public static string Info_UndoContextAddMissingColumnDefinitions {
@@ -693,9 +702,9 @@ namespace RapidXamlToolkit.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Insert RowDefinition.
         /// </summary>
-        public static string Info_UndoContextIndertRowDef {
+        public static string Info_UndoContextInsertRowDef {
             get {
-                return ResourceManager.GetString("Info_UndoContextIndertRowDef", resourceCulture);
+                return ResourceManager.GetString("Info_UndoContextInsertRowDef", resourceCulture);
             }
         }
         
@@ -714,6 +723,24 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_UsingClassGrouping {
             get {
                 return ResourceManager.GetString("Info_UsingClassGrouping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keyboard is not specified for the Entry..
+        /// </summary>
+        public static string Info_XamlAnalysisEntryWithoutKeyboardDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisEntryWithoutKeyboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifying the keyboard can make it easier for the user to enter the correct value. .
+        /// </summary>
+        public static string Info_XamlAnalysisEntryWithoutKeyboardExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisEntryWithoutKeyboardExtendedMessage", resourceCulture);
             }
         }
         
@@ -1598,6 +1625,15 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_AddColumnDefinitions {
             get {
                 return ResourceManager.GetString("UI_AddColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify Keyboard property..
+        /// </summary>
+        public static string UI_AddEntryKeyboard {
+            get {
+                return ResourceManager.GetString("UI_AddEntryKeyboard", resourceCulture);
             }
         }
         

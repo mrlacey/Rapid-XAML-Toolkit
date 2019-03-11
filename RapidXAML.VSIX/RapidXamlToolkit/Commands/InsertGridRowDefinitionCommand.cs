@@ -94,7 +94,7 @@ namespace RapidXamlToolkit.Commands
                     var (start, end, exclusions) = logic.GetGridBoundary();
                     var (newDefinition, newDefPos) = logic.GetDefinitionAtCursor();
 
-                    vs.StartSingleUndoOperation(StringRes.Info_UndoContextIndertRowDef);
+                    vs.StartSingleUndoOperation(StringRes.Info_UndoContextInsertRowDef);
                     try
                     {
                         vs.ReplaceInActiveDoc(replacements, start, end, exclusions);

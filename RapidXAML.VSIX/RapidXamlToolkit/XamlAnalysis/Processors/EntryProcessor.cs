@@ -13,12 +13,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
             if (!this.TryGetAttribute(xamlElement, Attributes.Keyboard, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
-                // TODO: Create tag that indicates adding a Keyboard attribute
-                // Get Tag insert point
-                // TODO: create action to implement the tag
-            }
+                var line = snapshot.GetLineFromPosition(offset);
+                var col = offset - line.Start.Position;
 
-            // TODO: implement advanced entry processor - suggested keyboard based on other info in the element (e.g. bound property name, header, etc.)
+                tags.Add(new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, line.LineNumber, col)
+                {
+                    InsertPosition = offset,
+                });
+            }
         }
     }
 }

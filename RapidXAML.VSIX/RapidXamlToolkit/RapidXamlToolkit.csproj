@@ -229,6 +229,7 @@
     </Compile>
     <Compile Include="SolutionExtensions.cs" />
     <Compile Include="StringExtensions.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddEntryKeyboardAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ButtonContentAction.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="XamlAnalysis\Actions\TextBoxPlaceholderAction.cs" />
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddEntryKeyboardTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTagExtensions.cs" />
     <Compile Include="XamlAnalysis\Attributes.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />

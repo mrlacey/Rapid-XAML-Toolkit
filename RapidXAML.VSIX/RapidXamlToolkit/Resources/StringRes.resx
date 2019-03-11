@@ -600,7 +600,7 @@
     <value>Rapid XAML Toolkit</value>
     <comment>Name used in vsixlangpack</comment>
   </data>
-  <data name="Info_UndoContextIndertRowDef" xml:space="preserve">
+  <data name="Info_UndoContextInsertRowDef" xml:space="preserve">
     <value>Insert RowDefinition</value>
   </data>
   <data name="VSCT_InsertGridRowDefinitionCommandId" xml:space="preserve">
@@ -723,5 +723,17 @@
   </data>
   <data name="Info_NoResourceFileFound" xml:space="preserve">
     <value>No resource file was found in the project. Add one and then try again.</value>
+  </data>
+  <data name="Info_UndoContextAddEntryKeyboard" xml:space="preserve">
+    <value>Add Keyboard property.</value>
+  </data>
+  <data name="Info_XamlAnalysisEntryWithoutKeyboardDescription" xml:space="preserve">
+    <value>Keyboard is not specified for the Entry.</value>
+  </data>
+  <data name="Info_XamlAnalysisEntryWithoutKeyboardExtendedMessage" xml:space="preserve">
+    <value>Specifying the keyboard can make it easier for the user to enter the correct value. </value>
+  </data>
+  <data name="UI_AddEntryKeyboard" xml:space="preserve">
+    <value>Specify Keyboard property.</value>
   </data>
 </root>
