@@ -235,7 +235,6 @@
     <Compile Include="XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ButtonContentAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\OtherHardCodedStringAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\TextBlockTextAction.cs" />
     <Compile Include="XamlAnalysis\Actions\TextBoxHeaderAction.cs" />
@@ -276,7 +275,6 @@
     <Compile Include="XamlAnalysis\Tags\MissingColumnDefinitionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\MissingDefinitionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\MissingRowDefinitionTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\OtherHardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlErrorListTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlOptionalTag.cs" />
