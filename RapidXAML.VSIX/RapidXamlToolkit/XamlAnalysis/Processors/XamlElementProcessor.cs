@@ -33,6 +33,74 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return false;
         }
 
+        public static Dictionary<int, int> GetExclusions(string xaml, string elementName)
+        {
+            string elementOpen = $"<{elementName}";
+            string elementOpenSpace = $"<{elementName} ";
+            string elementOpenComplete = $"<{elementName}>";
+            string elementClose = $"</{elementName}>";
+
+            var exclusions = new Dictionary<int, int>();
+
+            // This is the opening position of the next opening (here) or closing (when set subsequently) tag
+            var tagOfInterestPos = xaml.Substring(elementOpen.Length).FirstIndexOf(elementOpenComplete, elementOpenSpace) + elementOpen.Length;
+
+            // track the number of open tags seen so know when get to the corresponding closing one.
+            var openings = 0;
+
+            // Track this outside the loop as may have nesting.
+            int startClosePos = 0;
+
+            while (tagOfInterestPos > elementOpen.Length && tagOfInterestPos < xaml.Length)
+            {
+                // closing tags
+                if (xaml.Substring(tagOfInterestPos, 2) == "</")
+                {
+                    // Allow for having seen multiple openings before the closing
+                    if (openings == 1)
+                    {
+                        exclusions.Add(startClosePos + 1, tagOfInterestPos + elementClose.Length);
+                        openings = 0;
+                    }
+                    else
+                    {
+                        openings -= 1;
+                    }
+                }
+                else
+                {
+                    // ignore self closing tags as nothing to exclude
+                    if (!XamlElementProcessor.IsSelfClosing(xaml, tagOfInterestPos))
+                    {
+                        // opening tag s
+                        if (openings <= 0)
+                        {
+                            startClosePos = xaml.IndexOf(">", tagOfInterestPos, StringComparison.Ordinal);
+                            openings = 1;
+                        }
+                        else
+                        {
+                            openings += 1;
+                        }
+                    }
+                }
+
+                // Find next opening or closing tag
+                var nextOpening = xaml.Substring(tagOfInterestPos + elementOpen.Length).FirstIndexOf(elementOpenComplete, elementOpenSpace);
+
+                if (nextOpening > -1)
+                {
+                    nextOpening += tagOfInterestPos + elementOpen.Length;
+                }
+
+                var nextClosing = xaml.IndexOf(elementClose, tagOfInterestPos + elementOpen.Length, StringComparison.Ordinal);
+
+                tagOfInterestPos = nextOpening > -1 && nextOpening < nextClosing ? nextOpening : nextClosing;
+            }
+
+            return exclusions;
+        }
+
         // Use of snapshot in the Process implementation should be kept to a minimum as will need test workarounds
         // - better to just pass through to where needed in VS initiated functionality.
         public abstract void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags);

@@ -58,73 +58,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             return result;
         }
 
-        // TODO: abstract this logic into XamlAnalysisHelpers and make tag agnostic
         public static Dictionary<int, int> GetExclusions(string xaml)
         {
-            const string gridOpen = "<Grid";
-            const string gridOpenSpace = "<Grid ";
-            const string gridOpenComplete = "<Grid>";
-            const string gridClose = "</Grid>";
-
-            var exclusions = new Dictionary<int, int>();
-
-            // This is the opening position of the next opening (here) or closing (when set subsequently) tag
-            var tagOfInterestPos = xaml.Substring(gridOpen.Length).FirstIndexOf(gridOpenComplete, gridOpenSpace) + gridOpen.Length;
-
-            // track the number of open tags seen so know when get to the corresponding closing one.
-            var openings = 0;
-
-            // Track this outside the loop as may have nesting.
-            int startClosePos = 0;
-
-            while (tagOfInterestPos > gridOpen.Length && tagOfInterestPos < xaml.Length)
-            {
-                // closing tags
-                if (xaml.Substring(tagOfInterestPos, 2) == "</")
-                {
-                    // Allow for having seen multiple openings before the closing
-                    if (openings == 1)
-                    {
-                        exclusions.Add(startClosePos + 1, tagOfInterestPos + gridClose.Length);
-                        openings = 0;
-                    }
-                    else
-                    {
-                        openings -= 1;
-                    }
-                }
-                else
-                {
-                    // ignore self closing tags as nothing to exclude
-                    if (!XamlElementProcessor.IsSelfClosing(xaml, tagOfInterestPos))
-                    {
-                        // opening tag s
-                        if (openings <= 0)
-                        {
-                            startClosePos = xaml.IndexOf(">", tagOfInterestPos, StringComparison.Ordinal);
-                            openings = 1;
-                        }
-                        else
-                        {
-                            openings += 1;
-                        }
-                    }
-                }
-
-                // Find next opening or closing tag
-                var nextOpening = xaml.Substring(tagOfInterestPos + gridOpen.Length).FirstIndexOf(gridOpenComplete, gridOpenSpace);
-
-                if (nextOpening > -1)
-                {
-                    nextOpening += tagOfInterestPos + gridOpen.Length;
-                }
-
-                var nextClosing = xaml.IndexOf(gridClose, tagOfInterestPos + gridOpen.Length, StringComparison.Ordinal);
-
-                tagOfInterestPos = nextOpening > -1 && nextOpening < nextClosing ? nextOpening : nextClosing;
-            }
-
-            return exclusions;
+            return XamlElementProcessor.GetExclusions(xaml, Elements.Grid);
         }
 
         public static List<(string find, string replace)> GetReplacements(int rowNumber, int totalRows)
