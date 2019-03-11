@@ -38,6 +38,17 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uidExists,
                 uid,
                 tags);
+
+            if (!this.TryGetAttribute(xamlElement, Attributes.InputScope, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
+            {
+                var line = snapshot.GetLineFromPosition(offset);
+                var col = offset - line.Start.Position;
+
+                tags.Add(new AddTextBoxInputScopeTag(new Span(offset, xamlElement.Length), snapshot, line.LineNumber, col)
+                {
+                    InsertPosition = offset,
+                });
+            }
         }
     }
 }

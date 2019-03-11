@@ -736,4 +736,16 @@
   <data name="UI_AddEntryKeyboard" xml:space="preserve">
     <value>Specify Keyboard property.</value>
   </data>
+  <data name="Info_UndoContextAddTextBoxInputScope" xml:space="preserve">
+    <value>Add InputScope property.</value>
+  </data>
+  <data name="Info_XamlAnalysisTextBoxWithoutInputScopeDescription" xml:space="preserve">
+    <value>InputScope is not specified for the TextBox.</value>
+  </data>
+  <data name="Info_XamlAnalysisTextBoxWithoutInputScopeExtendedMessage" xml:space="preserve">
+    <value>Specifying the InputScope can make it easier for the user to enter the correct value. </value>
+  </data>
+  <data name="UI_AddTextBoxInputScope" xml:space="preserve">
+    <value>Specify InputScope property.</value>
+  </data>
 </root>

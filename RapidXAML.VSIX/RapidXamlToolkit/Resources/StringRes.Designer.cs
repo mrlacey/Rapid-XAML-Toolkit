@@ -700,6 +700,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add InputScope property..
+        /// </summary>
+        public static string Info_UndoContextAddTextBoxInputScope {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddTextBoxInputScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert RowDefinition.
         /// </summary>
         public static string Info_UndoContextInsertRowDef {
@@ -849,6 +858,24 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_XamlAnalysisMissingRowDefinitionTooltip {
             get {
                 return ResourceManager.GetString("Info_XamlAnalysisMissingRowDefinitionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InputScope is not specified for the TextBox..
+        /// </summary>
+        public static string Info_XamlAnalysisTextBoxWithoutInputScopeDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisTextBoxWithoutInputScopeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifying the InputScope can make it easier for the user to enter the correct value. .
+        /// </summary>
+        public static string Info_XamlAnalysisTextBoxWithoutInputScopeExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisTextBoxWithoutInputScopeExtendedMessage", resourceCulture);
             }
         }
         
@@ -1670,6 +1697,15 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_AddRowDefinitions {
             get {
                 return ResourceManager.GetString("UI_AddRowDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify InputScope property..
+        /// </summary>
+        public static string UI_AddTextBoxInputScope {
+            get {
+                return ResourceManager.GetString("UI_AddTextBoxInputScope", resourceCulture);
             }
         }
         

@@ -9,6 +9,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Header => "Header";
 
+        public static string InputScope => "InputScope";
+
         public static string Keyboard => "Keyboard";
 
         public static string PlaceholderText => "PlaceholderText";
