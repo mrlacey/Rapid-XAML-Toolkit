@@ -163,7 +163,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                     if (int.TryParse(assignedStr, out int assignedInt))
                     {
-                        if (assignedInt >= rowDefsCount)
+                        if (assignedInt > 0 && assignedInt >= rowDefsCount)
                         {
                             undefinedTags.Add(new MissingRowDefinitionTag(
                                 new Span(offset + defUseOffset, closePos - defUseOffset + 1),
@@ -195,7 +195,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                     if (int.TryParse(assignedStr, out int assignedInt))
                     {
-                        if (assignedInt >= colDefsCount)
+                        if (assignedInt > 0 && assignedInt >= colDefsCount)
                         {
                             undefinedTags.Add(new MissingColumnDefinitionTag(
                                 new Span(offset + defUseOffset, closePos - defUseOffset + 1),
