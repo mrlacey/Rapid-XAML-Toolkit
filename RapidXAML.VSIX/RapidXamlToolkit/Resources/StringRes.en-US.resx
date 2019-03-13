@@ -751,4 +751,13 @@
   <data name="Info_XamlAnalysisHardcodedStringAppBarButtonLabelMessage" xml:space="preserve">
     <value>AppBarButton contains hard-coded Label value '{0}'.</value>
   </data>
+  <data name="Info_XamlAnalysisHardcodedStringAppBarToggleButtonLabelMessage" xml:space="preserve">
+    <value>AppBarToggleButton contains hard-coded Label value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringAutoSuggestBoxHeaderMessage" xml:space="preserve">
+    <value>AutoSuggestBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringAutoSuggestBoxPlaceHolderMessage" xml:space="preserve">
+    <value>AutoSuggestBox contains hard-coded PlaceHolder value '{0}'.</value>
+  </data>
 </root>

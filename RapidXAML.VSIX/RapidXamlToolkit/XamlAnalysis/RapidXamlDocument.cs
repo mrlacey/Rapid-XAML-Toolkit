@@ -63,6 +63,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.Entry, new EntryProcessor()),
                         (Elements.AppBarButton, new AppBarButtonProcessor()),
                         (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor()),
+                        (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor()),
                     };
         }
     }

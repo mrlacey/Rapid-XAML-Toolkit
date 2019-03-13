@@ -127,6 +127,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(AppBarToggleButtonLabelAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, AppBarToggleButtonLabelAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
                             break;
+                        case nameof(AutoSuggestBoxHeaderAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AppBarToggleButtonLabelAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
                     }
                 }
             }

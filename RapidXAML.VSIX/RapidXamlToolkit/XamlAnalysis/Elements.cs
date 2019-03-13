@@ -9,6 +9,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string AppBarToggleButton => "AppBarToggleButton";
 
+        public static string AutoSuggestBox => "AutoSuggestBox";
+
         public static string Button => "Button";
 
         public static string Entry => "Entry";

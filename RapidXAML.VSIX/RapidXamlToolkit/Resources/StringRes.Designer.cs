@@ -772,6 +772,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AutoSuggestBox contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringAutoSuggestBoxHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringAutoSuggestBoxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AutoSuggestBox contains hard-coded Placeholder value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringAutoSuggestBoxPlaceHolderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringAutoSuggestBoxPlaceHolderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Button contains hard-coded Content value &apos;{0}&apos;..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringButtonContentMessage {

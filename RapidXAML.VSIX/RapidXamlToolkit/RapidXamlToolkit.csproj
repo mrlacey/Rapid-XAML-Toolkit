@@ -235,6 +235,7 @@
     <Compile Include="XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AppBarButtonLabelAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AppBarToggleButtonLabelAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AutoSuggestBoxHeaderAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ButtonContentAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\AddEntryKeyboardTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
