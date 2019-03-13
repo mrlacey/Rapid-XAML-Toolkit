@@ -21,6 +21,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             bool isIdentifyingElement = false;
             bool isClosingElement = false;
             bool inLineOpeningWhitespace = true;
+            bool inComment = false;
             int currentElementStartPos = -1;
 
             var lastElementName = string.Empty;
@@ -40,12 +41,15 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 if (xaml[i] == '<')
                 {
-                    isIdentifyingElement = true;
-                    inLineOpeningWhitespace = false;
-                    currentElementStartPos = i;
-                    lastElementName = currentElementName.ToString();
-                    currentElementName.Clear();
-                    currentElementBody = new StringBuilder("<");
+                    if (!inComment)
+                    {
+                        isIdentifyingElement = true;
+                        inLineOpeningWhitespace = false;
+                        currentElementStartPos = i;
+                        lastElementName = currentElementName.ToString();
+                        currentElementName.Clear();
+                        currentElementBody = new StringBuilder("<");
+                    }
                 }
                 else if (char.IsLetterOrDigit(xaml[i]))
                 {
@@ -100,59 +104,73 @@ namespace RapidXamlToolkit.XamlAnalysis
                 }
                 else if (xaml[i] == '>')
                 {
-                    inLineOpeningWhitespace = false;
-
-                    if (isIdentifyingElement)
+                    if (xaml.Substring(i - 2, 3) == "-->")
                     {
-                        if (elementsOfInterest.Contains(currentElementName.ToString()))
-                        {
-                            elementsBeingTracked.Add(
-                                new TrackingElement
-                                {
-                                    StartPos = currentElementStartPos,
-                                    ElementName = currentElementName.ToString(),
-                                    ElementBody = new StringBuilder(currentElementBody.ToString()),
-                                });
-                        }
-
-                        isIdentifyingElement = false;
+                        inComment = false;
                     }
-
-                    // closing blocks can be blank or named (e.g. ' />' or '</Grid>')
-                    if (isClosingElement)
+                    else
                     {
-                        var nameOfInterest = closingElementName.ToString();
+                        inLineOpeningWhitespace = false;
 
-                        if (string.IsNullOrWhiteSpace(nameOfInterest))
+                        if (isIdentifyingElement)
                         {
-                            nameOfInterest = currentElementName.ToString();
-                        }
-                        else if (nameOfInterest == lastElementName)
-                        {
-                            nameOfInterest = lastElementName;
-                        }
-
-                        var toProcess = elementsBeingTracked.Where(g => g.ElementName == nameOfInterest)
-                                                            .OrderByDescending(f => f.StartPos)
-                                                            .Select(e => e)
-                                                            .FirstOrDefault();
-
-                        if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
-                        {
-                            foreach (var (element, processor) in processors)
+                            if (elementsOfInterest.Contains(currentElementName.ToString()))
                             {
-                                if (element == toProcess.ElementName)
-                                {
-                                    processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
-                                }
+                                elementsBeingTracked.Add(
+                                    new TrackingElement
+                                    {
+                                        StartPos = currentElementStartPos,
+                                        ElementName = currentElementName.ToString(),
+                                        ElementBody = new StringBuilder(currentElementBody.ToString()),
+                                    });
                             }
 
-                            elementsBeingTracked.Remove(toProcess);
+                            isIdentifyingElement = false;
                         }
 
-                        // Reset this so know what we should be tracking
-                        currentElementStartPos = -1;
-                        isClosingElement = false;
+                        // closing blocks can be blank or named (e.g. ' />' or '</Grid>')
+                        if (isClosingElement)
+                        {
+                            var nameOfInterest = closingElementName.ToString();
+
+                            if (string.IsNullOrWhiteSpace(nameOfInterest))
+                            {
+                                nameOfInterest = currentElementName.ToString();
+                            }
+                            else if (nameOfInterest == lastElementName)
+                            {
+                                nameOfInterest = lastElementName;
+                            }
+
+                            var toProcess = elementsBeingTracked.Where(g => g.ElementName == nameOfInterest)
+                                                                .OrderByDescending(f => f.StartPos)
+                                                                .Select(e => e)
+                                                                .FirstOrDefault();
+
+                            if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
+                            {
+                                foreach (var (element, processor) in processors)
+                                {
+                                    if (element == toProcess.ElementName)
+                                    {
+                                        processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
+                                    }
+                                }
+
+                                elementsBeingTracked.Remove(toProcess);
+                            }
+
+                            // Reset this so know what we should be tracking
+                            currentElementStartPos = -1;
+                            isClosingElement = false;
+                        }
+                    }
+                }
+                else if (xaml[i] == '-')
+                {
+                    if (xaml.Substring(i - 3, 4) == "<!--")
+                    {
+                        inComment = true;
                     }
                 }
             }

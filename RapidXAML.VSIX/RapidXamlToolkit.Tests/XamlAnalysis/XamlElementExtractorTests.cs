@@ -605,6 +605,34 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 grandChildProc.AllXamlElements[2]);
         }
 
+        [TestMethod]
+        public void ChildElementsInCommentsAreNotFound()
+        {
+            var xaml = @"<Grid>
+    <Child />
+    <!-- <Child />
+    <Child />
+    <Child /> -->
+    <Child />
+
+</Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Child", processor),
+            };
+
+            var outputTags = new List<IRapidXamlAdornmentTag>();
+
+            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+
+            // Dont find the ones on lines after comment opening, between comment boundaries and on line with comment closing
+            // Do find elements before and after the comment
+            Assert.AreEqual(2, processor.ProcessCalledCount);
+        }
+
         private void TestParsingWithoutSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlAdornmentTag> tags)
         {
             XamlElementExtractor.Parse(null, xaml, processors, tags);
