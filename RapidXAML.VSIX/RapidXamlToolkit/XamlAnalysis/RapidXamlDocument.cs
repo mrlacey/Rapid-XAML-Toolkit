@@ -70,6 +70,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.ComboBox, new ComboBoxProcessor()),
                         (Elements.DatePicker, new DatePickerProcessor()),
                         (Elements.TimePicker, new TimePickerProcessor()),
+                        (Elements.Hub, new HubProcessor()),
+                        (Elements.HubSection, new HubSectionProcessor()),
                     };
         }
     }

@@ -243,6 +243,8 @@
     <Compile Include="XamlAnalysis\Actions\CheckboxContentAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ComboBoxHeaderAction.cs" />
     <Compile Include="XamlAnalysis\Actions\DatePickerHeaderAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\HubHeaderAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\HubSectionHeaderAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\TextBlockTextAction.cs" />
@@ -257,6 +259,8 @@
     <Compile Include="XamlAnalysis\Processors\CheckBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\TimePickerProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\AddEntryKeyboardTag.cs" />

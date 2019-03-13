@@ -775,6 +775,12 @@
   <data name="Info_XamlAnalysisHardcodedStringDatePickerHeaderMessage" xml:space="preserve">
     <value>DatePicker contains hard-coded Header value '{0}'.</value>
   </data>
+  <data name="Info_XamlAnalysisHardcodedStringHubHeaderMessage" xml:space="preserve">
+    <value>Hub contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringHubSectionHeaderMessage" xml:space="preserve">
+    <value>HubSection contains hard-coded Header value '{0}'.</value>
+  </data>
   <data name="Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage" xml:space="preserve">
     <value>TimePicker contains hard-coded Header value '{0}'.</value>
   </data>
