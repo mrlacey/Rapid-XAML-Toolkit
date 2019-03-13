@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             this.CheckForHardCodedAttribute(
                 Attributes.Header,
-                AttributeType.Any,
+                AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage,
                 typeof(RichEditBoxHeaderAction),
                 xamlElement,

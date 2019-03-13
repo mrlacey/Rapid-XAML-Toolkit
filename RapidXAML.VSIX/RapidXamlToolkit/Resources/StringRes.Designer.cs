@@ -979,6 +979,33 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ToggleSwitch contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringToggleSwitchHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringToggleSwitchHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ToggleSwitch contains hard-coded OffContent value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringToggleSwitchOffContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringToggleSwitchOffContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ToggleSwitch contains hard-coded OnContent value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringToggleSwitchOnContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringToggleSwitchOnContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hard-coded string.
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringTooltip {

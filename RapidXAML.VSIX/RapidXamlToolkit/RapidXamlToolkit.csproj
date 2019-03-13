@@ -247,6 +247,7 @@
     <Compile Include="XamlAnalysis\Actions\HubSectionHeaderAction.cs" />
     <Compile Include="XamlAnalysis\Actions\HyperlinkButtonContentAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MenuFlyoutItemTextAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MenuFlyoutSubItemTextAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\PivotItemHeaderAction.cs" />
@@ -258,6 +259,9 @@
     <Compile Include="XamlAnalysis\Actions\TextBoxPlaceholderAction.cs" />
     <Compile Include="XamlAnalysis\Actions\TimePickerHeaderAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ToggleMenuFlyoutItemTextAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\ToggleSwithHeaderAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\ToggleSwithOffContentAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\ToggleSwithOnContentAction.cs" />
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
@@ -270,6 +274,7 @@
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\PivotItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\PivotProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\RepeatButtonProcessor.cs" />
@@ -277,6 +282,7 @@
     <Compile Include="XamlAnalysis\Processors\TextBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\TimePickerProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\AddEntryKeyboardTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTagExtensions.cs" />

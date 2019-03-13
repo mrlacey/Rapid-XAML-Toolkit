@@ -181,6 +181,15 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(RichEditBoxHeaderAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, RichEditBoxHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
                             break;
+                        case nameof(ToggleSwithHeaderAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, ToggleSwithHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(ToggleSwithOnContentAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, ToggleSwithOnContentAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(ToggleSwithOffContentAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, ToggleSwithOffContentAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
                     }
                 }
             }

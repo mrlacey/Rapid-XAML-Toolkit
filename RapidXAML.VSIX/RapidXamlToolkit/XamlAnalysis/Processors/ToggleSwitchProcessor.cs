@@ -9,7 +9,7 @@ using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
-    public class TextBoxProcessor : XamlElementProcessor
+    public class ToggleSwitchProcessor : XamlElementProcessor
     {
         public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
@@ -18,8 +18,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             this.CheckForHardCodedAttribute(
                 Attributes.Header,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringTextboxHeaderMessage,
-                typeof(TextBoxHeaderAction),
+                StringRes.Info_XamlAnalysisHardcodedStringToggleSwitchHeaderMessage,
+                typeof(ToggleSwithHeaderAction),
                 xamlElement,
                 snapshot,
                 offset,
@@ -28,10 +28,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 tags);
 
             this.CheckForHardCodedAttribute(
-                Attributes.PlaceholderText,
-                AttributeType.Inline | AttributeType.Element,
-                StringRes.Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage,
-                typeof(TextBoxPlaceholderAction),
+                Attributes.OnContent,
+                AttributeType.InlineOrElement,
+                StringRes.Info_XamlAnalysisHardcodedStringToggleSwitchOnContentMessage,
+                typeof(ToggleSwithOnContentAction),
                 xamlElement,
                 snapshot,
                 offset,
@@ -39,16 +39,17 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uid,
                 tags);
 
-            if (!this.TryGetAttribute(xamlElement, Attributes.InputScope, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
-            {
-                var line = snapshot.GetLineFromPosition(offset);
-                var col = offset - line.Start.Position;
-
-                tags.Add(new AddTextBoxInputScopeTag(new Span(offset, xamlElement.Length), snapshot, line.LineNumber, col)
-                {
-                    InsertPosition = offset,
-                });
-            }
+            this.CheckForHardCodedAttribute(
+                Attributes.OffContent,
+                AttributeType.InlineOrElement,
+                StringRes.Info_XamlAnalysisHardcodedStringToggleSwitchOffContentMessage,
+                typeof(ToggleSwithOffContentAction),
+                xamlElement,
+                snapshot,
+                offset,
+                uidExists,
+                uid,
+                tags);
         }
     }
 }

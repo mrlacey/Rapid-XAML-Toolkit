@@ -787,6 +787,9 @@
   <data name="Info_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage" xml:space="preserve">
     <value>MenuFlyoutItem contains hard-coded Text value '{0}'.</value>
   </data>
+  <data name="Info_XamlAnalysisHardcodedStringMenuFlyoutSubItemTextMessage" xml:space="preserve">
+    <value>MenuFlyoutSubItem contains hard-coded Text value '{0}'.</value>
+  </data>
   <data name="Info_XamlAnalysisHardcodedStringPivotItemHeaderMessage" xml:space="preserve">
     <value>PivotItem contains hard-coded Header value '{0}'.</value>
   </data>
@@ -804,5 +807,14 @@
   </data>
   <data name="Info_XamlAnalysisHardcodedStringToggleMenuFlyoutItemTextMessage" xml:space="preserve">
     <value>ToggleMenuFlyoutItem contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleSwitchHeaderMessage" xml:space="preserve">
+    <value>ToggleSwitch contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleSwitchOffContentMessage" xml:space="preserve">
+    <value>ToggleSwitch contains hard-coded OffContent value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleSwitchOnContentMessage" xml:space="preserve">
+    <value>ToggleSwitch contains hard-coded OnContent value '{0}'.</value>
   </data>
 </root>

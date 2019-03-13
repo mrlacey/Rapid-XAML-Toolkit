@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             this.CheckForHardCodedAttribute(
                 Attributes.Title,
-                AttributeType.Any,
+                AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringPivotTitleMessage,
                 typeof(PivotTitleAction),
                 xamlElement,

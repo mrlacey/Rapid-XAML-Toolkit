@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             this.CheckForHardCodedAttribute(
                 Attributes.Text,
-                AttributeType.Any,
+                AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringToggleMenuFlyoutItemTextMessage,
                 typeof(ToggleMenuFlyoutItemTextAction),
                 xamlElement,
