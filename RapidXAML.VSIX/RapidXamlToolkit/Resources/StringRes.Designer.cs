@@ -871,6 +871,69 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HyperlinkButton contains hard-coded Content value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringHyperlinkButtonContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringHyperlinkButtonContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MenuFlyoutItem contains hard-coded Text value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MenuFlyoutSubItem contains hard-coded Text value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringMenuFlyoutSubItemTextMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringMenuFlyoutSubItemTextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PivotItem contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringPivotItemHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringPivotItemHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pivot contains hard-coded Title value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringPivotTitleMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringPivotTitleMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RepeatButton contains hard-coded Content value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringRepeatButtonContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringRepeatButtonContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RichEditBox contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TextBlock contains hard-coded Text value &apos;{0}&apos;..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringTextblockTextMessage {
@@ -903,6 +966,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage {
             get {
                 return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ToggleMenuFlyoutItem contains hard-coded Text value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringToggleMenuFlyoutItemTextMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringToggleMenuFlyoutItemTextMessage", resourceCulture);
             }
         }
         

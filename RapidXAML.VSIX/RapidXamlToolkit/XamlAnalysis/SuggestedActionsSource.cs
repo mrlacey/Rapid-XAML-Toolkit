@@ -157,6 +157,30 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(HubSectionHeaderAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, HubSectionHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
                             break;
+                        case nameof(HyperlinkButtonContentAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, HyperlinkButtonContentAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(RepeatButtonContentAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, RepeatButtonContentAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(PivotTitleAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, PivotTitleAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(PivotItemHeaderAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, PivotItemHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(MenuFlyoutItemTextAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, MenuFlyoutItemTextAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(MenuFlyoutSubItemTextAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, MenuFlyoutSubItemTextAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(ToggleMenuFlyoutItemTextAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, ToggleMenuFlyoutItemTextAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(RichEditBoxHeaderAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, RichEditBoxHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
                     }
                 }
             }

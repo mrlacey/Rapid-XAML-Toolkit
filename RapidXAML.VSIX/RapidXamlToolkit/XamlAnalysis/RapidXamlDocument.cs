@@ -72,6 +72,14 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.TimePicker, new TimePickerProcessor()),
                         (Elements.Hub, new HubProcessor()),
                         (Elements.HubSection, new HubSectionProcessor()),
+                        (Elements.HyperlinkButton, new HyperlinkButtonProcessor()),
+                        (Elements.RepeatButton, new RepeatButtonProcessor()),
+                        (Elements.Pivot, new PivotProcessor()),
+                        (Elements.PivotItem, new PivotItemProcessor()),
+                        (Elements.MenuFlyoutItem, new MenuFlyoutItemProcessor()),
+                        (Elements.MenuFlyoutSubItem, new MenuFlyoutSubItemProcessor()),
+                        (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor()),
+                        (Elements.RichEditBox, new RichEditBoxProcessor()),
                     };
         }
     }

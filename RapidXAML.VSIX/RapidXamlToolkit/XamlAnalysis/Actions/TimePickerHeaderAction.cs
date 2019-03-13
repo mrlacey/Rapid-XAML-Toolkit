@@ -9,7 +9,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
     public class TimePickerHeaderAction : HardCodedStringAction
     {
         private TimePickerHeaderAction(string file, ITextView textView)
-            : base(file, textView, Elements.ComboBox, Attributes.Header)
+            : base(file, textView, Elements.TimePicker, Attributes.Header)
         {
         }
 

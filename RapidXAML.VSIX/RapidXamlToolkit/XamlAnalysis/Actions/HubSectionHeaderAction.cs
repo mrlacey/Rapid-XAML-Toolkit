@@ -9,7 +9,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
     public class HubSectionHeaderAction : HardCodedStringAction
     {
         private HubSectionHeaderAction(string file, ITextView textView)
-            : base(file, textView, Elements.ComboBox, Attributes.Header)
+            : base(file, textView, Elements.HubSection, Attributes.Header)
         {
         }
 

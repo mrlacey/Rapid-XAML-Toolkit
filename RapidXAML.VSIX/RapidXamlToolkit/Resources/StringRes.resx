@@ -781,7 +781,31 @@
   <data name="Info_XamlAnalysisHardcodedStringHubSectionHeaderMessage" xml:space="preserve">
     <value>HubSection contains hard-coded Header value '{0}'.</value>
   </data>
+  <data name="Info_XamlAnalysisHardcodedStringHyperlinkButtonContentMessage" xml:space="preserve">
+    <value>HyperlinkButton contains hard-coded Content value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage" xml:space="preserve">
+    <value>MenuFlyoutItem contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringMenuFlyoutSubItemTextMessage" xml:space="preserve">
+    <value>MenuFlyoutSubItem contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringPivotItemHeaderMessage" xml:space="preserve">
+    <value>PivotItem contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringPivotTitleMessage" xml:space="preserve">
+    <value>Pivot contains hard-coded Title value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringRepeatButtonContentMessage" xml:space="preserve">
+    <value>RepeatButton contains hard-coded Content value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage" xml:space="preserve">
+    <value>RichEditBox contains hard-coded Header value '{0}'.</value>
+  </data>
   <data name="Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage" xml:space="preserve">
     <value>TimePicker contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleMenuFlyoutItemTextMessage" xml:space="preserve">
+    <value>ToggleMenuFlyoutItem contains hard-coded Text value '{0}'.</value>
   </data>
 </root>

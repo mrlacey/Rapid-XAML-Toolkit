@@ -21,6 +21,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Text => "Text";
 
+        public static string Title => "Title";
+
         public static string Uid => "x:Uid";
     }
 }

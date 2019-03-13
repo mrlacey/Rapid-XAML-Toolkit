@@ -6,16 +6,16 @@ using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
-    public class HubHeaderAction : HardCodedStringAction
+    public class PivotTitleAction : HardCodedStringAction
     {
-        private HubHeaderAction(string file, ITextView textView)
-            : base(file, textView, Elements.Hub, Attributes.Header)
+        private PivotTitleAction(string file, ITextView textView)
+            : base(file, textView, Elements.Pivot, Attributes.Title)
         {
         }
 
-        public static HubHeaderAction Create(HardCodedStringTag tag, string file, ITextView view)
+        public static PivotTitleAction Create(HardCodedStringTag tag, string file, ITextView view)
         {
-            var result = new HubHeaderAction(file, view)
+            var result = new PivotTitleAction(file, view)
             {
                 Tag = tag,
             };
