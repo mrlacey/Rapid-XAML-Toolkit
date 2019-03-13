@@ -767,9 +767,15 @@
     <value>CalendarDatePicker contains hard-coded Header value '{0}'.</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringCheckboxContentMessage" xml:space="preserve">
-    <value>Checkbox contains hard-coded Content value '{0}'.</value>
+    <value>CheckBox contains hard-coded Content value '{0}'.</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringComboboxHeaderMessage" xml:space="preserve">
-    <value>Combobox contains hard-coded Header value '{0}'.</value>
+    <value>ComboBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringDatePickerHeaderMessage" xml:space="preserve">
+    <value>DatePicker contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage" xml:space="preserve">
+    <value>TimePicker contains hard-coded Header value '{0}'.</value>
   </data>
 </root>

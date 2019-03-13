@@ -817,7 +817,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Checkbox contains hard-coded Content value &apos;{0}&apos;..
+        ///   Looks up a localized string similar to CheckBox contains hard-coded Content value &apos;{0}&apos;..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringCheckboxContentMessage {
             get {
@@ -826,11 +826,20 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Combobox contains hard-coded Header value &apos;{0}&apos;..
+        ///   Looks up a localized string similar to ComboBox contains hard-coded Header value &apos;{0}&apos;..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringComboboxHeaderMessage {
             get {
                 return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringComboboxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DatePicker contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringDatePickerHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringDatePickerHeaderMessage", resourceCulture);
             }
         }
         
@@ -867,6 +876,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage {
             get {
                 return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TimePicker contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage", resourceCulture);
             }
         }
         

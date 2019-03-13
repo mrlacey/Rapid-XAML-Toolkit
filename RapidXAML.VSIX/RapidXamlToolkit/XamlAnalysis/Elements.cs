@@ -19,6 +19,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string ComboBox => "ComboBox";
 
+        public static string DatePicker => "DatePicker";
+
         public static string Entry => "Entry";
 
         public static string Grid => "Grid";

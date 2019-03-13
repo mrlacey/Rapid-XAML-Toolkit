@@ -68,6 +68,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.CalendarDatePicker, new CalendarDatePickerProcessor()),
                         (Elements.CheckBox, new CheckBoxProcessor()),
                         (Elements.ComboBox, new ComboBoxProcessor()),
+                        (Elements.DatePicker, new DatePickerProcessor()),
+                        (Elements.TimePicker, new TimePickerProcessor()),
                     };
         }
     }

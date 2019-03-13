@@ -145,6 +145,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(ComboBoxHeaderAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, ComboBoxHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
                             break;
+                        case nameof(DatePickerHeaderAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, DatePickerHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(TimePickerHeaderAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, TimePickerHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
                     }
                 }
             }
