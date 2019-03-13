@@ -54,6 +54,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static List<(string, XamlElementProcessor)> GetAllProcessors()
         {
             // TODO: Issue#134 - Need to limit processors to only run on appropriate platform (UWP/WPF/XF)
+            // TODO: Do not match on anything in a comment
             return new List<(string, XamlElementProcessor)>
                     {
                         (Elements.Grid, new GridProcessor()),
