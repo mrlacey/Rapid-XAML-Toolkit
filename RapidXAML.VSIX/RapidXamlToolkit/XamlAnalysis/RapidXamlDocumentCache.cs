@@ -18,6 +18,7 @@ namespace RapidXamlToolkit.XamlAnalysis
     public static class RapidXamlDocumentCache
     {
         private static readonly Dictionary<string, RapidXamlDocument> Cache = new Dictionary<string, RapidXamlDocument>();
+        private static readonly List<string> CurrentlyProcessing = new List<string>();
         private static RapidXamlPackage package;
 
         public static event EventHandler<RapidXamlParsingEventArgs> Parsed;
@@ -94,13 +95,26 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static void Update(string file, ITextSnapshot snapshot)
         {
-            // TODO: avoid multiple copies of the same text being parsed at once. - For if this is triggered from multiple places
-            if (Cache[file].RawText != snapshot.GetText())
-            {
-                var doc = RapidXamlDocument.Create(snapshot);
-                Cache[file] = doc;
+            var snapshotText = snapshot.GetText();
 
-                Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Update));
+            if (Cache[file].RawText != snapshotText)
+            {
+                if (!CurrentlyProcessing.Contains(snapshotText))
+                {
+                    try
+                    {
+                        CurrentlyProcessing.Add(snapshotText);
+
+                        var doc = RapidXamlDocument.Create(snapshot);
+                        Cache[file] = doc;
+
+                        Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Update));
+                    }
+                    finally
+                    {
+                        CurrentlyProcessing.Remove(snapshotText);
+                    }
+                }
             }
         }
 
