@@ -754,6 +754,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AppBarButton contains hard-coded Label value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringAppBarButtonLabelMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringAppBarButtonLabelMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AppBarToggleButton contains hard-coded Label value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringAppBarToggleButtonLabelMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringAppBarToggleButtonLabelMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Button contains hard-coded Content value &apos;{0}&apos;..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringButtonContentMessage {

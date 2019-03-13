@@ -748,4 +748,7 @@
   <data name="UI_AddTextBoxInputScope" xml:space="preserve">
     <value>Specify InputScope property.</value>
   </data>
+  <data name="Info_XamlAnalysisHardcodedStringAppBarButtonLabelMessage" xml:space="preserve">
+    <value>AppBarButton contains hard-coded Label value '{0}'.</value>
+  </data>
 </root>

@@ -121,6 +121,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(AddTextBoxInputScopeAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, AddTextBoxInputScopeAction.Create((AddTextBoxInputScopeTag)rxTag, this.file)));
                             break;
+                        case nameof(AppBarButtonLabelAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AppBarButtonLabelAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(AppBarToggleButtonLabelAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AppBarToggleButtonLabelAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
                     }
                 }
             }

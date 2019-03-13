@@ -61,6 +61,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.TextBox, new TextBoxProcessor()),
                         (Elements.Button, new ButtonProcessor()),
                         (Elements.Entry, new EntryProcessor()),
+                        (Elements.AppBarButton, new AppBarButtonProcessor()),
+                        (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor()),
                     };
         }
     }

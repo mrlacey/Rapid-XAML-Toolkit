@@ -5,6 +5,10 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class Elements
     {
+        public static string AppBarButton => "AppBarButton";
+
+        public static string AppBarToggleButton => "AppBarToggleButton";
+
         public static string Button => "Button";
 
         public static string Entry => "Entry";
