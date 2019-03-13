@@ -200,6 +200,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         protected (bool uidExists, string uidValue) GetOrGenerateUid(string xamlElement, string attributeName)
         {
+            // TODO: also try and reuse `Name` or `x:Name` if exist
             var uidExists = this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
 
             if (!uidExists)

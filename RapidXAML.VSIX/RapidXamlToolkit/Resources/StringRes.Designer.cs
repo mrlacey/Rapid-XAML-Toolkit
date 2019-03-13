@@ -817,6 +817,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checkbox contains hard-coded Content value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringCheckboxContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringCheckboxContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Combobox contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringComboboxHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringComboboxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do not use hard-coded values. Use a localized resource instead..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringExtendedMessage {

@@ -9,7 +9,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
     public class AutoSuggestBoxPlaceholderAction : HardCodedStringAction
     {
         private AutoSuggestBoxPlaceholderAction(string file, ITextView textView)
-            : base(file, textView, Elements.AutoSuggestBox, Attributes.Placeholder)
+            : base(file, textView, Elements.AutoSuggestBox, Attributes.PlaceholderText)
         {
         }
 
