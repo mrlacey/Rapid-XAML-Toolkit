@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Attributes.Label,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringAppBarButtonLabelMessage,
-                typeof(AppBarbuttonLabelAction),
+                typeof(AppBarButtonLabelAction),
                 xamlElement,
                 snapshot,
                 offset,
