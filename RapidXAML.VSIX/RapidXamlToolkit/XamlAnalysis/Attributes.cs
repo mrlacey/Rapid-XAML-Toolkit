@@ -7,6 +7,8 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         public static string Content => "Content";
 
+        public static string Description => "Description";
+
         public static string Header => "Header";
 
         public static string InputScope => "InputScope";

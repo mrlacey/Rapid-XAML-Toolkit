@@ -758,6 +758,12 @@
     <value>AutoSuggestBox contains hard-coded Header value '{0}'.</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringAutoSuggestBoxPlaceHolderMessage" xml:space="preserve">
-    <value>AutoSuggestBox contains hard-coded PlaceHolder value '{0}'.</value>
+    <value>AutoSuggestBox contains hard-coded Placeholder value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringCalendarDatePickerDescriptionMessage" xml:space="preserve">
+    <value>CalendarDatePicker contains hard-coded Description value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringCalendarDatePickerHeaderMessage" xml:space="preserve">
+    <value>CalendarDatePicker contains hard-coded Header value '{0}'.</value>
   </data>
 </root>

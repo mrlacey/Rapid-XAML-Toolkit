@@ -9,7 +9,7 @@ using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
-    public class AutoSuggestBoxProcessor : XamlElementProcessor
+    public class CalendarDatePickerProcessor : XamlElementProcessor
     {
         public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
@@ -18,8 +18,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             this.CheckForHardCodedAttribute(
                 Attributes.Header,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringAutoSuggestBoxHeaderMessage,
-                typeof(AutoSuggestBoxHeaderAction),
+                StringRes.Info_XamlAnalysisHardcodedStringCalendarDatePickerHeaderMessage,
+                typeof(CalendarDatePickerHeaderAction),
                 xamlElement,
                 snapshot,
                 offset,
@@ -28,10 +28,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 tags);
 
             this.CheckForHardCodedAttribute(
-                Attributes.PlaceholderText,
+                Attributes.Description,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringAutoSuggestBoxPlaceHolderMessage,
-                typeof(AutoSuggestBoxPlaceholderAction),
+                StringRes.Info_XamlAnalysisHardcodedStringCalendarDatePickerDescriptionMessage,
+                typeof(CalendarDatePickerDescriptionAction),
                 xamlElement,
                 snapshot,
                 offset,

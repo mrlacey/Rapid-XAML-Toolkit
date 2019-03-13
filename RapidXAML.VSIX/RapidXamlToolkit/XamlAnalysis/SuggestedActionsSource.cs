@@ -128,7 +128,16 @@ namespace RapidXamlToolkit.XamlAnalysis
                             list.AddRange(this.CreateActionSet(rxTag.Span, AppBarToggleButtonLabelAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
                             break;
                         case nameof(AutoSuggestBoxHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AppBarToggleButtonLabelAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AutoSuggestBoxHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(AutoSuggestBoxPlaceholderAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, AutoSuggestBoxPlaceholderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(CalendarDatePickerDescriptionAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, CalendarDatePickerDescriptionAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
+                            break;
+                        case nameof(CalendarDatePickerHeaderAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, CalendarDatePickerHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
                             break;
                     }
                 }

@@ -13,6 +13,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Button => "Button";
 
+        public static string CalendarDatePicker => "CalendarDatePicker";
+
         public static string Entry => "Entry";
 
         public static string Grid => "Grid";

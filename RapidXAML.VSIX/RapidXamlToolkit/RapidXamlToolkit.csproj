@@ -236,7 +236,10 @@
     <Compile Include="XamlAnalysis\Actions\AppBarButtonLabelAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AppBarToggleButtonLabelAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AutoSuggestBoxHeaderAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AutoSuggestBoxPlaceholderAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ButtonContentAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\CalendarDatePickerDescriptionAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\CalendarDatePickerHeaderAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\TextBlockTextAction.cs" />
@@ -246,6 +249,7 @@
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\CalendarDatePickerProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\AddEntryKeyboardTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />

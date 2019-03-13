@@ -799,6 +799,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CalendarDatePicker contains hard-coded Description value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringCalendarDatePickerDescriptionMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringCalendarDatePickerDescriptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CalendarDatePicker contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringCalendarDatePickerHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringCalendarDatePickerHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do not use hard-coded values. Use a localized resource instead..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringExtendedMessage {
