@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
+using RapidXamlToolkit.Confguration;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 using Task = System.Threading.Tasks.Task;
@@ -19,6 +20,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class SuggestedActionsSource : ISuggestedActionsSource, ISuggestedActionsSource2
     {
+        private readonly RxtSettings config = new RxtSettings();
         private readonly ITextView view;
         private readonly ISuggestedActionCategoryRegistryService suggestedActionCategoryRegistry;
         private string file;
@@ -221,8 +223,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public bool TryGetTelemetryId(out Guid telemetryId)
         {
-            // TODO: find out if we need a LightBulbTelemetryGuid and what value to use if we do
-            telemetryId = Guid.Empty;
+            telemetryId = this.config.LightBulbTelemetryGuid;
             return false;
         }
 

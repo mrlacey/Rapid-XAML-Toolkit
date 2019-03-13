@@ -33,6 +33,12 @@ namespace RapidXamlToolkit.Confguration
                             case "TelemetryKey":
                                 this.TelemetryKey = property.Value.ToString();
                                 break;
+                            case "LightBulbTelemetryGuid":
+                                if (property.Value.ToString() != "SET HERE")
+                                {
+                                    this.LightBulbTelemetryGuid = new Guid(property.Value.ToString());
+                                }
+                                break;
                             case "ExtendedOutputEnabledByDefault":
                                 this.ExtendedOutputEnabledByDefault = bool.Parse(property.Value.ToString());
                                 break;
@@ -49,6 +55,8 @@ namespace RapidXamlToolkit.Confguration
         }
 
         public string TelemetryKey { get; private set; } = "DEFAULT-VALUE";
+
+        public Guid LightBulbTelemetryGuid { get; private set; } = Guid.Empty;
 
         public bool ExtendedOutputEnabledByDefault { get; private set; } = true;
     }
