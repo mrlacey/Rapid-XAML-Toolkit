@@ -20,8 +20,8 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
 
         public static IEnumerable<object[]> GetXamlFiles()
         {
-            // Change this to something appropriate on teh machine you're running this test on.
-            const string rootFolder = @"C:\Users\matt\Documents\GitHub\calculator";
+            // Change this to something appropriate on the machine you're running this test on.
+            const string rootFolder = @"C:\Users\matt\Documents\GitHub\";
 
             foreach (var file in Directory.GetFiles(rootFolder, "*.xaml", SearchOption.AllDirectories))
             {
