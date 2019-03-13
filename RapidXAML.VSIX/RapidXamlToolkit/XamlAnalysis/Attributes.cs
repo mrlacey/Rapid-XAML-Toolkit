@@ -17,6 +17,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Label => "Label";
 
+        public static string Name => "Name";
+
         public static string OnContent => "OnContent";
 
         public static string OffContent => "OffContent";

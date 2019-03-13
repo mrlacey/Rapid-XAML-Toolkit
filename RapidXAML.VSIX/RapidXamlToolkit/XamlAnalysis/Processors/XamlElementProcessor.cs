@@ -200,25 +200,32 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         protected (bool uidExists, string uidValue) GetOrGenerateUid(string xamlElement, string attributeName)
         {
-            // TODO: also try and reuse `Name` or `x:Name` if exist
             var uidExists = this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
 
             if (!uidExists)
             {
-                this.TryGetAttribute(xamlElement, attributeName, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out string value);
-
-                var elementName = xamlElement.Substring(1, xamlElement.IndexOfAny(new[] { ' ', '>' }) - 1);
-
-                if (!string.IsNullOrWhiteSpace(value))
+                // reuse `Name` or `x:Name` if exist
+                if (this.TryGetAttribute(xamlElement, Attributes.Name, AttributeType.InlineOrElement, out AttributeType _, out int _, out int _, out string name))
                 {
-                    uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value)}{elementName}";
-
-                    uid = uid.RemoveAllWhitespace().RemoveNonAlphaNumerics();
+                    uid = name;
                 }
                 else
                 {
-                    // This is just a large random number created to hopefully avoid collisions
-                    uid = $"{elementName}{new Random().Next(10001, 89999)}";
+                    this.TryGetAttribute(xamlElement, attributeName, AttributeType.InlineOrElement, out _, out _, out _, out string value);
+
+                    var elementName = xamlElement.Substring(1, xamlElement.IndexOfAny(new[] { ' ', '>' }) - 1);
+
+                    if (!string.IsNullOrWhiteSpace(value))
+                    {
+                        uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value)}{elementName}";
+
+                        uid = uid.RemoveAllWhitespace().RemoveNonAlphaNumerics();
+                    }
+                    else
+                    {
+                        // This is just a large random number created to hopefully avoid collisions
+                        uid = $"{elementName}{new Random().Next(1001, 8999)}";
+                    }
                 }
             }
 

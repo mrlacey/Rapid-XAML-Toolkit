@@ -38,6 +38,7 @@ namespace RapidXamlToolkit.Confguration
                                 {
                                     this.LightBulbTelemetryGuid = new Guid(property.Value.ToString());
                                 }
+
                                 break;
                             case "ExtendedOutputEnabledByDefault":
                                 this.ExtendedOutputEnabledByDefault = bool.Parse(property.Value.ToString());
