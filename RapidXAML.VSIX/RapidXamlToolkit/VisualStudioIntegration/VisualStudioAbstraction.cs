@@ -34,6 +34,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return this.Dte.ActiveDocument.Name;
         }
 
+        public string GetActiveDocumentFilePath()
+        {
+            return this.Dte.ActiveDocument.FullName;
+        }
+
         public string GetActiveDocumentText()
         {
             var activeDoc = this.Dte.ActiveDocument;

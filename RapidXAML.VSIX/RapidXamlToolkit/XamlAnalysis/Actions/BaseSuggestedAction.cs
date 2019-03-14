@@ -107,8 +107,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         {
             // Adding and deleting a char in order to force taggers re-evaluation
             string text = " ";
-            this.View.TextBuffer.Insert(0, text);
-            this.View.TextBuffer.Delete(new Span(0, text.Length));
+            this.View?.TextBuffer.Insert(0, text);
+            this.View?.TextBuffer.Delete(new Span(0, text.Length));
         }
     }
 }

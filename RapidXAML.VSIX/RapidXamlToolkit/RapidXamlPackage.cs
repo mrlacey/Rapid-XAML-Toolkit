@@ -59,7 +59,7 @@ namespace RapidXamlToolkit
                 await SendToToolboxCommand.InitializeAsync(this, Logger);
                 await OpenOptionsCommand.InitializeAsync(this, Logger);
                 await SetDatacontextCommand.InitializeAsync(this, Logger);
-                await InsertGridRowDefinitionCommand.InitializeAsync(this, Logger);
+                await MoveAllHardCodedStringsToResourceFileCommand.InitializeAsync(this, Logger);
                 await RapidXamlDropHandlerProvider.InitializeAsync(this, Logger);
 
                 await this.SetUpRunningDocumentTableEventsAsync(cancellationToken);

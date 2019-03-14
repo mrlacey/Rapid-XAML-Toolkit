@@ -66,6 +66,7 @@
     <NoWarn>,1573,1591,1712,1762</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
     <Compile Include="VisualStudioIntegration\IVisualStudioTextManipulation.cs" />
     <Compile Include="VisualStudioIntegration\VisualStudioTextManipulation.cs" />
     <Compile Include="ErrorList\ErrorRow.cs" />
@@ -85,7 +86,6 @@
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\CreateViewCommandLogic.cs" />
     <Compile Include="Commands\IFileSystemAbstraction.cs" />
-    <Compile Include="Commands\InsertGridRowDefinitionCommand.cs" />
     <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
     <Compile Include="VisualStudioIntegration\IVisualStudioAbstraction.cs" />
     <Compile Include="Commands\OpenOptionsCommand.cs" />
@@ -233,35 +233,8 @@
     <Compile Include="XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\AppBarButtonLabelAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\AppBarToggleButtonLabelAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\AutoSuggestBoxHeaderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\AutoSuggestBoxPlaceholderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\ButtonContentAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\CalendarDatePickerDescriptionAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\CalendarDatePickerHeaderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\CheckboxContentAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\ComboBoxHeaderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\DatePickerHeaderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\HubHeaderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\HubSectionHeaderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\HyperlinkButtonContentAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\MenuFlyoutItemTextAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\MenuFlyoutSubItemTextAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\PivotItemHeaderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\PivotTitleAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\RepeatButtonContentAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\RichEditBoxHeaderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\TextBlockTextAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\TextBoxHeaderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\TextBoxPlaceholderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\TimePickerHeaderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\ToggleMenuFlyoutItemTextAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\ToggleSwithHeaderAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\ToggleSwithOffContentAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\ToggleSwithOnContentAction.cs" />
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
