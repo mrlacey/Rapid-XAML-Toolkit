@@ -56,6 +56,11 @@ namespace RapidXamlToolkit.Commands
 
         private async void Execute(object sender, EventArgs e)
         {
+            System.Windows.Forms.Cursor previousCursor;
+
+            previousCursor = System.Windows.Forms.Cursor.Current;
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+
             try
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
@@ -105,6 +110,10 @@ namespace RapidXamlToolkit.Commands
             {
                 this.Logger?.RecordException(exc);
                 throw;
+            }
+            finally
+            {
+                System.Windows.Forms.Cursor.Current = previousCursor;
             }
         }
     }
