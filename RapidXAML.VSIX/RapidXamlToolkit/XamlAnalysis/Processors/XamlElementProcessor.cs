@@ -177,7 +177,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return false;
         }
 
-        protected void CheckForHardCodedAttribute(string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, List<IRapidXamlAdornmentTag> tags)
+        protected void CheckForHardCodedAttribute(string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, List<IRapidXamlAdornmentTag> tags)
         {
             if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
@@ -193,6 +193,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                         Description = descriptionFormat.WithParams(value),
                         UidExists = uidExists,
                         UidValue = uidValue,
+                        ElementGuid = elementIdentifier,
                     });
                 }
             }

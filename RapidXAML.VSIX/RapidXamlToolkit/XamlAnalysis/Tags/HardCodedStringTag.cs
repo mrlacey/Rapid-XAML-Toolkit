@@ -32,5 +32,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public string ElementName { get; }
 
         public string AttributeName { get; }
+
+        public Guid ElementGuid { get; set; }
     }
 }

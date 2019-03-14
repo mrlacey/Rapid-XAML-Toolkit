@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
@@ -25,6 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 offset,
                 uidExists,
                 uid,
+                Guid.Empty,
                 tags);
         }
     }

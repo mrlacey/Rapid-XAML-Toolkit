@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
@@ -15,6 +16,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
+            var elementGuid = Guid.NewGuid();
+
             this.CheckForHardCodedAttribute(
                 Elements.TextBox,
                 Attributes.Header,
@@ -25,6 +28,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 offset,
                 uidExists,
                 uid,
+                elementGuid,
                 tags);
 
             this.CheckForHardCodedAttribute(
@@ -37,6 +41,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 offset,
                 uidExists,
                 uid,
+                elementGuid,
                 tags);
 
             if (!this.TryGetAttribute(xamlElement, Attributes.InputScope, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))

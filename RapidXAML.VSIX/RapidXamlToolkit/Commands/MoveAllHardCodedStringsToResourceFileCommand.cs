@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading;
@@ -77,11 +78,24 @@ namespace RapidXamlToolkit.Commands
                                                  .OfType<HardCodedStringTag>()
                                                  .OrderByDescending(t => t.Span.Start);
 
+                var referenceUids = new Dictionary<Guid, string>();
+
                 // Bundle this in a single undo option?
                 foreach (var tag in tags)
                 {
+                    if (!tag.UidExists && referenceUids.ContainsKey(tag.ElementGuid))
+                    {
+                        tag.UidExists = true;
+                        tag.UidValue = referenceUids[tag.ElementGuid];
+                    }
+
                     var action = new HardCodedStringAction(filePath, null, tag);
                     action.Execute(new CancellationTokenSource().Token);
+
+                    if (tag.UidExists == false && tag.ElementGuid != Guid.Empty && !referenceUids.ContainsKey(tag.ElementGuid))
+                    {
+                        referenceUids.Add(tag.ElementGuid, tag.UidValue);
+                    }
                 }
 
                 // Update again to force reflecting the changes that were just made.
