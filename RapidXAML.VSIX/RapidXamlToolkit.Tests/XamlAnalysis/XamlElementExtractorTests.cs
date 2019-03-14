@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.XamlAnalysis;
@@ -100,14 +101,14 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         [TestMethod]
         public void CanGetRootElement_WithMultipleAttributes_OnDifferentLines()
         {
-            var xaml = @"
-<Grid
-    attr1=""value1""
-    attr2=""value2""
-    attr3=""value3""
-    attr4=""value4""
-    >
-</Grid>";
+            var xaml = ""
++ Environment.NewLine + "<Grid"
++ Environment.NewLine + "    attr1=\"value1\""
++ Environment.NewLine + "    attr2=\"value2\""
++ Environment.NewLine + "    attr3=\"value3\""
++ Environment.NewLine + "    attr4=\"value4\""
++ Environment.NewLine + "    >"
++ Environment.NewLine + "</Grid>";
 
             var processor = new FakeXamlElementProcessor();
 
@@ -288,10 +289,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         [TestMethod]
         public void CanGetChildElement_NamedClosing_OverMutipleLines()
         {
-            var xaml = @"<Grid>
-    <Inner>
-    </Inner>
-</Grid>";
+            var xaml = "<Grid>"
++ Environment.NewLine + "    <Inner>"
++ Environment.NewLine + "    </Inner>"
++ Environment.NewLine + "</Grid>";
 
             var processor = new FakeXamlElementProcessor();
 
@@ -473,13 +474,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         [TestMethod]
         public void CanGetMultipleNestedElements_OverMultipleLines()
         {
-            var xaml = @"<Grid>
-    <Grid>
-        <Grid />
-        <Grid>
-        </Grid>
-    </Grid>
-</Grid>";
+            var xaml = "<Grid>"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid />"
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Grid>";
 
             var processor = new FakeXamlElementProcessor();
 
@@ -555,13 +556,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         [TestMethod]
         public void CanGetRootChildAndGrandChildrenElements_OverMultipleLines()
         {
-            var xaml = @"<Grid>
-    <Child>
-        <GrandChild />
-        <GrandChild>
-        </GrandChild>
-    </Child>
-</Grid>";
+            var xaml = "<Grid>"
++ Environment.NewLine + "    <Child>"
++ Environment.NewLine + "        <GrandChild />"
++ Environment.NewLine + "        <GrandChild>"
++ Environment.NewLine + "        </GrandChild>"
++ Environment.NewLine + "    </Child>"
++ Environment.NewLine + "</Grid>";
 
             var gridProc = new FakeXamlElementProcessor();
             var childProc = new FakeXamlElementProcessor();

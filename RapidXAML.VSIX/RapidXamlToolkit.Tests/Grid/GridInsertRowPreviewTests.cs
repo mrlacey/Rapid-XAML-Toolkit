@@ -322,80 +322,80 @@ namespace RapidXamlToolkit.Tests.Grid
         [TestMethod]
         public void RealWorldExample()
         {
-            var original = @"
-<Window
-    x:Class=""RxtWpfDemo.MainWindow""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:local=""clr-namespace:RxtWpfDemo""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    Title=""MainWindow""
-    Width=""800""
-    Height=""450""
-    mc:Ignorable=""d"">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            ☆<RowDefinition Height=""*"" />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+            var original = ""
++ Environment.NewLine + "<Window"
++ Environment.NewLine + "    x:Class=\"RxtWpfDemo.MainWindow\""
++ Environment.NewLine + "    xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\""
++ Environment.NewLine + "    xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\""
++ Environment.NewLine + "    xmlns:d=\"http://schemas.microsoft.com/expression/blend/2008\""
++ Environment.NewLine + "    xmlns:local=\"clr-namespace:RxtWpfDemo\""
++ Environment.NewLine + "    xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\""
++ Environment.NewLine + "    Title=\"MainWindow\""
++ Environment.NewLine + "    Width=\"800\""
++ Environment.NewLine + "    Height=\"450\""
++ Environment.NewLine + "    mc:Ignorable=\"d\">"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition />"
++ Environment.NewLine + "            ☆<RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition />"
++ Environment.NewLine + "            <RowDefinition />"
++ Environment.NewLine + "            <RowDefinition />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <TextBlock Text=\"hello\" />"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <TextBlock Text=\"world\" />"
++ Environment.NewLine + ""
++ Environment.NewLine + ""
++ Environment.NewLine + "        <TextBlock Grid.Row=\"2\" Text=\"line 3\" />"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "            <TextBlock Text=\"hello world\" />"
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <Button Grid.Row=\"1\" Content=\"click here\" />"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Window>";
 
-        <TextBlock Text=""hello"" />
-
-        <TextBlock Text=""world"" />
-
-
-        <TextBlock Grid.Row=""2"" Text=""line 3"" />
-
-        <Grid>
-            <TextBlock Text=""hello world"" />
-        </Grid>
-
-        <Button Grid.Row=""1"" Content=""click here"" />
-
-    </Grid>
-</Window>";
-
-            var expected = @"
-<Window
-    x:Class=""RxtWpfDemo.MainWindow""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:local=""clr-namespace:RxtWpfDemo""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    Title=""MainWindow""
-    Width=""800""
-    Height=""450""
-    mc:Ignorable=""d"">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height=""XXX"" />
-            <RowDefinition Height=""*"" />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-
-        <TextBlock Text=""hello"" />
-
-        <TextBlock Text=""world"" />
-
-
-        <TextBlock Grid.Row=""3"" Text=""line 3"" />
-
-        <Grid>
-            <TextBlock Text=""hello world"" />
-        </Grid>
-
-        <Button Grid.Row=""2"" Content=""click here"" />
-
-    </Grid>
-</Window>";
+            var expected = ""
++ Environment.NewLine + "<Window"
++ Environment.NewLine + "    x:Class=\"RxtWpfDemo.MainWindow\""
++ Environment.NewLine + "    xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\""
++ Environment.NewLine + "    xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\""
++ Environment.NewLine + "    xmlns:d=\"http://schemas.microsoft.com/expression/blend/2008\""
++ Environment.NewLine + "    xmlns:local=\"clr-namespace:RxtWpfDemo\""
++ Environment.NewLine + "    xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\""
++ Environment.NewLine + "    Title=\"MainWindow\""
++ Environment.NewLine + "    Width=\"800\""
++ Environment.NewLine + "    Height=\"450\""
++ Environment.NewLine + "    mc:Ignorable=\"d\">"
++ Environment.NewLine + "    <Grid>"
++ Environment.NewLine + "        <Grid.RowDefinitions>"
++ Environment.NewLine + "            <RowDefinition />"
++ Environment.NewLine + "            <RowDefinition Height=\"XXX\" />"
++ Environment.NewLine + "            <RowDefinition Height=\"*\" />"
++ Environment.NewLine + "            <RowDefinition />"
++ Environment.NewLine + "            <RowDefinition />"
++ Environment.NewLine + "            <RowDefinition />"
++ Environment.NewLine + "        </Grid.RowDefinitions>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <TextBlock Text=\"hello\" />"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <TextBlock Text=\"world\" />"
++ Environment.NewLine + ""
++ Environment.NewLine + ""
++ Environment.NewLine + "        <TextBlock Grid.Row=\"3\" Text=\"line 3\" />"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "            <TextBlock Text=\"hello world\" />"
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + ""
++ Environment.NewLine + "        <Button Grid.Row=\"2\" Content=\"click here\" />"
++ Environment.NewLine + ""
++ Environment.NewLine + "    </Grid>"
++ Environment.NewLine + "</Window>";
 
             var tag = new InsertRowDefinitionTag(new Span(0, 0), new FakeTextSnapshot())
             {
