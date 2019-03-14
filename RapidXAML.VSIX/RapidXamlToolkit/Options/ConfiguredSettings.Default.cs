@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using RapidXamlToolkit.Confguration;
+using RapidXamlToolkit.Configuration;
 
 namespace RapidXamlToolkit.Options
 {

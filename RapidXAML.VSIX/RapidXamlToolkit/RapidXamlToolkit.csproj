@@ -94,7 +94,7 @@
     <Compile Include="Commands\SetDataContextCommandLogic.cs" />
     <Compile Include="VisualStudioIntegration\VisualStudioAbstraction.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />
-    <Compile Include="Confguration\RxtSettings.cs" />
+    <Compile Include="Configuration\RxtSettings.cs" />
     <Compile Include="DragDrop\DropHandlerLogic.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandlerProvider.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandler.cs" />
