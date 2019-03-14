@@ -305,12 +305,12 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
+            var expected = "<Inner>"
++ Environment.NewLine + "    </Inner>";
+
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(12, processor.Offset);
-            Assert.AreEqual(
-                @"<Inner>
-    </Inner>",
-                processor.XamlElement);
+            Assert.AreEqual(expected, processor.XamlElement);
         }
 
         [TestMethod]
@@ -493,24 +493,24 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
 
+            var expected1 = "<Grid>"
++ Environment.NewLine + "        </Grid>";
+
+            var expected2 = "<Grid>"
++ Environment.NewLine + "        <Grid />"
++ Environment.NewLine + "        <Grid>"
++ Environment.NewLine + "        </Grid>"
++ Environment.NewLine + "    </Grid>";
+
             // The order processed, and so listed here, is the order in which they're closed.
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(4, processor.ProcessCalledCount);
             Assert.AreEqual(28, processor.AllOffsets[1]);
             Assert.AreEqual(@"<Grid />", processor.AllXamlElements[1]);
             Assert.AreEqual(46, processor.AllOffsets[2]);
-            Assert.AreEqual(
-                @"<Grid>
-        </Grid>",
-                processor.AllXamlElements[2]);
+            Assert.AreEqual(expected1, processor.AllXamlElements[2]);
             Assert.AreEqual(12, processor.AllOffsets[3]);
-            Assert.AreEqual(
-                @"<Grid>
-        <Grid />
-        <Grid>
-        </Grid>
-    </Grid>",
-                processor.AllXamlElements[3]);
+            Assert.AreEqual(expected2, processor.AllXamlElements[3]);
             Assert.AreEqual(0, processor.AllOffsets[4]);
             Assert.AreEqual(xaml, processor.AllXamlElements[4]);
         }
@@ -584,26 +584,26 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(0, gridProc.Offset);
             Assert.AreEqual(xaml, gridProc.XamlElement);
 
+            var expectedChild = "<Child>"
++ Environment.NewLine + "        <GrandChild />"
++ Environment.NewLine + "        <GrandChild>"
++ Environment.NewLine + "        </GrandChild>"
++ Environment.NewLine + "    </Child>";
+
             Assert.IsTrue(childProc.ProcessCalled);
             Assert.AreEqual(1, childProc.ProcessCalledCount);
             Assert.AreEqual(12, childProc.Offset);
-            Assert.AreEqual(
-                @"<Child>
-        <GrandChild />
-        <GrandChild>
-        </GrandChild>
-    </Child>",
-                childProc.XamlElement);
+            Assert.AreEqual(expectedChild, childProc.XamlElement);
+
+            var expectedGrandChild = "<GrandChild>"
+     + Environment.NewLine + "        </GrandChild>";
 
             Assert.IsTrue(grandChildProc.ProcessCalled);
             Assert.AreEqual(2, grandChildProc.ProcessCalledCount);
             Assert.AreEqual(29, grandChildProc.AllOffsets[1]);
             Assert.AreEqual(@"<GrandChild />", grandChildProc.AllXamlElements[1]);
             Assert.AreEqual(53, grandChildProc.AllOffsets[2]);
-            Assert.AreEqual(
-                @"<GrandChild>
-        </GrandChild>",
-                grandChildProc.AllXamlElements[2]);
+            Assert.AreEqual(expectedGrandChild, grandChildProc.AllXamlElements[2]);
         }
 
         [TestMethod]
