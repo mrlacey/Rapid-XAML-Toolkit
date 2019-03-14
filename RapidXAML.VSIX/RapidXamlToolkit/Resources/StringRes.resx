@@ -221,7 +221,7 @@
     <value>Output:</value>
   </data>
   <data name="Options_MappingOutputDescription" xml:space="preserve">
-    <value>The output that shoudl be generated if this mapping is used.</value>
+    <value>The output that should be generated if this mapping is used.</value>
   </data>
   <data name="Options_MappingsHeader" xml:space="preserve">
     <value>Mappings</value>
@@ -600,7 +600,7 @@
     <value>Rapid XAML Toolkit</value>
     <comment>Name used in vsixlangpack</comment>
   </data>
-  <data name="Info_UndoContextIndertRowDef" xml:space="preserve">
+  <data name="Info_UndoContextInsertRowDef" xml:space="preserve">
     <value>Insert RowDefinition</value>
   </data>
   <data name="VSCT_InsertGridRowDefinitionCommandId" xml:space="preserve">
@@ -639,5 +639,182 @@
   </data>
   <data name="Info_ProblemsInstructionsAndLink" xml:space="preserve">
     <value>If you have problems with this extension, or suggestions for improvement, report them at https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/new/choose </value>
+  </data>
+  <data name="Info_UndoContextAddColumnDefinitions" xml:space="preserve">
+    <value>Add ColumnDefinitions</value>
+  </data>
+  <data name="Info_UndoContextAddRowAndColumnDefinitions" xml:space="preserve">
+    <value>Add RowDefinitions and ColumnDefinitions</value>
+  </data>
+  <data name="Info_UndoContextAddRowDefinitions" xml:space="preserve">
+    <value>Add RowDefinitions</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringButtonContentMessage" xml:space="preserve">
+    <value>Button contains hard-coded Content value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringExtendedMessage" xml:space="preserve">
+    <value>Do not use hard-coded values. Use a localized resource instead.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTextblockTextMessage" xml:space="preserve">
+    <value>TextBlock contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTooltip" xml:space="preserve">
+    <value>Hard-coded string</value>
+  </data>
+  <data name="UI_AddColumnDefinitions" xml:space="preserve">
+    <value>Add ColumnDefinitions</value>
+  </data>
+  <data name="UI_AddRowAndColumnDefinitions" xml:space="preserve">
+    <value>Add RowDefinitions and ColumnDefinitions</value>
+  </data>
+  <data name="UI_AddRowDefinitions" xml:space="preserve">
+    <value>Add RowDefinitions</value>
+  </data>
+  <data name="UI_InsertNewDefinitionForRow" xml:space="preserve">
+    <value>Insert new definition for row {this.tag.RowId}</value>
+  </data>
+  <data name="UI_MoveHardCodedString" xml:space="preserve">
+    <value>Move hard-coded string to resource file.</value>
+  </data>
+  <data name="Error_XamlAnalysisDescription" xml:space="preserve">
+    <value>Unexpected error occurred while parsing XAML.</value>
+  </data>
+  <data name="Error_XamlAnalysisExtendedMessage" xml:space="preserve">
+    <value>Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: {0}</value>
+  </data>
+  <data name="Info_UndoContextAddMissingColumnDefinitions" xml:space="preserve">
+    <value>Add missing column definitions</value>
+  </data>
+  <data name="Info_UndoContextAddMissingRowDefinitions" xml:space="preserve">
+    <value>Add missing row definitions</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingColumnDefinitionDescription" xml:space="preserve">
+    <value>Use of undefined Column '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingColumnDefinitionExtendedMessage" xml:space="preserve">
+    <value>The use of undefined columns can lead to unexpected layout behavior. It can also be confusing for other people looking at the code.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingColumnDefinitionTooltip" xml:space="preserve">
+    <value>No corresponding column definition</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingRowDefinitionDescription" xml:space="preserve">
+    <value>Use of undefined Row '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingRowDefinitionExtendedMessage" xml:space="preserve">
+    <value>The use of undefined rows can lead to unexpected layout behavior. It can also be confusing for other people looking at the code.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingRowDefinitionTooltip" xml:space="preserve">
+    <value>No corresponding row definition</value>
+  </data>
+  <data name="UI_AddMissingColumnDefinitions" xml:space="preserve">
+    <value>Add missing column definitions.</value>
+  </data>
+  <data name="UI_AddMissingRowDefinitions" xml:space="preserve">
+    <value>Add missing row definitions.</value>
+  </data>
+  <data name="Info_UndoContextMoveStringToResourceFile" xml:space="preserve">
+    <value>Move string to resource file</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTextboxHeaderMessage" xml:space="preserve">
+    <value>TextBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage" xml:space="preserve">
+    <value>TextBox contains hard-coded PlaceholderText value '{0}'.</value>
+  </data>
+  <data name="Info_NoResourceFileFound" xml:space="preserve">
+    <value>No resource file was found in the project. Add one and then try again.</value>
+  </data>
+  <data name="Info_UndoContextAddEntryKeyboard" xml:space="preserve">
+    <value>Add Keyboard property.</value>
+  </data>
+  <data name="Info_XamlAnalysisEntryWithoutKeyboardDescription" xml:space="preserve">
+    <value>Keyboard is not specified for the Entry.</value>
+  </data>
+  <data name="Info_XamlAnalysisEntryWithoutKeyboardExtendedMessage" xml:space="preserve">
+    <value>Specifying the keyboard can make it easier for the user to enter the correct value. </value>
+  </data>
+  <data name="UI_AddEntryKeyboard" xml:space="preserve">
+    <value>Specify Keyboard property.</value>
+  </data>
+  <data name="Info_UndoContextAddTextBoxInputScope" xml:space="preserve">
+    <value>Add InputScope property.</value>
+  </data>
+  <data name="Info_XamlAnalysisTextBoxWithoutInputScopeDescription" xml:space="preserve">
+    <value>InputScope is not specified for the TextBox.</value>
+  </data>
+  <data name="Info_XamlAnalysisTextBoxWithoutInputScopeExtendedMessage" xml:space="preserve">
+    <value>Specifying the InputScope can make it easier for the user to enter the correct value. </value>
+  </data>
+  <data name="UI_AddTextBoxInputScope" xml:space="preserve">
+    <value>Specify InputScope property.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringAppBarButtonLabelMessage" xml:space="preserve">
+    <value>AppBarButton contains hard-coded Label value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringAppBarToggleButtonLabelMessage" xml:space="preserve">
+    <value>AppBarToggleButton contains hard-coded Label value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringAutoSuggestBoxHeaderMessage" xml:space="preserve">
+    <value>AutoSuggestBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringAutoSuggestBoxPlaceHolderMessage" xml:space="preserve">
+    <value>AutoSuggestBox contains hard-coded Placeholder value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringCalendarDatePickerDescriptionMessage" xml:space="preserve">
+    <value>CalendarDatePicker contains hard-coded Description value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringCalendarDatePickerHeaderMessage" xml:space="preserve">
+    <value>CalendarDatePicker contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringCheckboxContentMessage" xml:space="preserve">
+    <value>CheckBox contains hard-coded Content value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringComboboxHeaderMessage" xml:space="preserve">
+    <value>ComboBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringDatePickerHeaderMessage" xml:space="preserve">
+    <value>DatePicker contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringHubHeaderMessage" xml:space="preserve">
+    <value>Hub contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringHubSectionHeaderMessage" xml:space="preserve">
+    <value>HubSection contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringHyperlinkButtonContentMessage" xml:space="preserve">
+    <value>HyperlinkButton contains hard-coded Content value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage" xml:space="preserve">
+    <value>MenuFlyoutItem contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringMenuFlyoutSubItemTextMessage" xml:space="preserve">
+    <value>MenuFlyoutSubItem contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringPivotItemHeaderMessage" xml:space="preserve">
+    <value>PivotItem contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringPivotTitleMessage" xml:space="preserve">
+    <value>Pivot contains hard-coded Title value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringRepeatButtonContentMessage" xml:space="preserve">
+    <value>RepeatButton contains hard-coded Content value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage" xml:space="preserve">
+    <value>RichEditBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage" xml:space="preserve">
+    <value>TimePicker contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleMenuFlyoutItemTextMessage" xml:space="preserve">
+    <value>ToggleMenuFlyoutItem contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleSwitchHeaderMessage" xml:space="preserve">
+    <value>ToggleSwitch contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleSwitchOffContentMessage" xml:space="preserve">
+    <value>ToggleSwitch contains hard-coded OffContent value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleSwitchOnContentMessage" xml:space="preserve">
+    <value>ToggleSwitch contains hard-coded OnContent value '{0}'.</value>
   </data>
 </root>

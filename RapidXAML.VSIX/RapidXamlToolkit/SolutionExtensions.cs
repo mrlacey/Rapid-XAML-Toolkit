@@ -55,5 +55,10 @@ namespace RapidXamlToolkit
                 }
             }
         }
+
+        public static EnvDTE.Project GetProjectContainingFile(this EnvDTE.Solution solution, string filePath)
+        {
+            return solution.FindProjectItem(filePath).ContainingProject;
+        }
     }
 }

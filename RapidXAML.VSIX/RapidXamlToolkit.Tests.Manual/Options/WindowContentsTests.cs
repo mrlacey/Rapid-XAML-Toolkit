@@ -243,7 +243,7 @@ namespace RapidXamlToolkit.Tests.Manual.Options
         }
 
         [TestCleanup]
-        public async Task CleanUp()
+        public async Task CleanUpAsync()
         {
             var sysSettings = new SystemSettingsHelper();
             await sysSettings.TurnOffHighContrastAsync();

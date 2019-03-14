@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.Text.Operations;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Parsers;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.DragDrop
 {

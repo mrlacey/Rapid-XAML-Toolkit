@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands

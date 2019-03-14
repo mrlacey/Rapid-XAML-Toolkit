@@ -144,9 +144,22 @@ namespace RapidXamlToolkit
 
         public static string RemoveAllWhitespace(this string source)
         {
-            return source.Replace(" ", string.Empty)
-                         .Replace("\t", string.Empty)
-                         .Replace(Environment.NewLine, string.Empty);
+            return System.Text.RegularExpressions.Regex.Replace(source, @"\s+", string.Empty);
+        }
+
+        public static string RemoveNonAlphaNumerics(this string source)
+        {
+            var result = new StringBuilder(source.Length);
+
+            for (int i = 0; i < source.Length; i++)
+            {
+                if (char.IsLetterOrDigit(source[i]))
+                {
+                    result.Append(source[i]);
+                }
+            }
+
+            return result.ToString();
         }
 
         public static string Append(this string value, string toAdd)

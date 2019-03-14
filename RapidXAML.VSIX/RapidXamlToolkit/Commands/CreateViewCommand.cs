@@ -14,6 +14,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands

@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.Utilities;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.DragDrop
@@ -17,7 +18,7 @@ namespace RapidXamlToolkit.DragDrop
     [Export(typeof(IDropHandlerProvider))]
     [DropFormat("CF_VSSTGPROJECTITEMS")]
     [Name("RapidXamlDropHandler")]
-    [ContentType("XAML")]
+    [ContentType(KnownContentTypes.Xaml)]
     [Order(Before = "DefaultFileDropHandler")]
     internal class RapidXamlDropHandlerProvider : IDropHandlerProvider
     {

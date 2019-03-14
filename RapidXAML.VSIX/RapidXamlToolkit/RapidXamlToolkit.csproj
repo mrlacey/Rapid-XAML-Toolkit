@@ -66,6 +66,16 @@
     <NoWarn>,1573,1591,1712,1762</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
+    <Compile Include="VisualStudioIntegration\IVisualStudioTextManipulation.cs" />
+    <Compile Include="VisualStudioIntegration\VisualStudioTextManipulation.cs" />
+    <Compile Include="ErrorList\ErrorRow.cs" />
+    <Compile Include="ErrorList\ErrorListService.cs" />
+    <Compile Include="ErrorList\SinkManager.cs" />
+    <Compile Include="ErrorList\TableDataSource.cs" />
+    <Compile Include="ErrorList\TableEntriesSnapshot.cs" />
+    <Compile Include="ErrorList\FileErrorCollection.cs" />
+    <Compile Include="KnownContentTypes.cs" />
     <Compile Include="Parsers\CodeParserBase.cs" />
     <Compile Include="Parsers\CSharpParser.cs" />
     <Compile Include="Parsers\IDocumentParser.cs" />
@@ -76,14 +86,13 @@
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\CreateViewCommandLogic.cs" />
     <Compile Include="Commands\IFileSystemAbstraction.cs" />
-    <Compile Include="Commands\InsertGridRowDefinitionCommand.cs" />
     <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
-    <Compile Include="Commands\IVisualStudioAbstraction.cs" />
+    <Compile Include="VisualStudioIntegration\IVisualStudioAbstraction.cs" />
     <Compile Include="Commands\OpenOptionsCommand.cs" />
     <Compile Include="Commands\ProjectWrapper.cs" />
     <Compile Include="Commands\SetDatacontextCommand.cs" />
     <Compile Include="Commands\SetDataContextCommandLogic.cs" />
-    <Compile Include="Commands\VisualStudioAbstraction.cs" />
+    <Compile Include="VisualStudioIntegration\VisualStudioAbstraction.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />
     <Compile Include="Configuration\RxtSettings.cs" />
     <Compile Include="DragDrop\DropHandlerLogic.cs" />
@@ -220,6 +229,80 @@
     </Compile>
     <Compile Include="SolutionExtensions.cs" />
     <Compile Include="StringExtensions.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddEntryKeyboardAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\AttributeType.cs" />
+    <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\CalendarDatePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\CheckBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ComboBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\DatePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\PivotItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\PivotProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\RepeatButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\RichEditBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\TextBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\TimePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddEntryKeyboardTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTagExtensions.cs" />
+    <Compile Include="XamlAnalysis\Attributes.cs" />
+    <Compile Include="XamlAnalysis\Elements.cs" />
+    <Compile Include="XamlAnalysis\Processors\ButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\EntryProcessor.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlRunningDocTableEvents.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddColumnDefinitionsTag.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddRowAndColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddRowDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddRowDefinitionsTag.cs" />
+    <Compile Include="XamlAnalysis\Actions\BaseSuggestedAction.cs" />
+    <Compile Include="XamlAnalysis\Processors\GridProcessor.cs" />
+    <Compile Include="XamlAnalysis\Actions\HardCodedStringAction.cs" />
+    <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
+    <Compile Include="XamlAnalysis\Actions\InjectFixedXamlSuggestedAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\InsertRowDefinitionAction.cs" />
+    <Compile Include="XamlAnalysis\Tags\InsertRowDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\IRapidXamlAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\IRapidXamlTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\IRapidXamlErrorListTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />
+    <Compile Include="XamlAnalysis\ParsedAction.cs" />
+    <Compile Include="XamlAnalysis\ProjectHelpers.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlParsingEventArgs.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlTagger.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlTagProvider.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingColumnDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingRowDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlErrorListTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlOptionalTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlSuggestionAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlSuggestionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlWarningAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlWarningTag.cs" />
+    <Compile Include="XamlAnalysis\SuggestedActionsSource.cs" />
+    <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
+    <Compile Include="XamlAnalysis\Processors\TextBlockProcessor.cs" />
+    <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
+    <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
+    <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />
     <Compile Include="Telemetry\CoreDetails.cs" />
     <Compile Include="Telemetry\TelemetryAccessor.cs" />
     <Compile Include="Telemetry\TelemetryEvents.cs" />
@@ -521,7 +604,7 @@
       <Version>15.8.81-pre</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.ApplicationInsights">
-      <Version>2.9.0</Version>
+      <Version>2.9.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
       <Version>2.6.3</Version>
@@ -565,6 +648,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.Reactive">
+      <Version>4.1.3</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Options\ProfileConfigControl.xaml">
@@ -584,6 +670,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Target Name="IncludeNuGetPackageReferences" AfterTargets="GetVsixSourceItems">
     <ItemGroup>
       <VSIXSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' == 'ApiAnalysis.SimpleJsonAnalyzer.vsixuse'" />

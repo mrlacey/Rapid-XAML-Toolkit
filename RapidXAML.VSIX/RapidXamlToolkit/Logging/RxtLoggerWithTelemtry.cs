@@ -28,7 +28,7 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordException(Exception exception)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            ThreadHelper.JoinableTaskFactory.Run(async () => await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync());
 
             this.Logger.RecordException(exception);
             this.Telem.TrackException(exception);

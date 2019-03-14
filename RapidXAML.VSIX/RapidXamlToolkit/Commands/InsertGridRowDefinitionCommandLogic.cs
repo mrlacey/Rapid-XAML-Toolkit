@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Commands
 {

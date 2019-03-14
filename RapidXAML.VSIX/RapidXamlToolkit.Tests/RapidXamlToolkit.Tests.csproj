@@ -49,6 +49,14 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeTextSnapshot.cs" />
+    <Compile Include="FakeTextSnapshotLine.cs" />
+    <Compile Include="Grid\GridExclusionsTests.cs" />
+    <Compile Include="Grid\GridInsertRowPreviewTests.cs" />
+    <Compile Include="Grid\GridProcessTests.cs" />
+    <Compile Include="Grid\GridReplacementTests.cs" />
+    <Compile Include="Grid\MissingDefinitionsTests.cs" />
+    <Compile Include="Misc\MiscRealWorldTests.cs" />
     <Compile Include="Parsers\CSharpTestsBase.cs" />
     <Compile Include="Parsers\GetVisualBasicArrayTests.cs" />
     <Compile Include="Parsers\GetCSharpClassTests.cs" />
@@ -87,6 +95,12 @@
     <Compile Include="TestFileSystem.cs" />
     <Compile Include="TestProfile.cs" />
     <Compile Include="TestVisualStudioAbstraction.cs" />
+    <Compile Include="XamlAnalysis\ButtonProcessTests.cs" />
+    <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\TestableXamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\TextBlockProcessTests.cs" />
+    <Compile Include="XamlAnalysis\XamlElementExtractorTests.cs" />
+    <Compile Include="XamlAnalysis\XamlElementProcessorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
@@ -113,7 +127,7 @@
       <Version>15.8.81-pre</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
-      <Version>2.6.1</Version>
+      <Version>2.6.3</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
