@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
-using RapidXamlToolkit.Confguration;
+using RapidXamlToolkit.Configuration;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 using Task = System.Threading.Tasks.Task;
