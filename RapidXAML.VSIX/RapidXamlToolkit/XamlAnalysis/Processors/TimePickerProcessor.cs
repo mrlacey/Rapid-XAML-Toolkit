@@ -16,10 +16,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
             this.CheckForHardCodedAttribute(
+                Elements.TimePicker,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage,
-                typeof(TimePickerHeaderAction),
                 xamlElement,
                 snapshot,
                 offset,

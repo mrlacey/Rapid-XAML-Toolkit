@@ -16,10 +16,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
             this.CheckForHardCodedAttribute(
+                Elements.AutoSuggestBox,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringAutoSuggestBoxHeaderMessage,
-                typeof(AutoSuggestBoxHeaderAction),
                 xamlElement,
                 snapshot,
                 offset,
@@ -28,10 +28,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 tags);
 
             this.CheckForHardCodedAttribute(
+                Elements.AutoSuggestBox,
                 Attributes.PlaceholderText,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringAutoSuggestBoxPlaceHolderMessage,
-                typeof(AutoSuggestBoxPlaceholderAction),
                 xamlElement,
                 snapshot,
                 offset,

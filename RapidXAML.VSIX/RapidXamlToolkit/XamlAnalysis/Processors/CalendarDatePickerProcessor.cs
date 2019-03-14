@@ -16,10 +16,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
             this.CheckForHardCodedAttribute(
+                Elements.CalendarDatePicker,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringCalendarDatePickerHeaderMessage,
-                typeof(CalendarDatePickerHeaderAction),
                 xamlElement,
                 snapshot,
                 offset,
@@ -28,10 +28,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 tags);
 
             this.CheckForHardCodedAttribute(
+                Elements.CalendarDatePicker,
                 Attributes.Description,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringCalendarDatePickerDescriptionMessage,
-                typeof(CalendarDatePickerDescriptionAction),
                 xamlElement,
                 snapshot,
                 offset,

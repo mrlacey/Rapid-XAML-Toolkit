@@ -16,10 +16,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Title);
 
             this.CheckForHardCodedAttribute(
+                Elements.Pivot,
                 Attributes.Title,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringPivotTitleMessage,
-                typeof(PivotTitleAction),
                 xamlElement,
                 snapshot,
                 offset,

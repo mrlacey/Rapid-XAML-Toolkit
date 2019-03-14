@@ -177,7 +177,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return false;
         }
 
-        protected void CheckForHardCodedAttribute(string attributeName, AttributeType types, string descriptionFormat, Type action, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, List<IRapidXamlAdornmentTag> tags)
+        protected void CheckForHardCodedAttribute(string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, List<IRapidXamlAdornmentTag> tags)
         {
             if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
@@ -186,7 +186,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     var line = snapshot.GetLineFromPosition(offset + tbIndex);
                     var col = offset + tbIndex - line.Start.Position;
 
-                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col, action)
+                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col, elementName, attributeName)
                     {
                         AttributeType = foundAttributeType,
                         Value = value,

@@ -16,10 +16,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
             this.CheckForHardCodedAttribute(
+                Elements.RichEditBox,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage,
-                typeof(RichEditBoxHeaderAction),
                 xamlElement,
                 snapshot,
                 offset,

@@ -16,10 +16,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Content);
 
             this.CheckForHardCodedAttribute(
+                Elements.CheckBox,
                 Attributes.Content,
                 AttributeType.Any,
                 StringRes.Info_XamlAnalysisHardcodedStringCheckboxContentMessage,
-                typeof(CheckboxContentAction),
                 xamlElement,
                 snapshot,
                 offset,

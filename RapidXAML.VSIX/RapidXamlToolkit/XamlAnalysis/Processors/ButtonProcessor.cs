@@ -16,10 +16,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Content);
 
             this.CheckForHardCodedAttribute(
+                Elements.Button,
                 Attributes.Content,
                 AttributeType.Any,
                 StringRes.Info_XamlAnalysisHardcodedStringButtonContentMessage,
-                typeof(ButtonContentAction),
                 xamlElement,
                 snapshot,
                 offset,

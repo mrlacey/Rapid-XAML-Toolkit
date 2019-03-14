@@ -16,10 +16,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Label);
 
             this.CheckForHardCodedAttribute(
+                Elements.AppBarToggleButton,
                 Attributes.Label,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringAppBarToggleButtonLabelMessage,
-                typeof(AppBarToggleButtonLabelAction),
                 xamlElement,
                 snapshot,
                 offset,

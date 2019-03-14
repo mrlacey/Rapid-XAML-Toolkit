@@ -87,20 +87,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     switch (rxTag.SuggestedAction.Name)
                     {
+                        case nameof(HardCodedStringAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, new HardCodedStringAction(this.file, this.view, (HardCodedStringTag)rxTag)));
+                            break;
                         case nameof(InsertRowDefinitionAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(TextBlockTextAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, TextBlockTextAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(TextBoxHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, TextBoxHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(TextBoxPlaceholderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, TextBoxPlaceholderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(ButtonContentAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, ButtonContentAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
                             break;
                         case nameof(AddRowDefinitionsAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rxTag, this.file)));
@@ -122,75 +113,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                             break;
                         case nameof(AddTextBoxInputScopeAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, AddTextBoxInputScopeAction.Create((AddTextBoxInputScopeTag)rxTag, this.file)));
-                            break;
-                        case nameof(AppBarButtonLabelAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AppBarButtonLabelAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(AppBarToggleButtonLabelAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AppBarToggleButtonLabelAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(AutoSuggestBoxHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AutoSuggestBoxHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(AutoSuggestBoxPlaceholderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AutoSuggestBoxPlaceholderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(CalendarDatePickerDescriptionAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, CalendarDatePickerDescriptionAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(CalendarDatePickerHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, CalendarDatePickerHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(CheckboxContentAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, CheckboxContentAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(ComboBoxHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, ComboBoxHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(DatePickerHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, DatePickerHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(TimePickerHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, TimePickerHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(HubHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, HubHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(HubSectionHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, HubSectionHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(HyperlinkButtonContentAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, HyperlinkButtonContentAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(RepeatButtonContentAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, RepeatButtonContentAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(PivotTitleAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, PivotTitleAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(PivotItemHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, PivotItemHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(MenuFlyoutItemTextAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, MenuFlyoutItemTextAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(MenuFlyoutSubItemTextAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, MenuFlyoutSubItemTextAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(ToggleMenuFlyoutItemTextAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, ToggleMenuFlyoutItemTextAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(RichEditBoxHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, RichEditBoxHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(ToggleSwithHeaderAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, ToggleSwithHeaderAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(ToggleSwithOnContentAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, ToggleSwithOnContentAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(ToggleSwithOffContentAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, ToggleSwithOffContentAction.Create((HardCodedStringTag)rxTag, this.file, this.view)));
                             break;
                     }
                 }

@@ -19,22 +19,17 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public class HardCodedStringAction : BaseSuggestedAction
     {
-        public HardCodedStringAction(string file, ITextView view, string elementName, string attributeName)
+        public HardCodedStringAction(string file, ITextView view, HardCodedStringTag tag)
             : base(file)
         {
             this.View = view;
             this.DisplayText = StringRes.UI_MoveHardCodedString;
-            this.ElementName = elementName;
-            this.AttributeName = attributeName;
+            this.Tag = tag;
         }
 
         public override ImageMoniker IconMoniker => KnownMonikers.GenerateResource;
 
         public HardCodedStringTag Tag { get; protected set; }
-
-        public string ElementName { get; }
-
-        public string AttributeName { get; }
 
         public override void Execute(CancellationToken cancellationToken)
         {
@@ -51,11 +46,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             try
             {
                 // If the resource file is open with unsaved changes VS will prompt about data being lost.
-                this.AddResource(resPath, $"{this.Tag.UidValue}.{this.AttributeName}", this.Tag.Value);
+                this.AddResource(resPath, $"{this.Tag.UidValue}.{this.Tag.AttributeName}", this.Tag.Value);
 
                 if (this.Tag.AttributeType == AttributeType.Inline)
                 {
-                    var currentAttribute = $"{this.AttributeName}=\"{this.Tag.Value}\"";
+                    var currentAttribute = $"{this.Tag.AttributeName}=\"{this.Tag.Value}\"";
 
                     if (this.Tag.UidExists)
                     {
@@ -69,19 +64,19 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 }
                 else if (this.Tag.AttributeType == AttributeType.Element)
                 {
-                    var currentAttribute = $"<{this.ElementName}.{this.AttributeName}>{this.Tag.Value}</{this.ElementName}.{this.AttributeName}>";
+                    var currentAttribute = $"<{this.Tag.ElementName}.{this.Tag.AttributeName}>{this.Tag.Value}</{this.Tag.ElementName}.{this.Tag.AttributeName}>";
 
                     vs.RemoveInActiveDocOnLine(currentAttribute, this.Tag.GetDesignerLineNumber());
 
                     if (!this.Tag.UidExists)
                     {
-                        var uidTag = $"<{this.ElementName} x:Uid=\"{this.Tag.UidValue}\"";
-                        vs.ReplaceInActiveDocOnLineOrAbove($"<{this.ElementName}", uidTag, this.Tag.GetDesignerLineNumber());
+                        var uidTag = $"<{this.Tag.ElementName} x:Uid=\"{this.Tag.UidValue}\"";
+                        vs.ReplaceInActiveDocOnLineOrAbove($"<{this.Tag.ElementName}", uidTag, this.Tag.GetDesignerLineNumber());
                     }
                 }
                 else if (this.Tag.AttributeType == AttributeType.DefaultValue)
                 {
-                    var current = $">{this.Tag.Value}</{this.ElementName}>";
+                    var current = $">{this.Tag.Value}</{this.Tag.ElementName}>";
                     var replaceWith = this.Tag.UidExists ? " />" : $" x:Uid=\"{this.Tag.UidValue}\" />";
 
                     vs.ReplaceInActiveDocOnLine(current, replaceWith, this.Tag.GetDesignerLineNumber());

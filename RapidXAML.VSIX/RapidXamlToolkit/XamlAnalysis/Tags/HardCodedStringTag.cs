@@ -11,12 +11,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class HardCodedStringTag : RapidXamlWarningTag
     {
-        public HardCodedStringTag(Span span, ITextSnapshot snapshot, int line, int column, Type action)
+        public HardCodedStringTag(Span span, ITextSnapshot snapshot, int line, int column, string elementName, string attributeName)
             : base(span, snapshot, "RXT200", line, column)
         {
-            this.SuggestedAction = action;
+            this.SuggestedAction = typeof(HardCodedStringAction);
             this.ToolTip = StringRes.Info_XamlAnalysisHardcodedStringTooltip;
             this.ExtendedMessage = StringRes.Info_XamlAnalysisHardcodedStringExtendedMessage;
+            this.ElementName = elementName;
+            this.AttributeName = attributeName;
         }
 
         public AttributeType AttributeType { get; set; }
@@ -26,5 +28,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public bool UidExists { get; set; }
 
         public string UidValue { get; set; }
+
+        public string ElementName { get; }
+
+        public string AttributeName { get; }
     }
 }

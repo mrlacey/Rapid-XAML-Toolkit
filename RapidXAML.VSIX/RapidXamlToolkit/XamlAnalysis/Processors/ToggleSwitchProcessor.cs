@@ -16,10 +16,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
             this.CheckForHardCodedAttribute(
+                Elements.ToggleSwitch,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringToggleSwitchHeaderMessage,
-                typeof(ToggleSwithHeaderAction),
                 xamlElement,
                 snapshot,
                 offset,
@@ -28,10 +28,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 tags);
 
             this.CheckForHardCodedAttribute(
+                Elements.ToggleSwitch,
                 Attributes.OnContent,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringToggleSwitchOnContentMessage,
-                typeof(ToggleSwithOnContentAction),
                 xamlElement,
                 snapshot,
                 offset,
@@ -40,10 +40,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 tags);
 
             this.CheckForHardCodedAttribute(
+                Elements.ToggleSwitch,
                 Attributes.OffContent,
                 AttributeType.InlineOrElement,
                 StringRes.Info_XamlAnalysisHardcodedStringToggleSwitchOffContentMessage,
-                typeof(ToggleSwithOffContentAction),
                 xamlElement,
                 snapshot,
                 offset,

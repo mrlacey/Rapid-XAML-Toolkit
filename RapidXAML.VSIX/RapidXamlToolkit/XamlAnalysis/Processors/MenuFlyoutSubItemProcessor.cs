@@ -16,10 +16,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Text);
 
             this.CheckForHardCodedAttribute(
+                Elements.MenuFlyoutSubItem,
                 Attributes.Text,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage,
-                typeof(MenuFlyoutSubItemTextAction),
+                StringRes.Info_XamlAnalysisHardcodedStringMenuFlyoutSubItemTextMessage,
                 xamlElement,
                 snapshot,
                 offset,
