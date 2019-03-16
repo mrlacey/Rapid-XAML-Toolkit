@@ -937,7 +937,7 @@ End Class";
 
             var expectedOutput = "<StackPanel>"
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind Property1, Mode=TwoWay}\" />"
-         + Environment.NewLine + "    <TextBlock Text=\"FALLBACK_Property2\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FALLBACK_Property2.OtherProperty\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new ParserOutput

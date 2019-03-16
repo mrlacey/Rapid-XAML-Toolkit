@@ -419,7 +419,8 @@ namespace tests
             var expected = new ParserOutput
             {
                 Name = "LastOrder",
-                Output = "<TextBlock Text=\"FALLBACK_LastOrder\" />",
+                Output = @"<Slider Minimum=""0"" Maximum=""100"" x:Name=""LastOrder.OrderId"" Value=""{x:Bind LastOrder.OrderId, Mode=TwoWay}"" />"
+ + Environment.NewLine + @"<TextBox Text=""{x:Bind LastOrder.OrderDescription, Mode=TwoWay}"" />",
                 OutputType = ParserOutputType.Property,
             };
 
