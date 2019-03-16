@@ -80,6 +80,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor()),
                         (Elements.RichEditBox, new RichEditBoxProcessor()),
                         (Elements.ToggleSwitch, new ToggleSwitchProcessor()),
+                        (Elements.Slider, new SliderProcessor()),
+                        (Elements.Label, new LabelProcessor()),
                     };
         }
     }

@@ -31,6 +31,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string HyperlinkButton => "HyperlinkButton";
 
+        public static string Label => "Label";
+
         public static string MenuFlyoutItem => "MenuFlyoutItem";
 
         public static string MenuFlyoutSubItem => "MenuFlyoutSubItem";
@@ -42,6 +44,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string RepeatButton => "RepeatButton";
 
         public static string RichEditBox => "RichEditBox";
+
+        public static string Slider => "Slider";
 
         public static string TimePicker => "TimePicker";
 

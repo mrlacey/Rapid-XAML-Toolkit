@@ -880,6 +880,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Label contains hard-coded Text value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringLabelTextMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringLabelTextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MenuFlyoutItem contains hard-coded Text value &apos;{0}&apos;..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage {
@@ -930,6 +939,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage {
             get {
                 return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slider contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringSliderHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringSliderHeaderMessage", resourceCulture);
             }
         }
         

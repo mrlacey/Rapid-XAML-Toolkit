@@ -84,9 +84,14 @@ namespace RapidXamlToolkit.Parsers
             return result;
         }
 
-        public string GetPropertyOutput(string type, string name, bool isReadOnly, Func<(List<string> strings, int count)> getSubProperties = null)
+        public string GetPropertyOutput(string type, string name, bool isReadOnly, SemanticModel semModel = null, Func<(List<string> strings, int count)> getSubProperties = null)
         {
-            return this.GetPropertyOutputAndCounter(new PropertyDetails { PropertyType = type, Name = name, IsReadOnly = isReadOnly }, 1, getSubProperties).output;
+            return this.GetPropertyOutputAndCounter(new PropertyDetails { PropertyType = type, Name = name, IsReadOnly = isReadOnly }, 1, semModel, getSubProperties).output;
+        }
+
+        public virtual List<PropertyDetails> GetAllPublicProperties(ITypeSymbol typeSymbol, SemanticModel semModel)
+        {
+            return new List<PropertyDetails>();
         }
 
         protected static string FormattedClassGroupingOpener(string classGrouping)
@@ -124,7 +129,7 @@ namespace RapidXamlToolkit.Parsers
             return this.FormatOutput(this.Profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, symbol: null, getSubPropertyOutput: null);
         }
 
-        protected (string output, int counter) GetPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute, Func<(List<string> strings, int count)> getSubPropertyOutput = null)
+        protected (string output, int counter) GetPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute, SemanticModel semModel, Func<(List<string> strings, int count)> getSubPropertyOutput = null, string namePrefix = "")
         {
             var mappingOfInterest = this.GetMappingOfInterest(property);
 
@@ -150,6 +155,24 @@ namespace RapidXamlToolkit.Parsers
                     }
                 }
 
+                if (rawOutput == null && semModel != null)
+                {
+                    var tempOutput = new StringBuilder();
+                    var tempNumb = numericSubstitute;
+                    foreach (var prop in this.GetAllPublicProperties(property.Symbol, semModel))
+                    {
+                        var prefix = string.IsNullOrWhiteSpace(namePrefix) ? property.Name : $"{namePrefix}.{property.Name}";
+                        var (output, counter) = this.GetPropertyOutputAndCounter(prop, tempNumb, semModel, getSubPropertyOutput, namePrefix: prefix);
+                        tempOutput.AppendLine(output);
+                        tempNumb = counter;
+                    }
+
+                    if (tempOutput.Length > 0)
+                    {
+                        rawOutput = tempOutput.ToString();
+                    }
+                }
+
                 if (rawOutput == null)
                 {
                     Logger?.RecordInfo(StringRes.Info_NoMappingFoundUsingFallback);
@@ -161,6 +184,11 @@ namespace RapidXamlToolkit.Parsers
             {
                 // Should only reach here if profile?.FallbackOutput is null but that shouldn't be possible as profile validation checks for this.
                 return (null, numericSubstitute);
+            }
+
+            if (!string.IsNullOrWhiteSpace(namePrefix))
+            {
+                rawOutput = rawOutput.Replace(Placeholder.PropertyName, $"{namePrefix}.{Placeholder.PropertyName}");
             }
 
             return this.FormatOutput(rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, getSubPropertyOutput);

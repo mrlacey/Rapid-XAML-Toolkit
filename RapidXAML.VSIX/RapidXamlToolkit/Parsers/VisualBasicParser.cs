@@ -176,7 +176,7 @@ namespace RapidXamlToolkit.Parsers
                 }
 
                 Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(propDetails.Name));
-                var toAdd = this.GetPropertyOutputAndCounter(propDetails, numericCounter, () => this.GetSubPropertyOutput(propDetails, semModel));
+                var toAdd = this.GetPropertyOutputAndCounter(propDetails, numericCounter, semModel, () => this.GetSubPropertyOutput(propDetails, semModel));
 
                 if (!string.IsNullOrWhiteSpace(toAdd.output))
                 {
@@ -363,12 +363,12 @@ namespace RapidXamlToolkit.Parsers
 
         private (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, PropertyDetails prop, int numericCounter = 0)
         {
-            var (output, counter) = this.GetPropertyOutputAndCounter(prop, numericCounter, () => this.GetSubPropertyOutput(prop, semModel));
+            var (output, counter) = this.GetPropertyOutputAndCounter(prop, numericCounter, semModel, () => this.GetSubPropertyOutput(prop, semModel));
 
             return (output, prop.Name, counter);
         }
 
-        private List<PropertyDetails> GetAllPublicProperties(ITypeSymbol typeSymbol, SemanticModel semModel)
+        public override List<PropertyDetails> GetAllPublicProperties(ITypeSymbol typeSymbol, SemanticModel semModel)
         {
             var properties = new List<ISymbol>();
 
