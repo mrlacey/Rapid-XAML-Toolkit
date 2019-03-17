@@ -208,6 +208,77 @@ namespace RapidXamlToolkit.Parsers
             }
         }
 
+        public override List<PropertyDetails> GetAllPublicProperties(ITypeSymbol typeSymbol, SemanticModel semModel)
+        {
+            var properties = new List<ISymbol>();
+
+            foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
+            {
+                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubProperties))
+                {
+                    continue;
+                }
+
+                switch (baseType.Kind)
+                {
+                    case SymbolKind.NamedType:
+                        // By default we don't output static/shared properties.
+                        // However, if working with a module (for which all properties are automatically shared)
+                        // we don't exclude shared properties
+                        if (baseType is ITypeSymbol ts && ts.TypeKind == TypeKind.Module)
+                        {
+                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property
+                                                                              && m.DeclaredAccessibility == Accessibility.Public));
+                        }
+                        else
+                        {
+                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property
+                                                                              && m.DeclaredAccessibility == Accessibility.Public
+                                                                              && !m.IsShared()));
+                        }
+
+                        break;
+                    case SymbolKind.ErrorType:
+                        Logger?.RecordInfo(StringRes.Info_CannotGetPropertiesForKnownType.WithParams(baseType.Name));
+                        break;
+                }
+            }
+
+            var result = new List<PropertyDetails>();
+
+            foreach (var prop in properties)
+            {
+                if (prop.Name.IsOneOf(NamesOfPropertiesToExcludeFromOutput))
+                {
+                    Logger?.RecordInfo(StringRes.Info_NotIncludingExcludedProperty.WithParams(prop.Name));
+                    continue;
+                }
+
+                var decRefs = prop.OriginalDefinition.DeclaringSyntaxReferences;
+
+                if (decRefs.Any())
+                {
+                    var decRef = decRefs.First();
+
+                    var pbs = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyBlockSyntax>().FirstOrDefault();
+
+                    var syntax = pbs ?? (SyntaxNode)decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyStatementSyntax>().FirstOrDefault();
+
+                    var details = this.GetPropertyDetails(syntax, semModel);
+
+                    Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
+                    result.Add(details);
+                }
+                else
+                {
+                    Logger?.RecordInfo(StringRes.Info_FoundSubPropertyOfUnknownType.WithParams(prop.Name));
+                    result.Add(new PropertyDetails { Name = prop.Name, PropertyType = UnknownOrInvalidTypeName, IsReadOnly = false, Symbol = null });
+                }
+            }
+
+            return result;
+        }
+
         private (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
         {
             var result = new List<string>();
@@ -366,77 +437,6 @@ namespace RapidXamlToolkit.Parsers
             var (output, counter) = this.GetPropertyOutputAndCounter(prop, numericCounter, semModel, () => this.GetSubPropertyOutput(prop, semModel));
 
             return (output, prop.Name, counter);
-        }
-
-        public override List<PropertyDetails> GetAllPublicProperties(ITypeSymbol typeSymbol, SemanticModel semModel)
-        {
-            var properties = new List<ISymbol>();
-
-            foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
-            {
-                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubProperties))
-                {
-                    continue;
-                }
-
-                switch (baseType.Kind)
-                {
-                    case SymbolKind.NamedType:
-                        // By default we don't output static/shared properties.
-                        // However, if working with a module (for which all properties are automatically shared)
-                        // we don't exclude shared properties
-                        if (baseType is ITypeSymbol ts && ts.TypeKind == TypeKind.Module)
-                        {
-                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property
-                                                                              && m.DeclaredAccessibility == Accessibility.Public));
-                        }
-                        else
-                        {
-                            properties.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Property
-                                                                              && m.DeclaredAccessibility == Accessibility.Public
-                                                                              && !m.IsShared()));
-                        }
-
-                        break;
-                    case SymbolKind.ErrorType:
-                        Logger?.RecordInfo(StringRes.Info_CannotGetPropertiesForKnownType.WithParams(baseType.Name));
-                        break;
-                }
-            }
-
-            var result = new List<PropertyDetails>();
-
-            foreach (var prop in properties)
-            {
-                if (prop.Name.IsOneOf(NamesOfPropertiesToExcludeFromOutput))
-                {
-                    Logger?.RecordInfo(StringRes.Info_NotIncludingExcludedProperty.WithParams(prop.Name));
-                    continue;
-                }
-
-                var decRefs = prop.OriginalDefinition.DeclaringSyntaxReferences;
-
-                if (decRefs.Any())
-                {
-                    var decRef = decRefs.First();
-
-                    var pbs = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyBlockSyntax>().FirstOrDefault();
-
-                    var syntax = pbs ?? (SyntaxNode)decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyStatementSyntax>().FirstOrDefault();
-
-                    var details = this.GetPropertyDetails(syntax, semModel);
-
-                    Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
-                    result.Add(details);
-                }
-                else
-                {
-                    Logger?.RecordInfo(StringRes.Info_FoundSubPropertyOfUnknownType.WithParams(prop.Name));
-                    result.Add(new PropertyDetails { Name = prop.Name, PropertyType = UnknownOrInvalidTypeName, IsReadOnly = false, Symbol = null });
-                }
-            }
-
-            return result;
         }
 
         private string GetIdentifier(SyntaxNode syntaxNode)

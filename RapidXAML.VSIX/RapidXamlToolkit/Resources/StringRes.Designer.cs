@@ -736,6 +736,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attempting to use more than the defined number of columns..
+        /// </summary>
+        public static string Info_XamlAnalysisColumnSpanOverflowDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisColumnSpanOverflowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to span more columns than are defined..
+        /// </summary>
+        public static string Info_XamlAnalysisColumnSpanOverflowTooltip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisColumnSpanOverflowTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keyboard is not specified for the Entry..
         /// </summary>
         public static string Info_XamlAnalysisEntryWithoutKeyboardDescription {
@@ -1083,6 +1101,24 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_XamlAnalysisMissingRowDefinitionTooltip {
             get {
                 return ResourceManager.GetString("Info_XamlAnalysisMissingRowDefinitionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to use more than the defined number of rows..
+        /// </summary>
+        public static string Info_XamlAnalysisRowSpanOverflowDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisRowSpanOverflowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to span more rows than are defined..
+        /// </summary>
+        public static string Info_XamlAnalysisRowSpanOverflowTooltip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisRowSpanOverflowTooltip", resourceCulture);
             }
         }
         

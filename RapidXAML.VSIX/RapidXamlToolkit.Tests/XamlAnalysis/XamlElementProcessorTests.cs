@@ -243,6 +243,84 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.IsFalse(this.HasDefaultValue("<TextBlock Text=\"Hello World\" />"));
         }
 
+        [TestMethod]
+        public void GetSubElementAtPosition_ChildIsSelfClosing()
+        {
+            var origin = "<Root><Child ☆Grid.RowSpan=\"2\"/></Root>";
+
+            var expected = "<Child Grid.RowSpan=\"2\"/>";
+
+            var actual = this.GetSubElementAtStar(origin);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetSubElementAtPosition_ChildIsNotSelfClosing()
+        {
+            var origin = "<Root><Child ☆Grid.RowSpan=\"2\"></Child></Root>";
+
+            var expected = "<Child Grid.RowSpan=\"2\"></Child>";
+
+            var actual = this.GetSubElementAtStar(origin);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetSubElementAtPosition_ChildHasSelfClosingElementAttributes()
+        {
+            var origin = "<Root><Child ☆Grid.RowSpan=\"2\"><Child.Property Name=\"Value\" /></Child></Root>";
+
+            var expected = "<Child Grid.RowSpan=\"2\"><Child.Property Name=\"Value\" /></Child>";
+
+            var actual = this.GetSubElementAtStar(origin);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetSubElementAtPosition_ChildHasElementAttributes()
+        {
+            var origin = "<Root><Child ☆Grid.RowSpan=\"2\"><Child.Property>Value</Child.Property></Child></Root>";
+
+            var expected = "<Child Grid.RowSpan=\"2\"><Child.Property>Value</Child.Property></Child>";
+
+            var actual = this.GetSubElementAtStar(origin);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetSubElementAtPosition_HasSelfClosingChildOfTheSameType()
+        {
+            var origin = "<Root><Child ☆Grid.RowSpan=\"2\"><Child /></Child></Root>";
+
+            var expected = "<Child Grid.RowSpan=\"2\"><Child /></Child>";
+
+            var actual = this.GetSubElementAtStar(origin);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetSubElementAtPosition_HasChildOfTheSameType()
+        {
+            var origin = "<Root><Child ☆Grid.RowSpan=\"2\"><Child></Child></Child></Root>";
+
+            var expected = "<Child Grid.RowSpan=\"2\"><Child></Child></Child>";
+
+            var actual = this.GetSubElementAtStar(origin);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        private string GetSubElementAtStar(string outerElement)
+        {
+            var offset = outerElement.IndexOf('☆');
+            return XamlElementProcessor.GetSubElementAtPosition(outerElement.Replace("☆", string.Empty), offset);
+        }
+
         private bool HasDefaultValue(string xaml)
         {
             var xep = new TestableXamlElementProcessor();

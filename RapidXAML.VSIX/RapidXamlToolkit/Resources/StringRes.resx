@@ -823,4 +823,16 @@
   <data name="Info_XamlAnalysisHardcodedStringSliderHeaderMessage" xml:space="preserve">
     <value>Slider contains hard-coded Header value '{0}'.</value>
   </data>
+  <data name="Info_XamlAnalysisColumnSpanOverflowDescription" xml:space="preserve">
+    <value>Attempting to use more than the defined number of columns.</value>
+  </data>
+  <data name="Info_XamlAnalysisColumnSpanOverflowTooltip" xml:space="preserve">
+    <value>Attempting to span more columns than are defined.</value>
+  </data>
+  <data name="Info_XamlAnalysisRowSpanOverflowDescription" xml:space="preserve">
+    <value>Attempting to use more than the defined number of rows.</value>
+  </data>
+  <data name="Info_XamlAnalysisRowSpanOverflowTooltip" xml:space="preserve">
+    <value>Attempting to span more rows than are defined.</value>
+  </data>
 </root>

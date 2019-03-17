@@ -233,8 +233,10 @@
     <Compile Include="XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\ColumnSpanOverflowAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
@@ -260,6 +262,7 @@
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\AddEntryKeyboardTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTagExtensions.cs" />
     <Compile Include="XamlAnalysis\Attributes.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />
@@ -302,6 +305,7 @@
     <Compile Include="XamlAnalysis\SuggestedActionsSource.cs" />
     <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBlockProcessor.cs" />
+    <Compile Include="XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
     <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />

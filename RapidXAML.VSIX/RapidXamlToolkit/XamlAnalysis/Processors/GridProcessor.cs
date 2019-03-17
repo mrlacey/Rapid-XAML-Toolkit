@@ -231,6 +231,96 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                                                                          : highestAssignedCol;
                 tags.Add(undefinedTag);
             }
+
+            const string rowSpanUse = "Grid.RowSpan=\"";
+            const string colSpanUse = "Grid.ColumnSpan=\"";
+
+            var nextSpanUseIndex = xamlElement.FirstIndexOf(rowSpanUse, colSpanUse);
+            var spanUseOffset = 0;
+
+            while (nextSpanUseIndex > 0)
+            {
+                spanUseOffset += nextSpanUseIndex;
+
+                var line = snapshot.GetLineFromPosition(offset + spanUseOffset);
+                var col = offset + spanUseOffset - line.Start.Position;
+
+                if (nextSpanUseIndex > endOfOpening)
+                {
+                    if (xamlElement.Substring(spanUseOffset).StartsWith(rowSpanUse))
+                    {
+                        var valueStartPos = spanUseOffset + rowSpanUse.Length;
+                        var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
+
+                        var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
+
+                        if (int.TryParse(assignedStr, out int assignedInt))
+                        {
+                            var element = XamlElementProcessor.GetSubElementAtPosition(xamlElement, spanUseOffset);
+
+                            var row = 0;
+                            if (this.TryGetAttribute(element, "Grid.Row", AttributeType.InlineOrElement, out _, out _, out _, out string rowStr))
+                            {
+                                row = int.Parse(rowStr);
+                            }
+
+                            if (assignedInt > 1 && assignedInt - 1 + row >= rowDefsCount)
+                            {
+                                tags.Add(new RowSpanOverflowTag(
+                                    new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
+                                    snapshot,
+                                    line.LineNumber,
+                                    col)
+                                {
+                                    TotalDefsRequired = assignedInt + row - 1,
+                                    Description = StringRes.Info_XamlAnalysisRowSpanOverflowDescription,
+                                    ExistingDefsCount = rowDefsCount,
+                                    HasSomeDefinitions = hasRowDef,
+                                    InsertPosition = offset + rowDefsClosingPos,
+                                    LeftPad = leftPad,
+                                });
+                            }
+                        }
+                    }
+                    else if (xamlElement.Substring(spanUseOffset).StartsWith(colSpanUse))
+                    {
+                        var valueStartPos = spanUseOffset + colSpanUse.Length;
+                        var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
+
+                        var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
+
+                        if (int.TryParse(assignedStr, out int assignedInt))
+                        {
+                            var element = XamlElementProcessor.GetSubElementAtPosition(xamlElement, spanUseOffset);
+
+                            var gridCol = 0;
+                            if (this.TryGetAttribute(element, "Grid.Column", AttributeType.InlineOrElement, out _, out _, out _, out string colStr))
+                            {
+                                gridCol = int.Parse(colStr);
+                            }
+
+                            if (assignedInt > 1 && assignedInt - 1 + gridCol >= colDefsCount)
+                            {
+                                tags.Add(new ColumnSpanOverflowTag(
+                                    new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
+                                    snapshot,
+                                    line.LineNumber,
+                                    gridCol)
+                                {
+                                    TotalDefsRequired = assignedInt - 1 + gridCol,
+                                    Description = StringRes.Info_XamlAnalysisColumnSpanOverflowDescription,
+                                    ExistingDefsCount = colDefsCount,
+                                    HasSomeDefinitions = hasColDef,
+                                    InsertPosition = offset + colDefsClosingPos,
+                                    LeftPad = leftPad,
+                                });
+                            }
+                        }
+                    }
+                }
+
+                nextSpanUseIndex = xamlElement.Substring(spanUseOffset + 1).FirstIndexOf(colSpanUse, rowSpanUse) + 1;
+            }
         }
     }
 }
