@@ -101,6 +101,22 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
+        public static string GetSubElementAtPosition(string xaml, int position)
+        {
+            var startPos = xaml.Substring(0, position).LastIndexOf('<');
+
+            var elementName = xaml.Substring(startPos + 1, xaml.IndexOfAny(new[] { ' ', '>' }, startPos) - startPos - 1);
+
+            string result = null;
+
+            var processor = new SubElementProcessor();
+            processor.SubElementFound += (s, e) => { result = e.SubElement; };
+
+            XamlElementExtractor.Parse(null, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new List<IRapidXamlAdornmentTag>());
+
+            return result;
+        }
+
         // Use of snapshot in the Process implementation should be kept to a minimum as will need test workarounds
         // - better to just pass through to where needed in VS initiated functionality.
         public abstract void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags);
@@ -231,6 +247,24 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
 
             return (uidExists, uid);
+        }
+
+        public class SubElementProcessor : XamlElementProcessor
+        {
+            public event EventHandler<SubElementEventArgs> SubElementFound;
+
+            public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+            {
+                if (offset == 0)
+                {
+                    this.SubElementFound?.Invoke(this, new SubElementEventArgs { SubElement = xamlElement });
+                }
+            }
+
+            public class SubElementEventArgs : EventArgs
+            {
+                public string SubElement { get; set; }
+            }
         }
     }
 }

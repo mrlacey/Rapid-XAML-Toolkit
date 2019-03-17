@@ -13,7 +13,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public class AddMissingRowDefinitionsAction : MissingDefinitionsAction
     {
-        public AddMissingRowDefinitionsAction(string file)
+        protected AddMissingRowDefinitionsAction(string file)
             : base(file)
         {
             this.UndoOperationName = StringRes.Info_UndoContextAddMissingRowDefinitions;

@@ -6,6 +6,8 @@ The following Warnings and Comments may be shown in the Error List.
 |--------|-------------|
 | [RXT101](.\RXT101.md) | Use of a `Grid.Row` value without corresponding `RowDefinition`. |
 | [RXT102](.\RXT102.md) | Use of a `Grid.Column` value without corresponding `ColumnDefinition`. |
+| [RXT103](.\RXT103.md) | Use of a `Grid.RowSpan` value without corresponding `ColumnDefinition`. |
+| [RXT104](.\RXT104.md) | Use of a `Grid.ColumnSpan` value without corresponding `ColumnDefinition`. |
 | [RXT200](.\RXT150.md) | `TextBox` does not have an `InputScope` specified. |
 | [RXT200](.\RXT200.md) | Hard-coded string value that should be a resource. |
 | [RXT200](.\RXT300.md) | `Entry` does not have a `Keyboard` specified. |
