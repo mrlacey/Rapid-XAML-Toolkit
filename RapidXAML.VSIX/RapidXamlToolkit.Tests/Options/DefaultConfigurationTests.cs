@@ -79,7 +79,10 @@ namespace RapidXamlToolkit.Tests.Options
 
                 foreach (var mapping in profile.Mappings)
                 {
-                    Assert.IsTrue(mapping.Output.IsValidXamlOutput(), $"Invalid output: {mapping.Output}");
+                    if (mapping.Output != Placeholder.NoOutput)
+                    {
+                        Assert.IsTrue(mapping.Output.IsValidXamlOutput(), $"Invalid output: {mapping.Output}");
+                    }
                 }
             }
         }
