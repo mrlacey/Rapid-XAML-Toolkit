@@ -11,7 +11,6 @@ using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
-
     public class RowSpanOverflowAction : AddMissingRowDefinitionsAction
     {
         public RowSpanOverflowAction(string file)
