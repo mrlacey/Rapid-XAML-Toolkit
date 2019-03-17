@@ -49,13 +49,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     GridNeedsExpanding = gridIsSelfClosing,
                 };
                 tags.Add(tag);
+
+                rowDefsClosingPos = xamlElement.IndexOf(">", StringComparison.Ordinal);
             }
             else
             {
                 rowDefsClosingPos = xamlElement.IndexOf("</Grid.RowDefinitions", StringComparison.Ordinal);
-
-                // var lastLine = xamlElement.Substring(0, rowDefsClosingPos).LastIndexOf(">");
-                // rowDefsClosingPos = lastLine;
             }
 
             var colDefsClosingPos = -1;
