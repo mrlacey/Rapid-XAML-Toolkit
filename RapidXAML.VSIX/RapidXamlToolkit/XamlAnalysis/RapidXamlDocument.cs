@@ -82,6 +82,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.ToggleSwitch, new ToggleSwitchProcessor()),
                         (Elements.Slider, new SliderProcessor()),
                         (Elements.Label, new LabelProcessor()),
+                        (Elements.PasswordBox, new PasswordBoxProcessor()),
                     };
         }
     }

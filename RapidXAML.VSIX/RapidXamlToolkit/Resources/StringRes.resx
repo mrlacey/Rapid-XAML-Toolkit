@@ -823,4 +823,7 @@
   <data name="Info_XamlAnalysisHardcodedStringSliderHeaderMessage" xml:space="preserve">
     <value>Slider contains hard-coded Header value '{0}'.</value>
   </data>
+  <data name="Info_XamlAnalysisHardcodedStringPasswordboxHeaderMessage" xml:space="preserve">
+    <value>PasswordBox contains hard-coded Header value '{0}'.</value>
+  </data>
 </root>

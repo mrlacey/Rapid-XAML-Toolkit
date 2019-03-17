@@ -37,6 +37,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string MenuFlyoutSubItem => "MenuFlyoutSubItem";
 
+        public static string PasswordBox => "PasswordBox";
+
         public static string Pivot => "Pivot";
 
         public static string PivotItem => "PivotItem";

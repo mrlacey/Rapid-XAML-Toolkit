@@ -249,6 +249,7 @@
     <Compile Include="XamlAnalysis\Processors\LabelProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\PasswordBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\PivotItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\PivotProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\RepeatButtonProcessor.cs" />
