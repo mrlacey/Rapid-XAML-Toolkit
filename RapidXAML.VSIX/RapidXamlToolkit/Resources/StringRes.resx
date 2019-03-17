@@ -835,4 +835,7 @@
   <data name="Info_XamlAnalysisRowSpanOverflowTooltip" xml:space="preserve">
     <value>Attempting to span more rows than are defined.</value>
   </data>
+  <data name="Info_XamlAnalysisHardcodedStringPasswordboxHeaderMessage" xml:space="preserve">
+    <value>PasswordBox contains hard-coded Header value '{0}'.</value>
+  </data>
 </root>

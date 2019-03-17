@@ -925,6 +925,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PasswordBox contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringPasswordboxHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringPasswordboxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PivotItem contains hard-coded Header value &apos;{0}&apos;..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringPivotItemHeaderMessage {
