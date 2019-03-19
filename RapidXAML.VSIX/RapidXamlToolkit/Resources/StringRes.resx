@@ -856,4 +856,16 @@
   <data name="Info_XamlAnalysisUseMediaPlayerElementToolTip" xml:space="preserve">
     <value>Use MediaPlayerElement in place of MediaElement.</value>
   </data>
+  <data name="Info_XamlAnalysisNameTitleCaseDescription" xml:space="preserve">
+    <value>Name should begin with an upper case character: {0}</value>
+  </data>
+  <data name="Info_XamlAnalysisNameTitleCaseToolTip" xml:space="preserve">
+    <value>Name value should begin with an upper case character.</value>
+  </data>
+  <data name="Info_XamlAnalysisUidTitleCaseDescription" xml:space="preserve">
+    <value>Uid should begin with an upper case character: {0}</value>
+  </data>
+  <data name="Info_XamlAnalysisUidTitleCaseToolTip" xml:space="preserve">
+    <value>Uid value should begin with an upper case character.</value>
+  </data>
 </root>

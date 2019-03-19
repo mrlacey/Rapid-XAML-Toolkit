@@ -18,6 +18,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             var elementsBeingTracked = new List<TrackingElement>();
 
+            var everyElementProcessor = new EveryElementProcessor();
+
             bool isIdentifyingElement = false;
             bool isClosingElement = false;
             bool inLineOpeningWhitespace = true;
@@ -149,6 +151,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                             {
+                                everyElementProcessor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
+
                                 foreach (var (element, processor) in processors)
                                 {
                                     if (element == toProcess.ElementName)

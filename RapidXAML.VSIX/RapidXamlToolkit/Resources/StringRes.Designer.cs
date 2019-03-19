@@ -1141,6 +1141,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name should begin with an upper case character: {0}.
+        /// </summary>
+        public static string Info_XamlAnalysisNameTitleCaseDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisNameTitleCaseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name value should begin with an upper case character..
+        /// </summary>
+        public static string Info_XamlAnalysisNameTitleCaseToolTip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisNameTitleCaseToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attempting to use more than the defined number of rows..
         /// </summary>
         public static string Info_XamlAnalysisRowSpanOverflowDescription {
@@ -1173,6 +1191,24 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_XamlAnalysisTextBoxWithoutInputScopeExtendedMessage {
             get {
                 return ResourceManager.GetString("Info_XamlAnalysisTextBoxWithoutInputScopeExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uid should begin with an upper case character: {0}.
+        /// </summary>
+        public static string Info_XamlAnalysisUidTitleCaseDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisUidTitleCaseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uid value should begin with an upper case character..
+        /// </summary>
+        public static string Info_XamlAnalysisUidTitleCaseToolTip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisUidTitleCaseToolTip", resourceCulture);
             }
         }
         
