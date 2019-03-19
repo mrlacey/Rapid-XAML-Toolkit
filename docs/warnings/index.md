@@ -8,9 +8,10 @@ The following Warnings and Comments may be shown in the Error List.
 | [RXT102](.\RXT102.md) | Use of a `Grid.Column` value without corresponding `ColumnDefinition`. |
 | [RXT103](.\RXT103.md) | Use of a `Grid.RowSpan` value without corresponding `ColumnDefinition`. |
 | [RXT104](.\RXT104.md) | Use of a `Grid.ColumnSpan` value without corresponding `ColumnDefinition`. |
-| [RXT200](.\RXT150.md) | `TextBox` does not have an `InputScope` specified. |
+| [RXT150](.\RXT150.md) | `TextBox` does not have an `InputScope` specified. |
 | [RXT200](.\RXT200.md) | Hard-coded string value that should be a resource. |
-| [RXT200](.\RXT300.md) | `Entry` does not have a `Keyboard` specified. |
+| [RXT300](.\RXT300.md) | `Entry` does not have a `Keyboard` specified. |
+| [RXT401](.\RXT401.md) | Handle both `Checked` and `Unchecked` events for a `CheckBox`. |
 | [RXT999](.\RXT999.md) | Unknown error - Something went wrong when parsing XAML document. |
 
 <!--

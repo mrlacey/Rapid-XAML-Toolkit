@@ -5,6 +5,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class Attributes
     {
+        public static string CheckedEvent => "Checked";
+
         public static string Content => "Content";
 
         public static string Description => "Description";
@@ -30,5 +32,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string Title => "Title";
 
         public static string Uid => "x:Uid";
+
+        public static string UncheckedEvent => "Unchecked";
+
     }
 }

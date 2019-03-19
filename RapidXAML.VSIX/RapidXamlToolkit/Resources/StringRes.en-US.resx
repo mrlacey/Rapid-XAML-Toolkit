@@ -838,4 +838,13 @@
   <data name="Info_XamlAnalysisHardcodedStringPasswordboxHeaderMessage" xml:space="preserve">
     <value>PasswordBox contains hard-coded Header value '{0}'.</value>
   </data>
+  <data name="Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsDescription" xml:space="preserve">
+    <value>Handle both `Checked` and `Unchecked` events if handle one.</value>
+  </data>
+  <data name="Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsExtendedMessage" xml:space="preserve">
+    <value>The Checked and Unchecked events occur independently. If you handle these events, you should handle both of them to respond to state changes in the check box.</value>
+  </data>
+  <data name="Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip" xml:space="preserve">
+    <value>Handle both `Checked` and `Unchecked` events.</value>
+  </data>
 </root>

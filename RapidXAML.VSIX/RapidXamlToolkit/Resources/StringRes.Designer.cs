@@ -736,6 +736,33 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Handle both `Checked` and `Unchecked` events if handle one..
+        /// </summary>
+        public static string Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Checked and Unchecked events occur independently. If you handle these events, you should handle both of them to respond to state changes in the check box..
+        /// </summary>
+        public static string Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handle both `Checked` and `Unchecked` events..
+        /// </summary>
+        public static string Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attempting to use more than the defined number of columns..
         /// </summary>
         public static string Info_XamlAnalysisColumnSpanOverflowDescription {

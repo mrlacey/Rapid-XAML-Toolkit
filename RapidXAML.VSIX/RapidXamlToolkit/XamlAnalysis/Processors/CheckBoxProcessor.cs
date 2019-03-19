@@ -28,6 +28,24 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uid,
                 Guid.Empty,
                 tags);
+
+            // If using one event, the recommendation is to use both
+            var hasCheckedEvent = this.TryGetAttribute(xamlElement, Attributes.CheckedEvent, AttributeType.Inline, out _, out int checkedIndex, out int checkedLength, out string checkedEventName);
+            var hasuncheckedEvent = this.TryGetAttribute(xamlElement, Attributes.UncheckedEvent, AttributeType.Inline, out _, out int uncheckedIndex, out int uncheckedLength, out string uncheckedEventName);
+
+            if (hasCheckedEvent && !hasuncheckedEvent)
+            {
+                var line = snapshot.GetLineFromPosition(offset + checkedIndex);
+                var col = offset + checkedIndex - line.Start.Position;
+                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + checkedIndex, checkedLength), snapshot, line.LineNumber, col));
+            }
+
+            if (!hasCheckedEvent && hasuncheckedEvent)
+            {
+                var line = snapshot.GetLineFromPosition(offset + uncheckedIndex);
+                var col = offset + uncheckedIndex - line.Start.Position;
+                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + uncheckedIndex, uncheckedLength), snapshot, line.LineNumber, col));
+            }
         }
     }
 }
