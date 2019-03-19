@@ -33,6 +33,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Label => "Label";
 
+        public static string MediaElement => "MediaElement";
+
         public static string MenuFlyoutItem => "MenuFlyoutItem";
 
         public static string MenuFlyoutSubItem => "MenuFlyoutSubItem";

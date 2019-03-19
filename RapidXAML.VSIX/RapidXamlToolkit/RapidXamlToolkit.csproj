@@ -249,6 +249,7 @@
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\LabelProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\MediaElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\PasswordBoxProcessor.cs" />
@@ -309,6 +310,7 @@
     <Compile Include="XamlAnalysis\Processors\TextBlockProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\UseMediaPlayerElementTag.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
     <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />
     <Compile Include="Telemetry\CoreDetails.cs" />

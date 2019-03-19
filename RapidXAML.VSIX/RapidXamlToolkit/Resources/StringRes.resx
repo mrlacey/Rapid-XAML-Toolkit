@@ -847,4 +847,13 @@
   <data name="Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip" xml:space="preserve">
     <value>Handle both `Checked` and `Unchecked` events.</value>
   </data>
+  <data name="Info_XamlAnalysisUseMediaPlayerElementDescription" xml:space="preserve">
+    <value>Use MediaPlayerElement in place of MediaElement.</value>
+  </data>
+  <data name="Info_XamlAnalysisUseMediaPlayerElementExtendedMessage" xml:space="preserve">
+    <value>It is recommend that you use MediaPlayerElement in place of MediaElement. MediaPlayerElement has the same functionality as MediaElement, while also enabling more advanced media playback scenarios. Additionally, all future improvements in media playback will happen in MediaPlayerElement.</value>
+  </data>
+  <data name="Info_XamlAnalysisUseMediaPlayerElementToolTip" xml:space="preserve">
+    <value>Use MediaPlayerElement in place of MediaElement.</value>
+  </data>
 </root>

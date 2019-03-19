@@ -34,6 +34,5 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string Uid => "x:Uid";
 
         public static string UncheckedEvent => "Unchecked";
-
     }
 }

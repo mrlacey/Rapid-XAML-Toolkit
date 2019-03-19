@@ -1177,6 +1177,33 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use MediaPlayerElement in place of MediaElement..
+        /// </summary>
+        public static string Info_XamlAnalysisUseMediaPlayerElementDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisUseMediaPlayerElementDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is recommend that you use MediaPlayerElement in place of MediaElement. MediaPlayerElement has the same functionality as MediaElement, while also enabling more advanced media playback scenarios. Additionally, all future improvements in media playback will happen in MediaPlayerElement..
+        /// </summary>
+        public static string Info_XamlAnalysisUseMediaPlayerElementExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisUseMediaPlayerElementExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use MediaPlayerElement in place of MediaElement..
+        /// </summary>
+        public static string Info_XamlAnalysisUseMediaPlayerElementToolTip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisUseMediaPlayerElementToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Views &amp; ViewModels are in the same project.
         /// </summary>
         public static string Options_AllInOneProject {
