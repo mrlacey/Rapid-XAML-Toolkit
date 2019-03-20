@@ -433,5 +433,25 @@ namespace RapidXamlToolkit
 
             return result;
         }
+
+        public static string GetBetween(this string source, string start, string end)
+        {
+            if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
+            {
+                return string.Empty;
+            }
+
+            var startPos = source.IndexOf(start);
+            var endPos = source.IndexOf(end, startPos + start.Length);
+
+            if (startPos > -1 && endPos > -1 && endPos > startPos)
+            {
+                return source.Substring(startPos + start.Length, endPos - startPos - start.Length);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
     }
 }

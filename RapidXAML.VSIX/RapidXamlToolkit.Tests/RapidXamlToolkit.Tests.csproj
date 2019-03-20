@@ -58,6 +58,7 @@
     <Compile Include="Grid\MissingDefinitionsTests.cs" />
     <Compile Include="Misc\MiscRealWorldTests.cs" />
     <Compile Include="Parsers\CSharpTestsBase.cs" />
+    <Compile Include="Parsers\GetCSharpAttributesTests.cs" />
     <Compile Include="Parsers\GetVisualBasicArrayTests.cs" />
     <Compile Include="Parsers\GetCSharpClassTests.cs" />
     <Compile Include="Parsers\GetCSharpArrayTests.cs" />

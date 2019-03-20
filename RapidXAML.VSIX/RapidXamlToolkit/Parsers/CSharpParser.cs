@@ -360,6 +360,48 @@ namespace RapidXamlToolkit.Parsers
                 IsReadOnly = propIsReadOnly ?? false,
             };
 
+            foreach (var attribList in propertyDeclaration.AttributeLists)
+            {
+                foreach (var attrib in attribList.Attributes)
+                {
+                    var att = new AttributeDetails
+                    {
+                        Name = attrib.Name.ToString(),
+                    };
+
+                    var count = 1;
+                    foreach (var arg in attrib.ArgumentList.Arguments)
+                    {
+                        string name = null;
+                        string value = null;
+
+                        if (arg?.NameColon != null)
+                        {
+                            name = arg.NameColon.Name.ToString();
+                            value = ((arg.NameColon.Parent as AttributeArgumentSyntax).Expression as IdentifierNameSyntax).Identifier.Value.ToString();
+                        }
+                        else if (arg?.NameEquals != null)
+                        {
+                            name = arg.NameEquals.Name.ToString();
+                            value = ((arg.NameEquals.Parent as AttributeArgumentSyntax).Expression as IdentifierNameSyntax).Identifier.Value.ToString();
+                        }
+                        else
+                        {
+                            value = arg.ToString();
+                        }
+
+                        att.Arguments.Add(new AttributeArgumentDetails
+                        {
+                            Index = count++,
+                            Name = name,
+                            Value = value,
+                        });
+                    }
+
+                    pd.Attributes.Add(att);
+                }
+            }
+
             Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
 
             ITypeSymbol typeSymbol = this.GetTypeSymbol(semModel, propertyDeclaration, pd);
