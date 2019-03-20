@@ -62,6 +62,7 @@
     <Compile Include="Parsers\GetVisualBasicArrayTests.cs" />
     <Compile Include="Parsers\GetCSharpClassTests.cs" />
     <Compile Include="Parsers\GetCSharpArrayTests.cs" />
+    <Compile Include="Parsers\GetVisualBasicAttributesTests.cs" />
     <Compile Include="Parsers\GetVisualBasicNullableTests.cs" />
     <Compile Include="Parsers\GetCSharpPropertiesTests.cs" />
     <Compile Include="Parsers\GetCSharpSelectionTests.cs" />

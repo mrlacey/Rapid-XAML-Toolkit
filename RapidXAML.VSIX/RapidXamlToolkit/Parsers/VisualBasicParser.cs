@@ -395,6 +395,8 @@ namespace RapidXamlToolkit.Parsers
                 }
             }
 
+            SyntaxList<AttributeListSyntax> attributeLists;
+
             if (propertyNode is PropertyStatementSyntax pss)
             {
                 if (pss.Parent is PropertyBlockSyntax)
@@ -405,6 +407,8 @@ namespace RapidXamlToolkit.Parsers
                 {
                     propIsReadOnly = pss.Modifiers.Any(m => m.RawKind == (int)SyntaxKind.ReadOnlyKeyword);
                 }
+
+                attributeLists = pss.AttributeLists;
             }
 
             if (propertyNode is PropertyBlockSyntax pbs)
@@ -422,6 +426,44 @@ namespace RapidXamlToolkit.Parsers
                 PropertyType = propertyType,
                 IsReadOnly = propIsReadOnly ?? false,
             };
+
+            foreach (var attribList in attributeLists)
+            {
+                foreach (var attrib in attribList.Attributes)
+                {
+                    var att = new AttributeDetails
+                    {
+                        Name = attrib.Name.ToString(),
+                    };
+
+                    var count = 1;
+                    foreach (var arg in attrib.ArgumentList.Arguments)
+                    {
+                        string name = null;
+                        string value = null;
+
+                        if (arg is SimpleArgumentSyntax sas)
+                        {
+                            name = sas.NameColonEquals?.Name.ToString();
+                            value = (sas.Expression as IdentifierNameSyntax)?.Identifier.ValueText;
+                        }
+
+                        if (value == null)
+                        {
+                            value = arg.ToString();
+                        }
+
+                        att.Arguments.Add(new AttributeArgumentDetails
+                        {
+                            Index = count++,
+                            Name = name,
+                            Value = value,
+                        });
+                    }
+
+                    pd.Attributes.Add(att);
+                }
+            }
 
             Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
 
