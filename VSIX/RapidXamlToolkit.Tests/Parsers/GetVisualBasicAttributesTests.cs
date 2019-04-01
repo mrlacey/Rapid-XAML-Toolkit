@@ -292,8 +292,5 @@ End Namespace";
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.maxLengthProfile);
         }
-
     }
 }
-
-
