@@ -13,6 +13,8 @@ The following Warnings and Comments may be shown in the Error List.
 | [RXT300](.\RXT300.md) | `Entry` does not have a `Keyboard` specified. |
 | [RXT401](.\RXT401.md) | Handle both `Checked` and `Unchecked` events for a `CheckBox`. |
 | [RXT402](.\RXT402.md) | Use `MediaPlayerElement` in place of `MediaElement`. |
+| [RXT451](.\RXT451.md) | `x:Uid` should begin with an upper case character. |
+| [RXT452](.\RXT452.md) | `Name` should begin with an upper case character. |
 | [RXT999](.\RXT999.md) | Unknown error - Something went wrong when parsing XAML document. |
 
 <!--

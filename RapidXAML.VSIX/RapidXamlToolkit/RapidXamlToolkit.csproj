@@ -245,6 +245,7 @@
     <Compile Include="XamlAnalysis\Processors\CheckBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\EveryElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
     <Compile Include="XamlAnalysis\Tags\CheckBoxCheckedAndUncheckedEventsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\NameTitleCaseTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTagExtensions.cs" />
     <Compile Include="XamlAnalysis\Attributes.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />
@@ -309,6 +311,7 @@
     <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBlockProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\UidTitleCaseTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UseMediaPlayerElementTag.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
