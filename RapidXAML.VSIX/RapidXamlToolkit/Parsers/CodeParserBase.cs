@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RapidXamlToolkit.Logging;
@@ -126,7 +127,7 @@ namespace RapidXamlToolkit.Parsers
         protected (string output, int counter) GetSubPropertyOutputAndCounter(string name, int numericSubstitute)
         {
             // Type is blank as it's can't be used in a subproperty
-            return this.FormatOutput(this.Profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, symbol: null, getSubPropertyOutput: null);
+            return this.FormatOutput(this.Profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, symbol: null, attributes: null, getSubPropertyOutput: null);
         }
 
         protected (string output, int counter) GetPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute, SemanticModel semModel, Func<(List<string> strings, int count)> getSubPropertyOutput = null, string namePrefix = "")
@@ -191,10 +192,10 @@ namespace RapidXamlToolkit.Parsers
                 rawOutput = rawOutput.Replace(Placeholder.PropertyName, $"{namePrefix}.{Placeholder.PropertyName}");
             }
 
-            return this.FormatOutput(rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, getSubPropertyOutput);
+            return this.FormatOutput(rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, property.Attributes, getSubPropertyOutput);
         }
 
-        private (string output, int counter) FormatOutput(string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, Func<(List<string> strings, int count)> getSubPropertyOutput)
+        private (string output, int counter) FormatOutput(string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, List<AttributeDetails> attributes, Func<(List<string> strings, int count)> getSubPropertyOutput)
         {
             Logger?.RecordInfo(StringRes.Info_FormattingOutputForProperty.WithParams(name));
 
@@ -403,6 +404,47 @@ namespace RapidXamlToolkit.Parsers
             if (rawOutput == Placeholder.NoOutput)
             {
                 result = string.Empty;
+            }
+
+            var attributePattern = "\\$att:(?'AttribName'[a-zA-Z]{2,}):(?'Replace'[ a-zA-Z0-9=\\\"\\\"\\{\\[\\]\\}]{1,})\\$";
+            var regex = new Regex(attributePattern);
+
+            var match = regex.Match(result);
+
+            while (match.Success)
+            {
+                var attrib = match.Groups["AttribName"].Value;
+
+                if (attributes?.Any(a => a.Name == attrib || $"{a.Name}Attribute" == attrib || a.Name == $"{attrib}Attribute") == true)
+                {
+                    var replace = match.Groups["Replace"].Value;
+
+                    var substitute = replace.GetBetween("[", "]");
+
+                    var attributeOfInterest = attributes.First(a => a.Name == attrib || $"{a.Name}Attribute" == attrib || a.Name == $"{attrib}Attribute");
+
+                    if (int.TryParse(substitute, out int subIndex))
+                    {
+                        var replaceVal = attributeOfInterest.Arguments.FirstOrDefault(a => a.Index == subIndex);
+
+                        replace = replace.Replace($"[{substitute}]", replaceVal.Value);
+                    }
+                    else
+                    {
+                        var replaceVal = attributeOfInterest.Arguments.FirstOrDefault(a => a.Name == substitute);
+
+                        replace = replace.Replace($"[{substitute}]", replaceVal.Value);
+                    }
+
+                    result = result.Replace(match.Groups[0].Value, replace);
+                }
+                else
+                {
+                    // If the attribute isn't specified on the property then output nothing
+                    result = result.Replace(match.Groups[0].Value, string.Empty);
+                }
+
+                match = match.NextMatch();
             }
 
             var finalResult = result.FormatXaml(CodeParserBase.XamlIndentSize);
