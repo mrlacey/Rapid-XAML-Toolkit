@@ -128,31 +128,31 @@
     <value>Informacja o tym, że modele widoków i widoki (pliki XAML) znajdują się w tym samym projekcie.</value>
   </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
-    <value>Dodaj</value>
+    <value>_Dodaj</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Kopiuj</value>
+    <value>_Kopiuj</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Usuń</value>
+    <value>U_suń</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Edytuj</value>
+    <value>_Edytuj</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>Importuj</value>
+    <value>_Importuj</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>Nowy</value>
+    <value>_Nowy</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
-    <value>Resetuj</value>
+    <value>_Resetuj</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
-    <value>Ustaw jako aktywny</value>
+    <value>_Ustaw jako aktywny</value>
   </data>
   <data name="Options_ClassGrouping" xml:space="preserve">
     <value>Grupowanie klas</value>
@@ -310,8 +310,8 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>Tekst na końcu nazwy projektu zawierającego widoki (pliki XAML).</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
-    <value>Eksportuj</value>
+  <data name="Options_ButtonExport" xml:space="preserve">
+    <value>E_ksportuj</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
     <value>Nie można znaleźć projektu {0} w rozwiązaniu.</value>
@@ -537,7 +537,9 @@
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>Profil nie został zaimportowany z powodu następujących błędów:\r\n\r\n- {0}</value>
+    <value>Profil nie został zaimportowany z powodu następujących błędów:
+
+- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
     <value>Nie można zaimportować profilu</value>

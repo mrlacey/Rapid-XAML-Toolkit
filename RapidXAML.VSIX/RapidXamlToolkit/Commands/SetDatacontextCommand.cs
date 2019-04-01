@@ -6,8 +6,9 @@ using System.ComponentModel.Design;
 using EnvDTE;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Parsers;
+using RapidXamlToolkit.VisualStudioIntegration;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
@@ -37,7 +38,7 @@ namespace RapidXamlToolkit.Commands
         {
             // Verify the current thread is the UI thread - the call to AddCommand in SetDatacontextCommand's constructor requires
             // the UI thread.
-            ThreadHelper.ThrowIfNotOnUIThread();
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new SetDatacontextCommand(package, commandService, logger);
@@ -51,7 +52,7 @@ namespace RapidXamlToolkit.Commands
                 {
                     bool showCommandButton = false;
 
-                    var settings = AnalyzerBase.GetSettings();
+                    var settings = CodeParserBase.GetSettings();
 
                     if (settings.IsActiveProfileSet)
                     {
@@ -77,84 +78,90 @@ namespace RapidXamlToolkit.Commands
         {
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 this.Logger?.RecordFeatureUsage(nameof(SetDatacontextCommand));
 
-                var settings = AnalyzerBase.GetSettings();
+                var settings = CodeParserBase.GetSettings();
                 var profile = settings.GetActiveProfile();
 
-                var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
-
-                var logic = new SetDataContextCommandLogic(profile, this.Logger, new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte));
-
-                var inXamlDoc = dte.ActiveDocument.Name.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
-
-                var (viewName, viewModelName, vmNamespace) = logic.InferViewModelNameFromFileName(dte.ActiveDocument.Name);
-
-                if (inXamlDoc)
+                if (!(await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) is DTE dte))
                 {
-                    if (profile.Datacontext.SetsXamlPageAttribute)
-                    {
-                        var (add, lineNo, content) = logic.GetPageAttributeToAdd(viewModelName, vmNamespace);
-
-                        if (add)
-                        {
-                            if (dte.ActiveDocument.Object("TextDocument") is TextDocument objectDoc)
-                            {
-                                objectDoc.Selection.GotoLine(lineNo);
-                                objectDoc.Selection.EndOfLine();
-                                objectDoc.Selection.Insert(content);
-                            }
-                        }
-                    }
-
-                    if (profile.Datacontext.SetsAnyCodeBehindContent)
-                    {
-                        if (profile.Datacontext.SetsCodeBehindPageContent)
-                        {
-                            // TODO: ISSUE#22 - set the DC in the CB file (C# or VB) may be open and unsaved
-                        }
-
-                        if (profile.Datacontext.SetsCodeBehindConstructorContent)
-                        {
-                            // TODO: ISSUE#22 - set the DC in the CB file (C# or VB) may be open and unsaved
-                        }
-                    }
+                    RapidXamlPackage.Logger?.RecordError("Failed to get DTE in SetDatacontextCommand.Execute");
                 }
                 else
                 {
-                    if (profile.Datacontext.SetsXamlPageAttribute)
-                    {
-                        // TODO: ISSUE#22 - set the DC in the XAML file (C# or VB) may be open and unsaved
-                    }
+                    var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
+                    var logic = new SetDataContextCommandLogic(profile, this.Logger, vs);
 
-                    if (profile.Datacontext.SetsAnyCodeBehindContent)
+                    var inXamlDoc = dte.ActiveDocument.Name.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
+
+                    var (viewName, viewModelName, vmNamespace) = logic.InferViewModelNameFromFileName(dte.ActiveDocument.Name);
+
+                    if (inXamlDoc)
                     {
-                        if (dte.ActiveDocument.Object("TextDocument") is TextDocument objectDoc)
+                        if (profile.Datacontext.SetsXamlPageAttribute)
                         {
-                            var textView = await GetTextViewAsync(Instance.ServiceProvider);
-                            var caretPosition = textView.Caret.Position.BufferPosition;
-                            var document = caretPosition.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
-                            var documentTree = await document.GetSyntaxTreeAsync();
-                            var documentRoot = documentTree.GetRoot();
+                            var (add, lineNo, content) = logic.GetPageAttributeToAdd(viewModelName, vmNamespace);
 
-                            var toAdd = logic.GetCodeBehindContentToAdd(viewName, viewModelName, vmNamespace, documentRoot);
-
-                            foreach (var (anything, lineNo, contentToAdd) in toAdd)
+                            if (add)
                             {
-                                if (anything)
+                                if (dte.ActiveDocument.Object("TextDocument") is TextDocument objectDoc)
                                 {
                                     objectDoc.Selection.GotoLine(lineNo);
                                     objectDoc.Selection.EndOfLine();
-                                    objectDoc.Selection.Insert(contentToAdd);
+                                    objectDoc.Selection.Insert(content);
+                                }
+                            }
+                        }
+
+                        if (profile.Datacontext.SetsAnyCodeBehindContent)
+                        {
+                            if (profile.Datacontext.SetsCodeBehindPageContent)
+                            {
+                                // TODO: ISSUE#22 - set the DC in the CB file (C# or VB) may be open and unsaved
+                            }
+
+                            if (profile.Datacontext.SetsCodeBehindConstructorContent)
+                            {
+                                // TODO: ISSUE#22 - set the DC in the CB file (C# or VB) may be open and unsaved
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (profile.Datacontext.SetsXamlPageAttribute)
+                        {
+                            // TODO: ISSUE#22 - set the DC in the XAML file (C# or VB) may be open and unsaved
+                        }
+
+                        if (profile.Datacontext.SetsAnyCodeBehindContent)
+                        {
+                            if (dte.ActiveDocument.Object("TextDocument") is TextDocument objectDoc)
+                            {
+                                var textView = await GetTextViewAsync(Instance.ServiceProvider);
+                                var caretPosition = textView.Caret.Position.BufferPosition;
+                                var document = caretPosition.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
+                                var documentTree = await document.GetSyntaxTreeAsync();
+                                var documentRoot = documentTree.GetRoot();
+
+                                var toAdd = logic.GetCodeBehindContentToAdd(viewName, viewModelName, vmNamespace, documentRoot);
+
+                                foreach (var (anything, lineNo, contentToAdd) in toAdd)
+                                {
+                                    if (anything)
+                                    {
+                                        objectDoc.Selection.GotoLine(lineNo);
+                                        objectDoc.Selection.EndOfLine();
+                                        objectDoc.Selection.Insert(contentToAdd);
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                this.SuppressAnyException(() => dte.FormatDocument(profile));
+                    this.SuppressAnyException(() => dte.FormatDocument(profile));
+                }
             }
             catch (Exception exc)
             {

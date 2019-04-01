@@ -70,6 +70,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unexpected error occurred while parsing XAML..
+        /// </summary>
+        public static string Error_XamlAnalysisDescription {
+            get {
+                return ResourceManager.GetString("Error_XamlAnalysisDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: {0}.
+        /// </summary>
+        public static string Error_XamlAnalysisExtendedMessage {
+            get {
+                return ResourceManager.GetString("Error_XamlAnalysisExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding {0} row definitions..
         /// </summary>
         public static string Info_AddedRowDefsCount {
@@ -430,6 +448,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No resource file was found in the project. Add one and then try again..
+        /// </summary>
+        public static string Info_NoResourceFileFound {
+            get {
+                return ResourceManager.GetString("Info_NoResourceFileFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No XAML added to toolbox..
         /// </summary>
         public static string Info_NothingAddedToToolbox {
@@ -489,6 +516,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_OverwritingFile {
             get {
                 return ResourceManager.GetString("Info_OverwritingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have problems with this extension, or suggestions for improvement, report them at https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/new/choose .
+        /// </summary>
+        public static string Info_ProblemsInstructionsAndLink {
+            get {
+                return ResourceManager.GetString("Info_ProblemsInstructionsAndLink", resourceCulture);
             }
         }
         
@@ -610,11 +646,83 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add ColumnDefinitions.
+        /// </summary>
+        public static string Info_UndoContextAddColumnDefinitions {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Keyboard property..
+        /// </summary>
+        public static string Info_UndoContextAddEntryKeyboard {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddEntryKeyboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add missing column definitions.
+        /// </summary>
+        public static string Info_UndoContextAddMissingColumnDefinitions {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddMissingColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add missing row definitions.
+        /// </summary>
+        public static string Info_UndoContextAddMissingRowDefinitions {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddMissingRowDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add RowDefinitions and ColumnDefinitions.
+        /// </summary>
+        public static string Info_UndoContextAddRowAndColumnDefinitions {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddRowAndColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add RowDefinitions.
+        /// </summary>
+        public static string Info_UndoContextAddRowDefinitions {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddRowDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add InputScope property..
+        /// </summary>
+        public static string Info_UndoContextAddTextBoxInputScope {
+            get {
+                return ResourceManager.GetString("Info_UndoContextAddTextBoxInputScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert RowDefinition.
         /// </summary>
-        public static string Info_UndoContextIndertRowDef {
+        public static string Info_UndoContextInsertRowDef {
             get {
-                return ResourceManager.GetString("Info_UndoContextIndertRowDef", resourceCulture);
+                return ResourceManager.GetString("Info_UndoContextInsertRowDef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move string to resource file.
+        /// </summary>
+        public static string Info_UndoContextMoveStringToResourceFile {
+            get {
+                return ResourceManager.GetString("Info_UndoContextMoveStringToResourceFile", resourceCulture);
             }
         }
         
@@ -628,11 +736,506 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export.
+        ///   Looks up a localized string similar to Handle both `Checked` and `Unchecked` events if handle one..
         /// </summary>
-        public static string Option_ButtonExport {
+        public static string Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsDescription {
             get {
-                return ResourceManager.GetString("Option_ButtonExport", resourceCulture);
+                return ResourceManager.GetString("Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Checked and Unchecked events occur independently. If you handle these events, you should handle both of them to respond to state changes in the check box..
+        /// </summary>
+        public static string Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handle both `Checked` and `Unchecked` events..
+        /// </summary>
+        public static string Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to use more than the defined number of columns..
+        /// </summary>
+        public static string Info_XamlAnalysisColumnSpanOverflowDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisColumnSpanOverflowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to span more columns than are defined..
+        /// </summary>
+        public static string Info_XamlAnalysisColumnSpanOverflowTooltip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisColumnSpanOverflowTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keyboard is not specified for the Entry..
+        /// </summary>
+        public static string Info_XamlAnalysisEntryWithoutKeyboardDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisEntryWithoutKeyboardDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifying the keyboard can make it easier for the user to enter the correct value. .
+        /// </summary>
+        public static string Info_XamlAnalysisEntryWithoutKeyboardExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisEntryWithoutKeyboardExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AppBarButton contains hard-coded Label value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringAppBarButtonLabelMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringAppBarButtonLabelMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AppBarToggleButton contains hard-coded Label value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringAppBarToggleButtonLabelMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringAppBarToggleButtonLabelMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AutoSuggestBox contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringAutoSuggestBoxHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringAutoSuggestBoxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AutoSuggestBox contains hard-coded Placeholder value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringAutoSuggestBoxPlaceHolderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringAutoSuggestBoxPlaceHolderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Button contains hard-coded Content value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringButtonContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringButtonContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CalendarDatePicker contains hard-coded Description value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringCalendarDatePickerDescriptionMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringCalendarDatePickerDescriptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CalendarDatePicker contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringCalendarDatePickerHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringCalendarDatePickerHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CheckBox contains hard-coded Content value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringCheckboxContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringCheckboxContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ComboBox contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringComboboxHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringComboboxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DatePicker contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringDatePickerHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringDatePickerHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not use hard-coded values. Use a localized resource instead..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hub contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringHubHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringHubHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HubSection contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringHubSectionHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringHubSectionHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HyperlinkButton contains hard-coded Content value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringHyperlinkButtonContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringHyperlinkButtonContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Label contains hard-coded Text value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringLabelTextMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringLabelTextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MenuFlyoutItem contains hard-coded Text value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MenuFlyoutSubItem contains hard-coded Text value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringMenuFlyoutSubItemTextMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringMenuFlyoutSubItemTextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PasswordBox contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringPasswordboxHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringPasswordboxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PivotItem contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringPivotItemHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringPivotItemHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pivot contains hard-coded Title value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringPivotTitleMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringPivotTitleMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RepeatButton contains hard-coded Content value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringRepeatButtonContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringRepeatButtonContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RichEditBox contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slider contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringSliderHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringSliderHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TextBlock contains hard-coded Text value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringTextblockTextMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTextblockTextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TextBox contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringTextboxHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTextboxHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TextBox contains hard-coded PlaceholderText value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TimePicker contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ToggleMenuFlyoutItem contains hard-coded Text value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringToggleMenuFlyoutItemTextMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringToggleMenuFlyoutItemTextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ToggleSwitch contains hard-coded Header value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringToggleSwitchHeaderMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringToggleSwitchHeaderMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ToggleSwitch contains hard-coded OffContent value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringToggleSwitchOffContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringToggleSwitchOffContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ToggleSwitch contains hard-coded OnContent value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringToggleSwitchOnContentMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringToggleSwitchOnContentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hard-coded string.
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringTooltip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use of undefined Column &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisMissingColumnDefinitionDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingColumnDefinitionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The use of undefined columns can lead to unexpected layout behavior. It can also be confusing for other people looking at the code..
+        /// </summary>
+        public static string Info_XamlAnalysisMissingColumnDefinitionExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingColumnDefinitionExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No corresponding column definition.
+        /// </summary>
+        public static string Info_XamlAnalysisMissingColumnDefinitionTooltip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingColumnDefinitionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use of undefined Row &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisMissingRowDefinitionDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingRowDefinitionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The use of undefined rows can lead to unexpected layout behavior. It can also be confusing for other people looking at the code..
+        /// </summary>
+        public static string Info_XamlAnalysisMissingRowDefinitionExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingRowDefinitionExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No corresponding row definition.
+        /// </summary>
+        public static string Info_XamlAnalysisMissingRowDefinitionTooltip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisMissingRowDefinitionTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name should begin with an upper case character: {0}.
+        /// </summary>
+        public static string Info_XamlAnalysisNameTitleCaseDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisNameTitleCaseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name value should begin with an upper case character..
+        /// </summary>
+        public static string Info_XamlAnalysisNameTitleCaseToolTip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisNameTitleCaseToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to use more than the defined number of rows..
+        /// </summary>
+        public static string Info_XamlAnalysisRowSpanOverflowDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisRowSpanOverflowDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attempting to span more rows than are defined..
+        /// </summary>
+        public static string Info_XamlAnalysisRowSpanOverflowTooltip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisRowSpanOverflowTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to InputScope is not specified for the TextBox..
+        /// </summary>
+        public static string Info_XamlAnalysisTextBoxWithoutInputScopeDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisTextBoxWithoutInputScopeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specifying the InputScope can make it easier for the user to enter the correct value. .
+        /// </summary>
+        public static string Info_XamlAnalysisTextBoxWithoutInputScopeExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisTextBoxWithoutInputScopeExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uid should begin with an upper case character: {0}.
+        /// </summary>
+        public static string Info_XamlAnalysisUidTitleCaseDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisUidTitleCaseDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uid value should begin with an upper case character..
+        /// </summary>
+        public static string Info_XamlAnalysisUidTitleCaseToolTip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisUidTitleCaseToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use MediaPlayerElement in place of MediaElement..
+        /// </summary>
+        public static string Info_XamlAnalysisUseMediaPlayerElementDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisUseMediaPlayerElementDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is recommend that you use MediaPlayerElement in place of MediaElement. MediaPlayerElement has the same functionality as MediaElement, while also enabling more advanced media playback scenarios. Additionally, all future improvements in media playback will happen in MediaPlayerElement..
+        /// </summary>
+        public static string Info_XamlAnalysisUseMediaPlayerElementExtendedMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisUseMediaPlayerElementExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use MediaPlayerElement in place of MediaElement..
+        /// </summary>
+        public static string Info_XamlAnalysisUseMediaPlayerElementToolTip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisUseMediaPlayerElementToolTip", resourceCulture);
             }
         }
         
@@ -655,7 +1258,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attempt Automatic Document Formatting.
+        ///   Looks up a localized string similar to Attempt automatic document formatting.
         /// </summary>
         public static string Options_AttemptAutomaticDocumentFormatting {
             get {
@@ -673,7 +1276,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
+        ///   Looks up a localized string similar to _Add.
         /// </summary>
         public static string Options_ButtonAdd {
             get {
@@ -682,7 +1285,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy.
+        ///   Looks up a localized string similar to _Copy.
         /// </summary>
         public static string Options_ButtonCopy {
             get {
@@ -691,7 +1294,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to _Delete.
         /// </summary>
         public static string Options_ButtonDelete {
             get {
@@ -700,7 +1303,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to _Edit.
         /// </summary>
         public static string Options_ButtonEdit {
             get {
@@ -709,7 +1312,16 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import.
+        ///   Looks up a localized string similar to E_xport.
+        /// </summary>
+        public static string Options_ButtonExport {
+            get {
+                return ResourceManager.GetString("Options_ButtonExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Import.
         /// </summary>
         public static string Options_ButtonImport {
             get {
@@ -718,7 +1330,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New.
+        ///   Looks up a localized string similar to _New.
         /// </summary>
         public static string Options_ButtonNew {
             get {
@@ -736,7 +1348,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset.
+        ///   Looks up a localized string similar to _Reset.
         /// </summary>
         public static string Options_ButtonReset {
             get {
@@ -745,7 +1357,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set as Active.
+        ///   Looks up a localized string similar to _Set as Active.
         /// </summary>
         public static string Options_ButtonSetAsActive {
             get {
@@ -754,7 +1366,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Class grouping.
+        ///   Looks up a localized string similar to Class grouping:.
         /// </summary>
         public static string Options_ClassGrouping {
             get {
@@ -772,7 +1384,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code-behind constructor content.
+        ///   Looks up a localized string similar to Code-behind constructor content:.
         /// </summary>
         public static string Options_CodeBehindConstructorContent {
             get {
@@ -781,7 +1393,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code that should be added to the constructor of the code behind file when setting the datacontext..
+        ///   Looks up a localized string similar to Code that should be added to the constructor of the code-behind file when setting the datacontext..
         /// </summary>
         public static string Options_CodeBehindConstructorContentDescription {
             get {
@@ -790,7 +1402,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code-behind page content.
+        ///   Looks up a localized string similar to Code-behind page content:.
         /// </summary>
         public static string Options_CodeBehindPageContent {
             get {
@@ -808,7 +1420,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code-behind file default content.
+        ///   Looks up a localized string similar to Code-behind file default content:.
         /// </summary>
         public static string Options_CodeBehindPlaceholder {
             get {
@@ -826,7 +1438,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Datacontext.
+        ///   Looks up a localized string similar to DataContext.
         /// </summary>
         public static string Options_DataContextHeader {
             get {
@@ -835,7 +1447,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default code-behind constructor.
+        ///   Looks up a localized string similar to Default code-behind constructor:.
         /// </summary>
         public static string Options_DefaultCodeBehindConstructor {
             get {
@@ -862,7 +1474,16 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enum output.
+        ///   Looks up a localized string similar to Increases the amount of information displayed in the output window. Can be helpful in identifying errors or diagnosing why specific output was produced..
+        /// </summary>
+        public static string Options_EnableExtendedLoggingDescription {
+            get {
+                return ResourceManager.GetString("Options_EnableExtendedLoggingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enum output:.
         /// </summary>
         public static string Options_EnumMappingOutput {
             get {
@@ -880,7 +1501,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fallback output.
+        ///   Looks up a localized string similar to Fallback output:.
         /// </summary>
         public static string Options_FallbackOutput {
             get {
@@ -916,7 +1537,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only if readonly.
+        ///   Looks up a localized string similar to Only if read-only.
         /// </summary>
         public static string Options_MappingIfReadOnly {
             get {
@@ -934,7 +1555,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name filter.
+        ///   Looks up a localized string similar to Name filter:.
         /// </summary>
         public static string Options_MappingNameFilter {
             get {
@@ -952,7 +1573,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Output.
+        ///   Looks up a localized string similar to Output:.
         /// </summary>
         public static string Options_MappingOutput {
             get {
@@ -961,7 +1582,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The output that shoudl be generated if this mapping is used..
+        ///   Looks up a localized string similar to The output that should be generated if this mapping is used..
         /// </summary>
         public static string Options_MappingOutputDescription {
             get {
@@ -979,7 +1600,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type.
+        ///   Looks up a localized string similar to Type:.
         /// </summary>
         public static string Options_MappingType {
             get {
@@ -1015,7 +1636,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
+        ///   Looks up a localized string similar to Name:.
         /// </summary>
         public static string Options_ProfileName {
             get {
@@ -1060,7 +1681,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sub-property output.
+        ///   Looks up a localized string similar to Sub-property output:.
         /// </summary>
         public static string Options_SubPropertyOutput {
             get {
@@ -1087,7 +1708,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ViewModel directory name.
+        ///   Looks up a localized string similar to ViewModel directory name:.
         /// </summary>
         public static string Options_ViewModelDirectoryName {
             get {
@@ -1105,7 +1726,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ViewModel file suffix.
+        ///   Looks up a localized string similar to ViewModel file suffix:.
         /// </summary>
         public static string Options_ViewModelFileSuffix {
             get {
@@ -1123,7 +1744,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ViewModel Project Suffix.
+        ///   Looks up a localized string similar to ViewModel project suffix:.
         /// </summary>
         public static string Options_ViewModelProjectSuffix {
             get {
@@ -1141,7 +1762,34 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAML file directory name.
+        ///   Looks up a localized string similar to Invalid placeholder detected: {0}.
+        /// </summary>
+        public static string Options_Warn_InvalidPlaceholders {
+            get {
+                return ResourceManager.GetString("Options_Warn_InvalidPlaceholders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown placeholder detected: {0}.
+        /// </summary>
+        public static string Options_Warn_UnknownPlaceholders {
+            get {
+                return ResourceManager.GetString("Options_Warn_UnknownPlaceholders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not leave blank. Use &apos;{0}&apos; if no output is required..
+        /// </summary>
+        public static string Options_Warn_UseNoOutputNotBlank {
+            get {
+                return ResourceManager.GetString("Options_Warn_UseNoOutputNotBlank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XAML file directory name:.
         /// </summary>
         public static string Options_XamlFileDirectoryName {
             get {
@@ -1159,7 +1807,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAML file suffix.
+        ///   Looks up a localized string similar to XAML file suffix:.
         /// </summary>
         public static string Options_XamlFileSuffix {
             get {
@@ -1177,7 +1825,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAMLPage attribute.
+        ///   Looks up a localized string similar to XAML page attribute:.
         /// </summary>
         public static string Options_XamlPageAttribute {
             get {
@@ -1195,7 +1843,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAML file default content.
+        ///   Looks up a localized string similar to XAML file default content:.
         /// </summary>
         public static string Options_XamlPlaceholder {
             get {
@@ -1213,7 +1861,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XAML Project Suffix.
+        ///   Looks up a localized string similar to XAML project suffix:.
         /// </summary>
         public static string Options_XamlProjectSuffix {
             get {
@@ -1312,7 +1960,9 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following issues prevented the profile from being imported:\r\n\r\n- {0}.
+        ///   Looks up a localized string similar to The following issues prevented the profile from being imported:
+        ///
+        ///- {0}.
         /// </summary>
         public static string Prompt_ImportFailedMessage {
             get {
@@ -1357,6 +2007,69 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add ColumnDefinitions.
+        /// </summary>
+        public static string UI_AddColumnDefinitions {
+            get {
+                return ResourceManager.GetString("UI_AddColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify Keyboard property..
+        /// </summary>
+        public static string UI_AddEntryKeyboard {
+            get {
+                return ResourceManager.GetString("UI_AddEntryKeyboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add missing column definitions..
+        /// </summary>
+        public static string UI_AddMissingColumnDefinitions {
+            get {
+                return ResourceManager.GetString("UI_AddMissingColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add missing row definitions..
+        /// </summary>
+        public static string UI_AddMissingRowDefinitions {
+            get {
+                return ResourceManager.GetString("UI_AddMissingRowDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add RowDefinitions and ColumnDefinitions.
+        /// </summary>
+        public static string UI_AddRowAndColumnDefinitions {
+            get {
+                return ResourceManager.GetString("UI_AddRowAndColumnDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add RowDefinitions.
+        /// </summary>
+        public static string UI_AddRowDefinitions {
+            get {
+                return ResourceManager.GetString("UI_AddRowDefinitions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify InputScope property..
+        /// </summary>
+        public static string UI_AddTextBoxInputScope {
+            get {
+                return ResourceManager.GetString("UI_AddTextBoxInputScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} (copy).
         /// </summary>
         public static string UI_CopiedProfileName {
@@ -1371,6 +2084,24 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_CreatingOutputPaneFailed {
             get {
                 return ResourceManager.GetString("UI_CreatingOutputPaneFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert new definition for row {this.tag.RowId}.
+        /// </summary>
+        public static string UI_InsertNewDefinitionForRow {
+            get {
+                return ResourceManager.GetString("UI_InsertNewDefinitionForRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move hard-coded string to resource file..
+        /// </summary>
+        public static string UI_MoveHardCodedString {
+            get {
+                return ResourceManager.GetString("UI_MoveHardCodedString", resourceCulture);
             }
         }
         

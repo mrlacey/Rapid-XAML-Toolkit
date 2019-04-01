@@ -4,11 +4,14 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EnvDTE;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
+using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
 {
@@ -19,44 +22,50 @@ namespace RapidXamlToolkit.Commands
         {
         }
 
-        public async Task<AnalyzerOutput> GetXamlAsync(IAsyncServiceProvider serviceProvider)
+        public async Task<ParserOutput> GetXamlAsync(IAsyncServiceProvider serviceProvider)
         {
-            AnalyzerOutput result = null;
+            ParserOutput result = null;
 
-            if (AnalyzerBase.GetSettings().Profiles.Any())
+            if (CodeParserBase.GetSettings().Profiles.Any())
             {
-                var dte = await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
-                var activeDocument = dte.ActiveDocument;
-
-                var textView = await GetTextViewAsync(serviceProvider);
-
-                var selection = textView.Selection;
-
-                bool isSelection = selection.Start.Position != selection.End.Position;
-
-                var caretPosition = textView.Caret.Position.BufferPosition;
-
-                var document = caretPosition.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
-
-                var semanticModel = await document.GetSemanticModelAsync();
-
-                var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
-                var xamlIndent = await vs.GetXamlIndentAsync();
-
-                IDocumentAnalyzer analyzer = null;
-
-                if (activeDocument.Language == "CSharp")
+                if (!(await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) is DTE dte))
                 {
-                    analyzer = new CSharpAnalyzer(this.Logger, xamlIndent);
+                    RapidXamlPackage.Logger?.RecordError("Failed to get DTE in GetXamlFromCodeWindowBaseCommand.GetXamlAsync");
                 }
-                else if (activeDocument.Language == "Basic")
+                else
                 {
-                    analyzer = new VisualBasicAnalyzer(this.Logger, xamlIndent);
-                }
+                    var activeDocument = dte.ActiveDocument;
 
-                result = isSelection
-                    ? analyzer?.GetSelectionOutput(await document.GetSyntaxRootAsync(), semanticModel, selection.Start.Position, selection.End.Position)
-                    : analyzer?.GetSingleItemOutput(await document.GetSyntaxRootAsync(), semanticModel, caretPosition.Position);
+                    var textView = await GetTextViewAsync(serviceProvider);
+
+                    var selection = textView.Selection;
+
+                    bool isSelection = selection.Start.Position != selection.End.Position;
+
+                    var caretPosition = textView.Caret.Position.BufferPosition;
+
+                    var document = caretPosition.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
+
+                    var semanticModel = await document.GetSemanticModelAsync();
+
+                    var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
+                    var xamlIndent = await vs.GetXamlIndentAsync();
+
+                    IDocumentParser parser = null;
+
+                    if (activeDocument.Language == "CSharp")
+                    {
+                        parser = new CSharpParser(this.Logger, xamlIndent);
+                    }
+                    else if (activeDocument.Language == "Basic")
+                    {
+                        parser = new VisualBasicParser(this.Logger, xamlIndent);
+                    }
+
+                    result = isSelection
+                        ? parser?.GetSelectionOutput(await document.GetSyntaxRootAsync(), semanticModel, selection.Start.Position, selection.End.Position)
+                        : parser?.GetSingleItemOutput(await document.GetSyntaxRootAsync(), semanticModel, caretPosition.Position);
+                }
             }
             else
             {
@@ -66,12 +75,18 @@ namespace RapidXamlToolkit.Commands
             return result;
         }
 
-        protected static async System.Threading.Tasks.Task ShowStatusBarMessageAsync(IAsyncServiceProvider serviceProvider, string message)
+        protected static async Task ShowStatusBarMessageAsync(IAsyncServiceProvider serviceProvider, string message)
         {
             try
             {
-                var dte = await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
-                dte.StatusBar.Text = message;
+                if (await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) is DTE dte)
+                {
+                    dte.StatusBar.Text = message;
+                }
+                else
+                {
+                    RapidXamlPackage.Logger?.RecordError("Failed to get DTE in GetXamlFromCodeWindowBaseCommand.ShowStatusBarMessageAsync");
+                }
             }
             catch (Exception exc)
             {
@@ -87,7 +102,7 @@ namespace RapidXamlToolkit.Commands
                 {
                     menuCmd.Visible = menuCmd.Enabled = false;
 
-                    if (AnalyzerBase.GetSettings().IsActiveProfileSet)
+                    if (CodeParserBase.GetSettings().IsActiveProfileSet)
                     {
                         menuCmd.Visible = menuCmd.Enabled = true;
                     }

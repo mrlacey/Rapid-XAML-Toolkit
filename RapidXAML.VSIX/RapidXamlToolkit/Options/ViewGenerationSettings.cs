@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
@@ -133,10 +134,12 @@ namespace RapidXamlToolkit.Options
                 }
                 else
                 {
-                    var viewProject = new VisualNode($"MyApp.{this.XamlProjectSuffix}");
+                    var viewDot = string.IsNullOrWhiteSpace(this.XamlProjectSuffix) ? string.Empty : ".";
+                    var viewProject = new VisualNode($"MyApp{viewDot}{this.XamlProjectSuffix}");
                     viewProject.ChildNodes.Add(viewFolder);
 
-                    var vmProject = new VisualNode($"MyApp.{this.ViewModelProjectSuffix}");
+                    var vmDot = string.IsNullOrWhiteSpace(this.ViewModelProjectSuffix) ? string.Empty : ".";
+                    var vmProject = new VisualNode($"MyApp{vmDot}{this.ViewModelProjectSuffix}");
                     vmProject.ChildNodes.Add(vmFolder);
 
                     solution.ChildNodes.Add(viewProject);
@@ -145,6 +148,16 @@ namespace RapidXamlToolkit.Options
 
                 return new Collection<VisualNode>(new List<VisualNode>() { solution });
             }
+        }
+
+        public string GetXamlPlaceholderErrorMessage(string placeholder)
+        {
+            return OptionsEntryValidator.Validate(placeholder, typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.XamlPlaceholder), checkforNoOutput: false);
+        }
+
+        internal string GetCodeBehindPlaceholderErrorMessage(string placeholder)
+        {
+            return OptionsEntryValidator.Validate(placeholder, typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.CodePlaceholder), checkforNoOutput: false);
         }
     }
 }

@@ -5,23 +5,13 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.DragDrop;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests.DragDrop
 {
     [TestClass]
     public class DropHandlerLogicTests : DropHandlerTestsBase
     {
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException), "profile")]
-        public void CheckConstructorRequiredParam_Profile()
-        {
-            var fileContents = " // Just a comment";
-
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
-
-            var sut = new DropHandlerLogic(null, DefaultTestLogger.Create(), vsa);
-        }
-
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException), "logger")]
         public void CheckConstructorRequiredParam_Logger()
@@ -32,7 +22,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
 
-            var sut = new DropHandlerLogic(profile, null, vsa);
+            var sut = new DropHandlerLogic(null, vsa);
         }
 
         [TestMethod]
@@ -41,7 +31,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
         {
             var profile = TestProfile.CreateEmpty();
 
-            var sut = new DropHandlerLogic(profile, DefaultTestLogger.Create(), null);
+            var sut = new DropHandlerLogic(DefaultTestLogger.Create(), null);
         }
     }
 }

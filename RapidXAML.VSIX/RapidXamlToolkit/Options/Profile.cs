@@ -3,19 +3,46 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Options
 {
-    public class Profile : CanNotifyPropertyChanged, ICloneable
+    public class Profile : CanNotifyPropertyChangedAndDataErrorInfo, ICloneable
     {
         private Mapping selectedMapping;
 
         private ObservableCollection<Mapping> mappings;
+        private string name;
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+
+            set
+            {
+                this.name = value;
+
+                if (string.IsNullOrWhiteSpace(this.Name))
+                {
+                    this.Errors.Add(nameof(this.Name), "Name should not be blank.");
+                }
+                else
+                {
+                    if (this.Errors.ContainsKey(nameof(this.Name)))
+                    {
+                        this.Errors.Remove(nameof(this.Name));
+                    }
+                }
+
+                this.OnPropertyChanged();
+            }
+        }
 
         public string ClassGrouping { get; set; }
 
@@ -48,6 +75,12 @@ namespace RapidXamlToolkit.Options
         {
             get
             {
+                if (this.selectedMapping == null && this.Mappings.Any())
+                {
+                    this.selectedMapping = this.Mappings.First();
+                    this.OnPropertyChanged();
+                }
+
                 return this.selectedMapping;
             }
 
@@ -107,6 +140,21 @@ namespace RapidXamlToolkit.Options
         public string AsJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        internal string GetFallbackOutputErrorMessage(string output)
+        {
+            return OptionsEntryValidator.Validate(output, typeof(Profile), nameof(Profile.FallbackOutput));
+        }
+
+        internal string GetSubPropertyOutputErrorMessage(string output)
+        {
+            return OptionsEntryValidator.Validate(output, typeof(Profile), nameof(Profile.SubPropertyOutput));
+        }
+
+        internal string GetEnumMemberOutputErrorMessage(string output)
+        {
+            return OptionsEntryValidator.Validate(output, typeof(Profile), nameof(Profile.EnumMemberOutput), checkforNoOutput: false);
         }
     }
 }

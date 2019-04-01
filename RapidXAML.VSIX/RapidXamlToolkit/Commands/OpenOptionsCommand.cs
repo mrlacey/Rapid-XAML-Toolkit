@@ -4,9 +4,9 @@
 using System;
 using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.Commands
         {
             // Verify the current thread is the UI thread - the call to AddCommand in OpenOptionsCommand's constructor requires
             // the UI thread.
-            ThreadHelper.ThrowIfNotOnUIThread();
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new OpenOptionsCommand(package, commandService, logger);
@@ -50,7 +50,7 @@ namespace RapidXamlToolkit.Commands
                 {
                     menuCmd.Visible = menuCmd.Enabled = false;
 
-                    if (!AnalyzerBase.GetSettings().IsActiveProfileSet)
+                    if (!CodeParserBase.GetSettings().IsActiveProfileSet)
                     {
                         menuCmd.Visible = menuCmd.Enabled = true;
                     }

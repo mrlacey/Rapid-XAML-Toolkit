@@ -6,14 +6,15 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Commands;
-using RapidXamlToolkit.Confguration;
+using RapidXamlToolkit.Configuration;
 using RapidXamlToolkit.DragDrop;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.Telemetry;
+using RapidXamlToolkit.XamlAnalysis;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit
@@ -48,8 +49,9 @@ namespace RapidXamlToolkit
 
             try
             {
-                // Set the ServiceProvider of AnalyzerBase as it's needed to get settings
-                AnalyzerBase.ServiceProvider = this;
+                // Set the ServiceProvider of CodeParserBase as it's needed to get settings
+                CodeParserBase.ServiceProvider = this;
+                Logger.RecordInfo(StringRes.Info_ProblemsInstructionsAndLink);
                 Logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
 
                 await CreateViewCommand.InitializeAsync(this, Logger);
@@ -57,14 +59,28 @@ namespace RapidXamlToolkit
                 await SendToToolboxCommand.InitializeAsync(this, Logger);
                 await OpenOptionsCommand.InitializeAsync(this, Logger);
                 await SetDatacontextCommand.InitializeAsync(this, Logger);
-                await InsertGridRowDefinitionCommand.InitializeAsync(this, Logger);
+                await MoveAllHardCodedStringsToResourceFileCommand.InitializeAsync(this, Logger);
                 await RapidXamlDropHandlerProvider.InitializeAsync(this, Logger);
+
+                await this.SetUpRunningDocumentTableEventsAsync(cancellationToken);
+                RapidXamlDocumentCache.Initialize(this);
             }
             catch (Exception exc)
             {
                 Logger.RecordException(exc);
                 throw;  // Remove for launch. see issue #90
             }
+        }
+
+        private async Task SetUpRunningDocumentTableEventsAsync(CancellationToken cancellationToken)
+        {
+            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+            var runningDocumentTable = new RunningDocumentTable(this);
+
+            var plugin = new RapidXamlRunningDocTableEvents(this, runningDocumentTable);
+
+            runningDocumentTable.Advise(plugin);
         }
     }
 }

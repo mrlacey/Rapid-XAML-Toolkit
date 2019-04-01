@@ -310,7 +310,7 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>보기(XAML 파일)가 포함된 프로젝트 이름 끝의 텍스트입니다.</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
+  <data name="Options_ButtonExport" xml:space="preserve">
     <value>내보내기</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
@@ -537,7 +537,9 @@
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>다음 문제로 인해 프로필을 가져올 수 없습니다:\r\n\r\n- {0}</value>
+    <value>다음 문제로 인해 프로필을 가져올 수 없습니다:
+
+- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
     <value>프로필을 가져올 수 없습니다.</value>

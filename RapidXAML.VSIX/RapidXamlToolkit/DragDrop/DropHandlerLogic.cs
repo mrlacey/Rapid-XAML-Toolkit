@@ -3,27 +3,28 @@
 
 using System;
 using System.Threading.Tasks;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.DragDrop
 {
     public class DropHandlerLogic
     {
-        private readonly Profile profile;
         private readonly ILogger logger;
         private readonly IFileSystemAbstraction fileSystem;
+        private readonly Profile profileOverride;
         private readonly IVisualStudioAbstraction vs;
 
-        public DropHandlerLogic(Profile profile, ILogger logger, IVisualStudioAbstraction vs, IFileSystemAbstraction fileSystem = null)
+        public DropHandlerLogic(ILogger logger, IVisualStudioAbstraction vs, IFileSystemAbstraction fileSystem = null, Profile profileOverride = null)
         {
-            this.profile = profile ?? throw new ArgumentNullException(nameof(profile));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.vs = vs ?? throw new ArgumentNullException(nameof(vs));
             this.fileSystem = fileSystem ?? new WindowsFileSystem();
+            this.profileOverride = profileOverride;
         }
 
         public async Task<string> ExecuteAsync(string draggedFilename, int insertLineLength)
@@ -33,8 +34,8 @@ namespace RapidXamlToolkit.DragDrop
 
             var indent = await this.vs.GetXamlIndentAsync();
 
-            var analyzer = fileExt == ".cs" ? new CSharpAnalyzer(this.logger, indent)
-                                            : (IDocumentAnalyzer)new VisualBasicAnalyzer(this.logger, indent);
+            var parser = fileExt == ".cs" ? new CSharpParser(this.logger, indent, this.profileOverride)
+                                          : (IDocumentParser)new VisualBasicParser(this.logger, indent, this.profileOverride);
 
             // IndexOf is allowing for "class " in C# and "Class " in VB
             var cursorPos = fileContents.IndexOf("lass ");
@@ -55,9 +56,9 @@ namespace RapidXamlToolkit.DragDrop
 
             var treeRoot = await syntaxTree.GetRootAsync();
 
-            var analyzerOutput = analyzer.GetSingleItemOutput(treeRoot, semModel, cursorPos, this.profile);
+            var parserOutput = parser.GetSingleItemOutput(treeRoot, semModel, cursorPos);
 
-            string textOutput = analyzerOutput.Output;
+            string textOutput = parserOutput.Output;
 
             if (insertLineLength > 0)
             {

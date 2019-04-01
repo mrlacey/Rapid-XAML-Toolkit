@@ -310,7 +310,7 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>Текст в конце имени проекта, который содержит шаблоны View (XAML-файлы).</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
+  <data name="Options_ButtonExport" xml:space="preserve">
     <value>Экспортировать</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
@@ -537,7 +537,9 @@
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>Следующие проблемы не позволили импортировать профиль\r\n\r\n- {0}</value>
+    <value>Следующие проблемы не позволили импортировать профиль
+
+- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
     <value>Не удалось импортировать профиль</value>

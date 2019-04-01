@@ -71,13 +71,18 @@ namespace RapidXamlToolkit.Tests.Options
 
             foreach (var profile in defSet.Profiles)
             {
-                Assert.IsTrue(profile.FallbackOutput.IsValidXamlOutput(), $"{nameof(Profile.FallbackOutput)} in profile {profile.Name}");
-                Assert.IsTrue(profile.SubPropertyOutput.IsValidXamlOutput(), $"{nameof(Profile.SubPropertyOutput)} in profile {profile.Name}");
-                Assert.IsTrue(profile.EnumMemberOutput.IsValidXamlOutput(), $"{nameof(Profile.EnumMemberOutput)} in profile {profile.Name}");
+                Assert.IsTrue(profile.ViewGeneration.XamlPlaceholder.IsValidXamlOutput(), $"{nameof(Profile.ViewGeneration.XamlPlaceholder)} in profile '{profile.Name}' is not valid XAML.");
+
+                Assert.IsTrue(profile.FallbackOutput.IsValidXamlOutput(), $"{nameof(Profile.FallbackOutput)} in profile '{profile.Name}' is not valid XAML.");
+                Assert.IsTrue(profile.SubPropertyOutput.IsValidXamlOutput(), $"{nameof(Profile.SubPropertyOutput)} in profile '{profile.Name}' is not valid XAML.");
+                Assert.IsTrue(profile.EnumMemberOutput.IsValidXamlOutput(), $"{nameof(Profile.EnumMemberOutput)} in profile '{profile.Name}' is not valid XAML.");
 
                 foreach (var mapping in profile.Mappings)
                 {
-                    Assert.IsTrue(mapping.Output.IsValidXamlOutput(), $"Invalid output: {mapping.Output}");
+                    if (mapping.Output != Placeholder.NoOutput)
+                    {
+                        Assert.IsTrue(mapping.Output.IsValidXamlOutput(), $"Invalid output: {mapping.Output}");
+                    }
                 }
             }
         }
@@ -174,12 +179,12 @@ namespace RapidXamlToolkit.Tests.Options
             {
                 var json = profile.AsJson();
 
-                var analyzer = new ApiAnalysis.SimpleJsonAnalyzer();
+                var parser = new ApiAnalysis.SimpleJsonAnalyzer();
 
-                var analyzerResults = await analyzer.AnalyzeJsonAsync(json, typeof(Profile));
+                var parserResults = await parser.AnalyzeJsonAsync(json, typeof(Profile));
 
-                Assert.AreEqual(1, analyzerResults.Count);
-                Assert.AreEqual(analyzer.MessageBuilder.AllGoodMessage, analyzerResults.First());
+                Assert.AreEqual(1, parserResults.Count);
+                Assert.AreEqual(parser.MessageBuilder.AllGoodMessage, parserResults.First());
             }
         }
     }

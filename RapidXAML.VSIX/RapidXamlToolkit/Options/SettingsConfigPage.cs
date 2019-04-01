@@ -22,6 +22,7 @@ namespace RapidXamlToolkit.Options
             base.OnActivate(e);
 
             this.settingsControl.SettingsProvider = this.GetConfiguredSettings();
+            this.settingsControl.SelectFirstProfileInList();
         }
 
         protected override void OnApply(PageApplyEventArgs e)

@@ -128,61 +128,61 @@
     <value>Indicate that the ViewModels and Views (XAML files) are in the same project.</value>
   </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
-    <value>Add</value>
+    <value>_Add</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Copy</value>
+    <value>_Copy</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Delete</value>
+    <value>_Delete</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Edit</value>
+    <value>_Edit</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>Import</value>
+    <value>_Import</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>New</value>
+    <value>_New</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
     <value>Ok</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>_Reset</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
-    <value>Set as Active</value>
+    <value>_Set as Active</value>
   </data>
   <data name="Options_ClassGrouping" xml:space="preserve">
-    <value>Class grouping</value>
+    <value>Class grouping:</value>
   </data>
   <data name="Options_ClassGroupingDescription" xml:space="preserve">
     <value>The element that encapsulates the elements created for each property when creating XAML for a class.</value>
   </data>
   <data name="Options_CodeBehindConstructorContent" xml:space="preserve">
-    <value>Code-behind constructor content</value>
+    <value>Code-behind constructor content:</value>
   </data>
   <data name="Options_CodeBehindConstructorContentDescription" xml:space="preserve">
-    <value>Code that should be added to the constructor of the code behind file when setting the datacontext.</value>
+    <value>Code that should be added to the constructor of the code-behind file when setting the datacontext.</value>
   </data>
   <data name="Options_CodeBehindPageContent" xml:space="preserve">
-    <value>Code-behind page content</value>
+    <value>Code-behind page content:</value>
   </data>
   <data name="Options_CodeBehindPageContentDescription" xml:space="preserve">
     <value>Code that should be added to the code-behind file, outside of the constructor, when setting the datacontext.</value>
   </data>
   <data name="Options_CodeBehindPlaceholder" xml:space="preserve">
-    <value>Code-behind file default content</value>
+    <value>Code-behind file default content:</value>
   </data>
   <data name="Options_CodeBehindPlaceholderDescription" xml:space="preserve">
     <value>The default file contents when creating a code-behind file.</value>
   </data>
   <data name="Options_DataContextHeader" xml:space="preserve">
-    <value>Datacontext</value>
+    <value>DataContext</value>
   </data>
   <data name="Options_DefaultCodeBehindConstructor" xml:space="preserve">
-    <value>Default code-behind constructor</value>
+    <value>Default code-behind constructor:</value>
   </data>
   <data name="Options_DefaultCodeBehindConstructorDescription" xml:space="preserve">
     <value>The constuctor of the code-behind file that will be added, if needed and one doesn't already exist.</value>
@@ -191,13 +191,13 @@
     <value>Enable extended logging</value>
   </data>
   <data name="Options_EnumMappingOutput" xml:space="preserve">
-    <value>Enum output</value>
+    <value>Enum output:</value>
   </data>
   <data name="Options_EnumMappingOutputDescription" xml:space="preserve">
     <value>The output used for each element of an enumeration.</value>
   </data>
   <data name="Options_FallbackOutput" xml:space="preserve">
-    <value>Fallback output</value>
+    <value>Fallback output:</value>
   </data>
   <data name="Options_FallbackOutputDescription" xml:space="preserve">
     <value>The output used for a property when no specific mapping can be applied.</value>
@@ -206,28 +206,28 @@
     <value>General Settings</value>
   </data>
   <data name="Options_MappingIfReadOnly" xml:space="preserve">
-    <value>Only if readonly</value>
+    <value>Only if read-only</value>
   </data>
   <data name="Options_MappingIfReadOnlyDescription" xml:space="preserve">
     <value>The mapping should only apply if the property has a public setter.</value>
   </data>
   <data name="Options_MappingNameFilter" xml:space="preserve">
-    <value>Name filter</value>
+    <value>Name filter:</value>
   </data>
   <data name="Options_MappingNameFilterDescription" xml:space="preserve">
     <value>The partial name of the property to match with. Multiple values can be specified if separated by a pipe (|) character.</value>
   </data>
   <data name="Options_MappingOutput" xml:space="preserve">
-    <value>Output</value>
+    <value>Output:</value>
   </data>
   <data name="Options_MappingOutputDescription" xml:space="preserve">
-    <value>The output that shoudl be generated if this mapping is used.</value>
+    <value>The output that should be generated if this mapping is used.</value>
   </data>
   <data name="Options_MappingsHeader" xml:space="preserve">
     <value>Mappings</value>
   </data>
   <data name="Options_MappingType" xml:space="preserve">
-    <value>Type</value>
+    <value>Type:</value>
   </data>
   <data name="Options_MappingTypeDescription" xml:space="preserve">
     <value>The type of the property to match with. Multiple values can be specified if separated by a pipe (|) character.</value>
@@ -239,7 +239,7 @@
     <value>Visualize solution structure</value>
   </data>
   <data name="Options_ProfileName" xml:space="preserve">
-    <value>Name</value>
+    <value>Name:</value>
   </data>
   <data name="Options_ProfilePageTitle" xml:space="preserve">
     <value>Rapid XAML Toolkit - Edit Profile</value>
@@ -254,7 +254,7 @@
     <value>Project strucutre</value>
   </data>
   <data name="Options_SubPropertyOutput" xml:space="preserve">
-    <value>Sub-property output</value>
+    <value>Sub-property output:</value>
   </data>
   <data name="Options_SubPropertyOutputDescription" xml:space="preserve">
     <value>The output used for each property of a generic type.</value>
@@ -263,55 +263,55 @@
     <value>This UI is temporary and will change before release</value>
   </data>
   <data name="Options_ViewModelDirectoryName" xml:space="preserve">
-    <value>ViewModel directory name</value>
+    <value>ViewModel directory name:</value>
   </data>
   <data name="Options_ViewModelDirectoryNameDescription" xml:space="preserve">
     <value>The name of the folder that contains the ViewModels.</value>
   </data>
   <data name="Options_ViewModelFileSuffix" xml:space="preserve">
-    <value>ViewModel file suffix</value>
+    <value>ViewModel file suffix:</value>
   </data>
   <data name="Options_ViewModelFileSuffixDescription" xml:space="preserve">
     <value>The text appended to the end of the name of each ViewModel.</value>
   </data>
   <data name="Options_ViewModelProjectSuffix" xml:space="preserve">
-    <value>ViewModel Project Suffix</value>
+    <value>ViewModel project suffix:</value>
   </data>
   <data name="Options_ViewModelProjectSuffixDescription" xml:space="preserve">
     <value>The text from the end of the name of the project that contains the ViewModels. </value>
   </data>
   <data name="Options_XamlFileDirectoryName" xml:space="preserve">
-    <value>XAML file directory name</value>
+    <value>XAML file directory name:</value>
   </data>
   <data name="Options_XamlFileDirectoryNameDescription" xml:space="preserve">
     <value>The name of the folder that contains the Views (XAML files.)</value>
   </data>
   <data name="Options_XamlFileSuffix" xml:space="preserve">
-    <value>XAML file suffix</value>
+    <value>XAML file suffix:</value>
   </data>
   <data name="Options_XamlFileSuffixDescription" xml:space="preserve">
     <value>The text appended to the end of the name of each View (XAML file.)</value>
   </data>
   <data name="Options_XamlPageAttribute" xml:space="preserve">
-    <value>XAMLPage attribute</value>
+    <value>XAML page attribute:</value>
   </data>
   <data name="Options_XamlPageAttributeDescription" xml:space="preserve">
     <value>The attribute that should be added ot the top level XAMLelement when setting the datacontext.</value>
   </data>
   <data name="Options_XamlPlaceholder" xml:space="preserve">
-    <value>XAML file default content</value>
+    <value>XAML file default content:</value>
   </data>
   <data name="Options_XamlPlaceholderDescription" xml:space="preserve">
     <value>The default file contents when creating a new XAML file.</value>
   </data>
   <data name="Options_XamlProjectSuffix" xml:space="preserve">
-    <value>XAML Project Suffix</value>
+    <value>XAML project suffix:</value>
   </data>
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>The text from the end of the name of the project that contains the Views (XAML files.)</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
-    <value>Export</value>
+  <data name="Options_ButtonExport" xml:space="preserve">
+    <value>E_xport</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
     <value>Unable to find project '{0}' in the solution.</value>
@@ -537,7 +537,9 @@
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>The following issues prevented the profile from being imported:\r\n\r\n- {0}</value>
+    <value>The following issues prevented the profile from being imported:
+
+- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
     <value>Unable to import profile</value>
@@ -598,7 +600,7 @@
     <value>Rapid XAML Toolkit</value>
     <comment>Name used in vsixlangpack</comment>
   </data>
-  <data name="Info_UndoContextIndertRowDef" xml:space="preserve">
+  <data name="Info_UndoContextInsertRowDef" xml:space="preserve">
     <value>Insert RowDefinition</value>
   </data>
   <data name="VSCT_InsertGridRowDefinitionCommandId" xml:space="preserve">
@@ -609,7 +611,7 @@
     <value>Unable to insert RowDefinition (Invalid XAML)</value>
   </data>
   <data name="Options_AttemptAutomaticDocumentFormatting" xml:space="preserve">
-    <value>Attempt Automatic Document Formatting</value>
+    <value>Attempt automatic document formatting</value>
   </data>
   <data name="Options_AttemptAutomaticDocumentFormattingDescription" xml:space="preserve">
     <value>Trigger Visual Studio's automatic document formatting after modifying a document</value>
@@ -622,5 +624,248 @@
   </data>
   <data name="Info_CouldNotFindClassInFile" xml:space="preserve">
     <value>Unable to find class definition in file '{0}'</value>
+  </data>
+  <data name="Options_EnableExtendedLoggingDescription" xml:space="preserve">
+    <value>Increases the amount of information displayed in the output window. Can be helpful in identifying errors or diagnosing why specific output was produced.</value>
+  </data>
+  <data name="Options_Warn_InvalidPlaceholders" xml:space="preserve">
+    <value>Invalid placeholder detected: {0}</value>
+  </data>
+  <data name="Options_Warn_UnknownPlaceholders" xml:space="preserve">
+    <value>Unknown placeholder detected: {0}</value>
+  </data>
+  <data name="Options_Warn_UseNoOutputNotBlank" xml:space="preserve">
+    <value>Do not leave blank. Use '{0}' if no output is required.</value>
+  </data>
+  <data name="Info_ProblemsInstructionsAndLink" xml:space="preserve">
+    <value>If you have problems with this extension, or suggestions for improvement, report them at https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/new/choose </value>
+  </data>
+  <data name="Info_UndoContextAddColumnDefinitions" xml:space="preserve">
+    <value>Add ColumnDefinitions</value>
+  </data>
+  <data name="Info_UndoContextAddRowAndColumnDefinitions" xml:space="preserve">
+    <value>Add RowDefinitions and ColumnDefinitions</value>
+  </data>
+  <data name="Info_UndoContextAddRowDefinitions" xml:space="preserve">
+    <value>Add RowDefinitions</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringButtonContentMessage" xml:space="preserve">
+    <value>Button contains hard-coded Content value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringExtendedMessage" xml:space="preserve">
+    <value>Do not use hard-coded values. Use a localized resource instead.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTextblockTextMessage" xml:space="preserve">
+    <value>TextBlock contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTooltip" xml:space="preserve">
+    <value>Hard-coded string</value>
+  </data>
+  <data name="UI_AddColumnDefinitions" xml:space="preserve">
+    <value>Add ColumnDefinitions</value>
+  </data>
+  <data name="UI_AddRowAndColumnDefinitions" xml:space="preserve">
+    <value>Add RowDefinitions and ColumnDefinitions</value>
+  </data>
+  <data name="UI_AddRowDefinitions" xml:space="preserve">
+    <value>Add RowDefinitions</value>
+  </data>
+  <data name="UI_InsertNewDefinitionForRow" xml:space="preserve">
+    <value>Insert new definition for row {this.tag.RowId}</value>
+  </data>
+  <data name="UI_MoveHardCodedString" xml:space="preserve">
+    <value>Move hard-coded string to resource file.</value>
+  </data>
+  <data name="Error_XamlAnalysisDescription" xml:space="preserve">
+    <value>Unexpected error occurred while parsing XAML.</value>
+  </data>
+  <data name="Error_XamlAnalysisExtendedMessage" xml:space="preserve">
+    <value>Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: {0}</value>
+  </data>
+  <data name="Info_UndoContextAddMissingColumnDefinitions" xml:space="preserve">
+    <value>Add missing column definitions</value>
+  </data>
+  <data name="Info_UndoContextAddMissingRowDefinitions" xml:space="preserve">
+    <value>Add missing row definitions</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingColumnDefinitionDescription" xml:space="preserve">
+    <value>Use of undefined Column '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingColumnDefinitionExtendedMessage" xml:space="preserve">
+    <value>The use of undefined columns can lead to unexpected layout behavior. It can also be confusing for other people looking at the code.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingColumnDefinitionTooltip" xml:space="preserve">
+    <value>No corresponding column definition</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingRowDefinitionDescription" xml:space="preserve">
+    <value>Use of undefined Row '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingRowDefinitionExtendedMessage" xml:space="preserve">
+    <value>The use of undefined rows can lead to unexpected layout behavior. It can also be confusing for other people looking at the code.</value>
+  </data>
+  <data name="Info_XamlAnalysisMissingRowDefinitionTooltip" xml:space="preserve">
+    <value>No corresponding row definition</value>
+  </data>
+  <data name="UI_AddMissingColumnDefinitions" xml:space="preserve">
+    <value>Add missing column definitions.</value>
+  </data>
+  <data name="UI_AddMissingRowDefinitions" xml:space="preserve">
+    <value>Add missing row definitions.</value>
+  </data>
+  <data name="Info_UndoContextMoveStringToResourceFile" xml:space="preserve">
+    <value>Move string to resource file</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTextboxHeaderMessage" xml:space="preserve">
+    <value>TextBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage" xml:space="preserve">
+    <value>TextBox contains hard-coded PlaceholderText value '{0}'.</value>
+  </data>
+  <data name="Info_NoResourceFileFound" xml:space="preserve">
+    <value>No resource file was found in the project. Add one and then try again.</value>
+  </data>
+  <data name="Info_UndoContextAddEntryKeyboard" xml:space="preserve">
+    <value>Add Keyboard property.</value>
+  </data>
+  <data name="Info_XamlAnalysisEntryWithoutKeyboardDescription" xml:space="preserve">
+    <value>Keyboard is not specified for the Entry.</value>
+  </data>
+  <data name="Info_XamlAnalysisEntryWithoutKeyboardExtendedMessage" xml:space="preserve">
+    <value>Specifying the keyboard can make it easier for the user to enter the correct value. </value>
+  </data>
+  <data name="UI_AddEntryKeyboard" xml:space="preserve">
+    <value>Specify Keyboard property.</value>
+  </data>
+  <data name="Info_UndoContextAddTextBoxInputScope" xml:space="preserve">
+    <value>Add InputScope property.</value>
+  </data>
+  <data name="Info_XamlAnalysisTextBoxWithoutInputScopeDescription" xml:space="preserve">
+    <value>InputScope is not specified for the TextBox.</value>
+  </data>
+  <data name="Info_XamlAnalysisTextBoxWithoutInputScopeExtendedMessage" xml:space="preserve">
+    <value>Specifying the InputScope can make it easier for the user to enter the correct value. </value>
+  </data>
+  <data name="UI_AddTextBoxInputScope" xml:space="preserve">
+    <value>Specify InputScope property.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringAppBarButtonLabelMessage" xml:space="preserve">
+    <value>AppBarButton contains hard-coded Label value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringAppBarToggleButtonLabelMessage" xml:space="preserve">
+    <value>AppBarToggleButton contains hard-coded Label value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringAutoSuggestBoxHeaderMessage" xml:space="preserve">
+    <value>AutoSuggestBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringAutoSuggestBoxPlaceHolderMessage" xml:space="preserve">
+    <value>AutoSuggestBox contains hard-coded Placeholder value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringCalendarDatePickerDescriptionMessage" xml:space="preserve">
+    <value>CalendarDatePicker contains hard-coded Description value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringCalendarDatePickerHeaderMessage" xml:space="preserve">
+    <value>CalendarDatePicker contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringCheckboxContentMessage" xml:space="preserve">
+    <value>CheckBox contains hard-coded Content value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringComboboxHeaderMessage" xml:space="preserve">
+    <value>ComboBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringDatePickerHeaderMessage" xml:space="preserve">
+    <value>DatePicker contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringHubHeaderMessage" xml:space="preserve">
+    <value>Hub contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringHubSectionHeaderMessage" xml:space="preserve">
+    <value>HubSection contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringHyperlinkButtonContentMessage" xml:space="preserve">
+    <value>HyperlinkButton contains hard-coded Content value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage" xml:space="preserve">
+    <value>MenuFlyoutItem contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringMenuFlyoutSubItemTextMessage" xml:space="preserve">
+    <value>MenuFlyoutSubItem contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringPivotItemHeaderMessage" xml:space="preserve">
+    <value>PivotItem contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringPivotTitleMessage" xml:space="preserve">
+    <value>Pivot contains hard-coded Title value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringRepeatButtonContentMessage" xml:space="preserve">
+    <value>RepeatButton contains hard-coded Content value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage" xml:space="preserve">
+    <value>RichEditBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage" xml:space="preserve">
+    <value>TimePicker contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleMenuFlyoutItemTextMessage" xml:space="preserve">
+    <value>ToggleMenuFlyoutItem contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleSwitchHeaderMessage" xml:space="preserve">
+    <value>ToggleSwitch contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleSwitchOffContentMessage" xml:space="preserve">
+    <value>ToggleSwitch contains hard-coded OffContent value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringToggleSwitchOnContentMessage" xml:space="preserve">
+    <value>ToggleSwitch contains hard-coded OnContent value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringLabelTextMessage" xml:space="preserve">
+    <value>Label contains hard-coded Text value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringSliderHeaderMessage" xml:space="preserve">
+    <value>Slider contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisColumnSpanOverflowDescription" xml:space="preserve">
+    <value>Attempting to use more than the defined number of columns.</value>
+  </data>
+  <data name="Info_XamlAnalysisColumnSpanOverflowTooltip" xml:space="preserve">
+    <value>Attempting to span more columns than are defined.</value>
+  </data>
+  <data name="Info_XamlAnalysisRowSpanOverflowDescription" xml:space="preserve">
+    <value>Attempting to use more than the defined number of rows.</value>
+  </data>
+  <data name="Info_XamlAnalysisRowSpanOverflowTooltip" xml:space="preserve">
+    <value>Attempting to span more rows than are defined.</value>
+  </data>
+  <data name="Info_XamlAnalysisHardcodedStringPasswordboxHeaderMessage" xml:space="preserve">
+    <value>PasswordBox contains hard-coded Header value '{0}'.</value>
+  </data>
+  <data name="Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsDescription" xml:space="preserve">
+    <value>Handle both `Checked` and `Unchecked` events if handle one.</value>
+  </data>
+  <data name="Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsExtendedMessage" xml:space="preserve">
+    <value>The Checked and Unchecked events occur independently. If you handle these events, you should handle both of them to respond to state changes in the check box.</value>
+  </data>
+  <data name="Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip" xml:space="preserve">
+    <value>Handle both `Checked` and `Unchecked` events.</value>
+  </data>
+  <data name="Info_XamlAnalysisUseMediaPlayerElementDescription" xml:space="preserve">
+    <value>Use MediaPlayerElement in place of MediaElement.</value>
+  </data>
+  <data name="Info_XamlAnalysisUseMediaPlayerElementExtendedMessage" xml:space="preserve">
+    <value>It is recommend that you use MediaPlayerElement in place of MediaElement. MediaPlayerElement has the same functionality as MediaElement, while also enabling more advanced media playback scenarios. Additionally, all future improvements in media playback will happen in MediaPlayerElement.</value>
+  </data>
+  <data name="Info_XamlAnalysisUseMediaPlayerElementToolTip" xml:space="preserve">
+    <value>Use MediaPlayerElement in place of MediaElement.</value>
+  </data>
+  <data name="Info_XamlAnalysisNameTitleCaseDescription" xml:space="preserve">
+    <value>Name should begin with an upper case character: {0}</value>
+  </data>
+  <data name="Info_XamlAnalysisNameTitleCaseToolTip" xml:space="preserve">
+    <value>Name value should begin with an upper case character.</value>
+  </data>
+  <data name="Info_XamlAnalysisUidTitleCaseDescription" xml:space="preserve">
+    <value>Uid should begin with an upper case character: {0}</value>
+  </data>
+  <data name="Info_XamlAnalysisUidTitleCaseToolTip" xml:space="preserve">
+    <value>Uid value should begin with an upper case character.</value>
   </data>
 </root>

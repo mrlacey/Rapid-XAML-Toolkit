@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.Tests.CreateViews
                 ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.csproj" },
             };
 
-            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new CreateViewCommandLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.cs");
 
@@ -108,7 +108,7 @@ namespace RapidXamlToolkit.Tests.CreateViews
                 ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.csproj" },
             };
 
-            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new CreateViewCommandLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.cs");
 
@@ -180,7 +180,7 @@ namespace RapidXamlToolkit.Tests.CreateViews
                 NamedProject = new ProjectWrapper { Name = "App", FileName = @"C:\Test\App\App.csproj" },
             };
 
-            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new CreateViewCommandLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             await sut.ExecuteAsync(@"C:\Test\App.ViewModels\TestViewModel.cs");
 
@@ -247,7 +247,7 @@ namespace RapidXamlToolkit.Tests.CreateViews
                 SemanticModel = semModel,
                 ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.csproj" },
             };
-            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new CreateViewCommandLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             await sut.ExecuteAsync(@"C:\Test\App\ViewModels\TestViewModel.cs");
 
@@ -281,7 +281,7 @@ namespace RapidXamlToolkit.Tests.CreateViews
                 ActiveProject = new ProjectWrapper() { Name = "App", FileName = @"C:\Test\App\App.csproj" },
             };
 
-            var sut = new CreateViewCommandLogic(profile, DefaultTestLogger.Create(), vsa, fs);
+            var sut = new CreateViewCommandLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
             await sut.ExecuteAsync(@"C:\Test\App\Files\TestViewModel.cs");
 

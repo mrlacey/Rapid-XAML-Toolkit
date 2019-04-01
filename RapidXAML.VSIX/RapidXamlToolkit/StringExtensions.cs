@@ -144,9 +144,22 @@ namespace RapidXamlToolkit
 
         public static string RemoveAllWhitespace(this string source)
         {
-            return source.Replace(" ", string.Empty)
-                         .Replace("\t", string.Empty)
-                         .Replace(Environment.NewLine, string.Empty);
+            return System.Text.RegularExpressions.Regex.Replace(source, @"\s+", string.Empty);
+        }
+
+        public static string RemoveNonAlphaNumerics(this string source)
+        {
+            var result = new StringBuilder(source.Length);
+
+            for (int i = 0; i < source.Length; i++)
+            {
+                if (char.IsLetterOrDigit(source[i]))
+                {
+                    result.Append(source[i]);
+                }
+            }
+
+            return result.ToString();
         }
 
         public static string Append(this string value, string toAdd)
@@ -276,6 +289,9 @@ namespace RapidXamlToolkit
                         // For scenarios like : "<x:String>$elementwithspaces$</x:String>"
                         possibleXaml = possibleXaml.Replace(placeholder, validText);
                         break;
+                    case Placeholder.GeneratedXAML:
+                        possibleXaml = possibleXaml.Replace(placeholder, "<GeneratedXaml />");
+                        break;
                     default:
                         possibleXaml = possibleXaml.Replace(placeholder, "Something");
                         break;
@@ -288,8 +304,17 @@ namespace RapidXamlToolkit
                 // ignore whitespace at start or end
                 // ignore placeholders and check is valid XML
                 // Wrap in case there are multiple elements
-                // Remove know prefix so it's ignored
-                var element = XElement.Parse($"<wrapper>{possibleXaml.Trim().Replace("x:", string.Empty)}</wrapper>");
+                // Remove known prefix so it's ignored
+                XElement element;
+
+                if (possibleXaml.TrimStart().StartsWith("<?xml "))
+                {
+                    element = XElement.Parse(possibleXaml.Trim().Replace("x:", string.Empty));
+                }
+                else
+                {
+                    element = XElement.Parse($"<wrapper>{possibleXaml.Trim().Replace("x:", string.Empty)}</wrapper>");
+                }
 
                 foreach (var descendantNode in element.DescendantNodes())
                 {
@@ -407,6 +432,26 @@ namespace RapidXamlToolkit
             }
 
             return result;
+        }
+
+        public static string GetBetween(this string source, string start, string end)
+        {
+            if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
+            {
+                return string.Empty;
+            }
+
+            var startPos = source.IndexOf(start);
+            var endPos = source.IndexOf(end, startPos + start.Length);
+
+            if (startPos > -1 && endPos > -1 && endPos > startPos)
+            {
+                return source.Substring(startPos + start.Length, endPos - startPos - start.Length);
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
     }
 }

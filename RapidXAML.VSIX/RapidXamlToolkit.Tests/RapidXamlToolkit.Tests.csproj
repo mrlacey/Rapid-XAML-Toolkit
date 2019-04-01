@@ -41,9 +41,6 @@
     <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -52,22 +49,32 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Analysis\CSharpTestsBase.cs" />
-    <Compile Include="Analysis\GetVisualBasicArrayTests.cs" />
-    <Compile Include="Analysis\GetCSharpClassTests.cs" />
-    <Compile Include="Analysis\GetCSharpArrayTests.cs" />
-    <Compile Include="Analysis\GetVisualBasicNullableTests.cs" />
-    <Compile Include="Analysis\GetCSharpPropertiesTests.cs" />
-    <Compile Include="Analysis\GetCSharpSelectionTests.cs" />
-    <Compile Include="Analysis\GetCSharpNullableTests.cs" />
-    <Compile Include="Analysis\GetVisualBasicStructsTests.cs" />
-    <Compile Include="Analysis\GetCSharpStructsTests.cs" />
-    <Compile Include="Analysis\GetVisualBasicClassTests.cs" />
-    <Compile Include="Analysis\GetVisualBasicPropertiesTests.cs" />
-    <Compile Include="Analysis\GetVisualBasicSelectionTests.cs" />
-    <Compile Include="Analysis\IStarsRepresentCaretInDocsTests.cs" />
-    <Compile Include="Analysis\StarsRepresentCaretInDocsTests.cs" />
-    <Compile Include="Analysis\VisualBasicTestsBase.cs" />
+    <Compile Include="FakeTextSnapshot.cs" />
+    <Compile Include="FakeTextSnapshotLine.cs" />
+    <Compile Include="Grid\GridExclusionsTests.cs" />
+    <Compile Include="Grid\GridInsertRowPreviewTests.cs" />
+    <Compile Include="Grid\GridProcessTests.cs" />
+    <Compile Include="Grid\GridReplacementTests.cs" />
+    <Compile Include="Grid\MissingDefinitionsTests.cs" />
+    <Compile Include="Misc\MiscRealWorldTests.cs" />
+    <Compile Include="Parsers\CSharpTestsBase.cs" />
+    <Compile Include="Parsers\GetCSharpAttributesTests.cs" />
+    <Compile Include="Parsers\GetVisualBasicArrayTests.cs" />
+    <Compile Include="Parsers\GetCSharpClassTests.cs" />
+    <Compile Include="Parsers\GetCSharpArrayTests.cs" />
+    <Compile Include="Parsers\GetVisualBasicAttributesTests.cs" />
+    <Compile Include="Parsers\GetVisualBasicNullableTests.cs" />
+    <Compile Include="Parsers\GetCSharpPropertiesTests.cs" />
+    <Compile Include="Parsers\GetCSharpSelectionTests.cs" />
+    <Compile Include="Parsers\GetCSharpNullableTests.cs" />
+    <Compile Include="Parsers\GetVisualBasicStructsTests.cs" />
+    <Compile Include="Parsers\GetCSharpStructsTests.cs" />
+    <Compile Include="Parsers\GetVisualBasicClassTests.cs" />
+    <Compile Include="Parsers\GetVisualBasicPropertiesTests.cs" />
+    <Compile Include="Parsers\GetVisualBasicSelectionTests.cs" />
+    <Compile Include="Parsers\IStarsRepresentCaretInDocsTests.cs" />
+    <Compile Include="Parsers\StarsRepresentCaretInDocsTests.cs" />
+    <Compile Include="Parsers\VisualBasicTestsBase.cs" />
     <Compile Include="CreateViews\CreateViewVisualBasicTests.cs" />
     <Compile Include="CreateViews\CreateViewCSharpTests.cs" />
     <Compile Include="DefaultTestLogger.cs" />
@@ -79,6 +86,7 @@
     <Compile Include="Formatting\OutputGenerationTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Grid\InsertRowDefinitionTests.cs" />
+    <Compile Include="Options\AllowedPlaceholderValidatorTests.cs" />
     <Compile Include="Options\DefaultConfigurationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetDatacontext\MiscDatacontextLogicTests.cs" />
@@ -89,6 +97,12 @@
     <Compile Include="TestFileSystem.cs" />
     <Compile Include="TestProfile.cs" />
     <Compile Include="TestVisualStudioAbstraction.cs" />
+    <Compile Include="XamlAnalysis\ButtonProcessTests.cs" />
+    <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\TestableXamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\TextBlockProcessTests.cs" />
+    <Compile Include="XamlAnalysis\XamlElementExtractorTests.cs" />
+    <Compile Include="XamlAnalysis\XamlElementProcessorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
@@ -109,22 +123,24 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ApiAnalysis.SimpleJsonAnalyzer.vsixuse">
-      <Version>1.7.0</Version>
+      <Version>1.8.0</Version>
+    </PackageReference>
+    <PackageReference Include="Madskristensen.VisualStudio.SDK">
+      <Version>15.8.81-pre</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
-      <Version>1.1.0</Version>
+      <Version>2.6.3</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.LanguageServices">
-      <Version>2.7.0</Version>
+      <Version>2.9.0</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestAdapter">
-      <Version>1.3.2</Version>
+      <Version>1.4.0</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework">
-      <Version>1.3.2</Version>
-    </PackageReference>
-    <PackageReference Include="MultiLineStringAnalyzer">
-      <Version>1.1.0</Version>
+      <Version>1.4.0</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.0-beta006</Version>

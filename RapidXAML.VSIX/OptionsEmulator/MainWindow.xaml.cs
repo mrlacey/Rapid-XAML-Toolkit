@@ -16,9 +16,19 @@ namespace OptionsEmulator
 
             this.Settings.DataContext = ConfiguredSettings.GetDefaultSettings();
             this.Settings.DisableButtonsForEmulator();
+            this.Settings.SelectFirstProfileInList();
 
-            // Pick a random profile to show in tab - makes repeated testing more interesting
-            this.ProfileConfig.SetDataContextAndHost(ConfiguredSettings.GetDefaultSettings().Profiles.OrderBy(p => Guid.NewGuid()).First(), null);
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                // Pick a random profile to show in tab - makes repeated manual testing more interesting
+                this.ProfileConfig.SetDataContextAndHost(ConfiguredSettings.GetDefaultSettings().Profiles.OrderBy(p => Guid.NewGuid()).First(), null);
+            }
+            else
+            {
+                // Always use the same in automated testing so can compare visuals
+                this.ProfileConfig.SetDataContextAndHost(ConfiguredSettings.GetDefaultSettings().Profiles.First(), null);
+            }
+
             this.ProfileConfig.DisableButtonsForEmulator();
         }
     }

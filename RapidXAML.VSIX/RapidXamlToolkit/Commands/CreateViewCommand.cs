@@ -11,9 +11,10 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
@@ -44,17 +45,17 @@ namespace RapidXamlToolkit.Commands
         public static async Task InitializeAsync(AsyncPackage package, ILogger logger)
         {
             // Verify the current thread is the UI thread - the call to AddCommand in CreateViewCommand's constructor requires the UI thread.
-            ThreadHelper.ThrowIfNotOnUIThread();
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new CreateViewCommand(package, commandService, logger);
         }
 
-        private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
+        private async void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
         {
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 if (sender is OleMenuCommand menuCmd)
                 {
@@ -69,12 +70,12 @@ namespace RapidXamlToolkit.Commands
                     ((IVsProject)hierarchy).GetMkDocument(itemid, out var itemFullPath);
                     var transformFileInfo = new FileInfo(itemFullPath);
 
-                    // Save the name of the selected file so we whave it when the command is executed
+                    // Save the name of the selected file so we have it when the command is executed
                     this.SelectedFileName = transformFileInfo.FullName;
 
                     if (transformFileInfo.Name.EndsWith(".cs") || transformFileInfo.Name.EndsWith(".vb"))
                     {
-                        if (AnalyzerBase.GetSettings().IsActiveProfileSet)
+                        if (CodeParserBase.GetSettings().IsActiveProfileSet)
                         {
                             menuCmd.Visible = menuCmd.Enabled = true;
                         }
@@ -158,16 +159,14 @@ namespace RapidXamlToolkit.Commands
         {
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 this.Logger?.RecordFeatureUsage(nameof(CreateViewCommand));
 
                 this.Logger?.RecordInfo(StringRes.Info_AttemptingToCreateView);
                 var dte = await this.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
 
-                var profile = AnalyzerBase.GetSettings().GetActiveProfile();
-
-                var logic = new CreateViewCommandLogic(profile, this.Logger, new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte));
+                var logic = new CreateViewCommandLogic(this.Logger, new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte));
 
                 await logic.ExecuteAsync(this.SelectedFileName);
 

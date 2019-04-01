@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 
 namespace RapidXamlToolkit.Tests.Formatting
 {
@@ -77,7 +77,8 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetsNonFilteredOutputIfNameDoesntMatch()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "MyProperty", false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var result = cpb.GetPropertyOutput("string", "MyProperty", isReadOnly: false);
 
             Assert.AreEqual(ReadWriteStringOutput.Replace("$name$", "MyProperty"), result);
         }
@@ -85,7 +86,8 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void ReadWritePropertyIsIdentified()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "AnotherProperty", true);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var result = cpb.GetPropertyOutput("string", "AnotherProperty", isReadOnly: true);
 
             Assert.AreEqual(ReadonlyStringOutput.Replace("$name$", "AnotherProperty"), result);
         }
@@ -93,7 +95,8 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void SingleNameContainsIsIdentified()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "int", "number1", false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var result = cpb.GetPropertyOutput("int", "number1", isReadOnly: false);
 
             Assert.AreEqual(ReadWriteNumberIntOutput, result);
         }
@@ -101,7 +104,8 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void MultipleNameContainsIsIdentified()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "EnteredPassword", false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var result = cpb.GetPropertyOutput("string", "EnteredPassword", isReadOnly: false);
 
             Assert.AreEqual(ReadWritePasswordStringOutput.Replace("$name$", "EnteredPassword"), result);
         }
@@ -109,7 +113,8 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void ReadOnlyTakesPriorityOverContains()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "string", "EnteredPwd", true);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var result = cpb.GetPropertyOutput("string", "EnteredPwd", isReadOnly: true);
 
             Assert.AreEqual(ReadonlyStringOutput.Replace("$name$", "EnteredPwd"), result);
         }
@@ -117,7 +122,8 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void TypeNameIsCaseInsensitive()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "INT", "number1", false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var result = cpb.GetPropertyOutput("INT", "number1", isReadOnly: false);
 
             Assert.AreEqual(ReadWriteNumberIntOutput, result);
         }
@@ -125,7 +131,8 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void NameContainsIsCaseInsensitive()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "int", "Number1", false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var result = cpb.GetPropertyOutput("int", "Number1", isReadOnly: false);
 
             Assert.AreEqual(ReadWriteNumberIntOutput, result);
         }
@@ -133,7 +140,8 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void NoNameContainsIsIdentified()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "int", "numero2", false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var result = cpb.GetPropertyOutput("int", "numero2", isReadOnly: false);
 
             Assert.AreEqual(ReadWriteIntOutput, result);
         }
@@ -141,7 +149,8 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetFallbackIfTypeNotMapped()
         {
-            var result = AnalyzerBase.GetPropertyOutput(this.testProfile, "bool", "IsAdmin", false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var result = cpb.GetPropertyOutput("bool", "IsAdmin", isReadOnly: false);
 
             Assert.AreEqual(FallbackOutput, result);
         }
@@ -167,7 +176,8 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var result = AnalyzerBase.GetPropertyOutput(gridProfile, StringPropertyName, "MyProperty", false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, gridProfile);
+            var result = cpb.GetPropertyOutput(StringPropertyName, "MyProperty", false);
 
             var expected = "<TextBlock Text=\"MyProperty\" Grid.Row=\"1\" />" + Environment.NewLine +
                            "<TextBlock Text=\"MyProperty\" Grid.Row=\"2\" />";
@@ -195,7 +205,8 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var result = AnalyzerBase.GetPropertyOutput(readonlyProfile, StringPropertyName, "MyProperty", isReadOnly: true);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, readonlyProfile);
+            var result = cpb.GetPropertyOutput(StringPropertyName, "MyProperty", isReadOnly: true);
 
             Assert.AreEqual("<ReadAndWrite />", result);
         }
@@ -220,7 +231,8 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var result = AnalyzerBase.GetPropertyOutput(readonlyProfile, StringPropertyName, "MyProperty", isReadOnly: false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, readonlyProfile);
+            var result = cpb.GetPropertyOutput(StringPropertyName, "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("<Fallback />", result);
         }
@@ -228,7 +240,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Null()
         {
-            var result = AnalyzerBase.GetSelectionPropertiesName(null);
+            var result = CodeParserBase.GetSelectionPropertiesName(null);
 
             Assert.IsTrue(string.IsNullOrEmpty(result));
         }
@@ -236,7 +248,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Empty()
         {
-            var result = AnalyzerBase.GetSelectionPropertiesName(new List<string>());
+            var result = CodeParserBase.GetSelectionPropertiesName(new List<string>());
 
             Assert.IsTrue(string.IsNullOrEmpty(result));
         }
@@ -244,7 +256,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_One()
         {
-            var result = AnalyzerBase.GetSelectionPropertiesName(new List<string> { "one" });
+            var result = CodeParserBase.GetSelectionPropertiesName(new List<string> { "one" });
 
             Assert.IsTrue(result.Equals("one"));
         }
@@ -252,7 +264,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Two()
         {
-            var result = AnalyzerBase.GetSelectionPropertiesName(new List<string> { "one", "two" });
+            var result = CodeParserBase.GetSelectionPropertiesName(new List<string> { "one", "two" });
 
             Assert.IsTrue(result.Equals("one and two"));
         }
@@ -260,7 +272,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Three()
         {
-            var result = AnalyzerBase.GetSelectionPropertiesName(new List<string> { "one", "two", "three" });
+            var result = CodeParserBase.GetSelectionPropertiesName(new List<string> { "one", "two", "three" });
 
             Assert.IsTrue(result.Equals("one, two and 1 other property"));
         }
@@ -268,7 +280,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Four()
         {
-            var result = AnalyzerBase.GetSelectionPropertiesName(new List<string> { "one", "two", "three", "four" });
+            var result = CodeParserBase.GetSelectionPropertiesName(new List<string> { "one", "two", "three", "four" });
 
             Assert.IsTrue(result.Equals("one, two and 2 other properties"));
         }
@@ -276,7 +288,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Five()
         {
-            var result = AnalyzerBase.GetSelectionPropertiesName(new List<string> { "one", "two", "three", "four", "five" });
+            var result = CodeParserBase.GetSelectionPropertiesName(new List<string> { "one", "two", "three", "four", "five" });
 
             Assert.IsTrue(result.Equals("one, two and 3 other properties"));
         }
@@ -301,7 +313,8 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var result = AnalyzerBase.GetPropertyOutput(wildcardGenericsProfile, "List<string>", "MyProperty", isReadOnly: false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, wildcardGenericsProfile);
+            var result = cpb.GetPropertyOutput("List<string>", "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("<Wildcard />", result);
         }
@@ -333,7 +346,8 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var result = AnalyzerBase.GetPropertyOutput(wildcardGenericsProfile, "List<string>", "MyProperty", isReadOnly: false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, wildcardGenericsProfile);
+            var result = cpb.GetPropertyOutput("List<string>", "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("<ListOfStrings />", result);
         }
@@ -350,7 +364,8 @@ namespace RapidXamlToolkit.Tests.Formatting
                 Output = "$namewithspaces$",
             });
 
-            var result = AnalyzerBase.GetPropertyOutput(profile, "string", "MyProperty", isReadOnly: false);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, profile);
+            var result = cpb.GetPropertyOutput("string", "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("My Property", result);
         }

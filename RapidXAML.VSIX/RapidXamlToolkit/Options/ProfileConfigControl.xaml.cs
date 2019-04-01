@@ -3,8 +3,11 @@
 
 using System;
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
+using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 
 namespace RapidXamlToolkit.Options
@@ -63,11 +66,35 @@ namespace RapidXamlToolkit.Options
                 this.DefaultCodeBehindConstructorEntry.SyntaxHighlighting = null;
 
                 this.SelectedMappingOutputEntry.SyntaxHighlighting = null;
+
+                this.ViewGenXamlPlchldrBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.ViewGenXamlPlchldrBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+                this.ViewGenCodeBehindPlchldrBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.ViewGenCodeBehindPlchldrBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+
+                this.FallbackOutputBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.FallbackOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+                this.SubPropertyOutputBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.SubPropertyOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+                this.EnumMemberOutputBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.EnumMemberOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+
+                this.CodeBehindPageContentBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.CodeBehindPageContentBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+                this.CodeBehindConstructorContentBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.CodeBehindConstructorContentBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+                this.DefaultCodeBehindConstructorBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.DefaultCodeBehindConstructorBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
+
+                this.SelectedMappingOutputBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
+                this.SelectedMappingOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
             }
         }
 
         private void OnSelectedMappingOutputChanged(object sender, EventArgs e)
         {
+            this.OnEditorTextChanged(sender, e);
+
             if (this.viewModel?.SelectedMapping == null)
             {
                 return;
@@ -80,6 +107,8 @@ namespace RapidXamlToolkit.Options
         // Use this to ensure that code is highlighted/colored appropriate to the language (C#/VB) being used
         private void OnCodeChanged(object sender, EventArgs e)
         {
+            this.OnEditorTextChanged(sender, e);
+
             bool CodeLooksLikeCSharp(string codeSnippet)
             {
                 // A very quick, hacky test - improve as/when needed.
@@ -229,6 +258,124 @@ namespace RapidXamlToolkit.Options
         private void DetailsClicked(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/16");
+        }
+
+        private void TextEditorPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                var shiftPressed = (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
+
+                if (shiftPressed)
+                {
+                    (sender as TextEditor).MoveFocus(new TraversalRequest(FocusNavigationDirection.Previous));
+                }
+                else
+                {
+                    (sender as TextEditor).TextArea.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        private void GridPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                var shiftPressed = (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) == ModifierKeys.Shift;
+
+                if (shiftPressed)
+                {
+                    this.EnumMemberOutputEntry.Focus();
+                }
+                else
+                {
+                    this.AddMappingButton.Focus();
+                }
+
+                e.Handled = true;
+            }
+        }
+
+        private void OnEditorTextChanged(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("OnTextChanged");
+
+            string validationErrorMessage = null;
+
+            if (sender is TextEditor te)
+            {
+                switch (te.Name)
+                {
+                    case "ViewGenXamlPlchldrEntry":
+                        validationErrorMessage = this.viewModel.ViewGeneration.GetXamlPlaceholderErrorMessage(te.Text);
+                        break;
+                    case "ViewGenCodeBehindPlchldrEntry":
+                        validationErrorMessage = this.viewModel.ViewGeneration.GetCodeBehindPlaceholderErrorMessage(te.Text);
+                        break;
+                    case "FallbackOutputEntry":
+                        validationErrorMessage = this.viewModel.GetFallbackOutputErrorMessage(te.Text);
+                        break;
+                    case "SubPropertyOutputEntry":
+                        validationErrorMessage = this.viewModel.GetSubPropertyOutputErrorMessage(te.Text);
+                        break;
+                    case "EnumMemberOutputEntry":
+                        validationErrorMessage = this.viewModel.GetEnumMemberOutputErrorMessage(te.Text);
+                        break;
+                    case "SelectedMappingOutputEntry":
+                        validationErrorMessage = this.viewModel.SelectedMapping.GetOutputErrorMessage(te.Text);
+                        break;
+                    case "CodeBehindPageContentEntry":
+                        validationErrorMessage = this.viewModel.Datacontext.GetCodeBehindPageContentErrorMessage(te.Text);
+                        break;
+                    case "CodeBehindConstructorContentEntry":
+                        validationErrorMessage = this.viewModel.Datacontext.GetCodeBehindConstructorContentErrorMessage(te.Text);
+                        break;
+                    case "DefaultCodeBehindConstructorEntry":
+                        validationErrorMessage = this.viewModel.Datacontext.GetCodeBehindDefaultConstructorErrorMessage(te.Text);
+                        break;
+                }
+
+                WarningTriangle icon = null;
+                try
+                {
+                    icon = (WarningTriangle)this.FindName($"{te.Name}Warning");
+                }
+                catch (Exception)
+                {
+                }
+
+                if (string.IsNullOrWhiteSpace(validationErrorMessage))
+                {
+                    te.Background = null;
+                    te.ToolTip = null;
+
+                    if (icon != null)
+                    {
+                        icon.Visibility = Visibility.Collapsed;
+                    }
+                }
+                else
+                {
+                    te.ToolTip = validationErrorMessage;
+
+                    if (icon != null)
+                    {
+                        icon.Visibility = Visibility.Visible;
+                    }
+
+                    try
+                    {
+                        var drawingColor = VSColorTheme.GetThemedColor(EnvironmentColors.ControlEditRequiredBackgroundBrushKey);
+                        te.Background = new SolidColorBrush(Color.FromArgb(drawingColor.A, drawingColor.R, drawingColor.G, drawingColor.B));
+                    }
+                    catch (Exception)
+                    {
+                        // VSColorTheme.GetThemedColor will fail in OptionsEmulator
+                    }
+                }
+            }
         }
     }
 }

@@ -68,7 +68,7 @@ try
 
 			$tempFiles = Get-Childitem –Path "$rootDir" -Include *.TemporarilyRenamedDuringBuild -File -Recurse -ErrorAction SilentlyContinue
 
-			Write-Host "Found "$secretFiles.Count" temporary file(s)"
+			Write-Host "Found "$tempFiles.Count" temporary file(s)"
 
 			Foreach($tempFile in $tempFiles)
 			{

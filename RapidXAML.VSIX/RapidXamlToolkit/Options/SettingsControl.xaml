@@ -1,13 +1,19 @@
-﻿<UserControl x:Class="RapidXamlToolkit.Options.SettingsControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:RapidXamlToolkit"
-             xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+﻿<UserControl
+    x:Class="RapidXamlToolkit.Options.SettingsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:RapidXamlToolkit"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:options="clr-namespace:RapidXamlToolkit.Options"
+    xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
+    d:DesignHeight="350"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <options:ProfileFontWeightConverter x:Key="FontWeightConverter" />
+    </UserControl.Resources>
+    <Grid Margin="6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -15,40 +21,53 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" MinWidth="112" />
         </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,8" Header="{x:Static strings:StringRes.Options_GeneralSettingsHeader}" Padding="4" >
-            <StackPanel Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding ExtendedOutputEnabled, Mode=TwoWay}" />
-                <TextBlock Margin="4,0,0,0" Text="{x:Static strings:StringRes.Options_EnableExtendedLogging }" />
-            </StackPanel>
+        <GroupBox
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            Margin="0,0,0,12"
+            Padding="9"
+            Header="{x:Static strings:StringRes.Options_GeneralSettingsHeader}">
+            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ExtendedOutputEnabled, Mode=TwoWay}">
+                <TextBlock Text="{x:Static strings:StringRes.Options_EnableExtendedLogging}" ToolTip="{x:Static strings:StringRes.Options_EnableExtendedLoggingDescription}" />
+            </CheckBox>
         </GroupBox>
 
         <TextBlock Grid.Row="1" Text="{x:Static strings:StringRes.Options_ProfilesSectionHeader}" />
 
-        <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding ProfilesList}" x:Name="DisplayedProfiles">
+        <ListView
+            x:Name="DisplayedProfiles"
+            Grid.Row="2"
+            Grid.Column="0"
+            ItemsSource="{Binding ProfilesList}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DisplayName}" />
+                    <TextBlock FontWeight="{Binding DisplayName, Converter={StaticResource FontWeightConverter}}" Text="{Binding DisplayName}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <StackPanel Grid.Column="1" Grid.Row="2" Width="100" Margin="8,0,4,0">
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="1"
+            Margin="8,0,4,0">
             <StackPanel.Resources>
                 <Style TargetType="Button">
+                    <Setter Property="Height" Value="23" />
+                    <Setter Property="Padding" Value="6,0" />
                     <Setter Property="Margin" Value="0,0,0,6" />
                 </Style>
             </StackPanel.Resources>
-            <Button Click="SetActiveClicked" Content="{x:Static strings:StringRes.Options_ButtonSetAsActive}" Margin="0,0,0,18" />
+            <Button Click="SetActiveClicked" Content="{x:Static strings:StringRes.Options_ButtonSetAsActive}" />
             <Button Click="AddClicked" Content="{x:Static strings:StringRes.Options_ButtonAdd}" />
             <Button Click="EditClicked" Content="{x:Static strings:StringRes.Options_ButtonEdit}" />
             <Button Click="CopyClicked" Content="{x:Static strings:StringRes.Options_ButtonCopy}" />
             <Button Click="DeleteClicked" Content="{x:Static strings:StringRes.Options_ButtonDelete}" />
             <Button Click="ImportClicked" Content="{x:Static strings:StringRes.Options_ButtonImport}" />
-            <Button Click="ExportClicked" Content="{x:Static strings:StringRes.Option_ButtonExport}" />
+            <Button Click="ExportClicked" Content="{x:Static strings:StringRes.Options_ButtonExport}" />
+            <Button Click="ResetClicked" Content="{x:Static strings:StringRes.Options_ButtonReset}" />
         </StackPanel>
-        <Button Click="ResetClicked"  Content="{x:Static strings:StringRes.Options_ButtonReset}" Grid.Column="1" Grid.Row="2" Width="100" Margin="12,0,4,0" VerticalAlignment="Bottom" />
     </Grid>
 </UserControl>

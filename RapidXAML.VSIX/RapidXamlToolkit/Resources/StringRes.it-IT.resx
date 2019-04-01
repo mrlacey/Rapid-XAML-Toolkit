@@ -128,31 +128,31 @@
     <value>Indica che ViewModels e Views (file XAML) sono nello stesso progetto.</value>
   </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
-    <value>Aggiungi</value>
+    <value>_Aggiungi</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Copia</value>
+    <value>_Copia</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Elimina</value>
+    <value>_Elimina</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Modifica</value>
+    <value>_Modifica</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>Importa</value>
+    <value>_Importa</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>Nuovo</value>
+    <value>_Nuovo</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
     <value>Ok</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
-    <value>Reimposta</value>
+    <value>_Reimposta</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
-    <value>Imposta come Attivo</value>
+    <value>Im_posta come Attivo</value>
   </data>
   <data name="Options_ClassGrouping" xml:space="preserve">
     <value>Raggruppamento classi</value>
@@ -310,8 +310,8 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>Il testo dalla fine del nome del progetto che contiene i Views (file XAML).</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
-    <value>Esporta</value>
+  <data name="Options_ButtonExport" xml:space="preserve">
+    <value>E_sporta</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
     <value>Impossibile trovare il progetto "{0}" nella soluzione.</value>
@@ -537,7 +537,9 @@
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>Le seguenti problematiche non hanno consentito l'importazione del profilo:\r\n\r\n- {0}</value>
+    <value>Le seguenti problematiche non hanno consentito l'importazione del profilo:
+
+- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
     <value>Impossibile importare il profilo</value>

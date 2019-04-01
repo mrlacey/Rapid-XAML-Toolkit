@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests
 {
@@ -84,7 +85,42 @@ namespace RapidXamlToolkit.Tests
             return (this.CursorPosition, this.LineNumber);
         }
 
+        public void ReplaceInActiveDocOnLine(string find, string replace, int lineNumber)
+        {
+            // NOOP
+        }
+
+        public void ReplaceInActiveDoc(string find, string replace, int startIndex, int endIndex)
+        {
+            // NOOP
+        }
+
         public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusion)
+        {
+            // NOOP
+        }
+
+        public void InsertIntoActiveDocumentOnNextLine(string text, int pos)
+        {
+            // NOOP
+        }
+
+        public void InsertAtEndOfLine(int lineNumber, string toInsert)
+        {
+            // NOOP
+        }
+
+        public void DeleteFromEndOfLine(int lineNumber, int charsToDelete)
+        {
+            // NOOP
+        }
+
+        public void StartSingleUndoOperation(string name)
+        {
+            // NOOP
+        }
+
+        public void EndSingleUndoOperation()
         {
             // NOOP
         }
@@ -93,6 +129,11 @@ namespace RapidXamlToolkit.Tests
         {
             await Task.CompletedTask;
             return this.XamlIndent;
+        }
+
+        public void ReplaceInActiveDocOnLineOrAbove(string find, string replace, int lineNumber)
+        {
+            // NOOP
         }
     }
 }

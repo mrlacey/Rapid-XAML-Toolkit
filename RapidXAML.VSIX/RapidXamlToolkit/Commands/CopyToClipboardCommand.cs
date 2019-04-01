@@ -5,8 +5,8 @@ using System;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
-using RapidXamlToolkit.Analyzers;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 using Task = System.Threading.Tasks.Task;
 
@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.Commands
         public static async Task InitializeAsync(AsyncPackage package, ILogger logger)
         {
             // Verify the current thread is the UI thread - the call to AddCommand in CreateXamlStringCommand's constructor requires the UI thread.
-            ThreadHelper.ThrowIfNotOnUIThread();
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new CopyToClipboardCommand(package, commandService, logger);
@@ -46,14 +46,14 @@ namespace RapidXamlToolkit.Commands
         {
             try
             {
-                ThreadHelper.ThrowIfNotOnUIThread();
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 this.Logger?.RecordFeatureUsage(nameof(CopyToClipboardCommand));
 
                 this.Logger?.RecordInfo(StringRes.Info_AttemptingToCopy);
                 var output = await this.GetXamlAsync(Instance.ServiceProvider);
 
-                if (output != null && output.OutputType != AnalyzerOutputType.None)
+                if (output != null && output.OutputType != ParserOutputType.None)
                 {
                     var message = output.Output;
 

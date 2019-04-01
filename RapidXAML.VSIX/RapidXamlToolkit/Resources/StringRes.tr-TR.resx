@@ -128,31 +128,31 @@
     <value>ViewModel'lerin ve Görünümlerin (XAML dosyaları) aynı projede olduğunu belirtir.</value>
   </data>
   <data name="Options_ButtonAdd" xml:space="preserve">
-    <value>Ekle</value>
+    <value>E_kle</value>
   </data>
   <data name="Options_ButtonCopy" xml:space="preserve">
-    <value>Kopyala</value>
+    <value>K_opyala</value>
   </data>
   <data name="Options_ButtonDelete" xml:space="preserve">
-    <value>Sil</value>
+    <value>_Sil</value>
   </data>
   <data name="Options_ButtonEdit" xml:space="preserve">
-    <value>Düzenle</value>
+    <value>Dü_zenle</value>
   </data>
   <data name="Options_ButtonImport" xml:space="preserve">
-    <value>İçeri Aktar</value>
+    <value>İçeri _Aktar</value>
   </data>
   <data name="Options_ButtonNew" xml:space="preserve">
-    <value>Yeni</value>
+    <value>_Yeni</value>
   </data>
   <data name="Options_ButtonOk" xml:space="preserve">
-    <value>Tamam</value>
+    <value>_Tamam</value>
   </data>
   <data name="Options_ButtonReset" xml:space="preserve">
     <value>Sıfırla</value>
   </data>
   <data name="Options_ButtonSetAsActive" xml:space="preserve">
-    <value>Etkin Yap</value>
+    <value>_Etkin Yap</value>
   </data>
   <data name="Options_ClassGrouping" xml:space="preserve">
     <value>Sınıf gruplaması</value>
@@ -310,8 +310,8 @@
   <data name="Options_XamlProjectSuffixDescription" xml:space="preserve">
     <value>Görünümleri (XAML dosyaları) içeren proje adının sonundaki metin.</value>
   </data>
-  <data name="Option_ButtonExport" xml:space="preserve">
-    <value>Dışa Aktar</value>
+  <data name="Options_ButtonExport" xml:space="preserve">
+    <value>_Dışa Aktar</value>
   </data>
   <data name="Error_UnableToFindProjectInSolution" xml:space="preserve">
     <value>Çözümde "{0}" projesi bulunamıyor.</value>
@@ -537,7 +537,9 @@
     <comment>Detailed description for Help/About</comment>
   </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
-    <value>Şu sorunlar profilin içeri aktarılmasını engelledi:\r\n\r\n- {0}</value>
+    <value>Şu sorunlar profilin içeri aktarılmasını engelledi:
+
+- {0}</value>
   </data>
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
     <value>Profil içeri aktarılamıyor</value>

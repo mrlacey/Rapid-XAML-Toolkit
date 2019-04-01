@@ -10,6 +10,11 @@ namespace RapidXamlToolkit.Options
 {
     public class AllowedPlaceholderValidator
     {
+        public bool ContainsIncorrectUseOfNoOutputPlaceholder(string output)
+        {
+            return output.Contains(Placeholder.NoOutput) && output.Trim() != Placeholder.NoOutput;
+        }
+
         public (bool isValid, List<string> invalidPlaceholders) ContainsOnlyValidPlaceholders(Type type, string propertyName, string output)
         {
             var propInfo = type.GetProperty(propertyName);
@@ -29,6 +34,24 @@ namespace RapidXamlToolkit.Options
             }
 
             return (!incorrectlyUsedPlaceholders.Any(), incorrectlyUsedPlaceholders);
+        }
+
+        public (bool isValid, List<string> invalidPlaceholders) ContainsUnknownPlaceholders(string source)
+        {
+            var usedPlaceholders = source.GetPlaceholders();
+            var validPlaceholders = Placeholder.All();
+
+            var unknownPlaceholders = new List<string>();
+
+            foreach (var placeholder in usedPlaceholders)
+            {
+                if (!validPlaceholders.Contains(placeholder))
+                {
+                    unknownPlaceholders.Add(placeholder);
+                }
+            }
+
+            return (!unknownPlaceholders.Any(), unknownPlaceholders);
         }
     }
 }
