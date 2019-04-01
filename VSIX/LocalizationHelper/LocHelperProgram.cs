@@ -25,7 +25,7 @@ namespace LocalizationHelper
             Console.WriteLine("1. Copy values from StringRes to other loc files");
             Console.WriteLine("2. Copy from StringRes to StringRes.en-US");
             Console.WriteLine("3. Create placeholder entries in localized StringRes file for any new items in the localized versions");
-            // TODO: Console.WriteLine("4. Extract new entries for localization");
+            // TODO: ISSUE#82 Console.WriteLine("4. Extract new entries for localization");
             Console.WriteLine();
             Console.WriteLine();
 
@@ -178,7 +178,7 @@ namespace LocalizationHelper
 
         private static void CreateLocalizedPlaceholdersForNewNeutralStringresEntries()
         {
-            // TODO: implement CreateLocalizedPlaceholdersForNewNeutralStringresEntries
+            // TODO: ISSUE#82 implement CreateLocalizedPlaceholdersForNewNeutralStringresEntries
             // List locales being processed
             // List entries being created
 
