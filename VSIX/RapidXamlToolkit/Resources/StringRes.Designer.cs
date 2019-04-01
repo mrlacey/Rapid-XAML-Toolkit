@@ -2079,6 +2079,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change to MediaPlayerElement..
+        /// </summary>
+        public static string UI_ChangeToMediaPlayerElement {
+            get {
+                return ResourceManager.GetString("UI_ChangeToMediaPlayerElement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} (copy).
         /// </summary>
         public static string UI_CopiedProfileName {

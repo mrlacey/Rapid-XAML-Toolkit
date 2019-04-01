@@ -32,6 +32,10 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                     // The FindText call selected the search text so this insert pastes over the top of it
                     txtDoc.Selection.Insert(replace);
                 }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine($"Failed to find '{find}' on line {lineNumber}.");
+                }
             }
         }
 

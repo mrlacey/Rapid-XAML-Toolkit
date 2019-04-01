@@ -871,4 +871,7 @@
   <data name="UI_AddMissingEvent" xml:space="preserve">
     <value>Add missing event.</value>
   </data>
+  <data name="UI_ChangeToMediaPlayerElement" xml:space="preserve">
+    <value>Change to MediaPlayerElement.</value>
+  </data>
 </root>
