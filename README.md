@@ -12,51 +12,51 @@ The functionality of the toolkit is based common conventions but is highly [conf
 
 Consider this project as in an early beta stage. There's still lots to do before it is ready for a full release and there's more functionality we want to add but we're keen to get feedback as soon as possible and focus on the features people want.
 
-| Build | Status | Details |
-|-------|--------|---------|
-| CI | ![CI Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.ci) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/151.md) |
-| nightly | ![Nightly Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.version.create) ![nightly build version](https://rxtstorage.blob.core.windows.net/badges/img.nightly.version.svg) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/152.md) |
+| Build | Status | Details | Install |
+|-------|--------|---------|---------|
+| CI | ![CI Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.ci) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/151.md) | - |
+| nightly | ![Nightly Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.version.create) ![nightly build version](https://rxtstorage.blob.core.windows.net/badges/img.nightly.version.svg) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/152.md) | [myget](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/installation.md#nightly-dev-builds) |
 
 ## Overview
 
 The Rapid XAML Toolkit aims to help developers go from this
 
 ```csharp
-    public class OrderDetailsViewModel : ViewModelBase
-    {
-        public int OrderId { get; private set; }
-        public Guid CustomerId{ get; set; }
-        public DateTimeOffset OrderDate { get; set; }
-        public string OrderNotes { get; set; }
-        public decimal OrderTotal { get; }
-        public ObservableCollection<OrderLineItem> Items { get; set; }
-    }
+public class OrderDetailsViewModel : ViewModelBase
+{
+    public int OrderId { get; private set; }
+    public Guid CustomerId { get; set; }
+    public DateTimeOffset OrderDate { get; set; }
+    public string OrderNotes { get; set; }
+    public decimal OrderTotal { get; }
+    public ObservableCollection<OrderLineItem> Items { get; set; }
+}
 ```
 
 to this
 
 ```xml
-    <StackPanel>
-        <TextBlock Text="{x:Bind ViewModel.OrderId}" />
-        <TextBlock Text="{x:Bind ViewModel.CustomerId}" />
-        <DatePicker Date="{x:Bind ViewModel.OrderDate, Mode=TwoWay}" />
-        <TextBox Text="{x:Bind ViewModel.OrderNotes, Mode=TwoWay}" />
-        <TextBlock Text="{x:Bind ViewModel.OrderTotal}" />
-        <ListView ItemsSource="{x:Bind ViewModel.Items}">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="OrderLineItem">
-                    <StackPanel>
-                        <TextBlock Text="{x:Bind OrderLineId}" />
-                        <TextBlock Text="{x:Bind ItemId}" />
-                        <TextBlock Text="{x:Bind ItemDescription}" />
-                        <TextBlock Text="{x:Bind Quantity}" />
-                        <TextBlock Text="{x:Bind UnitPrice}" />
-                        <TextBlock Text="{x:Bind LineTotal}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackPanel>
+<StackPanel>
+    <TextBlock Text="{x:Bind ViewModel.OrderId}" />
+    <TextBlock Text="{x:Bind ViewModel.CustomerId}" />
+    <DatePicker Date="{x:Bind ViewModel.OrderDate, Mode=TwoWay}" />
+    <TextBox Text="{x:Bind ViewModel.OrderNotes, Mode=TwoWay}" />
+    <TextBlock Text="{x:Bind ViewModel.OrderTotal}" />
+    <ListView ItemsSource="{x:Bind ViewModel.Items}">
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="OrderLineItem">
+                <StackPanel>
+                    <TextBlock Text="{x:Bind OrderLineId}" />
+                    <TextBlock Text="{x:Bind ItemId}" />
+                    <TextBlock Text="{x:Bind ItemDescription}" />
+                    <TextBlock Text="{x:Bind Quantity}" />
+                    <TextBlock Text="{x:Bind UnitPrice}" />
+                    <TextBlock Text="{x:Bind LineTotal}" />
+                </StackPanel>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</StackPanel>
 ```
 
 in a couple of clicks.
