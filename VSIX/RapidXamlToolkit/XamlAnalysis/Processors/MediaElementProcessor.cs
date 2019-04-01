@@ -16,7 +16,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
             var line = snapshot.GetLineFromPosition(offset);
             var col = offset - line.Start.Position;
-            tags.Add(new UseMediaPlayerElementTag(new Span(offset, xamlElement.Length), snapshot, line.LineNumber, col));
+            tags.Add(new UseMediaPlayerElementTag(new Span(offset, xamlElement.Length), snapshot, line.LineNumber, col)
+            {
+                InsertPosition = offset,
+            });
         }
     }
 }

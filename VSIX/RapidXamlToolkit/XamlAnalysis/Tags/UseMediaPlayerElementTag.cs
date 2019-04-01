@@ -13,10 +13,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public UseMediaPlayerElementTag(Span span, ITextSnapshot snapshot, int line, int column)
             : base(span, snapshot, "RXT402", line, column)
         {
-            this.SuggestedAction = null;
+            this.SuggestedAction = typeof(MediaElementAction);
             this.ToolTip = StringRes.Info_XamlAnalysisUseMediaPlayerElementToolTip;
             this.Description = StringRes.Info_XamlAnalysisUseMediaPlayerElementDescription;
             this.ExtendedMessage = StringRes.Info_XamlAnalysisUseMediaPlayerElementExtendedMessage;
         }
+
+        public int InsertPosition { get; set; }
     }
 }

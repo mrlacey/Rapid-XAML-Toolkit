@@ -122,6 +122,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(MissingCheckBoxEventAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, MissingCheckBoxEventAction.Create((CheckBoxCheckedAndUncheckedEventsTag)rxTag, this.file)));
                             break;
+                        case nameof(MediaElementAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, MediaElementAction.Create((UseMediaPlayerElementTag)rxTag, this.file)));
+                            break;
                     }
                 }
             }
