@@ -868,4 +868,7 @@
   <data name="Info_XamlAnalysisUidTitleCaseToolTip" xml:space="preserve">
     <value>Uid value should begin with an upper case character.</value>
   </data>
+  <data name="UI_AddMissingEvent" xml:space="preserve">
+    <value>Add missing event.</value>
+  </data>
 </root>

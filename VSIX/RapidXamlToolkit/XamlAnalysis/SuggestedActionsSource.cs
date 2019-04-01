@@ -119,6 +119,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(AddTextBoxInputScopeAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, AddTextBoxInputScopeAction.Create((AddTextBoxInputScopeTag)rxTag, this.file)));
                             break;
+                        case nameof(MissingCheckBoxEventAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, MissingCheckBoxEventAction.Create((CheckBoxCheckedAndUncheckedEventsTag)rxTag, this.file)));
+                            break;
                     }
                 }
             }
