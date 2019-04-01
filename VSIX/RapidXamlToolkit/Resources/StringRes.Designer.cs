@@ -2034,6 +2034,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add missing event..
+        /// </summary>
+        public static string UI_AddMissingEvent {
+            get {
+                return ResourceManager.GetString("UI_AddMissingEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add missing row definitions..
         /// </summary>
         public static string UI_AddMissingRowDefinitions {

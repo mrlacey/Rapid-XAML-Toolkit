@@ -37,14 +37,20 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var line = snapshot.GetLineFromPosition(offset + checkedIndex);
                 var col = offset + checkedIndex - line.Start.Position;
-                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + checkedIndex, checkedLength), snapshot, line.LineNumber, col));
+                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + checkedIndex, checkedLength), snapshot, line.LineNumber, col, checkedEventName, hasChecked: true)
+                {
+                    InsertPosition = offset,
+                });
             }
 
             if (!hasCheckedEvent && hasuncheckedEvent)
             {
                 var line = snapshot.GetLineFromPosition(offset + uncheckedIndex);
                 var col = offset + uncheckedIndex - line.Start.Position;
-                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + uncheckedIndex, uncheckedLength), snapshot, line.LineNumber, col));
+                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + uncheckedIndex, uncheckedLength), snapshot, line.LineNumber, col, uncheckedEventName, hasChecked: false)
+                {
+                    InsertPosition = offset,
+                });
             }
         }
     }
