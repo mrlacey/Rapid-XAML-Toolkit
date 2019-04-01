@@ -29,7 +29,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 var text = snapshot.GetText();
 
-                // TODO: review when to redo tags, etc, while invalid, or remove any tags created previously
+                // TODO: ISSUE#165 review when to redo tags, etc, while invalid, or remove any tags created previously
                 if (text.IsValidXml())
                 {
                     result.RawText = text;

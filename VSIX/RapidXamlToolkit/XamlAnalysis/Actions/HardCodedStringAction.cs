@@ -119,7 +119,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             }
         }
 
-        // TODO: support .resx too - will need to know which to use if project includes both
+        // TODO: ISSUE#163 support .resx too - will need to know which to use if project includes both
         private string GetResourceFilePath()
         {
             var reswFiles = new List<string>();
