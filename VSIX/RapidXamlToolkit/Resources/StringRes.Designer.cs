@@ -2079,6 +2079,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Capitalize first letter of Name.
+        /// </summary>
+        public static string UI_CapitalizeFirstLetterOfName {
+            get {
+                return ResourceManager.GetString("UI_CapitalizeFirstLetterOfName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capitalize first letter of Uid.
+        /// </summary>
+        public static string UI_CapitalizeFirstLetterOfUid {
+            get {
+                return ResourceManager.GetString("UI_CapitalizeFirstLetterOfUid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change to MediaPlayerElement..
         /// </summary>
         public static string UI_ChangeToMediaPlayerElement {

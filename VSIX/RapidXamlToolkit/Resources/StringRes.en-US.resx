@@ -874,4 +874,10 @@
   <data name="UI_ChangeToMediaPlayerElement" xml:space="preserve">
     <value>Change to MediaPlayerElement.</value>
   </data>
+  <data name="UI_CapitalizeFirstLetterOfName" xml:space="preserve">
+    <value>Capitalize first letter of Name</value>
+  </data>
+  <data name="UI_CapitalizeFirstLetterOfUid" xml:space="preserve">
+    <value>Capitalize first letter of Uid</value>
+  </data>
 </root>
