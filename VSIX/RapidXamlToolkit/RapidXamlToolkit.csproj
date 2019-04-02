@@ -236,10 +236,13 @@
     <Compile Include="XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ColumnSpanOverflowAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MakeNameStartWithCapitalAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MakeUidStartWithCapitalAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MediaElementAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingCheckBoxEventAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
     <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />

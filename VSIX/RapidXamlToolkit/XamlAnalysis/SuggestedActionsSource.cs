@@ -125,6 +125,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(MediaElementAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, MediaElementAction.Create((UseMediaPlayerElementTag)rxTag, this.file)));
                             break;
+                        case nameof(MakeNameStartWithCapitalAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, MakeNameStartWithCapitalAction.Create((NameTitleCaseTag)rxTag, this.file)));
+                            break;
+                        case nameof(MakeUidStartWithCapitalAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, MakeUidStartWithCapitalAction.Create((UidTitleCaseTag)rxTag, this.file)));
+                            break;
                     }
                 }
             }
