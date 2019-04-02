@@ -734,7 +734,7 @@
     <value>Specifying the keyboard can make it easier for the user to enter the correct value. </value>
   </data>
   <data name="UI_AddEntryKeyboard" xml:space="preserve">
-    <value>Specify Keyboard property.</value>
+    <value>Specify Keyboard property as {0}</value>
   </data>
   <data name="Info_UndoContextAddTextBoxInputScope" xml:space="preserve">
     <value>Add InputScope property.</value>

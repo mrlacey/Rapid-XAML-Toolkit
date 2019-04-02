@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Collections.Generic;
 using System.Threading;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
@@ -10,22 +11,30 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public class AddEntryKeyboardAction : BaseSuggestedAction
     {
-        public AddEntryKeyboardAction(string file)
+        public AddEntryKeyboardAction(string file, AddEntryKeyboardTag tag, string keyboardName)
             : base(file)
         {
-            this.DisplayText = StringRes.UI_AddEntryKeyboard;
+            this.DisplayText = StringRes.UI_AddEntryKeyboard.WithParams(keyboardName);
+            this.Tag = tag;
+            this.KeyBoardName = keyboardName;
         }
 
         public AddEntryKeyboardTag Tag { get; private set; }
 
-        public static AddEntryKeyboardAction Create(AddEntryKeyboardTag tag, string file)
-        {
-            var result = new AddEntryKeyboardAction(file)
-            {
-                Tag = tag,
-            };
+        public string KeyBoardName { get; private set; }
 
-            return result;
+        public static AddEntryKeyboardAction[] Create(AddEntryKeyboardTag tag, string file)
+        {
+            var result = new List<AddEntryKeyboardAction>();
+
+            result.Add(new AddEntryKeyboardAction(file, tag, "Default"));
+
+            if (!string.IsNullOrWhiteSpace(tag.NonDefaultKeyboardSuggestion))
+            {
+                result.Add(new AddEntryKeyboardAction(file, tag, tag.NonDefaultKeyboardSuggestion));
+            }
+
+            return result.ToArray();
         }
 
         public override void Execute(CancellationToken cancellationToken)
@@ -36,7 +45,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             {
                 var lineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;
 
-                vs.ReplaceInActiveDocOnLine("<Entry ", "<Entry Keyboard=\"Default\" ", lineNumber);
+                vs.ReplaceInActiveDocOnLine("<Entry ", $"<Entry Keyboard=\"{this.KeyBoardName}\" ", lineNumber);
 
                 RapidXamlDocumentCache.TryUpdate(this.File);
             }
