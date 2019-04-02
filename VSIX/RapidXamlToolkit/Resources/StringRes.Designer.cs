@@ -2016,7 +2016,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify Keyboard property..
+        ///   Looks up a localized string similar to Specify Keyboard property as {0}.
         /// </summary>
         public static string UI_AddEntryKeyboard {
             get {
