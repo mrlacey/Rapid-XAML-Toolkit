@@ -10,7 +10,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     public class ColumnSpanOverflowTag : MissingDefinitionTag
     {
         public ColumnSpanOverflowTag(Span span, ITextSnapshot snapshot, int line, int column)
-            : base(span, snapshot, "RT104", line, column)
+            : base(span, snapshot, "RXT104", line, column)
         {
             this.SuggestedAction = typeof(ColumnSpanOverflowAction);
             this.ToolTip = StringRes.Info_XamlAnalysisColumnSpanOverflowTooltip;
