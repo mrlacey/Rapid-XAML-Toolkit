@@ -84,11 +84,6 @@ namespace RapidXamlToolkit.Tests.Manual.Options
 
                 await TakeScreenshotThenExtractTextAsync(appSession, "Mappings");
 
-                appSession.FindElementByName("Datacontext").Click();
-                await Task.Delay(1000);
-
-                await TakeScreenshotThenExtractTextAsync(appSession, "Datacontext");
-
                 appSession.FindElementByName("General").Click();
                 await Task.Delay(1000);
 

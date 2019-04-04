@@ -54,23 +54,11 @@ namespace RapidXamlToolkit.Options
             if (SystemParameters.HighContrast)
             {
                 // Remove highlighting and default system highlighting will be applied and this includes high contrast
-                this.ViewGenXamlPlchldrEntry.SyntaxHighlighting = null;
-                this.ViewGenCodeBehindPlchldrEntry.SyntaxHighlighting = null;
-
                 this.FallbackOutputEntry.SyntaxHighlighting = null;
                 this.SubPropertyOutputEntry.SyntaxHighlighting = null;
                 this.EnumMemberOutputEntry.SyntaxHighlighting = null;
 
-                this.CodeBehindPageContentEntry.SyntaxHighlighting = null;
-                this.CodeBehindConstructorContentEntry.SyntaxHighlighting = null;
-                this.DefaultCodeBehindConstructorEntry.SyntaxHighlighting = null;
-
                 this.SelectedMappingOutputEntry.SyntaxHighlighting = null;
-
-                this.ViewGenXamlPlchldrBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
-                this.ViewGenXamlPlchldrBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
-                this.ViewGenCodeBehindPlchldrBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
-                this.ViewGenCodeBehindPlchldrBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
 
                 this.FallbackOutputBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
                 this.FallbackOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
@@ -78,13 +66,6 @@ namespace RapidXamlToolkit.Options
                 this.SubPropertyOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
                 this.EnumMemberOutputBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
                 this.EnumMemberOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
-
-                this.CodeBehindPageContentBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
-                this.CodeBehindPageContentBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
-                this.CodeBehindConstructorContentBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
-                this.CodeBehindConstructorContentBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
-                this.DefaultCodeBehindConstructorBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
-                this.DefaultCodeBehindConstructorBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
 
                 this.SelectedMappingOutputBorder.BorderBrush = this.ReferenceTextBox.BorderBrush;
                 this.SelectedMappingOutputBorder.BorderThickness = this.ReferenceTextBox.BorderThickness;
@@ -146,30 +127,16 @@ namespace RapidXamlToolkit.Options
         // Set text for editor controls that don't support binding
         private void SetEditorTexts()
         {
-            this.ViewGenXamlPlchldrEntry.Text = this.viewModel.ViewGeneration.XamlPlaceholder;
-            this.ViewGenCodeBehindPlchldrEntry.Text = this.viewModel.ViewGeneration.CodePlaceholder;
-
             this.FallbackOutputEntry.Text = this.viewModel.FallbackOutput;
             this.SubPropertyOutputEntry.Text = this.viewModel.SubPropertyOutput;
             this.EnumMemberOutputEntry.Text = this.viewModel.EnumMemberOutput;
-
-            this.CodeBehindPageContentEntry.Text = this.viewModel.Datacontext.CodeBehindPageContent;
-            this.CodeBehindConstructorContentEntry.Text = this.viewModel.Datacontext.CodeBehindConstructorContent;
-            this.DefaultCodeBehindConstructorEntry.Text = this.viewModel.Datacontext.DefaultCodeBehindConstructor;
         }
 
         private void GetEditorTexts()
         {
-            this.viewModel.ViewGeneration.XamlPlaceholder = this.ViewGenXamlPlchldrEntry.Text;
-            this.viewModel.ViewGeneration.CodePlaceholder = this.ViewGenCodeBehindPlchldrEntry.Text;
-
             this.viewModel.FallbackOutput = this.FallbackOutputEntry.Text;
             this.viewModel.SubPropertyOutput = this.SubPropertyOutputEntry.Text;
             this.viewModel.EnumMemberOutput = this.EnumMemberOutputEntry.Text;
-
-            this.viewModel.Datacontext.CodeBehindPageContent = this.CodeBehindPageContentEntry.Text;
-            this.viewModel.Datacontext.CodeBehindConstructorContent = this.CodeBehindConstructorContentEntry.Text;
-            this.viewModel.Datacontext.DefaultCodeBehindConstructor = this.DefaultCodeBehindConstructorEntry.Text;
         }
 
         private void OkClicked(object sender, RoutedEventArgs e)
@@ -300,20 +267,12 @@ namespace RapidXamlToolkit.Options
 
         private void OnEditorTextChanged(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("OnTextChanged");
-
             string validationErrorMessage = null;
 
             if (sender is TextEditor te)
             {
                 switch (te.Name)
                 {
-                    case "ViewGenXamlPlchldrEntry":
-                        validationErrorMessage = this.viewModel.ViewGeneration.GetXamlPlaceholderErrorMessage(te.Text);
-                        break;
-                    case "ViewGenCodeBehindPlchldrEntry":
-                        validationErrorMessage = this.viewModel.ViewGeneration.GetCodeBehindPlaceholderErrorMessage(te.Text);
-                        break;
                     case "FallbackOutputEntry":
                         validationErrorMessage = this.viewModel.GetFallbackOutputErrorMessage(te.Text);
                         break;
@@ -325,15 +284,6 @@ namespace RapidXamlToolkit.Options
                         break;
                     case "SelectedMappingOutputEntry":
                         validationErrorMessage = this.viewModel.SelectedMapping.GetOutputErrorMessage(te.Text);
-                        break;
-                    case "CodeBehindPageContentEntry":
-                        validationErrorMessage = this.viewModel.Datacontext.GetCodeBehindPageContentErrorMessage(te.Text);
-                        break;
-                    case "CodeBehindConstructorContentEntry":
-                        validationErrorMessage = this.viewModel.Datacontext.GetCodeBehindConstructorContentErrorMessage(te.Text);
-                        break;
-                    case "DefaultCodeBehindConstructorEntry":
-                        validationErrorMessage = this.viewModel.Datacontext.GetCodeBehindDefaultConstructorErrorMessage(te.Text);
                         break;
                 }
 

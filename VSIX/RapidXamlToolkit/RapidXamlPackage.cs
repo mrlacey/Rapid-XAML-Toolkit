@@ -54,11 +54,9 @@ namespace RapidXamlToolkit
                 Logger.RecordInfo(StringRes.Info_ProblemsInstructionsAndLink);
                 Logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
 
-                await CreateViewCommand.InitializeAsync(this, Logger);
                 await CopyToClipboardCommand.InitializeAsync(this, Logger);
                 await SendToToolboxCommand.InitializeAsync(this, Logger);
                 await OpenOptionsCommand.InitializeAsync(this, Logger);
-                await SetDatacontextCommand.InitializeAsync(this, Logger);
                 await MoveAllHardCodedStringsToResourceFileCommand.InitializeAsync(this, Logger);
                 await RapidXamlDropHandlerProvider.InitializeAsync(this, Logger);
 

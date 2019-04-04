@@ -72,21 +72,6 @@
     </Menus>
 
     <Buttons>
-      <!--To define a menu group you have to specify its ID, the parent menu and its display priority.
-          The command is visible and enabled by default. If you need to change the visibility, status, etc, you can use
-          the CommandFlag node.
-          You can add more than one CommandFlag node e.g.:
-              <CommandFlag>DefaultInvisible</CommandFlag>
-              <CommandFlag>DynamicVisibility</CommandFlag>
-          If you do not want an image next to your command, remove the Icon node /> -->
-      <Button guid="guidRapidXamlPackageCmdSet" id="CreateViewCommandId" priority="0x0100" type="Button">
-        <Icon guid="guidImages" id="bmpCreateView" />
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <ButtonText>Create View</ButtonText>
-        </Strings>
-      </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpCopyAsXaml" />
         <CommandFlag>DefaultInvisible</CommandFlag>
@@ -109,14 +94,6 @@
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>First set an active profile</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidRapidXamlPackageCmdSet" id="SetDatacontextCommandId" priority="0x0100" type="Button">
-        <Icon guid="guidImages" id="bmpSetDc" />
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
-        <Strings>
-          <ButtonText>Set Datacontext</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0100" type="Button">
@@ -149,10 +126,6 @@
       <Parent guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenu" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CreateViewCommandId" priority="0x0100">
-      <Parent guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenuGroup" />
-    </CommandPlacement>
-
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100">
       <Parent guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenuGroup" />
     </CommandPlacement>
@@ -178,10 +151,6 @@
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
     </CommandPlacement>
 
-      <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SetDatacontextCommandId" priority="0x0050">
-        <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
-      </CommandPlacement>
-
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
     </CommandPlacement>
@@ -197,10 +166,6 @@
 
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100">
       <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" />
-    </CommandPlacement>
-
-    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SetDatacontextCommandId" priority="0x0100">
-      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" />
     </CommandPlacement>
 
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
@@ -230,9 +195,7 @@
 
       <IDSymbol name="CopyToClipboardCommandId" value="4128" />
       <IDSymbol name="SendToToolboxCommandId" value="4129" />
-      <IDSymbol name="CreateViewCommandId" value="4130" />
       <IDSymbol name="OpenOptionsCommandId" value="4131" />
-      <IDSymbol name="SetDatacontextCommandId" value="4132" />
       <IDSymbol name="MoveAllHardCodedStringsToResourceFileCommandId" value="4134" />
     </GuidSymbol>
 

@@ -18,25 +18,6 @@ namespace RapidXamlToolkit.Tests
                 SubPropertyOutput = string.Empty,
                 EnumMemberOutput = string.Empty,
                 Mappings = new ObservableCollection<Mapping>(),
-                ViewGeneration = new ViewGenerationSettings
-                {
-                    AllInSameProject = false,
-                    CodePlaceholder = string.Empty,
-                    ViewModelDirectoryName = string.Empty,
-                    ViewModelFileSuffix = string.Empty,
-                    ViewModelProjectSuffix = string.Empty,
-                    XamlFileDirectoryName = string.Empty,
-                    XamlFileSuffix = string.Empty,
-                    XamlPlaceholder = string.Empty,
-                    XamlProjectSuffix = string.Empty,
-                },
-                Datacontext = new DatacontextSettings
-                {
-                    CodeBehindConstructorContent = string.Empty,
-                    CodeBehindPageContent = string.Empty,
-                    DefaultCodeBehindConstructor = string.Empty,
-                    XamlPageAttribute = string.Empty,
-                },
                 General = new GeneralSettings
                 {
                     AttemptAutomaticDocumentFormatting = true,

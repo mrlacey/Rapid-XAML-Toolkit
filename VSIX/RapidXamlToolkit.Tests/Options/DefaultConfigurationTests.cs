@@ -42,23 +42,6 @@ namespace RapidXamlToolkit.Tests.Options
                     Assert.IsNotNull(mapping.Type, nameof(Mapping.Type));
                 }
 
-                Assert.IsNotNull(profile.ViewGeneration, $"{nameof(Profile.ViewGeneration)} in profile {profile.Name}");
-                Assert.IsNotNull(profile.ViewGeneration.AllInSameProject, nameof(ViewGenerationSettings.AllInSameProject));
-                Assert.IsNotNull(profile.ViewGeneration.CodePlaceholder, nameof(ViewGenerationSettings.CodePlaceholder));
-                Assert.IsNotNull(profile.ViewGeneration.ViewModelDirectoryName, nameof(ViewGenerationSettings.ViewModelDirectoryName));
-                Assert.IsNotNull(profile.ViewGeneration.ViewModelFileSuffix, nameof(ViewGenerationSettings.ViewModelFileSuffix));
-                Assert.IsNotNull(profile.ViewGeneration.ViewModelProjectSuffix, nameof(ViewGenerationSettings.ViewModelProjectSuffix));
-                Assert.IsNotNull(profile.ViewGeneration.XamlFileDirectoryName, nameof(ViewGenerationSettings.XamlFileDirectoryName));
-                Assert.IsNotNull(profile.ViewGeneration.XamlFileSuffix, nameof(ViewGenerationSettings.XamlFileSuffix));
-                Assert.IsNotNull(profile.ViewGeneration.XamlPlaceholder, nameof(ViewGenerationSettings.XamlPlaceholder));
-                Assert.IsNotNull(profile.ViewGeneration.XamlProjectSuffix, nameof(ViewGenerationSettings.XamlProjectSuffix));
-
-                Assert.IsNotNull(profile.Datacontext, $"{nameof(Profile.Datacontext)} in profile {profile.Name}");
-                Assert.IsNotNull(profile.Datacontext.CodeBehindConstructorContent, nameof(DatacontextSettings.CodeBehindConstructorContent));
-                Assert.IsNotNull(profile.Datacontext.CodeBehindPageContent, nameof(DatacontextSettings.CodeBehindPageContent));
-                Assert.IsNotNull(profile.Datacontext.DefaultCodeBehindConstructor, nameof(DatacontextSettings.DefaultCodeBehindConstructor));
-                Assert.IsNotNull(profile.Datacontext.XamlPageAttribute, nameof(DatacontextSettings.XamlPageAttribute));
-
                 Assert.IsNotNull(profile.General, $"{nameof(Profile.General)} in profile {profile.Name}");
                 Assert.IsNotNull(profile.General.AttemptAutomaticDocumentFormatting, $"{nameof(Profile.General.AttemptAutomaticDocumentFormatting)} in profile {profile.Name}");
             }
@@ -71,8 +54,6 @@ namespace RapidXamlToolkit.Tests.Options
 
             foreach (var profile in defSet.Profiles)
             {
-                Assert.IsTrue(profile.ViewGeneration.XamlPlaceholder.IsValidXamlOutput(), $"{nameof(Profile.ViewGeneration.XamlPlaceholder)} in profile '{profile.Name}' is not valid XAML.");
-
                 Assert.IsTrue(profile.FallbackOutput.IsValidXamlOutput(), $"{nameof(Profile.FallbackOutput)} in profile '{profile.Name}' is not valid XAML.");
                 Assert.IsTrue(profile.SubPropertyOutput.IsValidXamlOutput(), $"{nameof(Profile.SubPropertyOutput)} in profile '{profile.Name}' is not valid XAML.");
                 Assert.IsTrue(profile.EnumMemberOutput.IsValidXamlOutput(), $"{nameof(Profile.EnumMemberOutput)} in profile '{profile.Name}' is not valid XAML.");
@@ -114,48 +95,6 @@ namespace RapidXamlToolkit.Tests.Options
                 if (!checkResult.isValid)
                 {
                     Assert.Fail($"{nameof(Profile.EnumMemberOutput)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
-                }
-
-                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.CodePlaceholder), profile.ViewGeneration.CodePlaceholder);
-
-                if (!checkResult.isValid)
-                {
-                    Assert.Fail($"{nameof(ViewGenerationSettings)}.{nameof(ViewGenerationSettings.CodePlaceholder)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
-                }
-
-                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(ViewGenerationSettings), nameof(ViewGenerationSettings.XamlPlaceholder), profile.ViewGeneration.XamlPlaceholder);
-
-                if (!checkResult.isValid)
-                {
-                    Assert.Fail($"{nameof(ViewGenerationSettings)}.{nameof(ViewGenerationSettings.XamlPlaceholder)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
-                }
-
-                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.XamlPageAttribute), profile.Datacontext.XamlPageAttribute);
-
-                if (!checkResult.isValid)
-                {
-                    Assert.Fail($"{nameof(DatacontextSettings)}.{nameof(DatacontextSettings.XamlPageAttribute)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
-                }
-
-                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindPageContent), profile.Datacontext.CodeBehindPageContent);
-
-                if (!checkResult.isValid)
-                {
-                    Assert.Fail($"{nameof(DatacontextSettings)}.{nameof(DatacontextSettings.CodeBehindPageContent)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
-                }
-
-                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.CodeBehindConstructorContent), profile.Datacontext.CodeBehindConstructorContent);
-
-                if (!checkResult.isValid)
-                {
-                    Assert.Fail($"{nameof(DatacontextSettings)}.{nameof(DatacontextSettings.CodeBehindConstructorContent)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
-                }
-
-                checkResult = apv.ContainsOnlyValidPlaceholders(typeof(DatacontextSettings), nameof(DatacontextSettings.DefaultCodeBehindConstructor), profile.Datacontext.DefaultCodeBehindConstructor);
-
-                if (!checkResult.isValid)
-                {
-                    Assert.Fail($"{nameof(DatacontextSettings)}.{nameof(DatacontextSettings.DefaultCodeBehindConstructor)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
                 }
 
                 foreach (var mapping in profile.Mappings)
