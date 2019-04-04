@@ -86,14 +86,11 @@
     <Compile Include="Parsers\PropertyDetails.cs" />
     <Compile Include="Parsers\VisualBasicParser.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
-    <Compile Include="Commands\CreateViewCommandLogic.cs" />
     <Compile Include="Commands\IFileSystemAbstraction.cs" />
     <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
     <Compile Include="VisualStudioIntegration\IVisualStudioAbstraction.cs" />
     <Compile Include="Commands\OpenOptionsCommand.cs" />
     <Compile Include="Commands\ProjectWrapper.cs" />
-    <Compile Include="Commands\SetDatacontextCommand.cs" />
-    <Compile Include="Commands\SetDataContextCommandLogic.cs" />
     <Compile Include="VisualStudioIntegration\VisualStudioAbstraction.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />
     <Compile Include="Configuration\RxtSettings.cs" />
@@ -102,7 +99,6 @@
     <Compile Include="DragDrop\RapidXamlDropHandler.cs" />
     <Compile Include="DteExtensions.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />
-    <Compile Include="Commands\CreateViewCommand.cs" />
     <Compile Include="Commands\GetXamlFromCodeWindowBaseCommand.cs" />
     <Compile Include="Commands\SendToToolboxCommand.cs" />
     <Compile Include="Commands\CopyToClipboardCommand.cs" />
@@ -120,7 +116,6 @@
     <Compile Include="Options\CanNotifyPropertyChangedAndDataErrorInfo.cs" />
     <Compile Include="Options\ConfiguredSettings.cs" />
     <Compile Include="Options\ConfiguredSettings.Default.cs" />
-    <Compile Include="Options\DatacontextSettings.cs" />
     <Compile Include="Options\GeneralSettings.cs" />
     <Compile Include="Options\ICanClose.cs" />
     <Compile Include="Options\Mapping.cs" />
@@ -141,7 +136,6 @@
     <Compile Include="Options\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Options\ViewGenerationSettings.cs" />
     <Compile Include="Options\VisualNode.cs" />
     <Compile Include="Options\WarningTriangle.xaml.cs">
       <DependentUpon>WarningTriangle.xaml</DependentUpon>

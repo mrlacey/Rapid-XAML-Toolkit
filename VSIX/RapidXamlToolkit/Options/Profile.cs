@@ -91,10 +91,6 @@ namespace RapidXamlToolkit.Options
             }
         }
 
-        public ViewGenerationSettings ViewGeneration { get; set; }
-
-        public DatacontextSettings Datacontext { get; set; }
-
         public GeneralSettings General { get; set; }
 
         public static Profile CreateNew()
@@ -106,8 +102,7 @@ namespace RapidXamlToolkit.Options
                 FallbackOutput = string.Empty,
                 SubPropertyOutput = string.Empty,
                 Mappings = new ObservableCollection<Mapping>(),
-                ViewGeneration = new ViewGenerationSettings(),
-                Datacontext = new DatacontextSettings(),
+                General = new GeneralSettings(),
             };
         }
 
@@ -120,8 +115,7 @@ namespace RapidXamlToolkit.Options
                 FallbackOutput = this.FallbackOutput,
                 SubPropertyOutput = this.SubPropertyOutput,
                 Mappings = new ObservableCollection<Mapping>(),
-                ViewGeneration = this.ViewGeneration,
-                Datacontext = this.Datacontext,
+                General = this.General,
             };
 
             foreach (var mapping in this.Mappings)

@@ -27,61 +27,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForStackPanelWithoutHeaders(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:local=""using:$viewns$""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    mc:Ignorable=""d"">
-
-    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        $genxaml$
-    </Grid>
-</Page>
-",
-                            CodePlaceholder = @"using System;
-using Windows.UI.Xaml.Controls;
-using $viewmodelns$;
-
-namespace $viewns$
-{
-    public sealed partial class $viewclass$ : Page
-    {
-        public $viewmodelclass$ ViewModel { get; } = new $viewmodelclass$();
-
-        public $viewclass$()
-        {
-            InitializeComponent();
-            DataContext = ViewModel;
-        }
-    }
-}
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = string.Empty,
-                            CodeBehindPageContent = "public $viewmodelns$.$viewmodelclass$ ViewModel { get; } = new $viewmodelns$.$viewmodelclass$();",
-                            CodeBehindConstructorContent = "DataContext = ViewModel;",
-                            DefaultCodeBehindConstructor = @"public $viewclass$()
-{
-    InitializeComponent();
-}",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -96,61 +41,6 @@ namespace $viewns$
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForStackPanelWithHeader(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:local=""using:$viewns$""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    mc:Ignorable=""d"">
-
-    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        $genxaml$
-    </Grid>
-</Page>
-",
-                            CodePlaceholder = @"using System;
-using Windows.UI.Xaml.Controls;
-using $viewmodelns$;
-
-namespace $viewns$
-{
-    public sealed partial class $viewclass$ : Page
-    {
-        public $viewmodelclass$ ViewModel { get; } = new $viewmodelclass$();
-
-        public $viewclass$()
-        {
-            InitializeComponent();
-            DataContext = ViewModel;
-        }
-    }
-}
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = string.Empty,
-                            CodeBehindPageContent = "public $viewmodelns$.$viewmodelclass$ ViewModel { get; } = new $viewmodelns$.$viewmodelclass$();",
-                            CodeBehindConstructorContent = "DataContext = ViewModel;",
-                            DefaultCodeBehindConstructor = @"public $viewclass$()
-{
-    InitializeComponent();
-}",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -165,61 +55,6 @@ namespace $viewns$
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsFor2ColGrid(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:local=""using:$viewns$""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    mc:Ignorable=""d"">
-
-    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        $genxaml$
-    </Grid>
-</Page>
-",
-                            CodePlaceholder = @"using System;
-using Windows.UI.Xaml.Controls;
-using $viewmodelns$;
-
-namespace $viewns$
-{
-    public sealed partial class $viewclass$ : Page
-    {
-        public $viewmodelclass$ ViewModel { get; } = new $viewmodelclass$();
-
-        public $viewclass$()
-        {
-            InitializeComponent();
-            DataContext = ViewModel;
-        }
-    }
-}
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = string.Empty,
-                            CodeBehindPageContent = "public $viewmodelns$.$viewmodelclass$ ViewModel { get; } = new $viewmodelns$.$viewmodelclass$();",
-                            CodeBehindConstructorContent = "DataContext = ViewModel;",
-                            DefaultCodeBehindConstructor = @"public $viewclass$()
-{
-    InitializeComponent();
-}",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -234,61 +69,6 @@ namespace $viewns$
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForRelativePanelWithHeader(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:local=""using:$viewns$""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    mc:Ignorable=""d"">
-
-    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        $genxaml$
-    </Grid>
-</Page>
-",
-                            CodePlaceholder = @"using System;
-using Windows.UI.Xaml.Controls;
-using $viewmodelns$;
-
-namespace $viewns$
-{
-    public sealed partial class $viewclass$ : Page
-    {
-        public $viewmodelclass$ ViewModel { get; } = new $viewmodelclass$();
-
-        public $viewclass$()
-        {
-            InitializeComponent();
-            DataContext = ViewModel;
-        }
-    }
-}
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = string.Empty,
-                            CodeBehindPageContent = "public $viewmodelns$.$viewmodelclass$ ViewModel { get; } = new $viewmodelns$.$viewmodelclass$();",
-                            CodeBehindConstructorContent = "DataContext = ViewModel;",
-                            DefaultCodeBehindConstructor = @"public $viewclass$()
-{
-    InitializeComponent();
-}",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -303,67 +83,6 @@ namespace $viewns$
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForStackPanelWithHeader(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    DataContext=""{Binding $viewmodelclass$, Source={StaticResource Locator}}""
-    mc:Ignorable=""d"">
-
-    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        $genxaml$
-    </Grid>
-</Page>
-",
-                            CodePlaceholder = @"using System;
-using Windows.UI.Xaml.Controls;
-using $viewmodelns$;
-
-namespace $viewns$
-{
-    public sealed partial class $viewclass$ : Page
-    {
-        private $viewmodelclass$ ViewModel
-        {
-            get { return DataContext as $viewmodelclass$; }
-        }
-
-        public $viewclass$()
-        {
-            InitializeComponent();
-        }
-    }
-}
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = "DataContext=\"{Binding $viewmodelclass$, Source={StaticResource Locator}}\"",
-                            CodeBehindPageContent = @"private $viewmodelclass$ ViewModel
-    {
-        get { return DataContext as $viewmodelclass$;
-    }
-}",
-                            CodeBehindConstructorContent = string.Empty,
-                            DefaultCodeBehindConstructor = @"public $viewclass$()
-{
-    InitializeComponent();
-}",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -378,66 +97,6 @@ namespace $viewns$
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForStackPanelWithHeader(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    mc:Ignorable=""d"">
-
-    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        $genxaml$
-    </Grid>
-</Page>
-",
-                            CodePlaceholder = @"using System;
-using Windows.UI.Xaml.Controls;
-using $viewmodelns$;
-
-namespace $viewns$
-{
-    public sealed partial class $viewclass$ : Page
-    {
-        public $viewclass$()
-        {
-            InitializeComponent();
-        }
-
-        private $viewmodelclass$ ViewModel
-        {
-            get { return DataContext as $viewmodelclass$; }
-        }
-    }
-}
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = string.Empty,
-                            CodeBehindPageContent = @"private $viewmodelclass$ ViewModel
-    {
-        get { return DataContext as $viewmodelclass$;
-    }
-}",
-                            CodeBehindConstructorContent = string.Empty,
-                            DefaultCodeBehindConstructor = @"public $viewclass$()
-{
-    InitializeComponent();
-}",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -452,62 +111,6 @@ namespace $viewns$
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForStackPanelWithHeader(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<Page
-    x:Class=""$viewns$.$viewclass$""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    xmlns:prismMvvm=""using:Prism.Windows.Mvvm""
-    prismMvvm:ViewModelLocator.AutoWireViewModel=""True""
-    mc:Ignorable=""d"">
-
-    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        $genxaml$
-    </Grid>
-</Page>
-",
-                            CodePlaceholder = @"using System;
-using Windows.UI.Xaml.Controls;
-using $viewmodelns$;
-
-namespace $viewns$
-{
-    public sealed partial class $viewclass$ : Page
-    {
-        public $viewclass$()
-        {
-            InitializeComponent();
-        }
-
-        private MainViewModel ViewModel => DataContext as MainViewModel;
-    }
-}
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = @"xmlns:prismMvvm=""using:Prism.Windows.Mvvm""
-    prismMvvm:ViewModelLocator.AutoWireViewModel=""True""",
-                            CodeBehindPageContent = "private MainViewModel ViewModel => DataContext as MainViewModel;",
-                            CodeBehindConstructorContent = string.Empty,
-                            DefaultCodeBehindConstructor = @"public $viewclass$()
-{
-    InitializeComponent();
-}",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -522,59 +125,6 @@ namespace $viewns$
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForStackPanelWithoutHeaders(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<Page
-    x:Class=""$viewproject$.$viewns$.$viewclass$""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:local=""using:$viewns$""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    mc:Ignorable=""d"">
-
-    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        $genxaml$
-    </Grid>
-</Page>
-",
-                            CodePlaceholder = @"
-Imports $viewmodelns$
-
-Namespace $viewns$
-    Public NotInheritable Partial Class $viewclass$
-        Inherits Page
-
-        Public Sub New()
-            Me.InitializeComponent()
-            DataContext = ViewModel
-        End Sub
-
-        Property ViewModel as $viewmodelclass$ = New $viewmodelclass$
-
-    End Class
-End Namespace
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = string.Empty,
-                            CodeBehindPageContent = "Property ViewModel as $viewmodelns$.$viewmodelclass$ = New $viewmodelns$.$viewmodelclass$",
-                            CodeBehindConstructorContent = "DataContext = ViewModel",
-                            DefaultCodeBehindConstructor = @"Public Sub New()
-    Me.InitializeComponent()
-End Sub",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -589,59 +139,6 @@ End Sub",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForStackPanelWithHeader(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<Page
-    x:Class=""$viewproject$.$viewns$.$viewclass$""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:local=""using:$viewns$""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    mc:Ignorable=""d"">
-
-    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        $genxaml$
-    </Grid>
-</Page>
-",
-                            CodePlaceholder = @"
-Imports $viewmodelns$
-
-Namespace $viewns$
-    Public NotInheritable Partial Class $viewclass$
-        Inherits Page
-
-        Public Sub New()
-            Me.InitializeComponent()
-            DataContext = ViewModel
-        End Sub
-
-        Property ViewModel as $viewmodelclass$ = New $viewmodelclass$
-
-    End Class
-End Namespace
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = string.Empty,
-                            CodeBehindPageContent = "Property ViewModel as $viewmodelns$.$viewmodelclass$ = New $viewmodelns$.$viewmodelclass$",
-                            CodeBehindConstructorContent = "DataContext = ViewModel",
-                            DefaultCodeBehindConstructor = @"Public Sub New()
-    Me.InitializeComponent()
-End Sub",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -656,59 +153,6 @@ End Sub",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsFor2ColGrid(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<Page
-    x:Class=""$viewproject$.$viewns$.$viewclass$""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:local=""using:$viewns$""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    mc:Ignorable=""d"">
-
-    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        $genxaml$
-    </Grid>
-</Page>
-",
-                            CodePlaceholder = @"
-Imports $viewmodelns$
-
-Namespace $viewns$
-    Public NotInheritable Partial Class $viewclass$
-        Inherits Page
-
-        Public Sub New()
-            Me.InitializeComponent()
-            DataContext = ViewModel
-        End Sub
-
-        Property ViewModel as $viewmodelclass$ = New $viewmodelclass$
-
-    End Class
-End Namespace
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = string.Empty,
-                            CodeBehindPageContent = "Property ViewModel as $viewmodelns$.$viewmodelclass$ = New $viewmodelns$.$viewmodelclass$",
-                            CodeBehindConstructorContent = "DataContext = ViewModel",
-                            DefaultCodeBehindConstructor = @"Public Sub New()
-    Me.InitializeComponent()
-End Sub",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -723,61 +167,6 @@ End Sub",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForStackPanelWithHeader(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<Page
-    x:Class=""$viewproject$.$viewns$.$viewclass$""
-    xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
-    xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
-    xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
-    xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
-    DataContext=""{Binding $viewmodelclass$, Source={StaticResource Locator}}""
-    mc:Ignorable=""d"">
-
-    <Grid Background=""{ThemeResource ApplicationPageBackgroundThemeBrush}"">
-        $genxaml$
-    </Grid>
-</Page>
-",
-                            CodePlaceholder = @"Imports $viewmodelns$
-
-Namespace $viewns$
-    Public NotInheritable Partial Class $viewclass$
-        Inherits Page
-
-        Private ReadOnly Property ViewModel As $viewmodelclass$
-            Get
-                Return TryCast(DataContext, $viewmodelclass$)
-            End Get
-        End Property
-
-    End Class
-End Namespace
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = "DataContext=\"{Binding $viewmodelclass$, Source={StaticResource Locator}}\"",
-                            CodeBehindPageContent = @"Private ReadOnly Property ViewModel As $viewmodelclass$
-    Get
-        Return TryCast(DataContext, $viewmodelclass$)
-    End Get
-End Property",
-                            CodeBehindConstructorContent = string.Empty,
-                            DefaultCodeBehindConstructor = @"Public sub New
-    InitializeComponent()
-End Sub",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -792,67 +181,6 @@ End Sub",
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
                         EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
                         Mappings = MappingsForStackLayout(),
-                        ViewGeneration = new ViewGenerationSettings
-                        {
-                            XamlPlaceholder = @"<?xml version=""1.0"" encoding=""utf-8"" ?>
-<ContentPage xmlns=""http://xamarin.com/schemas/2014/forms""
-             xmlns:x=""http://schemas.microsoft.com/winfx/2009/xaml""
-             x:Class=""$viewns$.$viewclass$""
-             Title=""{Binding Title}""
-             x:Name=""BrowseItemsPage"">
-    <ContentPage.Content>
-        $genxaml$
-    </ContentPage.Content>
-</ContentPage>
-",
-                            CodePlaceholder = @"using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-using $viewmodelns$;
-
-namespace CsXf.Views
-{
-    [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class $viewclass$ : ContentPage
-    {
-        $viewmodelclass$ viewModel;
-
-        public $viewclass$()
-        {
-            InitializeComponent();
-
-            BindingContext = viewModel = new $viewmodelclass$();
-        }
-    }
-}
-",
-                            XamlFileSuffix = "Page",
-                            ViewModelFileSuffix = "ViewModel",
-
-                            XamlFileDirectoryName = "Views",
-                            ViewModelDirectoryName = "ViewModels",
-
-                            AllInSameProject = true,
-
-                            XamlProjectSuffix = "n/a",
-                            ViewModelProjectSuffix = "n/a",
-                        },
-                        Datacontext = new DatacontextSettings
-                        {
-                            XamlPageAttribute = string.Empty,
-                            CodeBehindPageContent = "$viewmodelclass$ viewModel;",
-                            CodeBehindConstructorContent = "BindingContext = viewModel = new $viewmodelclass$();",
-                            DefaultCodeBehindConstructor = @"public $viewclass$()
-{
-    InitializeComponent();
-}",
-                        },
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,

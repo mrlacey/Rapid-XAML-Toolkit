@@ -75,8 +75,6 @@
     <Compile Include="Parsers\IStarsRepresentCaretInDocsTests.cs" />
     <Compile Include="Parsers\StarsRepresentCaretInDocsTests.cs" />
     <Compile Include="Parsers\VisualBasicTestsBase.cs" />
-    <Compile Include="CreateViews\CreateViewVisualBasicTests.cs" />
-    <Compile Include="CreateViews\CreateViewCSharpTests.cs" />
     <Compile Include="DefaultTestLogger.cs" />
     <Compile Include="DragDrop\DropHandlerCSharpTests.cs" />
     <Compile Include="DragDrop\DropHandlerLogicTests.cs" />
@@ -89,10 +87,6 @@
     <Compile Include="Options\AllowedPlaceholderValidatorTests.cs" />
     <Compile Include="Options\DefaultConfigurationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetDatacontext\MiscDatacontextLogicTests.cs" />
-    <Compile Include="SetDatacontext\SetDatacontextInCSharpTests.cs" />
-    <Compile Include="SetDatacontext\SetDatacontextInVisualBasicTests.cs" />
-    <Compile Include="SetDatacontext\SetDatacontextInXamlTests.cs" />
     <Compile Include="StringAssert.cs" />
     <Compile Include="TestFileSystem.cs" />
     <Compile Include="TestProfile.cs" />
