@@ -58,308 +58,304 @@
             AutomationProperties.Name="{x:Static strings:StringRes.Options_ProfileName}"
             Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
 
-        <TabControl
+        <Grid
             Grid.Row="1"
             Grid.ColumnSpan="2"
             Margin="0,12,0,0">
-            <TabItem Header="{x:Static strings:StringRes.Options_MappingsHeader}">
-                <Grid Margin="9">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="0,0,10,0"
-                        Text="{x:Static strings:StringRes.Options_ClassGrouping}"
-                        ToolTip="{x:Static strings:StringRes.Options_ClassGroupingDescription}" />
-                    <TextBox
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="0,0,0,6"
-                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_ClassGroupingDescription}"
-                        AutomationProperties.Name="{x:Static strings:StringRes.Options_ClassGrouping}"
-                        Text="{Binding ClassGrouping, Mode=TwoWay}" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="0,0,10,0"
+                Text="{x:Static strings:StringRes.Options_ClassGrouping}"
+                ToolTip="{x:Static strings:StringRes.Options_ClassGroupingDescription}" />
+            <TextBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0,0,0,6"
+                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_ClassGroupingDescription}"
+                AutomationProperties.Name="{x:Static strings:StringRes.Options_ClassGrouping}"
+                Text="{Binding ClassGrouping, Mode=TwoWay}" />
 
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,0,10,0"
-                        Text="{x:Static strings:StringRes.Options_FallbackOutput}"
-                        ToolTip="{x:Static strings:StringRes.Options_FallbackOutputDescription}" />
-                    <themes:ClassicBorderDecorator
-                        x:Name="FallbackOutputBorder"
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="0,0,0,6"
-                        BorderStyle="Sunken">
-                        <Grid>
-                            <avalonEdit:TextEditor
-                                x:Name="FallbackOutputEntry"
-                                MinHeight="34"
-                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_FallbackOutputDescription}"
-                                AutomationProperties.Name="{x:Static strings:StringRes.Options_FallbackOutput}"
-                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                                HorizontalScrollBarVisibility="Hidden"
-                                PreviewKeyDown="TextEditorPreviewKeyDown"
-                                SyntaxHighlighting="XML"
-                                TextChanged="OnEditorTextChanged"
-                                VerticalScrollBarVisibility="Auto"
-                                WordWrap="True">
-                                <avalonEdit:TextEditor.Options>
-                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                                </avalonEdit:TextEditor.Options>
-                            </avalonEdit:TextEditor>
-                            <local:WarningTriangle
-                                x:Name="FallbackOutputEntryWarning"
-                                Margin="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Top"
-                                Visibility="Collapsed" />
-                        </Grid>
-                    </themes:ClassicBorderDecorator>
-
-                    <TextBlock
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        Margin="0,0,10,0"
-                        Text="{x:Static strings:StringRes.Options_SubPropertyOutput}"
-                        ToolTip="{x:Static strings:StringRes.Options_SubPropertyOutputDescription}" />
-                    <themes:ClassicBorderDecorator
-                        x:Name="SubPropertyOutputBorder"
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        Margin="0,0,0,6"
-                        BorderStyle="Sunken">
-                        <Grid>
-                            <avalonEdit:TextEditor
-                                x:Name="SubPropertyOutputEntry"
-                                MinHeight="34"
-                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_SubPropertyOutputDescription}"
-                                AutomationProperties.Name="{x:Static strings:StringRes.Options_SubPropertyOutput}"
-                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                                HorizontalScrollBarVisibility="Hidden"
-                                PreviewKeyDown="TextEditorPreviewKeyDown"
-                                SyntaxHighlighting="XML"
-                                TextChanged="OnEditorTextChanged"
-                                VerticalScrollBarVisibility="Auto"
-                                WordWrap="True">
-                                <avalonEdit:TextEditor.Options>
-                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                                </avalonEdit:TextEditor.Options>
-                            </avalonEdit:TextEditor>
-                            <local:WarningTriangle
-                                x:Name="SubPropertyOutputEntryWarning"
-                                Margin="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Top"
-                                Visibility="Collapsed" />
-                        </Grid>
-                    </themes:ClassicBorderDecorator>
-
-                    <TextBlock
-                        Grid.Row="4"
-                        Grid.Column="0"
-                        Margin="0,0,10,0"
-                        Text="{x:Static strings:StringRes.Options_EnumMappingOutput}"
-                        ToolTip="{x:Static strings:StringRes.Options_EnumMappingOutputDescription}" />
-                    <themes:ClassicBorderDecorator
-                        x:Name="EnumMemberOutputBorder"
-                        Grid.Row="4"
-                        Grid.Column="1"
-                        Margin="0"
-                        BorderStyle="Sunken">
-                        <Grid>
-                            <avalonEdit:TextEditor
-                                x:Name="EnumMemberOutputEntry"
-                                MinHeight="34"
-                                AutomationProperties.HelpText="{x:Static strings:StringRes.Options_EnumMappingOutputDescription}"
-                                AutomationProperties.Name="{x:Static strings:StringRes.Options_EnumMappingOutput}"
-                                BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                                BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                                HorizontalScrollBarVisibility="Hidden"
-                                PreviewKeyDown="TextEditorPreviewKeyDown"
-                                SyntaxHighlighting="XML"
-                                TextChanged="OnEditorTextChanged"
-                                VerticalScrollBarVisibility="Auto"
-                                WordWrap="True">
-                                <avalonEdit:TextEditor.Options>
-                                    <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                                </avalonEdit:TextEditor.Options>
-                            </avalonEdit:TextEditor>
-                            <local:WarningTriangle
-                                x:Name="EnumMemberOutputEntryWarning"
-                                Margin="2"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Top"
-                                Visibility="Collapsed" />
-                        </Grid>
-                    </themes:ClassicBorderDecorator>
-
-                    <TextBlock
-                        Grid.Row="5"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="0,6,0,0"
-                        Text="{x:Static strings:StringRes.Options_MappingsHeader}" />
-
-                    <Grid Grid.Row="6" Grid.ColumnSpan="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <ScrollViewer AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingsHeader}">
-                            <DataGrid
-                                x:Name="DisplayedMappings"
-                                CanUserAddRows="False"
-                                CanUserDeleteRows="False"
-                                CanUserReorderColumns="False"
-                                CanUserResizeColumns="True"
-                                CanUserResizeRows="False"
-                                CanUserSortColumns="False"
-                                IsReadOnly="True"
-                                ItemsSource="{Binding Mappings}"
-                                PreviewKeyDown="GridPreviewKeyDown"
-                                SelectedItem="{Binding Path=SelectedMapping, Mode=TwoWay}"
-                                SelectionMode="Single"
-                                SelectionUnit="FullRow" />
-                        </ScrollViewer>
-                        <StackPanel Grid.Column="1" Margin="6,0,0,0">
-                            <StackPanel.Resources>
-                                <Style TargetType="Button">
-                                    <Setter Property="Height" Value="23" />
-                                    <Setter Property="Width" Value="75" />
-                                    <Setter Property="Margin" Value="0,0,0,6" />
-                                </Style>
-                            </StackPanel.Resources>
-                            <Button
-                                x:Name="AddMappingButton"
-                                Click="AddClicked"
-                                Content="{x:Static strings:StringRes.Options_ButtonAdd}" />
-                            <Button Click="CopyClicked" Content="{x:Static strings:StringRes.Options_ButtonCopy}" />
-                            <Button Click="DeleteClicked" Content="{x:Static strings:StringRes.Options_ButtonDelete}" />
-                        </StackPanel>
-                    </Grid>
-
-                    <Grid
-                        Grid.Row="7"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="0,4,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Margin="0,4,10,0"
-                            Text="{x:Static strings:StringRes.Options_MappingType}"
-                            ToolTip="{x:Static strings:StringRes.Options_MappingTypeDescription}" />
-                        <TextBox
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="0,4,0,6"
-                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingTypeDescription}"
-                            AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingType}"
-                            Text="{Binding SelectedMapping.Type, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
-
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Margin="0,0,10,0"
-                            Text="{x:Static strings:StringRes.Options_MappingNameFilter}"
-                            ToolTip="{x:Static strings:StringRes.Options_MappingNameFilterDescription}" />
-                        <TextBox
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Margin="0,0,0,6"
-                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingNameFilterDescription}"
-                            AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingNameFilter}"
-                            Text="{Binding SelectedMapping.NameContains, Mode=TwoWay}" />
-
-                        <CheckBox
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Margin="0,0,0,6"
-                            IsChecked="{Binding SelectedMapping.IfReadOnly, Mode=TwoWay}">
-                            <TextBlock Text="{x:Static strings:StringRes.Options_MappingIfReadOnly}" ToolTip="{x:Static strings:StringRes.Options_MappingIfReadOnlyDescription}" />
-                        </CheckBox>
-
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="0"
-                            Margin="0,0,10,0"
-                            Text="{x:Static strings:StringRes.Options_MappingOutput}"
-                            ToolTip="{x:Static strings:StringRes.Options_MappingOutputDescription}" />
-                        <themes:ClassicBorderDecorator
-                            x:Name="SelectedMappingOutputBorder"
-                            Grid.Row="3"
-                            Grid.Column="1"
-                            BorderStyle="Sunken">
-                            <Grid>
-                                <avalonEdit:TextEditor
-                                    x:Name="SelectedMappingOutputEntry"
-                                    MinHeight="34"
-                                    AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingOutputDescription}"
-                                    AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingOutput}"
-                                    BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
-                                    BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
-                                    HorizontalScrollBarVisibility="Hidden"
-                                    PreviewKeyDown="TextEditorPreviewKeyDown"
-                                    SyntaxHighlighting="XML"
-                                    TextChanged="OnSelectedMappingOutputChanged"
-                                    VerticalScrollBarVisibility="Auto"
-                                    WordWrap="True">
-                                    <avalonEdit:TextEditor.Options>
-                                        <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
-                                    </avalonEdit:TextEditor.Options>
-                                </avalonEdit:TextEditor>
-                                <local:WarningTriangle
-                                    x:Name="SelectedMappingOutputEntryWarning"
-                                    Margin="2"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Top"
-                                    Visibility="Collapsed" />
-                            </Grid>
-                        </themes:ClassicBorderDecorator>
-                    </Grid>
-
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="0,0,10,0"
+                Text="{x:Static strings:StringRes.Options_FallbackOutput}"
+                ToolTip="{x:Static strings:StringRes.Options_FallbackOutputDescription}" />
+            <themes:ClassicBorderDecorator
+                x:Name="FallbackOutputBorder"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="0,0,0,6"
+                BorderStyle="Sunken">
+                <Grid>
+                    <avalonEdit:TextEditor
+                        x:Name="FallbackOutputEntry"
+                        MinHeight="34"
+                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_FallbackOutputDescription}"
+                        AutomationProperties.Name="{x:Static strings:StringRes.Options_FallbackOutput}"
+                        BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                        BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                        HorizontalScrollBarVisibility="Hidden"
+                        PreviewKeyDown="TextEditorPreviewKeyDown"
+                        SyntaxHighlighting="XML"
+                        TextChanged="OnEditorTextChanged"
+                        VerticalScrollBarVisibility="Auto"
+                        WordWrap="True">
+                        <avalonEdit:TextEditor.Options>
+                            <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                        </avalonEdit:TextEditor.Options>
+                    </avalonEdit:TextEditor>
+                    <local:WarningTriangle
+                        x:Name="FallbackOutputEntryWarning"
+                        Margin="2"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Visibility="Collapsed" />
                 </Grid>
-            </TabItem>
+            </themes:ClassicBorderDecorator>
 
-            <TabItem Header="{x:Static strings:StringRes.Options_GeneralHeader}">
-                <Grid Margin="9">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <CheckBox Grid.Row="0" IsChecked="{Binding General.AttemptAutomaticDocumentFormatting, Mode=TwoWay}">
-                        <TextBlock Text="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormatting}" ToolTip="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormattingDescription}" />
-                    </CheckBox>
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="0"
+                Margin="0,0,10,0"
+                Text="{x:Static strings:StringRes.Options_SubPropertyOutput}"
+                ToolTip="{x:Static strings:StringRes.Options_SubPropertyOutputDescription}" />
+            <themes:ClassicBorderDecorator
+                x:Name="SubPropertyOutputBorder"
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="0,0,0,6"
+                BorderStyle="Sunken">
+                <Grid>
+                    <avalonEdit:TextEditor
+                        x:Name="SubPropertyOutputEntry"
+                        MinHeight="34"
+                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_SubPropertyOutputDescription}"
+                        AutomationProperties.Name="{x:Static strings:StringRes.Options_SubPropertyOutput}"
+                        BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                        BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                        HorizontalScrollBarVisibility="Hidden"
+                        PreviewKeyDown="TextEditorPreviewKeyDown"
+                        SyntaxHighlighting="XML"
+                        TextChanged="OnEditorTextChanged"
+                        VerticalScrollBarVisibility="Auto"
+                        WordWrap="True">
+                        <avalonEdit:TextEditor.Options>
+                            <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                        </avalonEdit:TextEditor.Options>
+                    </avalonEdit:TextEditor>
+                    <local:WarningTriangle
+                        x:Name="SubPropertyOutputEntryWarning"
+                        Margin="2"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Visibility="Collapsed" />
                 </Grid>
-            </TabItem>
-        </TabControl>
+            </themes:ClassicBorderDecorator>
+
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="0"
+                Margin="0,0,10,0"
+                Text="{x:Static strings:StringRes.Options_EnumMappingOutput}"
+                ToolTip="{x:Static strings:StringRes.Options_EnumMappingOutputDescription}" />
+            <themes:ClassicBorderDecorator
+                x:Name="EnumMemberOutputBorder"
+                Grid.Row="4"
+                Grid.Column="1"
+                Margin="0,0,0,6"
+                BorderStyle="Sunken">
+                <Grid>
+                    <avalonEdit:TextEditor
+                        x:Name="EnumMemberOutputEntry"
+                        MinHeight="34"
+                        AutomationProperties.HelpText="{x:Static strings:StringRes.Options_EnumMappingOutputDescription}"
+                        AutomationProperties.Name="{x:Static strings:StringRes.Options_EnumMappingOutput}"
+                        BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                        BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                        HorizontalScrollBarVisibility="Hidden"
+                        PreviewKeyDown="TextEditorPreviewKeyDown"
+                        SyntaxHighlighting="XML"
+                        TextChanged="OnEditorTextChanged"
+                        VerticalScrollBarVisibility="Auto"
+                        WordWrap="True">
+                        <avalonEdit:TextEditor.Options>
+                            <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                        </avalonEdit:TextEditor.Options>
+                    </avalonEdit:TextEditor>
+                    <local:WarningTriangle
+                        x:Name="EnumMemberOutputEntryWarning"
+                        Margin="2"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Visibility="Collapsed" />
+                </Grid>
+            </themes:ClassicBorderDecorator>
+
+            <CheckBox
+                Grid.Row="5"
+                Grid.Column="1"
+                IsChecked="{Binding General.AttemptAutomaticDocumentFormatting, Mode=TwoWay}">
+                <TextBlock Text="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormatting}" ToolTip="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormattingDescription}" />
+            </CheckBox>
+
+            <TextBlock
+                Grid.Row="6"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,6,0,1"
+                Text="{x:Static strings:StringRes.Options_MappingsHeader}" />
+
+            <Grid Grid.Row="7" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Border BorderBrush="{Binding ElementName=ReferenceTextBox, Path=BorderBrush, Mode=OneWay}" BorderThickness="1">
+                    <ScrollViewer AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingsHeader}">
+                        <DataGrid
+                            x:Name="DisplayedMappings"
+                            BorderThickness="0"
+                            CanUserAddRows="False"
+                            CanUserDeleteRows="False"
+                            CanUserReorderColumns="False"
+                            CanUserResizeColumns="True"
+                            CanUserResizeRows="False"
+                            CanUserSortColumns="False"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding Mappings}"
+                            PreviewKeyDown="GridPreviewKeyDown"
+                            SelectedItem="{Binding Path=SelectedMapping, Mode=TwoWay}"
+                            SelectionMode="Single"
+                            SelectionUnit="FullRow" />
+                    </ScrollViewer>
+
+                </Border>
+                <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Height" Value="23" />
+                            <Setter Property="Width" Value="75" />
+                            <Setter Property="Margin" Value="0,0,0,6" />
+                        </Style>
+                    </StackPanel.Resources>
+                    <Button
+                        x:Name="AddMappingButton"
+                        Click="AddClicked"
+                        Content="{x:Static strings:StringRes.Options_ButtonAdd}" />
+                    <Button Click="CopyClicked" Content="{x:Static strings:StringRes.Options_ButtonCopy}" />
+                    <Button Click="DeleteClicked" Content="{x:Static strings:StringRes.Options_ButtonDelete}" />
+                </StackPanel>
+            </Grid>
+
+            <Grid
+                Grid.Row="8"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,4,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0,4,10,0"
+                    Text="{x:Static strings:StringRes.Options_MappingType}"
+                    ToolTip="{x:Static strings:StringRes.Options_MappingTypeDescription}" />
+                <TextBox
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="0,4,0,6"
+                    AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingTypeDescription}"
+                    AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingType}"
+                    Text="{Binding SelectedMapping.Type, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0,0,10,0"
+                    Text="{x:Static strings:StringRes.Options_MappingNameFilter}"
+                    ToolTip="{x:Static strings:StringRes.Options_MappingNameFilterDescription}" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,0,0,6"
+                    AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingNameFilterDescription}"
+                    AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingNameFilter}"
+                    Text="{Binding SelectedMapping.NameContains, Mode=TwoWay}" />
+
+                <CheckBox
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="0,0,0,6"
+                    IsChecked="{Binding SelectedMapping.IfReadOnly, Mode=TwoWay}">
+                    <TextBlock Text="{x:Static strings:StringRes.Options_MappingIfReadOnly}" ToolTip="{x:Static strings:StringRes.Options_MappingIfReadOnlyDescription}" />
+                </CheckBox>
+
+                <TextBlock
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="0,0,10,0"
+                    Text="{x:Static strings:StringRes.Options_MappingOutput}"
+                    ToolTip="{x:Static strings:StringRes.Options_MappingOutputDescription}" />
+                <themes:ClassicBorderDecorator
+                    x:Name="SelectedMappingOutputBorder"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    BorderStyle="Sunken">
+                    <Grid>
+                        <avalonEdit:TextEditor
+                            x:Name="SelectedMappingOutputEntry"
+                            MinHeight="34"
+                            AutomationProperties.HelpText="{x:Static strings:StringRes.Options_MappingOutputDescription}"
+                            AutomationProperties.Name="{x:Static strings:StringRes.Options_MappingOutput}"
+                            BorderBrush="{Binding Path=BorderBrush, ElementName=ReferenceTextBox}"
+                            BorderThickness="{Binding Path=BorderThickness, ElementName=ReferenceTextBox}"
+                            HorizontalScrollBarVisibility="Hidden"
+                            PreviewKeyDown="TextEditorPreviewKeyDown"
+                            SyntaxHighlighting="XML"
+                            TextChanged="OnSelectedMappingOutputChanged"
+                            VerticalScrollBarVisibility="Auto"
+                            WordWrap="True">
+                            <avalonEdit:TextEditor.Options>
+                                <avalonEdit:TextEditorOptions EnableHyperlinks="False" />
+                            </avalonEdit:TextEditor.Options>
+                        </avalonEdit:TextEditor>
+                        <local:WarningTriangle
+                            x:Name="SelectedMappingOutputEntryWarning"
+                            Margin="2"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Visibility="Collapsed" />
+                    </Grid>
+                </themes:ClassicBorderDecorator>
+            </Grid>
+
+        </Grid>
 
         <Button
             Grid.Row="2"

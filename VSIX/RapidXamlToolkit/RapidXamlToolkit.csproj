@@ -116,7 +116,6 @@
     <Compile Include="Options\CanNotifyPropertyChangedAndDataErrorInfo.cs" />
     <Compile Include="Options\ConfiguredSettings.cs" />
     <Compile Include="Options\ConfiguredSettings.Default.cs" />
-    <Compile Include="Options\GeneralSettings.cs" />
     <Compile Include="Options\ICanClose.cs" />
     <Compile Include="Options\Mapping.cs" />
     <Compile Include="Options\OptionsEntryValidator.cs" />

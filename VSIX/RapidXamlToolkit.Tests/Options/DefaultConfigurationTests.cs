@@ -42,8 +42,7 @@ namespace RapidXamlToolkit.Tests.Options
                     Assert.IsNotNull(mapping.Type, nameof(Mapping.Type));
                 }
 
-                Assert.IsNotNull(profile.General, $"{nameof(Profile.General)} in profile {profile.Name}");
-                Assert.IsNotNull(profile.General.AttemptAutomaticDocumentFormatting, $"{nameof(Profile.General.AttemptAutomaticDocumentFormatting)} in profile {profile.Name}");
+                Assert.IsNotNull(profile.AttemptAutomaticDocumentFormatting, $"{nameof(Profile.AttemptAutomaticDocumentFormatting)} in profile {profile.Name}");
             }
         }
 

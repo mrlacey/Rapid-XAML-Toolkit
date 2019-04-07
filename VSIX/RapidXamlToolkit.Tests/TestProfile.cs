@@ -18,10 +18,7 @@ namespace RapidXamlToolkit.Tests
                 SubPropertyOutput = string.Empty,
                 EnumMemberOutput = string.Empty,
                 Mappings = new ObservableCollection<Mapping>(),
-                General = new GeneralSettings
-                {
-                    AttemptAutomaticDocumentFormatting = true,
-                },
+                AttemptAutomaticDocumentFormatting = true,
             };
         }
     }
