@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.Options
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsForStackPanelWithoutHeaders(),
+                        Mappings = MappingsForUwpStackPanelWithoutHeaders(),
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -40,7 +40,7 @@ namespace RapidXamlToolkit.Options
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsForStackPanelWithHeader(),
+                        Mappings = MappingsForUwpStackPanelWithHeader(),
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -54,7 +54,7 @@ namespace RapidXamlToolkit.Options
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsFor2ColGrid(),
+                        Mappings = MappingsForUwp2ColGrid(),
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -68,7 +68,7 @@ namespace RapidXamlToolkit.Options
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsForRelativePanelWithHeader(),
+                        Mappings = MappingsForUwpRelativePanelWithHeader(),
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -82,7 +82,7 @@ namespace RapidXamlToolkit.Options
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsForStackPanelWithHeader(),
+                        Mappings = MappingsForUwpStackPanelWithHeader(),
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -96,7 +96,7 @@ namespace RapidXamlToolkit.Options
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsForStackPanelWithHeader(),
+                        Mappings = MappingsForUwpStackPanelWithHeader(),
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -110,7 +110,7 @@ namespace RapidXamlToolkit.Options
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsForStackPanelWithHeader(),
+                        Mappings = MappingsForUwpStackPanelWithHeader(),
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -124,7 +124,7 @@ namespace RapidXamlToolkit.Options
                         FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
                         EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
-                        Mappings = MappingsForStackLayout(),
+                        Mappings = MappingsForXfStackLayout(),
                         General = new GeneralSettings
                         {
                             AttemptAutomaticDocumentFormatting = true,
@@ -144,11 +144,25 @@ namespace RapidXamlToolkit.Options
                             AttemptAutomaticDocumentFormatting = true,
                         },
                     },
+
+                    new Profile
+                    {
+                        Name = "WPF MVVM 2ColGrid",
+                        ClassGrouping = "GRID-PLUS-ROWDEFS-2COLS",
+                        FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                        SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
+                        Mappings = MappingsForWpf2ColGrid(),
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
+                        },
+                    },
                 },
             };
         }
 
-        private static ObservableCollection<Mapping> MappingsForStackPanelWithoutHeaders()
+        private static ObservableCollection<Mapping> MappingsForUwpStackPanelWithoutHeaders()
         {
             return new ObservableCollection<Mapping>
                         {
@@ -309,7 +323,7 @@ namespace RapidXamlToolkit.Options
                         };
         }
 
-        private static ObservableCollection<Mapping> MappingsForStackPanelWithHeader()
+        private static ObservableCollection<Mapping> MappingsForUwpStackPanelWithHeader()
         {
             return new ObservableCollection<Mapping>
                         {
@@ -470,7 +484,7 @@ namespace RapidXamlToolkit.Options
                         };
         }
 
-        private static ObservableCollection<Mapping> MappingsForRelativePanelWithHeader()
+        private static ObservableCollection<Mapping> MappingsForUwpRelativePanelWithHeader()
         {
             return new ObservableCollection<Mapping>
                         {
@@ -631,7 +645,7 @@ namespace RapidXamlToolkit.Options
                         };
         }
 
-        private static ObservableCollection<Mapping> MappingsFor2ColGrid()
+        private static ObservableCollection<Mapping> MappingsForUwp2ColGrid()
         {
             return new ObservableCollection<Mapping>
                         {
@@ -792,7 +806,7 @@ namespace RapidXamlToolkit.Options
                         };
         }
 
-        private static ObservableCollection<Mapping> MappingsForStackLayout()
+        private static ObservableCollection<Mapping> MappingsForXfStackLayout()
         {
             return new ObservableCollection<Mapping>
                         {
@@ -1046,6 +1060,132 @@ namespace RapidXamlToolkit.Options
                                 Type = "enum",
                                 NameContains = string.Empty,
                                 Output = "<StackPanel>$members$</StackPanel>",
+                                IfReadOnly = false,
+                            },
+                        };
+        }
+
+        private static ObservableCollection<Mapping> MappingsForWpf2ColGrid()
+        {
+            return new ObservableCollection<Mapping>
+                        {
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "password|pwd",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><PasswordBox Password=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string|uri",
+                                NameContains = "thumbnail|picture|image",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><Image Source=\"{Binding Path=$name$, Mode=OneWay}\" Stretch=\"None\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "Uri",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTime",
+                                NameContains = "date",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><DatePicker SelectedDate=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTime",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><CheckBox Content=\"$namewithspaces$\" IsChecked=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = "busy|active",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><ProgressBar Name=\"$name$\" IsIndeterminate=\"{Binding Path=$name$}\" Height=\"20\" Minimum=\"0\" Maximum=\"1\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ICommand|Command|RelayCommand",
+                                NameContains = string.Empty,
+                                Output = "<Button Content=\"$namewithspaces$\" Command=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ObservableCollection<T>|List<T>",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><ListView ItemsSource=\"{Binding Path=$name$}\"><ListView.ItemTemplate><DataTemplate x:DataType=\"$type$\" Grid.Row=\"$repint$\" Grid.Column=\"1\"><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "List<string>",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><ItemsControl ItemsSource=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\"></ItemsControl>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "enum",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><StackPanel Grid.Row=\"$repint$\" Grid.Column=\"1\">$members$</StackPanel>",
                                 IfReadOnly = false,
                             },
                         };
