@@ -49,6 +49,7 @@ The order of items is in the tabel does not reflect the order in which
 | ICommand<br />Command<br />RelayCommand | false | - | Button     |                                  |
 | List&lt;string&gt; | false    | -             | ItemsControl     |                                  |
 | ObservableCollection&lt;T&gt;<br />List&lt;T&gt; | false | -  | ListView |                          |
+| enum           | false        | -             | ComboBox         |                                  |
 |                |              |               |                  |                                  |
 
 ## Xamarin.Forms

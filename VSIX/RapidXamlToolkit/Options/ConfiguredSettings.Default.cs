@@ -137,7 +137,7 @@ namespace RapidXamlToolkit.Options
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
-                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
+                        EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpfStackPanel(),
                         General = new GeneralSettings
                         {
@@ -151,7 +151,7 @@ namespace RapidXamlToolkit.Options
                         ClassGrouping = "GRID-PLUS-ROWDEFS-2COLS",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
-                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
+                        EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpf2ColGrid(),
                         General = new GeneralSettings
                         {
@@ -1059,7 +1059,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "enum",
                                 NameContains = string.Empty,
-                                Output = "<StackPanel>$members$</StackPanel>",
+                                Output = "<ComboBox>$members$</ComboBox>",
                                 IfReadOnly = false,
                             },
                         };
@@ -1185,7 +1185,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "enum",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><StackPanel Grid.Row=\"$repint$\" Grid.Column=\"1\">$members$</StackPanel>",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><ComboBox Grid.Row=\"$repint$\" Grid.Column=\"1\">$members$</ComboBox>",
                                 IfReadOnly = false,
                             },
                         };
