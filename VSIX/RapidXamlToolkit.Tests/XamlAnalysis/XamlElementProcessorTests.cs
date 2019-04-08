@@ -82,6 +82,16 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
+        public void HasAttribute_AttributesOnMultipleLines()
+        {
+            var xaml = @"<Element
+    Name=""MyElement""
+    Attr=""Value"">
+</Element>";
+            Assert.IsTrue(this.HasAttribute(xaml, "Attr"));
+        }
+
+        [TestMethod]
         public void HasNoAttribute_MultipleLines()
         {
             var xaml = @"<Element>
@@ -128,6 +138,30 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void NotAttribute_HasSimilar_SelfClosing()
         {
             Assert.IsFalse(this.HasAttribute("<Element AttrX=\"Value\" />", "Attr"));
+        }
+
+        [TestMethod]
+        public void NotAttribute_HasPrefixed()
+        {
+            Assert.IsFalse(this.HasAttribute("<Element IsChecked=\"True\"></Element>", "Checked"));
+        }
+
+        [TestMethod]
+        public void NotAttribute_HasPrefixed_SelfClosing()
+        {
+            Assert.IsFalse(this.HasAttribute("<Element IsChecked=\"True\" />", "Checked"));
+        }
+
+        [TestMethod]
+        public void NotAttribute_HasPrefixed_SelfClosing_Cr()
+        {
+            Assert.IsFalse(this.HasAttribute("<Element \rIsChecked=\"True\" />", "Checked"));
+        }
+
+        [TestMethod]
+        public void NotAttribute_HasPrefixed_SelfClosing_Lf()
+        {
+            Assert.IsFalse(this.HasAttribute("<Element \nIsChecked=\"True\" />", "Checked"));
         }
 
         [TestMethod]

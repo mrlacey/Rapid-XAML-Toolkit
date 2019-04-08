@@ -93,6 +93,7 @@
     <Compile Include="TestVisualStudioAbstraction.cs" />
     <Compile Include="XamlAnalysis\ButtonProcessTests.cs" />
     <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\RealWorldIssues.cs" />
     <Compile Include="XamlAnalysis\TestableXamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\TextBlockProcessTests.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractorTests.cs" />

@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public RapidXamlAdornmentTag(Span span, ITextSnapshot snapshot)
         {
             this.Span = span;
-            this.Snapshot = snapshot ?? throw new ArgumentNullException(nameof(snapshot));
+            this.Snapshot = snapshot;
         }
 
         public string ToolTip { get; set; }
