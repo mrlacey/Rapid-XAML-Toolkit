@@ -105,7 +105,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
             var startPos = xaml.Substring(0, position).LastIndexOf('<');
 
-            var elementName = xaml.Substring(startPos + 1, xaml.IndexOfAny(new[] { ' ', '>' }, startPos) - startPos - 1);
+            var elementName = xaml.Substring(startPos + 1, xaml.IndexOfAny(new[] { ' ', '>', '\r', '\n' }, startPos) - startPos - 1);
 
             string result = null;
 
@@ -127,9 +127,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var searchText = $"{attributeName}=\"";
 
+                if (xaml == null)
+                {
+                    System.Diagnostics.Debugger.Break();
+                }
+
                 var tbIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
 
-                if (tbIndex >= 0)
+                if (tbIndex >= 0 && char.IsWhiteSpace(xaml[tbIndex - 1]))
                 {
                     var tbEnd = xaml.IndexOf("\"", tbIndex + searchText.Length, StringComparison.Ordinal);
 
