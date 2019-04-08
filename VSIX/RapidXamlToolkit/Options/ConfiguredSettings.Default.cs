@@ -158,6 +158,20 @@ namespace RapidXamlToolkit.Options
                             AttemptAutomaticDocumentFormatting = true,
                         },
                     },
+
+                    new Profile
+                    {
+                        Name = "WPF Caliburn.Micro StackPanel",
+                        ClassGrouping = "StackPanel",
+                        FallbackOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                        SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                        EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
+                        Mappings = MappingsForWpfStackPanel(),
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
+                        },
+                    },
                 },
             };
         }
@@ -968,7 +982,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "string",
                                 NameContains = "uri|url",
-                                Output = "<Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" />",
+                                Output = "<TextBlock><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" /></TextBlock>",
                                 IfReadOnly = true,
                             },
                             new Mapping
@@ -982,7 +996,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "Uri",
                                 NameContains = string.Empty,
-                                Output = "<Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" />",
+                                Output = "<TextBlock><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" /></TextBlock>",
                                 IfReadOnly = true,
                             },
                             new Mapping
@@ -1094,7 +1108,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "string",
                                 NameContains = "uri|url",
-                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Grid.Row=\"$repint$\" Grid.Column=\"1\"><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" /></TextBlock>",
                                 IfReadOnly = true,
                             },
                             new Mapping
@@ -1108,7 +1122,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "Uri",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Grid.Row=\"$repint$\" Grid.Column=\"1\"><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" /></TextBlock>",
                                 IfReadOnly = true,
                             },
                             new Mapping
@@ -1186,6 +1200,132 @@ namespace RapidXamlToolkit.Options
                                 Type = "enum",
                                 NameContains = string.Empty,
                                 Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><ComboBox Grid.Row=\"$repint$\" Grid.Column=\"1\">$members$</ComboBox>",
+                                IfReadOnly = false,
+                            },
+                        };
+        }
+
+        private static ObservableCollection<Mapping> MappingsForWpfCaliburnMicroStackPanel()
+        {
+            return new ObservableCollection<Mapping>
+                        {
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = string.Empty,
+                                Output = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "password|pwd",
+                                Output = "<PasswordBox Password=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<TextBlock><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" /></TextBlock>",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string|uri",
+                                NameContains = "thumbnail|picture|image",
+                                Output = "<Image Source=\"{Binding Path=$name$, Mode=OneWay}\" Stretch=\"None\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "Uri",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" /></TextBlock>",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTime",
+                                NameContains = "date",
+                                Output = "<DatePicker SelectedDate=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTime",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = string.Empty,
+                                Output = "<CheckBox Content=\"$namewithspaces$\" IsChecked=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = "busy|active",
+                                Output = "<ProgressBar Name=\"$name$\" IsIndeterminate=\"{Binding Path=$name$}\" Height=\"20\" Minimum=\"0\" Maximum=\"1\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ICommand|Command|RelayCommand",
+                                NameContains = string.Empty,
+                                Output = "<Button x:Name=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ObservableCollection<T>|List<T>",
+                                NameContains = string.Empty,
+                                Output = "<ListView ItemsSource=\"{Binding Path=$name$}\"><ListView.ItemTemplate><DataTemplate x:DataType=\"$type$\"><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "List<string>",
+                                NameContains = string.Empty,
+                                Output = "<ItemsControl ItemsSource=\"{Binding Path=$name$}\"></ItemsControl>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "enum",
+                                NameContains = string.Empty,
+                                Output = "<ComboBox>$members$</ComboBox>",
                                 IfReadOnly = false,
                             },
                         };

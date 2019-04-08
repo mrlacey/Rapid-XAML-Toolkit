@@ -286,7 +286,8 @@ namespace RapidXamlToolkit
                         possibleXaml = possibleXaml.Replace(placeholder, "<EnumMembers />");
                         break;
                     case Placeholder.EnumElementWithSpaces:
-                        // For scenarios like : "<x:String>$elementwithspaces$</x:String>"
+                    case Placeholder.EnumElement:
+                        // For scenarios like : "<x:String>$elementwithspaces$</x:String>" or "<x:String>$element$</x:String>"
                         possibleXaml = possibleXaml.Replace(placeholder, validText);
                         break;
                     case Placeholder.GeneratedXAML:
