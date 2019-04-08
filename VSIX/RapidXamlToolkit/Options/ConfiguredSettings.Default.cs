@@ -225,7 +225,7 @@ namespace RapidXamlToolkit.Options
                             new Mapping
                             {
                                 Type = "string",
-                                NameContains = "phone|tel",
+                                NameContains = "phone|tel|cell",
                                 Output = "<TextBox InputScope=\"TelephoneNumber\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
                                 IfReadOnly = false,
                             },
@@ -270,6 +270,13 @@ namespace RapidXamlToolkit.Options
                                 NameContains = "uri|url",
                                 Output = "<HyperlinkButton NavigateUri=\"{x:Bind ViewModel.$name$}\" Content=\"{x:Bind ViewModel.$name$}\" />",
                                 IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string|uri",
+                                NameContains = "thumbnail|picture|image",
+                                Output = "<Image Source=\"{x:Bind ViewModel.$name$, Mode=OneWay}\" Stretch=\"None\" />",
+                                IfReadOnly = false,
                             },
                             new Mapping
                             {
@@ -379,7 +386,7 @@ namespace RapidXamlToolkit.Options
                             new Mapping
                             {
                                 Type = "string",
-                                NameContains = "phone|tel",
+                                NameContains = "phone|tel|cell",
                                 Output = "<TextBox Header=\"$namewithspaces$\" InputScope=\"TelephoneNumber\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
                                 IfReadOnly = false,
                             },
@@ -424,6 +431,13 @@ namespace RapidXamlToolkit.Options
                                 NameContains = "uri|url",
                                 Output = "<HyperlinkButton NavigateUri=\"{x:Bind ViewModel.$name$}\" Content=\"{x:Bind ViewModel.$name$}\" />",
                                 IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string|uri",
+                                NameContains = "thumbnail|picture|image",
+                                Output = "<Image Source=\"{x:Bind ViewModel.$name$, Mode=OneWay}\" Stretch=\"None\" />",
+                                IfReadOnly = false,
                             },
                             new Mapping
                             {
@@ -533,7 +547,7 @@ namespace RapidXamlToolkit.Options
                             new Mapping
                             {
                                 Type = "string",
-                                NameContains = "phone|tel",
+                                NameContains = "phone|tel|cell",
                                 Output = "<TextBox Header=\"$namewithspaces$\" InputScope=\"TelephoneNumber\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
                                 IfReadOnly = false,
                             },
@@ -578,6 +592,13 @@ namespace RapidXamlToolkit.Options
                                 NameContains = "uri|url",
                                 Output = "<HyperlinkButton NavigateUri=\"{x:Bind ViewModel.$name$}\" Content=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
                                 IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string|uri",
+                                NameContains = "thumbnail|picture|image",
+                                Output = "<Image Source=\"{x:Bind ViewModel.$name$, Mode=OneWay}\" Stretch=\"None\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
+                                IfReadOnly = false,
                             },
                             new Mapping
                             {
@@ -687,7 +708,7 @@ namespace RapidXamlToolkit.Options
                             new Mapping
                             {
                                 Type = "string",
-                                NameContains = "phone|tel",
+                                NameContains = "phone|tel|cell",
                                 Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBox InputScope=\"TelephoneNumber\" Text=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                                 IfReadOnly = false,
                             },
@@ -724,6 +745,13 @@ namespace RapidXamlToolkit.Options
                                 Type = "String",
                                 NameContains = "password|pwd",
                                 Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><PasswordBox Password=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string|uri",
+                                NameContains = "thumbnail|picture|image",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><Image Source=\"{x:Bind ViewModel.$name$, Mode=OneWay}\" Stretch=\"None\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -841,7 +869,7 @@ namespace RapidXamlToolkit.Options
                             new Mapping
                             {
                                 Type = "string",
-                                NameContains = "phone|tel",
+                                NameContains = "phone|tel|cell",
                                 Output = "<Entry Keyboard=\"Telephone\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
                                 IfReadOnly = false,
                             },
@@ -878,6 +906,13 @@ namespace RapidXamlToolkit.Options
                                 Type = "String",
                                 NameContains = "password|pwd",
                                 Output = "<Entry IsPassword=\"True\" Text=\"{Binding $name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string|uri",
+                                NameContains = "thumbnail|picture|image",
+                                Output = "<Image Source=\"{Binding $name$, Mode=OneWay}\" Stretch=\"None\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping

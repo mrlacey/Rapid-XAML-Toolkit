@@ -17,11 +17,12 @@ The order of items is in the tabel does not reflect the order in which
 | String         | **TRUE**     | -             | TextBlock        |                                  |
 | String         | **TRUE**     | uri/url       | HyperlinkButton  |                                  |
 | String         | false        | uri/url       | TextBox          | InputScope="Url"                 |
-| String         | false        | phone/tel     | TextBox          | InputScope="TelephoneNumber"     |
+| String         | false        | phone/tel/cell | TextBox         | InputScope="TelephoneNumber"     |
 | String         | false        | email         | TextBox          | InputScope="EmailNameOrAddress"  |
 | String         | false        | firstname/lastname/<br />familyname/surname/<br />givenname | TextBox | InputScope="PersonalFullName" |
 | String         | false        | password/pwd  | PasswordBox      |                                  |
 | String         | false        | search        | AutoSuggestBox   |                                  |
+| String/Uri     | false        | thumbnail<br />picture<br />image | Image | Stretch="None"          |
 | int/Integer    | **TRUE**     | -             | TextBlock        |                                  |
 | ICommand<br />Command<br />RelayCommand | false | - | Button     |                                  |
 | DateTimeOffset | false        | -             | DatePicker       |                                  |
@@ -43,6 +44,7 @@ The order of items is in the tabel does not reflect the order in which
 | String         | false        | -             | TextBox          |                                  |
 | String         | **TRUE**     | -             | TextBlock        |                                  |
 | String         | false        | password/pwd  | PasswordBox      |                                  |
+| String/Uri     | false        | thumbnail<br />picture<br />image | Image | Stretch="None"          |
 | DateTimeOffset<br />DateTime | false | date   | DatePicker       |                                  |
 | ICommand<br />Command<br />RelayCommand | false | - | Button     |                                  |
 | List&lt;string&gt; | false    | -             | ItemsControl     |                                  |
@@ -63,6 +65,7 @@ The order of items is in the tabel does not reflect the order in which
 | String         | false        | chat/message  | Entry            | Keyboard="Chat"                  |
 | String         | false        | email         | Entry            | Keyboard="Email"                 |
 | String         | false        | uri/url       | Entry            | Keyboard="Url"                   |
+| String/Uri     | false        | thumbnail<br />picture<br />image | Image | Stretch="None"          |
 | int<br />Integer<br />long<br />double<br />float | false | - | Entry | Keyboard="Numeric"          |
 | DateTimeOffset<br />DateTime | false | date  | DatePicker        |                                  |
 | DateTimeOffset<br />DateTime | false | time  | TimePicker        |                                  |
