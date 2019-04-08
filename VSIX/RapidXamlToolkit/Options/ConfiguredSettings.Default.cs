@@ -186,6 +186,20 @@ namespace RapidXamlToolkit.Options
                             AttemptAutomaticDocumentFormatting = true,
                         },
                     },
+
+                    new Profile
+                    {
+                        Name = "WPF C# MVVM StackPanel",
+                        ClassGrouping = "StackPanel",
+                        FallbackOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                        SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
+                        Mappings = MappingsForWpfStackPanel(),
+                        General = new GeneralSettings
+                        {
+                            AttemptAutomaticDocumentFormatting = true,
+                        },
+                    },
                 },
             };
         }
@@ -927,6 +941,125 @@ namespace RapidXamlToolkit.Options
                                 Type = "enum",
                                 NameContains = string.Empty,
                                 Output = "<Picker Title=\"$name$\"><Picker.Items>$members$</Picker.Items></Picker>",
+                                IfReadOnly = false,
+                            },
+                        };
+        }
+
+        private static ObservableCollection<Mapping> MappingsForWpfStackPanel()
+        {
+            return new ObservableCollection<Mapping>
+                        {
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = string.Empty,
+                                Output = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "password|pwd",
+                                Output = "<PasswordBox Password=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "Uri",
+                                NameContains = string.Empty,
+                                Output = "<Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer",
+                                NameContains = string.Empty,
+                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTime",
+                                NameContains = "date",
+                                Output = "<DatePicker SelectedDate=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTime",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = string.Empty,
+                                Output = "<CheckBox Content=\"$namewithspaces$\" IsChecked=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = string.Empty,
+                                Output = "<TextBlock Text=\"{Binding Path=$name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool|Boolean",
+                                NameContains = "busy|active",
+                                Output = "<ProgressBar Name=\"$name$\" IsIndeterminate=\"{Binding Path=$name$}\" Height=\"20\" Minimum=\"0\" Maximum=\"1\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ICommand|Command|RelayCommand",
+                                NameContains = string.Empty,
+                                Output = "<Button Content=\"$namewithspaces$\" Command=\"{Binding Path=$name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ObservableCollection<T>|List<T>",
+                                NameContains = string.Empty,
+                                Output = "<ListView ItemsSource=\"{Binding Path=$name$}\"><ListView.ItemTemplate><DataTemplate x:DataType=\"$type$\"><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "List<string>",
+                                NameContains = string.Empty,
+                                Output = "<ItemsControl ItemsSource=\"{Binding Path=$name$}\"></ItemsControl>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "enum",
+                                NameContains = string.Empty,
+                                Output = "<StackPanel>$members$</StackPanel>",
                                 IfReadOnly = false,
                             },
                         };
