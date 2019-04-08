@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.Options
                 {
                     new Profile
                     {
-                        Name = "UWP C# MVVM Basic StackPanel (no headers)",
+                        Name = "UWP MVVM Basic StackPanel (no headers)",
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -35,7 +35,7 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
-                        Name = "UWP C# MVVM Basic StackPanel",
+                        Name = "UWP MVVM Basic StackPanel",
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -49,7 +49,7 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
-                        Name = "UWP C# MVVM Basic 2ColGrid",
+                        Name = "UWP MVVM Basic 2ColGrid",
                         ClassGrouping = "GRID-PLUS-ROWDEFS-2COLS",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -63,7 +63,7 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
-                        Name = "UWP C# MVVM Basic RelativePanel",
+                        Name = "UWP MVVM Basic RelativePanel",
                         ClassGrouping = "RelativePanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -77,7 +77,7 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
-                        Name = "UWP C# MVVM Light StackPanel",
+                        Name = "UWP MVVM Light StackPanel",
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -91,7 +91,7 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
-                        Name = "UWP C# Caliburn.Micro StackPanel",
+                        Name = "UWP Caliburn.Micro StackPanel",
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -105,7 +105,7 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
-                        Name = "UWP C# Prism StackPanel",
+                        Name = "UWP Prism StackPanel",
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -119,63 +119,7 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
-                        Name = "UWP VB MVVM Basic StackPanel (no headers)",
-                        ClassGrouping = "StackPanel",
-                        FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
-                        SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
-                        EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsForStackPanelWithoutHeaders(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
-                    },
-
-                    new Profile
-                    {
-                        Name = "UWP VB MVVM Basic StackPanel",
-                        ClassGrouping = "StackPanel",
-                        FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
-                        SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
-                        EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsForStackPanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
-                    },
-
-                    new Profile
-                    {
-                        Name = "UWP VB MVVM Basic 2ColGrid",
-                        ClassGrouping = "StackPanel",
-                        FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
-                        SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
-                        EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsFor2ColGrid(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
-                    },
-
-                    new Profile
-                    {
-                        Name = "UWP VB MVVM Light StackPanel",
-                        ClassGrouping = "StackPanel",
-                        FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
-                        SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
-                        EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsForStackPanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
-                    },
-
-                    new Profile
-                    {
-                        Name = "Xamarin.Forms StackLayout (XAML + C#)",
+                        Name = "Xamarin.Forms StackLayout",
                         ClassGrouping = "StackLayout",
                         FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
@@ -189,7 +133,7 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
-                        Name = "WPF C# MVVM StackPanel",
+                        Name = "WPF MVVM StackPanel",
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
@@ -1012,6 +956,13 @@ namespace RapidXamlToolkit.Options
                                 NameContains = "uri|url",
                                 Output = "<Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" />",
                                 IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "string|uri",
+                                NameContains = "thumbnail|picture|image",
+                                Output = "<Image Source=\"{Binding Path=$name$, Mode=OneWay}\" Stretch=\"None\" />",
+                                IfReadOnly = false,
                             },
                             new Mapping
                             {
