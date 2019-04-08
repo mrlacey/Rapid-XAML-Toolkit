@@ -634,6 +634,23 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(2, processor.ProcessCalledCount);
         }
 
+        [TestMethod]
+        public void CanParseDocIfProcessorQueriesPrefixedAttribute()
+        {
+            var xaml = @"<Window><Grid><CheckBox IsChecked=""True"" /></Grid></Window>";
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", new GridProcessor()),
+            };
+
+            var outputTags = new List<IRapidXamlAdornmentTag>();
+
+            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+
+            Assert.IsTrue(true, "Parsing completed without exception.");
+        }
+
         private void TestParsingWithoutSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlAdornmentTag> tags)
         {
             XamlElementExtractor.Parse(null, xaml, processors, tags);
