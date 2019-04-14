@@ -51,6 +51,8 @@ namespace RapidXamlToolkit.Commands
                     var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
                     var xamlIndent = await vs.GetXamlIndentAsync();
 
+                    System.Diagnostics.Debug.WriteLine(vs.GetProjectType(vs.GetActiveProject().Project));
+
                     IDocumentParser parser = null;
 
                     if (activeDocument.Language == "CSharp")

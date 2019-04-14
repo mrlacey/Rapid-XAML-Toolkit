@@ -70,6 +70,7 @@
     <Compile Include="Parsers\AttributeArgumentDetails.cs" />
     <Compile Include="Parsers\AttributeDetails.cs" />
     <Compile Include="VisualStudioIntegration\IVisualStudioTextManipulation.cs" />
+    <Compile Include="VisualStudioIntegration\ProjectType.cs" />
     <Compile Include="VisualStudioIntegration\VisualStudioTextManipulation.cs" />
     <Compile Include="ErrorList\ErrorRow.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />

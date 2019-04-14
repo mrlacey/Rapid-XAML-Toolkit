@@ -23,6 +23,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         string GetActiveDocumentText();
 
+        ProjectType GetProjectType(EnvDTE.Project project);
+
         bool ActiveDocumentIsCSharp();
 
         // This should be the selection start if not a single point

@@ -39,6 +39,83 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return this.Dte.ActiveDocument.FullName;
         }
 
+        public ProjectType GetProjectType(EnvDTE.Project project)
+        {
+            // TODO: need another way to detect XAMARIN.FORMS projects as they use new project formats
+            const string WpfGuid = "{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548}";
+            const string UwpGuid = "{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A}";
+
+            var guids = this.GetProjectTypeGuids(project);
+
+            if (guids.Contains(WpfGuid))
+            {
+                return ProjectType.Wpf;
+            }
+            else if (guids.Contains(UwpGuid))
+            {
+                return ProjectType.Uwp;
+            }
+            else
+            {
+                return ProjectType.Other;
+            }
+        }
+
+
+        public string GetProjectTypeGuids(EnvDTE.Project proj)
+        {
+            string projectTypeGuids = "";
+            object service = null;
+            Microsoft.VisualStudio.Shell.Interop.IVsSolution solution = null;
+            Microsoft.VisualStudio.Shell.Interop.IVsHierarchy hierarchy = null;
+            Microsoft.VisualStudio.Shell.Interop.IVsAggregatableProject aggregatableProject = null;
+            int result = 0;
+            service = GetService(proj.DTE, typeof(Microsoft.VisualStudio.Shell.Interop.IVsSolution));
+            solution = (Microsoft.VisualStudio.Shell.Interop.IVsSolution)service;
+
+            result = solution.GetProjectOfUniqueName(proj.UniqueName, out hierarchy);
+
+            if (result == 0)
+            {
+                aggregatableProject = (Microsoft.VisualStudio.Shell.Interop.IVsAggregatableProject)hierarchy;
+                result = aggregatableProject.GetAggregateProjectTypeGuids(out projectTypeGuids);
+            }
+
+            return projectTypeGuids;
+        }
+
+        public object GetService(object serviceProvider, System.Type type)
+        {
+            return GetService(serviceProvider, type.GUID);
+        }
+
+        public object GetService(object serviceProviderObject, System.Guid guid)
+        {
+            object service = null;
+            Microsoft.VisualStudio.OLE.Interop.IServiceProvider serviceProvider = null;
+            IntPtr serviceIntPtr;
+            int hr = 0;
+            Guid SIDGuid;
+            Guid IIDGuid;
+
+            SIDGuid = guid;
+            IIDGuid = SIDGuid;
+            serviceProvider = (Microsoft.VisualStudio.OLE.Interop.IServiceProvider)serviceProviderObject;
+            hr = serviceProvider.QueryService(ref SIDGuid, ref IIDGuid, out serviceIntPtr);
+
+            if (hr != 0)
+            {
+                System.Runtime.InteropServices.Marshal.ThrowExceptionForHR(hr);
+            }
+            else if (!serviceIntPtr.Equals(IntPtr.Zero))
+            {
+                service = System.Runtime.InteropServices.Marshal.GetObjectForIUnknown(serviceIntPtr);
+                System.Runtime.InteropServices.Marshal.Release(serviceIntPtr);
+            }
+
+            return service;
+        }
+
         public string GetActiveDocumentText()
         {
             var activeDoc = this.Dte.ActiveDocument;
