@@ -135,5 +135,10 @@ namespace RapidXamlToolkit.Tests
         {
             // NOOP
         }
+
+        public ProjectType GetProjectType(EnvDTE.Project project)
+        {
+            return ProjectType.Other;
+        }
     }
 }

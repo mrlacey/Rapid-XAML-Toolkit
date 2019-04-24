@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-
 namespace RapidXamlToolkit.VisualStudioIntegration
 {
     public enum ProjectType
@@ -9,6 +8,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         Uwp,
         Wpf,
         XamarinForms,
-        Other
+        Other,
     }
 }

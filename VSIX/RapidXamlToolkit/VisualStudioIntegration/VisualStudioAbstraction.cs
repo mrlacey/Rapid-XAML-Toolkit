@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using EnvDTE;
@@ -10,9 +11,12 @@ using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
+using IAsyncServiceProvider = Microsoft.VisualStudio.Shell.IAsyncServiceProvider;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
 {
@@ -41,76 +45,118 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public ProjectType GetProjectType(EnvDTE.Project project)
         {
-            // TODO: need another way to detect XAMARIN.FORMS projects as they use new project formats
             const string WpfGuid = "{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548}";
             const string UwpGuid = "{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A}";
+            const string XamAndroidGuid = "{EFBA0AD7-5A72-4C68-AF49-83D382785DCF}";
+            const string XamIosGuid = "{6BC8ED88-2882-458C-8E55-DFD12B67127B}";
+
+            bool ReferencesXamarin(EnvDTE.Project proj)
+            {
+                var componentModel = this.GetService(proj.DTE, typeof(SComponentModel)) as IComponentModel;
+                var nugetService = componentModel.GetService<NuGet.VisualStudio.IVsPackageInstallerServices>();
+
+                if (nugetService != null)
+                {
+                    foreach (var item in nugetService.GetInstalledPackages(proj))
+                    {
+                        if (item.Id.ToLowerInvariant().Contains("xamarin"))
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            }
 
             var guids = this.GetProjectTypeGuids(project);
 
+            // Check with `Contains` as there may be multiple GUIDs specified (e.g. for programming language too)
             if (guids.Contains(WpfGuid))
             {
                 return ProjectType.Wpf;
             }
             else if (guids.Contains(UwpGuid))
             {
-                return ProjectType.Uwp;
+                // May be a UWP head for a XF app
+                return ReferencesXamarin(project) ? ProjectType.XamarinForms : ProjectType.Uwp;
+            }
+            else if (guids.Contains(XamAndroidGuid) || guids.Contains(XamIosGuid))
+            {
+                return ProjectType.XamarinForms;
             }
             else
             {
-                return ProjectType.Other;
+                // Shared Projects provide no Guids or references that can be used to determine project type
+                if (System.IO.Path.GetExtension(project.FileName) == ".shproj")
+                {
+                    // TODO: temporary work around until have a way of determining this
+                    // - possibly open first XAML file and work it out from that
+                    return ProjectType.Other;
+                }
+                else
+                {
+                    return ReferencesXamarin(project) ? ProjectType.XamarinForms : ProjectType.Other;
+                }
             }
         }
 
-
         public string GetProjectTypeGuids(EnvDTE.Project proj)
         {
-            string projectTypeGuids = "";
+            string projectTypeGuids = string.Empty;
             object service = null;
-            Microsoft.VisualStudio.Shell.Interop.IVsSolution solution = null;
-            Microsoft.VisualStudio.Shell.Interop.IVsHierarchy hierarchy = null;
-            Microsoft.VisualStudio.Shell.Interop.IVsAggregatableProject aggregatableProject = null;
-            int result = 0;
-            service = GetService(proj.DTE, typeof(Microsoft.VisualStudio.Shell.Interop.IVsSolution));
-            solution = (Microsoft.VisualStudio.Shell.Interop.IVsSolution)service;
+            IVsSolution solution = null;
+            IVsHierarchy hierarchy = null;
+            IVsAggregatableProject aggregatableProject = null;
+            service = this.GetService(proj.DTE, typeof(IVsSolution));
+            solution = (IVsSolution)service;
 
-            result = solution.GetProjectOfUniqueName(proj.UniqueName, out hierarchy);
-
-            if (result == 0)
+            try
             {
-                aggregatableProject = (Microsoft.VisualStudio.Shell.Interop.IVsAggregatableProject)hierarchy;
-                result = aggregatableProject.GetAggregateProjectTypeGuids(out projectTypeGuids);
+                int result = 0;
+                result = solution.GetProjectOfUniqueName(proj.UniqueName, out hierarchy);
+
+                if (result == 0)
+                {
+                    aggregatableProject = (IVsAggregatableProject)hierarchy;
+                    result = aggregatableProject.GetAggregateProjectTypeGuids(out projectTypeGuids);
+                }
+            }
+            catch (Exception exc)
+            {
+                // Some (unknown/irrelevant) project types may cause above casts to fail
+                System.Diagnostics.Debug.WriteLine(exc);
             }
 
             return projectTypeGuids;
         }
 
-        public object GetService(object serviceProvider, System.Type type)
+        public object GetService(object serviceProvider, Type type)
         {
-            return GetService(serviceProvider, type.GUID);
+            return this.GetService(serviceProvider, type.GUID);
         }
 
-        public object GetService(object serviceProviderObject, System.Guid guid)
+        public object GetService(object serviceProviderObject, Guid guid)
         {
             object service = null;
             Microsoft.VisualStudio.OLE.Interop.IServiceProvider serviceProvider = null;
-            IntPtr serviceIntPtr;
             int hr = 0;
-            Guid SIDGuid;
-            Guid IIDGuid;
+            Guid serviceGuid;
+            Guid interopGuid;
 
-            SIDGuid = guid;
-            IIDGuid = SIDGuid;
+            serviceGuid = guid;
+            interopGuid = serviceGuid;
             serviceProvider = (Microsoft.VisualStudio.OLE.Interop.IServiceProvider)serviceProviderObject;
-            hr = serviceProvider.QueryService(ref SIDGuid, ref IIDGuid, out serviceIntPtr);
+            hr = serviceProvider.QueryService(ref serviceGuid, ref interopGuid, out IntPtr serviceIntPtr);
 
             if (hr != 0)
             {
-                System.Runtime.InteropServices.Marshal.ThrowExceptionForHR(hr);
+                Marshal.ThrowExceptionForHR(hr);
             }
             else if (!serviceIntPtr.Equals(IntPtr.Zero))
             {
-                service = System.Runtime.InteropServices.Marshal.GetObjectForIUnknown(serviceIntPtr);
-                System.Runtime.InteropServices.Marshal.Release(serviceIntPtr);
+                service = Marshal.GetObjectForIUnknown(serviceIntPtr);
+                Marshal.Release(serviceIntPtr);
             }
 
             return service;
@@ -231,7 +277,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 this.logger.RecordException(exc);
             }
 
-            var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();
+            var indent = new IndentSize();
 
             return indent.Default;
         }
