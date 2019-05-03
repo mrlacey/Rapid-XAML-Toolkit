@@ -299,6 +299,13 @@ namespace RapidXamlToolkit
                 }
             }
 
+            var attributes = possibleXaml.GetAllAttributes();
+
+            foreach (var attribute in attributes)
+            {
+                possibleXaml = possibleXaml.Replace(attribute, string.Empty);
+            }
+
             // Check XAML formatting
             try
             {
@@ -424,6 +431,22 @@ namespace RapidXamlToolkit
             var plchldrRgx = new Regex("([$$][\\w]+[$$])");
 
             var matches = plchldrRgx.Matches(source);
+
+            var result = new List<string>();
+
+            foreach (Match match in matches)
+            {
+                result.Add(match.Value);
+            }
+
+            return result;
+        }
+
+        public static List<string> GetAllAttributes(this string source)
+        {
+            var attRgx = new Regex("([$$]att:[\\w]+:[\\w =\"\\[\\]]+[$$])");
+
+            var matches = attRgx.Matches(source);
 
             var result = new List<string>();
 
