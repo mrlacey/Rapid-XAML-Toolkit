@@ -9,6 +9,8 @@ using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
+using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.ErrorList
 {
@@ -51,25 +53,13 @@ namespace RapidXamlToolkit.ErrorList
             }
         }
 
-        public bool HasErrors
-        {
-            get { return snapshots.Any(); }
-        }
+        public bool HasErrors => snapshots.Any();
 
-        public string SourceTypeIdentifier
-        {
-            get { return StandardTableDataSources.ErrorTableDataSource; }
-        }
+        public string SourceTypeIdentifier => StandardTableDataSources.ErrorTableDataSource;
 
-        public string Identifier
-        {
-            get { return RapidXamlPackage.PackageGuidString; }
-        }
+        public string Identifier => RapidXamlPackage.PackageGuidString;
 
-        public string DisplayName
-        {
-            get { return "Rapid XAML Toolkit"; }
-        }
+        public string DisplayName => StringRes.VSIX__LocalizedName;
 
         [Import]
         private ITableManagerProvider TableManagerProvider { get; set; } = null;
@@ -112,12 +102,12 @@ namespace RapidXamlToolkit.ErrorList
 
         public void AddErrors(FileErrorCollection result)
         {
-            if (result == null || !result.Errors.Any())
+            if (result == null || result.Errors.All(e => e.ErrorType == TagErrorType.Hidden))
             {
                 return;
             }
 
-            result.Errors = result.Errors.Where(v => !snapshots.Any(s => s.Value.Errors.Contains(v))).ToList();
+            result.Errors = result.Errors.Where(v => !snapshots.Any(s => s.Value.Errors.Contains(v)) && v.ErrorType != TagErrorType.Hidden).ToList();
 
             var snapshot = new TableEntriesSnapshot(result);
             snapshots[result.FilePath] = snapshot;

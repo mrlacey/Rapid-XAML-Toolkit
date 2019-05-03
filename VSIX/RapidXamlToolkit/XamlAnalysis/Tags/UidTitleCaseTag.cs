@@ -7,10 +7,10 @@ using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public class UidTitleCaseTag : RapidXamlSuggestionTag
+    public class UidTitleCaseTag : RapidXamlDisplayedTag
     {
         public UidTitleCaseTag(Span span, ITextSnapshot snapshot, int line, int column, string value)
-            : base(span, snapshot, "RXT451", line, column)
+            : base(span, snapshot, "RXT451", line, column, TagErrorType.Suggestion)
         {
             this.SuggestedAction = typeof(MakeUidStartWithCapitalAction);
             this.ToolTip = StringRes.Info_XamlAnalysisUidTitleCaseToolTip;

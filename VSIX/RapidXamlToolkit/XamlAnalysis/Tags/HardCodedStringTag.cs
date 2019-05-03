@@ -9,10 +9,10 @@ using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public class HardCodedStringTag : RapidXamlWarningTag
+    public class HardCodedStringTag : RapidXamlDisplayedTag
     {
         public HardCodedStringTag(Span span, ITextSnapshot snapshot, int line, int column, string elementName, string attributeName)
-            : base(span, snapshot, "RXT200", line, column)
+            : base(span, snapshot, "RXT200", line, column, TagErrorType.Warning)
         {
             this.SuggestedAction = typeof(HardCodedStringAction);
             this.ToolTip = StringRes.Info_XamlAnalysisHardcodedStringTooltip;

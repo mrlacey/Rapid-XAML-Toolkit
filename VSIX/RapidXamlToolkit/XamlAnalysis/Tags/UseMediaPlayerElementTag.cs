@@ -7,11 +7,11 @@ using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public class UseMediaPlayerElementTag : RapidXamlWarningTag
+    public class UseMediaPlayerElementTag : RapidXamlDisplayedTag
     {
         // https://docs.microsoft.com/en-us/uwp/api/Windows.UI.Xaml.Controls.MediaElement#remarks
         public UseMediaPlayerElementTag(Span span, ITextSnapshot snapshot, int line, int column)
-            : base(span, snapshot, "RXT402", line, column)
+            : base(span, snapshot, "RXT402", line, column, TagErrorType.Warning)
         {
             this.SuggestedAction = typeof(MediaElementAction);
             this.ToolTip = StringRes.Info_XamlAnalysisUseMediaPlayerElementToolTip;

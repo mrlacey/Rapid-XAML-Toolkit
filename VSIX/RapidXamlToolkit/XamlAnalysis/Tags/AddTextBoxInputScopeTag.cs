@@ -7,10 +7,10 @@ using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public class AddTextBoxInputScopeTag : RapidXamlSuggestionTag
+    public class AddTextBoxInputScopeTag : RapidXamlDisplayedTag
     {
         public AddTextBoxInputScopeTag(Span span, ITextSnapshot snapshot, int line, int column)
-            : base(span, snapshot, "RXT150", line, column)
+            : base(span, snapshot, "RXT150", line, column, TagErrorType.Suggestion)
         {
             this.SuggestedAction = typeof(AddTextBoxInputScopeAction);
             this.Description = StringRes.Info_XamlAnalysisTextBoxWithoutInputScopeDescription;

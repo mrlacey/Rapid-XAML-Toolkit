@@ -6,10 +6,10 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public abstract class MissingDefinitionTag : RapidXamlWarningTag
+    public abstract class MissingDefinitionTag : RapidXamlDisplayedTag
     {
-        protected MissingDefinitionTag(Span span, ITextSnapshot snapshot, string errorCode, int line, int column)
-            : base(span, snapshot, errorCode, line, column)
+        protected MissingDefinitionTag(Span span, ITextSnapshot snapshot, string errorCode, int line, int column, TagErrorType defaultErrorType)
+            : base(span, snapshot, errorCode, line, column, defaultErrorType)
         {
         }
 

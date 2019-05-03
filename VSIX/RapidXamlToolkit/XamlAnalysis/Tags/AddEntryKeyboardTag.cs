@@ -7,10 +7,10 @@ using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public class AddEntryKeyboardTag : RapidXamlSuggestionTag
+    public class AddEntryKeyboardTag : RapidXamlDisplayedTag
     {
         public AddEntryKeyboardTag(Span span, ITextSnapshot snapshot, int line, int column, string originalXaml)
-            : base(span, snapshot, "RXT300", line, column)
+            : base(span, snapshot, "RXT300", line, column, TagErrorType.Suggestion)
         {
             this.SuggestedAction = typeof(AddEntryKeyboardAction);
             this.Description = StringRes.Info_XamlAnalysisEntryWithoutKeyboardDescription;

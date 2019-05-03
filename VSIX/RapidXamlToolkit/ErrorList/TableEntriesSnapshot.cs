@@ -1,18 +1,20 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 using EnvDTE;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell.TableControl;
 using Microsoft.VisualStudio.Shell.TableManager;
+using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.ErrorList
 {
     public class TableEntriesSnapshot : WpfTableEntriesSnapshotBase
     {
-        private string projectName;
+        private readonly string projectName;
 
         internal TableEntriesSnapshot(FileErrorCollection result)
         {
@@ -25,10 +27,7 @@ namespace RapidXamlToolkit.ErrorList
 
         public override int VersionNumber { get; } = 1;
 
-        public override int Count
-        {
-            get { return this.Errors.Count; }
-        }
+        public override int Count => this.Errors.Count;
 
         public string FilePath { get; set; }
 
@@ -56,10 +55,50 @@ namespace RapidXamlToolkit.ErrorList
                     return true;
                 case StandardTableKeyNames.PriorityImage:
                 case StandardTableKeyNames.ErrorSeverityImage:
-                    content = error.IsMessage ? KnownMonikers.StatusInformationOutline : error.IsError ? KnownMonikers.ProcessError : KnownMonikers.ReportWarning;
+
+                    if (error.IsInternalError)
+                    {
+                        content = KnownMonikers.ProcessError;
+                    }
+                    else
+                    {
+                        switch (error.ErrorType)
+                        {
+                            case TagErrorType.Error:
+                                content = KnownMonikers.StatusErrorOutline;
+                                break;
+                            case TagErrorType.Warning:
+                                content = KnownMonikers.StatusWarningOutline;
+                                break;
+                            case TagErrorType.Suggestion:
+                                content = KnownMonikers.StatusInformationOutline;
+                                break;
+                            case TagErrorType.Hidden:
+                            default:
+                                content = null;
+                                break;
+                        }
+                    }
+
                     return true;
                 case StandardTableKeyNames.ErrorSeverity:
-                    content = error.IsMessage ? __VSERRORCATEGORY.EC_MESSAGE : error.IsError ? __VSERRORCATEGORY.EC_ERROR : __VSERRORCATEGORY.EC_WARNING;
+                    switch (error.ErrorType)
+                    {
+                        case TagErrorType.Error:
+                            content = __VSERRORCATEGORY.EC_ERROR;
+                            break;
+                        case TagErrorType.Warning:
+                            content = __VSERRORCATEGORY.EC_WARNING;
+                            break;
+                        case TagErrorType.Suggestion:
+                            content = __VSERRORCATEGORY.EC_MESSAGE;
+                            break;
+                        case TagErrorType.Hidden:
+                        default:
+                            content = -1;
+                            break;
+                    }
+
                     return true;
                 case StandardTableKeyNames.Priority:
                     content = vsTaskPriority.vsTaskPriorityMedium;
