@@ -27,7 +27,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithoutHeaders(),
-                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -38,7 +37,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -49,7 +47,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwp2ColGrid(),
-                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -60,7 +57,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpRelativePanelWithHeader(),
-                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -71,7 +67,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -82,7 +77,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -93,7 +87,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -104,7 +97,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
                         EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
                         Mappings = MappingsForXfStackLayout(),
-                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -115,7 +107,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
                         EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpfStackPanel(),
-                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -126,7 +117,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
                         EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpf2ColGrid(),
-                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -137,7 +127,6 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
                         EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpfStackPanel(),
-                        AttemptAutomaticDocumentFormatting = true,
                     },
                 },
             };
