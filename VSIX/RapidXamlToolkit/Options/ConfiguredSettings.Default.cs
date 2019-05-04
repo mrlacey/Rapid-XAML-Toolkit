@@ -931,7 +931,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "string",
                                 NameContains = "password|pwd",
-                                Output = "<PasswordBox $att:MaxLength: MaxLength=\"[1]\"$ />",
+                                Output = "<PasswordBox Password=\"{Binding Path=$name$, Mode=TwoWay}\"$att:MaxLength: MaxLength=\"[1]\"$ />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -1057,7 +1057,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "string",
                                 NameContains = "password|pwd",
-                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><PasswordBox Grid.Row=\"$repint$\" Grid.Column=\"1\"$att:MaxLength: MaxLength=\"[1]\"$ />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><PasswordBox Password=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\"$att:MaxLength: MaxLength=\"[1]\"$ />",
                                 IfReadOnly = false,
                             },
                             new Mapping

@@ -99,9 +99,9 @@ namespace RapidXamlToolkit.Parsers
                         output.AppendLine("<Grid.RowDefinitions>");
 
                         Logger?.RecordInfo(StringRes.Info_AddedRowDefsCount.WithParams(numericCounter));
-                        for (int i = 1; i <= numericCounter; i++)
+                        for (int i = 1; i <= numericCounter + 1; i++)
                         {
-                            output.AppendLine(i < numericCounter
+                            output.AppendLine(i <= numericCounter
                                 ? "<RowDefinition Height=\"Auto\" />"
                                 : "<RowDefinition Height=\"*\" />");
                         }
