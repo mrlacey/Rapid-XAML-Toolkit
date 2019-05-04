@@ -27,10 +27,7 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithoutHeaders(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -41,10 +38,7 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -55,10 +49,7 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwp2ColGrid(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -69,10 +60,7 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpRelativePanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -83,10 +71,7 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -97,10 +82,7 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -111,10 +93,7 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -125,10 +104,7 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
                         EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
                         Mappings = MappingsForXfStackLayout(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -139,10 +115,7 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
                         EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpfStackPanel(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -153,10 +126,7 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
                         EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpf2ColGrid(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
@@ -167,10 +137,7 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
                         EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpfStackPanel(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
                 },
             };
@@ -968,14 +935,14 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "string",
                                 NameContains = string.Empty,
-                                Output = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                Output = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\"$att:MaxLength: MaxLength=\"[1]\"$ />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "string",
                                 NameContains = "password|pwd",
-                                Output = "<PasswordBox Password=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                Output = "<PasswordBox $att:MaxLength: MaxLength=\"[1]\"$ />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -1094,14 +1061,14 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "string",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\"$att:MaxLength: MaxLength=\"[1]\"$ />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "string",
                                 NameContains = "password|pwd",
-                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><PasswordBox Password=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><PasswordBox Grid.Row=\"$repint$\" Grid.Column=\"1\"$att:MaxLength: MaxLength=\"[1]\"$ />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -1178,7 +1145,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "ICommand|Command|RelayCommand",
                                 NameContains = string.Empty,
-                                Output = "<Button Content=\"$namewithspaces$\" Command=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                Output = "<Button Content=\"$namewithspaces$\" Command=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\" Grid.Column=\"1\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -1220,14 +1187,14 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "string",
                                 NameContains = string.Empty,
-                                Output = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                Output = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\"$att:MaxLength: MaxLength=\"[1]\"$ />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "string",
                                 NameContains = "password|pwd",
-                                Output = "<PasswordBox Password=\"{Binding Path=$name$, Mode=TwoWay}\" />",
+                                Output = "<PasswordBox $att:MaxLength: MaxLength=\"[1]\"$ />",
                                 IfReadOnly = false,
                             },
                             new Mapping
