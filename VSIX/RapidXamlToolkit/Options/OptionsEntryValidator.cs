@@ -33,6 +33,38 @@ namespace RapidXamlToolkit.Options
                 }
             }
 
+            var placeholders = enteredText.GetPlaceholders();
+
+            var modifiedValue = enteredText;
+
+            foreach (var ph in placeholders)
+            {
+                modifiedValue = modifiedValue.Replace(ph, string.Empty);
+            }
+
+            var attribs = modifiedValue.GetAllAttributes();
+
+            foreach (var attrib in attribs)
+            {
+                modifiedValue = modifiedValue.Replace(attrib, string.Empty);
+            }
+
+            var dollarSignCount = modifiedValue.OccurrenceCount("$");
+            if (dollarSignCount > 0)
+            {
+                string invalidPlaceholder;
+                if (dollarSignCount > 1)
+                {
+                    invalidPlaceholder = modifiedValue.Substring(modifiedValue.IndexOf("$"), modifiedValue.IndexOf("$", modifiedValue.IndexOf("$") + 1) - modifiedValue.IndexOf("$") + 1);
+                }
+                else
+                {
+                    invalidPlaceholder = modifiedValue.Substring(modifiedValue.IndexOf("$"));
+                }
+
+                return StringRes.Options_Warn_UnknownPlaceholders.WithParams(invalidPlaceholder);
+            }
+
             return null;
         }
     }
