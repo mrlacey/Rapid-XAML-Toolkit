@@ -43,8 +43,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         /// </summary>
         public bool IsInternalError { get; protected set; }
 
-
-
         public TagErrorType ConfiguredErrorType
         {
             get
@@ -60,7 +58,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             }
         }
 
-        private bool TryGetConfiguredErrorType(string errorCode, out TagErrorType tagErrorType)
+        public bool TryGetConfiguredErrorType(string errorCode, out TagErrorType tagErrorType)
         {
             throw new System.NotImplementedException();
         }
