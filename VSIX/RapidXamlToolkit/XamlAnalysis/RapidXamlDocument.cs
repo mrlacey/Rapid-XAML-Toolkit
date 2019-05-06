@@ -84,6 +84,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.Label, new LabelProcessor()),
                         (Elements.PasswordBox, new PasswordBoxProcessor()),
                         (Elements.MediaElement, new MediaElementProcessor()),
+                        (Elements.ListView, new SelectedItemAttributeProcessor()),
+                        (Elements.DataGrid, new SelectedItemAttributeProcessor()),
                     };
         }
     }

@@ -238,6 +238,7 @@
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
     <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\SelectedItemModeAction.cs" />
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="XamlAnalysis\Processors\PivotProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\RepeatButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\RichEditBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\SelectedItemAttributeProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\SliderProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\TimePickerProcessor.cs" />
@@ -312,6 +314,7 @@
     <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBlockProcessor.cs" />
     <Compile Include="XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\SelectedItemModeTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UidTitleCaseTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UseMediaPlayerElementTag.cs" />

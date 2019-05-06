@@ -27,6 +27,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string PlaceholderText => "PlaceholderText";
 
+        public static string SelectedItem => "SelectedItem";
+
         public static string Text => "Text";
 
         public static string Title => "Title";
