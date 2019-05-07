@@ -7,10 +7,10 @@ using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public class SelectedItemModeTag : RapidXamlWarningTag
+    public class SelectedItemModeTag : RapidXamlDisplayedTag
     {
         public SelectedItemModeTag(Span span, ITextSnapshot snapshot, int line, int column)
-            : base(span, snapshot, "RXT160", line, column)
+            : base(span, snapshot, "RXT160", line, column, TagErrorType.Warning)
         {
             this.SuggestedAction = typeof(SelectedItemModeAction);
             this.ToolTip = StringRes.Info_XamlAnalysisSetBindingModeToTwoWayToolTip;
