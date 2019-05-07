@@ -1,6 +1,6 @@
 # Rapid XAML Toolkit - Warnings
 
-The following Warnings and Comments may be shown in the Error List.
+The following may be shown in the Error List.
 
 |  Code  | Description |
 |--------|-------------|
