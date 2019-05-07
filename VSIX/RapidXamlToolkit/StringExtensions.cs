@@ -477,5 +477,17 @@ namespace RapidXamlToolkit
                 return string.Empty;
             }
         }
+
+        public static string PartAfter(this string source, string identifier)
+        {
+            if (source.Contains(identifier))
+            {
+                return source.Substring(source.IndexOf(identifier) + identifier.Length);
+            }
+            else
+            {
+                return source;
+            }
+        }
     }
 }

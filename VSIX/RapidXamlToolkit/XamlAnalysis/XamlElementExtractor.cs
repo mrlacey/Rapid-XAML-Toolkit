@@ -53,7 +53,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         currentElementBody = new StringBuilder("<");
                     }
                 }
-                else if (char.IsLetterOrDigit(xaml[i]))
+                else if (char.IsLetterOrDigit(xaml[i]) || xaml[i] == ':')
                 {
                     if (isIdentifyingElement)
                     {
@@ -78,7 +78,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     if (isIdentifyingElement)
                     {
-                        if (elementsOfInterest.Contains(currentElementName.ToString()))
+                        if (elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
                         {
                             elementsBeingTracked.Add(
                                 new TrackingElement
@@ -116,7 +116,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         if (isIdentifyingElement)
                         {
-                            if (elementsOfInterest.Contains(currentElementName.ToString()))
+                            if (elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
                             {
                                 elementsBeingTracked.Add(
                                     new TrackingElement
@@ -155,7 +155,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                 foreach (var (element, processor) in processors)
                                 {
-                                    if (element == toProcess.ElementName)
+                                    if (element == toProcess.ElementNameWithoutNamespace)
                                     {
                                         processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
                                     }
@@ -187,6 +187,14 @@ namespace RapidXamlToolkit.XamlAnalysis
             public int StartPos { get; set; }
 
             public string ElementName { get; set; }
+
+            public string ElementNameWithoutNamespace
+            {
+                get
+                {
+                    return this.ElementName.PartAfter(":");
+                }
+            }
 
             public StringBuilder ElementBody { get; set; }
         }

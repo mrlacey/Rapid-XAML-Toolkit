@@ -35,6 +35,27 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
+        public void CanGetRootElement_WithXmlns()
+        {
+            var xaml = @"<ns:Grid></ns:Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            var outputTags = new List<IRapidXamlAdornmentTag>();
+
+            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(0, processor.Offset);
+            Assert.AreEqual(xaml, processor.XamlElement);
+        }
+
+        [TestMethod]
         public void CanGetRootElement_WithLineEnding()
         {
             var xaml = @"<Grid>
@@ -60,6 +81,27 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void CanGetRootElement_WithAttribute()
         {
             var xaml = @"<Grid attr=""value""></Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            var outputTags = new List<IRapidXamlAdornmentTag>();
+
+            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(0, processor.Offset);
+            Assert.AreEqual(xaml, processor.XamlElement);
+        }
+
+        [TestMethod]
+        public void CanGetRootElement_WithAttribute_AndXmlns()
+        {
+            var xaml = @"<ns:Grid attr=""value""></ns:Grid>";
 
             var processor = new FakeXamlElementProcessor();
 
@@ -284,6 +326,27 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(6, processor.Offset);
             Assert.AreEqual("<Inner></Inner>", processor.XamlElement);
+        }
+
+        [TestMethod]
+        public void CanGetChildElement_NamedClosing_WithXmlns()
+        {
+            var xaml = @"<Grid><ns:Inner></ns:Inner></Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Inner", processor),
+            };
+
+            var outputTags = new List<IRapidXamlAdornmentTag>();
+
+            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(6, processor.Offset);
+            Assert.AreEqual("<ns:Inner></ns:Inner>", processor.XamlElement);
         }
 
         [TestMethod]
@@ -551,6 +614,44 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(@"<GrandChild />", grandChildProc.AllXamlElements[1]);
             Assert.AreEqual(27, grandChildProc.AllOffsets[2]);
             Assert.AreEqual(@"<GrandChild></GrandChild>", grandChildProc.AllXamlElements[2]);
+        }
+
+        [TestMethod]
+        public void CanGetRootChildAndGrandChildrenElements_WithXmlns()
+        {
+            var xaml = @"<ns:Grid><ns:Child><ns:GrandChild /><ns:GrandChild></ns:GrandChild></ns:Child></ns:Grid>";
+
+            var gridProc = new FakeXamlElementProcessor();
+            var childProc = new FakeXamlElementProcessor();
+            var grandChildProc = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", gridProc),
+                ("Child", childProc),
+                ("GrandChild", grandChildProc),
+            };
+
+            var outputTags = new List<IRapidXamlAdornmentTag>();
+
+            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+
+            Assert.IsTrue(gridProc.ProcessCalled);
+            Assert.AreEqual(1, gridProc.ProcessCalledCount);
+            Assert.AreEqual(0, gridProc.Offset);
+            Assert.AreEqual(xaml, gridProc.XamlElement);
+
+            Assert.IsTrue(childProc.ProcessCalled);
+            Assert.AreEqual(1, childProc.ProcessCalledCount);
+            Assert.AreEqual(9, childProc.Offset);
+            Assert.AreEqual(@"<ns:Child><ns:GrandChild /><ns:GrandChild></ns:GrandChild></ns:Child>", childProc.XamlElement);
+
+            Assert.IsTrue(grandChildProc.ProcessCalled);
+            Assert.AreEqual(2, grandChildProc.ProcessCalledCount);
+            Assert.AreEqual(19, grandChildProc.AllOffsets[1]);
+            Assert.AreEqual(@"<ns:GrandChild />", grandChildProc.AllXamlElements[1]);
+            Assert.AreEqual(36, grandChildProc.AllOffsets[2]);
+            Assert.AreEqual(@"<ns:GrandChild></ns:GrandChild>", grandChildProc.AllXamlElements[2]);
         }
 
         [TestMethod]
