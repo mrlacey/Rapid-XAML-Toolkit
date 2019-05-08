@@ -31,7 +31,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                         existingMode = oneWay;
                     }
 
-                    tags.Add(new SelectedItemModeTag(new Span(offset + index, length), snapshot, fileName, line.LineNumber, index)
+                    tags.Add(new SelectedItemBindingModeTag(new Span(offset + index, length), snapshot, fileName, line.LineNumber, index)
                     {
                         InsertPosition = offset + index,
                         ExistingBindingMode = existingMode,

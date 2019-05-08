@@ -8,19 +8,19 @@ using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
-    public class SelectedItemModeAction : BaseSuggestedAction
+    public class SelectedItemBindingModeAction : BaseSuggestedAction
     {
-        public SelectedItemModeAction(string file)
+        public SelectedItemBindingModeAction(string file)
             : base(file)
         {
             this.DisplayText = StringRes.UI_SetBindingModeToTwoWay;
         }
 
-        public SelectedItemModeTag Tag { get; private set; }
+        public SelectedItemBindingModeTag Tag { get; private set; }
 
-        public static SelectedItemModeAction Create(SelectedItemModeTag tag, string file)
+        public static SelectedItemBindingModeAction Create(SelectedItemBindingModeTag tag, string file)
         {
-            var result = new SelectedItemModeAction(file)
+            var result = new SelectedItemBindingModeAction(file)
             {
                 Tag = tag,
             };
