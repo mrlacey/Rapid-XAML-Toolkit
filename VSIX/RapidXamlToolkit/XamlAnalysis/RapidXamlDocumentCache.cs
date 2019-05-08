@@ -124,7 +124,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             if (Cache.ContainsKey(fileName))
             {
-                result.AddRange(Cache[fileName].Tags);
+                result.AddRange(Cache[fileName].Tags.Where(t => (t as RapidXamlDisplayedTag == null) || (t as RapidXamlDisplayedTag).ConfiguredErrorType != TagErrorType.Hidden));
             }
 
             return result;
