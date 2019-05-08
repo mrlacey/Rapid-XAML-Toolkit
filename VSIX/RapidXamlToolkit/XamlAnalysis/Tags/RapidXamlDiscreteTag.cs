@@ -8,8 +8,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlDiscreteTag : RapidXamlAdornmentTag
     {
-        protected RapidXamlDiscreteTag(Span span, ITextSnapshot snapshot)
-            : base(span, snapshot)
+        protected RapidXamlDiscreteTag(Span span, ITextSnapshot snapshot, string fileName)
+            : base(span, snapshot, fileName)
         {
         }
 

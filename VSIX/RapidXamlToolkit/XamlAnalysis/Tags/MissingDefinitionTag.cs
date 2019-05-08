@@ -8,8 +8,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class MissingDefinitionTag : RapidXamlDisplayedTag
     {
-        protected MissingDefinitionTag(Span span, ITextSnapshot snapshot, string errorCode, int line, int column, TagErrorType defaultErrorType)
-            : base(span, snapshot, errorCode, line, column, defaultErrorType)
+        protected MissingDefinitionTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, int line, int column, TagErrorType defaultErrorType)
+            : base(span, snapshot, fileName, errorCode, line, column, defaultErrorType)
         {
         }
 

@@ -55,7 +55,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(1, xaml, "	    ", snapshot, outputTags);
+            sut.Process("testfile.xaml", 1, xaml, "	    ", snapshot, outputTags);
 
             Assert.AreEqual(0, outputTags.OfType<MissingRowDefinitionTag>().Count());
         }

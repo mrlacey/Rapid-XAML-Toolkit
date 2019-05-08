@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlDisplayedTag : RapidXamlAdornmentTag, IRapidXamlErrorListTag
     {
-        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string errorCode, int line, int column, TagErrorType defaultErrorType)
-            : base(span, snapshot)
+        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, int line, int column, TagErrorType defaultErrorType)
+            : base(span, snapshot, fileName)
         {
             this.ErrorCode = errorCode;
             this.Line = line;
@@ -60,7 +60,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public bool TryGetConfiguredErrorType(string errorCode, out TagErrorType tagErrorType)
         {
-            throw new System.NotImplementedException();
+            // tODO: Issue#140 implement TryGetConfiguredErrorType
+            // get settings file if it exists
+            // if value in config file return that.
+
+            // Set to default if no override in file
+            tagErrorType = this.DefaultErrorType;
+
+            return false;
         }
 
         public override ITagSpan<IErrorTag> AsErrorTag()

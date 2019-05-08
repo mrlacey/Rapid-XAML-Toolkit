@@ -9,8 +9,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class InsertRowDefinitionTag : RapidXamlDiscreteTag
     {
-        public InsertRowDefinitionTag(Span span, ITextSnapshot snapshot)
-            : base(span, snapshot)
+        public InsertRowDefinitionTag(Span span, ITextSnapshot snapshot, string fileName)
+            : base(span, snapshot, fileName)
         {
             this.SuggestedAction = typeof(InsertRowDefinitionAction);
         }

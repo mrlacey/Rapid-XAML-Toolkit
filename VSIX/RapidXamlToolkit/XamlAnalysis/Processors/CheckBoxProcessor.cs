@@ -12,11 +12,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class CheckBoxProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Content);
 
             this.CheckForHardCodedAttribute(
+                fileName,
                 Elements.CheckBox,
                 Attributes.Content,
                 AttributeType.Any,
@@ -37,7 +38,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var line = snapshot.GetLineFromPosition(offset + checkedIndex);
                 var col = offset + checkedIndex - line.Start.Position;
-                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + checkedIndex, checkedLength), snapshot, line.LineNumber, col, checkedEventName, hasChecked: true)
+                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + checkedIndex, checkedLength), snapshot, fileName, line.LineNumber, col, checkedEventName, hasChecked: true)
                 {
                     InsertPosition = offset,
                 });
@@ -47,7 +48,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var line = snapshot.GetLineFromPosition(offset + uncheckedIndex);
                 var col = offset + uncheckedIndex - line.Start.Position;
-                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + uncheckedIndex, uncheckedLength), snapshot, line.LineNumber, col, uncheckedEventName, hasChecked: false)
+                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + uncheckedIndex, uncheckedLength), snapshot, fileName, line.LineNumber, col, uncheckedEventName, hasChecked: false)
                 {
                     InsertPosition = offset,
                 });

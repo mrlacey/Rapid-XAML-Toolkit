@@ -12,11 +12,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class AppBarButtonProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Label);
 
             this.CheckForHardCodedAttribute(
+                fileName,
                 Elements.AppBarButton,
                 Attributes.Label,
                 AttributeType.InlineOrElement,

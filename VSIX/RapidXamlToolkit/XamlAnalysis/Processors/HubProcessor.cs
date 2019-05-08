@@ -12,11 +12,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class HubProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
             this.CheckForHardCodedAttribute(
+                fileName,
                 Elements.Hub,
                 Attributes.Header,
                 AttributeType.InlineOrElement,

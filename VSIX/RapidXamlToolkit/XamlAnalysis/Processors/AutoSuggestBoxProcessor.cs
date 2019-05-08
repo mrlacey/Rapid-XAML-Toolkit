@@ -12,13 +12,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class AutoSuggestBoxProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
             var elementGuid = Guid.NewGuid();
 
             this.CheckForHardCodedAttribute(
+                fileName,
                 Elements.AutoSuggestBox,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
@@ -32,6 +33,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 tags);
 
             this.CheckForHardCodedAttribute(
+                fileName,
                 Elements.AutoSuggestBox,
                 Attributes.PlaceholderText,
                 AttributeType.InlineOrElement,

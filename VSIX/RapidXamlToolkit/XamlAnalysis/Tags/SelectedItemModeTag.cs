@@ -9,8 +9,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class SelectedItemModeTag : RapidXamlDisplayedTag
     {
-        public SelectedItemModeTag(Span span, ITextSnapshot snapshot, int line, int column)
-            : base(span, snapshot, "RXT160", line, column, TagErrorType.Warning)
+        public SelectedItemModeTag(Span span, ITextSnapshot snapshot, string fileName, int line, int column)
+            : base(span, snapshot, fileName, "RXT160", line, column, TagErrorType.Warning)
         {
             this.SuggestedAction = typeof(SelectedItemModeAction);
             this.ToolTip = StringRes.Info_XamlAnalysisSetBindingModeToTwoWayToolTip;

@@ -9,8 +9,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class UidTitleCaseTag : RapidXamlDisplayedTag
     {
-        public UidTitleCaseTag(Span span, ITextSnapshot snapshot, int line, int column, string value)
-            : base(span, snapshot, "RXT451", line, column, TagErrorType.Suggestion)
+        public UidTitleCaseTag(Span span, ITextSnapshot snapshot, string fileName, int line, int column, string value)
+            : base(span, snapshot, fileName, "RXT451", line, column, TagErrorType.Suggestion)
         {
             this.SuggestedAction = typeof(MakeUidStartWithCapitalAction);
             this.ToolTip = StringRes.Info_XamlAnalysisUidTitleCaseToolTip;

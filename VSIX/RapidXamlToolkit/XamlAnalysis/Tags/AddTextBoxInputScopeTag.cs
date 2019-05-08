@@ -9,8 +9,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class AddTextBoxInputScopeTag : RapidXamlDisplayedTag
     {
-        public AddTextBoxInputScopeTag(Span span, ITextSnapshot snapshot, int line, int column)
-            : base(span, snapshot, "RXT150", line, column, TagErrorType.Suggestion)
+        public AddTextBoxInputScopeTag(Span span, ITextSnapshot snapshot, string fileName, int line, int column)
+            : base(span, snapshot, fileName, "RXT150", line, column, TagErrorType.Suggestion)
         {
             this.SuggestedAction = typeof(AddTextBoxInputScopeAction);
             this.Description = StringRes.Info_XamlAnalysisTextBoxWithoutInputScopeDescription;

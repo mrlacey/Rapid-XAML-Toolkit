@@ -12,13 +12,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class TextBoxProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
             var elementGuid = Guid.NewGuid();
 
             this.CheckForHardCodedAttribute(
+                fileName,
                 Elements.TextBox,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
@@ -32,6 +33,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 tags);
 
             this.CheckForHardCodedAttribute(
+                fileName,
                 Elements.TextBox,
                 Attributes.PlaceholderText,
                 AttributeType.Inline | AttributeType.Element,
@@ -49,7 +51,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 var line = snapshot.GetLineFromPosition(offset);
                 var col = offset - line.Start.Position;
 
-                tags.Add(new AddTextBoxInputScopeTag(new Span(offset, xamlElement.Length), snapshot, line.LineNumber, col)
+                tags.Add(new AddTextBoxInputScopeTag(new Span(offset, xamlElement.Length), snapshot, fileName, line.LineNumber, col)
                 {
                     InsertPosition = offset,
                 });
