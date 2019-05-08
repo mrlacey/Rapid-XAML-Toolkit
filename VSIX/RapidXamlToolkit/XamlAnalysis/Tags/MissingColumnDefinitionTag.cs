@@ -9,8 +9,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class MissingColumnDefinitionTag : MissingDefinitionTag
     {
-        public MissingColumnDefinitionTag(Span span, ITextSnapshot snapshot, int line, int column)
-            : base(span, snapshot, "RXT102", line, column)
+        public MissingColumnDefinitionTag(Span span, ITextSnapshot snapshot, string fileName, int line, int column)
+            : base(span, snapshot, fileName, "RXT102", line, column, TagErrorType.Warning)
         {
             this.SuggestedAction = typeof(AddMissingColumnDefinitionsAction);
             this.ToolTip = StringRes.Info_XamlAnalysisMissingColumnDefinitionTooltip;

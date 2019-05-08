@@ -11,7 +11,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 {
     public class TestableXamlElementProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             Assert.Fail("This is not testable");
         }

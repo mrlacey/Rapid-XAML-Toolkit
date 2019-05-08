@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        public static bool Parse(ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlAdornmentTag> tags)
+        public static bool Parse(string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlAdornmentTag> tags)
         {
             var elementsOfInterest = processors.Select(p => p.element).ToList();
 
@@ -151,13 +151,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                             {
-                                everyElementProcessor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
+                                everyElementProcessor.Process(fileName, toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
 
                                 foreach (var (element, processor) in processors)
                                 {
                                     if (element == toProcess.ElementNameWithoutNamespace)
                                     {
-                                        processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
+                                        processor.Process(fileName, toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
                                     }
                                 }
 

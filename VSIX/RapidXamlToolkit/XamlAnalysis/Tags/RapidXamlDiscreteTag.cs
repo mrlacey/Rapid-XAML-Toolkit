@@ -6,12 +6,11 @@ using Microsoft.VisualStudio.Text.Tagging;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public abstract class RapidXamlSuggestionTag : RapidXamlErrorListTag
+    public abstract class RapidXamlDiscreteTag : RapidXamlAdornmentTag
     {
-        protected RapidXamlSuggestionTag(Span span, ITextSnapshot snapshot, string errorCode, int line, int column)
-            : base(span, snapshot, errorCode, line, column)
+        protected RapidXamlDiscreteTag(Span span, ITextSnapshot snapshot, string fileName)
+            : base(span, snapshot, fileName)
         {
-            this.IsMessage = true;
         }
 
         public override ITagSpan<IErrorTag> AsErrorTag()
@@ -19,5 +18,5 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             var span = new SnapshotSpan(this.Snapshot, this.Span);
             return new TagSpan<IErrorTag>(span, new RapidXamlSuggestionAdornmentTag(this.ToolTip));
         }
-        }
+    }
 }

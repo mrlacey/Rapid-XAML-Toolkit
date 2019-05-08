@@ -12,11 +12,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class DatePickerProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
         {
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
             this.CheckForHardCodedAttribute(
+                fileName,
                 Elements.DatePicker,
                 Attributes.Header,
                 AttributeType.InlineOrElement,

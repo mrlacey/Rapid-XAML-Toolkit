@@ -101,7 +101,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
-        public static string GetSubElementAtPosition(string xaml, int position)
+        public static string GetSubElementAtPosition(string fileName, string xaml, int position)
         {
             var startPos = xaml.Substring(0, position).LastIndexOf('<');
 
@@ -112,14 +112,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var processor = new SubElementProcessor();
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
-            XamlElementExtractor.Parse(null, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new List<IRapidXamlAdornmentTag>());
+            XamlElementExtractor.Parse(fileName, null, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new List<IRapidXamlAdornmentTag>());
 
             return result;
         }
 
         // Use of snapshot in the Process implementation should be kept to a minimum as will need test workarounds
         // - better to just pass through to where needed in VS initiated functionality.
-        public abstract void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags);
+        public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags);
 
         public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
         {
@@ -198,7 +198,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return false;
         }
 
-        protected void CheckForHardCodedAttribute(string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, List<IRapidXamlAdornmentTag> tags)
+        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, List<IRapidXamlAdornmentTag> tags)
         {
             if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
@@ -207,7 +207,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     var line = snapshot.GetLineFromPosition(offset + tbIndex);
                     var col = offset + tbIndex - line.Start.Position;
 
-                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col, elementName, attributeName)
+                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, line.LineNumber, col, elementName, attributeName)
                     {
                         AttributeType = foundAttributeType,
                         Value = value,
@@ -258,7 +258,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
             public event EventHandler<SubElementEventArgs> SubElementFound;
 
-            public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+            public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
             {
                 if (offset == 0)
                 {

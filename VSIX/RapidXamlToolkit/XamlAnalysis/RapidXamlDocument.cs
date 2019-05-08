@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public List<IRapidXamlAdornmentTag> Tags { get; set; }
 
-        public static RapidXamlDocument Create(ITextSnapshot snapshot)
+        public static RapidXamlDocument Create(ITextSnapshot snapshot, string fileName)
         {
             var result = new RapidXamlDocument();
 
@@ -34,12 +34,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     result.RawText = text;
 
-                    XamlElementExtractor.Parse(snapshot, text, GetAllProcessors(), result.Tags);
+                    XamlElementExtractor.Parse(fileName, snapshot, text, GetAllProcessors(), result.Tags);
                 }
             }
             catch (Exception e)
             {
-                result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot)
+                result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot, fileName)
                 {
                     Description = StringRes.Error_XamlAnalysisDescription,
                     ExtendedMessage = StringRes.Error_XamlAnalysisExtendedMessage.WithParams(e),

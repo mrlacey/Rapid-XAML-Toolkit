@@ -8,8 +8,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class AddColumnDefinitionsTag : InsertionTag
     {
-        public AddColumnDefinitionsTag(Span span, ITextSnapshot snapshot)
-            : base(span, snapshot)
+        public AddColumnDefinitionsTag(Span span, ITextSnapshot snapshot, string fileName)
+            : base(span, snapshot, fileName)
         {
             this.SuggestedAction = typeof(AddColumnDefinitionsAction);
         }

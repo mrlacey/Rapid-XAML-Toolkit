@@ -5,10 +5,10 @@ using Microsoft.VisualStudio.Text;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public abstract class InsertionTag : RapidXamlOptionalTag
+    public abstract class InsertionTag : RapidXamlDiscreteTag
     {
-        protected InsertionTag(Span span, ITextSnapshot snapshot)
-            : base(span, snapshot)
+        protected InsertionTag(Span span, ITextSnapshot snapshot, string fileName)
+            : base(span, snapshot, fileName)
         {
         }
 

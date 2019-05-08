@@ -165,7 +165,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(1, xaml, "	    ", snapshot, outputTags);
+            sut.Process("testfile.xaml", 1, xaml, "	    ", snapshot, outputTags);
 
             return outputTags;
         }

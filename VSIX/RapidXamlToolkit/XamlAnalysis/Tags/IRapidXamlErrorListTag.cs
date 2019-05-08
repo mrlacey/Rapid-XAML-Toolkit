@@ -17,9 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         string ErrorCode { get; }
 
-        bool IsMessage { get; }
-
-        bool IsError { get; }
+        bool IsInternalError { get; }
 
         ErrorRow AsErrorRow();
     }

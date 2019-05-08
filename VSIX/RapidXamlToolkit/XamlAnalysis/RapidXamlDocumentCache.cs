@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             else
             {
-                var doc = RapidXamlDocument.Create(snapshot);
+                var doc = RapidXamlDocument.Create(snapshot, file);
                 Cache.Add(file, doc);
 
                 Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Add));
@@ -105,7 +105,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         CurrentlyProcessing.Add(snapshotText);
 
-                        var doc = RapidXamlDocument.Create(snapshot);
+                        var doc = RapidXamlDocument.Create(snapshot, file);
                         Cache[file] = doc;
 
                         Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Update));
@@ -124,7 +124,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             if (Cache.ContainsKey(fileName))
             {
-                result.AddRange(Cache[fileName].Tags);
+                result.AddRange(Cache[fileName].Tags.Where(t => (t as RapidXamlDisplayedTag == null) || (t as RapidXamlDisplayedTag).ConfiguredErrorType != TagErrorType.Hidden));
             }
 
             return result;

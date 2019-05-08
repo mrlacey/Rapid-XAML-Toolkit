@@ -7,12 +7,12 @@ using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public class SelectedItemModeTag : RapidXamlWarningTag
+    public class SelectedItemBindingModeTag : RapidXamlDisplayedTag
     {
-        public SelectedItemModeTag(Span span, ITextSnapshot snapshot, int line, int column)
-            : base(span, snapshot, "RXT160", line, column)
+        public SelectedItemBindingModeTag(Span span, ITextSnapshot snapshot, string fileName, int line, int column)
+            : base(span, snapshot, fileName, "RXT160", line, column, TagErrorType.Warning)
         {
-            this.SuggestedAction = typeof(SelectedItemModeAction);
+            this.SuggestedAction = typeof(SelectedItemBindingModeAction);
             this.ToolTip = StringRes.Info_XamlAnalysisSetBindingModeToTwoWayToolTip;
             this.Description = StringRes.Info_XamlAnalysisSetBindingModeToTwoWayDescription;
         }

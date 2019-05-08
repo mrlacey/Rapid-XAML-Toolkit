@@ -9,8 +9,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class RowSpanOverflowTag : MissingDefinitionTag
     {
-        public RowSpanOverflowTag(Span span, ITextSnapshot snapshot, int line, int column)
-            : base(span, snapshot, "RXT103", line, column)
+        public RowSpanOverflowTag(Span span, ITextSnapshot snapshot, string fileName, int line, int column)
+            : base(span, snapshot, "RXT103", fileName, line, column, TagErrorType.Warning)
         {
             this.SuggestedAction = typeof(RowSpanOverflowAction);
             this.ToolTip = StringRes.Info_XamlAnalysisRowSpanOverflowTooltip;

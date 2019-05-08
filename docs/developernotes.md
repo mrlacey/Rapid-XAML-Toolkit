@@ -10,10 +10,9 @@ To create a XAML analyzer requires:
 - A tag that is used to identify the span in the editor that covers the appropriate text. Tags must reference the type of the `SuggestedAction` to execute to address the discovered issue.
 - An action that is executed to address the highlighted issue. The action and tag should be registered in `SuggestedActionSource.GetSuggestedActions`.
 
-All tags must inherit from one of either `RapidXamlOptionalTag`, `RapidXamlSuggestionTag`, or `RapidXamlWarningTag`.
+All tags must inherit from one of either `RapidXamlDiscreteTag`, or `RapidXamlDisplayedTag`.
 
-- **Optional** : These tags have an underline hint in the UI and no entry in the error list.
-- **Suggestion** : These tags have an underline hint in the UI and create an entry in the Messages tab of the error list.
-- **Warning** : These tags have a complete underline in the UI and create an entry in the Warnings tab of the error list.
+- **Discrete** : These tags have an underline hint in the UI and no entry in the error list. Example usage: Generate Row/Column Definitions in a Grid.
+- **Displayed** : These tags are for actions that have configurable display (Error, Warning, Suggestion, or Hidden) which affects the use of underline and where/if they are shown in the error list.
 
 If the tag introduces a new `ErrorCode`, an accompanying document must also be created.

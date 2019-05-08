@@ -144,7 +144,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(0, xaml, string.Empty, snapshot, outputTags);
+            sut.Process("nofile.xaml", 0, xaml, string.Empty, snapshot, outputTags);
 
             return outputTags;
         }

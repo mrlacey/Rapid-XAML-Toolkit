@@ -352,7 +352,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         private string GetSubElementAtStar(string outerElement)
         {
             var offset = outerElement.IndexOf('☆');
-            return XamlElementProcessor.GetSubElementAtPosition(outerElement.Replace("☆", string.Empty), offset);
+            return XamlElementProcessor.GetSubElementAtPosition("testFile.xaml", outerElement.Replace("☆", string.Empty), offset);
         }
 
         private bool HasDefaultValue(string xaml)

@@ -754,7 +754,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
         private void TestParsingWithoutSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlAdornmentTag> tags)
         {
-            XamlElementExtractor.Parse(null, xaml, processors, tags);
+            XamlElementExtractor.Parse("testfile.xaml", null, xaml, processors, tags);
         }
     }
 }
