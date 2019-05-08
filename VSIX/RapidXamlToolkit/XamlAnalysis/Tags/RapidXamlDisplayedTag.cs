@@ -1,9 +1,13 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
+using Newtonsoft.Json;
 using RapidXamlToolkit.ErrorList;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
@@ -58,11 +62,44 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             }
         }
 
+        private static Dictionary<string, (DateTime timeStamp, Dictionary<string, string> settings)> SettingsCache { get; }
+            = new Dictionary<string, (DateTime timeStamp, Dictionary<string, string> settings)>();
+
         public bool TryGetConfiguredErrorType(string errorCode, out TagErrorType tagErrorType)
         {
-            // tODO: Issue#140 implement TryGetConfiguredErrorType
-            // get settings file if it exists
-            // if value in config file return that.
+            var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
+
+            var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), "settings.xamlAnalysis");
+
+            if (File.Exists(settingsFile))
+            {
+                Dictionary<string, string> settings = null;
+                var fileTime = File.GetLastWriteTimeUtc(settingsFile);
+
+                if (SettingsCache.ContainsKey(settingsFile))
+                {
+                    if (SettingsCache[settingsFile].timeStamp == fileTime)
+                    {
+                        settings = SettingsCache[settingsFile].settings;
+                    }
+                }
+
+                if (settings == null)
+                {
+                    var json = File.ReadAllText(settingsFile);
+                    settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+                }
+
+                SettingsCache[settingsFile] = (fileTime, settings);
+
+                if (settings.ContainsKey(errorCode))
+                {
+                    if (TagErrorTypeParser.TryParse(settings[errorCode], out tagErrorType))
+                    {
+                        return true;
+                    }
+                }
+            }
 
             // Set to default if no override in file
             tagErrorType = this.DefaultErrorType;

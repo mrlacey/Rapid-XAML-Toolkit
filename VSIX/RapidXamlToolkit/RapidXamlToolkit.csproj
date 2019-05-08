@@ -314,6 +314,7 @@
     <Compile Include="XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
     <Compile Include="XamlAnalysis\Tags\TagErrorType.cs" />
     <Compile Include="XamlAnalysis\Tags\SelectedItemModeTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\TagErrorTypeParser.cs" />
     <Compile Include="XamlAnalysis\Tags\UidTitleCaseTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UseMediaPlayerElementTag.cs" />
