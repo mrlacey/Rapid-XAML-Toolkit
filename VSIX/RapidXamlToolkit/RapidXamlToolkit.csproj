@@ -266,6 +266,8 @@
     <Compile Include="XamlAnalysis\Processors\TimePickerProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
+    <Compile Include="XamlAnalysis\TagList.cs" />
+    <Compile Include="XamlAnalysis\TagSuppression.cs" />
     <Compile Include="XamlAnalysis\Tags\AddEntryKeyboardTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
     <Compile Include="XamlAnalysis\Tags\CheckBoxCheckedAndUncheckedEventsTag.cs" />

@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class EveryElementProcessor : XamlElementProcessor
     {
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             if (this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.InlineOrElement, out _, out int index, out int length, out string value))
             {
@@ -20,7 +20,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 {
                     var line = snapshot.GetLineFromPosition(offset + index);
                     var col = offset + index - line.Start.Position;
-                    tags.Add(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, line.LineNumber, col, value));
+                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, line.LineNumber, col, value), xamlElement, suppressions);
                 }
             }
 
@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 {
                     var line = snapshot.GetLineFromPosition(offset + index);
                     var col = offset + index - line.Start.Position;
-                    tags.Add(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, line.LineNumber, col, value));
+                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, line.LineNumber, col, value), xamlElement, suppressions);
                 }
             }
         }

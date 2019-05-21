@@ -9,17 +9,20 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class EntryProcessor : XamlElementProcessor
     {
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             if (!this.TryGetAttribute(xamlElement, Attributes.Keyboard, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
                 var line = snapshot.GetLineFromPosition(offset);
                 var col = offset - line.Start.Position;
 
-                tags.Add(new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, fileName, line.LineNumber, col, xamlElement)
-                {
-                    InsertPosition = offset,
-                });
+                tags.TryAdd(
+                    new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, fileName, line.LineNumber, col, xamlElement)
+                    {
+                        InsertPosition = offset,
+                    },
+                    xamlElement,
+                    suppressions);
             }
         }
     }

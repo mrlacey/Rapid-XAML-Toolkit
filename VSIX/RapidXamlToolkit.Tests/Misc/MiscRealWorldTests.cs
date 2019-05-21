@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -49,7 +50,7 @@ namespace RapidXamlToolkit.Tests.Misc
                         </Grid>
 ";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
