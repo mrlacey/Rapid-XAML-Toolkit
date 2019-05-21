@@ -12,14 +12,17 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class MediaElementProcessor : XamlElementProcessor
     {
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             var line = snapshot.GetLineFromPosition(offset);
             var col = offset - line.Start.Position;
-            tags.Add(new UseMediaPlayerElementTag(new Span(offset, xamlElement.Length), snapshot, fileName, line.LineNumber, col)
-            {
-                InsertPosition = offset,
-            });
+            tags.TryAdd(
+                new UseMediaPlayerElementTag(new Span(offset, xamlElement.Length), snapshot, fileName, line.LineNumber, col)
+                {
+                    InsertPosition = offset,
+                },
+                xamlElement,
+                suppressions);
         }
     }
 }

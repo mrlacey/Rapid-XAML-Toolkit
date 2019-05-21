@@ -159,7 +159,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
         private List<IRapidXamlAdornmentTag> ProcessGrid(string xaml)
         {
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 

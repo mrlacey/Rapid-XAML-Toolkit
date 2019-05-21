@@ -138,7 +138,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
         private List<IRapidXamlAdornmentTag> Act(string xaml)
         {
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new ButtonProcessor();
 

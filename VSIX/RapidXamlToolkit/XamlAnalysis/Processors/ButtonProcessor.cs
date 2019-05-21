@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class ButtonProcessor : XamlElementProcessor
     {
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Content);
 
@@ -28,7 +28,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uidExists,
                 uid,
                 Guid.Empty,
-                tags);
+                tags,
+                suppressions);
         }
     }
 }

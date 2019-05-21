@@ -3,7 +3,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Microsoft.VisualStudio.Text;
+using Newtonsoft.Json;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -14,12 +17,15 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         public RapidXamlDocument()
         {
-            this.Tags = new List<IRapidXamlAdornmentTag>();
+            this.Tags = new TagList();
         }
 
         public string RawText { get; set; }
 
-        public List<IRapidXamlAdornmentTag> Tags { get; set; }
+        public TagList Tags { get; set; }
+
+        private static Dictionary<string, (DateTime timeStamp, List<TagSuppression> suppressions)> SuppressionsCache { get; }
+            = new Dictionary<string, (DateTime, List<TagSuppression>)>();
 
         public static RapidXamlDocument Create(ITextSnapshot snapshot, string fileName)
         {
@@ -34,7 +40,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     result.RawText = text;
 
-                    XamlElementExtractor.Parse(fileName, snapshot, text, GetAllProcessors(), result.Tags);
+                    var suppressions = GetSuppressions(fileName);
+
+                    // If suppressing all tags in file, don't bother parsing the file
+                    if (suppressions == null || suppressions?.Any(s => string.IsNullOrWhiteSpace(s.TagErrorCode)) == false)
+                    {
+                        XamlElementExtractor.Parse(fileName, snapshot, text, GetAllProcessors(), result.Tags, suppressions);
+                    }
                 }
             }
             catch (Exception e)
@@ -87,6 +99,49 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.ListView, new SelectedItemAttributeProcessor()),
                         (Elements.DataGrid, new SelectedItemAttributeProcessor()),
                     };
+        }
+
+        private static List<TagSuppression> GetSuppressions(string fileName)
+        {
+            List<TagSuppression> result = null;
+
+            try
+            {
+                var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName);
+
+                var suppressionsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), "suppressions.xamlAnalysis");
+
+                if (File.Exists(suppressionsFile))
+                {
+                    List<TagSuppression> allSuppressions = null;
+                    var fileTime = File.GetLastWriteTimeUtc(suppressionsFile);
+
+                    if (SuppressionsCache.ContainsKey(suppressionsFile))
+                    {
+                        if (SuppressionsCache[suppressionsFile].timeStamp == fileTime)
+                        {
+                            allSuppressions = SuppressionsCache[suppressionsFile].suppressions;
+                        }
+                    }
+
+                    if (allSuppressions == null)
+                    {
+                        var json = File.ReadAllText(suppressionsFile);
+                        allSuppressions = JsonConvert.DeserializeObject<List<TagSuppression>>(json);
+                    }
+
+                    SuppressionsCache[suppressionsFile] = (fileTime, allSuppressions);
+
+                    result = allSuppressions.Where(s => string.IsNullOrWhiteSpace(s.FileName) || fileName.EndsWith(s.FileName)).ToList();
+                }
+            }
+            catch (Exception exc)
+            {
+                RapidXamlPackage.Logger?.RecordError("Failed to load 'suppressions.xamlAnalysis' file.");
+                RapidXamlPackage.Logger?.RecordException(exc);
+            }
+
+            return result;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class CheckBoxProcessor : XamlElementProcessor
     {
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Content);
 
@@ -28,7 +28,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uidExists,
                 uid,
                 Guid.Empty,
-                tags);
+                tags,
+                suppressions);
 
             // If using one event, the recommendation is to use both
             var hasCheckedEvent = this.TryGetAttribute(xamlElement, Attributes.CheckedEvent, AttributeType.Inline, out _, out int checkedIndex, out int checkedLength, out string checkedEventName);
@@ -38,20 +39,24 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var line = snapshot.GetLineFromPosition(offset + checkedIndex);
                 var col = offset + checkedIndex - line.Start.Position;
-                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + checkedIndex, checkedLength), snapshot, fileName, line.LineNumber, col, checkedEventName, hasChecked: true)
+                var checkedTag = new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + checkedIndex, checkedLength), snapshot, fileName, line.LineNumber, col, checkedEventName, hasChecked: true)
                 {
                     InsertPosition = offset,
-                });
+                };
+
+                tags.TryAdd(checkedTag, xamlElement, suppressions);
             }
 
             if (!hasCheckedEvent && hasuncheckedEvent)
             {
                 var line = snapshot.GetLineFromPosition(offset + uncheckedIndex);
                 var col = offset + uncheckedIndex - line.Start.Position;
-                tags.Add(new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + uncheckedIndex, uncheckedLength), snapshot, fileName, line.LineNumber, col, uncheckedEventName, hasChecked: false)
+                var uncheckedTag = new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + uncheckedIndex, uncheckedLength), snapshot, fileName, line.LineNumber, col, uncheckedEventName, hasChecked: false)
                 {
                     InsertPosition = offset,
-                });
+                };
+
+                tags.TryAdd(uncheckedTag, xamlElement, suppressions);
             }
         }
     }

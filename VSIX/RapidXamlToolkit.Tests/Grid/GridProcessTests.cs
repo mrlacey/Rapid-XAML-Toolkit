@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.Tests.Grid
     </Grid.RowDefinitions>
 </Grid>";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
@@ -46,7 +46,7 @@ namespace RapidXamlToolkit.Tests.Grid
     <!-- Grid contents -->
 </Grid>";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
@@ -69,7 +69,7 @@ namespace RapidXamlToolkit.Tests.Grid
     <!-- Grid contents -->
 </Grid>";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
@@ -90,7 +90,7 @@ namespace RapidXamlToolkit.Tests.Grid
     <!-- Grid contents -->
 </Grid>";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
@@ -112,7 +112,7 @@ namespace RapidXamlToolkit.Tests.Grid
     <!-- Grid contents -->
 </Grid>";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
@@ -133,7 +133,7 @@ namespace RapidXamlToolkit.Tests.Grid
     <!-- Grid contents -->
 </Grid>";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
@@ -153,7 +153,7 @@ namespace RapidXamlToolkit.Tests.Grid
     <!-- Grid contents -->
 </Grid>";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
@@ -175,7 +175,7 @@ namespace RapidXamlToolkit.Tests.Grid
 	<!-- Grid contents -->
 </Grid>";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
@@ -197,7 +197,7 @@ namespace RapidXamlToolkit.Tests.Grid
 	<!-- Grid contents -->
 </Grid>";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
@@ -219,7 +219,7 @@ namespace RapidXamlToolkit.Tests.Grid
 	<!-- Grid contents -->
 </Grid>";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
