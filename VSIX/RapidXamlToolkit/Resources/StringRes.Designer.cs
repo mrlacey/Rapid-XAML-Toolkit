@@ -718,6 +718,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move all strings to resource file.
+        /// </summary>
+        public static string Info_UndoContextMoveStringsToResourceFile {
+            get {
+                return ResourceManager.GetString("Info_UndoContextMoveStringsToResourceFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move string to resource file.
         /// </summary>
         public static string Info_UndoContextMoveStringToResourceFile {

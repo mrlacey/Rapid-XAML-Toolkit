@@ -889,4 +889,7 @@
   <data name="Info_XamlAnalysisSetBindingModeToTwoWayToolTip" xml:space="preserve">
     <value>Set BindingMode to TwoWay to be notified of changes.</value>
   </data>
+  <data name="Info_UndoContextMoveStringsToResourceFile" xml:space="preserve">
+    <value>Move all strings to resource file</value>
+  </data>
 </root>
