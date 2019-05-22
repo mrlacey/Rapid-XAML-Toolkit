@@ -19,12 +19,15 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
     public class HardCodedStringAction : BaseSuggestedAction
     {
-        public HardCodedStringAction(string file, ITextView view, HardCodedStringTag tag)
+        private readonly IVisualStudioTextManipulation vstm;
+
+        public HardCodedStringAction(string file, ITextView view, HardCodedStringTag tag, IVisualStudioTextManipulation vstm = null)
             : base(file)
         {
             this.View = view;
             this.DisplayText = StringRes.UI_MoveHardCodedString;
             this.Tag = tag;
+            this.vstm = vstm;
         }
 
         public override ImageMoniker IconMoniker => KnownMonikers.GenerateResource;
@@ -40,8 +43,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 return;
             }
 
-            var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
-            vs.StartSingleUndoOperation(StringRes.Info_UndoContextMoveStringToResourceFile);
+            var vs = (this.vstm != null) ? this.vstm : new VisualStudioTextManipulation(ProjectHelpers.Dte);
+
+            var undo = vs.StartSingleUndoOperation(StringRes.Info_UndoContextMoveStringToResourceFile);
 
             try
             {
@@ -86,7 +90,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             }
             finally
             {
-                vs.EndSingleUndoOperation();
+                if (undo)
+                {
+                    vs.EndSingleUndoOperation();
+                }
             }
         }
 

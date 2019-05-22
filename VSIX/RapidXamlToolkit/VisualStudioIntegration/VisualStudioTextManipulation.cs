@@ -147,12 +147,17 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
         }
 
-        public void StartSingleUndoOperation(string name)
+        // Returns false if an UndoContext is already open.
+        // Track the return value to know whether to end/close the UndoContext.
+        public bool StartSingleUndoOperation(string name)
         {
             if (!this.Dte.UndoContext.IsOpen)
             {
                 this.Dte.UndoContext.Open(name);
+                return true;
             }
+
+            return false;
         }
 
         public void EndSingleUndoOperation()

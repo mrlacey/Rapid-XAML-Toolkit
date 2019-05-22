@@ -7,6 +7,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 {
     public interface IVisualStudioTextManipulation
     {
+        void RemoveInActiveDocOnLine(string find, int lineNumber);
+
         void ReplaceInActiveDocOnLine(string find, string replace, int lineNumber);
 
         void ReplaceInActiveDocOnLineOrAbove(string find, string replace, int lineNumber);
@@ -21,7 +23,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         void DeleteFromEndOfLine(int lineNumber, int charsToDelete);
 
-        void StartSingleUndoOperation(string name);
+        bool StartSingleUndoOperation(string name);
 
         void EndSingleUndoOperation();
     }
