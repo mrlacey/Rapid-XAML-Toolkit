@@ -382,9 +382,21 @@ namespace RapidXamlToolkit
                     Namespaces = false,
                 };
 
-                doc.Load(xtr);
+                try
+                {
+                    doc.Load(xtr);
 
-                wrapped = true;
+                    wrapped = true;
+                }
+                catch (Exception exc)
+                {
+                    // The generated XAML isn't valid XML. This is useful in debugging only.
+                    // Assume the invalid XAML was intentional. If not then the mapping needs updating.
+                    System.Diagnostics.Debug.WriteLine(exc);
+
+                    // If can't process as XML then can't pad it. Just return the original.
+                    return source;
+                }
             }
 
             string result;
