@@ -116,6 +116,7 @@
     <Compile Include="XamlAnalysis\Processors\RichEditBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\SliderProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBlockProcessorTests.cs" />
+    <Compile Include="XamlAnalysis\Processors\TextBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\TimePickerProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessorTests.cs" />
