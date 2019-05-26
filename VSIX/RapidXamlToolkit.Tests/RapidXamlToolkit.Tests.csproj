@@ -102,6 +102,7 @@
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\EntryProcessorTests.cs" />
+    <Compile Include="XamlAnalysis\Processors\EveryElementProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\HubProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessorTests.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="XamlAnalysis\Processors\ProcessorTestsBase.cs" />
     <Compile Include="XamlAnalysis\Processors\RepeatButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\RichEditBoxProcessorTests.cs" />
+    <Compile Include="XamlAnalysis\Processors\SelectedItemAttributeProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\SliderProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBlockProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBoxProcessorTests.cs" />
