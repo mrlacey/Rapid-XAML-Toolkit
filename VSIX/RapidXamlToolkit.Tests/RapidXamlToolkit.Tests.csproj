@@ -98,6 +98,7 @@
     <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\ButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\CalendarDatePickerProcessorTests.cs" />
+    <Compile Include="XamlAnalysis\Processors\CheckBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\HubProcessorTests.cs" />
