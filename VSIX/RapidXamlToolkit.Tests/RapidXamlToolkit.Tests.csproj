@@ -103,6 +103,7 @@
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\EntryProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\EveryElementProcessorTests.cs" />
+    <Compile Include="XamlAnalysis\Processors\GridProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\HubProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessorTests.cs" />
