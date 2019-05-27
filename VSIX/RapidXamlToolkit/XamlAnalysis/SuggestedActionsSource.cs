@@ -61,7 +61,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     // Setting the only category to be "REFACTORING" causes the screwdriver icon to be shown, otherwise get the light bulb.
                     return this.suggestedActionCategoryRegistry.CreateSuggestedActionCategorySet(
-                        this.GetTags(range).Any(t => t is RapidXamlErrorListTag) ? PredefinedSuggestedActionCategoryNames.Any
+                        this.GetTags(range).Any(t => t is RapidXamlDisplayedTag) ? PredefinedSuggestedActionCategoryNames.Any
                                                                                  : PredefinedSuggestedActionCategoryNames.Refactoring);
                 },
                 cancellationToken,
@@ -130,6 +130,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                             break;
                         case nameof(MakeUidStartWithCapitalAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, MakeUidStartWithCapitalAction.Create((UidTitleCaseTag)rxTag, this.file)));
+                            break;
+                        case nameof(SelectedItemBindingModeAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, SelectedItemBindingModeAction.Create((SelectedItemBindingModeTag)rxTag, this.file)));
                             break;
                     }
                 }

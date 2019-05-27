@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.ErrorList
 {
@@ -15,8 +16,8 @@ namespace RapidXamlToolkit.ErrorList
 
         public string ErrorCode { get; internal set; }
 
-        public bool IsMessage { get; internal set; }
+        public bool IsInternalError { get; internal set; }
 
-        public bool IsError { get; internal set; }
+        public TagErrorType ErrorType { get; internal set; }
     }
 }

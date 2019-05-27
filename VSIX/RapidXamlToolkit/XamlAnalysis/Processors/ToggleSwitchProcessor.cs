@@ -12,13 +12,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class ToggleSwitchProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
             var elementGuid = Guid.NewGuid();
 
             this.CheckForHardCodedAttribute(
+                fileName,
                 Elements.ToggleSwitch,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
@@ -29,9 +30,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uidExists,
                 uid,
                 elementGuid,
-                tags);
+                tags,
+                suppressions);
 
             this.CheckForHardCodedAttribute(
+                fileName,
                 Elements.ToggleSwitch,
                 Attributes.OnContent,
                 AttributeType.InlineOrElement,
@@ -42,9 +45,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uidExists,
                 uid,
                 elementGuid,
-                tags);
+                tags,
+                suppressions);
 
             this.CheckForHardCodedAttribute(
+                fileName,
                 Elements.ToggleSwitch,
                 Attributes.OffContent,
                 AttributeType.InlineOrElement,
@@ -55,7 +60,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uidExists,
                 uid,
                 elementGuid,
-                tags);
+                tags,
+                suppressions);
         }
     }
 }

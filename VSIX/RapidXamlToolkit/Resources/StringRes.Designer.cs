@@ -718,6 +718,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move all strings to resource file.
+        /// </summary>
+        public static string Info_UndoContextMoveStringsToResourceFile {
+            get {
+                return ResourceManager.GetString("Info_UndoContextMoveStringsToResourceFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move string to resource file.
         /// </summary>
         public static string Info_UndoContextMoveStringToResourceFile {
@@ -1173,6 +1182,24 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_XamlAnalysisRowSpanOverflowTooltip {
             get {
                 return ResourceManager.GetString("Info_XamlAnalysisRowSpanOverflowTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To receive notification of selection changes, set BindingMode to TwoWay..
+        /// </summary>
+        public static string Info_XamlAnalysisSetBindingModeToTwoWayDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisSetBindingModeToTwoWayDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set BindingMode to TwoWay to be notified of changes..
+        /// </summary>
+        public static string Info_XamlAnalysisSetBindingModeToTwoWayToolTip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisSetBindingModeToTwoWayToolTip", resourceCulture);
             }
         }
         
@@ -2210,6 +2237,15 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_SelectionTwoNames {
             get {
                 return ResourceManager.GetString("UI_SelectionTwoNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set BindingMode to TwoWay..
+        /// </summary>
+        public static string UI_SetBindingModeToTwoWay {
+            get {
+                return ResourceManager.GetString("UI_SetBindingModeToTwoWay", resourceCulture);
             }
         }
         

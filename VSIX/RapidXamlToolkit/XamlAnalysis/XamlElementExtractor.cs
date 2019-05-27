@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        public static bool Parse(ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlAdornmentTag> tags)
+        public static bool Parse(string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions = null)
         {
             var elementsOfInterest = processors.Select(p => p.element).ToList();
 
@@ -53,7 +53,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         currentElementBody = new StringBuilder("<");
                     }
                 }
-                else if (char.IsLetterOrDigit(xaml[i]))
+                else if (char.IsLetterOrDigit(xaml[i]) || xaml[i] == ':')
                 {
                     if (isIdentifyingElement)
                     {
@@ -78,7 +78,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     if (isIdentifyingElement)
                     {
-                        if (elementsOfInterest.Contains(currentElementName.ToString()))
+                        if (elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
                         {
                             elementsBeingTracked.Add(
                                 new TrackingElement
@@ -116,7 +116,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         if (isIdentifyingElement)
                         {
-                            if (elementsOfInterest.Contains(currentElementName.ToString()))
+                            if (elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
                             {
                                 elementsBeingTracked.Add(
                                     new TrackingElement
@@ -151,13 +151,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                             {
-                                everyElementProcessor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
+                                everyElementProcessor.Process(fileName, toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags, suppressions);
 
                                 foreach (var (element, processor) in processors)
                                 {
-                                    if (element == toProcess.ElementName)
+                                    if (element == toProcess.ElementNameWithoutNamespace)
                                     {
-                                        processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
+                                        processor.Process(fileName, toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags, suppressions);
                                     }
                                 }
 
@@ -187,6 +187,14 @@ namespace RapidXamlToolkit.XamlAnalysis
             public int StartPos { get; set; }
 
             public string ElementName { get; set; }
+
+            public string ElementNameWithoutNamespace
+            {
+                get
+                {
+                    return this.ElementName.PartAfter(":");
+                }
+            }
 
             public StringBuilder ElementBody { get; set; }
         }

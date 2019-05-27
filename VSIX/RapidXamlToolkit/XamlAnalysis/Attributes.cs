@@ -27,12 +27,18 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string PlaceholderText => "PlaceholderText";
 
+        public static string SelectedItem => "SelectedItem";
+
         public static string Text => "Text";
 
         public static string Title => "Title";
 
-        public static string Uid => "x:Uid";
+        public static string Uid => "Uid";
 
         public static string UncheckedEvent => "Unchecked";
+
+        public static string X_Name => "x:Name";
+
+        public static string X_Uid => "x:Uid";
     }
 }

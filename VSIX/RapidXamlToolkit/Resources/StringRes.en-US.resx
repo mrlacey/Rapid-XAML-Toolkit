@@ -880,4 +880,16 @@
   <data name="UI_CapitalizeFirstLetterOfUid" xml:space="preserve">
     <value>Capitalize first letter of Uid</value>
   </data>
+  <data name="Info_XamlAnalysisSetBindingModeToTwoWayDescription" xml:space="preserve">
+    <value>To receive notification of selection changes, set BindingMode to TwoWay.</value>
+  </data>
+  <data name="UI_SetBindingModeToTwoWay" xml:space="preserve">
+    <value>Set BindingMode to TwoWay.</value>
+  </data>
+  <data name="Info_XamlAnalysisSetBindingModeToTwoWayToolTip" xml:space="preserve">
+    <value>Set BindingMode to TwoWay to be notified of changes.</value>
+  </data>
+  <data name="Info_UndoContextMoveStringsToResourceFile" xml:space="preserve">
+    <value>Move all strings to resource file</value>
+  </data>
 </root>

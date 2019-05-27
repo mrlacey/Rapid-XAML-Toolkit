@@ -6,9 +6,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Events;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Configuration;
 using RapidXamlToolkit.DragDrop;
+using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
@@ -62,12 +64,19 @@ namespace RapidXamlToolkit
 
                 await this.SetUpRunningDocumentTableEventsAsync(cancellationToken);
                 RapidXamlDocumentCache.Initialize(this);
+
+                Microsoft.VisualStudio.Shell.Events.SolutionEvents.OnAfterCloseSolution += this.HandleCloseSolution;
             }
             catch (Exception exc)
             {
                 Logger.RecordException(exc);
                 throw;  // Remove for launch. see issue #90
             }
+        }
+
+        private void HandleCloseSolution(object sender, EventArgs e)
+        {
+            TableDataSource.Instance.CleanAllErrors();
         }
 
         private async Task SetUpRunningDocumentTableEventsAsync(CancellationToken cancellationToken)

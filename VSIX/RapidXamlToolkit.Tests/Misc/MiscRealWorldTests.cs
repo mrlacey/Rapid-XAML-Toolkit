@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -49,13 +50,13 @@ namespace RapidXamlToolkit.Tests.Misc
                         </Grid>
 ";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new GridProcessor();
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(1, xaml, "	    ", snapshot, outputTags);
+            sut.Process("testfile.xaml", 1, xaml, "	    ", snapshot, outputTags);
 
             Assert.AreEqual(0, outputTags.OfType<MissingRowDefinitionTag>().Count());
         }

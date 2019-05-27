@@ -115,9 +115,9 @@ namespace RapidXamlToolkit.Tests
             // NOOP
         }
 
-        public void StartSingleUndoOperation(string name)
+        public bool StartSingleUndoOperation(string name)
         {
-            // NOOP
+            return true;
         }
 
         public void EndSingleUndoOperation()
@@ -132,6 +132,11 @@ namespace RapidXamlToolkit.Tests
         }
 
         public void ReplaceInActiveDocOnLineOrAbove(string find, string replace, int lineNumber)
+        {
+            // NOOP
+        }
+
+        public void RemoveInActiveDocOnLine(string find, int lineNumber)
         {
             // NOOP
         }

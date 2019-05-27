@@ -138,13 +138,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
         private List<IRapidXamlAdornmentTag> Act(string xaml)
         {
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
             var sut = new TextBlockProcessor();
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(0, xaml, string.Empty, snapshot, outputTags);
+            sut.Process("nofile.xaml", 0, xaml, string.Empty, snapshot, outputTags);
 
             return outputTags;
         }
