@@ -12,6 +12,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
     // Used to record/track/assert the values passed to a processor during testing
     public class FakeXamlElementProcessor : XamlElementProcessor
     {
+        public FakeXamlElementProcessor()
+            : base(new DefaultTestLogger())
+        {
+        }
+
         public bool ProcessCalled { get; set; } = false;
 
         public int ProcessCalledCount { get; private set; } = 0;

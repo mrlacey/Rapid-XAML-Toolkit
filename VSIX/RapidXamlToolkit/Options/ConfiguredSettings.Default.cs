@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using RapidXamlToolkit.Configuration;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Options
 {
@@ -22,6 +23,7 @@ namespace RapidXamlToolkit.Options
                     new Profile
                     {
                         Name = "UWP MVVM Basic StackPanel (no headers)",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -33,6 +35,7 @@ namespace RapidXamlToolkit.Options
                     new Profile
                     {
                         Name = "UWP MVVM Basic StackPanel",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -44,6 +47,7 @@ namespace RapidXamlToolkit.Options
                     new Profile
                     {
                         Name = "UWP MVVM Basic 2ColGrid",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "GRID-PLUS-ROWDEFS-2COLS",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -55,6 +59,7 @@ namespace RapidXamlToolkit.Options
                     new Profile
                     {
                         Name = "UWP MVVM Basic RelativePanel",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "RelativePanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -66,6 +71,7 @@ namespace RapidXamlToolkit.Options
                     new Profile
                     {
                         Name = "UWP MVVM Light StackPanel",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -77,6 +83,7 @@ namespace RapidXamlToolkit.Options
                     new Profile
                     {
                         Name = "UWP Caliburn.Micro StackPanel",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -88,6 +95,7 @@ namespace RapidXamlToolkit.Options
                     new Profile
                     {
                         Name = "UWP Prism StackPanel",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
@@ -99,6 +107,7 @@ namespace RapidXamlToolkit.Options
                     new Profile
                     {
                         Name = "Xamarin.Forms StackLayout",
+                        ProjectType = ProjectType.XamarinForms,
                         ClassGrouping = "StackLayout",
                         FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
@@ -110,6 +119,7 @@ namespace RapidXamlToolkit.Options
                     new Profile
                     {
                         Name = "WPF MVVM StackPanel",
+                        ProjectType = ProjectType.Wpf,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
@@ -121,6 +131,7 @@ namespace RapidXamlToolkit.Options
                     new Profile
                     {
                         Name = "WPF MVVM 2ColGrid",
+                        ProjectType = ProjectType.Wpf,
                         ClassGrouping = "GRID-PLUS-ROWDEFS-2COLS",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
@@ -132,6 +143,7 @@ namespace RapidXamlToolkit.Options
                     new Profile
                     {
                         Name = "WPF Caliburn.Micro StackPanel",
+                        ProjectType = ProjectType.Wpf,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",

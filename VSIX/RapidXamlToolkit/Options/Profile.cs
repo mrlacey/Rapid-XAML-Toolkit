@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Options
 {
@@ -43,6 +44,8 @@ namespace RapidXamlToolkit.Options
                 this.OnPropertyChanged();
             }
         }
+
+        public ProjectType ProjectType { get; set; }
 
         public string ClassGrouping { get; set; }
 

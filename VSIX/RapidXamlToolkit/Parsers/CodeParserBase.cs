@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using IServiceProvider = System.IServiceProvider;
 
 namespace RapidXamlToolkit.Parsers
@@ -28,14 +29,14 @@ namespace RapidXamlToolkit.Parsers
         // Used to store the generated xname for reuse when formatting subsequent properties
         private static string xname = string.Empty;
 
-        public CodeParserBase(ILogger logger, int xamlIndent, Profile profileOverload = null)
+        public CodeParserBase(ILogger logger, ProjectType projectType, int xamlIndent, Profile profileOverload = null)
         {
             Logger = logger;
             XamlIndentSize = xamlIndent;
 
-            this.Profile = profileOverload ?? GetSettings().GetActiveProfile();
+            this.Profile = profileOverload ?? GetSettings().GetActiveProfile(projectType);
 
-            xname = string.Empty;  // Reset this on parser creation as parsers created for each new conversion and don't want old values.
+            xname = string.Empty;  // Reset this on parser creation as parsers are created for each new conversion and don't want old values.
         }
 
         public static IServiceProvider ServiceProvider { get; set; }

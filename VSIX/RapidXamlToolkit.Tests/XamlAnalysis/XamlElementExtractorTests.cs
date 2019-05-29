@@ -686,7 +686,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var processors = new List<(string, XamlElementProcessor)>
             {
-                ("Grid", new GridProcessor()),
+                ("Grid", new GridProcessor(new DefaultTestLogger())),
             };
 
             this.TestParsingWithoutSnapshot(xaml, processors);

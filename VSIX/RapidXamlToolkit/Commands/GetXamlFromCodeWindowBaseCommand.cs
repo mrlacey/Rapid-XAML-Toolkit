@@ -50,19 +50,17 @@ namespace RapidXamlToolkit.Commands
 
                     var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
                     var xamlIndent = await vs.GetXamlIndentAsync();
-
-                    //// TODO: Issue#150 - example of how to query project type
-                    //// System.Diagnostics.Debug.WriteLine(vs.GetProjectType(vs.GetActiveProject().Project));
+                    var projType = vs.GetProjectType(vs.GetActiveProject().Project);
 
                     IDocumentParser parser = null;
 
                     if (activeDocument.Language == "CSharp")
                     {
-                        parser = new CSharpParser(this.Logger, xamlIndent);
+                        parser = new CSharpParser(this.Logger, projType, xamlIndent);
                     }
                     else if (activeDocument.Language == "Basic")
                     {
-                        parser = new VisualBasicParser(this.Logger, xamlIndent);
+                        parser = new VisualBasicParser(this.Logger, projType, xamlIndent);
                     }
 
                     result = isSelection

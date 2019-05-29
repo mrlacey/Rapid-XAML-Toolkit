@@ -12,6 +12,7 @@ using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests.Parsers
 {
@@ -33,6 +34,7 @@ namespace RapidXamlToolkit.Tests.Parsers
                     new Profile
                     {
                         Name = "UWP",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"SUBPROP_$name$\" />",
@@ -79,6 +81,7 @@ namespace RapidXamlToolkit.Tests.Parsers
                     new Profile
                     {
                         Name = "UWP (with labels)",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "Grid-plus-RowDefs",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"SUBPROP_$name$\" Grid.Row=\"$incint$\" />",
@@ -125,6 +128,7 @@ namespace RapidXamlToolkit.Tests.Parsers
                     new Profile
                     {
                         Name = "WPF",
+                        ProjectType = ProjectType.Wpf,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"SUBPROP_$name$\" Grid.Row=\"$incint$\" />",
@@ -150,6 +154,7 @@ namespace RapidXamlToolkit.Tests.Parsers
                     new Profile
                     {
                         Name = "Xamarin.Forms",
+                        ProjectType = ProjectType.XamarinForms,
                         ClassGrouping = "StackLayout",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"FALLBACK_$name$\" Grid.Row=\"$incint$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\"><TextBlock Text=\"SUBPROP_$name$\" Grid.Row=\"$incint$\" />",
@@ -187,8 +192,8 @@ namespace RapidXamlToolkit.Tests.Parsers
             for (var pos = startPos; pos < endPos; pos++)
             {
                 var indent = new TestVisualStudioAbstraction().XamlIndent;
-                var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
-                                      : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
+                var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), profileOverload.ProjectType, indent, profileOverload) as IDocumentParser
+                                      : new VisualBasicParser(DefaultTestLogger.Create(), profileOverload.ProjectType, indent, profileOverload);
 
                 var actual = parser.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos);
 
@@ -217,8 +222,8 @@ namespace RapidXamlToolkit.Tests.Parsers
                                     : VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(syntaxTree).GetSemanticModel(syntaxTree, true);
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
-            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
-                                  : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
+            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), profileOverload.ProjectType, indent, profileOverload) as IDocumentParser
+                                  : new VisualBasicParser(DefaultTestLogger.Create(), profileOverload.ProjectType, indent, profileOverload);
 
             var actual = parser.GetSingleItemOutput(syntaxTree.GetRoot(), semModel, pos);
 
@@ -253,8 +258,8 @@ namespace RapidXamlToolkit.Tests.Parsers
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
-                                  : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
+            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), profileOverload.ProjectType, indent, profileOverload) as IDocumentParser
+                                  : new VisualBasicParser(DefaultTestLogger.Create(), profileOverload.ProjectType, indent, profileOverload);
 
             var actual = parser.GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, pos);
 
@@ -291,8 +296,8 @@ namespace RapidXamlToolkit.Tests.Parsers
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
-                                  : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
+            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), ProjectType.Unknown, indent, profileOverload) as IDocumentParser
+                                  : new VisualBasicParser(DefaultTestLogger.Create(), ProjectType.Unknown, indent, profileOverload);
 
             var actual = parser.GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, pos);
 
@@ -329,8 +334,8 @@ namespace RapidXamlToolkit.Tests.Parsers
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
-                                  : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
+            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), profileOverload.ProjectType, indent, profileOverload) as IDocumentParser
+                                  : new VisualBasicParser(DefaultTestLogger.Create(), profileOverload.ProjectType, indent, profileOverload);
 
             var actual = parser.GetSingleItemOutput(await syntaxTree.GetRootAsync(), semModel, pos);
 
@@ -353,8 +358,8 @@ namespace RapidXamlToolkit.Tests.Parsers
 
             var indent = new TestVisualStudioAbstraction().XamlIndent;
 
-            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), indent, profileOverload) as IDocumentParser
-                                  : new VisualBasicParser(DefaultTestLogger.Create(), indent, profileOverload);
+            var parser = isCSharp ? new CSharpParser(DefaultTestLogger.Create(), profileOverload.ProjectType, indent, profileOverload) as IDocumentParser
+                                  : new VisualBasicParser(DefaultTestLogger.Create(), profileOverload.ProjectType, indent, profileOverload);
 
             var actual = parser.GetSelectionOutput(syntaxTree.GetRoot(), semModel, startPos, endPos);
 

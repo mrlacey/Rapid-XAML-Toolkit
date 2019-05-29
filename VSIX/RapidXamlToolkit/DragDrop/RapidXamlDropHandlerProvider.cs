@@ -4,6 +4,7 @@
 using System.ComponentModel.Composition;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Editor.DragDrop;
 using Microsoft.VisualStudio.Text.Operations;
@@ -11,6 +12,7 @@ using Microsoft.VisualStudio.Utilities;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.VisualStudioIntegration;
+using RapidXamlToolkit.XamlAnalysis;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.DragDrop
@@ -31,6 +33,9 @@ namespace RapidXamlToolkit.DragDrop
         [Import(typeof(ITextBufferUndoManagerProvider))]
         private ITextBufferUndoManagerProvider UndoProvider { get; set; }
 
+        [Import(typeof(ITextDocumentFactoryService))]
+        private ITextDocumentFactoryService TextDocumentFactoryService { get; set; }
+
         public static async Task InitializeAsync(AsyncPackage package, ILogger logger)
         {
             Logger = logger;
@@ -45,7 +50,15 @@ namespace RapidXamlToolkit.DragDrop
 
             var vsa = new VisualStudioAbstraction(Logger, Package, dte);
 
-            return view.Properties.GetOrCreateSingletonProperty(() => new RapidXamlDropHandler(Logger, view, undoManager, vsa));
+            var projType = ProjectType.Unknown;
+
+            if (this.TextDocumentFactoryService.TryGetTextDocument(view.TextBuffer, out ITextDocument textDocument))
+            {
+                var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(textDocument.FilePath);
+                projType = vsa.GetProjectType(proj);
+            }
+
+            return view.Properties.GetOrCreateSingletonProperty(() => new RapidXamlDropHandler(Logger, view, undoManager, vsa, projType));
         }
     }
 }

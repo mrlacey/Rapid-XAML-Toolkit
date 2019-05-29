@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Options
 {
@@ -49,7 +50,7 @@ namespace RapidXamlToolkit.Options
 
         public bool IsActiveProfileSet => !string.IsNullOrWhiteSpace(this.ActiveProfileName);
 
-        public Profile GetActiveProfile()
+        public Profile GetActiveProfile(ProjectType? projectType = null)
         {
             Profile result = null;
 

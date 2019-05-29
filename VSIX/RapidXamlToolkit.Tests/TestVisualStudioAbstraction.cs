@@ -143,7 +143,7 @@ namespace RapidXamlToolkit.Tests
 
         public ProjectType GetProjectType(EnvDTE.Project project)
         {
-            return ProjectType.Other;
+            return ProjectType.Unknown;
         }
     }
 }

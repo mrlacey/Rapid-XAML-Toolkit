@@ -90,13 +90,13 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 // Shared Projects provide no Guids or references that can be used to determine project type
                 if (System.IO.Path.GetExtension(project.FileName) == ".shproj")
                 {
-                    // TODO: temporary work around until have a way of determining this
+                    // TODO: Issue150 temporary work around until have a way of determining this
                     // - possibly open first XAML file and work it out from that
-                    return ProjectType.Other;
+                    return ProjectType.Unknown;
                 }
                 else
                 {
-                    return ReferencesXamarin(project) ? ProjectType.XamarinForms : ProjectType.Other;
+                    return ReferencesXamarin(project) ? ProjectType.XamarinForms : ProjectType.Unknown;
                 }
             }
         }
