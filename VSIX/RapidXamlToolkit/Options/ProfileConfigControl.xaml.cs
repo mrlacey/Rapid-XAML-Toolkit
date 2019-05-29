@@ -51,7 +51,7 @@ namespace RapidXamlToolkit.Options
 
         private void HandleHighContrastForTextEditors()
         {
-            // Always set the background as 
+            // Always set the background as AvalonEdit uses transparent which is different to TextBox.
             this.FallbackOutputBorder.Background = this.ReferenceTextBox.Background;
             this.SubPropertyOutputBorder.Background = this.ReferenceTextBox.Background;
             this.EnumMemberOutputBorder.Background = this.ReferenceTextBox.Background;
