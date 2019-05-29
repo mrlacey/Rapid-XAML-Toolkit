@@ -3,7 +3,7 @@
 
 using System;
 
-namespace RapidXamlToolkit.VisualStudioIntegration
+namespace RapidXamlToolkit
 {
     [Flags]
     public enum ProjectType

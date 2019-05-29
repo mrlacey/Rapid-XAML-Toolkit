@@ -1816,6 +1816,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string Options_XamlAll {
+            get {
+                return ResourceManager.GetString("Options_XamlAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XAML Project Type.
+        /// </summary>
+        public static string Options_XamlDialect {
+            get {
+                return ResourceManager.GetString("Options_XamlDialect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XAML file directory name:.
         /// </summary>
         public static string Options_XamlFileDirectoryName {
@@ -1902,6 +1920,33 @@ namespace RapidXamlToolkit.Resources {
         public static string Options_XamlProjectSuffixDescription {
             get {
                 return ResourceManager.GetString("Options_XamlProjectSuffixDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UWP.
+        /// </summary>
+        public static string Options_XamlUwp {
+            get {
+                return ResourceManager.GetString("Options_XamlUwp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WPF.
+        /// </summary>
+        public static string Options_XamlWpf {
+            get {
+                return ResourceManager.GetString("Options_XamlWpf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xamarin.Forms.
+        /// </summary>
+        public static string Options_XamlXamarinForms {
+            get {
+                return ResourceManager.GetString("Options_XamlXamarinForms", resourceCulture);
             }
         }
         

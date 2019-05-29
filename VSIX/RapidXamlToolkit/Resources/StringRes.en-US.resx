@@ -892,4 +892,19 @@
   <data name="Info_UndoContextMoveStringsToResourceFile" xml:space="preserve">
     <value>Move all strings to resource file</value>
   </data>
+  <data name="Options_XamlAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Options_XamlDialect" xml:space="preserve">
+    <value>XAML Project Type</value>
+  </data>
+  <data name="Options_XamlUwp" xml:space="preserve">
+    <value>UWP</value>
+  </data>
+  <data name="Options_XamlWpf" xml:space="preserve">
+    <value>WPF</value>
+  </data>
+  <data name="Options_XamlXamarinForms" xml:space="preserve">
+    <value>Xamarin.Forms</value>
+  </data>
 </root>
