@@ -70,9 +70,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public void Invoke(CancellationToken cancellationToken)
         {
+            var undoContext = ProjectHelpers.Dte2.UndoContext;
+
             try
             {
-                ProjectHelpers.Dte2.UndoContext.Open(this.DisplayText);
+                undoContext.Open(this.DisplayText);
                 this.Execute(cancellationToken);
             }
             catch (Exception exc)
@@ -81,7 +83,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             }
             finally
             {
-                ProjectHelpers.Dte2.UndoContext.Close();
+                if (undoContext.IsOpen)
+                {
+                    undoContext.Close();
+                }
             }
         }
 
