@@ -52,6 +52,8 @@ namespace RapidXamlToolkit.Commands
                     var xamlIndent = await vs.GetXamlIndentAsync();
                     var projType = vs.GetProjectType(vs.GetActiveProject().Project);
 
+                    // TODO ISSUE150: if projType ==Unknown, try other projects in the solution.
+
                     IDocumentParser parser = null;
 
                     if (activeDocument.Language == "CSharp")
