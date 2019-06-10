@@ -119,7 +119,7 @@ namespace RapidXamlToolkit.ErrorList
         {
             foreach (string url in urls)
             {
-                if (snapshots.ContainsKey(url))
+                if (url != null && snapshots.ContainsKey(url))
                 {
                     snapshots[url].Dispose();
                     snapshots.Remove(url);
