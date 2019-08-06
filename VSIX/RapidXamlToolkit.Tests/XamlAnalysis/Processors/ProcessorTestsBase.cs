@@ -20,7 +20,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var outputTags = new TagList();
 
-            var sut = (T)Activator.CreateInstance<T>();
+            var sut = (T)Activator.CreateInstance(typeof(T), DefaultTestLogger.Create());
 
             var snapshot = new FakeTextSnapshot();
 
