@@ -41,14 +41,14 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
             {
                 var snapshot = new RapidXamlToolkit.Tests.FakeTextSnapshot();
 
-                XamlElementExtractor.Parse(snapshot, text, RapidXamlDocument.GetAllProcessors(), result.Tags);
+                XamlElementExtractor.Parse(filePath, snapshot, text, RapidXamlDocument.GetAllProcessors(), result.Tags);
 
                 Debug.WriteLine($"Found {result.Tags.Count} taggable issues in '{filePath}'.");
 
                 if (result.Tags.Count > 0)
                 {
                     // if (result.Tags.Count > 10)
-                    if (result.Tags.OfType<RapidXamlWarningTag>().Any())
+                    if (result.Tags.OfType<RapidXamlDisplayedTag>().Any())
                     {
                         Debugger.Break();
                     }
