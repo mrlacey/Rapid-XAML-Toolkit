@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public virtual ImageMoniker IconMoniker
         {
-            get { return default(ImageMoniker); }
+            get { return default; }
         }
 
         public string InputGestureText

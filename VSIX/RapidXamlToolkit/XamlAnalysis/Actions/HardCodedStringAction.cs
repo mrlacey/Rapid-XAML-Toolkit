@@ -43,7 +43,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 return;
             }
 
-            var vs = (this.vstm != null) ? this.vstm : new VisualStudioTextManipulation(ProjectHelpers.Dte);
+            var vs = this.vstm ?? new VisualStudioTextManipulation(ProjectHelpers.Dte);
 
             var undo = vs.StartSingleUndoOperation(StringRes.Info_UndoContextMoveStringToResourceFile);
 

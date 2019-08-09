@@ -39,6 +39,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             RapidXamlDocumentCache.Add(this.file, textBuffer.CurrentSnapshot);
         }
 
+        // This is not called and so a warning (CS0067) is raised but not supressing this as expect to call this in future.
         public event EventHandler<EventArgs> SuggestedActionsChanged;
 
         // Observable event wrapper

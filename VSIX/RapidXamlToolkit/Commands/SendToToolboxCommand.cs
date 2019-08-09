@@ -66,7 +66,9 @@ namespace RapidXamlToolkit.Commands
             tbs?.AddItem(tbItem, itemInfo, StringRes.UI_ToolboxGroupHeader);
         }
 
+#pragma warning disable VSTHRD100 // Avoid async void methods - Allowed as called from event handler.
         private async void Execute(object sender, EventArgs e)
+#pragma warning restore VSTHRD100 // Avoid async void methods
         {
             try
             {

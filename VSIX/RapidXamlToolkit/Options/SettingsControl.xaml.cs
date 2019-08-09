@@ -216,7 +216,9 @@ namespace RapidXamlToolkit.Options
             }
         }
 
+#pragma warning disable VSTHRD100 // Avoid async void methods - Allowed as called from event handler.
         private async void ImportClicked(object sender, RoutedEventArgs e)
+#pragma warning restore VSTHRD100 // Avoid async void methods
         {
             if (this.disabled)
             {
