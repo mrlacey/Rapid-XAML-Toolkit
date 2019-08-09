@@ -15,9 +15,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
     {
         private const string TestFileName = "testFile.xaml";
 
-        private string element = "<MenuFlyoutItem Text=\"menu1\" />";
+        private readonly string element = "<MenuFlyoutItem Text=\"menu1\" />";
 
-        private IRapidXamlAdornmentTag tag = new HardCodedStringTag(new Span(1, 14), new FakeTextSnapshot(), TestFileName, 1, 1, Elements.MenuFlyoutItem, Attributes.Text);
+        private readonly IRapidXamlAdornmentTag tag = new HardCodedStringTag(new Span(1, 14), new FakeTextSnapshot(), TestFileName, 1, 1, Elements.MenuFlyoutItem, Attributes.Text);
 
         [TestMethod]
         public void Tag_AddedIf_NoSuppressions()
@@ -48,15 +48,16 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var tags = new TagList();
 
-            var suppressions = new List<TagSuppression>();
-
-            suppressions.Add(new TagSuppression
+            var suppressions = new List<TagSuppression>
             {
-                TagErrorCode = "RXT123",
-                FileName = TestFileName,
-                ElementIdentifier = "",
-                Reason = "For testing",
-            });
+                new TagSuppression
+                {
+                    TagErrorCode = "RXT123",
+                    FileName = TestFileName,
+                    ElementIdentifier = "",
+                    Reason = "For testing",
+                },
+            };
 
             var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
 
@@ -69,15 +70,16 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var tags = new TagList();
 
-            var suppressions = new List<TagSuppression>();
-
-            suppressions.Add(new TagSuppression
+            var suppressions = new List<TagSuppression>
             {
-                TagErrorCode = "RXT200",
-                FileName = TestFileName,
-                ElementIdentifier = "XYZ=123",
-                Reason = "For testing",
-            });
+                new TagSuppression
+                {
+                    TagErrorCode = "RXT200",
+                    FileName = TestFileName,
+                    ElementIdentifier = "XYZ=123",
+                    Reason = "For testing",
+                },
+            };
 
             var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
 
@@ -90,22 +92,23 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var tags = new TagList();
 
-            var suppressions = new List<TagSuppression>();
-
-            suppressions.Add(new TagSuppression
+            var suppressions = new List<TagSuppression>
             {
-                TagErrorCode = "RXT200",
-                FileName = TestFileName,
-                ElementIdentifier = "XYZ=123",
-                Reason = "For testing",
-            });
-            suppressions.Add(new TagSuppression
-            {
-                TagErrorCode = "RXT200",
-                FileName = TestFileName,
-                ElementIdentifier = "XYZ=456",
-                Reason = "For testing",
-            });
+                new TagSuppression
+                {
+                    TagErrorCode = "RXT200",
+                    FileName = TestFileName,
+                    ElementIdentifier = "XYZ=123",
+                    Reason = "For testing",
+                },
+                new TagSuppression
+                {
+                    TagErrorCode = "RXT200",
+                    FileName = TestFileName,
+                    ElementIdentifier = "XYZ=456",
+                    Reason = "For testing",
+                },
+            };
 
             var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
 
@@ -118,15 +121,16 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var tags = new TagList();
 
-            var suppressions = new List<TagSuppression>();
-
-            suppressions.Add(new TagSuppression
+            var suppressions = new List<TagSuppression>
             {
-                TagErrorCode = "RXT200",
-                FileName = TestFileName,
-                ElementIdentifier = "",
-                Reason = "For testing",
-            });
+                new TagSuppression
+                {
+                    TagErrorCode = "RXT200",
+                    FileName = TestFileName,
+                    ElementIdentifier = "",
+                    Reason = "For testing",
+                },
+            };
 
             var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
 
@@ -139,22 +143,23 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var tags = new TagList();
 
-            var suppressions = new List<TagSuppression>();
-
-            suppressions.Add(new TagSuppression
+            var suppressions = new List<TagSuppression>
             {
-                TagErrorCode = "RXT200",
-                FileName = TestFileName,
-                ElementIdentifier = "XYZ987",
-                Reason = "For testing",
-            });
-            suppressions.Add(new TagSuppression
-            {
-                TagErrorCode = "RXT200",
-                FileName = TestFileName,
-                ElementIdentifier = "",
-                Reason = "For testing",
-            });
+                new TagSuppression
+                {
+                    TagErrorCode = "RXT200",
+                    FileName = TestFileName,
+                    ElementIdentifier = "XYZ987",
+                    Reason = "For testing",
+                },
+                new TagSuppression
+                {
+                    TagErrorCode = "RXT200",
+                    FileName = TestFileName,
+                    ElementIdentifier = "",
+                    Reason = "For testing",
+                },
+            };
 
             var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
 
@@ -167,15 +172,16 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var tags = new TagList();
 
-            var suppressions = new List<TagSuppression>();
-
-            suppressions.Add(new TagSuppression
+            var suppressions = new List<TagSuppression>
             {
-                TagErrorCode = "RXT200",
-                FileName = TestFileName,
-                ElementIdentifier = "Text=\"menu1\"",
-                Reason = "For testing",
-            });
+                new TagSuppression
+                {
+                    TagErrorCode = "RXT200",
+                    FileName = TestFileName,
+                    ElementIdentifier = "Text=\"menu1\"",
+                    Reason = "For testing",
+                },
+            };
 
             var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
 

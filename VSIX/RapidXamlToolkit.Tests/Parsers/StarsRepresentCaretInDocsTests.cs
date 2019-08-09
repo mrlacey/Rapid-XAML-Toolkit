@@ -237,9 +237,13 @@ namespace RapidXamlToolkit.Tests.Parsers
             var language = isCSharp ? LanguageNames.CSharp : LanguageNames.VisualBasic;
             var fileExt = isCSharp ? "cs" : "vb";
 
-            var solution = new AdhocWorkspace().CurrentSolution
-                                               .AddProject(projectId, "MyProject", "MyProject", language)
-                                               .AddDocument(documentId, $"MyFile.{fileExt}", actualCode);
+            Solution solution;
+            using (var adhocWorkspace = new AdhocWorkspace())
+            {
+                solution = adhocWorkspace.CurrentSolution
+                                         .AddProject(projectId, "MyProject", "MyProject", language)
+                                         .AddDocument(documentId, $"MyFile.{fileExt}", actualCode);
+            }
 
             foreach (var addCode in additionalCode)
             {
@@ -273,9 +277,13 @@ namespace RapidXamlToolkit.Tests.Parsers
             var language = isCSharp ? LanguageNames.CSharp : LanguageNames.VisualBasic;
             var fileExt = isCSharp ? "cs" : "vb";
 
-            var solution = new AdhocWorkspace().CurrentSolution
-                                               .AddProject(projectId, "MyProject", "MyProject", language)
-                                               .AddDocument(documentId, $"MyFile.{fileExt}", actualCode);
+            Solution solution;
+            using (var adhocWorkspace = new AdhocWorkspace())
+            {
+                solution = adhocWorkspace.CurrentSolution
+                                         .AddProject(projectId, "MyProject", "MyProject", language)
+                                         .AddDocument(documentId, $"MyFile.{fileExt}", actualCode);
+            }
 
             foreach (var addRef in additionalReferences)
             {
@@ -311,9 +319,13 @@ namespace RapidXamlToolkit.Tests.Parsers
             var language = isCSharp ? LanguageNames.CSharp : LanguageNames.VisualBasic;
             var fileExt = isCSharp ? "cs" : "vb";
 
-            var solution = new AdhocWorkspace().CurrentSolution
-                                               .AddProject(projectId, "MyProject", "MyProject", language)
-                                               .AddDocument(documentId, $"MyFile.{fileExt}", actualCode);
+            Solution solution;
+            using (var adhocWorkspace = new AdhocWorkspace())
+            {
+                solution = adhocWorkspace.CurrentSolution
+                                         .AddProject(projectId, "MyProject", "MyProject", language)
+                                         .AddDocument(documentId, $"MyFile.{fileExt}", actualCode);
+            }
 
             foreach (var libPath in additionalLibraryPaths)
             {

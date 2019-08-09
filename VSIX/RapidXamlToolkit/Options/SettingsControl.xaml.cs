@@ -229,36 +229,37 @@ namespace RapidXamlToolkit.Options
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                var openFileDialog = new System.Windows.Forms.OpenFileDialog
+                using (var openFileDialog = new System.Windows.Forms.OpenFileDialog
                 {
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                     Filter = $"{StringRes.UI_ProfileFilterDescription} (*.rxprofile)|*.rxprofile",
                     Multiselect = false,
-                };
-
-                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                })
                 {
-                    var fileContents = File.ReadAllText(openFileDialog.FileName);
-
-                    var parser = new ApiAnalysis.SimpleJsonAnalyzer();
-
-                    var parserResults = await parser.AnalyzeJsonAsync(fileContents, typeof(Profile));
-
-                    if (parserResults.Count == 1 && parserResults.First() == parser.MessageBuilder.AllGoodMessage)
+                    if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        var profile = Newtonsoft.Json.JsonConvert.DeserializeObject<Profile>(fileContents);
+                        var fileContents = File.ReadAllText(openFileDialog.FileName);
 
-                        this.SettingsProvider.ActualSettings.Profiles.Add(profile);
-                        this.SettingsProvider.Save();
-                        this.SettingsProvider.ActualSettings.RefreshProfilesList();
-                    }
-                    else
-                    {
-                        MessageBox.Show(
-                                        StringRes.Prompt_ImportFailedMessage.WithParams(string.Join(Environment.NewLine + "- ", parserResults)),
-                                        StringRes.Prompt_ImportFailedTitle,
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Error);
+                        var parser = new ApiAnalysis.SimpleJsonAnalyzer();
+
+                        var parserResults = await parser.AnalyzeJsonAsync(fileContents, typeof(Profile));
+
+                        if (parserResults.Count == 1 && parserResults.First() == parser.MessageBuilder.AllGoodMessage)
+                        {
+                            var profile = Newtonsoft.Json.JsonConvert.DeserializeObject<Profile>(fileContents);
+
+                            this.SettingsProvider.ActualSettings.Profiles.Add(profile);
+                            this.SettingsProvider.Save();
+                            this.SettingsProvider.ActualSettings.RefreshProfilesList();
+                        }
+                        else
+                        {
+                            MessageBox.Show(
+                                            StringRes.Prompt_ImportFailedMessage.WithParams(string.Join(Environment.NewLine + "- ", parserResults)),
+                                            StringRes.Prompt_ImportFailedTitle,
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                        }
                     }
                 }
             }
@@ -285,16 +286,17 @@ namespace RapidXamlToolkit.Options
                     var selectedProfile = this.SettingsProvider.ActualSettings.Profiles[this.DisplayedProfiles.SelectedIndex];
                     var profileJson = selectedProfile.AsJson();
 
-                    var saveFileDialog = new System.Windows.Forms.SaveFileDialog
+                    using (var saveFileDialog = new System.Windows.Forms.SaveFileDialog
                     {
                         InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                         Filter = $"{StringRes.UI_ProfileFilterDescription} (*.rxprofile)|*.rxprofile",
                         FileName = $"{selectedProfile.Name}.rxprofile",
-                    };
-
-                    if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    })
                     {
-                        File.WriteAllText(saveFileDialog.FileName, profileJson);
+                        if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            File.WriteAllText(saveFileDialog.FileName, profileJson);
+                        }
                     }
                 }
             }

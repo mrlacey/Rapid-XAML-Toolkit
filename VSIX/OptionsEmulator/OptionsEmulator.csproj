@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>SA0001</NoWarn>
+    <NoWarn>SA0001,NU1605,NU1608</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>OptionsEmulator.App</StartupObject>

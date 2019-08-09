@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.ErrorList
     {
         private readonly ITableDataSink sink;
         private readonly TableDataSource errorList;
-        private List<TableEntriesSnapshot> snapshots = new List<TableEntriesSnapshot>();
+        private readonly List<TableEntriesSnapshot> snapshots = new List<TableEntriesSnapshot>();
 
         internal SinkManager(TableDataSource errorList, ITableDataSink sink)
         {

@@ -64,7 +64,7 @@
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <DocumentationFile>bin\Release\RapidXamlToolkitExt.xml</DocumentationFile>
-    <NoWarn>,1573,1591,1712,1762</NoWarn>
+    <NoWarn>,1573,1591,1712,1762,NU1605,NU1608</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />

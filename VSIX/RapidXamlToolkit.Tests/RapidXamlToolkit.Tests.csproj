@@ -38,7 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\RapidXamlToolkit.Tests.xml</DocumentationFile>
-    <NoWarn>$(NoWarn),1573,1591,1712</NoWarn>
+    <NoWarn>,1573,1591,1712,NU1605,NU1608</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

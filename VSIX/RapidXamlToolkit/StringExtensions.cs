@@ -377,25 +377,28 @@ namespace RapidXamlToolkit
             catch (XmlException)
             {
                 // Assume failures are due to multiple root elements
-                xtr = new XmlTextReader(new StringReader($"<wrap>{source}</wrap>"))
+                using (var xmlTextReader = new XmlTextReader(new StringReader($"<wrap>{source}</wrap>"))
                 {
                     Namespaces = false,
-                };
-
-                try
+                })
                 {
-                    doc.Load(xtr);
+                    xtr = xmlTextReader;
 
-                    wrapped = true;
-                }
-                catch (Exception exc)
-                {
-                    // The generated XAML isn't valid XML. This is useful in debugging only.
-                    // Assume the invalid XAML was intentional. If not then the mapping needs updating.
-                    System.Diagnostics.Debug.WriteLine(exc);
+                    try
+                    {
+                        doc.Load(xtr);
 
-                    // If can't process as XML then can't pad it. Just return the original.
-                    return source;
+                        wrapped = true;
+                    }
+                    catch (Exception exc)
+                    {
+                        // The generated XAML isn't valid XML. This is useful in debugging only.
+                        // Assume the invalid XAML was intentional. If not then the mapping needs updating.
+                        System.Diagnostics.Debug.WriteLine(exc);
+
+                        // If can't process as XML then can't pad it. Just return the original.
+                        return source;
+                    }
                 }
             }
 

@@ -23,8 +23,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         private readonly RxtSettings config = new RxtSettings();
         private readonly ITextView view;
         private readonly ISuggestedActionCategoryRegistryService suggestedActionCategoryRegistry;
-        private string file;
-        private IViewTagAggregatorFactoryService tagService;
+        private readonly string file;
+        private readonly IViewTagAggregatorFactoryService tagService;
 
         public SuggestedActionsSource(IViewTagAggregatorFactoryService tagService, ISuggestedActionCategoryRegistryService suggestedActionCategoryRegistry, ITextView view, ITextBuffer textBuffer, string file)
         {

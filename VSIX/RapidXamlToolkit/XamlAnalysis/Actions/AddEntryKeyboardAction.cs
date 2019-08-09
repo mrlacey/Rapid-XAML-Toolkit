@@ -25,9 +25,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public static AddEntryKeyboardAction[] Create(AddEntryKeyboardTag tag, string file)
         {
-            var result = new List<AddEntryKeyboardAction>();
-
-            result.Add(new AddEntryKeyboardAction(file, tag, "Default"));
+            var result = new List<AddEntryKeyboardAction>
+            {
+                new AddEntryKeyboardAction(file, tag, "Default"),
+            };
 
             if (!string.IsNullOrWhiteSpace(tag.NonDefaultKeyboardSuggestion))
             {

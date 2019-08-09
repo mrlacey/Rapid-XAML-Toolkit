@@ -39,6 +39,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>NU1605,NU1608</NoWarn>
+    <DocumentationFile>bin\Release\RapidXamlToolkit.Tests.Manual.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
