@@ -3,6 +3,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/kryvt4vdvy39940m/branch/dev?svg=true)](https://ci.appveyor.com/project/mrlacey/rapid-xaml-toolkit/branch/dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Works with Visual Studio 2019](https://img.shields.io/static/v1.svg?label=VS&message=2019&color=5F2E96)
 
 Creating a XAML UI can be slow or require lots of manual effort. These tools aim to reduce the time and effort required to get the basics working and allow you to customize the UI to meet your preferences or the specific needs of your app.
 We can't and don't try to create the whole app for you but we can make creating and working with XAML faster easier.
