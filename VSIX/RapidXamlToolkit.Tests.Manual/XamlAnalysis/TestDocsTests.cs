@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
 
             var snapshot = new RapidXamlToolkit.Tests.FakeTextSnapshot();
 
-            XamlElementExtractor.Parse(snapshot, text, RapidXamlDocument.GetAllProcessors(), result.Tags);
+            XamlElementExtractor.Parse("Generic.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(), result.Tags);
 
             Assert.AreEqual(0, result.Tags.OfType<MissingRowDefinitionTag>().Count());
             Assert.AreEqual(0, result.Tags.OfType<MissingColumnDefinitionTag>().Count());

@@ -122,6 +122,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             XamlElementExtractor.Parse(fileName, null, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList());
 
+            if (result == null)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+
             return result;
         }
 

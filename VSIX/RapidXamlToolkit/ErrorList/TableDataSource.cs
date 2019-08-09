@@ -16,8 +16,8 @@ namespace RapidXamlToolkit.ErrorList
 {
     public class TableDataSource : ITableDataSource
     {
+        private static readonly Dictionary<string, TableEntriesSnapshot> Snapshots = new Dictionary<string, TableEntriesSnapshot>();
         private static TableDataSource instance;
-        private static Dictionary<string, TableEntriesSnapshot> snapshots = new Dictionary<string, TableEntriesSnapshot>();
         private readonly List<SinkManager> managers = new List<SinkManager>();
 
         private TableDataSource()
@@ -53,7 +53,7 @@ namespace RapidXamlToolkit.ErrorList
             }
         }
 
-        public bool HasErrors => snapshots.Any();
+        public bool HasErrors => Snapshots.Any();
 
         public string SourceTypeIdentifier => StandardTableDataSources.ErrorTableDataSource;
 
@@ -95,7 +95,7 @@ namespace RapidXamlToolkit.ErrorList
             {
                 foreach (var manager in this.managers)
                 {
-                    manager.UpdateSink(snapshots.Values);
+                    manager.UpdateSink(Snapshots.Values);
                 }
             }
         }
@@ -107,10 +107,10 @@ namespace RapidXamlToolkit.ErrorList
                 return;
             }
 
-            result.Errors = result.Errors.Where(v => !snapshots.Any(s => s.Value.Errors.Contains(v)) && v.ErrorType != TagErrorType.Hidden).ToList();
+            result.Errors = result.Errors.Where(v => !Snapshots.Any(s => s.Value.Errors.Contains(v)) && v.ErrorType != TagErrorType.Hidden).ToList();
 
             var snapshot = new TableEntriesSnapshot(result);
-            snapshots[result.FilePath] = snapshot;
+            Snapshots[result.FilePath] = snapshot;
 
             this.UpdateAllSinks();
         }
@@ -119,10 +119,10 @@ namespace RapidXamlToolkit.ErrorList
         {
             foreach (string url in urls)
             {
-                if (url != null && snapshots.ContainsKey(url))
+                if (url != null && Snapshots.ContainsKey(url))
                 {
-                    snapshots[url].Dispose();
-                    snapshots.Remove(url);
+                    Snapshots[url].Dispose();
+                    Snapshots.Remove(url);
                 }
             }
 
@@ -139,13 +139,13 @@ namespace RapidXamlToolkit.ErrorList
 
         public void CleanAllErrors()
         {
-            foreach (string url in snapshots.Keys)
+            foreach (string url in Snapshots.Keys)
             {
-                var snapshot = snapshots[url];
+                var snapshot = Snapshots[url];
                 snapshot?.Dispose();
             }
 
-            snapshots.Clear();
+            Snapshots.Clear();
 
             lock (this.managers)
             {

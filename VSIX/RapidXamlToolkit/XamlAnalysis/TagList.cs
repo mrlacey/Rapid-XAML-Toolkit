@@ -11,10 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         public bool TryAdd(IRapidXamlAdornmentTag tag, string xamlElement, List<TagSuppression> suppressions)
         {
-            var displayedTag = tag as RapidXamlDisplayedTag;
-
             // Only suppress tags that might be displayed as only they have error codes
-            if (displayedTag != null)
+            if (tag is RapidXamlDisplayedTag displayedTag)
             {
                 if (suppressions != null)
                 {
