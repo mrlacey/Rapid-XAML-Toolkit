@@ -57,62 +57,70 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
             bool ReferencesUno(EnvDTE.Project proj)
             {
-                return ReferencesNuGetPackageWithNameContaining(proj, ".uno");
+                return ReferencesNuGetPackageWithNameContaining(proj, "uno.ui");
             }
 
             bool ReferencesNuGetPackageWithNameContaining(EnvDTE.Project proj, string name)
             {
-                var componentModel = this.GetService(proj.DTE, typeof(SComponentModel)) as IComponentModel;
-                var nugetService = componentModel.GetService<NuGet.VisualStudio.IVsPackageInstallerServices>();
-
-                if (nugetService != null)
+                try
                 {
-                    foreach (var item in nugetService.GetInstalledPackages(proj))
+                    var componentModel = this.GetService(proj.DTE, typeof(SComponentModel)) as IComponentModel;
+                    var nugetService = componentModel.GetService<NuGet.VisualStudio.IVsPackageInstallerServices>();
+
+                    if (nugetService != null)
                     {
-                        if (item.Id.ToLowerInvariant().Contains(name))
+                        foreach (var item in nugetService.GetInstalledPackages(proj))
                         {
-                            return true;
+                            if (item.Id.ToLowerInvariant().Contains(name))
+                            {
+                                return true;
+                            }
                         }
                     }
+                }
+                catch (Exception exc)
+                {
+                    this.logger?.RecordException(exc);
                 }
 
                 return false;
             }
 
-            var guids = this.GetProjectTypeGuids(project);
-
-            // Check with `Contains` as there may be multiple GUIDs specified (e.g. for programming language too)
-            if (guids.Contains(WpfGuid))
+            ProjectType GetProjectTypeOfReferencingProject(EnvDTE.Project proj)
             {
-                return ProjectType.Wpf;
-            }
-            else if (guids.Contains(UwpGuid))
-            {
-                // May be a UWP head for a XF app
-                return ReferencesXamarin(project) ? ProjectType.XamarinForms : ProjectType.Uwp;
-            }
-            else if (guids.Contains(XamAndroidGuid) || guids.Contains(XamIosGuid))
-            {
-                return ReferencesUno(project) ? ProjectType.Uwp : ProjectType.XamarinForms;
-            }
-            else
-            {
-                // Shared Projects provide no Guids or references that can be used to determine project type
-                if (System.IO.Path.GetExtension(project.FileName).Equals(".shproj", StringComparison.OrdinalIgnoreCase))
+                // Look at other projects in solution that reference this project and see what they are.
+                foreach (var otherProj in proj.DTE.Solution.GetAllProjects())
                 {
-                    // Look at other projects in solution that reference this project and see what they are.
-                    foreach (var otherProj in project.DTE.Solution.GetAllProjects())
+                    // Don't check self or any shard projects to avoid infinite loops and unnecessary work.
+                    if (otherProj.UniqueName != project.UniqueName
+                     && !System.IO.Path.GetExtension(otherProj.UniqueName).Equals(".shproj", StringComparison.OrdinalIgnoreCase))
                     {
-                        // Don't check self or any other shard projects to avoid infinite loops and unnecessary work.
-                        if (!System.IO.Path.GetExtension(otherProj.UniqueName).Equals(".shproj", StringComparison.OrdinalIgnoreCase))
-                        {
-                            var item = otherProj.ProjectItems.GetEnumerator();
+                        var item = otherProj.ProjectItems?.GetEnumerator();
 
+                        // Can't get ProjectItems if project is unloaded.
+                        if (item != null)
+                        {
                             while (item.MoveNext())
                             {
                                 var itemName = (item.Current as ProjectItem).Name;
 
-                                if (itemName == $"<{project.Name}>")
+                                if (itemName == $"<{proj.Name}>")
+                                {
+                                    var otherProjectType = this.GetProjectType(otherProj);
+
+                                    if (otherProjectType != ProjectType.Unknown)
+                                    {
+                                        return otherProjectType;
+                                    }
+                                }
+                            }
+
+                            // As an alternative to trying to get project dependency from SDK format project files.
+                            if (!string.IsNullOrEmpty(otherProj.FileName))
+                            {
+                                var projFileContents = System.IO.File.ReadAllText(otherProj.FileName);
+
+                                if (projFileContents.Contains(proj.Name))
                                 {
                                     var otherProjectType = this.GetProjectType(otherProj);
 
@@ -124,8 +132,35 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                             }
                         }
                     }
+                }
 
-                    return ProjectType.Unknown;
+                return ProjectType.Unknown;
+            }
+
+            var guids = this.GetProjectTypeGuids(project);
+
+            var result = ProjectType.Unknown;
+
+            // Check with `Contains` as there may be multiple GUIDs specified (e.g. for programming language too)
+            if (guids.Contains(WpfGuid))
+            {
+                result = ProjectType.Wpf;
+            }
+            else if (guids.Contains(UwpGuid))
+            {
+                // May be a UWP head for a XF app
+                result = ReferencesXamarin(project) ? ProjectType.XamarinForms : ProjectType.Uwp;
+            }
+            else if (guids.Contains(XamAndroidGuid) || guids.Contains(XamIosGuid))
+            {
+                result = ReferencesUno(project) ? ProjectType.Uwp : ProjectType.XamarinForms;
+            }
+            else
+            {
+                // Shared Projects provide no Guids or references that can be used to determine project type
+                if (System.IO.Path.GetExtension(project.UniqueName).Equals(".shproj", StringComparison.OrdinalIgnoreCase))
+                {
+                    result = GetProjectTypeOfReferencingProject(project);
                 }
                 else
                 {
@@ -134,14 +169,22 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
                     if (refsXamarin)
                     {
-                        return refsUno ? ProjectType.Uwp : ProjectType.XamarinForms;
+                        result = refsUno ? ProjectType.Uwp : ProjectType.XamarinForms;
                     }
                     else
                     {
-                        return refsUno ? ProjectType.Uwp : ProjectType.Unknown;
+                        result = refsUno ? ProjectType.Uwp : ProjectType.Unknown;
+                    }
+
+                    // This will be the case if looking at code in a class library or other project types.
+                    if (result == ProjectType.Unknown)
+                    {
+                        result = GetProjectTypeOfReferencingProject(project);
                     }
                 }
             }
+
+            return result;
         }
 
         public string GetProjectTypeGuids(EnvDTE.Project proj)
