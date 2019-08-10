@@ -50,9 +50,16 @@ namespace RapidXamlToolkit.Commands
 
                     var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
                     var xamlIndent = await vs.GetXamlIndentAsync();
-                    var projType = vs.GetProjectType(vs.GetActiveProject().Project);
+
+                    var project = vs.GetActiveProject().Project;
+                    var projType = vs.GetProjectType(project);
 
                     // TODO ISSUE150: if projType ==Unknown, try other projects in the solution.
+
+                    if (projType == ProjectType.Unknown)
+                    {
+
+                    }
 
                     IDocumentParser parser = null;
 

@@ -52,6 +52,16 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
             bool ReferencesXamarin(EnvDTE.Project proj)
             {
+                return ReferencesNuGetPackageWithNameContaining(proj, "xamarin");
+            }
+
+            bool ReferencesUno(EnvDTE.Project proj)
+            {
+                return ReferencesNuGetPackageWithNameContaining(proj, ".uno");
+            }
+
+            bool ReferencesNuGetPackageWithNameContaining(EnvDTE.Project proj, string name)
+            {
                 var componentModel = this.GetService(proj.DTE, typeof(SComponentModel)) as IComponentModel;
                 var nugetService = componentModel.GetService<NuGet.VisualStudio.IVsPackageInstallerServices>();
 
@@ -59,7 +69,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 {
                     foreach (var item in nugetService.GetInstalledPackages(proj))
                     {
-                        if (item.Id.ToLowerInvariant().Contains("xamarin"))
+                        if (item.Id.ToLowerInvariant().Contains(name))
                         {
                             return true;
                         }
@@ -83,20 +93,53 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
             else if (guids.Contains(XamAndroidGuid) || guids.Contains(XamIosGuid))
             {
-                return ProjectType.XamarinForms;
+                return ReferencesUno(project) ? ProjectType.Uwp : ProjectType.XamarinForms;
             }
             else
             {
                 // Shared Projects provide no Guids or references that can be used to determine project type
-                if (System.IO.Path.GetExtension(project.FileName) == ".shproj")
+                if (System.IO.Path.GetExtension(project.FileName).Equals(".shproj", StringComparison.OrdinalIgnoreCase))
                 {
-                    // TODO: Issue150 temporary work around until have a way of determining this
-                    // - possibly open first XAML file and work it out from that
+                    // Look at other projects in solution that reference this project and see what they are.
+                    foreach (var otherProj in project.DTE.Solution.GetAllProjects())
+                    {
+                        // Don't check self or any other shard projects to avoid infinite loops and unnecessary work.
+                        if (!System.IO.Path.GetExtension(otherProj.UniqueName).Equals(".shproj", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var item = otherProj.ProjectItems.GetEnumerator();
+
+                            while (item.MoveNext())
+                            {
+                                var itemName = (item.Current as ProjectItem).Name;
+
+                                if (itemName == $"<{project.Name}>")
+                                {
+                                    var otherProjectType = this.GetProjectType(otherProj);
+
+                                    if (otherProjectType != ProjectType.Unknown)
+                                    {
+                                        return otherProjectType;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     return ProjectType.Unknown;
                 }
                 else
                 {
-                    return ReferencesXamarin(project) ? ProjectType.XamarinForms : ProjectType.Unknown;
+                    var refsXamarin = ReferencesXamarin(project);
+                    var refsUno = ReferencesUno(project);
+
+                    if (refsXamarin)
+                    {
+                        return refsUno ? ProjectType.Uwp : ProjectType.XamarinForms;
+                    }
+                    else
+                    {
+                        return refsUno ? ProjectType.Uwp : ProjectType.Unknown;
+                    }
                 }
             }
         }

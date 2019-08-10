@@ -8,6 +8,7 @@ using System.Linq;
 using Microsoft.VisualStudio.Text;
 using Newtonsoft.Json;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
