@@ -225,19 +225,15 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         public object GetService(object serviceProviderObject, Guid guid)
         {
             object service = null;
-            Microsoft.VisualStudio.OLE.Interop.IServiceProvider serviceProvider = null;
-            int hr = 0;
-            Guid serviceGuid;
-            Guid interopGuid;
 
-            serviceGuid = guid;
-            interopGuid = serviceGuid;
-            serviceProvider = (Microsoft.VisualStudio.OLE.Interop.IServiceProvider)serviceProviderObject;
-            hr = serviceProvider.QueryService(ref serviceGuid, ref interopGuid, out IntPtr serviceIntPtr);
+            Microsoft.VisualStudio.OLE.Interop.IServiceProvider serviceProvider = (Microsoft.VisualStudio.OLE.Interop.IServiceProvider)serviceProviderObject;
+            Guid serviceGuid = guid;
+            Guid interopGuid = serviceGuid;
+            int hresult = serviceProvider.QueryService(ref serviceGuid, ref interopGuid, out IntPtr serviceIntPtr);
 
-            if (hr != 0)
+            if (hresult != 0)
             {
-                Marshal.ThrowExceptionForHR(hr);
+                Marshal.ThrowExceptionForHR(hresult);
             }
             else if (!serviceIntPtr.Equals(IntPtr.Zero))
             {
