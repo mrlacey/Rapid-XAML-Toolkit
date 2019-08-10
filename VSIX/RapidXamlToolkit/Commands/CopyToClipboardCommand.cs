@@ -46,6 +46,9 @@ namespace RapidXamlToolkit.Commands
         private async void Execute(object sender, EventArgs e)
 #pragma warning restore VSTHRD100 // Avoid async void methods
         {
+            System.Windows.Forms.Cursor previousCursor = System.Windows.Forms.Cursor.Current;
+            System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+
             try
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
@@ -79,6 +82,10 @@ namespace RapidXamlToolkit.Commands
             catch (Exception exc)
             {
                 this.Logger?.RecordException(exc);
+            }
+            finally
+            {
+                System.Windows.Forms.Cursor.Current = previousCursor;
             }
         }
     }
