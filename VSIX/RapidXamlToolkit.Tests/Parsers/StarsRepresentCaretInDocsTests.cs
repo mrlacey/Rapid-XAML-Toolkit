@@ -12,7 +12,6 @@ using Microsoft.CodeAnalysis.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
-using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests.Parsers
 {
@@ -22,13 +21,13 @@ namespace RapidXamlToolkit.Tests.Parsers
 
         public TestContext TestContext { get; set; }
 
-        public Profile DefaultProfile => GetDefaultTestSettings().GetActiveProfile();
+        public Profile FallBackProfile => GetDefaultTestSettings().GetFallBackProfile();
 
         public static Settings GetDefaultTestSettings()
         {
-            return new Settings
+            var result = new Settings
             {
-                ActiveProfileName = "UWP",
+                FallBackProfileName = "UWP",
                 Profiles = new List<Profile>
                 {
                     new Profile
@@ -171,6 +170,17 @@ namespace RapidXamlToolkit.Tests.Parsers
                     },
                 },
             };
+
+            var activeUwpDefault = result.Profiles.First(p => p.ProjectType == ProjectType.Uwp);
+            result.ActiveProfileNames.Add(activeUwpDefault.ProjectTypeDescription, activeUwpDefault.Name);
+
+            var activeWpfDefault = result.Profiles.First(p => p.ProjectType == ProjectType.Wpf);
+            result.ActiveProfileNames.Add(activeWpfDefault.ProjectTypeDescription, activeWpfDefault.Name);
+
+            var activeXfDefault = result.Profiles.First(p => p.ProjectType == ProjectType.XamarinForms);
+            result.ActiveProfileNames.Add(activeXfDefault.ProjectTypeDescription, activeXfDefault.Name);
+
+            return result;
         }
 
         protected void EachPositionBetweenStarsShouldProduceExpected(string code, ParserOutput expected, bool isCSharp, Profile profileOverload)

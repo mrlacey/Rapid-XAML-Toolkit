@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
@@ -95,6 +96,16 @@ namespace RapidXamlToolkit.Options
         }
 
         public bool AttemptAutomaticDocumentFormatting { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public string ProjectTypeDescription
+        {
+            get
+            {
+                return this.ProjectType.GetDescription();
+            }
+        }
 
         public static Profile CreateNew()
         {

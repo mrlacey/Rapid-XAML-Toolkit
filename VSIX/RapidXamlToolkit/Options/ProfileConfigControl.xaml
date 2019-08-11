@@ -223,7 +223,7 @@
         <CheckBox
             Grid.Row="6"
             Grid.Column="1"
-            IsChecked="{Binding General.AttemptAutomaticDocumentFormatting, Mode=TwoWay}">
+            IsChecked="{Binding AttemptAutomaticDocumentFormatting, Mode=TwoWay}">
             <TextBlock Text="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormatting}" ToolTip="{x:Static strings:StringRes.Options_AttemptAutomaticDocumentFormattingDescription}" />
         </CheckBox>
 

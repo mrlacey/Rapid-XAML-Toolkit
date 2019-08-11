@@ -3,8 +3,8 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using RapidXamlToolkit.Configuration;
-using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Options
 {
@@ -14,10 +14,10 @@ namespace RapidXamlToolkit.Options
         {
             var config = new RxtSettings();
 
-            return new Settings
+            var result = new Settings
             {
                 ExtendedOutputEnabled = config.ExtendedOutputEnabledByDefault,  // Disable for release builds but want it on by default for testers
-                ActiveProfileName = string.Empty,  // No profile should be selected by default
+                FallBackProfileName = string.Empty,
                 Profiles = new List<Profile>
                 {
                     new Profile
@@ -153,6 +153,19 @@ namespace RapidXamlToolkit.Options
                     },
                 },
             };
+
+            result.FallBackProfileName = result.Profiles.First().Name;
+
+            var activeUwpDefault = result.Profiles.First(p => p.ProjectType == ProjectType.Uwp);
+            result.ActiveProfileNames.Add(activeUwpDefault.ProjectTypeDescription, activeUwpDefault.Name);
+
+            var activeWpfDefault = result.Profiles.First(p => p.ProjectType == ProjectType.Wpf);
+            result.ActiveProfileNames.Add(activeWpfDefault.ProjectTypeDescription, activeWpfDefault.Name);
+
+            var activeXfDefault = result.Profiles.First(p => p.ProjectType == ProjectType.XamarinForms);
+            result.ActiveProfileNames.Add(activeXfDefault.ProjectTypeDescription, activeXfDefault.Name);
+
+            return result;
         }
 
         private static ObservableCollection<Mapping> MappingsForUwpStackPanelWithoutHeaders()

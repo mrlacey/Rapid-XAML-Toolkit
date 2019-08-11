@@ -139,7 +139,8 @@ namespace RapidXamlToolkit.Options
 
                 this.ActualSettings.Profiles.Clear();
                 this.actualSettings.Profiles.AddRange(defaults.Profiles);
-                this.ActualSettings.ActiveProfileName = defaults.ActiveProfileName;
+                this.actualSettings.FallBackProfileName = defaults.FallBackProfileName;
+                this.ActualSettings.ActiveProfileNames = defaults.ActiveProfileNames;
             }
             catch (Exception exc)
             {

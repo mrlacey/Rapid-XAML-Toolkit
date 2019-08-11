@@ -907,4 +907,13 @@
   <data name="Options_XamlXamarinForms" xml:space="preserve">
     <value>Xamarin.Forms</value>
   </data>
+  <data name="Options_ButtonSetAsFallBack" xml:space="preserve">
+    <value>Set as _Fall Back</value>
+  </data>
+  <data name="UI_FallBackActiveProfileName" xml:space="preserve">
+    <value>{0}    [*FALLBACK*][*ACTIVE*]</value>
+  </data>
+  <data name="UI_FallBackProfileName" xml:space="preserve">
+    <value>{0}    [*FALLBACK*]</value>
+  </data>
 </root>

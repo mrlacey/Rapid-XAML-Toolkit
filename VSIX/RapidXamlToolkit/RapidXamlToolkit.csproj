@@ -71,6 +71,7 @@
     <Compile Include="Options\EnumConverter.cs" />
     <Compile Include="Parsers\AttributeArgumentDetails.cs" />
     <Compile Include="Parsers\AttributeDetails.cs" />
+    <Compile Include="ProjectTypeExtensions.cs" />
     <Compile Include="TaskExtensions.cs" />
     <Compile Include="VisualStudioIntegration\IVisualStudioTextManipulation.cs" />
     <Compile Include="ProjectType.cs" />

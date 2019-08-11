@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class StringRes {
@@ -1393,6 +1393,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set as _Fall Back.
+        /// </summary>
+        public static string Options_ButtonSetAsFallBack {
+            get {
+                return ResourceManager.GetString("Options_ButtonSetAsFallBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Class grouping:.
         /// </summary>
         public static string Options_ClassGrouping {
@@ -2192,6 +2201,24 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_CreatingOutputPaneFailed {
             get {
                 return ResourceManager.GetString("UI_CreatingOutputPaneFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}    [*FALLBACK*][*ACTIVE*].
+        /// </summary>
+        public static string UI_FallBackActiveProfileName {
+            get {
+                return ResourceManager.GetString("UI_FallBackActiveProfileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}    [*FALLBACK*].
+        /// </summary>
+        public static string UI_FallBackProfileName {
+            get {
+                return ResourceManager.GetString("UI_FallBackProfileName", resourceCulture);
             }
         }
         

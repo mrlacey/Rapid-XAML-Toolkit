@@ -104,7 +104,7 @@ namespace RapidXamlToolkit.Commands
                 {
                     menuCmd.Visible = menuCmd.Enabled = false;
 
-                    if (CodeParserBase.GetSettings().IsActiveProfileSet)
+                    if (CodeParserBase.GetSettings().Profiles.Any())
                     {
                         menuCmd.Visible = menuCmd.Enabled = true;
                     }
