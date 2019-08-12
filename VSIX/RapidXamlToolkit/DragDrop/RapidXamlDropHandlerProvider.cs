@@ -9,7 +9,6 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Editor.DragDrop;
 using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.Utilities;
-using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;

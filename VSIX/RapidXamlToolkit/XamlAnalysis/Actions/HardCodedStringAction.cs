@@ -9,7 +9,6 @@ using System.Threading;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
-using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;

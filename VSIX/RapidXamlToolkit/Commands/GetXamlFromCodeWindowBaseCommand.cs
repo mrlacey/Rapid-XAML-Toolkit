@@ -51,7 +51,14 @@ namespace RapidXamlToolkit.Commands
                     var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
                     var xamlIndent = await vs.GetXamlIndentAsync();
 
-                    var projType = vs.GetProjectType(vs.GetActiveProject().Project);
+                    var proj = dte.Solution.GetProjectContainingFile(document.FilePath);
+
+                    if (proj == null)
+                    {
+                        proj = vs.GetActiveProject().Project;
+                    }
+
+                    var projType = vs.GetProjectType(proj);
 
                     this.Logger?.RecordInfo(StringRes.Info_DetectedProjectType.WithParams(projType.GetDescription()));
 
