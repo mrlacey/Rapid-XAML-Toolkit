@@ -10,4 +10,4 @@ Until versions are released via the marketplace, this document will only contain
 
 ## 0.1.*
 
-- Initial alpha versions.
+- Initial beta versions.
