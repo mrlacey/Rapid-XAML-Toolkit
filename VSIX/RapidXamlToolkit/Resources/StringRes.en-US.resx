@@ -916,4 +916,10 @@
   <data name="UI_FallBackProfileName" xml:space="preserve">
     <value>{0}    [*FALLBACK*]</value>
   </data>
+  <data name="Info_DetectedProjectType" xml:space="preserve">
+    <value>Detected project type as '{0}'.</value>
+  </data>
+  <data name="Info_UsingProfile" xml:space="preserve">
+    <value>Using profile '{0}'.</value>
+  </data>
 </root>

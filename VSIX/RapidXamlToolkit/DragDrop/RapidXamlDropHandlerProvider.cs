@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.Utilities;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis;
 using Task = System.Threading.Tasks.Task;
@@ -56,6 +57,8 @@ namespace RapidXamlToolkit.DragDrop
             {
                 var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(textDocument.FilePath);
                 projType = vsa.GetProjectType(proj);
+
+                Logger?.RecordInfo(StringRes.Info_DetectedProjectType.WithParams(projType.GetDescription()));
             }
 
             return view.Properties.GetOrCreateSingletonProperty(() => new RapidXamlDropHandler(Logger, view, undoManager, vsa, projType));

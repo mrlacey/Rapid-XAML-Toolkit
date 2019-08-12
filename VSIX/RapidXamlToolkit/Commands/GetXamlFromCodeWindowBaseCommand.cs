@@ -53,6 +53,8 @@ namespace RapidXamlToolkit.Commands
 
                     var projType = vs.GetProjectType(vs.GetActiveProject().Project);
 
+                    this.Logger?.RecordInfo(StringRes.Info_DetectedProjectType.WithParams(projType.GetDescription()));
+
                     IDocumentParser parser = null;
 
                     if (activeDocument.Language == "CSharp")

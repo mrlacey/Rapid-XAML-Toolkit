@@ -232,6 +232,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detected project type as &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_DetectedProjectType {
+            get {
+                return ResourceManager.GetString("Info_DetectedProjectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Document contains {0} properties..
         /// </summary>
         public static string Info_DocumentPropertyCount {
@@ -741,6 +750,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_UsingClassGrouping {
             get {
                 return ResourceManager.GetString("Info_UsingClassGrouping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Using profile &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_UsingProfile {
+            get {
+                return ResourceManager.GetString("Info_UsingProfile", resourceCulture);
             }
         }
         

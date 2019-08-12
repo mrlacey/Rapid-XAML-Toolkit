@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Options
@@ -102,7 +103,14 @@ namespace RapidXamlToolkit.Options
             }
 
             // If there still isn't one, try the fall back.
-            return result ?? this.GetFallBackProfile();
+            if (result == null)
+            {
+                result = this.GetFallBackProfile();
+            }
+
+            RapidXamlPackage.Logger?.RecordInfo(StringRes.Info_UsingProfile.WithParams(result.Name));
+
+            return result;
         }
 
         public List<string> GetAllProfileNames()

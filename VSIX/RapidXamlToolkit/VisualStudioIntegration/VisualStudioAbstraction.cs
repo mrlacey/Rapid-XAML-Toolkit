@@ -142,16 +142,17 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             var result = ProjectType.Unknown;
 
             // Check with `Contains` as there may be multiple GUIDs specified (e.g. for programming language too)
-            if (guids.Contains(WpfGuid))
+            if (guids.IndexOf(WpfGuid, StringComparison.InvariantCultureIgnoreCase) >= 0)
             {
                 result = ProjectType.Wpf;
             }
-            else if (guids.Contains(UwpGuid))
+            else if (guids.IndexOf(UwpGuid, StringComparison.InvariantCultureIgnoreCase) >= 0)
             {
                 // May be a UWP head for a XF app
                 result = ReferencesXamarin(project) ? ProjectType.XamarinForms : ProjectType.Uwp;
             }
-            else if (guids.Contains(XamAndroidGuid) || guids.Contains(XamIosGuid))
+            else if (guids.IndexOf(XamAndroidGuid, StringComparison.InvariantCultureIgnoreCase) >= 0
+                  || guids.IndexOf(XamIosGuid, StringComparison.InvariantCultureIgnoreCase) >= 0)
             {
                 result = ReferencesUno(project) ? ProjectType.Uwp : ProjectType.XamarinForms;
             }
