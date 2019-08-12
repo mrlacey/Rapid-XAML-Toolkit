@@ -191,21 +191,17 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         public string GetProjectTypeGuids(EnvDTE.Project proj)
         {
             string projectTypeGuids = string.Empty;
-            object service = null;
-            IVsSolution solution = null;
-            IVsHierarchy hierarchy = null;
-            IVsAggregatableProject aggregatableProject = null;
-            service = this.GetService(proj.DTE, typeof(IVsSolution));
-            solution = (IVsSolution)service;
 
             try
             {
-                int result = 0;
-                result = solution.GetProjectOfUniqueName(proj.UniqueName, out hierarchy);
+                object service = this.GetService(proj.DTE, typeof(IVsSolution));
+                var solution = (IVsSolution)service;
+
+                int result = solution.GetProjectOfUniqueName(proj.UniqueName, out IVsHierarchy hierarchy);
 
                 if (result == 0)
                 {
-                    aggregatableProject = (IVsAggregatableProject)hierarchy;
+                    var aggregatableProject = (IVsAggregatableProject)hierarchy;
                     result = aggregatableProject.GetAggregateProjectTypeGuids(out projectTypeGuids);
                 }
             }
