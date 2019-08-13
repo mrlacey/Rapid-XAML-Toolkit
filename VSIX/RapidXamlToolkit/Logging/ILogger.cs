@@ -11,7 +11,9 @@ namespace RapidXamlToolkit.Logging
 
         void RecordFeatureUsage(string feature);
 
-        void RecordError(string message);
+        void RecordError(string message, bool force = false);
+
+        void RecordGeneralError(string message);
 
         void RecordException(Exception exception);
     }

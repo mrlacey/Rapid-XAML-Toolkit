@@ -4,13 +4,20 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Options
 {
     public class Settings : CanNotifyPropertyChanged
     {
+        // Change (increment) this only when a breaking change is introduced to the format of the Settings.
+        public static int CurrentFormatVersion { get; } = 2;
+
+        // Change this to force an message that old configurations must be updated.
+        public int? FormatVersion { get; set; }
+
         public Dictionary<string, string> ActiveProfileNames { get; set; } = new Dictionary<string, string>();
 
         public string FallBackProfileName { get; set; }
@@ -19,6 +26,8 @@ namespace RapidXamlToolkit.Options
 
         public bool ExtendedOutputEnabled { get; set; }
 
+        [JsonIgnore]
+        [IgnoreDataMember]
         public ObservableCollection<ProfileSummary> ProfilesList
         {
             get

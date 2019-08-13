@@ -6,7 +6,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Events;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Configuration;
 using RapidXamlToolkit.DragDrop;
@@ -55,6 +54,7 @@ namespace RapidXamlToolkit
                 CodeParserBase.ServiceProvider = this;
                 Logger.RecordInfo(StringRes.Info_ProblemsInstructionsAndLink);
                 Logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
+                Logger.RecordInfo(string.Empty);
 
                 await CopyToClipboardCommand.InitializeAsync(this, Logger);
                 await SendToToolboxCommand.InitializeAsync(this, Logger);

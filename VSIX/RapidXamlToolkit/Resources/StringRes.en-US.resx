@@ -922,4 +922,7 @@
   <data name="Info_UsingProfile" xml:space="preserve">
     <value>Using profile '{0}'.</value>
   </data>
+  <data name="Error_OutdatedConfigurationDetected2" xml:space="preserve">
+    <value>Out-dated configuration detected. See https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md</value>
+  </data>
 </root>

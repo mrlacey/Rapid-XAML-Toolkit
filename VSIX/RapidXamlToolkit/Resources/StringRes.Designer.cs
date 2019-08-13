@@ -61,6 +61,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md.
+        /// </summary>
+        public static string Error_OutdatedConfigurationDetected2 {
+            get {
+                return ResourceManager.GetString("Error_OutdatedConfigurationDetected2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to find project &apos;{0}&apos; in the solution..
         /// </summary>
         public static string Error_UnableToFindProjectInSolution {
