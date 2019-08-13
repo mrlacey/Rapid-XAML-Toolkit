@@ -18,22 +18,28 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
-            var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
+            if (!this.ProjectType.Matches(ProjectType.XamarinForms))
+            {
+                return;
+            }
 
-            this.CheckForHardCodedAttribute(
-                fileName,
-                Elements.Label,
-                Attributes.Text,
-                AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringLabelTextMessage,
-                xamlElement,
-                snapshot,
-                offset,
-                uidExists,
-                uid,
-                Guid.Empty,
-                tags,
-                suppressions);
+            // TODO: ISSUE#163 reinstate this when can handle localization of Xamarin.Forms apps
+            ////var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
+
+            ////this.CheckForHardCodedAttribute(
+            ////    fileName,
+            ////    Elements.Label,
+            ////    Attributes.Text,
+            ////    AttributeType.InlineOrElement,
+            ////    StringRes.Info_XamlAnalysisHardcodedStringLabelTextMessage,
+            ////    xamlElement,
+            ////    snapshot,
+            ////    offset,
+            ////    uidExists,
+            ////    uid,
+            ////    Guid.Empty,
+            ////    tags,
+            ////    suppressions);
         }
     }
 }

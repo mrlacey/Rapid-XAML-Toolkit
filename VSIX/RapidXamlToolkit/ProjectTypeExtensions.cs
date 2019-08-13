@@ -25,5 +25,10 @@ namespace RapidXamlToolkit
 
             return source.ToString();
         }
+
+        public static bool Matches(this ProjectType source, ProjectType comparewith)
+        {
+            return (source & comparewith) == comparewith;
+        }
     }
 }

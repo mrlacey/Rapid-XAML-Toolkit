@@ -17,6 +17,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
+            if (!this.ProjectType.Matches(ProjectType.Uwp))
+            {
+                return;
+            }
+
             var line = snapshot.GetLineFromPosition(offset);
             var col = offset - line.Start.Position;
             tags.TryAdd(

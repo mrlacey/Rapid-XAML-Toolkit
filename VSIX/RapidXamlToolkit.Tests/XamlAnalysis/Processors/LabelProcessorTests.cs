@@ -16,10 +16,12 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<Label Text=""HCValue"" />";
 
-            var outputTags = this.GetTags<LabelProcessor>(xaml);
+            var outputTags = this.GetTags<LabelProcessor>(xaml, ProjectType.XamarinForms);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+            // TODO: ISSUE#163 reinstate when add support for localizing hard-coded strings in Xamarin.Forms.
+            Assert.AreEqual(0, outputTags.Count);
+            ////Assert.AreEqual(1, outputTags.Count);
+            ////Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
         }
     }
 }

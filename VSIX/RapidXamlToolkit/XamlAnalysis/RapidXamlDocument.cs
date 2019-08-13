@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.Text;
 using Newtonsoft.Json;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Processors;
@@ -45,7 +46,15 @@ namespace RapidXamlToolkit.XamlAnalysis
                     // If suppressing all tags in file, don't bother parsing the file
                     if (suppressions == null || suppressions?.Any(s => string.IsNullOrWhiteSpace(s.TagErrorCode)) == false)
                     {
-                        var projType = vsa.GetProjectType(ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName));
+                        var vsAbstraction = vsa;
+
+                        // This will happen if open a project with open XAML files before the package is initialized.
+                        if (vsAbstraction == null)
+                        {
+                            vsAbstraction = new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
+                        }
+
+                        var projType = vsAbstraction.GetProjectType(ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName));
 
                         XamlElementExtractor.Parse(projType, fileName, snapshot, text, GetAllProcessors(projType), result.Tags, suppressions);
                     }
@@ -67,7 +76,6 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType)
         {
-            // TODO: Issue#134 - Need to limit processors to only run on appropriate platform (UWP/WPF/XF)
             return new List<(string, XamlElementProcessor)>
                     {
                         (Elements.Grid, new GridProcessor(projType, RapidXamlPackage.Logger)),
