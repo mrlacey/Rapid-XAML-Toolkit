@@ -25,7 +25,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
-            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8);
+            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8, profile.ProjectType);
 
             string expected = null;
 
@@ -46,7 +46,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
-            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8);
+            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8, profile.ProjectType);
 
             var expected = "<StackPanel>"
    + Environment.NewLine + "            <!-- No accessible properties when copying as XAML -->"
@@ -69,7 +69,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
-            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8);
+            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8, profile.ProjectType);
 
             var expected = "<StackPanel>"
    + Environment.NewLine + "            <TextBlock Text=\"FirstProperty\" />"
@@ -92,7 +92,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
-            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8);
+            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8, profile.ProjectType);
 
             var expected = "<StackPanel>"
    + Environment.NewLine + "            <!-- No accessible properties when copying as XAML -->"
@@ -115,7 +115,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
-            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8);
+            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8, profile.ProjectType);
 
             var expected = "<StackPanel>"
    + Environment.NewLine + "            <TextBlock Text=\"FirstProperty\" />"
@@ -140,7 +140,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
-            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8);
+            var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.vb", 8, profile.ProjectType);
 
             var expected = "<TextBlock Text=\"FirstProperty\" />"
    + Environment.NewLine + "        <TextBlock Text=\"SecondProperty\" />";

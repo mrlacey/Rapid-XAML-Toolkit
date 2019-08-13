@@ -58,9 +58,7 @@ namespace RapidXamlToolkit.Commands
         private async void Execute(object sender, EventArgs e)
 #pragma warning restore VSTHRD100 // Avoid async void methods
         {
-            System.Windows.Forms.Cursor previousCursor;
-
-            previousCursor = System.Windows.Forms.Cursor.Current;
+            System.Windows.Forms.Cursor previousCursor = System.Windows.Forms.Cursor.Current;
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
 
             try

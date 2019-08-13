@@ -9,9 +9,13 @@ namespace RapidXamlToolkit.Options
     {
         private bool isActive;
 
+        private bool isFallBack;
+
         public int Index { get; set; }
 
         public string Name { get; set; }
+
+        public string ProjectType { get; set; }
 
         public bool IsActive
         {
@@ -28,17 +32,46 @@ namespace RapidXamlToolkit.Options
             }
         }
 
+        public bool IsFallBack
+        {
+            get
+            {
+                return this.isFallBack;
+            }
+
+            set
+            {
+                this.isFallBack = value;
+                this.OnPropertyChanged();
+                this.OnPropertyChanged(nameof(this.DisplayName));
+            }
+        }
+
         public string DisplayName
         {
             get
             {
                 if (this.IsActive)
                 {
-                    return StringRes.UI_ActiveProfileName.WithParams(this.Name);
+                    if (this.IsFallBack)
+                    {
+                        return StringRes.UI_FallBackActiveProfileName.WithParams(this.Name);
+                    }
+                    else
+                    {
+                        return StringRes.UI_ActiveProfileName.WithParams(this.Name);
+                    }
                 }
                 else
                 {
-                    return this.Name;
+                    if (this.IsFallBack)
+                    {
+                        return StringRes.UI_FallBackProfileName.WithParams(this.Name);
+                    }
+                    else
+                    {
+                        return this.Name;
+                    }
                 }
             }
         }

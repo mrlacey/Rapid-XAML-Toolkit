@@ -352,18 +352,18 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         private string GetSubElementAtStar(string outerElement)
         {
             var offset = outerElement.IndexOf('☆');
-            return XamlElementProcessor.GetSubElementAtPosition("testFile.xaml", outerElement.Replace("☆", string.Empty), offset);
+            return XamlElementProcessor.GetSubElementAtPosition("testFile.xaml", outerElement.Replace("☆", string.Empty), offset, new DefaultTestLogger());
         }
 
         private bool HasDefaultValue(string xaml)
         {
-            var xep = new TestableXamlElementProcessor();
+            var xep = new TestableXamlElementProcessor(new DefaultTestLogger());
             return xep.TryGetAttribute(xaml, string.Empty, AttributeType.DefaultValue, out _, out _, out _, out _);
         }
 
         private bool HasAttribute(string xaml, string attribute, AttributeType attributeType = AttributeType.Any)
         {
-            var xep = new TestableXamlElementProcessor();
+            var xep = new TestableXamlElementProcessor(new DefaultTestLogger());
             return xep.TryGetAttribute(xaml, attribute, attributeType, out _, out _, out _, out _);
         }
     }

@@ -5,12 +5,20 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public abstract class XamlElementProcessor
     {
+        public XamlElementProcessor(ILogger logger)
+        {
+            this.Logger = logger;
+        }
+
+        internal ILogger Logger { get; }
+
         public static bool IsSelfClosing(string xaml, int startPoint = 0)
         {
             var foundSelfCloser = false;
@@ -101,7 +109,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
-        public static string GetSubElementAtPosition(string fileName, string xaml, int position)
+        public static string GetSubElementAtPosition(string fileName, string xaml, int position, ILogger logger)
         {
             var startPos = xaml.Substring(0, position).LastIndexOf('<');
 
@@ -109,7 +117,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             string result = null;
 
-            var processor = new SubElementProcessor();
+            var processor = new SubElementProcessor(logger);
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
             XamlElementExtractor.Parse(fileName, null, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList());
@@ -132,9 +140,16 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var searchText = $"{attributeName}=\"";
 
-                if (xaml == null)
+                if (string.IsNullOrWhiteSpace(xaml))
                 {
                     System.Diagnostics.Debugger.Break();
+                    this.Logger.RecordError($"xaml not passed to `TryGetAttribute({xaml}, {attributeName}, {attributeTypesToCheck})`");
+
+                    attributeType = AttributeType.None;
+                    index = -1;
+                    length = 0;
+                    value = string.Empty;
+                    return false;
                 }
 
                 var tbIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
@@ -263,6 +278,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public class SubElementProcessor : XamlElementProcessor
         {
+            public SubElementProcessor(ILogger logger)
+                : base(logger)
+            {
+            }
+
             public event EventHandler<SubElementEventArgs> SubElementFound;
 
             public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)

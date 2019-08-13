@@ -10,7 +10,7 @@ namespace RapidXamlToolkit
         public static void FormatDocument(this DTE dte, Options.Profile profile)
         {
             // Profile passed in to ensure the check for running this command is always performed
-            if (profile?.General.AttemptAutomaticDocumentFormatting == true)
+            if (profile?.AttemptAutomaticDocumentFormatting == true)
             {
                 dte.ExecuteCommand("Edit.FormatDocument");
             }

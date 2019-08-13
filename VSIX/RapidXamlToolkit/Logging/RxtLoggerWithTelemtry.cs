@@ -19,11 +19,18 @@ namespace RapidXamlToolkit.Logging
 
         public TelemetryAccessor Telem { get; }
 
-        public void RecordError(string message)
+        public void RecordError(string message, bool force = false)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
             this.Logger.RecordError(message);
+        }
+
+        public void RecordGeneralError(string message)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            this.Logger.RecordGeneralError(message);
         }
 
         public void RecordException(Exception exception)
