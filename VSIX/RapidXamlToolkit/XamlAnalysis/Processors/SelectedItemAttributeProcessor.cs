@@ -21,8 +21,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (value.StartsWith("{") && !value.Contains("TwoWay"))
                 {
-                    var line = snapshot.GetLineFromPosition(offset);
-
                     string existingMode = null;
 
                     const string oneTime = "Mode=OneTime";
@@ -38,7 +36,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
 
                     tags.TryAdd(
-                        new SelectedItemBindingModeTag(new Span(offset + index, length), snapshot, fileName, line.LineNumber, index)
+                        new SelectedItemBindingModeTag(new Span(offset + index, length), snapshot, fileName)
                         {
                             InsertPosition = offset + index,
                             ExistingBindingMode = existingMode,

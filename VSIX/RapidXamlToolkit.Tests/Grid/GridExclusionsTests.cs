@@ -30,8 +30,6 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + ""
 + Environment.NewLine + "    </Grid>";
 
-            var expected = new Dictionary<int, int>();
-
             this.ShouldReturnExclusionsMarkedByStars(xaml);
         }
 
