@@ -68,12 +68,9 @@ in a couple of clicks.
 
 The toolkit currently includes the following features
 
-- Create the entire View (XAML & CodeBehind) from the ViewModel file.
 - Create XAML by dragging a ViewModel file onto the designer.
 - Copy a property, selection of properties, or the whole class (from the ViewModel) into the clipboard and paste into the View as XAML.
 - Send a property, selection of properties, or the whole class (from the ViewModel) into the Toolbox and drag into the View as XAML.
-- Set the DataContext in the XAML file.
-- Set the DataContext in the CodeBehind file.
 
 Learn more about [features](./docs/features.md).
 
