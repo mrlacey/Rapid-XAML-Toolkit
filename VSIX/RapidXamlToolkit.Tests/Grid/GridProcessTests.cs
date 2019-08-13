@@ -28,7 +28,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
@@ -48,7 +48,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
@@ -71,7 +71,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
@@ -92,7 +92,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
@@ -114,7 +114,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
@@ -135,7 +135,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
@@ -155,7 +155,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
@@ -177,7 +177,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
@@ -199,7 +199,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
@@ -221,7 +221,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 

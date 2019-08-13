@@ -7,11 +7,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:options="clr-namespace:RapidXamlToolkit.Options"
     xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
+    xmlns:componentmodel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     d:DesignHeight="350"
     d:DesignWidth="400"
     mc:Ignorable="d">
     <UserControl.Resources>
         <options:ProfileFontWeightConverter x:Key="FontWeightConverter" />
+        <CollectionViewSource Source="{Binding ProfilesList}" x:Key="listViewSource">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="ProjectType"/>
+            </CollectionViewSource.GroupDescriptions>
+            <CollectionViewSource.SortDescriptions>
+                <componentmodel:SortDescription PropertyName="ProjectType"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
     </UserControl.Resources>
     <Grid Margin="6">
         <Grid.RowDefinitions>
@@ -37,17 +46,28 @@
 
         <TextBlock Grid.Row="1" Text="{x:Static strings:StringRes.Options_ProfilesSectionHeader}" />
 
-        <ListView
+        <ListBox
             x:Name="DisplayedProfiles"
             Grid.Row="2"
             Grid.Column="0"
-            ItemsSource="{Binding ProfilesList}">
-            <ListView.ItemTemplate>
+            ItemsSource="{Binding Source={StaticResource listViewSource}}">
+            <ListBox.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid>
+                            <TextBlock FontWeight="Bold" Text="{Binding Path=Name}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListBox.GroupStyle>
+            <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock FontWeight="{Binding DisplayName, Converter={StaticResource FontWeightConverter}}" Text="{Binding DisplayName}" />
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <StackPanel
             Grid.Row="2"
@@ -61,6 +81,7 @@
                 </Style>
             </StackPanel.Resources>
             <Button Click="SetActiveClicked" Content="{x:Static strings:StringRes.Options_ButtonSetAsActive}" />
+            <Button Click="SetFallBackClicked" Content="{x:Static strings:StringRes.Options_ButtonSetAsFallBack}" />
             <Button Click="AddClicked" Content="{x:Static strings:StringRes.Options_ButtonAdd}" />
             <Button Click="EditClicked" Content="{x:Static strings:StringRes.Options_ButtonEdit}" />
             <Button Click="CopyClicked" Content="{x:Static strings:StringRes.Options_ButtonCopy}" />

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -11,6 +12,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class GridProcessor : XamlElementProcessor
     {
+        public GridProcessor(ILogger logger)
+            : base(logger)
+        {
+        }
+
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             const string gridOpenSpace = "<Grid ";
@@ -257,7 +263,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                         if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            var element = XamlElementProcessor.GetSubElementAtPosition(fileName, xamlElement, spanUseOffset);
+                            var element = XamlElementProcessor.GetSubElementAtPosition(fileName, xamlElement, spanUseOffset, this.Logger);
 
                             var row = 0;
                             if (this.TryGetAttribute(element, "Grid.Row", AttributeType.InlineOrElement, out _, out _, out _, out string rowStr))
@@ -295,7 +301,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                         if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            var element = XamlElementProcessor.GetSubElementAtPosition(fileName, xamlElement, spanUseOffset);
+                            var element = XamlElementProcessor.GetSubElementAtPosition(fileName, xamlElement, spanUseOffset, this.Logger);
 
                             var gridCol = 0;
                             if (this.TryGetAttribute(element, "Grid.Column", AttributeType.InlineOrElement, out _, out _, out _, out string colStr))

@@ -11,13 +11,14 @@ using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Parsers
 {
     public class VisualBasicParser : CodeParserBase, IDocumentParser
     {
-        public VisualBasicParser(ILogger logger, int xamlIndent = 4, Profile profileOverload = null)
-            : base(logger, xamlIndent, profileOverload)
+        public VisualBasicParser(ILogger logger, ProjectType projectType, int xamlIndent = 4, Profile profileOverload = null)
+            : base(logger, projectType, xamlIndent, profileOverload)
         {
             Logger?.RecordInfo(StringRes.Info_AnalyzingVisualBasicCode.WithParams(Telemetry.CoreDetails.GetVersion()));
         }

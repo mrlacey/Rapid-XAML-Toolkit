@@ -61,7 +61,11 @@ namespace RapidXamlToolkit.XamlAnalysis
         public int OnAfterDocumentWindowHide(uint docCookie, IVsWindowFrame pFrame)
         {
             var documentInfo = this.runningDocumentTable.GetDocumentInfo(docCookie);
-            TableDataSource.Instance.CleanErrors(documentInfo.Moniker);
+
+            if (documentInfo.Moniker != null)
+            {
+                TableDataSource.Instance.CleanErrors(documentInfo.Moniker);
+            }
 
             return VSConstants.S_OK;
         }

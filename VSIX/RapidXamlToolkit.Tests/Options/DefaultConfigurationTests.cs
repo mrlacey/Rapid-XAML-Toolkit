@@ -19,8 +19,13 @@ namespace RapidXamlToolkit.Tests.Options
 
             Assert.IsNotNull(defSet.ExtendedOutputEnabled, nameof(Settings.ExtendedOutputEnabled));
 
-            // This is the only things that may be null (although empty is preferred)
-            Assert.IsTrue(string.IsNullOrEmpty(defSet.ActiveProfileName), nameof(Settings.ActiveProfileName));
+            Assert.IsFalse(string.IsNullOrEmpty(defSet.FallBackProfileName), nameof(Settings.FallBackProfileName));
+
+            Assert.AreEqual(3, defSet.ActiveProfileNames.Count, "Incorrect number of active profiles configured by default.");
+
+            Assert.IsFalse(string.IsNullOrEmpty(defSet.ActiveProfileNames[ProjectType.Uwp.GetDescription()]), "Active UWP profile is not set.");
+            Assert.IsFalse(string.IsNullOrEmpty(defSet.ActiveProfileNames[ProjectType.Wpf.GetDescription()]), "Active WPF profile is not set.");
+            Assert.IsFalse(string.IsNullOrEmpty(defSet.ActiveProfileNames[ProjectType.XamarinForms.GetDescription()]), "Active Xamarin.Forms profile is not set.");
 
             Assert.IsNotNull(defSet.Profiles, nameof(Settings.Profiles));
 
@@ -42,8 +47,7 @@ namespace RapidXamlToolkit.Tests.Options
                     Assert.IsNotNull(mapping.Type, nameof(Mapping.Type));
                 }
 
-                Assert.IsNotNull(profile.General, $"{nameof(Profile.General)} in profile {profile.Name}");
-                Assert.IsNotNull(profile.General.AttemptAutomaticDocumentFormatting, $"{nameof(Profile.General.AttemptAutomaticDocumentFormatting)} in profile {profile.Name}");
+                Assert.IsNotNull(profile.AttemptAutomaticDocumentFormatting, $"{nameof(Profile.AttemptAutomaticDocumentFormatting)} in profile {profile.Name}");
             }
         }
 

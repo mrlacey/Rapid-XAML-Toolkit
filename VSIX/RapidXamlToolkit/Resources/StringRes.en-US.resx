@@ -892,4 +892,37 @@
   <data name="Info_UndoContextMoveStringsToResourceFile" xml:space="preserve">
     <value>Move all strings to resource file</value>
   </data>
+  <data name="Options_XamlAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Options_XamlDialect" xml:space="preserve">
+    <value>XAML Project Type</value>
+  </data>
+  <data name="Options_XamlUwp" xml:space="preserve">
+    <value>UWP</value>
+  </data>
+  <data name="Options_XamlWpf" xml:space="preserve">
+    <value>WPF</value>
+  </data>
+  <data name="Options_XamlXamarinForms" xml:space="preserve">
+    <value>Xamarin.Forms</value>
+  </data>
+  <data name="Options_ButtonSetAsFallBack" xml:space="preserve">
+    <value>Set as _Fall Back</value>
+  </data>
+  <data name="UI_FallBackActiveProfileName" xml:space="preserve">
+    <value>{0}    [*FALLBACK*][*ACTIVE*]</value>
+  </data>
+  <data name="UI_FallBackProfileName" xml:space="preserve">
+    <value>{0}    [*FALLBACK*]</value>
+  </data>
+  <data name="Info_DetectedProjectType" xml:space="preserve">
+    <value>Detected project type as '{0}'.</value>
+  </data>
+  <data name="Info_UsingProfile" xml:space="preserve">
+    <value>Using profile '{0}'.</value>
+  </data>
+  <data name="Error_OutdatedConfigurationDetected2" xml:space="preserve">
+    <value>Out-dated configuration detected. See https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md</value>
+  </data>
 </root>

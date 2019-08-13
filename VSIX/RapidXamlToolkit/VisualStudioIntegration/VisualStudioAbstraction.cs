@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using EnvDTE;
@@ -10,9 +11,12 @@ using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.LanguageServices;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
+using IAsyncServiceProvider = Microsoft.VisualStudio.Shell.IAsyncServiceProvider;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
 {
@@ -37,6 +41,204 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         public string GetActiveDocumentFilePath()
         {
             return this.Dte.ActiveDocument.FullName;
+        }
+
+        public ProjectType GetProjectType(EnvDTE.Project project)
+        {
+            const string WpfGuid = "{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548}";
+            const string UwpGuid = "{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A}";
+            const string XamAndroidGuid = "{EFBA0AD7-5A72-4C68-AF49-83D382785DCF}";
+            const string XamIosGuid = "{6BC8ED88-2882-458C-8E55-DFD12B67127B}";
+
+            bool ReferencesXamarin(EnvDTE.Project proj)
+            {
+                return ReferencesNuGetPackageWithNameContaining(proj, "xamarin");
+            }
+
+            bool ReferencesUno(EnvDTE.Project proj)
+            {
+                return ReferencesNuGetPackageWithNameContaining(proj, "uno.ui");
+            }
+
+            bool ReferencesNuGetPackageWithNameContaining(EnvDTE.Project proj, string name)
+            {
+                try
+                {
+                    var componentModel = this.GetService(proj.DTE, typeof(SComponentModel)) as IComponentModel;
+                    var nugetService = componentModel.GetService<NuGet.VisualStudio.IVsPackageInstallerServices>();
+
+                    if (nugetService != null)
+                    {
+                        foreach (var item in nugetService.GetInstalledPackages(proj))
+                        {
+                            if (item.Id.ToLowerInvariant().Contains(name))
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                catch (Exception exc)
+                {
+                    this.logger?.RecordException(exc);
+                }
+
+                return false;
+            }
+
+            ProjectType GetProjectTypeOfReferencingProject(EnvDTE.Project proj)
+            {
+                // Look at other projects in solution that reference this project and see what they are.
+                foreach (var otherProj in proj.DTE.Solution.GetAllProjects())
+                {
+                    // Don't check self or any shard projects to avoid infinite loops and unnecessary work.
+                    if (otherProj.UniqueName != project.UniqueName
+                     && !System.IO.Path.GetExtension(otherProj.UniqueName).Equals(".shproj", StringComparison.OrdinalIgnoreCase))
+                    {
+                        var item = otherProj.ProjectItems?.GetEnumerator();
+
+                        // Can't get ProjectItems if project is unloaded.
+                        if (item != null)
+                        {
+                            while (item.MoveNext())
+                            {
+                                var itemName = (item.Current as ProjectItem).Name;
+
+                                if (itemName == $"<{proj.Name}>")
+                                {
+                                    var otherProjectType = this.GetProjectType(otherProj);
+
+                                    if (otherProjectType != ProjectType.Unknown)
+                                    {
+                                        return otherProjectType;
+                                    }
+                                }
+                            }
+
+                            // As an alternative to trying to get project dependency from SDK format project files.
+                            if (!string.IsNullOrEmpty(otherProj.FileName))
+                            {
+                                var projFileContents = System.IO.File.ReadAllText(otherProj.FileName);
+
+                                if (projFileContents.Contains(proj.Name))
+                                {
+                                    var otherProjectType = this.GetProjectType(otherProj);
+
+                                    if (otherProjectType != ProjectType.Unknown)
+                                    {
+                                        return otherProjectType;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return ProjectType.Unknown;
+            }
+
+            var guids = this.GetProjectTypeGuids(project);
+
+            var result = ProjectType.Unknown;
+
+            // Check with `Contains` as there may be multiple GUIDs specified (e.g. for programming language too)
+            if (guids.IndexOf(WpfGuid, StringComparison.InvariantCultureIgnoreCase) >= 0)
+            {
+                result = ProjectType.Wpf;
+            }
+            else if (guids.IndexOf(UwpGuid, StringComparison.InvariantCultureIgnoreCase) >= 0)
+            {
+                // May be a UWP head for a XF app
+                result = ReferencesXamarin(project) ? ProjectType.XamarinForms : ProjectType.Uwp;
+            }
+            else if (guids.IndexOf(XamAndroidGuid, StringComparison.InvariantCultureIgnoreCase) >= 0
+                  || guids.IndexOf(XamIosGuid, StringComparison.InvariantCultureIgnoreCase) >= 0)
+            {
+                result = ReferencesUno(project) ? ProjectType.Uwp : ProjectType.XamarinForms;
+            }
+            else
+            {
+                // Shared Projects provide no Guids or references that can be used to determine project type
+                if (System.IO.Path.GetExtension(project.UniqueName).Equals(".shproj", StringComparison.OrdinalIgnoreCase))
+                {
+                    result = GetProjectTypeOfReferencingProject(project);
+                }
+                else
+                {
+                    var refsXamarin = ReferencesXamarin(project);
+                    var refsUno = ReferencesUno(project);
+
+                    if (refsXamarin)
+                    {
+                        result = refsUno ? ProjectType.Uwp : ProjectType.XamarinForms;
+                    }
+                    else
+                    {
+                        result = refsUno ? ProjectType.Uwp : ProjectType.Unknown;
+                    }
+
+                    // This will be the case if looking at code in a class library or other project types.
+                    if (result == ProjectType.Unknown)
+                    {
+                        result = GetProjectTypeOfReferencingProject(project);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public string GetProjectTypeGuids(EnvDTE.Project proj)
+        {
+            string projectTypeGuids = string.Empty;
+
+            try
+            {
+                object service = this.GetService(proj.DTE, typeof(IVsSolution));
+                var solution = (IVsSolution)service;
+
+                int result = solution.GetProjectOfUniqueName(proj.UniqueName, out IVsHierarchy hierarchy);
+
+                if (result == 0)
+                {
+                    var aggregatableProject = (IVsAggregatableProject)hierarchy;
+                    result = aggregatableProject.GetAggregateProjectTypeGuids(out projectTypeGuids);
+                }
+            }
+            catch (Exception exc)
+            {
+                // Some (unknown/irrelevant) project types may cause above casts to fail
+                System.Diagnostics.Debug.WriteLine(exc);
+            }
+
+            return projectTypeGuids;
+        }
+
+        public object GetService(object serviceProvider, Type type)
+        {
+            return this.GetService(serviceProvider, type.GUID);
+        }
+
+        public object GetService(object serviceProviderObject, Guid guid)
+        {
+            object service = null;
+
+            Microsoft.VisualStudio.OLE.Interop.IServiceProvider serviceProvider = (Microsoft.VisualStudio.OLE.Interop.IServiceProvider)serviceProviderObject;
+            Guid serviceGuid = guid;
+            Guid interopGuid = serviceGuid;
+            int hresult = serviceProvider.QueryService(ref serviceGuid, ref interopGuid, out IntPtr serviceIntPtr);
+
+            if (hresult != 0)
+            {
+                Marshal.ThrowExceptionForHR(hresult);
+            }
+            else if (!serviceIntPtr.Equals(IntPtr.Zero))
+            {
+                service = Marshal.GetObjectForIUnknown(serviceIntPtr);
+                Marshal.Release(serviceIntPtr);
+            }
+
+            return service;
         }
 
         public string GetActiveDocumentText()
@@ -154,7 +356,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 this.logger.RecordException(exc);
             }
 
-            var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();
+            var indent = new IndentSize();
 
             return indent.Default;
         }

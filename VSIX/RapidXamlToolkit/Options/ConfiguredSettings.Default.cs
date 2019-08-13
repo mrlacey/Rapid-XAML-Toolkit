@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using RapidXamlToolkit.Configuration;
 
 namespace RapidXamlToolkit.Options
@@ -13,167 +14,159 @@ namespace RapidXamlToolkit.Options
         {
             var config = new RxtSettings();
 
-            return new Settings
+            var result = new Settings
             {
+                FormatVersion = Settings.CurrentFormatVersion,
                 ExtendedOutputEnabled = config.ExtendedOutputEnabledByDefault,  // Disable for release builds but want it on by default for testers
-                ActiveProfileName = string.Empty,  // No profile should be selected by default
+                FallBackProfileName = string.Empty,
                 Profiles = new List<Profile>
                 {
                     new Profile
                     {
                         Name = "UWP MVVM Basic StackPanel (no headers)",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithoutHeaders(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
                     {
                         Name = "UWP MVVM Basic StackPanel",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
                     {
                         Name = "UWP MVVM Basic 2ColGrid",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "GRID-PLUS-ROWDEFS-2COLS",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwp2ColGrid(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
                     {
                         Name = "UWP MVVM Basic RelativePanel",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "RelativePanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" x:Name=\"$xname$\" RelativePanel.Below=\"$repxname$\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpRelativePanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
                     {
                         Name = "UWP MVVM Light StackPanel",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
                     {
                         Name = "UWP Caliburn.Micro StackPanel",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
                     {
                         Name = "UWP Prism StackPanel",
+                        ProjectType = ProjectType.Uwp,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
                         Mappings = MappingsForUwpStackPanelWithHeader(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
                     {
                         Name = "Xamarin.Forms StackLayout",
+                        ProjectType = ProjectType.XamarinForms,
                         ClassGrouping = "StackLayout",
                         FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
                         EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
                         Mappings = MappingsForXfStackLayout(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
                     {
                         Name = "WPF MVVM StackPanel",
+                        ProjectType = ProjectType.Wpf,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
                         EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpfStackPanel(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
                     {
                         Name = "WPF MVVM 2ColGrid",
+                        ProjectType = ProjectType.Wpf,
                         ClassGrouping = "GRID-PLUS-ROWDEFS-2COLS",
                         FallbackOutput = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
                         EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpf2ColGrid(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
 
                     new Profile
                     {
                         Name = "WPF Caliburn.Micro StackPanel",
+                        ProjectType = ProjectType.Wpf,
                         ClassGrouping = "StackPanel",
                         FallbackOutput = "<TextBlock Text=\"{Binding Path=$name$}\" />",
                         SubPropertyOutput = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" />",
                         EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpfStackPanel(),
-                        General = new GeneralSettings
-                        {
-                            AttemptAutomaticDocumentFormatting = true,
-                        },
+                        AttemptAutomaticDocumentFormatting = true,
                     },
                 },
             };
+
+            result.FallBackProfileName = result.Profiles.First().Name;
+
+            var activeUwpDefault = result.Profiles.First(p => p.ProjectType == ProjectType.Uwp);
+            result.ActiveProfileNames.Add(activeUwpDefault.ProjectTypeDescription, activeUwpDefault.Name);
+
+            var activeWpfDefault = result.Profiles.First(p => p.ProjectType == ProjectType.Wpf);
+            result.ActiveProfileNames.Add(activeWpfDefault.ProjectTypeDescription, activeWpfDefault.Name);
+
+            var activeXfDefault = result.Profiles.First(p => p.ProjectType == ProjectType.XamarinForms);
+            result.ActiveProfileNames.Add(activeXfDefault.ProjectTypeDescription, activeXfDefault.Name);
+
+            return result;
         }
 
         private static ObservableCollection<Mapping> MappingsForUwpStackPanelWithoutHeaders()

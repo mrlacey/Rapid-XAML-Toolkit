@@ -52,11 +52,27 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
             sut.Process("testfile.xaml", 1, xaml, "	    ", snapshot, outputTags);
+
+            Assert.AreEqual(0, outputTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void Real_ProfileConfigControl_GridProcessor()
+        {
+            var xaml = System.IO.File.ReadAllText("./Misc/ProfileConfigControl.xaml");
+
+            var outputTags = new TagList();
+
+            var sut = new GridProcessor(new DefaultTestLogger());
+
+            var snapshot = new FakeTextSnapshot();
+
+            sut.Process("testfile.xaml", 1, xaml, "    ", snapshot, outputTags);
 
             Assert.AreEqual(0, outputTags.OfType<MissingRowDefinitionTag>().Count());
         }
