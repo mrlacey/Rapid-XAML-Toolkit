@@ -15,12 +15,15 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlDisplayedTag : RapidXamlAdornmentTag, IRapidXamlErrorListTag
     {
-        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, int line, int column, TagErrorType defaultErrorType)
+        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType)
             : base(span, snapshot, fileName)
         {
+            var line = snapshot.GetLineFromPosition(span.Start);
+            var col = span.Start - line.Start.Position;
+
             this.ErrorCode = errorCode;
-            this.Line = line;
-            this.Column = column;
+            this.Line = line.LineNumber;
+            this.Column = col;
             this.DefaultErrorType = defaultErrorType;
         }
 

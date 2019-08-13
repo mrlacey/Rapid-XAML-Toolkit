@@ -24,11 +24,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (!this.TryGetAttribute(xamlElement, Attributes.Keyboard, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
-                var line = snapshot.GetLineFromPosition(offset);
-                var col = offset - line.Start.Position;
-
                 tags.TryAdd(
-                    new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, fileName, line.LineNumber, col, xamlElement)
+                    new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, fileName, xamlElement)
                     {
                         InsertPosition = offset,
                     },

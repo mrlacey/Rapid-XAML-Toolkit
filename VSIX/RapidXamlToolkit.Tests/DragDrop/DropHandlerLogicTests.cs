@@ -16,11 +16,9 @@ namespace RapidXamlToolkit.Tests.DragDrop
         [ExpectedException(typeof(ArgumentNullException), "logger")]
         public void CheckConstructorRequiredParam_Logger()
         {
-            var profile = TestProfile.CreateEmpty();
-
             var fileContents = " // Just a comment";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
+            (IFileSystemAbstraction _, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(null, vsa);
         }
@@ -29,8 +27,6 @@ namespace RapidXamlToolkit.Tests.DragDrop
         [ExpectedException(typeof(ArgumentNullException), "vs")]
         public void CheckConstructorRequiredParam_VS()
         {
-            var profile = TestProfile.CreateEmpty();
-
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), null);
         }
     }

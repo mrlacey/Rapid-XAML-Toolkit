@@ -21,18 +21,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    var line = snapshot.GetLineFromPosition(offset + index);
-                    var col = offset + index - line.Start.Position;
-                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, line.LineNumber, col, value), xamlElement, suppressions);
+                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
                 }
             }
             else if (this.TryGetAttribute(xamlElement, Attributes.X_Uid, AttributeType.InlineOrElement, out _, out index, out length, out value))
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    var line = snapshot.GetLineFromPosition(offset + index);
-                    var col = offset + index - line.Start.Position;
-                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, line.LineNumber, col, value), xamlElement, suppressions);
+                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
                 }
             }
 
@@ -40,18 +36,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    var line = snapshot.GetLineFromPosition(offset + index);
-                    var col = offset + index - line.Start.Position;
-                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, line.LineNumber, col, value), xamlElement, suppressions);
+                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
                 }
             }
             else if (this.TryGetAttribute(xamlElement, Attributes.X_Name, AttributeType.InlineOrElement, out _, out index, out length, out value))
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    var line = snapshot.GetLineFromPosition(offset + index);
-                    var col = offset + index - line.Start.Position;
-                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, line.LineNumber, col, value), xamlElement, suppressions);
+                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
                 }
             }
         }

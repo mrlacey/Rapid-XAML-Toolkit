@@ -227,10 +227,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
-                    var line = snapshot.GetLineFromPosition(offset + tbIndex);
-                    var col = offset + tbIndex - line.Start.Position;
-
-                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, line.LineNumber, col, elementName, attributeName)
+                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, elementName, attributeName)
                     {
                         AttributeType = foundAttributeType,
                         Value = value,

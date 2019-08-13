@@ -155,9 +155,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 defUseOffset += nextDefUseIndex;
 
-                var line = snapshot.GetLineFromPosition(offset + defUseOffset);
-                var col = offset + defUseOffset - line.Start.Position;
-
                 if (nextDefUseIndex > endOfOpening)
                 {
                     // Get assigned value
@@ -175,9 +172,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 undefinedTags.Add(new MissingRowDefinitionTag(
                                     new Span(offset + defUseOffset, closePos - defUseOffset + 1),
                                     snapshot,
-                                    fileName,
-                                    line.LineNumber,
-                                    col)
+                                    fileName)
                                 {
                                     AssignedInt = assignedInt,
                                     Description = StringRes.Info_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
@@ -208,9 +203,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 undefinedTags.Add(new MissingColumnDefinitionTag(
                                     new Span(offset + defUseOffset, closePos - defUseOffset + 1),
                                     snapshot,
-                                    fileName,
-                                    line.LineNumber,
-                                    col)
+                                    fileName)
                                 {
                                     AssignedInt = assignedInt,
                                     Description = StringRes.Info_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
@@ -249,9 +242,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 spanUseOffset += nextSpanUseIndex;
 
-                var line = snapshot.GetLineFromPosition(offset + spanUseOffset);
-                var col = offset + spanUseOffset - line.Start.Position;
-
                 if (nextSpanUseIndex > endOfOpening)
                 {
                     if (xamlElement.Substring(spanUseOffset).StartsWith(rowSpanUse))
@@ -276,9 +266,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 var rowTag = new RowSpanOverflowTag(
                                     new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
                                     snapshot,
-                                    fileName,
-                                    line.LineNumber,
-                                    col)
+                                    fileName)
                                 {
                                     TotalDefsRequired = assignedInt + row - 1,
                                     Description = StringRes.Info_XamlAnalysisRowSpanOverflowDescription,
@@ -314,9 +302,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 var colTag = new ColumnSpanOverflowTag(
                                     new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
                                     snapshot,
-                                    fileName,
-                                    line.LineNumber,
-                                    gridCol)
+                                    fileName)
                                 {
                                     TotalDefsRequired = assignedInt - 1 + gridCol,
                                     Description = StringRes.Info_XamlAnalysisColumnSpanOverflowDescription,

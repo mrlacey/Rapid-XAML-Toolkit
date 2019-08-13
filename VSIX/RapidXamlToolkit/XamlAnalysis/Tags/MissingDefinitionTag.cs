@@ -2,14 +2,13 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class MissingDefinitionTag : RapidXamlDisplayedTag
     {
-        protected MissingDefinitionTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, int line, int column, TagErrorType defaultErrorType)
-            : base(span, snapshot, fileName, errorCode, line, column, defaultErrorType)
+        protected MissingDefinitionTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType)
+            : base(span, snapshot, fileName, errorCode, defaultErrorType)
         {
         }
 
