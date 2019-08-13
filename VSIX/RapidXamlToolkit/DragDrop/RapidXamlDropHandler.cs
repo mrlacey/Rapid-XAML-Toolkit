@@ -39,17 +39,28 @@ namespace RapidXamlToolkit.DragDrop
         {
             var position = dragDropInfo.VirtualBufferPosition.Position;
 
-            var insertLineLength = this.view.GetTextViewLineContainingBufferPosition(position).Length;
+            // Get left padding (allowing for drop postion to not be on the start/end of a line)
+            var insertLineStart = this.view.GetTextViewLineContainingBufferPosition(position).Start.Position;
+
+            var insertLinePadding = position.Position - insertLineStart;
 
             ThreadHelper.JoinableTaskFactory.Run(async () =>
             {
-                var logic = new DropHandlerLogic(this.logger, this.vs, this.fileSystem);
-
-                var textOutput = await logic.ExecuteAsync(this.draggedFilename, insertLineLength, this.projectType);
-
-                if (!string.IsNullOrEmpty(textOutput))
+                try
                 {
-                    this.view.TextBuffer.Insert(position.Position, textOutput);
+                    var logic = new DropHandlerLogic(this.logger, this.vs, this.fileSystem);
+
+                    var textOutput = await logic.ExecuteAsync(this.draggedFilename, insertLinePadding, this.projectType);
+
+                    if (!string.IsNullOrEmpty(textOutput))
+                    {
+                        this.view.TextBuffer.Insert(position.Position, textOutput);
+                    }
+                }
+                catch (Exception exc)
+                {
+                    this.logger?.RecordException(exc);
+                    throw;  // Remove for launch. see issue #90
                 }
             });
 

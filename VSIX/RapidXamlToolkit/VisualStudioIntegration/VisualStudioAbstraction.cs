@@ -30,6 +30,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         : base(dte)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.serviceProvider = serviceProvider;
         }
 
         public string GetActiveDocumentFileName()

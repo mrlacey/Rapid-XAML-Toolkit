@@ -27,7 +27,7 @@ namespace RapidXamlToolkit.DragDrop
             this.profileOverride = profileOverride;
         }
 
-        public async Task<string> ExecuteAsync(string draggedFilename, int insertLineLength, ProjectType projectType)
+        public async Task<string> ExecuteAsync(string draggedFilename, int insertLinePadding, ProjectType projectType)
         {
             var fileContents = this.fileSystem.GetAllFileText(draggedFilename);
             var fileExt = this.fileSystem.GetFileExtension(draggedFilename);
@@ -60,9 +60,9 @@ namespace RapidXamlToolkit.DragDrop
 
             string textOutput = parserOutput.Output;
 
-            if (insertLineLength > 0)
+            if (insertLinePadding > 0)
             {
-                textOutput = textOutput.Replace(Environment.NewLine, Environment.NewLine + new string(' ', insertLineLength));
+                textOutput = textOutput.Replace(Environment.NewLine, Environment.NewLine + new string(' ', insertLinePadding));
             }
 
             return textOutput;
