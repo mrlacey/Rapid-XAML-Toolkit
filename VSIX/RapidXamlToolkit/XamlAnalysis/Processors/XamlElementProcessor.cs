@@ -12,10 +12,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public abstract class XamlElementProcessor
     {
-        public XamlElementProcessor(ILogger logger)
+        public XamlElementProcessor(ProjectType projectType, ILogger logger)
         {
+            this.ProjectType = projectType;
             this.Logger = logger;
         }
+
+        internal ProjectType ProjectType { get; }
 
         internal ILogger Logger { get; }
 
@@ -109,7 +112,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
-        public static string GetSubElementAtPosition(string fileName, string xaml, int position, ILogger logger)
+        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, string xaml, int position, ILogger logger)
         {
             var startPos = xaml.Substring(0, position).LastIndexOf('<');
 
@@ -117,10 +120,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             string result = null;
 
-            var processor = new SubElementProcessor(logger);
+            var processor = new SubElementProcessor(projectType, logger);
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
-            XamlElementExtractor.Parse(fileName, null, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList());
+            XamlElementExtractor.Parse(projectType, fileName, null, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList());
 
             if (result == null)
             {
@@ -278,8 +281,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public class SubElementProcessor : XamlElementProcessor
         {
-            public SubElementProcessor(ILogger logger)
-                : base(logger)
+            public SubElementProcessor(ProjectType projectType, ILogger logger)
+                : base(projectType, logger)
             {
             }
 

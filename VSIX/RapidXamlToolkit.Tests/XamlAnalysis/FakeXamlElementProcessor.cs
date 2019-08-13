@@ -13,7 +13,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
     public class FakeXamlElementProcessor : XamlElementProcessor
     {
         public FakeXamlElementProcessor()
-            : base(new DefaultTestLogger())
+            : base(ProjectType.Any, new DefaultTestLogger())
         {
         }
 

@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class SelectedItemAttributeProcessor : XamlElementProcessor
     {
-        public SelectedItemAttributeProcessor(ILogger logger)
-            : base(logger)
+        public SelectedItemAttributeProcessor(ProjectType projectType, ILogger logger)
+            : base(projectType, logger)
         {
         }
 

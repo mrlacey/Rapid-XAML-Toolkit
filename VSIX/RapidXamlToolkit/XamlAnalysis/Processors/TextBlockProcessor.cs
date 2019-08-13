@@ -6,15 +6,13 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.XamlAnalysis.Actions;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class TextBlockProcessor : XamlElementProcessor
     {
-        public TextBlockProcessor(ILogger logger)
-            : base(logger)
+        public TextBlockProcessor(ProjectType projectType, ILogger logger)
+            : base(projectType, logger)
         {
         }
 

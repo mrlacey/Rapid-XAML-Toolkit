@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class EntryProcessor : XamlElementProcessor
     {
-        public EntryProcessor(ILogger logger)
-            : base(logger)
+        public EntryProcessor(ProjectType projectType, ILogger logger)
+            : base(projectType, logger)
         {
         }
 

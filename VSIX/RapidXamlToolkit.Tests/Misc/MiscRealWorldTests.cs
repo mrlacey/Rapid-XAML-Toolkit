@@ -52,7 +52,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor(new DefaultTestLogger());
+            var sut = new GridProcessor(ProjectType.Any, new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
@@ -68,7 +68,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor(new DefaultTestLogger());
+            var sut = new GridProcessor(ProjectType.Wpf, new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 

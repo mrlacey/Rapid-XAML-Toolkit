@@ -12,8 +12,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class GridProcessor : XamlElementProcessor
     {
-        public GridProcessor(ILogger logger)
-            : base(logger)
+        public GridProcessor(ProjectType projectType, ILogger logger)
+            : base(projectType, logger)
         {
         }
 
@@ -263,7 +263,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                         if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            var element = XamlElementProcessor.GetSubElementAtPosition(fileName, xamlElement, spanUseOffset, this.Logger);
+                            var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, xamlElement, spanUseOffset, this.Logger);
 
                             var row = 0;
                             if (this.TryGetAttribute(element, "Grid.Row", AttributeType.InlineOrElement, out _, out _, out _, out string rowStr))
@@ -301,7 +301,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                         if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            var element = XamlElementProcessor.GetSubElementAtPosition(fileName, xamlElement, spanUseOffset, this.Logger);
+                            var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, xamlElement, spanUseOffset, this.Logger);
 
                             var gridCol = 0;
                             if (this.TryGetAttribute(element, "Grid.Column", AttributeType.InlineOrElement, out _, out _, out _, out string colStr))
