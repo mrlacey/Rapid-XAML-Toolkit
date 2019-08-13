@@ -140,7 +140,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var outputTags = new TagList();
 
-            var sut = new ButtonProcessor(new DefaultTestLogger());
+            var sut = new ButtonProcessor(ProjectType.Any, new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 

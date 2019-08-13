@@ -686,7 +686,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var processors = new List<(string, XamlElementProcessor)>
             {
-                ("Grid", new GridProcessor(new DefaultTestLogger())),
+                ("Grid", new GridProcessor(ProjectType.Any, new DefaultTestLogger())),
             };
 
             this.TestParsingWithoutSnapshot(xaml, processors);
@@ -701,7 +701,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 tags = new TagList();
             }
 
-            XamlElementExtractor.Parse("testfile.xaml", null, xaml, processors, tags);
+            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", null, xaml, processors, tags);
         }
     }
 }

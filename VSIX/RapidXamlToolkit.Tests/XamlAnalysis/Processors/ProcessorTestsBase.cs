@@ -3,10 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -15,12 +11,12 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
     public class ProcessorTestsBase
     {
-        internal List<IRapidXamlAdornmentTag> GetTags<T>(string xaml)
+        internal List<IRapidXamlAdornmentTag> GetTags<T>(string xaml, ProjectType projectType = ProjectType.Any)
             where T : XamlElementProcessor
         {
             var outputTags = new TagList();
 
-            var sut = (T)Activator.CreateInstance(typeof(T), DefaultTestLogger.Create());
+            var sut = (T)Activator.CreateInstance(typeof(T), projectType, DefaultTestLogger.Create());
 
             var snapshot = new FakeTextSnapshot();
 

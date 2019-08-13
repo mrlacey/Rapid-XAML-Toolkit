@@ -11,6 +11,8 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.TextManager.Interop;
+using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis
@@ -20,12 +22,14 @@ namespace RapidXamlToolkit.XamlAnalysis
         private static readonly Dictionary<string, RapidXamlDocument> Cache = new Dictionary<string, RapidXamlDocument>();
         private static readonly List<string> CurrentlyProcessing = new List<string>();
         private static RapidXamlPackage package;
+        private static IVisualStudioAbstraction vsa;
 
         public static event EventHandler<RapidXamlParsingEventArgs> Parsed;
 
-        public static void Initialize(RapidXamlPackage rxPackage)
+        public static void Initialize(RapidXamlPackage rxPackage, ILogger logger)
         {
             package = rxPackage;
+            vsa = new VisualStudioAbstraction(logger, rxPackage, ProjectHelpers.Dte);
         }
 
         public static void Add(string file, ITextSnapshot snapshot)
@@ -36,7 +40,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             else
             {
-                var doc = RapidXamlDocument.Create(snapshot, file);
+                var doc = RapidXamlDocument.Create(snapshot, file, vsa);
                 Cache.Add(file, doc);
 
                 Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Add));
@@ -105,7 +109,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         CurrentlyProcessing.Add(snapshotText);
 
-                        var doc = RapidXamlDocument.Create(snapshot, file);
+                        var doc = RapidXamlDocument.Create(snapshot, file, vsa);
                         Cache[file] = doc;
 
                         Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Update));

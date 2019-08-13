@@ -10,13 +10,18 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class EntryProcessor : XamlElementProcessor
     {
-        public EntryProcessor(ILogger logger)
-            : base(logger)
+        public EntryProcessor(ProjectType projectType, ILogger logger)
+            : base(projectType, logger)
         {
         }
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
+            if (!this.ProjectType.Matches(ProjectType.XamarinForms))
+            {
+                return;
+            }
+
             if (!this.TryGetAttribute(xamlElement, Attributes.Keyboard, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
                 var line = snapshot.GetLineFromPosition(offset);

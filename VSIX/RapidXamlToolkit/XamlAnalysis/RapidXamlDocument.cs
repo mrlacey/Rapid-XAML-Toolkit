@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.Text;
 using Newtonsoft.Json;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Processors;
@@ -28,7 +29,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         private static Dictionary<string, (DateTime timeStamp, List<TagSuppression> suppressions)> SuppressionsCache { get; }
             = new Dictionary<string, (DateTime, List<TagSuppression>)>();
 
-        public static RapidXamlDocument Create(ITextSnapshot snapshot, string fileName)
+        public static RapidXamlDocument Create(ITextSnapshot snapshot, string fileName, IVisualStudioAbstraction vsa)
         {
             var result = new RapidXamlDocument();
 
@@ -45,7 +46,17 @@ namespace RapidXamlToolkit.XamlAnalysis
                     // If suppressing all tags in file, don't bother parsing the file
                     if (suppressions == null || suppressions?.Any(s => string.IsNullOrWhiteSpace(s.TagErrorCode)) == false)
                     {
-                        XamlElementExtractor.Parse(fileName, snapshot, text, GetAllProcessors(), result.Tags, suppressions);
+                        var vsAbstraction = vsa;
+
+                        // This will happen if open a project with open XAML files before the package is initialized.
+                        if (vsAbstraction == null)
+                        {
+                            vsAbstraction = new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
+                        }
+
+                        var projType = vsAbstraction.GetProjectType(ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName));
+
+                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, GetAllProcessors(projType), result.Tags, suppressions);
                     }
                 }
             }
@@ -63,41 +74,40 @@ namespace RapidXamlToolkit.XamlAnalysis
             return result;
         }
 
-        public static List<(string, XamlElementProcessor)> GetAllProcessors()
+        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType)
         {
-            // TODO: Issue#134 - Need to limit processors to only run on appropriate platform (UWP/WPF/XF)
             return new List<(string, XamlElementProcessor)>
                     {
-                        (Elements.Grid, new GridProcessor(RapidXamlPackage.Logger)),
-                        (Elements.TextBlock, new TextBlockProcessor(RapidXamlPackage.Logger)),
-                        (Elements.TextBox, new TextBoxProcessor(RapidXamlPackage.Logger)),
-                        (Elements.Button, new ButtonProcessor(RapidXamlPackage.Logger)),
-                        (Elements.Entry, new EntryProcessor(RapidXamlPackage.Logger)),
-                        (Elements.AppBarButton, new AppBarButtonProcessor(RapidXamlPackage.Logger)),
-                        (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(RapidXamlPackage.Logger)),
-                        (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(RapidXamlPackage.Logger)),
-                        (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(RapidXamlPackage.Logger)),
-                        (Elements.CheckBox, new CheckBoxProcessor(RapidXamlPackage.Logger)),
-                        (Elements.ComboBox, new ComboBoxProcessor(RapidXamlPackage.Logger)),
-                        (Elements.DatePicker, new DatePickerProcessor(RapidXamlPackage.Logger)),
-                        (Elements.TimePicker, new TimePickerProcessor(RapidXamlPackage.Logger)),
-                        (Elements.Hub, new HubProcessor(RapidXamlPackage.Logger)),
-                        (Elements.HubSection, new HubSectionProcessor(RapidXamlPackage.Logger)),
-                        (Elements.HyperlinkButton, new HyperlinkButtonProcessor(RapidXamlPackage.Logger)),
-                        (Elements.RepeatButton, new RepeatButtonProcessor(RapidXamlPackage.Logger)),
-                        (Elements.Pivot, new PivotProcessor(RapidXamlPackage.Logger)),
-                        (Elements.PivotItem, new PivotItemProcessor(RapidXamlPackage.Logger)),
-                        (Elements.MenuFlyoutItem, new MenuFlyoutItemProcessor(RapidXamlPackage.Logger)),
-                        (Elements.MenuFlyoutSubItem, new MenuFlyoutSubItemProcessor(RapidXamlPackage.Logger)),
-                        (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(RapidXamlPackage.Logger)),
-                        (Elements.RichEditBox, new RichEditBoxProcessor(RapidXamlPackage.Logger)),
-                        (Elements.ToggleSwitch, new ToggleSwitchProcessor(RapidXamlPackage.Logger)),
-                        (Elements.Slider, new SliderProcessor(RapidXamlPackage.Logger)),
-                        (Elements.Label, new LabelProcessor(RapidXamlPackage.Logger)),
-                        (Elements.PasswordBox, new PasswordBoxProcessor(RapidXamlPackage.Logger)),
-                        (Elements.MediaElement, new MediaElementProcessor(RapidXamlPackage.Logger)),
-                        (Elements.ListView, new SelectedItemAttributeProcessor(RapidXamlPackage.Logger)),
-                        (Elements.DataGrid, new SelectedItemAttributeProcessor(RapidXamlPackage.Logger)),
+                        (Elements.Grid, new GridProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.TextBlock, new TextBlockProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.TextBox, new TextBoxProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.Button, new ButtonProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.Entry, new EntryProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.AppBarButton, new AppBarButtonProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.CheckBox, new CheckBoxProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.ComboBox, new ComboBoxProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.DatePicker, new DatePickerProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.TimePicker, new TimePickerProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.Hub, new HubProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.HubSection, new HubSectionProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.HyperlinkButton, new HyperlinkButtonProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.RepeatButton, new RepeatButtonProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.Pivot, new PivotProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.PivotItem, new PivotItemProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.MenuFlyoutItem, new MenuFlyoutItemProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.MenuFlyoutSubItem, new MenuFlyoutSubItemProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.RichEditBox, new RichEditBoxProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.ToggleSwitch, new ToggleSwitchProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.Slider, new SliderProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.Label, new LabelProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.PasswordBox, new PasswordBoxProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.MediaElement, new MediaElementProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.ListView, new SelectedItemAttributeProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.DataGrid, new SelectedItemAttributeProcessor(projType, RapidXamlPackage.Logger)),
                     };
         }
 

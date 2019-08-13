@@ -1,20 +1,17 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
-using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.XamlAnalysis.Actions;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class EveryElementProcessor : XamlElementProcessor
     {
-        public EveryElementProcessor(ILogger logger)
-            : base(logger)
+        public EveryElementProcessor(ProjectType projectType, ILogger logger)
+            : base(projectType, logger)
         {
         }
 

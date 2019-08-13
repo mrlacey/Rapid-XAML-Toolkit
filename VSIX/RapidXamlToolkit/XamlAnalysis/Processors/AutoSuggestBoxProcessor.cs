@@ -6,20 +6,23 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.XamlAnalysis.Actions;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class AutoSuggestBoxProcessor : XamlElementProcessor
     {
-        public AutoSuggestBoxProcessor(ILogger logger)
-            : base(logger)
+        public AutoSuggestBoxProcessor(ProjectType projectType, ILogger logger)
+            : base(projectType, logger)
         {
         }
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
+            if (!this.ProjectType.Matches(ProjectType.Uwp))
+            {
+                return;
+            }
+
             var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
             var elementGuid = Guid.NewGuid();
