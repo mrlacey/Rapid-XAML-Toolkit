@@ -13,7 +13,11 @@ namespace RapidXamlToolkit.Tests
             return new DefaultTestLogger();
         }
 
-        public void RecordError(string message)
+        public void RecordError(string message, bool force = false)
+        {
+        }
+
+        public void RecordGeneralError(string message)
         {
         }
 

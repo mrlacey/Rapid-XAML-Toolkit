@@ -179,6 +179,12 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Misc\ProfileConfigControl.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\RapidXamlToolkit\RapidXamlToolkit.csproj">
       <Project>{053a3048-276a-49ed-bd34-9c3ab1273a26}</Project>
       <Name>RapidXamlToolkit</Name>

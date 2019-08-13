@@ -15,8 +15,10 @@ namespace RapidXamlToolkit.Options
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var activeIndicator = StringRes.UI_ActiveProfileName.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).Last();
+            var fallBackIndicator = StringRes.UI_FallBackProfileName.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries).Last();
 
-            if (value.ToString().EndsWith(activeIndicator))
+            if (value.ToString().EndsWith(activeIndicator)
+             || value.ToString().EndsWith(fallBackIndicator))
             {
                 return FontWeights.Bold;
             }

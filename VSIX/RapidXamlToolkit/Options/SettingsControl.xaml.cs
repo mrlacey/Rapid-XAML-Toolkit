@@ -68,7 +68,7 @@ namespace RapidXamlToolkit.Options
 
                     if (!selectedProfile.IsActive)
                     {
-                        this.SettingsProvider.ActualSettings.ActiveProfileName = selectedProfile.Name;
+                        this.SettingsProvider.ActualSettings.ActiveProfileNames[selectedProfile.ProjectType] = selectedProfile.Name;
                         this.SettingsProvider.Save();
                         this.SettingsProvider.ActualSettings.RefreshProfilesList();
 
@@ -197,11 +197,11 @@ namespace RapidXamlToolkit.Options
                     {
                         this.SettingsProvider.ActualSettings.Profiles.RemoveAt(this.DisplayedProfiles.SelectedIndex);
 
-                        if (selectedProfile.Name == this.SettingsProvider.ActualSettings.ActiveProfileName)
+                        if (selectedProfile.Name == this.SettingsProvider.ActualSettings.ActiveProfileNames[selectedProfile.ProjectType])
                         {
                             var firstProfile = this.SettingsProvider.ActualSettings.Profiles.FirstOrDefault();
 
-                            this.SettingsProvider.ActualSettings.ActiveProfileName = firstProfile?.Name ?? string.Empty;
+                            this.SettingsProvider.ActualSettings.ActiveProfileNames[selectedProfile.ProjectType] = firstProfile?.Name ?? string.Empty;
                         }
 
                         this.SettingsProvider.Save();
@@ -329,6 +329,40 @@ namespace RapidXamlToolkit.Options
                     this.SettingsProvider.Reset();
                     this.SettingsProvider.Save();
                     this.SettingsProvider.ActualSettings.RefreshProfilesList();
+                }
+            }
+            catch (Exception exc)
+            {
+                RapidXamlPackage.Logger?.RecordException(exc);
+                throw;  // Remove for launch. see issue #90
+            }
+        }
+
+        private void SetFallBackClicked(object sender, RoutedEventArgs e)
+        {
+            if (this.disabled)
+            {
+                return;
+            }
+
+            try
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
+                var selectedIndex = this.DisplayedProfiles.SelectedIndex;
+
+                if (selectedIndex >= 0)
+                {
+                    var selectedProfile = this.SettingsProvider.ActualSettings.ProfilesList[this.DisplayedProfiles.SelectedIndex];
+
+                    if (!selectedProfile.IsActive)
+                    {
+                        this.SettingsProvider.ActualSettings.FallBackProfileName = selectedProfile.Name;
+                        this.SettingsProvider.Save();
+                        this.SettingsProvider.ActualSettings.RefreshProfilesList();
+
+                        this.DisplayedProfiles.SelectedIndex = selectedIndex;
+                    }
                 }
             }
             catch (Exception exc)

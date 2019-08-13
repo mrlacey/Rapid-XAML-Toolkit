@@ -3,6 +3,7 @@
 
 using System.Collections.ObjectModel;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests
 {
@@ -13,15 +14,13 @@ namespace RapidXamlToolkit.Tests
             return new Profile
             {
                 Name = string.Empty,
+                ProjectType = ProjectType.Unknown,
                 ClassGrouping = string.Empty,
                 FallbackOutput = string.Empty,
                 SubPropertyOutput = string.Empty,
                 EnumMemberOutput = string.Empty,
                 Mappings = new ObservableCollection<Mapping>(),
-                General = new GeneralSettings
-                {
-                    AttemptAutomaticDocumentFormatting = true,
-                },
+                AttemptAutomaticDocumentFormatting = true,
             };
         }
     }
