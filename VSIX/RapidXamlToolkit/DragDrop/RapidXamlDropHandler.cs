@@ -43,13 +43,21 @@ namespace RapidXamlToolkit.DragDrop
 
             ThreadHelper.JoinableTaskFactory.Run(async () =>
             {
-                var logic = new DropHandlerLogic(this.logger, this.vs, this.fileSystem);
-
-                var textOutput = await logic.ExecuteAsync(this.draggedFilename, insertLineLength, this.projectType);
-
-                if (!string.IsNullOrEmpty(textOutput))
+                try
                 {
-                    this.view.TextBuffer.Insert(position.Position, textOutput);
+                    var logic = new DropHandlerLogic(this.logger, this.vs, this.fileSystem);
+
+                    var textOutput = await logic.ExecuteAsync(this.draggedFilename, insertLineLength, this.projectType);
+
+                    if (!string.IsNullOrEmpty(textOutput))
+                    {
+                        this.view.TextBuffer.Insert(position.Position, textOutput);
+                    }
+                }
+                catch (Exception exc)
+                {
+                    this.logger?.RecordException(exc);
+                    throw;  // Remove for launch. see issue #90
                 }
             });
 
