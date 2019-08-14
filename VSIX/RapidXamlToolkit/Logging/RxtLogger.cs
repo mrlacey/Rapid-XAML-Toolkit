@@ -3,6 +3,7 @@
 
 using System;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 
@@ -10,6 +11,17 @@ namespace RapidXamlToolkit.Logging
 {
     public class RxtLogger : ILogger
     {
+        private readonly IVsActivityLog vsActivityLog;
+
+        public RxtLogger(IVsActivityLog vsActivityLog)
+        {
+            this.vsActivityLog = vsActivityLog;
+        }
+
+        public RxtLogger()
+        {
+        }
+
         public static string TimeStampMessage(string message)
         {
             return $"[{DateTime.Now:HH:mm:ss.fff}]  {message}{Environment.NewLine}";
@@ -56,6 +68,8 @@ namespace RapidXamlToolkit.Logging
             this.RecordError(exception.Message);
             this.RecordError(exception.Source);
             this.RecordError(exception.StackTrace);
+
+            this.WriteToActivityLog($"{exception.Message}{Environment.NewLine}{exception.Source}{Environment.NewLine}{exception.StackTrace}");
         }
 
         public void RecordFeatureUsage(string feature)
@@ -64,6 +78,14 @@ namespace RapidXamlToolkit.Logging
 
             // this logger doesn't need to do anything special with feature usage messages
             this.RecordInfo(feature);
+        }
+
+        public void WriteToActivityLog(string message)
+        {
+            if (this.vsActivityLog != null)
+            {
+                this.vsActivityLog.LogEntry((uint)__ACTIVITYLOG_ENTRYTYPE.ALE_ERROR, StringRes.VSIX__LocalizedName, message);
+            }
         }
     }
 }
