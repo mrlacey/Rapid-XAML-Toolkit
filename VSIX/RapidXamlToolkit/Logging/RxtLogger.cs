@@ -11,16 +11,7 @@ namespace RapidXamlToolkit.Logging
 {
     public class RxtLogger : ILogger
     {
-        private readonly IVsActivityLog vsActivityLog;
-
-        public RxtLogger(IVsActivityLog vsActivityLog)
-        {
-            this.vsActivityLog = vsActivityLog;
-        }
-
-        public RxtLogger()
-        {
-        }
+        public IVsActivityLog VsActivityLog { get; set; }
 
         public static string TimeStampMessage(string message)
         {
@@ -82,9 +73,9 @@ namespace RapidXamlToolkit.Logging
 
         public void WriteToActivityLog(string message)
         {
-            if (this.vsActivityLog != null)
+            if (this.VsActivityLog != null)
             {
-                this.vsActivityLog.LogEntry((uint)__ACTIVITYLOG_ENTRYTYPE.ALE_ERROR, StringRes.VSIX__LocalizedName, message);
+                this.VsActivityLog.LogEntry((uint)__ACTIVITYLOG_ENTRYTYPE.ALE_ERROR, StringRes.VSIX__LocalizedName, message);
             }
         }
     }
