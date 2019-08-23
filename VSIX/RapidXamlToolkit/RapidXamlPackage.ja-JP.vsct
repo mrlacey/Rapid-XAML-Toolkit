@@ -65,7 +65,7 @@
       <Button guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpOptions" />
         <Strings>
-          <ButtonText>最初にアクティブなプロフィールを設定する</ButtonText>
+          <ButtonText>プロフィール</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0100" type="Button">

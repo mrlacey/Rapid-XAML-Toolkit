@@ -65,7 +65,7 @@
       <Button guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpOptions" />
         <Strings>
-          <ButtonText>先設定作用中設定檔</ButtonText>
+          <ButtonText>設定檔</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0100" type="Button">

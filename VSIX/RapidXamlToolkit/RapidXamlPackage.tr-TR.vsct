@@ -65,7 +65,7 @@
       <Button guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpOptions" />
         <Strings>
-          <ButtonText>Öncelikle etkin bir profil ayarla</ButtonText>
+          <ButtonText>Profiller</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0100" type="Button">
