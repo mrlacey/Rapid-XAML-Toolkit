@@ -53,7 +53,6 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -91,7 +90,7 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
+                return string.Empty;
             }
         }
 
@@ -122,7 +121,7 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
+                return null;
             }
         }
 
@@ -144,7 +143,6 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -165,7 +163,6 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
     }

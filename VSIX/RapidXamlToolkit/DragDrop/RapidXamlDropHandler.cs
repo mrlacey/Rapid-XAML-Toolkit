@@ -60,7 +60,6 @@ namespace RapidXamlToolkit.DragDrop
                 catch (Exception exc)
                 {
                     this.logger?.RecordException(exc);
-                    throw;  // Remove for launch. see issue #90
                 }
             });
 

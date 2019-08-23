@@ -74,7 +74,6 @@ namespace RapidXamlToolkit
             catch (Exception exc)
             {
                 Logger.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
