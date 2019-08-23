@@ -46,12 +46,18 @@ namespace RapidXamlToolkit.Options
                 {
                     var profile = this.Profiles[index];
 
+                    // Skip any invalid profiles
+                    if (!activeIndicated.ContainsKey(profile.ProjectTypeDescription))
+                    {
+                        continue;
+                    }
+
                     var summary = new ProfileSummary
                     {
                         Index = index,
                         Name = profile.Name,
                         ProjectType = profile.ProjectTypeDescription,
-                        IsActive = !activeIndicated[profile.ProjectType.GetDescription()]
+                        IsActive = !activeIndicated[profile.ProjectTypeDescription]
                                 && this.ActiveProfileNames.Keys.Contains(profile.ProjectTypeDescription)
                                 && profile.Name == this.ActiveProfileNames[profile.ProjectTypeDescription],
                         IsFallBack = !fallBackIndicated && profile.Name == this.FallBackProfileName,
@@ -59,7 +65,7 @@ namespace RapidXamlToolkit.Options
 
                     if (summary.IsActive)
                     {
-                        activeIndicated[profile.ProjectType.GetDescription()] = true;
+                        activeIndicated[profile.ProjectTypeDescription] = true;
                     }
 
                     if (summary.IsFallBack)
