@@ -104,26 +104,5 @@ namespace RapidXamlToolkit.Commands
                 RapidXamlPackage.Logger?.RecordException(exc);
             }
         }
-
-        protected void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
-        {
-            try
-            {
-                if (sender is OleMenuCommand menuCmd)
-                {
-                    menuCmd.Visible = menuCmd.Enabled = false;
-
-                    if (CodeParserBase.GetSettings().Profiles.Any())
-                    {
-                        menuCmd.Visible = menuCmd.Enabled = true;
-                    }
-                }
-            }
-            catch (Exception exc)
-            {
-                this.Logger.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
-            }
-        }
     }
 }

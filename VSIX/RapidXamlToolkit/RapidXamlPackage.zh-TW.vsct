@@ -50,24 +50,18 @@
     <Buttons>
       <Button guid="guidRapidXamlPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpCopyAsXaml" />
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>複製到剪貼簿</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="SendToToolboxCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpToolbox" />
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>傳送到工具箱</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpOptions" />
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>先設定作用中設定檔</ButtonText>
         </Strings>

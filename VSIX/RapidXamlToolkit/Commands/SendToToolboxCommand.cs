@@ -26,7 +26,6 @@ namespace RapidXamlToolkit.Commands
 
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
-            menuItem.BeforeQueryStatus += this.MenuItem_BeforeQueryStatus;
             commandService.AddCommand(menuItem);
         }
 
