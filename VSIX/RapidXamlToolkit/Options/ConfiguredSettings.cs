@@ -121,6 +121,7 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
+                return null;
             }
         }
 
