@@ -581,8 +581,8 @@
     <comment>Command button text for when creating a view from the SolutionExplorer</comment>
   </data>
   <data name="VSCT__OpenOptionsCommandId" xml:space="preserve">
-    <value>先設定作用中設定檔</value>
-    <comment>Command button text when there is no active profile set</comment>
+    <value>設定檔</value>
+    <comment>Command button text for opening profile options</comment>
   </data>
   <data name="VSCT__SendToToolboxCommandId" xml:space="preserve">
     <value>傳送到工具箱</value>

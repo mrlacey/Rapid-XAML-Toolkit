@@ -581,8 +581,8 @@
     <comment>Command button text for when creating a view from the SolutionExplorer</comment>
   </data>
   <data name="VSCT__OpenOptionsCommandId" xml:space="preserve">
-    <value>Per prima cosa imposta un profilo attivo</value>
-    <comment>Command button text when there is no active profile set</comment>
+    <value>Profili</value>
+    <comment>Command button text for opening profile options</comment>
   </data>
   <data name="VSCT__SendToToolboxCommandId" xml:space="preserve">
     <value>Invia alla Toolbox</value>
