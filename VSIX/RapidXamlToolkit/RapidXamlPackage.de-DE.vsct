@@ -65,7 +65,7 @@
       <Button guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpOptions" />
         <Strings>
-          <ButtonText>Legen Sie zuerst ein aktives Profil fest.</ButtonText>
+          <ButtonText>Profile</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0100" type="Button">
