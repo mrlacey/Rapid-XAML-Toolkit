@@ -90,6 +90,7 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
+                return string.Empty;
             }
         }
 
