@@ -3,11 +3,9 @@
 
 using System;
 using System.ComponentModel.Design;
-using System.Linq;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
-using RapidXamlToolkit.Parsers;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
@@ -23,7 +21,6 @@ namespace RapidXamlToolkit.Commands
 
             var menuCommandId = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandId);
-            menuItem.BeforeQueryStatus += this.MenuItem_BeforeQueryStatus;
             commandService.AddCommand(menuItem);
         }
 
@@ -41,27 +38,6 @@ namespace RapidXamlToolkit.Commands
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             Instance = new OpenOptionsCommand(package, commandService, logger);
-        }
-
-        private void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
-        {
-            try
-            {
-                if (sender is OleMenuCommand menuCmd)
-                {
-                    menuCmd.Visible = menuCmd.Enabled = false;
-
-                    if (!CodeParserBase.GetSettings().Profiles.Any())
-                    {
-                        menuCmd.Visible = menuCmd.Enabled = true;
-                    }
-                }
-            }
-            catch (Exception exc)
-            {
-                this.Logger.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
-            }
         }
 
         private void Execute(object sender, EventArgs e)

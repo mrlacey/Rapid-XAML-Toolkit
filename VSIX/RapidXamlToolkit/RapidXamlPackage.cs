@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Configuration;
 using RapidXamlToolkit.DragDrop;
@@ -50,6 +51,9 @@ namespace RapidXamlToolkit
 
             try
             {
+                var activityLog = await this.GetServiceAsync(typeof(SVsActivityLog)) as IVsActivityLog;
+                rxtLogger.VsActivityLog = activityLog;
+
                 // Set the ServiceProvider of CodeParserBase as it's needed to get settings
                 CodeParserBase.ServiceProvider = this;
                 Logger.RecordInfo(StringRes.Info_ProblemsInstructionsAndLink);
