@@ -40,26 +40,17 @@
     <Menus>
       <Menu guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>Hızlı XAML (local)</CommandName>
           <ButtonText>Hızlı XAML (local)</ButtonText>
-          <MenuText>Hızlı XAML (local)</MenuText>
-          <ToolTipText>Hızlı XAML (local)</ToolTipText>
         </Strings>
       </Menu>
       <Menu guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>Hızlı XAML (local)</CommandName>
           <ButtonText>Hızlı XAML (local)</ButtonText>
-          <MenuText>Hızlı XAML (local)</MenuText>
-          <ToolTipText>Hızlı XAML (local)</ToolTipText>
         </Strings>
       </Menu>
       <Menu guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>Hızlı XAML (local)</CommandName>
           <ButtonText>Hızlı XAML (local)</ButtonText>
-          <MenuText>Hızlı XAML (local)</MenuText>
-          <ToolTipText>Hızlı XAML (local)</ToolTipText>
         </Strings>
       </Menu>
     </Menus>

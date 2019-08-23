@@ -40,26 +40,17 @@
     <Menus>
       <Menu guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>Schnelle XAML-Entwicklung (local)</CommandName>
           <ButtonText>Schnelle XAML-Entwicklung (local)</ButtonText>
-          <MenuText>Schnelle XAML-Entwicklung (local)</MenuText>
-          <ToolTipText>Schnelle XAML-Entwicklung (local)</ToolTipText>
         </Strings>
       </Menu>
       <Menu guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>Schnelle XAML-Entwicklung (local)</CommandName>
           <ButtonText>Schnelle XAML-Entwicklung (local)</ButtonText>
-          <MenuText>Schnelle XAML-Entwicklung (local)</MenuText>
-          <ToolTipText>Schnelle XAML-Entwicklung (local)</ToolTipText>
         </Strings>
       </Menu>
       <Menu guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>Schnelle XAML-Entwicklung (local)</CommandName>
           <ButtonText>Schnelle XAML-Entwicklung (local)</ButtonText>
-          <MenuText>Schnelle XAML-Entwicklung (local)</MenuText>
-          <ToolTipText>Schnelle XAML-Entwicklung (local)</ToolTipText>
         </Strings>
       </Menu>
     </Menus>
