@@ -2385,7 +2385,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to First set an active profile.
+        ///   Looks up a localized string similar to Profiles.
         /// </summary>
         public static string VSCT__OpenOptionsCommandId {
             get {
