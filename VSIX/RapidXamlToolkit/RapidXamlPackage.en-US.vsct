@@ -38,8 +38,10 @@
     <Groups>
       <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextGroup" priority="0x0600" />
       <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuSecondaryGroup" priority="0x0700" />
       <Group guid="guidRapidXamlPackageCmdSet" id="XamlContextGroup" priority="0x0600" />
       <Group guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0700" />
     </Groups>
 
     <Menus>
@@ -95,44 +97,39 @@
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CodeContextGroup" priority="0x0200">
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
     </CommandPlacement>
-
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" priority="0x0100">
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextGroup" />
     </CommandPlacement>
-
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" priority="0x0100">
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" />
     </CommandPlacement>
-
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuSecondaryGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" />
+    </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100">
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
     </CommandPlacement>
-
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SendToToolboxCommandId" priority="0x0200">
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
     </CommandPlacement>
-
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
-      <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
+      <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuSecondaryGroup" />
     </CommandPlacement>
-
-
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="XamlContextGroup" priority="0x0200">
       <Parent guid="GuidVisualStudioXAMLWindowContextMenu" id="IDVisualStudioXAMLWindowContextMenu" />
     </CommandPlacement>
-
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" priority="0x0100">
       <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextGroup" />
     </CommandPlacement>
-
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100">
       <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" />
     </CommandPlacement>
-
-    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
-      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" />
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" />
     </CommandPlacement>
-
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuSecondaryGroup" />
+    </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0200">
       <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" />
     </CommandPlacement>
@@ -147,9 +144,11 @@
       <IDSymbol value="0x1100" name="CodeContextGroup" />
       <IDSymbol value="0x1200" name="CodeContextMenu" />
       <IDSymbol value="0x1300" name="CodeContextMenuGroup" />
+      <IDSymbol value="0x1400" name="CodeContextMenuSecondaryGroup" />
       <IDSymbol value="0x2100" name="XamlContextGroup" />
       <IDSymbol value="0x2200" name="XamlContextMenu" />
       <IDSymbol value="0x2300" name="XamlContextMenuGroup" />
+      <IDSymbol value="0x2400" name="XamlContextMenuSecondaryGroup" />
 
       <IDSymbol name="CopyToClipboardCommandId" value="4128" />
       <IDSymbol name="SendToToolboxCommandId" value="4129" />
