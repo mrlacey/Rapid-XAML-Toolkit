@@ -11,7 +11,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Parsers
 {
