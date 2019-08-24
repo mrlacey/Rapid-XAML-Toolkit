@@ -89,7 +89,7 @@ namespace RapidXamlToolkit.Options
                         FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
                         SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
-                        Mappings = MappingsForUwpStackPanelWithHeader(),
+                        Mappings = MappingsForUwpStackPanelWithHeader_CaliburnMicro(),
                         AttemptAutomaticDocumentFormatting = true,
                     },
 
@@ -332,6 +332,38 @@ namespace RapidXamlToolkit.Options
 
         private static ObservableCollection<Mapping> MappingsForUwpStackPanelWithHeader()
         {
+            var result = MappingsForUwpStackPanelWithHeader_Most();
+
+            result.Add(
+                new Mapping
+                {
+                    Type = "ICommand|Command|RelayCommand",
+                    NameContains = string.Empty,
+                    Output = "<Button Content=\"$name$\" Command=\"{x:Bind ViewModel.$name$}\" />",
+                    IfReadOnly = false,
+                });
+
+            return result;
+        }
+
+        private static ObservableCollection<Mapping> MappingsForUwpStackPanelWithHeader_CaliburnMicro()
+        {
+            var result = MappingsForUwpStackPanelWithHeader_Most();
+
+            result.Add(
+                new Mapping
+                {
+                    Type = "ICommand|Command|RelayCommand",
+                    NameContains = string.Empty,
+                    Output = "<Button Content=\"$name$\" cm:Message.Attach=\"{$name$}\" />",
+                    IfReadOnly = false,
+                });
+
+            return result;
+        }
+
+        private static ObservableCollection<Mapping> MappingsForUwpStackPanelWithHeader_Most()
+        {
             return new ObservableCollection<Mapping>
                         {
                             new Mapping
@@ -458,13 +490,6 @@ namespace RapidXamlToolkit.Options
                                 Type = "bool|Boolean",
                                 NameContains = "busy|active",
                                 Output = "<ProgressRing IsActive=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "ICommand|Command|RelayCommand",
-                                NameContains = string.Empty,
-                                Output = "<Button Content=\"$name$\" Command=\"{x:Bind ViewModel.$name$}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
