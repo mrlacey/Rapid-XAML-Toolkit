@@ -91,7 +91,6 @@
     <Compile Include="TestFileSystem.cs" />
     <Compile Include="TestProfile.cs" />
     <Compile Include="TestVisualStudioAbstraction.cs" />
-    <Compile Include="XamlAnalysis\ButtonProcessTests.cs" />
     <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessorTests.cs" />
@@ -127,7 +126,6 @@
     <Compile Include="XamlAnalysis\RealWorldIssues.cs" />
     <Compile Include="XamlAnalysis\TagListSuppressionTests.cs" />
     <Compile Include="XamlAnalysis\TestableXamlElementProcessor.cs" />
-    <Compile Include="XamlAnalysis\TextBlockProcessTests.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractorTests.cs" />
     <Compile Include="XamlAnalysis\XamlElementProcessorTests.cs" />
   </ItemGroup>
