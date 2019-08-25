@@ -1,16 +1,18 @@
-# Configuration
+# Configuration of XAML Generation
 
-The Rapid XAML Toolkit is highly configurable so that it can be used regardless of the platform your building for, the naming conventions you use, or the way you structure your solutions or code. While the number of configurable options may seem complex we've tried to keep things as simple as possible.
+The Rapid XAML Toolkit is highly configurable so that it can be used regardless of the platform your building for, the naming conventions you use, or the way you structure your solutions or code. While the number of configurable options may seem complex we've tried to keep it as simple as possible.
 
 ## Profiles
 
-The basis of configuration are [profiles](./profiles.md). A profile is a complete set of configurable values for how the toolkit works.
+[Profiles](./profiles.md) are the way XAML generation is configured.
 
-Only one profile can be used at a time. The profile being used is called the ""active"" profile. If no profile is active you will be prompted to make one active before you can use any of the functionality of the toolkit. If you work on different platforms or projects that are very different, it is expected you will switch between profiles as necessary.
+Only one profile can be used at a time. The profile being used is called the **active** profile. You can set different active profiles for UWP, WPF, and Xamarin.Forms projects. The toolkit works out the project type to use based on the currently loaded solution.
+
+You can also specify a **fallback** profile which will be used if it's not possible to determine the project type required.
 
 A number of profiles are provided by default. These can be used as they are or customized to meet your needs.
 
-Learn more about profiles [here](./profiles.md).
+Learn [more about profiles](./profiles.md).
 
 ## General settings
 
@@ -20,4 +22,4 @@ General settings apply regardless of the active profile.
 
 When extended logging is enabled, details of what the toolkit does internally is logged to a pane in the output window. If you experience an error or find the generated XAML is not as you expect, the information in the log may help explain what's going on.
 
-When extended logging is not enabled, only exceptions will be logged in the output window.
+When extended logging is not enabled, only exceptions are logged in the output window.
