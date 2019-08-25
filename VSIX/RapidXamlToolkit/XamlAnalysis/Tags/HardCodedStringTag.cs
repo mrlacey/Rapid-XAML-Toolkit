@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using System;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Actions;
