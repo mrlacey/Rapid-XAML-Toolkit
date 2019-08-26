@@ -55,13 +55,16 @@ namespace RapidXamlToolkit.XamlAnalysis
                 }
                 else if (char.IsLetterOrDigit(xaml[i]) || xaml[i] == ':')
                 {
-                    if (isIdentifyingElement)
+                    if (!inComment)
                     {
-                        currentElementName.Append(xaml[i]);
-                    }
-                    else if (isClosingElement)
-                    {
-                        closingElementName.Append(xaml[i]);
+                        if (isIdentifyingElement)
+                        {
+                            currentElementName.Append(xaml[i]);
+                        }
+                        else if (isClosingElement)
+                        {
+                            closingElementName.Append(xaml[i]);
+                        }
                     }
 
                     inLineOpeningWhitespace = false;
@@ -172,7 +175,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 }
                 else if (xaml[i] == '-')
                 {
-                    if (i > 3 && xaml.Substring(i - 3, 4) == "<!--")
+                    if (i >= 3 && xaml.Substring(i - 3, 4) == "<!--")
                     {
                         inComment = true;
                     }
