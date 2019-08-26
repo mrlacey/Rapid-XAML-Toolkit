@@ -81,7 +81,7 @@ Learn more about [features](./docs/features.md).
 
 ## XAML Analysis
 
-Like [Roslyn ANalyzers](https://docs.microsoft.com/en-us/visualstudio/code-quality/roslyn-analyzers-overview?view=vs-2019) do for C# and VB.Net, XAML Analyzers can identify potential issues in XAML files and create comments, warnings, or errors about the problems. They also provide Suggested Actions as ways to fix the issues.
+Like [Roslyn Analyzers](https://docs.microsoft.com/en-us/visualstudio/code-quality/roslyn-analyzers-overview?view=vs-2019) do for C# and VB.Net, XAML Analyzers can identify potential issues in XAML files and create comments, warnings, or errors about the problems. They also provide Suggested Actions as ways to fix the issues.
 
 ![Screenshot showing some of the issues analysis can find](./docs/Assets/xaml-analysis-example.png)
 
