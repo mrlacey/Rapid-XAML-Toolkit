@@ -680,6 +680,66 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
+        public void ChildElementsInComments_NoSpaces_AreNotFound()
+        {
+            var xaml = @"<Grid>
+    <Child />
+    <!--<Child />
+    <Child />
+    <Child />-->
+    <Child />
+
+</Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Child", processor),
+            };
+
+            this.TestParsingWithoutSnapshot(xaml, processors);
+
+            // Dont find the ones on lines after comment opening, between comment boundaries and on line with comment closing
+            // Do find elements before and after the comment
+            Assert.AreEqual(2, processor.ProcessCalledCount);
+        }
+
+        [TestMethod]
+        public void ElementsInComments_NoSpaces_AreNotFound()
+        {
+            var xaml = @"<!--<Child />-->";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Child", processor),
+            };
+
+            this.TestParsingWithoutSnapshot(xaml, processors);
+
+            Assert.AreEqual(0, processor.ProcessCalledCount);
+        }
+
+        [TestMethod]
+        public void ElementImmediatelyAfterClosingCommentIsFound()
+        {
+            var xaml = @"<!-- --><Child />";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Child", processor),
+            };
+
+            this.TestParsingWithoutSnapshot(xaml, processors);
+
+            Assert.AreEqual(1, processor.ProcessCalledCount);
+        }
+
+        [TestMethod]
         public void CanParseDocIfProcessorQueriesPrefixedAttribute()
         {
             var xaml = @"<Window><Grid><CheckBox IsChecked=""True"" /></Grid></Window>";
