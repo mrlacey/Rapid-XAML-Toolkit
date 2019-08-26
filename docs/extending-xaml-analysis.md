@@ -1,6 +1,6 @@
 # Extending XAML Analysis
 
-The following is important information to know for anyone working with this codebase and wishing to add more XAML Analysis functionality.
+The following is important information for anyone working with this codebase and wishing to add more XAML Analysis functionality.
 
 ## Overview
 
