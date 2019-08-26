@@ -30,18 +30,6 @@ namespace RapidXamlToolkit
 
         public const string EnumPropName = "$enumname$";
 
-        public const string ViewProject = "$viewproject$";
-
-        public const string ViewNamespace = "$viewns$";
-
-        public const string ViewModelNamespace = "$viewmodelns$";
-
-        public const string ViewClass = "$viewclass$";
-
-        public const string ViewModelClass = "$viewmodelclass$";
-
-        public const string GeneratedXAML = "$genxaml$";
-
         public const string NoOutput = "$nooutput$";
 
         public const string XName = "$xname$";

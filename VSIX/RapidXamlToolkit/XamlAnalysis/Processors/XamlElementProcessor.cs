@@ -133,8 +133,20 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return result;
         }
 
-        // Use of snapshot in the Process implementation should be kept to a minimum as will need test workarounds
-        // - better to just pass through to where needed in VS initiated functionality.
+        /// <summary>
+        /// Implementations of this method are used to identify any issues in the specified XAML and create Tags to highlight them.
+        /// </summary>
+        /// <remarks>
+        /// Use of snapshot in the Process implementation should be kept to a minimum as it requires test workarounds
+        /// - better to just pass through to where needed in VS initiated functionality.
+        /// </remarks>
+        /// <param name="fileName">The name of the file being analyzed.</param>
+        /// <param name="offset">The number of characters from the start of the file to the element.</param>
+        /// <param name="xamlElement">The full string representing the element to process.</param>
+        /// <param name="linePadding">The amount of left padding the element has on the line where it starts.</param>
+        /// <param name="snapshot">The ITextSnapshot containing the XAML being analyzed.</param>
+        /// <param name="tags">Reference to the list of all tags found in the document. Add any new tags here.</param>
+        /// <param name="suppressions">A list of user defined suppressions to override defautl behavior.</param>
         public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null);
 
         public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)

@@ -2,9 +2,6 @@
 // Licensed under the MIT license.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Options
 {
