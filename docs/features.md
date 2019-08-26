@@ -1,27 +1,14 @@
 # Features
 
-Creating a XAML UI can be slow or require lots of manual effort. These tools aim to reduce the time and effort required to get the basics working and allow you to customize the UI to meet your preferences or the specific needs of your app.
-We can't and don't try to create the whole app for you but we can make creating and working with XAML faster easier.
-The functionality of the toolkit is based common conventions but is highly [configurable](./configuration.md).
+Make working with XAML files faster and easier with these great features. Whether you're starting with just the ViewModel and an empty view, or already have XAML written, there are features here to help all developers.
 
-The Rapid XAML Toolkit aims to help developers with two aspects of working with XAML files.
+## XAML Generation
 
-- Creating new XAML files
-- Modifying existing XAML files
+Drag the ViewModel file onto the open XAML source file.
 
-## Creation
+![XAML generation via drag-and-drop](./Assets/drag-drop-gen.gif)
 
-In very few apps is the UI created first. It's more common to start with the data Model and the ViewModels and then create the UI for them. Allow the Rapid XAML Toolkit to scaffold your Views based on your ViewModels. It works with different naming conventions or files and folders. The View and ViewModel don't even have to be in the same project.
-
-![Creating a View from context menu of ViewModel in Solution Explorer](./Assets/Create-View-In-Solution-Explorer.gif)
-
-The contents of the created view (and code-behind file) are entirely configurable and can contain elements based on the originating ViewModel. For example:
-
-![Example XAML of a file created from the ViewModel.](./Assets/created-view-example.png)
-
-## Modification and improvement
-
-If you already have an empty page, you can easily get the XAML for the ViewModel and paste it into the View.
+Get the XAML from the ViewModel and paste it into the View.
 
 ![Copy class in ViewModel and paste into View as XAML](./Assets/Copy-Class-To-Clipboard.gif)
 
@@ -29,15 +16,21 @@ You don't have to copy the XAML for the whole class.
 
 ![Copy selection of properties in ViewModel and paste into View as XAML](./Assets/Copy-Selection-To-Clipboard.gif)
 
-If you want to add the XAML for multiple properties you can send them to the Toolbox and use them from there.
+If you want to add the XAML in multiple places you can send them to the Toolbox and use them from there.
 
 ![Send properties to the Toolbox then drag onto the View as XAML](./Assets/Send-To-Toolbox-And-Drag-To-View.gif)
 
-In addition to creating the XAML for the View, you can also set the DataContext (so the bindings will work.)
-Do it in Code-Behind.
+## XAML Analysis
 
-![Set the DataContext and related properties if not already defined in the code-behind file](./Assets/Set-Datacontext-In-CodeBehind.gif)
+A number of potential issues will be listed in the Error List and underlined in source. Suggested Actions are also included to help address each issue.
 
-Or in the XAML.
+The image below shows some of the issues that analysis can find (and fix).
 
-![Set the DataContext and related properties if not already defined in the XAML file](./Assets/Set-Datacontext-In-XAML.gif)
+![Screenshot showing some of the issues analysis can find](./Assets/xaml-analysis-example.png)
+
+See the [full list of all warnings](./warnings/readme.md#rapid-xaml-toolkit---warnings).
+
+Additionaly, it's also possible to:
+
+- Right-click anywhere in a XAML source file and select 'Rapid XAML > Move all hard-coded string to Resource file' to move all hard-coded strings to a resource file.
+- Right-click on an opening `Grid` tag and easily add Row and Column definitions.
