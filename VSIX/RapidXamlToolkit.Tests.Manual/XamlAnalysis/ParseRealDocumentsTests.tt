@@ -1,0 +1,90 @@
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".g.cs" #>
+
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.XamlAnalysis;
+using RapidXamlToolkit.XamlAnalysis.Tags;
+
+namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
+{
+    [TestClass]
+    public class ParseRealDocumentsTests
+    {
+        public TestContext TestContext { get; set; }
+<#
+
+// IMPORANT - Change this to an appropriate folder on your machine.
+// This folder should contain sub-folders that contain XAML files.
+// Individual tests are created for each sub-folder to help manage the testing of large numbers of files.
+const string rootFolder = @"C:\Users\matt\Documents\GitHub\";
+
+foreach (var subFolder in Directory.GetDirectories(rootFolder))
+{
+    WriteLine("");
+    WriteLine("        [TestMethod]");
+    WriteLine($"        public void TextXamlFilesIn_{string.Concat(new DirectoryInfo(subFolder).Name.Where(ch => Char.IsLetterOrDigit(ch)))}()");
+    WriteLine("        {");
+    WriteLine($"            this.CanParseWithoutErrors(@\"{subFolder}\");");
+    WriteLine("        }");
+}
+#>
+
+        private static IEnumerable<string> GetXamlFiles(string folder)
+        {
+            foreach (var file in Directory.GetFiles(folder, "*.xaml", SearchOption.AllDirectories))
+            {
+                yield return file;
+            }
+        }
+
+        private void CanParseWithoutErrors(string folderPath)
+        {
+            foreach (var filePath in GetXamlFiles(folderPath))
+            {
+                var text = File.ReadAllText(filePath);
+
+                if (text.IsValidXml())
+                {
+                    var result = new RapidXamlDocument();
+
+                    var snapshot = new FakeTextSnapshot();
+
+                    XamlElementExtractor.Parse(ProjectType.Any, filePath, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Any), result.Tags);
+
+                    Debug.WriteLine($"Found {result.Tags.Count} taggable issues in '{filePath}'.");
+
+                    if (result.Tags.Count > 0)
+                    {
+                        // if (result.Tags.Count > 10)
+                        if (result.Tags.OfType<RapidXamlDisplayedTag>().Any())
+                        {
+                            Debugger.Break();
+                        }
+
+                        this.TestContext.WriteLine($"Found {result.Tags.Count} taggable issues in '{filePath}'.");
+                        this.TestContext.AddResultFile(filePath);
+                    }
+                }
+                else
+                {
+                    Debug.WriteLine($"Invalid XAML found in '{filePath}'.");
+
+                    this.TestContext.WriteLine($"Invalid XAML found in '{filePath}'.");
+                    this.TestContext.AddResultFile(filePath);
+                }
+            }
+        }
+    }
+}

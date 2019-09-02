@@ -60,7 +60,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestSettings.cs" />
     <Compile Include="TestsUsingWinAppDriver.cs" />
-    <Compile Include="XamlAnalysis\ParseRealDocumentsTests.cs" />
+    <Compile Include="XamlAnalysis\ParseRealDocumentsTests.g.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ParseRealDocumentsTests.tt</DependentUpon>
+    </Compile>
     <Compile Include="XamlAnalysis\TestDocsTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +116,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="XamlAnalysis\ParseRealDocumentsTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ParseRealDocumentsTests.g.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
