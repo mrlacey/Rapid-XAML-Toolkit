@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
             {
                 var snapshot = new RapidXamlToolkit.Tests.FakeTextSnapshot();
 
-                XamlElementExtractor.Parse(filePath, snapshot, text, RapidXamlDocument.GetAllProcessors(), result.Tags);
+                XamlElementExtractor.Parse(ProjectType.Any, filePath, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Any), result.Tags);
 
                 Debug.WriteLine($"Found {result.Tags.Count} taggable issues in '{filePath}'.");
 
