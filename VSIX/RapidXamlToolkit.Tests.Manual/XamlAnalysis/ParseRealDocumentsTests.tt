@@ -9,6 +9,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".g.cs" #>
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
