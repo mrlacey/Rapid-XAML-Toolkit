@@ -988,6 +988,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PasswordBox contains hard-coded Description value &apos;{0};.
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringPasswordboxDescriptionMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringPasswordboxDescriptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PasswordBox contains hard-coded Header value &apos;{0}&apos;..
         /// </summary>
         public static string Info_XamlAnalysisHardcodedStringPasswordboxHeaderMessage {

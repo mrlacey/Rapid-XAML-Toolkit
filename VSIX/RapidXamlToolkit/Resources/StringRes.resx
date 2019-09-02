@@ -925,4 +925,7 @@
   <data name="Error_OutdatedConfigurationDetected2" xml:space="preserve">
     <value>Out-dated configuration detected. See https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md</value>
   </data>
+  <data name="Info_XamlAnalysisHardcodedStringPasswordboxDescriptionMessage" xml:space="preserve">
+    <value>PasswordBox contains hard-coded Description value '{0};</value>
+  </data>
 </root>
