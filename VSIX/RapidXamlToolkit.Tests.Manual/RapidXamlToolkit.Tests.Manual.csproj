@@ -65,7 +65,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ParseRealDocumentsTests.tt</DependentUpon>
     </Compile>
-    <Compile Include="XamlAnalysis\TestDocsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
@@ -110,12 +109,6 @@
       <Project>{053a3048-276a-49ed-bd34-9c3ab1273a26}</Project>
       <Name>RapidXamlToolkit</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="XamlAnalysis\TestDocs\Generic.xaml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="XamlAnalysis\ParseRealDocumentsTests.tt">
