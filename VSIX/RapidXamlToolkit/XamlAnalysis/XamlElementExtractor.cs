@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.XamlAnalysis.Processors;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
@@ -81,7 +80,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     if (isIdentifyingElement)
                     {
-                        if (elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
+                        if (elementsOfInterest.Contains(currentElementName.ToString())
+                         || elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
                         {
                             elementsBeingTracked.Add(
                                 new TrackingElement
@@ -119,7 +119,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         if (isIdentifyingElement)
                         {
-                            if (elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
+                            if (elementsOfInterest.Contains(currentElementName.ToString())
+                             || elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
                             {
                                 elementsBeingTracked.Add(
                                     new TrackingElement
@@ -158,7 +159,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                 foreach (var (element, processor) in processors)
                                 {
-                                    if (element == toProcess.ElementNameWithoutNamespace)
+                                    if (element == toProcess.ElementName
+                                     || element == toProcess.ElementNameWithoutNamespace)
                                     {
                                         processor.Process(fileName, toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags, suppressions);
                                     }

@@ -64,13 +64,16 @@ namespace RapidXamlToolkit.Tests.Manual.Options
                         await Task.Delay(30000); // This pause to avoid querying the server too often
                     }
 
-                    var (lines, words) = await CognitiveServicesHelpers.GetTextFromImageAsync(imgFile, this.testSettings.SubscriptionKey, this.testSettings.AzureRegion);
+                    // TODO ISSUE #243 get cognitive service to extract text from image working again.
+                    //// var (lines, words) = await CognitiveServicesHelpers.GetTextFromImageAsync(imgFile, this.testSettings.SubscriptionKey, this.testSettings.AzureRegion);
 
-                    File.WriteAllLines(linesFile, lines);
-                    File.WriteAllLines(wordsFile, words);
+                    //// File.WriteAllLines(linesFile, lines);
+                    //// File.WriteAllLines(wordsFile, words);
                 }
 
                 var appSession = WinAppDriverHelper.LaunchExe(PathToExe);
+
+                appSession.Manage().Window.Maximize();
 
                 await TakeScreenshotThenExtractTextAsync(appSession, "Settings");
 
@@ -82,16 +85,10 @@ namespace RapidXamlToolkit.Tests.Manual.Options
                 appSession.FindElementByName("Mappings").Click();
                 await Task.Delay(1000);
 
-                await TakeScreenshotThenExtractTextAsync(appSession, "Mappings");
-
-                appSession.FindElementByName("General").Click();
-                await Task.Delay(1000);
-
-                await TakeScreenshotThenExtractTextAsync(appSession, "General");
-
                 appSession.ClickElement("Close");
             }
 
+            // TODO ISSUE #243 get changing high contrast settings working again.
             var sysSettings = new SystemSettingsHelper();
 
             await sysSettings.TurnOffHighContrastAsync();

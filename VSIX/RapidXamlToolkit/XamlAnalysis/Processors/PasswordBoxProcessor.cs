@@ -39,6 +39,21 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Guid.Empty,
                 tags,
                 suppressions);
+
+            this.CheckForHardCodedAttribute(
+                fileName,
+                Elements.PasswordBox,
+                Attributes.Description,
+                AttributeType.InlineOrElement,
+                StringRes.Info_XamlAnalysisHardcodedStringPasswordboxDescriptionMessage,
+                xamlElement,
+                snapshot,
+                offset,
+                uidExists,
+                uid,
+                Guid.Empty,
+                tags,
+                suppressions);
         }
     }
 }

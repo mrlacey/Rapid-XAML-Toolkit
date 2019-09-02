@@ -112,7 +112,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
-        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, string xaml, int position, ILogger logger)
+        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger)
         {
             var startPos = xaml.Substring(0, position).LastIndexOf('<');
 
@@ -123,7 +123,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var processor = new SubElementProcessor(projectType, logger);
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
-            XamlElementExtractor.Parse(projectType, fileName, null, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList());
+            XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList());
 
             if (result == null)
             {
@@ -146,7 +146,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         /// <param name="linePadding">The amount of left padding the element has on the line where it starts.</param>
         /// <param name="snapshot">The ITextSnapshot containing the XAML being analyzed.</param>
         /// <param name="tags">Reference to the list of all tags found in the document. Add any new tags here.</param>
-        /// <param name="suppressions">A list of user defined suppressions to override defautl behavior.</param>
+        /// <param name="suppressions">A list of user defined suppressions to override default behavior.</param>
         public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null);
 
         public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)

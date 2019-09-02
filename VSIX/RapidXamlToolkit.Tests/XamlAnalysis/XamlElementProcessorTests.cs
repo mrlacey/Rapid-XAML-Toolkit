@@ -290,6 +290,18 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
+        public void GetSubElementAtPosition_ChildIsSelfClosingAndWithXmlns()
+        {
+            var origin = "<Root><local:Child ☆Grid.RowSpan=\"2\"/></Root>";
+
+            var expected = "<local:Child Grid.RowSpan=\"2\"/>";
+
+            var actual = this.GetSubElementAtStar(origin);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
         public void GetSubElementAtPosition_ChildIsNotSelfClosing()
         {
             var origin = "<Root><Child ☆Grid.RowSpan=\"2\"></Child></Root>";
@@ -352,7 +364,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         private string GetSubElementAtStar(string outerElement)
         {
             var offset = outerElement.IndexOf('☆');
-            return XamlElementProcessor.GetSubElementAtPosition(ProjectType.Any, "testFile.xaml", outerElement.Replace("☆", string.Empty), offset, new DefaultTestLogger());
+            return XamlElementProcessor.GetSubElementAtPosition(ProjectType.Any, "testFile.xaml", new FakeTextSnapshot(), outerElement.Replace("☆", string.Empty), offset, new DefaultTestLogger());
         }
 
         private bool HasDefaultValue(string xaml)

@@ -21,5 +21,16 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
             Assert.AreEqual(1, outputTags.Count);
             Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
         }
+
+        [TestMethod]
+        public void HardCoded_Description_Detected()
+        {
+            var xaml = @"<PasswordBox Description=""HCValue"" />";
+
+            var outputTags = this.GetTags<PasswordBoxProcessor>(xaml);
+
+            Assert.AreEqual(1, outputTags.Count);
+            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+        }
     }
 }
