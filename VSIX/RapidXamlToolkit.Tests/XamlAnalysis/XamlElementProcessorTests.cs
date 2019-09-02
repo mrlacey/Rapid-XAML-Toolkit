@@ -290,6 +290,18 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
+        public void GetSubElementAtPosition_ChildIsSelfClosingAndWithXmlns()
+        {
+            var origin = "<Root><local:Child ☆Grid.RowSpan=\"2\"/></Root>";
+
+            var expected = "<local:Child Grid.RowSpan=\"2\"/>";
+
+            var actual = this.GetSubElementAtStar(origin);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
         public void GetSubElementAtPosition_ChildIsNotSelfClosing()
         {
             var origin = "<Root><Child ☆Grid.RowSpan=\"2\"></Child></Root>";
