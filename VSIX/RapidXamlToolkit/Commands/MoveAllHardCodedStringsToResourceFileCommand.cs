@@ -54,11 +54,11 @@ namespace RapidXamlToolkit.Commands
             Instance = new MoveAllHardCodedStringsToResourceFileCommand(package, commandService, logger);
         }
 
+#pragma warning disable VSTHRD100 // Avoid async void methods - Allowed as called from event handler.
         private async void Execute(object sender, EventArgs e)
+#pragma warning restore VSTHRD100 // Avoid async void methods
         {
-            System.Windows.Forms.Cursor previousCursor;
-
-            previousCursor = System.Windows.Forms.Cursor.Current;
+            System.Windows.Forms.Cursor previousCursor = System.Windows.Forms.Cursor.Current;
             System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
 
             try
@@ -85,22 +85,31 @@ namespace RapidXamlToolkit.Commands
 
                 var referenceUids = new Dictionary<Guid, string>();
 
-                // Bundle this in a single undo option?
-                foreach (var tag in tags)
+                vs.StartSingleUndoOperation(StringRes.Info_UndoContextMoveStringsToResourceFile);
+
+                try
                 {
-                    if (!tag.UidExists && referenceUids.ContainsKey(tag.ElementGuid))
+                    foreach (var tag in tags)
                     {
-                        tag.UidExists = true;
-                        tag.UidValue = referenceUids[tag.ElementGuid];
-                    }
+                        if (!tag.UidExists && referenceUids.ContainsKey(tag.ElementGuid))
+                        {
+                            tag.UidExists = true;
+                            tag.UidValue = referenceUids[tag.ElementGuid];
+                        }
 
-                    var action = new HardCodedStringAction(filePath, null, tag);
-                    action.Execute(new CancellationTokenSource().Token);
+                        // pass in vs so have the same reference for tracking undo actions
+                        var action = new HardCodedStringAction(filePath, null, tag, vs);
+                        action.Execute(new CancellationTokenSource().Token);
 
-                    if (tag.UidExists == false && tag.ElementGuid != Guid.Empty && !referenceUids.ContainsKey(tag.ElementGuid))
-                    {
-                        referenceUids.Add(tag.ElementGuid, tag.UidValue);
+                        if (tag.UidExists == false && tag.ElementGuid != Guid.Empty && !referenceUids.ContainsKey(tag.ElementGuid))
+                        {
+                            referenceUids.Add(tag.ElementGuid, tag.UidValue);
+                        }
                     }
+                }
+                finally
+                {
+                    vs.EndSingleUndoOperation();
                 }
 
                 // Update again to force reflecting the changes that were just made.

@@ -51,6 +51,12 @@ namespace RapidXamlToolkit.Options
 
         private void HandleHighContrastForTextEditors()
         {
+            // Always set the background as AvalonEdit uses transparent which is different to TextBox.
+            this.FallbackOutputBorder.Background = this.ReferenceTextBox.Background;
+            this.SubPropertyOutputBorder.Background = this.ReferenceTextBox.Background;
+            this.EnumMemberOutputBorder.Background = this.ReferenceTextBox.Background;
+            this.SelectedMappingOutputBorder.Background = this.ReferenceTextBox.Background;
+
             if (SystemParameters.HighContrast)
             {
                 // Remove highlighting and default system highlighting will be applied and this includes high contrast
@@ -168,7 +174,6 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -194,7 +199,6 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -218,13 +222,7 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
-        }
-
-        private void DetailsClicked(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/16");
         }
 
         private void TextEditorPreviewKeyDown(object sender, KeyEventArgs e)

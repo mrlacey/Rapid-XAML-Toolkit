@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests.Formatting
 {
@@ -77,7 +78,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetsNonFilteredOutputIfNameDoesntMatch()
         {
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), this.testProfile.ProjectType, 4, this.testProfile);
             var result = cpb.GetPropertyOutput("string", "MyProperty", isReadOnly: false);
 
             Assert.AreEqual(ReadWriteStringOutput.Replace("$name$", "MyProperty"), result);
@@ -86,7 +87,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void ReadWritePropertyIsIdentified()
         {
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), this.testProfile.ProjectType, 4, this.testProfile);
             var result = cpb.GetPropertyOutput("string", "AnotherProperty", isReadOnly: true);
 
             Assert.AreEqual(ReadonlyStringOutput.Replace("$name$", "AnotherProperty"), result);
@@ -95,7 +96,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void SingleNameContainsIsIdentified()
         {
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), this.testProfile.ProjectType, 4, this.testProfile);
             var result = cpb.GetPropertyOutput("int", "number1", isReadOnly: false);
 
             Assert.AreEqual(ReadWriteNumberIntOutput, result);
@@ -104,7 +105,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void MultipleNameContainsIsIdentified()
         {
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), this.testProfile.ProjectType, 4, this.testProfile);
             var result = cpb.GetPropertyOutput("string", "EnteredPassword", isReadOnly: false);
 
             Assert.AreEqual(ReadWritePasswordStringOutput.Replace("$name$", "EnteredPassword"), result);
@@ -113,7 +114,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void ReadOnlyTakesPriorityOverContains()
         {
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), this.testProfile.ProjectType, 4, this.testProfile);
             var result = cpb.GetPropertyOutput("string", "EnteredPwd", isReadOnly: true);
 
             Assert.AreEqual(ReadonlyStringOutput.Replace("$name$", "EnteredPwd"), result);
@@ -122,7 +123,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void TypeNameIsCaseInsensitive()
         {
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), this.testProfile.ProjectType, 4, this.testProfile);
             var result = cpb.GetPropertyOutput("INT", "number1", isReadOnly: false);
 
             Assert.AreEqual(ReadWriteNumberIntOutput, result);
@@ -131,7 +132,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void NameContainsIsCaseInsensitive()
         {
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), this.testProfile.ProjectType, 4, this.testProfile);
             var result = cpb.GetPropertyOutput("int", "Number1", isReadOnly: false);
 
             Assert.AreEqual(ReadWriteNumberIntOutput, result);
@@ -140,7 +141,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void NoNameContainsIsIdentified()
         {
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), this.testProfile.ProjectType, 4, this.testProfile);
             var result = cpb.GetPropertyOutput("int", "numero2", isReadOnly: false);
 
             Assert.AreEqual(ReadWriteIntOutput, result);
@@ -149,7 +150,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetFallbackIfTypeNotMapped()
         {
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, this.testProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), this.testProfile.ProjectType, 4, this.testProfile);
             var result = cpb.GetPropertyOutput("bool", "IsAdmin", isReadOnly: false);
 
             Assert.AreEqual(FallbackOutput, result);
@@ -161,6 +162,7 @@ namespace RapidXamlToolkit.Tests.Formatting
             var gridProfile = new Profile
             {
                 Name = "GridTestProfile",
+                ProjectType = ProjectType.Uwp,
                 ClassGrouping = "Grid",
                 FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
                 SubPropertyOutput = "<TextBlock Text=\"SUBPROP_$name$\" />",
@@ -176,7 +178,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, gridProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), gridProfile.ProjectType, 4, gridProfile);
             var result = cpb.GetPropertyOutput(StringPropertyName, "MyProperty", false);
 
             var expected = "<TextBlock Text=\"MyProperty\" Grid.Row=\"1\" />" + Environment.NewLine +
@@ -191,6 +193,7 @@ namespace RapidXamlToolkit.Tests.Formatting
             var readonlyProfile = new Profile
             {
                 Name = "readonlyProfile",
+                ProjectType = ProjectType.Uwp,
                 ClassGrouping = "Grid",
                 FallbackOutput = "<Fallback />",
                 Mappings = new ObservableCollection<Mapping>
@@ -205,7 +208,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, readonlyProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), readonlyProfile.ProjectType, 4, readonlyProfile);
             var result = cpb.GetPropertyOutput(StringPropertyName, "MyProperty", isReadOnly: true);
 
             Assert.AreEqual("<ReadAndWrite />", result);
@@ -231,7 +234,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, readonlyProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), readonlyProfile.ProjectType, 4, readonlyProfile);
             var result = cpb.GetPropertyOutput(StringPropertyName, "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("<Fallback />", result);
@@ -299,6 +302,7 @@ namespace RapidXamlToolkit.Tests.Formatting
             var wildcardGenericsProfile = new Profile
             {
                 Name = "wildcardGenericsProfile",
+                ProjectType = ProjectType.Uwp,
                 ClassGrouping = "Grid",
                 FallbackOutput = "<Fallback />",
                 Mappings = new ObservableCollection<Mapping>
@@ -313,7 +317,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, wildcardGenericsProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), wildcardGenericsProfile.ProjectType, 4, wildcardGenericsProfile);
             var result = cpb.GetPropertyOutput("List<string>", "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("<Wildcard />", result);
@@ -325,6 +329,7 @@ namespace RapidXamlToolkit.Tests.Formatting
             var wildcardGenericsProfile = new Profile
             {
                 Name = "wildcardGenericsProfile",
+                ProjectType = ProjectType.Uwp,
                 ClassGrouping = "Grid",
                 FallbackOutput = "<Fallback />",
                 Mappings = new ObservableCollection<Mapping>
@@ -346,7 +351,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 },
             };
 
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, wildcardGenericsProfile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), wildcardGenericsProfile.ProjectType, 4, wildcardGenericsProfile);
             var result = cpb.GetPropertyOutput("List<string>", "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("<ListOfStrings />", result);
@@ -364,7 +369,7 @@ namespace RapidXamlToolkit.Tests.Formatting
                 Output = "$namewithspaces$",
             });
 
-            var cpb = new CodeParserBase(DefaultTestLogger.Create(), 4, profile);
+            var cpb = new CodeParserBase(DefaultTestLogger.Create(), profile.ProjectType, 4, profile);
             var result = cpb.GetPropertyOutput("string", "MyProperty", isReadOnly: false);
 
             Assert.AreEqual("My Property", result);

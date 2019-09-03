@@ -22,14 +22,16 @@ namespace RapidXamlToolkit.DragDrop
         private readonly ITextBufferUndoManager undoManager;
         private readonly IFileSystemAbstraction fileSystem;
         private readonly IVisualStudioAbstraction vs;
+        private readonly ProjectType projectType;
         private string draggedFilename;
 
-        public RapidXamlDropHandler(ILogger logger, IWpfTextView view, ITextBufferUndoManager undoManager, IVisualStudioAbstraction vs, IFileSystemAbstraction fileSystem = null)
+        public RapidXamlDropHandler(ILogger logger, IWpfTextView view, ITextBufferUndoManager undoManager, IVisualStudioAbstraction vs, ProjectType projectType, IFileSystemAbstraction fileSystem = null)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.view = view;
             this.undoManager = undoManager;
             this.vs = vs ?? throw new ArgumentNullException(nameof(vs));
+            this.projectType = projectType;
             this.fileSystem = fileSystem ?? new WindowsFileSystem();
         }
 
@@ -37,17 +39,27 @@ namespace RapidXamlToolkit.DragDrop
         {
             var position = dragDropInfo.VirtualBufferPosition.Position;
 
-            var insertLineLength = this.view.GetTextViewLineContainingBufferPosition(position).Length;
+            // Get left padding (allowing for drop postion to not be on the start/end of a line)
+            var insertLineStart = this.view.GetTextViewLineContainingBufferPosition(position).Start.Position;
+
+            var insertLinePadding = position.Position - insertLineStart;
 
             ThreadHelper.JoinableTaskFactory.Run(async () =>
             {
-                var logic = new DropHandlerLogic(this.logger, this.vs, this.fileSystem);
-
-                var textOutput = await logic.ExecuteAsync(this.draggedFilename, insertLineLength);
-
-                if (!string.IsNullOrEmpty(textOutput))
+                try
                 {
-                    this.view.TextBuffer.Insert(position.Position, textOutput);
+                    var logic = new DropHandlerLogic(this.logger, this.vs, this.fileSystem);
+
+                    var textOutput = await logic.ExecuteAsync(this.draggedFilename, insertLinePadding, this.projectType);
+
+                    if (!string.IsNullOrEmpty(textOutput))
+                    {
+                        this.view.TextBuffer.Insert(position.Position, textOutput);
+                    }
+                }
+                catch (Exception exc)
+                {
+                    this.logger?.RecordException(exc);
                 }
             });
 

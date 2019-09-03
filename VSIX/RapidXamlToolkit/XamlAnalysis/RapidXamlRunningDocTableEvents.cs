@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TextManager.Interop;
+using RapidXamlToolkit.ErrorList;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
@@ -59,6 +60,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public int OnAfterDocumentWindowHide(uint docCookie, IVsWindowFrame pFrame)
         {
+            var documentInfo = this.runningDocumentTable.GetDocumentInfo(docCookie);
+
+            if (documentInfo.Moniker != null)
+            {
+                TableDataSource.Instance.CleanErrors(documentInfo.Moniker);
+            }
+
             return VSConstants.S_OK;
         }
     }

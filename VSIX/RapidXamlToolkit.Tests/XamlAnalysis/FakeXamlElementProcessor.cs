@@ -12,6 +12,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
     // Used to record/track/assert the values passed to a processor during testing
     public class FakeXamlElementProcessor : XamlElementProcessor
     {
+        public FakeXamlElementProcessor()
+            : base(ProjectType.Any, new DefaultTestLogger())
+        {
+        }
+
         public bool ProcessCalled { get; set; } = false;
 
         public int ProcessCalledCount { get; private set; } = 0;
@@ -24,7 +29,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
         public Dictionary<int, string> AllXamlElements { get; private set; } = new Dictionary<int, string>();
 
-        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             this.ProcessCalled = true;
             this.ProcessCalledCount += 1;

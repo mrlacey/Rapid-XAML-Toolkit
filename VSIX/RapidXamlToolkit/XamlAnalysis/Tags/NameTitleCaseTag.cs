@@ -7,10 +7,10 @@ using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public class NameTitleCaseTag : RapidXamlSuggestionTag
+    public class NameTitleCaseTag : RapidXamlDisplayedTag
     {
-        public NameTitleCaseTag(Span span, ITextSnapshot snapshot, int line, int column, string value)
-            : base(span, snapshot, "RXT452", line, column)
+        public NameTitleCaseTag(Span span, ITextSnapshot snapshot, string fileName, string value)
+            : base(span, snapshot, fileName, "RXT452",  TagErrorType.Suggestion)
         {
             this.SuggestedAction = typeof(MakeNameStartWithCapitalAction);
             this.ToolTip = StringRes.Info_XamlAnalysisNameTitleCaseToolTip;

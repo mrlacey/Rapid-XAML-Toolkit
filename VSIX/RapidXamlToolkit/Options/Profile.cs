@@ -44,6 +44,8 @@ namespace RapidXamlToolkit.Options
             }
         }
 
+        public ProjectType ProjectType { get; set; }
+
         public string ClassGrouping { get; set; }
 
         [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger, Placeholder.NoOutput, Placeholder.XName, Placeholder.RepeatingXName)]
@@ -91,7 +93,17 @@ namespace RapidXamlToolkit.Options
             }
         }
 
-        public GeneralSettings General { get; set; }
+        public bool AttemptAutomaticDocumentFormatting { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public string ProjectTypeDescription
+        {
+            get
+            {
+                return this.ProjectType.GetDescription();
+            }
+        }
 
         public static Profile CreateNew()
         {
@@ -101,8 +113,9 @@ namespace RapidXamlToolkit.Options
                 ClassGrouping = string.Empty,
                 FallbackOutput = string.Empty,
                 SubPropertyOutput = string.Empty,
+                EnumMemberOutput = string.Empty,
                 Mappings = new ObservableCollection<Mapping>(),
-                General = new GeneralSettings(),
+                AttemptAutomaticDocumentFormatting = true,
             };
         }
 
@@ -114,8 +127,9 @@ namespace RapidXamlToolkit.Options
                 ClassGrouping = this.ClassGrouping,
                 FallbackOutput = this.FallbackOutput,
                 SubPropertyOutput = this.SubPropertyOutput,
+                EnumMemberOutput = this.EnumMemberOutput,
                 Mappings = new ObservableCollection<Mapping>(),
-                General = this.General,
+                AttemptAutomaticDocumentFormatting = this.AttemptAutomaticDocumentFormatting,
             };
 
             foreach (var mapping in this.Mappings)

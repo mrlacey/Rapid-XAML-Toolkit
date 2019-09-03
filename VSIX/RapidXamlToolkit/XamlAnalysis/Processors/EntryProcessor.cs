@@ -3,23 +3,34 @@
 
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class EntryProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public EntryProcessor(ProjectType projectType, ILogger logger)
+            : base(projectType, logger)
         {
+        }
+
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
+        {
+            if (!this.ProjectType.Matches(ProjectType.XamarinForms))
+            {
+                return;
+            }
+
             if (!this.TryGetAttribute(xamlElement, Attributes.Keyboard, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
-                var line = snapshot.GetLineFromPosition(offset);
-                var col = offset - line.Start.Position;
-
-                tags.Add(new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, line.LineNumber, col, xamlElement)
-                {
-                    InsertPosition = offset,
-                });
+                tags.TryAdd(
+                    new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, fileName, xamlElement)
+                    {
+                        InsertPosition = offset,
+                    },
+                    xamlElement,
+                    suppressions);
             }
         }
     }

@@ -4,15 +4,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Tests.Grid;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
-namespace RapidXamlToolkit.Tests.XamlAnalysis
+namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
     [TestClass]
-    public class TextBlockProcessTests
+    public class TextBlockProcessorTests : ProcessorTestsBase
     {
         [TestMethod]
         public void DetectsHardcodedText_OnlyAttribute_SelfClosing()
@@ -136,15 +135,26 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(0, outputTags.Count);
         }
 
+        [TestMethod]
+        public void HardCoded_Text_Detected()
+        {
+            var xaml = @"<TextBlock Text=""HCValue"" />";
+
+            var outputTags = this.GetTags<TextBlockProcessor>(xaml);
+
+            Assert.AreEqual(1, outputTags.Count);
+            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+        }
+
         private List<IRapidXamlAdornmentTag> Act(string xaml)
         {
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
-            var sut = new TextBlockProcessor();
+            var sut = new TextBlockProcessor(ProjectType.Any, new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(0, xaml, string.Empty, snapshot, outputTags);
+            sut.Process("nofile.xaml", 0, xaml, string.Empty, snapshot, outputTags);
 
             return outputTags;
         }

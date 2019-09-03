@@ -7,11 +7,11 @@ using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    public class CheckBoxCheckedAndUncheckedEventsTag : RapidXamlWarningTag
+    public class CheckBoxCheckedAndUncheckedEventsTag : RapidXamlDisplayedTag
     {
         // https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/checkbox#handle-click-and-checked-events
-        public CheckBoxCheckedAndUncheckedEventsTag(Span span, ITextSnapshot snapshot, int line, int column, string existingName, bool hasChecked)
-            : base(span, snapshot, "RXT401", line, column)
+        public CheckBoxCheckedAndUncheckedEventsTag(Span span, ITextSnapshot snapshot, string fileName, string existingName, bool hasChecked)
+            : base(span, snapshot, fileName, "RXT401", TagErrorType.Warning)
         {
             this.SuggestedAction = typeof(MissingCheckBoxEventAction);
             this.ToolTip = StringRes.Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip;

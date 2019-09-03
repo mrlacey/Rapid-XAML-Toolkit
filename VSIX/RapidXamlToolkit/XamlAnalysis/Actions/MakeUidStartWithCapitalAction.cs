@@ -3,7 +3,6 @@
 
 using System.Threading;
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions

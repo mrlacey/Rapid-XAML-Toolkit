@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using Microsoft.CodeAnalysis;
-using RapidXamlToolkit.Options;
 
 namespace RapidXamlToolkit.Parsers
 {

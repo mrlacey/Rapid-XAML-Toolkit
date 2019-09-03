@@ -8,12 +8,15 @@ using System.Text;
 using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Settings;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Options
 {
     public partial class ConfiguredSettings : CanNotifyPropertyChanged
     {
         public const string SettingCollectionName = "RapidXamlToolkitSettings";
+
+        private static bool configurationErrorReported = false;
 
         private readonly WritableSettingsStore store;
         private Settings actualSettings;
@@ -29,17 +32,27 @@ namespace RapidXamlToolkit.Options
                 {
                     var settingsString = this.store.GetString(SettingCollectionName, nameof(this.ActualSettings));
 
-                    this.actualSettings = DeserializeOrDefault(settingsString);
+                    this.ActualSettings = DeserializeOrDefault(settingsString);
+
+                    if ((this.ActualSettings.FormatVersion == null
+                      || this.ActualSettings.FormatVersion != Settings.CurrentFormatVersion)
+                     && (configurationErrorReported == false))
+                    {
+                        configurationErrorReported = true;
+
+                        // `RecordError` may query settings and a problem with settings is why we may be here.
+                        RapidXamlPackage.Logger.RecordError(StringRes.Error_OutdatedConfigurationDetected2, force: true);
+                        RapidXamlPackage.Logger.RecordGeneralError(StringRes.Error_OutdatedConfigurationDetected2);
+                    }
                 }
                 else
                 {
-                    this.actualSettings = GetDefaultSettings();
+                    this.ActualSettings = GetDefaultSettings();
                 }
             }
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -77,7 +90,7 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
+                return string.Empty;
             }
         }
 
@@ -98,12 +111,17 @@ namespace RapidXamlToolkit.Options
                     }
                 }
 
-                return deserializedSettings ?? GetDefaultSettings();
+                if (deserializedSettings?.Profiles == null || deserializedSettings?.Profiles.Count < 1)
+                {
+                    return GetDefaultSettings();
+                }
+
+                return deserializedSettings;
             }
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
+                return null;
             }
         }
 
@@ -125,7 +143,6 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -137,14 +154,15 @@ namespace RapidXamlToolkit.Options
 
                 var defaults = GetDefaultSettings();
 
+                this.ActualSettings.FormatVersion = defaults.FormatVersion;
                 this.ActualSettings.Profiles.Clear();
-                this.actualSettings.Profiles.AddRange(defaults.Profiles);
-                this.ActualSettings.ActiveProfileName = defaults.ActiveProfileName;
+                this.ActualSettings.Profiles.AddRange(defaults.Profiles);
+                this.ActualSettings.FallBackProfileName = defaults.FallBackProfileName;
+                this.ActualSettings.ActiveProfileNames = defaults.ActiveProfileNames;
             }
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
     }

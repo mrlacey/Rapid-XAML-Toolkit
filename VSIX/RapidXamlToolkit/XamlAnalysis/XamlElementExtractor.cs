@@ -6,19 +6,18 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.XamlAnalysis.Processors;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        public static bool Parse(ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlAdornmentTag> tags)
+        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions = null)
         {
             var elementsOfInterest = processors.Select(p => p.element).ToList();
 
             var elementsBeingTracked = new List<TrackingElement>();
 
-            var everyElementProcessor = new EveryElementProcessor();
+            var everyElementProcessor = new EveryElementProcessor(projectType, RapidXamlPackage.Logger);
 
             bool isIdentifyingElement = false;
             bool isClosingElement = false;
@@ -53,15 +52,18 @@ namespace RapidXamlToolkit.XamlAnalysis
                         currentElementBody = new StringBuilder("<");
                     }
                 }
-                else if (char.IsLetterOrDigit(xaml[i]))
+                else if (char.IsLetterOrDigit(xaml[i]) || xaml[i] == ':')
                 {
-                    if (isIdentifyingElement)
+                    if (!inComment)
                     {
-                        currentElementName.Append(xaml[i]);
-                    }
-                    else if (isClosingElement)
-                    {
-                        closingElementName.Append(xaml[i]);
+                        if (isIdentifyingElement)
+                        {
+                            currentElementName.Append(xaml[i]);
+                        }
+                        else if (isClosingElement)
+                        {
+                            closingElementName.Append(xaml[i]);
+                        }
                     }
 
                     inLineOpeningWhitespace = false;
@@ -78,7 +80,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     if (isIdentifyingElement)
                     {
-                        if (elementsOfInterest.Contains(currentElementName.ToString()))
+                        if (elementsOfInterest.Contains(currentElementName.ToString())
+                         || elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
                         {
                             elementsBeingTracked.Add(
                                 new TrackingElement
@@ -116,7 +119,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         if (isIdentifyingElement)
                         {
-                            if (elementsOfInterest.Contains(currentElementName.ToString()))
+                            if (elementsOfInterest.Contains(currentElementName.ToString())
+                             || elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
                             {
                                 elementsBeingTracked.Add(
                                     new TrackingElement
@@ -151,13 +155,14 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                             {
-                                everyElementProcessor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
+                                everyElementProcessor.Process(fileName, toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags, suppressions);
 
                                 foreach (var (element, processor) in processors)
                                 {
-                                    if (element == toProcess.ElementName)
+                                    if (element == toProcess.ElementName
+                                     || element == toProcess.ElementNameWithoutNamespace)
                                     {
-                                        processor.Process(toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags);
+                                        processor.Process(fileName, toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags, suppressions);
                                     }
                                 }
 
@@ -172,7 +177,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 }
                 else if (xaml[i] == '-')
                 {
-                    if (i > 3 && xaml.Substring(i - 3, 4) == "<!--")
+                    if (i >= 3 && xaml.Substring(i - 3, 4) == "<!--")
                     {
                         inComment = true;
                     }
@@ -187,6 +192,14 @@ namespace RapidXamlToolkit.XamlAnalysis
             public int StartPos { get; set; }
 
             public string ElementName { get; set; }
+
+            public string ElementNameWithoutNamespace
+            {
+                get
+                {
+                    return this.ElementName.PartAfter(":");
+                }
+            }
 
             public StringBuilder ElementBody { get; set; }
         }

@@ -23,7 +23,6 @@ namespace RapidXamlToolkit.Commands
 
             var menuCommandId = new CommandID(CommandSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandId);
-            menuItem.BeforeQueryStatus += this.MenuItem_BeforeQueryStatus;
             commandService.AddCommand(menuItem);
         }
 
@@ -42,8 +41,13 @@ namespace RapidXamlToolkit.Commands
             Instance = new CopyToClipboardCommand(package, commandService, logger);
         }
 
+#pragma warning disable VSTHRD100 // Avoid async void methods - Allowed as called from event handler.
         private async void Execute(object sender, EventArgs e)
+#pragma warning restore VSTHRD100 // Avoid async void methods
         {
+            Cursor previousCursor = Cursor.Current;
+            Cursor.Current = Cursors.WaitCursor;
+
             try
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
@@ -77,6 +81,10 @@ namespace RapidXamlToolkit.Commands
             catch (Exception exc)
             {
                 this.Logger?.RecordException(exc);
+            }
+            finally
+            {
+                System.Windows.Forms.Cursor.Current = previousCursor;
             }
         }
     }

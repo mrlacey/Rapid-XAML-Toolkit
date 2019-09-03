@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class StringRes {
@@ -57,6 +57,15 @@ namespace RapidXamlToolkit.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md.
+        /// </summary>
+        public static string Error_OutdatedConfigurationDetected2 {
+            get {
+                return ResourceManager.GetString("Error_OutdatedConfigurationDetected2", resourceCulture);
             }
         }
         
@@ -228,6 +237,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_CreatedView {
             get {
                 return ResourceManager.GetString("Info_CreatedView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detected project type as &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_DetectedProjectType {
+            get {
+                return ResourceManager.GetString("Info_DetectedProjectType", resourceCulture);
             }
         }
         
@@ -718,6 +736,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move all strings to resource file.
+        /// </summary>
+        public static string Info_UndoContextMoveStringsToResourceFile {
+            get {
+                return ResourceManager.GetString("Info_UndoContextMoveStringsToResourceFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move string to resource file.
         /// </summary>
         public static string Info_UndoContextMoveStringToResourceFile {
@@ -732,6 +759,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_UsingClassGrouping {
             get {
                 return ResourceManager.GetString("Info_UsingClassGrouping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Using profile &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_UsingProfile {
+            get {
+                return ResourceManager.GetString("Info_UsingProfile", resourceCulture);
             }
         }
         
@@ -948,6 +984,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_XamlAnalysisHardcodedStringMenuFlyoutSubItemTextMessage {
             get {
                 return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringMenuFlyoutSubItemTextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PasswordBox contains hard-coded Description value &apos;{0};.
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringPasswordboxDescriptionMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringPasswordboxDescriptionMessage", resourceCulture);
             }
         }
         
@@ -1177,6 +1222,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To receive notification of selection changes, set BindingMode to TwoWay..
+        /// </summary>
+        public static string Info_XamlAnalysisSetBindingModeToTwoWayDescription {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisSetBindingModeToTwoWayDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set BindingMode to TwoWay to be notified of changes..
+        /// </summary>
+        public static string Info_XamlAnalysisSetBindingModeToTwoWayToolTip {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisSetBindingModeToTwoWayToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to InputScope is not specified for the TextBox..
         /// </summary>
         public static string Info_XamlAnalysisTextBoxWithoutInputScopeDescription {
@@ -1362,6 +1425,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Options_ButtonSetAsActive {
             get {
                 return ResourceManager.GetString("Options_ButtonSetAsActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set as _Fall Back.
+        /// </summary>
+        public static string Options_ButtonSetAsFallBack {
+            get {
+                return ResourceManager.GetString("Options_ButtonSetAsFallBack", resourceCulture);
             }
         }
         
@@ -1789,6 +1861,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string Options_XamlAll {
+            get {
+                return ResourceManager.GetString("Options_XamlAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XAML Project Type.
+        /// </summary>
+        public static string Options_XamlDialect {
+            get {
+                return ResourceManager.GetString("Options_XamlDialect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XAML file directory name:.
         /// </summary>
         public static string Options_XamlFileDirectoryName {
@@ -1875,6 +1965,33 @@ namespace RapidXamlToolkit.Resources {
         public static string Options_XamlProjectSuffixDescription {
             get {
                 return ResourceManager.GetString("Options_XamlProjectSuffixDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UWP.
+        /// </summary>
+        public static string Options_XamlUwp {
+            get {
+                return ResourceManager.GetString("Options_XamlUwp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WPF.
+        /// </summary>
+        public static string Options_XamlWpf {
+            get {
+                return ResourceManager.GetString("Options_XamlWpf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xamarin.Forms.
+        /// </summary>
+        public static string Options_XamlXamarinForms {
+            get {
+                return ResourceManager.GetString("Options_XamlXamarinForms", resourceCulture);
             }
         }
         
@@ -2124,6 +2241,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}    [*FALLBACK*][*ACTIVE*].
+        /// </summary>
+        public static string UI_FallBackActiveProfileName {
+            get {
+                return ResourceManager.GetString("UI_FallBackActiveProfileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}    [*FALLBACK*].
+        /// </summary>
+        public static string UI_FallBackProfileName {
+            get {
+                return ResourceManager.GetString("UI_FallBackProfileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert new definition for row {this.tag.RowId}.
         /// </summary>
         public static string UI_InsertNewDefinitionForRow {
@@ -2214,6 +2349,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set BindingMode to TwoWay..
+        /// </summary>
+        public static string UI_SetBindingModeToTwoWay {
+            get {
+                return ResourceManager.GetString("UI_SetBindingModeToTwoWay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rapid XAML.
         /// </summary>
         public static string UI_ToolboxGroupHeader {
@@ -2250,7 +2394,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to First set an active profile.
+        ///   Looks up a localized string similar to Profiles.
         /// </summary>
         public static string VSCT__OpenOptionsCommandId {
             get {

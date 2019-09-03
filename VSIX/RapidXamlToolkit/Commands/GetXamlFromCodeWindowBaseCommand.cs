@@ -51,15 +51,26 @@ namespace RapidXamlToolkit.Commands
                     var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
                     var xamlIndent = await vs.GetXamlIndentAsync();
 
+                    var proj = dte.Solution.GetProjectContainingFile(document.FilePath);
+
+                    if (proj == null)
+                    {
+                        proj = vs.GetActiveProject().Project;
+                    }
+
+                    var projType = vs.GetProjectType(proj);
+
+                    this.Logger?.RecordInfo(StringRes.Info_DetectedProjectType.WithParams(projType.GetDescription()));
+
                     IDocumentParser parser = null;
 
                     if (activeDocument.Language == "CSharp")
                     {
-                        parser = new CSharpParser(this.Logger, xamlIndent);
+                        parser = new CSharpParser(this.Logger, projType, xamlIndent);
                     }
                     else if (activeDocument.Language == "Basic")
                     {
-                        parser = new VisualBasicParser(this.Logger, xamlIndent);
+                        parser = new VisualBasicParser(this.Logger, projType, xamlIndent);
                     }
 
                     result = isSelection
@@ -91,27 +102,6 @@ namespace RapidXamlToolkit.Commands
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-            }
-        }
-
-        protected void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
-        {
-            try
-            {
-                if (sender is OleMenuCommand menuCmd)
-                {
-                    menuCmd.Visible = menuCmd.Enabled = false;
-
-                    if (CodeParserBase.GetSettings().IsActiveProfileSet)
-                    {
-                        menuCmd.Visible = menuCmd.Enabled = true;
-                    }
-                }
-            }
-            catch (Exception exc)
-            {
-                this.Logger.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
     }

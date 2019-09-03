@@ -3,23 +3,31 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/kryvt4vdvy39940m/branch/dev?svg=true)](https://ci.appveyor.com/project/mrlacey/rapid-xaml-toolkit/branch/dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Works with Visual Studio 2019](https://img.shields.io/static/v1.svg?label=VS&message=2019&color=5F2E96)
 
-Creating a XAML UI can be slow or require lots of manual effort. These tools aim to reduce the time and effort required to get the basics working and allow you to customize the UI to meet your preferences or the specific needs of your app.
-We can't and don't try to create the whole app for you but we can make creating and working with XAML faster easier.
-The functionality of the toolkit is based common conventions but is highly [configurable](./docs/configuration.md).
+This is a collection of tools for making it easier for developers to work with XAML (**UWP**, **WPF**, and **Xamarin.Forms**). These tools fall into two categories
+
+- **XAML Generation** (making it easier to create a UI with XAML)
+- **XAML Analysis** (helping you find and fix issues with XAML)
 
 :heavy_exclamation_mark: **BETA** :heavy_exclamation_mark:
 
-Consider this project as in an early beta stage. There's still lots to do before it is ready for a full release and there's more functionality we want to add but we're keen to get feedback as soon as possible and focus on the features people want.
+Consider this project as in a beta stage. There's still lots to do before it is ready for a full release and there's more functionality we want to add but we're keen to get feedback as soon as possible and focus on the features people want.
 
 | Build | Status | Details | Install |
 |-------|--------|---------|---------|
 | CI | ![CI Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.ci) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/151.md) | - |
-| nightly | ![Nightly Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.version.create) ![nightly build version](https://rxtstorage.blob.core.windows.net/badges/img.nightly.version.svg) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/152.md) | [myget](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/installation.md#nightly-dev-builds) |
+| nightly | ![Nightly Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.version.create) ![nightly build version](https://rxtstorage.blob.core.windows.net/badges/img.nightly.version.svg) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/152.md) | [myget](https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/docs/installation.md#nightly-dev-builds) |
 
-## Overview
+:heavy_exclamation_mark: If you're using the nightly builds, please see the [changelog](./CHANGELOG.md) for details of a **breaking change** :heavy_exclamation_mark:
 
-The Rapid XAML Toolkit aims to help developers go from this
+## XAML Generation
+
+Creating a XAML UI can be slow and require a lot of manual effort. These tools reduce the time and effort required to get the basics working, allowing more time to customize the UI to meet the specific needs of your app.
+We can't and don't try to create the whole app for you but we can make creating and working with XAML faster and easier.
+The generated XAML is based on common conventions but is highly [configurable](./docs/configuration.md).
+
+Go from this
 
 ```csharp
 public class OrderDetailsViewModel : ViewModelBase
@@ -65,19 +73,22 @@ in a couple of clicks.
 
 The toolkit currently includes the following features
 
-- Create the entire View (XAML & CodeBehind) from the ViewModel file.
 - Create XAML by dragging a ViewModel file onto the designer.
 - Copy a property, selection of properties, or the whole class (from the ViewModel) into the clipboard and paste into the View as XAML.
 - Send a property, selection of properties, or the whole class (from the ViewModel) into the Toolbox and drag into the View as XAML.
-- Set the DataContext in the XAML file.
-- Set the DataContext in the CodeBehind file.
 
 Learn more about [features](./docs/features.md).
+
+## XAML Analysis
+
+Like [Roslyn Analyzers](https://docs.microsoft.com/en-us/visualstudio/code-quality/roslyn-analyzers-overview?view=vs-2019) do for C# and VB.Net, XAML Analyzers can identify potential issues in XAML files and create comments, warnings, or errors about the problems. They also provide Suggested Actions as ways to fix the issues.
+
+![Screenshot showing some of the issues analysis can find](./docs/Assets/xaml-analysis-example.png)
 
 ## Principles guiding this project
 
 - Doing something is better than doing nothing.
-- The toolkit can't produce the final UI as every app may require unique customization.
+- The toolkit can't generate the final XAML as every app requires unique customization.
 - Everything that is output should be configurable.
 - C# and VB.Net are supported equally.
 - The toolkit won't do things that Visual Studio can already do. (Without very good reason.)
@@ -93,4 +104,4 @@ Please see the [contribution guide](./CONTRIBUTING.md).
 
 ***
 
-The Rapid XAML Toolkit (RXT) is a sister project to [Windows Template Studio (WTS)](https://aka.ms/wts). They're separate projects but some of the same people are behind both. Anyone using WTS should also benefit from using RXT.
+The Rapid XAML Toolkit (RXT) is a sister project to [Windows Template Studio (WinTS)](https://aka.ms/wts). They're separate projects but some of the same people are behind both. Anyone using WTS should also benefit from using RXT.

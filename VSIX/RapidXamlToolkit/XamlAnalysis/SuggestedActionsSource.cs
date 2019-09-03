@@ -23,8 +23,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         private readonly RxtSettings config = new RxtSettings();
         private readonly ITextView view;
         private readonly ISuggestedActionCategoryRegistryService suggestedActionCategoryRegistry;
-        private string file;
-        private IViewTagAggregatorFactoryService tagService;
+        private readonly string file;
+        private readonly IViewTagAggregatorFactoryService tagService;
 
         public SuggestedActionsSource(IViewTagAggregatorFactoryService tagService, ISuggestedActionCategoryRegistryService suggestedActionCategoryRegistry, ITextView view, ITextBuffer textBuffer, string file)
         {
@@ -39,6 +39,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             RapidXamlDocumentCache.Add(this.file, textBuffer.CurrentSnapshot);
         }
 
+        // This is not called and so a warning (CS0067) is raised but not supressing this as expect to call this in future.
         public event EventHandler<EventArgs> SuggestedActionsChanged;
 
         // Observable event wrapper
@@ -61,7 +62,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     // Setting the only category to be "REFACTORING" causes the screwdriver icon to be shown, otherwise get the light bulb.
                     return this.suggestedActionCategoryRegistry.CreateSuggestedActionCategorySet(
-                        this.GetTags(range).Any(t => t is RapidXamlErrorListTag) ? PredefinedSuggestedActionCategoryNames.Any
+                        this.GetTags(range).Any(t => t is RapidXamlDisplayedTag) ? PredefinedSuggestedActionCategoryNames.Any
                                                                                  : PredefinedSuggestedActionCategoryNames.Refactoring);
                 },
                 cancellationToken,
@@ -130,6 +131,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                             break;
                         case nameof(MakeUidStartWithCapitalAction):
                             list.AddRange(this.CreateActionSet(rxTag.Span, MakeUidStartWithCapitalAction.Create((UidTitleCaseTag)rxTag, this.file)));
+                            break;
+                        case nameof(SelectedItemBindingModeAction):
+                            list.AddRange(this.CreateActionSet(rxTag.Span, SelectedItemBindingModeAction.Create((SelectedItemBindingModeTag)rxTag, this.file)));
                             break;
                     }
                 }

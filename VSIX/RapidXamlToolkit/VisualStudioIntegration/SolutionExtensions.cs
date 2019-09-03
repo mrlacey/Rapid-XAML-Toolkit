@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace RapidXamlToolkit
+namespace RapidXamlToolkit.VisualStudioIntegration
 {
     public static class SolutionExtensions
     {

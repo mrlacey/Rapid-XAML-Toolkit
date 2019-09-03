@@ -9,10 +9,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlAdornmentTag : IRapidXamlAdornmentTag
     {
-        public RapidXamlAdornmentTag(Span span, ITextSnapshot snapshot)
+        public RapidXamlAdornmentTag(Span span, ITextSnapshot snapshot, string fileName)
         {
             this.Span = span;
             this.Snapshot = snapshot;
+            this.FileName = fileName;
         }
 
         public string ToolTip { get; set; }
@@ -22,6 +23,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public Span Span { get; set; }
 
         public ITextSnapshot Snapshot { get; set; }
+
+        public string FileName { get; }
 
         public abstract ITagSpan<IErrorTag> AsErrorTag();
     }

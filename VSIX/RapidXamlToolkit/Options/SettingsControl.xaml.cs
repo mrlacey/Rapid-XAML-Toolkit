@@ -68,7 +68,7 @@ namespace RapidXamlToolkit.Options
 
                     if (!selectedProfile.IsActive)
                     {
-                        this.SettingsProvider.ActualSettings.ActiveProfileName = selectedProfile.Name;
+                        this.SettingsProvider.ActualSettings.ActiveProfileNames[selectedProfile.ProjectType] = selectedProfile.Name;
                         this.SettingsProvider.Save();
                         this.SettingsProvider.ActualSettings.RefreshProfilesList();
 
@@ -79,7 +79,6 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -105,7 +104,6 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -138,7 +136,6 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -169,7 +166,6 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -197,11 +193,11 @@ namespace RapidXamlToolkit.Options
                     {
                         this.SettingsProvider.ActualSettings.Profiles.RemoveAt(this.DisplayedProfiles.SelectedIndex);
 
-                        if (selectedProfile.Name == this.SettingsProvider.ActualSettings.ActiveProfileName)
+                        if (selectedProfile.Name == this.SettingsProvider.ActualSettings.ActiveProfileNames[selectedProfile.ProjectType])
                         {
                             var firstProfile = this.SettingsProvider.ActualSettings.Profiles.FirstOrDefault();
 
-                            this.SettingsProvider.ActualSettings.ActiveProfileName = firstProfile?.Name ?? string.Empty;
+                            this.SettingsProvider.ActualSettings.ActiveProfileNames[selectedProfile.ProjectType] = firstProfile?.Name ?? string.Empty;
                         }
 
                         this.SettingsProvider.Save();
@@ -212,11 +208,12 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
+#pragma warning disable VSTHRD100 // Avoid async void methods - Allowed as called from event handler.
         private async void ImportClicked(object sender, RoutedEventArgs e)
+#pragma warning restore VSTHRD100 // Avoid async void methods
         {
             if (this.disabled)
             {
@@ -227,43 +224,43 @@ namespace RapidXamlToolkit.Options
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                var openFileDialog = new System.Windows.Forms.OpenFileDialog
+                using (var openFileDialog = new System.Windows.Forms.OpenFileDialog
                 {
                     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                     Filter = $"{StringRes.UI_ProfileFilterDescription} (*.rxprofile)|*.rxprofile",
                     Multiselect = false,
-                };
-
-                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                })
                 {
-                    var fileContents = File.ReadAllText(openFileDialog.FileName);
-
-                    var parser = new ApiAnalysis.SimpleJsonAnalyzer();
-
-                    var parserResults = await parser.AnalyzeJsonAsync(fileContents, typeof(Profile));
-
-                    if (parserResults.Count == 1 && parserResults.First() == parser.MessageBuilder.AllGoodMessage)
+                    if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        var profile = Newtonsoft.Json.JsonConvert.DeserializeObject<Profile>(fileContents);
+                        var fileContents = File.ReadAllText(openFileDialog.FileName);
 
-                        this.SettingsProvider.ActualSettings.Profiles.Add(profile);
-                        this.SettingsProvider.Save();
-                        this.SettingsProvider.ActualSettings.RefreshProfilesList();
-                    }
-                    else
-                    {
-                        MessageBox.Show(
-                                        StringRes.Prompt_ImportFailedMessage.WithParams(string.Join(Environment.NewLine + "- ", parserResults)),
-                                        StringRes.Prompt_ImportFailedTitle,
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Error);
+                        var parser = new ApiAnalysis.SimpleJsonAnalyzer();
+
+                        var parserResults = await parser.AnalyzeJsonAsync(fileContents, typeof(Profile));
+
+                        if (parserResults.Count == 1 && parserResults.First() == parser.MessageBuilder.AllGoodMessage)
+                        {
+                            var profile = Newtonsoft.Json.JsonConvert.DeserializeObject<Profile>(fileContents);
+
+                            this.SettingsProvider.ActualSettings.Profiles.Add(profile);
+                            this.SettingsProvider.Save();
+                            this.SettingsProvider.ActualSettings.RefreshProfilesList();
+                        }
+                        else
+                        {
+                            MessageBox.Show(
+                                            StringRes.Prompt_ImportFailedMessage.WithParams(string.Join(Environment.NewLine + "- ", parserResults)),
+                                            StringRes.Prompt_ImportFailedTitle,
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Error);
+                        }
                     }
                 }
             }
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -283,23 +280,23 @@ namespace RapidXamlToolkit.Options
                     var selectedProfile = this.SettingsProvider.ActualSettings.Profiles[this.DisplayedProfiles.SelectedIndex];
                     var profileJson = selectedProfile.AsJson();
 
-                    var saveFileDialog = new System.Windows.Forms.SaveFileDialog
+                    using (var saveFileDialog = new System.Windows.Forms.SaveFileDialog
                     {
                         InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                         Filter = $"{StringRes.UI_ProfileFilterDescription} (*.rxprofile)|*.rxprofile",
                         FileName = $"{selectedProfile.Name}.rxprofile",
-                    };
-
-                    if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    })
                     {
-                        File.WriteAllText(saveFileDialog.FileName, profileJson);
+                        if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            File.WriteAllText(saveFileDialog.FileName, profileJson);
+                        }
                     }
                 }
             }
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
         }
 
@@ -330,7 +327,39 @@ namespace RapidXamlToolkit.Options
             catch (Exception exc)
             {
                 RapidXamlPackage.Logger?.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
+            }
+        }
+
+        private void SetFallBackClicked(object sender, RoutedEventArgs e)
+        {
+            if (this.disabled)
+            {
+                return;
+            }
+
+            try
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+
+                var selectedIndex = this.DisplayedProfiles.SelectedIndex;
+
+                if (selectedIndex >= 0)
+                {
+                    var selectedProfile = this.SettingsProvider.ActualSettings.ProfilesList[this.DisplayedProfiles.SelectedIndex];
+
+                    if (!selectedProfile.IsActive)
+                    {
+                        this.SettingsProvider.ActualSettings.FallBackProfileName = selectedProfile.Name;
+                        this.SettingsProvider.Save();
+                        this.SettingsProvider.ActualSettings.RefreshProfilesList();
+
+                        this.DisplayedProfiles.SelectedIndex = selectedIndex;
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                RapidXamlPackage.Logger?.RecordException(exc);
             }
         }
     }

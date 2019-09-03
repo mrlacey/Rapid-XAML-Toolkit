@@ -19,6 +19,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string ComboBox => "ComboBox";
 
+        public static string DataGrid => "DataGrid";
+
         public static string DatePicker => "DatePicker";
 
         public static string Entry => "Entry";
@@ -32,6 +34,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string HyperlinkButton => "HyperlinkButton";
 
         public static string Label => "Label";
+
+        public static string ListView => "ListView";
 
         public static string MediaElement => "MediaElement";
 

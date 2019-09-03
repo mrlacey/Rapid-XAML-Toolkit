@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class RapidXamlTagger : ITagger<IErrorTag>
     {
-        private ITextBuffer buffer;
-        private string file;
+        private readonly ITextBuffer buffer;
+        private readonly string file;
 
         public RapidXamlTagger(ITextBuffer buffer, string file)
         {

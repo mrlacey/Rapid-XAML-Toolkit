@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -11,7 +12,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class GridProcessor : XamlElementProcessor
     {
-        public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+        public GridProcessor(ProjectType projectType, ILogger logger)
+            : base(projectType, logger)
+        {
+        }
+
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             const string gridOpenSpace = "<Grid ";
             const string gridOpenComplete = "<Grid>";
@@ -42,13 +48,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (!hasRowDef)
             {
-                var tag = new AddRowDefinitionsTag(new Span(offset, endOfOpening), snapshot)
+                var tag = new AddRowDefinitionsTag(new Span(offset, endOfOpening), snapshot, fileName)
                 {
                     InsertPosition = offset + endOfOpening,
                     LeftPad = leftPad,
                     GridNeedsExpanding = gridIsSelfClosing,
                 };
-                tags.Add(tag);
+                tags.TryAdd(tag, xamlElement, suppressions);
 
                 rowDefsClosingPos = xamlElement.IndexOf(">", StringComparison.Ordinal);
             }
@@ -61,13 +67,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (!hasColDef)
             {
-                var tag = new AddColumnDefinitionsTag(new Span(offset, endOfOpening), snapshot)
+                var tag = new AddColumnDefinitionsTag(new Span(offset, endOfOpening), snapshot, fileName)
                 {
                     InsertPosition = offset + endOfOpening,
                     LeftPad = leftPad,
                     GridNeedsExpanding = gridIsSelfClosing,
                 };
-                tags.Add(tag);
+                tags.TryAdd(tag, xamlElement, suppressions);
 
                 colDefsClosingPos = xamlElement.IndexOf(">", StringComparison.Ordinal);
             }
@@ -78,13 +84,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (!hasRowDef && !hasColDef)
             {
-                var tag = new AddRowAndColumnDefinitionsTag(new Span(offset, endOfOpening), snapshot)
+                var tag = new AddRowAndColumnDefinitionsTag(new Span(offset, endOfOpening), snapshot, fileName)
                 {
                     InsertPosition = offset + endOfOpening,
                     LeftPad = leftPad,
                     GridNeedsExpanding = gridIsSelfClosing,
                 };
-                tags.Add(tag);
+                tags.TryAdd(tag, xamlElement, suppressions);
             }
 
             const string rowDefStart = "<RowDefinition";
@@ -99,7 +105,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var endPos = xamlElement.IndexOf('>', rowDefIndex);
 
-                var tag = new InsertRowDefinitionTag(new Span(offset + rowDefIndex, endPos - rowDefIndex + 1), snapshot)
+                var tag = new InsertRowDefinitionTag(new Span(offset + rowDefIndex, endPos - rowDefIndex + 1), snapshot, fileName)
                 {
                     RowId = rowDefsCount,
                     GridStartPos = offset,
@@ -118,7 +124,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             foreach (var tag in toAdd)
             {
                 tag.RowCount = rowDefsCount;
-                tags.Add(tag);
+                tags.TryAdd(tag, xamlElement, suppressions);
             }
 
             const string colDef = "<ColumnDefinition";
@@ -149,9 +155,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 defUseOffset += nextDefUseIndex;
 
-                var line = snapshot.GetLineFromPosition(offset + defUseOffset);
-                var col = offset + defUseOffset - line.Start.Position;
-
                 if (nextDefUseIndex > endOfOpening)
                 {
                     // Get assigned value
@@ -169,8 +172,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 undefinedTags.Add(new MissingRowDefinitionTag(
                                     new Span(offset + defUseOffset, closePos - defUseOffset + 1),
                                     snapshot,
-                                    line.LineNumber,
-                                    col)
+                                    fileName)
                                 {
                                     AssignedInt = assignedInt,
                                     Description = StringRes.Info_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
@@ -201,8 +203,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 undefinedTags.Add(new MissingColumnDefinitionTag(
                                     new Span(offset + defUseOffset, closePos - defUseOffset + 1),
                                     snapshot,
-                                    line.LineNumber,
-                                    col)
+                                    fileName)
                                 {
                                     AssignedInt = assignedInt,
                                     Description = StringRes.Info_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
@@ -228,7 +229,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 undefinedTag.TotalDefsRequired = undefinedTag is MissingRowDefinitionTag ? highestAssignedRow
                                                                                          : highestAssignedCol;
-                tags.Add(undefinedTag);
+                tags.TryAdd(undefinedTag, xamlElement, suppressions);
             }
 
             const string rowSpanUse = "Grid.RowSpan=\"";
@@ -241,9 +242,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 spanUseOffset += nextSpanUseIndex;
 
-                var line = snapshot.GetLineFromPosition(offset + spanUseOffset);
-                var col = offset + spanUseOffset - line.Start.Position;
-
                 if (nextSpanUseIndex > endOfOpening)
                 {
                     if (xamlElement.Substring(spanUseOffset).StartsWith(rowSpanUse))
@@ -255,7 +253,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                         if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            var element = XamlElementProcessor.GetSubElementAtPosition(xamlElement, spanUseOffset);
+                            var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger);
 
                             var row = 0;
                             if (this.TryGetAttribute(element, "Grid.Row", AttributeType.InlineOrElement, out _, out _, out _, out string rowStr))
@@ -265,11 +263,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                             if (assignedInt > 1 && assignedInt - 1 + row >= rowDefsCount)
                             {
-                                tags.Add(new RowSpanOverflowTag(
+                                var rowTag = new RowSpanOverflowTag(
                                     new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
                                     snapshot,
-                                    line.LineNumber,
-                                    col)
+                                    fileName)
                                 {
                                     TotalDefsRequired = assignedInt + row - 1,
                                     Description = StringRes.Info_XamlAnalysisRowSpanOverflowDescription,
@@ -277,7 +274,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                     HasSomeDefinitions = hasRowDef,
                                     InsertPosition = offset + rowDefsClosingPos,
                                     LeftPad = leftPad,
-                                });
+                                };
+
+                                tags.TryAdd(rowTag, xamlElement, suppressions);
                             }
                         }
                     }
@@ -290,7 +289,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                         if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            var element = XamlElementProcessor.GetSubElementAtPosition(xamlElement, spanUseOffset);
+                            var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger);
 
                             var gridCol = 0;
                             if (this.TryGetAttribute(element, "Grid.Column", AttributeType.InlineOrElement, out _, out _, out _, out string colStr))
@@ -300,11 +299,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                             if (assignedInt > 1 && assignedInt - 1 + gridCol >= colDefsCount)
                             {
-                                tags.Add(new ColumnSpanOverflowTag(
+                                var colTag = new ColumnSpanOverflowTag(
                                     new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
                                     snapshot,
-                                    line.LineNumber,
-                                    gridCol)
+                                    fileName)
                                 {
                                     TotalDefsRequired = assignedInt - 1 + gridCol,
                                     Description = StringRes.Info_XamlAnalysisColumnSpanOverflowDescription,
@@ -312,7 +310,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                     HasSomeDefinitions = hasColDef,
                                     InsertPosition = offset + colDefsClosingPos,
                                     LeftPad = leftPad,
-                                });
+                                };
+
+                                tags.TryAdd(colTag, xamlElement, suppressions);
                             }
                         }
                     }

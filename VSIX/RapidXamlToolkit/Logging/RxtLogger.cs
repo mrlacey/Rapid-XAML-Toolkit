@@ -3,32 +3,41 @@
 
 using System;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.Parsers;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Logging
 {
     public class RxtLogger : ILogger
     {
+        public IVsActivityLog VsActivityLog { get; set; }
+
         public static string TimeStampMessage(string message)
         {
             return $"[{DateTime.Now:HH:mm:ss.fff}]  {message}{Environment.NewLine}";
         }
 
-        public void RecordError(string message)
+        public void RecordError(string message, bool force = false)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
             // Activate the pane (bring to front) so errors are obvious
-            if (CodeParserBase.GetSettings().ExtendedOutputEnabled)
+            if (force || CodeParserBase.GetSettings().ExtendedOutputEnabled)
             {
                 RxtOutputPane.Instance.Write(TimeStampMessage(message));
                 RxtOutputPane.Instance.Activate();
             }
             else
             {
-                GeneralOutputPane.Instance.Write(TimeStampMessage(message));
-                GeneralOutputPane.Instance.Activate();
+                this.RecordGeneralError(message);
             }
+        }
+
+        public void RecordGeneralError(string message)
+        {
+            GeneralOutputPane.Instance.Write($"[{StringRes.VSIX__LocalizedName}]  {message}{Environment.NewLine}{Environment.NewLine}");
+            GeneralOutputPane.Instance.Activate();
         }
 
         public void RecordInfo(string message)
@@ -50,6 +59,8 @@ namespace RapidXamlToolkit.Logging
             this.RecordError(exception.Message);
             this.RecordError(exception.Source);
             this.RecordError(exception.StackTrace);
+
+            this.WriteToActivityLog($"{exception.Message}{Environment.NewLine}{exception.Source}{Environment.NewLine}{exception.StackTrace}");
         }
 
         public void RecordFeatureUsage(string feature)
@@ -58,6 +69,14 @@ namespace RapidXamlToolkit.Logging
 
             // this logger doesn't need to do anything special with feature usage messages
             this.RecordInfo(feature);
+        }
+
+        public void WriteToActivityLog(string message)
+        {
+            if (this.VsActivityLog != null)
+            {
+                this.VsActivityLog.LogEntry((uint)__ACTIVITYLOG_ENTRYTYPE.ALE_ERROR, StringRes.VSIX__LocalizedName, message);
+            }
         }
     }
 }

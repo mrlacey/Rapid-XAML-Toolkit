@@ -6,9 +6,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Configuration;
 using RapidXamlToolkit.DragDrop;
+using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
@@ -49,10 +51,14 @@ namespace RapidXamlToolkit
 
             try
             {
+                var activityLog = await this.GetServiceAsync(typeof(SVsActivityLog)) as IVsActivityLog;
+                rxtLogger.VsActivityLog = activityLog;
+
                 // Set the ServiceProvider of CodeParserBase as it's needed to get settings
                 CodeParserBase.ServiceProvider = this;
                 Logger.RecordInfo(StringRes.Info_ProblemsInstructionsAndLink);
                 Logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
+                Logger.RecordInfo(string.Empty);
 
                 await CopyToClipboardCommand.InitializeAsync(this, Logger);
                 await SendToToolboxCommand.InitializeAsync(this, Logger);
@@ -61,13 +67,19 @@ namespace RapidXamlToolkit
                 await RapidXamlDropHandlerProvider.InitializeAsync(this, Logger);
 
                 await this.SetUpRunningDocumentTableEventsAsync(cancellationToken);
-                RapidXamlDocumentCache.Initialize(this);
+                RapidXamlDocumentCache.Initialize(this, Logger);
+
+                Microsoft.VisualStudio.Shell.Events.SolutionEvents.OnAfterCloseSolution += this.HandleCloseSolution;
             }
             catch (Exception exc)
             {
                 Logger.RecordException(exc);
-                throw;  // Remove for launch. see issue #90
             }
+        }
+
+        private void HandleCloseSolution(object sender, EventArgs e)
+        {
+            TableDataSource.Instance.CleanAllErrors();
         }
 
         private async Task SetUpRunningDocumentTableEventsAsync(CancellationToken cancellationToken)

@@ -5,12 +5,23 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public abstract class XamlElementProcessor
     {
+        public XamlElementProcessor(ProjectType projectType, ILogger logger)
+        {
+            this.ProjectType = projectType;
+            this.Logger = logger;
+        }
+
+        internal ProjectType ProjectType { get; }
+
+        internal ILogger Logger { get; }
+
         public static bool IsSelfClosing(string xaml, int startPoint = 0)
         {
             var foundSelfCloser = false;
@@ -101,7 +112,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
-        public static string GetSubElementAtPosition(string xaml, int position)
+        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger)
         {
             var startPos = xaml.Substring(0, position).LastIndexOf('<');
 
@@ -109,17 +120,34 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             string result = null;
 
-            var processor = new SubElementProcessor();
+            var processor = new SubElementProcessor(projectType, logger);
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
-            XamlElementExtractor.Parse(null, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new List<IRapidXamlAdornmentTag>());
+            XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList());
+
+            if (result == null)
+            {
+                System.Diagnostics.Debugger.Break();
+            }
 
             return result;
         }
 
-        // Use of snapshot in the Process implementation should be kept to a minimum as will need test workarounds
-        // - better to just pass through to where needed in VS initiated functionality.
-        public abstract void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags);
+        /// <summary>
+        /// Implementations of this method are used to identify any issues in the specified XAML and create Tags to highlight them.
+        /// </summary>
+        /// <remarks>
+        /// Use of snapshot in the Process implementation should be kept to a minimum as it requires test workarounds
+        /// - better to just pass through to where needed in VS initiated functionality.
+        /// </remarks>
+        /// <param name="fileName">The name of the file being analyzed.</param>
+        /// <param name="offset">The number of characters from the start of the file to the element.</param>
+        /// <param name="xamlElement">The full string representing the element to process.</param>
+        /// <param name="linePadding">The amount of left padding the element has on the line where it starts.</param>
+        /// <param name="snapshot">The ITextSnapshot containing the XAML being analyzed.</param>
+        /// <param name="tags">Reference to the list of all tags found in the document. Add any new tags here.</param>
+        /// <param name="suppressions">A list of user defined suppressions to override default behavior.</param>
+        public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null);
 
         public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
         {
@@ -127,9 +155,16 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var searchText = $"{attributeName}=\"";
 
-                if (xaml == null)
+                if (string.IsNullOrWhiteSpace(xaml))
                 {
                     System.Diagnostics.Debugger.Break();
+                    this.Logger.RecordError($"xaml not passed to `TryGetAttribute({xaml}, {attributeName}, {attributeTypesToCheck})`");
+
+                    attributeType = AttributeType.None;
+                    index = -1;
+                    length = 0;
+                    value = string.Empty;
+                    return false;
                 }
 
                 var tbIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
@@ -198,16 +233,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return false;
         }
 
-        protected void CheckForHardCodedAttribute(string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, List<IRapidXamlAdornmentTag> tags)
+        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions)
         {
             if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
-                    var line = snapshot.GetLineFromPosition(offset + tbIndex);
-                    var col = offset + tbIndex - line.Start.Position;
-
-                    tags.Add(new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, line.LineNumber, col, elementName, attributeName)
+                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, elementName, attributeName)
                     {
                         AttributeType = foundAttributeType,
                         Value = value,
@@ -215,7 +247,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                         UidExists = uidExists,
                         UidValue = uidValue,
                         ElementGuid = elementIdentifier,
-                    });
+                    };
+
+                    tags.TryAdd(tag, xamlElement, suppressions);
                 }
             }
         }
@@ -256,9 +290,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public class SubElementProcessor : XamlElementProcessor
         {
+            public SubElementProcessor(ProjectType projectType, ILogger logger)
+                : base(projectType, logger)
+            {
+            }
+
             public event EventHandler<SubElementEventArgs> SubElementFound;
 
-            public override void Process(int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, List<IRapidXamlAdornmentTag> tags)
+            public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
             {
                 if (offset == 0)
                 {

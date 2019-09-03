@@ -124,6 +124,118 @@ namespace tests
         }
 
         [TestMethod]
+        public void Fallback_SimpleFallback()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        //[Display(Name = ShortName)]
+        public ☆string UserName { get; set; }
+    }
+}";
+
+            var expectedOutput = "<TextBox Text=\"UserName\" Header=\"unknown\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "UserName",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Property,
+            };
+
+            var profile = this.displayNameProfile;
+            profile.FallbackOutput = "<TextBox Text=\"$name$\" $att:Display: Header=\"[Name]\"::Header=\"unknown\"$ />";
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void Fallback_InterpretedFallback()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        //[Display(Name = ShortName)]
+        public ☆string UserName { get; set; }
+    }
+}";
+
+            var expectedOutput = "<TextBox Text=\"UserName\" Header=\"User Name\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "UserName",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Property,
+            };
+
+            var profile = this.displayNameProfile;
+            profile.FallbackOutput = "<TextBox Text=\"$name$\" $att:Display: Header=\"[Name]\"::Header=\"@namewithspaces@\"$ />";
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void Fallback_InterpretedFallback_OtherAttribute()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        [NotDisplay(Name = ShortName)]
+        public ☆string UserName { get; set; }
+    }
+}";
+
+            var expectedOutput = "<TextBox Text=\"NAME\" Header=\"User Name\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "UserName",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Property,
+            };
+
+            var profile = this.displayNameProfile;
+            profile.FallbackOutput = "<TextBox Text=\"$att:ToShow:[0]::NAME$\" $att:Display: Header=\"[Name]\"::Header=\"@namewithspaces@\"$ />";
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void Fallback_OneAttributeOneFallback()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        [Display(Name = ShortName)]
+        public ☆string UserName { get; set; }
+    }
+}";
+
+            var expectedOutput = "<TextBox Text=\"User Name\" Header=\"ShortName\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "UserName",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Property,
+            };
+
+            var profile = this.displayNameProfile;
+            profile.FallbackOutput = "<TextBox Text=\"$namewithspaces$\" $att:Display: Header=\"[Name]\"::Header=\"@namewithspaces@\"$ />";
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
         public void DisplayAndMaxLength_SeparateAttributes()
         {
             var code = @"

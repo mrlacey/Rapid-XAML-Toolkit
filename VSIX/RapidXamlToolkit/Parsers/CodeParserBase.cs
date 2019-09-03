@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Resources;
@@ -28,14 +27,14 @@ namespace RapidXamlToolkit.Parsers
         // Used to store the generated xname for reuse when formatting subsequent properties
         private static string xname = string.Empty;
 
-        public CodeParserBase(ILogger logger, int xamlIndent, Profile profileOverload = null)
+        public CodeParserBase(ILogger logger, ProjectType projectType, int xamlIndent, Profile profileOverload = null)
         {
             Logger = logger;
             XamlIndentSize = xamlIndent;
 
-            this.Profile = profileOverload ?? GetSettings().GetActiveProfile();
+            this.Profile = profileOverload ?? GetSettings().GetActiveProfile(projectType);
 
-            xname = string.Empty;  // Reset this on parser creation as parsers created for each new conversion and don't want old values.
+            xname = string.Empty;  // Reset this on parser creation as parsers are created for each new conversion and don't want old values.
         }
 
         public static IServiceProvider ServiceProvider { get; set; }
@@ -199,7 +198,9 @@ namespace RapidXamlToolkit.Parsers
         {
             Logger?.RecordInfo(StringRes.Info_FormattingOutputForProperty.WithParams(name));
 
-            var result = rawOutput.Replace(Placeholder.PropertyName, name)
+            var result = this.ReplaceAttributes(rawOutput, attributes);
+
+            result = result.Replace(Placeholder.PropertyName, name)
                                   .Replace(Placeholder.PropertyNameWithSpaces, name.AddSpacesToCamelCase());
 
             if (!string.IsNullOrWhiteSpace(xname))
@@ -406,8 +407,18 @@ namespace RapidXamlToolkit.Parsers
                 result = string.Empty;
             }
 
-            var attributePattern = "\\$att:(?'AttribName'[a-zA-Z]{2,}):(?'Replace'[ a-zA-Z0-9=\\\"\\\"\\{\\[\\]\\}]{1,})\\$";
+            var finalResult = result.FormatXaml(CodeParserBase.XamlIndentSize);
+
+            return (finalResult, numericSubstitute);
+        }
+
+        private string ReplaceAttributes(string rawOutput, List<AttributeDetails> attributes)
+        {
+            var attributePattern = "\\$att:(?'AttribName'[a-zA-Z]{2,}):(?'Replace'[ a-zA-Z0-9=\\\'\\\"\\{\\[\\]\\}]{1,})(?'Fallback'(::([ a-zA-Z0-9=\\'\\\"\\{\\[\\]\\}@]{1,})))?\\$";
+
             var regex = new Regex(attributePattern);
+
+            var result = rawOutput;
 
             var match = regex.Match(result);
 
@@ -440,16 +451,28 @@ namespace RapidXamlToolkit.Parsers
                 }
                 else
                 {
-                    // If the attribute isn't specified on the property then output nothing
-                    result = result.Replace(match.Groups[0].Value, string.Empty);
+                    // If the attribute isn't specified on the property then chek for the fallback.
+                    var fallback = match.Groups["Fallback"].Value;
+
+                    if (!string.IsNullOrEmpty(fallback))
+                    {
+                        // Skip the first two chars as they just indicate the start of the fallback.
+                        // Swap '@' for '$' to allow for the fallback containing replacements.
+                        var fallbackToUse = fallback.Substring(2).Replace('@', '$');
+
+                        result = result.Replace(match.Groups[0].Value, fallbackToUse);
+                    }
+                    else
+                    {
+                        // If no fallback is specified then output nothing.
+                        result = result.Replace(match.Groups[0].Value, string.Empty);
+                    }
                 }
 
                 match = match.NextMatch();
             }
 
-            var finalResult = result.FormatXaml(CodeParserBase.XamlIndentSize);
-
-            return (finalResult, numericSubstitute);
+            return result;
         }
 
         private Mapping GetMappingOfInterest(PropertyDetails property)

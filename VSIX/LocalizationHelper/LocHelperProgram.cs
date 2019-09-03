@@ -5,18 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace LocalizationHelper
 {
-    class Program
+#pragma warning disable SA1649 // File name should match first type name
+    internal class Program
+#pragma warning restore SA1649 // File name should match first type name
     {
-        private static readonly List<string> cultures = new List<string> { "cs-CZ", "de-DE", "es-ES", "fr-FR", "it-IT", "ja-JP", "ko-KR", "pl-PL", "pt-BR", "ru-RU", "tr-TR", "zh-CN", "zh-TW" };
+        private static readonly List<string> Cultures = new List<string> { "cs-CZ", "de-DE", "es-ES", "fr-FR", "it-IT", "ja-JP", "ko-KR", "pl-PL", "pt-BR", "ru-RU", "tr-TR", "zh-CN", "zh-TW" };
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Rapid XAML Toolkit - Localization Helper");
             Console.WriteLine("----------------------------------------");
@@ -24,8 +23,8 @@ namespace LocalizationHelper
             Console.WriteLine("Select an option");
             Console.WriteLine("1. Copy values from StringRes to other loc files");
             Console.WriteLine("2. Copy from StringRes to StringRes.en-US");
-            Console.WriteLine("3. Create placeholder entries in localized StringRes file for any new items in the localized versions");
-            // TODO: ISSUE#82 Console.WriteLine("4. Extract new entries for localization");
+            Console.WriteLine("3. Extract new entries for localization");
+            Console.WriteLine("4. Merge translated files");
             Console.WriteLine();
             Console.WriteLine();
 
@@ -42,12 +41,14 @@ namespace LocalizationHelper
                     CopyNeutralStringresFileToUsVersion();
                     break;
                 case ConsoleKey.D3:
-                    CreateLocalizedPlaceholdersForNewNeutralStringresEntries();
+                    ExtractNewEntriesForLocalization();
+                    break;
+                case ConsoleKey.D4:
+                    MergeTranslatedFiles();
                     break;
                 default:
                     break;
             }
-
 
             Console.WriteLine();
             Console.WriteLine("press any key to exit");
@@ -68,7 +69,7 @@ namespace LocalizationHelper
             const string VsctPrefix = "VSCT__";
             const string VsixPrefix = "VSIX__";
 
-            foreach (var culture in cultures)
+            foreach (var culture in Cultures)
             {
                 Console.WriteLine($"Copying {culture}");
                 var stringresxFile = Path.Combine(relativeResourcesPath, $"StringRes.{culture}.resx");
@@ -132,7 +133,6 @@ namespace LocalizationHelper
 
                         if (vsctChanges.ContainsKey(elementId))
                         {
-
                             element.GetElementsByTagName("ButtonText").Item(0).InnerText = vsctChanges[elementId];
                         }
                     }
@@ -176,13 +176,141 @@ namespace LocalizationHelper
             Console.WriteLine("File copied successfully");
         }
 
-        private static void CreateLocalizedPlaceholdersForNewNeutralStringresEntries()
+        private static void ExtractNewEntriesForLocalization()
         {
-            // TODO: ISSUE#82 implement CreateLocalizedPlaceholdersForNewNeutralStringresEntries
-            // List locales being processed
-            // List entries being created
+            var basePath = "../../../RapidXamlToolkit/Resources/StringRes.{0}.resx";
+            var enUsResxPath = string.Format(basePath, "en-US");
 
-            Console.WriteLine("All entries created successfully");
+            var enusXdoc = new XmlDocument();
+            enusXdoc.Load(enUsResxPath);
+
+            var newFiles = new List<string>();
+
+            foreach (var culture in Cultures)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Procesing {culture}");
+
+                var locResxPath = string.Format(basePath, culture);
+
+                var locXdoc = new XmlDocument();
+                locXdoc.Load(locResxPath);
+
+                var locElements = locXdoc.GetElementsByTagName("data");
+
+                // var locXdocNodes = locElements.Cast<XmlElement>().Select(n => n).ToList();
+                var locXdocNodes = locElements.Cast<XmlElement>().Select(n => n).ToList();
+
+                var newElements = new List<XmlElement>();
+
+                foreach (XmlElement element in enusXdoc.GetElementsByTagName("data"))
+                {
+                    var elementName = element.GetAttribute("name");
+
+                    if (!locXdocNodes.Any(n => n.GetAttribute("name") == elementName))
+                    {
+                        Console.WriteLine($"Need entry - {elementName}");
+                        newElements.Add(element);
+                    }
+                }
+
+                if (newElements.Any())
+                {
+                    var outputDoc = new XmlDocument();
+
+                    XmlDeclaration xmlDeclaration = outputDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+                    XmlElement root = outputDoc.DocumentElement;
+                    outputDoc.InsertBefore(xmlDeclaration, root);
+
+                    XmlElement rootElement = outputDoc.CreateElement(string.Empty, "root", string.Empty);
+                    outputDoc.AppendChild(rootElement);
+
+                    foreach (var newElement in newElements)
+                    {
+                        var toAppend = outputDoc.CreateElement(string.Empty, newElement.Name, string.Empty);
+                        toAppend.SetAttribute("name", newElement.GetAttribute("name"));
+                        toAppend.SetAttribute("xml:space", newElement.GetAttribute("xml:space"));
+
+                        var valueElement = outputDoc.CreateElement(string.Empty, "value", string.Empty);
+                        valueElement.InnerText = newElement.SelectSingleNode("value").InnerText;
+                        toAppend.AppendChild(valueElement);
+
+                        var commentNode = newElement.SelectSingleNode("comment");
+
+                        if (commentNode != null)
+                        {
+                            var cmntElement = outputDoc.CreateElement(string.Empty, "value", string.Empty);
+                            cmntElement.InnerText = commentNode.InnerText;
+                            toAppend.AppendChild(cmntElement);
+                        }
+
+                        rootElement.AppendChild(toAppend);
+                    }
+
+                    var newFileName = locResxPath.Replace(".resx", ".translation-needed.resx");
+
+                    outputDoc.Save(newFileName);
+
+                    newFiles.Add(newFileName);
+                }
+            }
+
+            Console.WriteLine();
+
+            if (newFiles.Any())
+            {
+                Console.WriteLine("The following files need translation:");
+
+                foreach (var newFile in newFiles)
+                {
+                    Console.WriteLine($"- {newFile}");
+                }
+
+                Console.WriteLine("Once translated, rename to 'xxx.translation-done.resx' and run option 4.");
+            }
+            else
+            {
+                Console.WriteLine("No new files to translate");
+            }
+        }
+
+        private static void MergeTranslatedFiles()
+        {
+            var basePath = "../../../RapidXamlToolkit/Resources/StringRes.{0}.resx";
+
+            foreach (var culture in Cultures)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Checking {culture}");
+
+                var translatedPath = string.Format(basePath, $"{culture}.translation-done");
+
+                if (File.Exists(translatedPath))
+                {
+                    var translatedXdoc = new XmlDocument();
+                    translatedXdoc.Load(translatedPath);
+
+                    var mainPath = string.Format(basePath, culture);
+
+                    var mainXdoc = new XmlDocument();
+                    mainXdoc.Load(mainPath);
+
+                    foreach (XmlNode node in translatedXdoc.DocumentElement.ChildNodes)
+                    {
+                        XmlNode imported = mainXdoc.ImportNode(node, true);
+                        mainXdoc.DocumentElement.AppendChild(imported);
+                    }
+
+                    mainXdoc.Save(mainPath);
+                    File.Delete(translatedPath);
+
+                    Console.WriteLine($"Merged {translatedPath}");
+                }
+                else
+                {
+                    Console.WriteLine("Nothing to merge");
+                }
+            }
         }
     }
 }

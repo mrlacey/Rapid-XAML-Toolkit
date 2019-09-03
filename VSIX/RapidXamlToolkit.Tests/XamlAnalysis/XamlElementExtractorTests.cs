@@ -25,9 +25,26 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(0, processor.Offset);
+            Assert.AreEqual(xaml, processor.XamlElement);
+        }
+
+        [TestMethod]
+        public void CanGetRootElement_WithXmlns()
+        {
+            var xaml = @"<ns:Grid></ns:Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
@@ -47,9 +64,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
@@ -68,9 +83,26 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(0, processor.Offset);
+            Assert.AreEqual(xaml, processor.XamlElement);
+        }
+
+        [TestMethod]
+        public void CanGetRootElement_WithAttribute_AndXmlns()
+        {
+            var xaml = @"<ns:Grid attr=""value""></ns:Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", processor),
+            };
+
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
@@ -89,9 +121,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
@@ -117,9 +147,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(2, processor.Offset);
@@ -138,9 +166,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
@@ -162,9 +188,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
@@ -183,9 +207,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
@@ -209,9 +231,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
@@ -230,9 +250,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
@@ -256,9 +274,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(0, processor.Offset);
@@ -277,13 +293,30 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Inner", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(6, processor.Offset);
             Assert.AreEqual("<Inner></Inner>", processor.XamlElement);
+        }
+
+        [TestMethod]
+        public void CanGetChildElement_NamedClosing_WithXmlns()
+        {
+            var xaml = @"<Grid><ns:Inner></ns:Inner></Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Inner", processor),
+            };
+
+            this.TestParsingWithoutSnapshot(xaml, processors);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(6, processor.Offset);
+            Assert.AreEqual("<ns:Inner></ns:Inner>", processor.XamlElement);
         }
 
         [TestMethod]
@@ -301,9 +334,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Inner", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             var expected = "<Inner>"
 + Environment.NewLine + "    </Inner>";
@@ -325,9 +356,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Inner", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(6, processor.Offset);
@@ -346,9 +375,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Inner", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(6, processor.Offset);
@@ -367,9 +394,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Inner", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(6, processor.Offset);
@@ -388,9 +413,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Child", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(6, processor.Offset);
@@ -409,9 +432,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("GrandChild", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(13, processor.Offset);
@@ -430,9 +451,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("GrandChild", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(processor.ProcessCalled);
             Assert.AreEqual(2, processor.ProcessCalledCount);
@@ -454,9 +473,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             // The order processed, and so listed here, is the order in which they're closed.
             Assert.IsTrue(processor.ProcessCalled);
@@ -489,9 +506,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Grid", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             var expected1 = "<Grid>"
 + Environment.NewLine + "        </Grid>";
@@ -531,9 +546,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("GrandChild", grandChildProc),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(gridProc.ProcessCalled);
             Assert.AreEqual(1, gridProc.ProcessCalledCount);
@@ -551,6 +564,42 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(@"<GrandChild />", grandChildProc.AllXamlElements[1]);
             Assert.AreEqual(27, grandChildProc.AllOffsets[2]);
             Assert.AreEqual(@"<GrandChild></GrandChild>", grandChildProc.AllXamlElements[2]);
+        }
+
+        [TestMethod]
+        public void CanGetRootChildAndGrandChildrenElements_WithXmlns()
+        {
+            var xaml = @"<ns:Grid><ns:Child><ns:GrandChild /><ns:GrandChild></ns:GrandChild></ns:Child></ns:Grid>";
+
+            var gridProc = new FakeXamlElementProcessor();
+            var childProc = new FakeXamlElementProcessor();
+            var grandChildProc = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Grid", gridProc),
+                ("Child", childProc),
+                ("GrandChild", grandChildProc),
+            };
+
+            this.TestParsingWithoutSnapshot(xaml, processors);
+
+            Assert.IsTrue(gridProc.ProcessCalled);
+            Assert.AreEqual(1, gridProc.ProcessCalledCount);
+            Assert.AreEqual(0, gridProc.Offset);
+            Assert.AreEqual(xaml, gridProc.XamlElement);
+
+            Assert.IsTrue(childProc.ProcessCalled);
+            Assert.AreEqual(1, childProc.ProcessCalledCount);
+            Assert.AreEqual(9, childProc.Offset);
+            Assert.AreEqual(@"<ns:Child><ns:GrandChild /><ns:GrandChild></ns:GrandChild></ns:Child>", childProc.XamlElement);
+
+            Assert.IsTrue(grandChildProc.ProcessCalled);
+            Assert.AreEqual(2, grandChildProc.ProcessCalledCount);
+            Assert.AreEqual(19, grandChildProc.AllOffsets[1]);
+            Assert.AreEqual(@"<ns:GrandChild />", grandChildProc.AllXamlElements[1]);
+            Assert.AreEqual(36, grandChildProc.AllOffsets[2]);
+            Assert.AreEqual(@"<ns:GrandChild></ns:GrandChild>", grandChildProc.AllXamlElements[2]);
         }
 
         [TestMethod]
@@ -575,9 +624,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("GrandChild", grandChildProc),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(gridProc.ProcessCalled);
             Assert.AreEqual(1, gridProc.ProcessCalledCount);
@@ -625,13 +672,71 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("Child", processor),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             // Dont find the ones on lines after comment opening, between comment boundaries and on line with comment closing
             // Do find elements before and after the comment
             Assert.AreEqual(2, processor.ProcessCalledCount);
+        }
+
+        [TestMethod]
+        public void ChildElementsInComments_NoSpaces_AreNotFound()
+        {
+            var xaml = @"<Grid>
+    <Child />
+    <!--<Child />
+    <Child />
+    <Child />-->
+    <Child />
+
+</Grid>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Child", processor),
+            };
+
+            this.TestParsingWithoutSnapshot(xaml, processors);
+
+            // Dont find the ones on lines after comment opening, between comment boundaries and on line with comment closing
+            // Do find elements before and after the comment
+            Assert.AreEqual(2, processor.ProcessCalledCount);
+        }
+
+        [TestMethod]
+        public void ElementsInComments_NoSpaces_AreNotFound()
+        {
+            var xaml = @"<!--<Child />-->";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Child", processor),
+            };
+
+            this.TestParsingWithoutSnapshot(xaml, processors);
+
+            Assert.AreEqual(0, processor.ProcessCalledCount);
+        }
+
+        [TestMethod]
+        public void ElementImmediatelyAfterClosingCommentIsFound()
+        {
+            var xaml = @"<!-- --><Child />";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Child", processor),
+            };
+
+            this.TestParsingWithoutSnapshot(xaml, processors);
+
+            Assert.AreEqual(1, processor.ProcessCalledCount);
         }
 
         [TestMethod]
@@ -641,19 +746,22 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var processors = new List<(string, XamlElementProcessor)>
             {
-                ("Grid", new GridProcessor()),
+                ("Grid", new GridProcessor(ProjectType.Any, new DefaultTestLogger())),
             };
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
-
-            this.TestParsingWithoutSnapshot(xaml, processors, outputTags);
+            this.TestParsingWithoutSnapshot(xaml, processors);
 
             Assert.IsTrue(true, "Parsing completed without exception.");
         }
 
-        private void TestParsingWithoutSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, List<IRapidXamlAdornmentTag> tags)
+        private void TestParsingWithoutSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags = null)
         {
-            XamlElementExtractor.Parse(null, xaml, processors, tags);
+            if (tags == null)
+            {
+                tags = new TagList();
+            }
+
+            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", null, xaml, processors, tags);
         }
     }
 }

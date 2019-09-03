@@ -32,60 +32,40 @@
     <Groups>
       <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextGroup" priority="0x0600" />
       <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
-      <Group guid="guidRapidXamlPackageCmdSet" id="SolutionContextGroup" priority="0x0600" />
-      <Group guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenuGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuSecondaryGroup" priority="0x0700" />
       <Group guid="guidRapidXamlPackageCmdSet" id="XamlContextGroup" priority="0x0600" />
       <Group guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0700" />
     </Groups>
     <Menus>
       <Menu guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>Schnelle XAML-Entwicklung (local)</CommandName>
           <ButtonText>Schnelle XAML-Entwicklung (local)</ButtonText>
-          <MenuText>Schnelle XAML-Entwicklung (local)</MenuText>
-          <ToolTipText>Schnelle XAML-Entwicklung (local)</ToolTipText>
-        </Strings>
-      </Menu>
-      <Menu guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenu" type="Context" priority="0x0100">
-        <Strings>
-          <CommandName>Schnelle XAML-Entwicklung (local)</CommandName>
-          <ButtonText>Schnelle XAML-Entwicklung (local)</ButtonText>
-          <MenuText>Schnelle XAML-Entwicklung (local)</MenuText>
-          <ToolTipText>Schnelle XAML-Entwicklung (local)</ToolTipText>
         </Strings>
       </Menu>
       <Menu guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <CommandName>Schnelle XAML-Entwicklung (local)</CommandName>
           <ButtonText>Schnelle XAML-Entwicklung (local)</ButtonText>
-          <MenuText>Schnelle XAML-Entwicklung (local)</MenuText>
-          <ToolTipText>Schnelle XAML-Entwicklung (local)</ToolTipText>
         </Strings>
       </Menu>
     </Menus>
     <Buttons>
       <Button guid="guidRapidXamlPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpCopyAsXaml" />
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>In die Zwischenablage kopieren</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="SendToToolboxCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpToolbox" />
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <ButtonText>An Toolbox senden</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100" type="Button">
         <Icon guid="guidImages" id="bmpOptions" />
-        <CommandFlag>DefaultInvisible</CommandFlag>
-        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <ButtonText>Legen Sie zuerst ein aktives Profil fest.</ButtonText>
+          <ButtonText>Profile</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0100" type="Button">
@@ -104,18 +84,6 @@
     </Bitmaps>
   </Commands>
   <CommandPlacements>
-    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SolutionContextGroup" priority="0x0200">
-      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenu" priority="0x0100">
-      <Parent guid="guidRapidXamlPackageCmdSet" id="SolutionContextGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenuGroup" priority="0x0100">
-      <Parent guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenu" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100">
-      <Parent guid="guidRapidXamlPackageCmdSet" id="SolutionContextMenuGroup" />
-    </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CodeContextGroup" priority="0x0200">
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
     </CommandPlacement>
@@ -125,15 +93,17 @@
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" priority="0x0100">
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" />
     </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuSecondaryGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenu" />
+    </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100">
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
     </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="SendToToolboxCommandId" priority="0x0200">
       <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
     </CommandPlacement>
-    
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
-      <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" />
+      <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuSecondaryGroup" />
     </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="XamlContextGroup" priority="0x0200">
       <Parent guid="GuidVisualStudioXAMLWindowContextMenu" id="IDVisualStudioXAMLWindowContextMenu" />
@@ -144,8 +114,11 @@
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100">
       <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" />
     </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenu" />
+    </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
-      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" />
+      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuSecondaryGroup" />
     </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0200">
       <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" />
@@ -156,15 +129,14 @@
     <GuidSymbol name="guidRapidXamlPackage" value="{c735dfc3-c416-4501-bc33-558e2aaad8c5}" />
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidRapidXamlPackageCmdSet" value="{8c20aab1-50b0-4523-8d9d-24d512fa8154}">
-      <IDSymbol value="0x0100" name="SolutionContextGroup" />
-      <IDSymbol value="0x0200" name="SolutionContextMenu" />
-      <IDSymbol value="0x0300" name="SolutionContextMenuGroup" />
       <IDSymbol value="0x1100" name="CodeContextGroup" />
       <IDSymbol value="0x1200" name="CodeContextMenu" />
       <IDSymbol value="0x1300" name="CodeContextMenuGroup" />
+      <IDSymbol value="0x1400" name="CodeContextMenuSecondaryGroup" />
       <IDSymbol value="0x2100" name="XamlContextGroup" />
       <IDSymbol value="0x2200" name="XamlContextMenu" />
       <IDSymbol value="0x2300" name="XamlContextMenuGroup" />
+      <IDSymbol value="0x2400" name="XamlContextMenuSecondaryGroup" />
       <IDSymbol name="CopyToClipboardCommandId" value="4128" />
       <IDSymbol name="SendToToolboxCommandId" value="4129" />
       <IDSymbol name="OpenOptionsCommandId" value="4131" />

@@ -1,9 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-using System.Collections.Generic;
+using System;
+using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -49,15 +51,76 @@ namespace RapidXamlToolkit.Tests.Misc
                         </Grid>
 ";
 
-            var outputTags = new List<IRapidXamlAdornmentTag>();
+            var outputTags = new TagList();
 
-            var sut = new GridProcessor();
+            var sut = new GridProcessor(ProjectType.Any, new DefaultTestLogger());
 
             var snapshot = new FakeTextSnapshot();
 
-            sut.Process(1, xaml, "	    ", snapshot, outputTags);
+            sut.Process("testfile.xaml", 1, xaml, "	    ", snapshot, outputTags);
 
             Assert.AreEqual(0, outputTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void Real_ProfileConfigControl_GridProcessor()
+        {
+            var xaml = System.IO.File.ReadAllText("./Misc/ProfileConfigControl.xaml");
+
+            var outputTags = new TagList();
+
+            var sut = new GridProcessor(ProjectType.Wpf, new DefaultTestLogger());
+
+            var snapshot = new FakeTextSnapshot();
+
+            sut.Process("testfile.xaml", 1, xaml, "    ", snapshot, outputTags);
+
+            Assert.AreEqual(0, outputTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void Real_Generic()
+        {
+            var result = new RapidXamlDocument();
+
+            var text = File.ReadAllText(".\\Misc\\Generic.xaml");
+
+            var snapshot = new FakeTextSnapshot();
+
+            XamlElementExtractor.Parse(ProjectType.Uwp, "Generic.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp), result.Tags);
+
+            Assert.AreEqual(0, result.Tags.OfType<MissingRowDefinitionTag>().Count());
+            Assert.AreEqual(0, result.Tags.OfType<MissingColumnDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void Real_ParseWithoutError_ComboBox()
+        {
+            this.ParseWithoutError(".\\Misc\\ComboBox.xaml", ProjectType.Wpf);
+        }
+
+        private void ParseWithoutError(string filePath, ProjectType projType)
+        {
+            var result = new RapidXamlDocument();
+
+            var text = File.ReadAllText(filePath);
+
+            var snapshot = new FakeTextSnapshot();
+
+            try
+            {
+                XamlElementExtractor.Parse(
+                    projType,
+                    Path.GetFileName(filePath),
+                    snapshot,
+                    text,
+                    RapidXamlDocument.GetAllProcessors(projType),
+                    result.Tags);
+            }
+            catch (Exception exc)
+            {
+                Assert.Fail($"Parsing failed for '{filePath}'{Environment.NewLine}{exc}");
+            }
         }
     }
 }

@@ -290,6 +290,18 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
+        public void GetSubElementAtPosition_ChildIsSelfClosingAndWithXmlns()
+        {
+            var origin = "<Root><local:Child ☆Grid.RowSpan=\"2\"/></Root>";
+
+            var expected = "<local:Child Grid.RowSpan=\"2\"/>";
+
+            var actual = this.GetSubElementAtStar(origin);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
         public void GetSubElementAtPosition_ChildIsNotSelfClosing()
         {
             var origin = "<Root><Child ☆Grid.RowSpan=\"2\"></Child></Root>";
@@ -352,18 +364,18 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         private string GetSubElementAtStar(string outerElement)
         {
             var offset = outerElement.IndexOf('☆');
-            return XamlElementProcessor.GetSubElementAtPosition(outerElement.Replace("☆", string.Empty), offset);
+            return XamlElementProcessor.GetSubElementAtPosition(ProjectType.Any, "testFile.xaml", new FakeTextSnapshot(), outerElement.Replace("☆", string.Empty), offset, new DefaultTestLogger());
         }
 
         private bool HasDefaultValue(string xaml)
         {
-            var xep = new TestableXamlElementProcessor();
+            var xep = new TestableXamlElementProcessor(ProjectType.Any, new DefaultTestLogger());
             return xep.TryGetAttribute(xaml, string.Empty, AttributeType.DefaultValue, out _, out _, out _, out _);
         }
 
         private bool HasAttribute(string xaml, string attribute, AttributeType attributeType = AttributeType.Any)
         {
-            var xep = new TestableXamlElementProcessor();
+            var xep = new TestableXamlElementProcessor(ProjectType.Any, new DefaultTestLogger());
             return xep.TryGetAttribute(xaml, attribute, attributeType, out _, out _, out _, out _);
         }
     }

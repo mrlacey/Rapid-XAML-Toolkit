@@ -1,6 +1,6 @@
 # Profiles
 
-A profile is a set of rules and settings that apply to the way the tool works.
+A profile is a set of rules and settings that apply to XAML Generation.
 
 ## Mappings
 
@@ -48,17 +48,6 @@ Only the **$element$**, **$elementwithspace$** and **$enumname$** placeholders a
 
 Profile settings and mappings can include placeholders. A placeholder is something that will be replaced in the generated code. The following placeholders are defined.
 
-### File Generation placeholders
-
-- **$viewproject$** The name of the project that the view will be created in.
-- **$viewns$** The namespace the view will be created in. This is based on project and file structure.
-- **$viewmodelns$** The namespace the view model will be created in. This is based on project and file structure.
-- **$viewclass$** The name of the view class that will be created.
-- **$viewmodelclass$** The name of the view model class that will be created.
-- **$genxaml$** Where the generated XAML will be included in the created file.
-
-### XAML generation placeholders
-
 - **$name$** Property name.
 - **$namewithspaces$** Property name with spaces inserted between words if the name is camelCase or PascalCase.
 - **$type$** Property type.
@@ -72,3 +61,66 @@ Profile settings and mappings can include placeholders. A placeholder is somethi
 - **$nooutput$** No Output. Nothing will be included in the generated XAML when this is in the mapping output.
 - **$xname$** A generated value based on the property name and the XAML element this is used within.
 - **$repxname$** Repeat the last generated $xname$ value. If no $xname$ value has been generated, the attribute this is used within will be omitted from the output.
+
+### Attribute based placeholders
+
+It is also possible to generate XAML based on the attributes attached to a property. This can be useful if the property name isn't what you want displayed but you have an attribute attached that does hold a preferred value.
+You may also use attributes to store additional information related to a property that can be useful to have in the XAML as well. (e.g. max field length.)
+
+Attribute based placeholders take the form `$att:<attribute-name>:<output-if-attribute-on-property>[::<fallback-value>]$`
+
+#### &lt;attribute-name&gt;
+
+This is the name of the attribute to look for. In the following code snippet this woudl be `Display`. (Use of `DisplayAttribute` also works.)
+
+```csharp
+    [Display(Name = ShortName)]
+    public ☆string UserName { get; set; }
+```
+
+#### &lt;output-if-attribute-on-property&gt;
+
+These can be regular strings to treat as XAML. It can also include values in square brackets which have special meaning with regard the properties of the attribute.
+
+- **[PropertName]** can be used to access the values of named items passed to the attribute constructor. e.g. `Name` in the above example.
+- **[1]** can be used to access values passed to the attribute constructor in numeric order. Order starts with '1'. (`[1]` and `[Name]` produce the same output in the above example.)
+
+#### &lt;fallback-value&gt;
+
+This is the value to output if the attribute has not been applied to the property.
+This is optional. If no fallback is provided and the attribute is not applied to the property nothing is added to the output.
+This may contain above listed placeholders but with at-signs ('@') instead of dollar-signs ('\$') at the start and end of the placeholder.
+
+##### Example
+
+Consider the following: `$att:Display:[Name]::@namewithspaces@$`
+
+- `$att:` indicates the start of an embedded attribute.
+- `Display` name of the attribute.
+- `:` indicates the end of the name.
+- `[Name]` the content to display in the output
+- `::` (optional) indicator of fallback if attribute isn't applied to the property
+- `@namewithspaces@` the content to output instead. '@' signs are replaced with '\$' and then any embedded placeholders are also evaluated.
+- `$` end of the embedded attribute placeholder.
+
+If a mapping output is defined as:
+
+```xml
+<TextBlock Text="$att:Display:[Name]::@namewithspaces@$" />
+```
+
+these properties:
+
+```csharp
+[Display(Name = ShortName)]
+public string UserName { get; set; }
+
+public string FullName { get; set; }
+```
+
+will produce:
+
+```xml
+<TextBlock Text="ShortName" />
+<TextBlock Text="Full Name" />
+```
