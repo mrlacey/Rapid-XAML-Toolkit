@@ -1068,28 +1068,28 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "string",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\" />",
+                                Output = "<TextBlock Text=\"{Binding Path=$name$, Mode=OneWay}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = true,
                             },
                             new Mapping
                             {
                                 Type = "string",
                                 NameContains = string.Empty,
-                                Output = "<TextBox Text=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\"$att:MaxLength: MaxLength=\"[1]\"$ />",
+                                Output = "<TextBox Text=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\"$att:MaxLength: MaxLength=\"[1]\"$ />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "string",
                                 NameContains = "password|pwd",
-                                Output = "<PasswordBox Password=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\"$att:MaxLength: MaxLength=\"[1]\"$ />",
+                                Output = "<PasswordBox Grid.Row=\"$incint$\"$att:MaxLength: MaxLength=\"[1]\"$ />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "string",
                                 NameContains = "uri|url",
-                                Output = "<TextBlock Grid.Row=\"$incint$\"><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" /></TextBlock>",
+                                Output = "<TextBlock Grid.Row=\"$incint$\"><Hyperlink NavigateUri=\"{Binding Path=$name$, Mode=OneWay}\"><Run Text=\"{Binding Path=$name$, Mode=OneWay}\" /></Hyperlink></TextBlock>",
                                 IfReadOnly = true,
                             },
                             new Mapping
@@ -1103,28 +1103,28 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "Uri",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Grid.Row=\"$incint$\"><Hyperlink NavigateUri=\"{Binding Path=$name$}\" Content=\"{Binding Path=$name$}\" /></TextBlock>",
+                                Output = "<TextBlock Grid.Row=\"$incint$\"><Hyperlink NavigateUri=\"{Binding Path=$name$, Mode=OneWay}\"><Run Text=\"{Binding Path=$name$, Mode=OneWay}\" /></Hyperlink></TextBlock>",
                                 IfReadOnly = true,
                             },
                             new Mapping
                             {
                                 Type = "int|Integer",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\" />",
+                                Output = "<TextBlock Text=\"{Binding Path=$name$, Mode=OneWay}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = true,
                             },
                             new Mapping
                             {
                                 Type = "int|Integer",
                                 NameContains = string.Empty,
-                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "DateTime",
                                 NameContains = "date",
-                                Output = "<DatePicker SelectedDate=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                Output = "<DatePicker SelectedDate=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -1138,14 +1138,14 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "bool|Boolean",
                                 NameContains = string.Empty,
-                                Output = "<CheckBox Content=\"$namewithspaces$\" IsChecked=\"{Binding Path=$name$, Mode=TwoWay}\" Grid.Row=\"$incint$\" />",
+                                Output = "<CheckBox Content=\"$namewithspaces$\" IsChecked=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "bool|Boolean",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\" />",
+                                Output = "<TextBlock Text=\"{Binding Path=$name$, Mode=OneWay}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = true,
                             },
                             new Mapping
@@ -1166,7 +1166,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "ObservableCollection<T>|List<T>",
                                 NameContains = string.Empty,
-                                Output = "<ListView ItemsSource=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\"><ListView.ItemTemplate><DataTemplate x:DataType=\"$type$\"><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                                Output = "<ListView ItemsSource=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\"><ListView.ItemTemplate><DataTemplate><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
                                 IfReadOnly = false,
                             },
                             new Mapping
