@@ -277,6 +277,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dropping &apos;{0}&apos; onto view..
+        /// </summary>
+        public static string Info_FileDropped {
+            get {
+                return ResourceManager.GetString("Info_FileDropped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File &apos;{0}&apos; already exists..
         /// </summary>
         public static string Info_FileExists {
@@ -651,6 +660,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_UnableToAccessTelemetry {
             get {
                 return ResourceManager.GetString("Info_UnableToAccessTelemetry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to load Drop Handler as extension not yet loaded..
+        /// </summary>
+        public static string Info_UnableToGetDropHandler {
+            get {
+                return ResourceManager.GetString("Info_UnableToGetDropHandler", resourceCulture);
             }
         }
         

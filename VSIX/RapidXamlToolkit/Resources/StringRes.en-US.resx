@@ -928,4 +928,10 @@
   <data name="Info_XamlAnalysisHardcodedStringPasswordboxDescriptionMessage" xml:space="preserve">
     <value>PasswordBox contains hard-coded Description value '{0};</value>
   </data>
+  <data name="Info_FileDropped" xml:space="preserve">
+    <value>Dropping '{0}' onto view.</value>
+  </data>
+  <data name="Info_UnableToGetDropHandler" xml:space="preserve">
+    <value>Failed to load Drop Handler as extension not yet loaded.</value>
+  </data>
 </root>
