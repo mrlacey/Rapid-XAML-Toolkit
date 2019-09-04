@@ -5,7 +5,7 @@ namespace RapidXamlToolkit.Parsers
 {
     public class ParserOutput
     {
-        private string _output;
+        private string output;
 
         public static ParserOutput Empty => new ParserOutput
         {
@@ -20,7 +20,7 @@ namespace RapidXamlToolkit.Parsers
         {
             get
             {
-                return this._output;
+                return this.output;
             }
 
             set
@@ -31,7 +31,7 @@ namespace RapidXamlToolkit.Parsers
                                         .Replace("Bind , ", "Bind ")
                                         .Replace("Path=, ", " ");
 
-                this._output = tidiedOutput;
+                this.output = tidiedOutput;
             }
         }
     }
