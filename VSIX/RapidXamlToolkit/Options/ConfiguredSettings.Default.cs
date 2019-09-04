@@ -95,18 +95,6 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
-                        Name = "Xamarin.Forms StackLayout",
-                        ProjectType = ProjectType.XamarinForms,
-                        ClassGrouping = "StackLayout",
-                        FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
-                        SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
-                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
-                        Mappings = MappingsForXfStackLayout(),
-                        AttemptAutomaticDocumentFormatting = true,
-                    },
-
-                    new Profile
-                    {
                         Name = "WPF StackPanel",
                         ProjectType = ProjectType.Wpf,
                         ClassGrouping = "StackPanel",
@@ -138,6 +126,54 @@ namespace RapidXamlToolkit.Options
                         SubPropertyOutput = "<TextBlock Text=\"{Binding Path=$name$, Mode=OneWay}\" />",
                         EnumMemberOutput = "<ComboBoxItem>$element$</ComboBoxItem>",
                         Mappings = MappingsForWpf2ColGrid(),
+                        AttemptAutomaticDocumentFormatting = true,
+                    },
+
+                    new Profile
+                    {
+                        Name = "Xamarin.Forms StackLayout",
+                        ProjectType = ProjectType.XamarinForms,
+                        ClassGrouping = "StackLayout",
+                        FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
+                        SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
+                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
+                        Mappings = MappingsForXfStackLayout(),
+                        AttemptAutomaticDocumentFormatting = true,
+                    },
+
+                    new Profile
+                    {
+                        Name = "Xamarin.Forms StackLayout",
+                        ProjectType = ProjectType.XamarinForms,
+                        ClassGrouping = "StackLayout",
+                        FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
+                        SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
+                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
+                        Mappings = MappingsForXfStackLayout(),
+                        AttemptAutomaticDocumentFormatting = true,
+                    },
+
+                    new Profile
+                    {
+                        Name = "Xamarin.Forms Grid",
+                        ProjectType = ProjectType.XamarinForms,
+                        ClassGrouping = "Grid",
+                        FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
+                        SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
+                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
+                        Mappings = MappingsForXfStackLayout(),
+                        AttemptAutomaticDocumentFormatting = true,
+                    },
+
+                    new Profile
+                    {
+                        Name = "Xamarin.Forms FlexLayout",
+                        ProjectType = ProjectType.XamarinForms,
+                        ClassGrouping = "FlexLayout",
+                        FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
+                        SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
+                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
+                        Mappings = MappingsForXfStackLayout(),
                         AttemptAutomaticDocumentFormatting = true,
                     },
                 },
@@ -801,139 +837,6 @@ namespace RapidXamlToolkit.Options
                         };
         }
 
-        private static ObservableCollection<Mapping> MappingsForXfStackLayout()
-        {
-            return new ObservableCollection<Mapping>
-                        {
-                            new Mapping
-                            {
-                                Type = "String",
-                                NameContains = string.Empty,
-                                Output = "<Label Text=\"{Binding $name$, Mode=TwoWay}\" />",
-                                IfReadOnly = true,
-                            },
-                            new Mapping
-                            {
-                                Type = "String",
-                                NameContains = string.Empty,
-                                Output = "<Entry Keyboard=\"Default\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "string",
-                                NameContains = "phone|tel|cell",
-                                Output = "<Entry Keyboard=\"Telephone\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "string",
-                                NameContains = "email",
-                                Output = "<Entry Keyboard=\"Email\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "string",
-                                NameContains = "uri|url",
-                                Output = "<Entry Keyboard=\"Url\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "string",
-                                NameContains = "chat|message",
-                                Output = "<Entry Keyboard=\"Chat\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "string",
-                                NameContains = "search",
-                                Output = "<SearchBar PlaceholderText=\"Search\" QueryText=\"{Binding $name$, Mode=TwoWay}\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "String",
-                                NameContains = "password|pwd",
-                                Output = "<Entry IsPassword=\"True\" Text=\"{Binding $name$, Mode=TwoWay}\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "string|uri",
-                                NameContains = "thumbnail|picture|image",
-                                Output = "<Image Source=\"{Binding $name$, Mode=OneWay}\" Stretch=\"None\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "bool",
-                                NameContains = "busy|active",
-                                Output = "<ActivityIndicator IsRunning=\"{Binding $name$}\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "int|Integer|long|double|float",
-                                NameContains = string.Empty,
-                                Output = "<Label Text=\"{Binding $name$}\" />",
-                                IfReadOnly = true,
-                            },
-                            new Mapping
-                            {
-                                Type = "int|Integer|long|double|float",
-                                NameContains = string.Empty,
-                                Output = "<Entry Keyboard=\"Numeric\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "DateTime|DateTimeOffset",
-                                NameContains = "date",
-                                Output = "<DatePicker Date=\"{Binding $name$, Mode=TwoWay}\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "DateTime|DateTimeOffset",
-                                NameContains = "time",
-                                Output = "<TimePicker Time=\"{Binding $name$, Mode=TwoWay}\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "DateTime|DateTimeOffset",
-                                NameContains = string.Empty,
-                                Output = "<Label Text=\"{Binding $name$}\" />",
-                                IfReadOnly = true,
-                            },
-                            new Mapping
-                            {
-                                Type = "ICommand|Command|RelayCommand",
-                                NameContains = string.Empty,
-                                Output = "<Button Text=\"$name$\" Command=\"{Binding $name$}\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "ObservableCollection<T>|List<T>",
-                                NameContains = string.Empty,
-                                Output = "<ListView ItemsSource=\"{Binding $name$}\"><ListView.ItemTemplate><DataTemplate><ViewCell><StackLayout>$subprops$</StackLayout></ViewCell></DataTemplate></ListView.ItemTemplate></ListView>",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "enum",
-                                NameContains = string.Empty,
-                                Output = "<Picker Title=\"$name$\"><Picker.Items>$members$</Picker.Items></Picker>",
-                                IfReadOnly = false,
-                            },
-                        };
-        }
-
         private static ObservableCollection<Mapping> MappingsForWpfStackPanel()
         {
             return new ObservableCollection<Mapping>
@@ -1307,6 +1210,139 @@ namespace RapidXamlToolkit.Options
                                 Type = "enum",
                                 NameContains = string.Empty,
                                 Output = "<TextBlock Text=\"$name$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><ComboBox Grid.Row=\"$repint$\" Grid.Column=\"1\">$members$</ComboBox>",
+                                IfReadOnly = false,
+                            },
+                        };
+        }
+
+        private static ObservableCollection<Mapping> MappingsForXfStackLayout()
+        {
+            return new ObservableCollection<Mapping>
+                        {
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"{Binding $name$, Mode=TwoWay}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<Entry Keyboard=\"Default\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "phone|tel|cell",
+                                Output = "<Entry Keyboard=\"Telephone\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "email",
+                                Output = "<Entry Keyboard=\"Email\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<Entry Keyboard=\"Url\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "chat|message",
+                                Output = "<Entry Keyboard=\"Chat\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "search",
+                                Output = "<SearchBar PlaceholderText=\"Search\" QueryText=\"{Binding $name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = "password|pwd",
+                                Output = "<Entry IsPassword=\"True\" Text=\"{Binding $name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string|uri",
+                                NameContains = "thumbnail|picture|image",
+                                Output = "<Image Source=\"{Binding $name$, Mode=OneWay}\" Stretch=\"None\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "bool",
+                                NameContains = "busy|active",
+                                Output = "<ActivityIndicator IsRunning=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer|long|double|float",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"{Binding $name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer|long|double|float",
+                                NameContains = string.Empty,
+                                Output = "<Entry Keyboard=\"Numeric\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTime|DateTimeOffset",
+                                NameContains = "date",
+                                Output = "<DatePicker Date=\"{Binding $name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTime|DateTimeOffset",
+                                NameContains = "time",
+                                Output = "<TimePicker Time=\"{Binding $name$, Mode=TwoWay}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTime|DateTimeOffset",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"{Binding $name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "ICommand|Command|RelayCommand",
+                                NameContains = string.Empty,
+                                Output = "<Button Text=\"$name$\" Command=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ObservableCollection<T>|List<T>",
+                                NameContains = string.Empty,
+                                Output = "<ListView ItemsSource=\"{Binding $name$}\"><ListView.ItemTemplate><DataTemplate><ViewCell><StackLayout>$subprops$</StackLayout></ViewCell></DataTemplate></ListView.ItemTemplate></ListView>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "enum",
+                                NameContains = string.Empty,
+                                Output = "<Picker Title=\"$name$\"><Picker.Items>$members$</Picker.Items></Picker>",
                                 IfReadOnly = false,
                             },
                         };
