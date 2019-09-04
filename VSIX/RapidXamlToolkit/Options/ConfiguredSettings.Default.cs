@@ -143,6 +143,18 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
+                        Name = "Xamarin.Forms StackLayout with Labels",
+                        ProjectType = ProjectType.XamarinForms,
+                        ClassGrouping = "StackLayout",
+                        FallbackOutput = "<Label Text=\"$name$\" /><Label Text=\"{Binding $name$}\" />",
+                        SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
+                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
+                        Mappings = MappingsForXfStackLayoutPlusLabels(),
+                        AttemptAutomaticDocumentFormatting = true,
+                    },
+
+                    new Profile
+                    {
                         Name = "Xamarin.Forms Grid",
                         ProjectType = ProjectType.XamarinForms,
                         ClassGrouping = "Grid",
@@ -1307,17 +1319,17 @@ namespace RapidXamlToolkit.Options
                             },
                             new Mapping
                             {
-                                Type = "DateTime|DateTimeOffset",
-                                NameContains = "time",
+                                Type = "TimeSpan",
+                                NameContains = string.Empty,
                                 Output = "<TimePicker Time=\"{Binding $name$}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
-                                Type = "DateTime|DateTimeOffset",
+                                Type = "DateTime|DateTimeOffset|TimeSpan",
                                 NameContains = string.Empty,
                                 Output = "<Label Text=\"{Binding $name$}\" />",
-                                IfReadOnly = true,
+                                IfReadOnly = false,
                             },
                             new Mapping
                             {
@@ -1335,7 +1347,161 @@ namespace RapidXamlToolkit.Options
                             },
                             new Mapping
                             {
-                                Type = "List<string>|enum",
+                                Type = "List<string>",
+                                NameContains = string.Empty,
+                                Output = "<Picker ItemsSource=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "enum",
+                                NameContains = string.Empty,
+                                Output = "<Picker><Picker.Items>$members$</Picker.Items></Picker>",
+                                IfReadOnly = false,
+                            },
+                        };
+        }
+
+        private static ObservableCollection<Mapping> MappingsForXfStackLayoutPlusLabels()
+        {
+            return new ObservableCollection<Mapping>
+                        {
+                            new Mapping
+                            {
+                                Type = "bool",
+                                NameContains = "busy|active",
+                                Output = "<Label Text=\"$name$\" /><ActivityIndicator IsRunning=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"$name$\" /><Label Text=\"{Binding $name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"$name$\" /><Entry Keyboard=\"Default\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "String",
+                                NameContains = "password|pwd",
+                                Output = "<Label Text=\"$name$\" /><Entry IsPassword=\"True\" Text=\"{Binding $name$}\" Keyboard=\"Default\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "search",
+                                Output = "<Label Text=\"$name$\" /><SearchBar Placeholder=\"Search\" Text=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "phone|tel|cell",
+                                Output = "<Label Text=\"$name$\" /><Entry Keyboard=\"Telephone\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "chat|message",
+                                Output = "<Label Text=\"$name$\" /><Entry Keyboard=\"Chat\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "email",
+                                Output = "<Label Text=\"$name$\" /><Entry Keyboard=\"Email\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<Label Text=\"$name$\" /><Entry Keyboard=\"Url\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string|uri",
+                                NameContains = "thumbnail|picture|image",
+                                Output = "<Label Text=\"$name$\" /><Image Source=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "uri",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"$name$\" /><Label Text=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer|long|double|float",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"$name$\" /><Label Text=\"{Binding $name$}\" />",
+                                IfReadOnly = true,
+                            },
+                            new Mapping
+                            {
+                                Type = "int|Integer|long|double|float",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"$name$\" /><Entry Keyboard=\"Numeric\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTime|DateTimeOffset",
+                                NameContains = "date",
+                                Output = "<Label Text=\"$name$\" /><DatePicker Date=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "TimeSpan",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"$name$\" /><TimePicker Time=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "DateTime|DateTimeOffset|TimeSpan",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"$name$\" /><Label Text=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ICommand|Command|RelayCommand",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"$name$\" /><Button Text=\"$name$\" Command=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "ObservableCollection<T>|List<T>",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"$name$\" /><ListView ItemsSource=\"{Binding $name$}\"><ListView.ItemTemplate><DataTemplate><ViewCell><StackLayout>$subprops$</StackLayout></ViewCell></DataTemplate></ListView.ItemTemplate></ListView>",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "List<string>",
+                                NameContains = string.Empty,
+                                Output = "<Picker Title=\"$name$\" ItemsSource=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "enum",
                                 NameContains = string.Empty,
                                 Output = "<Picker Title=\"$name$\"><Picker.Items>$members$</Picker.Items></Picker>",
                                 IfReadOnly = false,
