@@ -143,18 +143,6 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
-                        Name = "Xamarin.Forms StackLayout",
-                        ProjectType = ProjectType.XamarinForms,
-                        ClassGrouping = "StackLayout",
-                        FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
-                        SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
-                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
-                        Mappings = MappingsForXfStackLayout(),
-                        AttemptAutomaticDocumentFormatting = true,
-                    },
-
-                    new Profile
-                    {
                         Name = "Xamarin.Forms Grid",
                         ProjectType = ProjectType.XamarinForms,
                         ClassGrouping = "Grid",
@@ -1221,9 +1209,16 @@ namespace RapidXamlToolkit.Options
                         {
                             new Mapping
                             {
+                                Type = "bool",
+                                NameContains = "busy|active",
+                                Output = "<ActivityIndicator IsRunning=\"{Binding $name$}\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
                                 Type = "String",
                                 NameContains = string.Empty,
-                                Output = "<Label Text=\"{Binding $name$, Mode=TwoWay}\" />",
+                                Output = "<Label Text=\"{Binding $name$}\" />",
                                 IfReadOnly = true,
                             },
                             new Mapping
@@ -1235,58 +1230,58 @@ namespace RapidXamlToolkit.Options
                             },
                             new Mapping
                             {
-                                Type = "string",
-                                NameContains = "phone|tel|cell",
-                                Output = "<Entry Keyboard=\"Telephone\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "string",
-                                NameContains = "email",
-                                Output = "<Entry Keyboard=\"Email\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "string",
-                                NameContains = "uri|url",
-                                Output = "<Entry Keyboard=\"Url\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
-                                IfReadOnly = false,
-                            },
-                            new Mapping
-                            {
-                                Type = "string",
-                                NameContains = "chat|message",
-                                Output = "<Entry Keyboard=\"Chat\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
+                                Type = "String",
+                                NameContains = "password|pwd",
+                                Output = "<Entry IsPassword=\"True\" Text=\"{Binding $name$}\" Keyboard=\"Default\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "string",
                                 NameContains = "search",
-                                Output = "<SearchBar PlaceholderText=\"Search\" QueryText=\"{Binding $name$, Mode=TwoWay}\" />",
+                                Output = "<SearchBar Placeholder=\"Search\" Text=\"{Binding $name$}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
-                                Type = "String",
-                                NameContains = "password|pwd",
-                                Output = "<Entry IsPassword=\"True\" Text=\"{Binding $name$, Mode=TwoWay}\" />",
+                                Type = "string",
+                                NameContains = "phone|tel|cell",
+                                Output = "<Entry Keyboard=\"Telephone\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "chat|message",
+                                Output = "<Entry Keyboard=\"Chat\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "email",
+                                Output = "<Entry Keyboard=\"Email\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
+                                IfReadOnly = false,
+                            },
+                            new Mapping
+                            {
+                                Type = "string",
+                                NameContains = "uri|url",
+                                Output = "<Entry Keyboard=\"Url\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "string|uri",
                                 NameContains = "thumbnail|picture|image",
-                                Output = "<Image Source=\"{Binding $name$, Mode=OneWay}\" Stretch=\"None\" />",
+                                Output = "<Image Source=\"{Binding $name$}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
-                                Type = "bool",
-                                NameContains = "busy|active",
-                                Output = "<ActivityIndicator IsRunning=\"{Binding $name$}\" />",
+                                Type = "uri",
+                                NameContains = string.Empty,
+                                Output = "<Label Text=\"{Binding $name$}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -1300,21 +1295,21 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "int|Integer|long|double|float",
                                 NameContains = string.Empty,
-                                Output = "<Entry Keyboard=\"Numeric\" Text=\"{Binding $name$, Mode=TwoWay}\" Placeholder=\"$name$\" />",
+                                Output = "<Entry Keyboard=\"Numeric\" Text=\"{Binding $name$}\" Placeholder=\"$name$\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "DateTime|DateTimeOffset",
                                 NameContains = "date",
-                                Output = "<DatePicker Date=\"{Binding $name$, Mode=TwoWay}\" />",
+                                Output = "<DatePicker Date=\"{Binding $name$}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
                             {
                                 Type = "DateTime|DateTimeOffset",
                                 NameContains = "time",
-                                Output = "<TimePicker Time=\"{Binding $name$, Mode=TwoWay}\" />",
+                                Output = "<TimePicker Time=\"{Binding $name$}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -1340,7 +1335,7 @@ namespace RapidXamlToolkit.Options
                             },
                             new Mapping
                             {
-                                Type = "enum",
+                                Type = "List<string>|enum",
                                 NameContains = string.Empty,
                                 Output = "<Picker Title=\"$name$\"><Picker.Items>$members$</Picker.Items></Picker>",
                                 IfReadOnly = false,
