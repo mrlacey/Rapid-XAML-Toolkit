@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
-using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests.Formatting
 {

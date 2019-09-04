@@ -73,6 +73,7 @@
     <Compile Include="Parsers\GetVisualBasicPropertiesTests.cs" />
     <Compile Include="Parsers\GetVisualBasicSelectionTests.cs" />
     <Compile Include="Parsers\IStarsRepresentCaretInDocsTests.cs" />
+    <Compile Include="Parsers\ParserOutputTests.cs" />
     <Compile Include="Parsers\StarsRepresentCaretInDocsTests.cs" />
     <Compile Include="Parsers\VisualBasicTestsBase.cs" />
     <Compile Include="DefaultTestLogger.cs" />
