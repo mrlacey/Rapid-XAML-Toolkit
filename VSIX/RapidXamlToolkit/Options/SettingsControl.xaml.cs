@@ -64,7 +64,10 @@ namespace RapidXamlToolkit.Options
 
                 if (selectedIndex >= 0)
                 {
-                    var selectedProfile = this.SettingsProvider.ActualSettings.ProfilesList[this.DisplayedProfiles.SelectedIndex];
+                    // Can't rely on selected Index to get the item as it doens't handle headers correctly.
+                    ProfileSummary selectedItem = (ProfileSummary)this.DisplayedProfiles.SelectedItem;
+
+                    var selectedProfile = this.SettingsProvider.ActualSettings.ProfilesList.FirstOrDefault(p => p.Name == selectedItem.Name && p.ProjectType == selectedItem.ProjectType);
 
                     if (!selectedProfile.IsActive)
                     {

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.ComponentModel.Composition;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
@@ -46,21 +47,30 @@ namespace RapidXamlToolkit.DragDrop
 
         public IDropHandler GetAssociatedDropHandler(IWpfTextView view)
         {
-            ITextBufferUndoManager undoManager = this.UndoProvider.GetTextBufferUndoManager(view.TextBuffer);
-
-            var vsa = new VisualStudioAbstraction(Logger, Package, dte);
-
-            var projType = ProjectType.Unknown;
-
-            if (this.TextDocumentFactoryService.TryGetTextDocument(view.TextBuffer, out ITextDocument textDocument))
+            try
             {
-                var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(textDocument.FilePath);
-                projType = vsa.GetProjectType(proj);
+                ITextBufferUndoManager undoManager = this.UndoProvider.GetTextBufferUndoManager(view.TextBuffer);
 
-                Logger?.RecordInfo(StringRes.Info_DetectedProjectType.WithParams(projType.GetDescription()));
+                var vsa = new VisualStudioAbstraction(Logger, Package, dte);
+
+                var projType = ProjectType.Unknown;
+
+                if (this.TextDocumentFactoryService.TryGetTextDocument(view.TextBuffer, out ITextDocument textDocument))
+                {
+                    var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(textDocument.FilePath);
+                    projType = vsa.GetProjectType(proj);
+
+                    Logger?.RecordInfo(StringRes.Info_DetectedProjectType.WithParams(projType.GetDescription()));
+                }
+
+                return view.Properties.GetOrCreateSingletonProperty(() => new RapidXamlDropHandler(Logger, view, undoManager, vsa, projType));
             }
-
-            return view.Properties.GetOrCreateSingletonProperty(() => new RapidXamlDropHandler(Logger, view, undoManager, vsa, projType));
+            catch (Exception exc)
+            {
+                RxtOutputPane.Instance.Write(RxtLogger.TimeStampMessage(StringRes.Info_UnableToGetDropHandler));
+                Logger?.RecordException(exc);
+                return null;
+            }
         }
     }
 }

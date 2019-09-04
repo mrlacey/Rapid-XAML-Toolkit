@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.Text.Editor.DragDrop;
 using Microsoft.VisualStudio.Text.Operations;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
-using RapidXamlToolkit.Parsers;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.DragDrop
@@ -48,6 +48,9 @@ namespace RapidXamlToolkit.DragDrop
             {
                 try
                 {
+                    this.logger?.RecordFeatureUsage(nameof(RapidXamlDropHandler));
+                    this.logger?.RecordInfo(StringRes.Info_FileDropped.WithParams(this.draggedFilename));
+
                     var logic = new DropHandlerLogic(this.logger, this.vs, this.fileSystem);
 
                     var textOutput = await logic.ExecuteAsync(this.draggedFilename, insertLinePadding, this.projectType);
