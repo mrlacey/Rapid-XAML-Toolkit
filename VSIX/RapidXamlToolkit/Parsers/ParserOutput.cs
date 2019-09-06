@@ -29,7 +29,8 @@ namespace RapidXamlToolkit.Parsers
                 // Avoid such issues leading to invalid XAML being generated.
                 var tidiedOutput = value.Replace("Binding , ", "Binding ")
                                         .Replace("Bind , ", "Bind ")
-                                        .Replace("Path=, ", " ");
+                                        .Replace(" Path=, ", " ")
+                                        .Replace("Path=}", "}");
 
                 this.output = tidiedOutput;
             }
