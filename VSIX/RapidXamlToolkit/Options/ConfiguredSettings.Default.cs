@@ -169,7 +169,7 @@ namespace RapidXamlToolkit.Options
                     {
                         Name = "Xamarin.Forms FlexLayout",
                         ProjectType = ProjectType.XamarinForms,
-                        ClassGrouping = "FlexLayout",
+                        ClassGrouping = "FlexLayout Direction=\"Column\" JustifyContent=\"SpaceEvenly\"",
                         FallbackOutput = "<Label Text=\"{Binding $name$}\" />",
                         SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
                         EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
