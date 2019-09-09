@@ -73,6 +73,11 @@
           <ButtonText>Move all hard-coded strings to Resource file</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidRapidXamlPackageCmdSet" id="FeedbackCommandId" priority="0x0900" type="Button">
+        <Strings>
+          <ButtonText>Give Feedback</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
     <Bitmaps>
       <!--  The bitmap id is defined in a way that is a little bit different from the others:
@@ -123,6 +128,12 @@
     <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0200">
       <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuGroup" />
     </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="FeedbackCommandId" priority="0x0400">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuSecondaryGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlPackageCmdSet" id="FeedbackCommandId" priority="0x0900">
+      <Parent guid="guidRapidXamlPackageCmdSet" id="XamlContextMenuSecondaryGroup" />
+    </CommandPlacement>
   </CommandPlacements>
   <Symbols>
     <!-- This is the package guid. -->
@@ -141,6 +152,7 @@
       <IDSymbol name="SendToToolboxCommandId" value="4129" />
       <IDSymbol name="OpenOptionsCommandId" value="4131" />
       <IDSymbol name="MoveAllHardCodedStringsToResourceFileCommandId" value="4134" />
+      <IDSymbol name="FeedbackCommandId" value="4135" />
     </GuidSymbol>
     <GuidSymbol name="guidImages" value="{092daafa-627f-4f53-a712-4e3e5fa72e0d}">
       <IDSymbol name="bmpCopyAsXaml" value="1" />

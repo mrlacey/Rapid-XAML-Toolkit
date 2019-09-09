@@ -67,6 +67,7 @@
     <NoWarn>,1573,1591,1712,1762,NU1605,NU1608</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\FeedbackCommand.cs" />
     <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
     <Compile Include="Options\EnumConverter.cs" />
     <Compile Include="Parsers\AttributeArgumentDetails.cs" />
