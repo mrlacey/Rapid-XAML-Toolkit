@@ -63,6 +63,7 @@ namespace RapidXamlToolkit
                 await CopyToClipboardCommand.InitializeAsync(this, Logger);
                 await SendToToolboxCommand.InitializeAsync(this, Logger);
                 await OpenOptionsCommand.InitializeAsync(this, Logger);
+                await FeedbackCommand.InitializeAsync(this, Logger);
                 await MoveAllHardCodedStringsToResourceFileCommand.InitializeAsync(this, Logger);
                 await RapidXamlDropHandlerProvider.InitializeAsync(this, Logger);
 
