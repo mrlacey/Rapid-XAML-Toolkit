@@ -61,6 +61,33 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type names should be all uppercase..
+        /// </summary>
+        public static string AnalyzerDescription {
+            get {
+                return ResourceManager.GetString("AnalyzerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type name &apos;{0}&apos; contains lowercase letters.
+        /// </summary>
+        public static string AnalyzerMessageFormat {
+            get {
+                return ResourceManager.GetString("AnalyzerMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type name contains lowercase letters.
+        /// </summary>
+        public static string AnalyzerTitle {
+            get {
+                return ResourceManager.GetString("AnalyzerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md.
         /// </summary>
         public static string Error_OutdatedConfigurationDetected2 {
