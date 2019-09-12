@@ -16,13 +16,13 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.RoslynAnalyzers
 {
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(FullPropertyWithOnPropertyChangedCodeFixProvider))]
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(CsFullPropertyWithSetCodeFixProvider))]
     [Shared]
-    public class FullPropertyWithOnPropertyChangedCodeFixProvider : CodeFixProvider
+    public class CsFullPropertyWithSetCodeFixProvider : CodeFixProvider
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(ExpandAutoPropertiesAnalyzer.OnPropertyChangedDiagnosticId); }
+            get { return ImmutableArray.Create(CsExpandAutoPropertiesAnalyzer.SetDiagnosticId); }
         }
 
         public sealed override FixAllProvider GetFixAllProvider()
@@ -39,7 +39,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
 
             var pds = root.FindToken(diagnosticSpan.Start).Parent as PropertyDeclarationSyntax;
 
-            var title = StringRes.UI_AnalyzerFixOnPropertyChangedTitle;
+            var title = StringRes.UI_AnalyzerFixSetTitle;
 
             context.RegisterCodeFix(
                 CodeAction.Create(
@@ -82,39 +82,26 @@ namespace RapidXamlToolkit.RoslynAnalyzers
                             SyntaxFactory.ReturnStatement(SyntaxFactory.IdentifierName(fieldName)),
                         }))));
 
-            var setProperty = SyntaxFactory.ExpressionStatement(
-                            SyntaxFactory.AssignmentExpression(
-                                SyntaxKind.SimpleAssignmentExpression,
-                                SyntaxFactory.IdentifierName(fieldName),
-                                SyntaxFactory.IdentifierName("value")),
-                            SyntaxFactory.Token(SyntaxKind.SemicolonToken));
-
-            var onPropertyChangedCall = SyntaxFactory.ExpressionStatement(
-                SyntaxFactory.InvocationExpression(
-                    SyntaxFactory.IdentifierName("OnPropertyChanged"))
-                .AddArgumentListArguments(
-                        SyntaxFactory.Argument(
-                            SyntaxFactory.InvocationExpression(
-                                SyntaxFactory.IdentifierName("nameof"))
-                            .AddArgumentListArguments(
-                                        SyntaxFactory.Argument(
-                                            SyntaxFactory.IdentifierName(propName))))));
+            var setCall = SyntaxFactory.ExpressionStatement(
+                SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("Set"))
+                             .AddArgumentListArguments(
+                                SyntaxFactory.Argument(SyntaxFactory.IdentifierName(fieldName))
+                                             .WithRefKindKeyword(SyntaxFactory.Token(SyntaxKind.RefKeyword)),
+                                SyntaxFactory.Argument(SyntaxFactory.IdentifierName("value"))));
 
             newProperty = newProperty.AddAccessorListAccessors(
                 SyntaxFactory.AccessorDeclaration(
                     SyntaxKind.SetAccessorDeclaration,
-                    SyntaxFactory.Block(SyntaxFactory.List(new[]
-                    {
-                        setProperty,
-                        onPropertyChangedCall,
-                    })))
+                    SyntaxFactory.Block(SyntaxFactory.List(new[] { setCall })))
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword)));
 
             var oldRoot = await document.GetSyntaxRootAsync(cancellationToken);
 
-            var newNodes = new List<SyntaxNode>();
-            newNodes.Add(backingField);
-            newNodes.Add(newProperty);
+            var newNodes = new List<SyntaxNode>
+            {
+                backingField,
+                newProperty,
+            };
 
             var newRoot = oldRoot.ReplaceNode(pds, newNodes);
 

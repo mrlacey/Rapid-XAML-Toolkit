@@ -16,13 +16,13 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.RoslynAnalyzers
 {
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(FullPropertyWithSetPropertyCodeFixProvider))]
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(CsFullPropertyWithSetPropertyCodeFixProvider))]
     [Shared]
-    public class FullPropertyWithSetPropertyCodeFixProvider : CodeFixProvider
+    public class CsFullPropertyWithSetPropertyCodeFixProvider : CodeFixProvider
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(ExpandAutoPropertiesAnalyzer.SetPropertyDiagnosticId); }
+            get { return ImmutableArray.Create(CsExpandAutoPropertiesAnalyzer.SetPropertyDiagnosticId); }
         }
 
         public sealed override FixAllProvider GetFixAllProvider()
@@ -97,9 +97,11 @@ namespace RapidXamlToolkit.RoslynAnalyzers
 
             var oldRoot = await document.GetSyntaxRootAsync(cancellationToken);
 
-            var newNodes = new List<SyntaxNode>();
-            newNodes.Add(backingField);
-            newNodes.Add(newProperty);
+            var newNodes = new List<SyntaxNode>
+            {
+                backingField,
+                newProperty,
+            };
 
             var newRoot = oldRoot.ReplaceNode(pds, newNodes);
 
