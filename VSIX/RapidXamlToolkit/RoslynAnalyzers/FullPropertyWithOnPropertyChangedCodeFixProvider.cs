@@ -79,8 +79,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
                         SyntaxFactory.List(new[]
                         {
                             SyntaxFactory.ReturnStatement(SyntaxFactory.IdentifierName(fieldName)),
-                        })
-                    )));
+                        }))));
 
             var setProperty = SyntaxFactory.ExpressionStatement(
                             SyntaxFactory.AssignmentExpression(
@@ -103,7 +102,11 @@ namespace RapidXamlToolkit.RoslynAnalyzers
             newProperty = newProperty.AddAccessorListAccessors(
                 SyntaxFactory.AccessorDeclaration(
                     SyntaxKind.SetAccessorDeclaration,
-                    SyntaxFactory.Block(SyntaxFactory.List(new[] { setProperty, onPropertyChangedCall })))
+                    SyntaxFactory.Block(SyntaxFactory.List(new[]
+                    {
+                        setProperty,
+                        onPropertyChangedCall,
+                    })))
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword)));
 
             var oldRoot = await document.GetSyntaxRootAsync(cancellationToken);

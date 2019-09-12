@@ -78,21 +78,18 @@ namespace RapidXamlToolkit.RoslynAnalyzers
             backingProperty = backingProperty.AddAccessorListAccessors(
                 SyntaxFactory.AccessorDeclaration(
                     SyntaxKind.GetAccessorDeclaration,
-                    SyntaxFactory.Block(SyntaxFactory.List(new[] { returnStatement }))
-                ));
+                    SyntaxFactory.Block(SyntaxFactory.List(new[] { returnStatement }))));
 
             var setCall = SyntaxFactory.ExpressionStatement(
                 SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("SetValue"))
                              .AddArgumentListArguments(
                                 SyntaxFactory.Argument(SyntaxFactory.IdentifierName(depPropName)),
-                                SyntaxFactory.Argument(SyntaxFactory.IdentifierName("value"))
-                            ));
+                                SyntaxFactory.Argument(SyntaxFactory.IdentifierName("value"))));
 
             backingProperty = backingProperty.AddAccessorListAccessors(
                 SyntaxFactory.AccessorDeclaration(
                     SyntaxKind.SetAccessorDeclaration,
-                    SyntaxFactory.Block(SyntaxFactory.List(new[] { setCall }))
-                ));
+                    SyntaxFactory.Block(SyntaxFactory.List(new[] { setCall }))));
 
             var depProperty = SyntaxFactory.FieldDeclaration(
                 SyntaxFactory.VariableDeclaration(
@@ -108,27 +105,25 @@ namespace RapidXamlToolkit.RoslynAnalyzers
                                                 SyntaxFactory.IdentifierName("DependencyProperty"),
                                                 SyntaxFactory.IdentifierName("Register")),
                                             SyntaxFactory.ArgumentList(
-                                                default(SeparatedSyntaxList<ArgumentSyntax>).Add(
+                                                default(SeparatedSyntaxList<ArgumentSyntax>)
+                                                .Add(
                                                     SyntaxFactory.Argument(
                                                         SyntaxFactory.LiteralExpression(
                                                             SyntaxKind.StringLiteralExpression,
-                                                            SyntaxFactory.Literal(propName))
-                                                        )
-                                                    ).Add(
+                                                            SyntaxFactory.Literal(propName))))
+                                                .Add(
                                                     SyntaxFactory.Argument(
                                                         SyntaxFactory.InvocationExpression(
                                                             SyntaxFactory.IdentifierName("typeof"))
                                                          .AddArgumentListArguments(
-                                                            SyntaxFactory.Argument(SyntaxFactory.IdentifierName(propType)))
-                                                        )
-                                                    ).Add(
+                                                            SyntaxFactory.Argument(SyntaxFactory.IdentifierName(propType)))))
+                                                .Add(
                                                     SyntaxFactory.Argument(
                                                         SyntaxFactory.InvocationExpression(
                                                             SyntaxFactory.IdentifierName("typeof"))
                                                          .AddArgumentListArguments(
-                                                            SyntaxFactory.Argument(SyntaxFactory.IdentifierName(className)))
-                                                        )
-                                                    ).Add(
+                                                            SyntaxFactory.Argument(SyntaxFactory.IdentifierName(className)))))
+                                                .Add(
                                                     SyntaxFactory.Argument(
                                                         SyntaxFactory.ObjectCreationExpression(
                                                             SyntaxFactory.IdentifierName("PropertyMetadata"))
@@ -138,36 +133,29 @@ namespace RapidXamlToolkit.RoslynAnalyzers
                                                                 SyntaxFactory.ObjectCreationExpression(
                                                                     SyntaxFactory.IdentifierName("PropertyChangedCallback"))
                                                                      .AddArgumentListArguments(
-                                                                        SyntaxFactory.Argument(SyntaxFactory.IdentifierName(callbackName))))
-                                                            )
-                                                         )
-                                                    )
-                                                )
-                                            )
-                                        )),
-                            })
-                    )
-                ).AddModifiers(
+                                                                        SyntaxFactory.Argument(SyntaxFactory.IdentifierName(callbackName))))))))))),
+                        })))
+                .AddModifiers(
                     SyntaxFactory.Token(SyntaxKind.PublicKeyword),
                     SyntaxFactory.Token(SyntaxKind.StaticKeyword),
                     SyntaxFactory.Token(SyntaxKind.ReadOnlyKeyword));
 
             var callbackMethod = SyntaxFactory.MethodDeclaration(
                 SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)),
-                SyntaxFactory.Identifier(callbackName)
-                ).AddParameterListParameters(
+                SyntaxFactory.Identifier(callbackName))
+                .AddParameterListParameters(
                     SyntaxFactory.Parameter(
                         SyntaxFactory.Identifier("d"))
                     .WithType(SyntaxFactory.IdentifierName("DependencyObject")),
                     SyntaxFactory.Parameter(
                         SyntaxFactory.Identifier("e"))
-                    .WithType(SyntaxFactory.IdentifierName("DependencyPropertyChangedEventArgs"))
-                ).AddBodyStatements(
+                    .WithType(SyntaxFactory.IdentifierName("DependencyPropertyChangedEventArgs")))
+                .AddBodyStatements(
                     SyntaxFactory.ThrowStatement(
                         SyntaxFactory.ObjectCreationExpression(
-                            SyntaxFactory.IdentifierName("NotImplementedException")
-                        ).AddArgumentListArguments())
-                ).AddModifiers(
+                            SyntaxFactory.IdentifierName("NotImplementedException"))
+                        .AddArgumentListArguments()))
+                .AddModifiers(
                     SyntaxFactory.Token(SyntaxKind.PrivateKeyword),
                     SyntaxFactory.Token(SyntaxKind.StaticKeyword));
 
