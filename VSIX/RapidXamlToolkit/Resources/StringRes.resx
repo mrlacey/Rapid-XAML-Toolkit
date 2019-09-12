@@ -934,4 +934,22 @@
   <data name="Info_UnableToGetDropHandler" xml:space="preserve">
     <value>Failed to load Drop Handler as extension not yet loaded.</value>
   </data>
+  <data name="Info_ExpandAutoPropertyAnalyzerMessage" xml:space="preserve">
+    <value>Expand property '{0}'</value>
+  </data>
+  <data name="Info_ExpandAutoPropertyAnalyzerTitle" xml:space="preserve">
+    <value>Property can be expanded</value>
+  </data>
+  <data name="UI_AnalyzerFixDependencyPropertyTitle" xml:space="preserve">
+    <value>To dependency property</value>
+  </data>
+  <data name="UI_AnalyzerFixOnPropertyChangedTitle" xml:space="preserve">
+    <value>To full property that calls `OnPropertyChanged`</value>
+  </data>
+  <data name="UI_AnalyzerFixSetPropertyTitle" xml:space="preserve">
+    <value>To full property that calls `SetProperty`</value>
+  </data>
+  <data name="UI_AnalyzerFixSetTitle" xml:space="preserve">
+    <value>To full property that calls `Set`</value>
+  </data>
 </root>

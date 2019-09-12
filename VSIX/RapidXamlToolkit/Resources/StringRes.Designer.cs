@@ -268,6 +268,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Expand property &apos;{0}&apos;.
+        /// </summary>
+        public static string Info_ExpandAutoPropertyAnalyzerMessage {
+            get {
+                return ResourceManager.GetString("Info_ExpandAutoPropertyAnalyzerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Property can be expanded.
+        /// </summary>
+        public static string Info_ExpandAutoPropertyAnalyzerTitle {
+            get {
+                return ResourceManager.GetString("Info_ExpandAutoPropertyAnalyzerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to get typeSymbol of property &apos;{0}&apos; assumed to have been nullable..
         /// </summary>
         public static string Info_FailedToGetNullableType {
@@ -2210,6 +2228,42 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_AddTextBoxInputScope {
             get {
                 return ResourceManager.GetString("UI_AddTextBoxInputScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To dependency property.
+        /// </summary>
+        public static string UI_AnalyzerFixDependencyPropertyTitle {
+            get {
+                return ResourceManager.GetString("UI_AnalyzerFixDependencyPropertyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To full property that calls `OnPropertyChanged`.
+        /// </summary>
+        public static string UI_AnalyzerFixOnPropertyChangedTitle {
+            get {
+                return ResourceManager.GetString("UI_AnalyzerFixOnPropertyChangedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To full property that calls `SetProperty`.
+        /// </summary>
+        public static string UI_AnalyzerFixSetPropertyTitle {
+            get {
+                return ResourceManager.GetString("UI_AnalyzerFixSetPropertyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To full property that calls `Set`.
+        /// </summary>
+        public static string UI_AnalyzerFixSetTitle {
+            get {
+                return ResourceManager.GetString("UI_AnalyzerFixSetTitle", resourceCulture);
             }
         }
         
