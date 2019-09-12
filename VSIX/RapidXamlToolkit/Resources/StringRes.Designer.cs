@@ -61,33 +61,6 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type names should be all uppercase..
-        /// </summary>
-        public static string AnalyzerDescription {
-            get {
-                return ResourceManager.GetString("AnalyzerDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type name &apos;{0}&apos; contains lowercase letters.
-        /// </summary>
-        public static string AnalyzerMessageFormat {
-            get {
-                return ResourceManager.GetString("AnalyzerMessageFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Type name contains lowercase letters.
-        /// </summary>
-        public static string AnalyzerTitle {
-            get {
-                return ResourceManager.GetString("AnalyzerTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md.
         /// </summary>
         public static string Error_OutdatedConfigurationDetected2 {
@@ -291,6 +264,24 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_EnumElementCount {
             get {
                 return ResourceManager.GetString("Info_EnumElementCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand property &apos;{0}&apos;.
+        /// </summary>
+        public static string Info_ExpandAutoPropertyAnalyzerMessage {
+            get {
+                return ResourceManager.GetString("Info_ExpandAutoPropertyAnalyzerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Property can be expanded.
+        /// </summary>
+        public static string Info_ExpandAutoPropertyAnalyzerTitle {
+            get {
+                return ResourceManager.GetString("Info_ExpandAutoPropertyAnalyzerTitle", resourceCulture);
             }
         }
         
@@ -2237,6 +2228,42 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_AddTextBoxInputScope {
             get {
                 return ResourceManager.GetString("UI_AddTextBoxInputScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To dependency property.
+        /// </summary>
+        public static string UI_AnalyzerFixDependencyPropertyTitle {
+            get {
+                return ResourceManager.GetString("UI_AnalyzerFixDependencyPropertyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To full property that calls `OnPropertyChanged`.
+        /// </summary>
+        public static string UI_AnalyzerFixOnPropertyChangedTitle {
+            get {
+                return ResourceManager.GetString("UI_AnalyzerFixOnPropertyChangedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To full property that calls `SetProperty`.
+        /// </summary>
+        public static string UI_AnalyzerFixSetPropertyTitle {
+            get {
+                return ResourceManager.GetString("UI_AnalyzerFixSetPropertyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To full property that calls `Set`.
+        /// </summary>
+        public static string UI_AnalyzerFixSetTitle {
+            get {
+                return ResourceManager.GetString("UI_AnalyzerFixSetTitle", resourceCulture);
             }
         }
         

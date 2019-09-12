@@ -8,7 +8,6 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.RoslynAnalyzers
@@ -21,21 +20,17 @@ namespace RapidXamlToolkit.RoslynAnalyzers
         public const string SetDiagnosticId = "RXD002";
         public const string SetPropertyDiagnosticId = "RXD003";
         public const string DependencyPropertyDiagnosticId = "RXD004";
-        private const string Category = "Rapid XAML";
 
-        // You can change these strings in the Resources.resx file. If you do not want your analyzer to be localize-able, you can use regular strings for Title and MessageFormat.
-        // See https://github.com/dotnet/roslyn/blob/master/docs/analyzers/Localizing%20Analyzers.md for more on localization
-        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(StringRes.AnalyzerTitle), StringRes.ResourceManager, typeof(StringRes));
-        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(StringRes.AnalyzerMessageFormat), StringRes.ResourceManager, typeof(StringRes));
-        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(StringRes.AnalyzerDescription), StringRes.ResourceManager, typeof(StringRes));
+        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(StringRes.Info_ExpandAutoPropertyAnalyzerTitle), StringRes.ResourceManager, typeof(StringRes));
+        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(StringRes.Info_ExpandAutoPropertyAnalyzerMessage), StringRes.ResourceManager, typeof(StringRes));
 
-        private static DiagnosticDescriptor onPropertyRule = new DiagnosticDescriptor(OnPropertyChangedDiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Hidden, isEnabledByDefault: true, description: Description);
+        private static DiagnosticDescriptor onPropertyRule = new DiagnosticDescriptor(OnPropertyChangedDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
-        private static DiagnosticDescriptor setRule = new DiagnosticDescriptor(SetDiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Hidden, isEnabledByDefault: true, description: Description);
+        private static DiagnosticDescriptor setRule = new DiagnosticDescriptor(SetDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
-        private static DiagnosticDescriptor setPropertyRule = new DiagnosticDescriptor(SetPropertyDiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Hidden, isEnabledByDefault: true, description: Description);
+        private static DiagnosticDescriptor setPropertyRule = new DiagnosticDescriptor(SetPropertyDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
-        private static DiagnosticDescriptor dependencyPropertyRule = new DiagnosticDescriptor(DependencyPropertyDiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Hidden, isEnabledByDefault: true, description: Description);
+        private static DiagnosticDescriptor dependencyPropertyRule = new DiagnosticDescriptor(DependencyPropertyDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
@@ -72,6 +67,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
                         var depPropertyDiagnostic = Diagnostic.Create(dependencyPropertyRule, context.ContainingSymbol.Locations[0], pds.Identifier);
 
                         context.ReportDiagnostic(depPropertyDiagnostic);
+                        break;  // Don't bother looking any deeper in the inheritance hierarchy if found what looking for.
                     }
                 }
 

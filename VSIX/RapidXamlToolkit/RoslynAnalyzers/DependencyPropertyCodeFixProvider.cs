@@ -12,6 +12,7 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.RoslynAnalyzers
 {
@@ -19,8 +20,6 @@ namespace RapidXamlToolkit.RoslynAnalyzers
     [Shared]
     public class DependencyPropertyCodeFixProvider : CodeFixProvider
     {
-        private const string Title = "To dependency property";
-
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
             get { return ImmutableArray.Create(ExpandAutoPropertiesAnalyzer.DependencyPropertyDiagnosticId); }
@@ -40,11 +39,13 @@ namespace RapidXamlToolkit.RoslynAnalyzers
 
             var pds = root.FindToken(diagnosticSpan.Start).Parent as PropertyDeclarationSyntax;
 
+            var title = StringRes.UI_AnalyzerFixDependencyPropertyTitle;
+
             context.RegisterCodeFix(
                 CodeAction.Create(
-                    title: Title,
+                    title: title,
                     createChangedDocument: c => this.ToDependencyPropertyAsync(context.Document, pds, c),
-                    equivalenceKey: Title),
+                    equivalenceKey: title),
                 diagnostic);
         }
 
