@@ -73,11 +73,11 @@
     <Compile Include="Parsers\AttributeArgumentDetails.cs" />
     <Compile Include="Parsers\AttributeDetails.cs" />
     <Compile Include="ProjectTypeExtensions.cs" />
-    <Compile Include="RoslynAnalyzers\DependencyPropertyCodeFixProvider.cs" />
-    <Compile Include="RoslynAnalyzers\ExpandAutoPropertiesAnalyzer.cs" />
-    <Compile Include="RoslynAnalyzers\FullPropertyWithOnPropertyChangedCodeFixProvider.cs" />
-    <Compile Include="RoslynAnalyzers\FullPropertyWithSetCodeFixProvider.cs" />
-    <Compile Include="RoslynAnalyzers\FullPropertyWithSetPropertyCodeFixProvider.cs" />
+    <Compile Include="RoslynAnalyzers\CsDependencyPropertyCodeFixProvider.cs" />
+    <Compile Include="RoslynAnalyzers\CsExpandAutoPropertiesAnalyzer.cs" />
+    <Compile Include="RoslynAnalyzers\CsFullPropertyWithOnPropertyChangedCodeFixProvider.cs" />
+    <Compile Include="RoslynAnalyzers\CsFullPropertyWithSetCodeFixProvider.cs" />
+    <Compile Include="RoslynAnalyzers\CsFullPropertyWithSetPropertyCodeFixProvider.cs" />
     <Compile Include="TaskExtensions.cs" />
     <Compile Include="VisualStudioIntegration\IVisualStudioTextManipulation.cs" />
     <Compile Include="ProjectType.cs" />
