@@ -76,6 +76,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             {
                 undoContext.Open(this.DisplayText);
                 this.Execute(cancellationToken);
+
+                RapidXamlPackage.Logger?.RecordFeatureUsage(this.GetType().Name);
             }
             catch (Exception exc)
             {
