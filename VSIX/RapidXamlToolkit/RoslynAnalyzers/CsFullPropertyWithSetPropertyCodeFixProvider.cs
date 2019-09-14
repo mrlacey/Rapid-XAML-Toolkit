@@ -92,8 +92,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
             newProperty = newProperty.AddAccessorListAccessors(
                 SyntaxFactory.AccessorDeclaration(
                     SyntaxKind.SetAccessorDeclaration,
-                    SyntaxFactory.Block(SyntaxFactory.List(new[] { setCall })))
-                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword)));
+                    SyntaxFactory.Block(SyntaxFactory.List(new[] { setCall }))));
 
             var oldRoot = await document.GetSyntaxRootAsync(cancellationToken);
 

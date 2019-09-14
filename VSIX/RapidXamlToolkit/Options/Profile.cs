@@ -48,10 +48,10 @@ namespace RapidXamlToolkit.Options
 
         public string ClassGrouping { get; set; }
 
-        [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger, Placeholder.NoOutput, Placeholder.XName, Placeholder.RepeatingXName)]
+        [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.SafePropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger, Placeholder.NoOutput, Placeholder.XName, Placeholder.RepeatingXName)]
         public string FallbackOutput { get; set; }
 
-        [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger, Placeholder.NoOutput, Placeholder.XName, Placeholder.RepeatingXName)]
+        [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.SafePropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger, Placeholder.NoOutput, Placeholder.XName, Placeholder.RepeatingXName)]
         public string SubPropertyOutput { get; set; }
 
         [AllowedPlaceholders(Placeholder.EnumElement, Placeholder.EnumElementWithSpaces, Placeholder.EnumPropName)]

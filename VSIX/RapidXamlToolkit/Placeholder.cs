@@ -12,6 +12,8 @@ namespace RapidXamlToolkit
     {
         public const string PropertyName = "$name$";
 
+        public const string SafePropertyName = "$safename$";
+
         public const string PropertyNameWithSpaces = "$namewithspaces$";
 
         public const string PropertyType = "$type$";

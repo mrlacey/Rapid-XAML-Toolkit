@@ -201,7 +201,8 @@ namespace RapidXamlToolkit.Parsers
             var result = this.ReplaceAttributes(rawOutput, attributes);
 
             result = result.Replace(Placeholder.PropertyName, name)
-                                  .Replace(Placeholder.PropertyNameWithSpaces, name.AddSpacesToCamelCase());
+                           .Replace(Placeholder.PropertyNameWithSpaces, name.AddSpacesToCamelCase())
+                           .Replace(Placeholder.SafePropertyName, name.MakeNameSafe());
 
             if (!string.IsNullOrWhiteSpace(xname))
             {

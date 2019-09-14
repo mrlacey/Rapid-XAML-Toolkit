@@ -217,6 +217,20 @@ namespace RapidXamlToolkit
             return System.Text.RegularExpressions.Regex.Replace(source, "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))", "$1 ");
         }
 
+        public static string MakeNameSafe(this string source)
+        {
+            var dotIndex = source.LastIndexOf('.');
+
+            if (dotIndex > -1)
+            {
+                return source.Substring(dotIndex + 1);
+            }
+            else
+            {
+                return source;
+            }
+        }
+
         public static int OccurrenceCount(this string source, string substring)
         {
             return source.Split(new[] { substring }, StringSplitOptions.None).Length - 1;
