@@ -107,8 +107,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
                     {
                         setProperty,
                         onPropertyChangedCall,
-                    })))
-                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword)));
+                    }))));
 
             var oldRoot = await document.GetSyntaxRootAsync(cancellationToken);
 
