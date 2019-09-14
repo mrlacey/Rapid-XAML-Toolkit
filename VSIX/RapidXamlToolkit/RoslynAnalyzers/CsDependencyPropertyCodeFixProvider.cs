@@ -54,7 +54,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
             var pds = equalsSyntax as PropertyDeclarationSyntax;
 
             var propName = pds.Identifier.ToString();
-            var propType = (pds.Type as PredefinedTypeSyntax).Keyword.Text;
+            var propType = pds.GetTypeName();
 
             var className = ((ClassDeclarationSyntax)pds.Parent).Identifier.Text;
 
