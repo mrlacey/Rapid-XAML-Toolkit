@@ -70,7 +70,19 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public bool TryGetConfiguredErrorType(string errorCode, out TagErrorType tagErrorType)
         {
+            if (string.IsNullOrWhiteSpace(this.FileName))
+            {
+                tagErrorType = this.DefaultErrorType;
+                return false;
+            }
+
             var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
+
+            if (proj == null)
+            {
+                tagErrorType = this.DefaultErrorType;
+                return false;
+            }
 
             var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), "settings.xamlAnalysis");
 
