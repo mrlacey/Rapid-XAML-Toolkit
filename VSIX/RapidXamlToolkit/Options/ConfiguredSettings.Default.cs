@@ -285,7 +285,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "int|Integer",
                                 NameContains = string.Empty,
-                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$safename$\" Value=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -446,7 +446,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "int|Integer",
                                 NameContains = string.Empty,
-                                Output = "<Slider Header=\"$namewithspaces$\" Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
+                                Output = "<Slider Header=\"$namewithspaces$\" Minimum=\"0\" Maximum=\"100\" x:Name=\"$safename$\" Value=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -768,7 +768,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "int|Integer",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"$namewithspaces$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                Output = "<TextBlock Text=\"$namewithspaces$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$safename$\" Value=\"{x:Bind ViewModel.$name$, Mode=TwoWay}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -894,7 +894,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "int|Integer",
                                 NameContains = string.Empty,
-                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{Binding Path=$name$}\" />",
+                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$safename$\" Value=\"{Binding Path=$name$}\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -929,7 +929,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "bool|Boolean",
                                 NameContains = "busy|active",
-                                Output = "<ProgressBar Name=\"$name$\" IsIndeterminate=\"{Binding Path=$name$}\" Height=\"20\" Minimum=\"0\" Maximum=\"1\" />",
+                                Output = "<ProgressBar Name=\"$safename$\" IsIndeterminate=\"{Binding Path=$name$}\" Height=\"20\" Minimum=\"0\" Maximum=\"1\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -1020,7 +1020,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "int|Integer",
                                 NameContains = string.Empty,
-                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\" />",
+                                Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$safename$\" Value=\"{Binding Path=$name$}\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -1055,7 +1055,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "bool|Boolean",
                                 NameContains = "busy|active",
-                                Output = "<ProgressBar Name=\"$name$\" IsIndeterminate=\"{Binding Path=$name$}\" Height=\"20\" Minimum=\"0\" Maximum=\"1\" Grid.Row=\"$incint$\" />",
+                                Output = "<ProgressBar Name=\"$safename$\" IsIndeterminate=\"{Binding Path=$name$}\" Height=\"20\" Minimum=\"0\" Maximum=\"1\" Grid.Row=\"$incint$\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -1146,7 +1146,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "int|Integer",
                                 NameContains = string.Empty,
-                                Output = "<TextBlock Text=\"$namewithspaces$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$name$\" Value=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                Output = "<TextBlock Text=\"$namewithspaces$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"$safename$\" Value=\"{Binding Path=$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping
@@ -1181,7 +1181,7 @@ namespace RapidXamlToolkit.Options
                             {
                                 Type = "bool|Boolean",
                                 NameContains = "busy|active",
-                                Output = "<TextBlock Text=\"$namewithspaces$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><ProgressBar Name=\"$name$\" IsIndeterminate=\"{Binding Path=$name$}\" Height=\"20\" Minimum=\"0\" Maximum=\"1\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                                Output = "<TextBlock Text=\"$namewithspaces$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><ProgressBar Name=\"$safename$\" IsIndeterminate=\"{Binding Path=$name$}\" Height=\"20\" Minimum=\"0\" Maximum=\"1\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
                                 IfReadOnly = false,
                             },
                             new Mapping

@@ -421,6 +421,24 @@ namespace RapidXamlToolkit.Tests.Extensions
         }
 
         [TestMethod]
+        public void MakeNameSafe_NoDot()
+        {
+            Assert.AreEqual("something", "something".MakeNameSafe());
+        }
+
+        [TestMethod]
+        public void MakeNameSafe_OneDot()
+        {
+            Assert.AreEqual("child", "parent.child".MakeNameSafe());
+        }
+
+        [TestMethod]
+        public void MakeNameSafe_TwoDots()
+        {
+            Assert.AreEqual("child", "grandparent.parent.child".MakeNameSafe());
+        }
+
+        [TestMethod]
         public void FormatXaml_OneElementNoIndents()
         {
             var origin = @"<TextBlock Text=""SomeProperty"" />";
