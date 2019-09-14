@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
 
             var fieldName = "_" + char.ToLowerInvariant(propName[0]) + propName.Substring(1);
 
-            var fieldType = (pds.Type as PredefinedTypeSyntax).Keyword.Text;
+            var fieldType = pds.GetTypeName();
 
             var backingField = SyntaxFactory.FieldDeclaration(
                 SyntaxFactory.VariableDeclaration(

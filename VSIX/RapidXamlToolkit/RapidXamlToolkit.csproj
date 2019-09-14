@@ -78,6 +78,7 @@
     <Compile Include="RoslynAnalyzers\CsFullPropertyWithOnPropertyChangedCodeFixProvider.cs" />
     <Compile Include="RoslynAnalyzers\CsFullPropertyWithSetCodeFixProvider.cs" />
     <Compile Include="RoslynAnalyzers\CsFullPropertyWithSetPropertyCodeFixProvider.cs" />
+    <Compile Include="RoslynAnalyzers\PropertyDeclarationSyntaxExtensions.cs" />
     <Compile Include="TaskExtensions.cs" />
     <Compile Include="VisualStudioIntegration\IVisualStudioTextManipulation.cs" />
     <Compile Include="ProjectType.cs" />
