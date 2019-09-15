@@ -1,9 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
@@ -45,6 +47,28 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 {
                     tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
                 }
+            }
+
+            if (this.ProjectType.Matches(ProjectType.Uwp))
+            {
+                var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
+
+                var elementName = xamlElement.Substring(1, xamlElement.IndexOfAny(new[] { ' ', '/' }) - 1);
+
+                this.CheckForHardCodedAttribute(
+                    fileName,
+                    elementName,
+                    Attributes.TooltipServiceDotToolTip,
+                    AttributeType.Inline,
+                    StringRes.Info_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage,
+                    xamlElement,
+                    snapshot,
+                    offset,
+                    uidExists,
+                    uid,
+                    Guid.Empty,
+                    tags,
+                    suppressions);
             }
         }
     }

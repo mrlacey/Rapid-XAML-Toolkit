@@ -1168,6 +1168,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TooltipService contains hard-coded ToolTip value &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage {
+            get {
+                return ResourceManager.GetString("Info_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use of undefined Column &apos;{0}&apos;..
         /// </summary>
         public static string Info_XamlAnalysisMissingColumnDefinitionDescription {

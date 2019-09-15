@@ -94,5 +94,16 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             Assert.AreEqual(0, outputTags.Count);
         }
+
+        [TestMethod]
+        public void HardCoded_ToolTip_Detected()
+        {
+            var xaml = @"<Something TooltipService.ToolTip=""More Info"" />";
+
+            var outputTags = this.GetTags<EveryElementProcessor>(xaml);
+
+            Assert.AreEqual(1, outputTags.Count);
+            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+        }
     }
 }

@@ -33,6 +33,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Title => "Title";
 
+        public static string TooltipServiceDotToolTip => "TooltipService.ToolTip";
+
         public static string Uid => "Uid";
 
         public static string UncheckedEvent => "Unchecked";

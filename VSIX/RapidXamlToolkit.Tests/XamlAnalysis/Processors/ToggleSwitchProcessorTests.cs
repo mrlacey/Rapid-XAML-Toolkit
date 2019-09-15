@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
     public class ToggleSwitchProcessorTests : ProcessorTestsBase
     {
         [TestMethod]
-        public void HardCoded_HeaderAndOnContentAndOffCOntent_Detected()
+        public void HardCoded_HeaderAndOnContentAndOffContent_Detected()
         {
             var xaml = @"<CalendarDatePicker Header=""HCValue"" OnContent=""HCOn"" OffContent=""HCOff"" />";
 
