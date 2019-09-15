@@ -52,7 +52,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         currentElementBody = new StringBuilder("<");
                     }
                 }
-                else if (char.IsLetterOrDigit(xaml[i]) || xaml[i] == ':')
+                else if (char.IsLetterOrDigit(xaml[i]) || xaml[i] == ':' || xaml[i] == '_')
                 {
                     if (!inComment)
                     {
