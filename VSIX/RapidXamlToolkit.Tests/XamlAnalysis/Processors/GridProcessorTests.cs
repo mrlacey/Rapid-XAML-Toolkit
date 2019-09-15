@@ -65,6 +65,39 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         }
 
         [TestMethod]
+        public void MissingColumnDefinition_InComment_NotDetected()
+        {
+            var xaml = @"<Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width=""Auto"" />
+        <ColumnDefinition Width=""Auto"" />
+    </Grid.ColumnDefinitions>
+
+    <!--<TextBlock Grid.Column=""4"">-->
+</Grid>";
+
+            var outputTags = this.GetTags<GridProcessor>(xaml);
+
+            Assert.AreEqual(0, outputTags.OfType<MissingColumnDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void MissingRowDefinition_InComment_NotDetected()
+        {
+            var xaml = @"<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height=""Auto"" />
+        <RowDefinition Height=""Auto"" />
+    </Grid.RowDefinitions>
+    <!--<TextBlock Grid.Row=""4"">-->
+</Grid>";
+
+            var outputTags = this.GetTags<GridProcessor>(xaml);
+
+            Assert.AreEqual(0, outputTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
         public void RowSpan_OverFlow_Detected()
         {
             var xaml = @"<Grid>
@@ -78,6 +111,30 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
             var outputTags = this.GetTags<GridProcessor>(xaml);
 
             Assert.AreEqual(1, outputTags.OfType<RowSpanOverflowTag>().Count());
+        }
+
+        [TestMethod]
+        public void RowSpan_OverFlow_IgnoredIfInComment()
+        {
+            var xaml = @"<Grid>
+    <!--<TextBlock Grid.Row=""1"" Grid.RowSpan=""2"" />-->
+</Grid>";
+
+            var outputTags = this.GetTags<GridProcessor>(xaml);
+
+            Assert.AreEqual(0, outputTags.OfType<RowSpanOverflowTag>().Count());
+        }
+
+        [TestMethod]
+        public void ColumnSpan_OverFlow_IgnoredIfInComment()
+        {
+            var xaml = @"<Grid>
+    <!--<TextBlock Grid.Row=""1"" Grid.ColumnSpan=""2"" />-->
+</Grid>";
+
+            var outputTags = this.GetTags<GridProcessor>(xaml);
+
+            Assert.AreEqual(0, outputTags.OfType<ColumnSpanOverflowTag>().Count());
         }
 
         [TestMethod]
