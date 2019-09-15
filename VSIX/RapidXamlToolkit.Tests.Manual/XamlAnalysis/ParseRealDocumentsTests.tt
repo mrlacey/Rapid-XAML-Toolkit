@@ -71,6 +71,7 @@ foreach (var subFolder in Directory.GetDirectories(rootFolder))
                         // if (result.Tags.Count > 10)
                         if (result.Tags.OfType<RapidXamlDisplayedTag>().Any())
                         {
+                            // This can be useful to examine what is being tagged.
                             Debugger.Break();
                         }
 

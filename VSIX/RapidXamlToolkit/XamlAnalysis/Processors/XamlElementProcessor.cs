@@ -125,10 +125,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList());
 
+#if DEBUG
             if (result == null)
             {
+                // If get here it's because there's a subelement that can't be identified correctly by XamlElementExtractor
+                // but was detected elsewhere. (Probably by something extending XamlElementProcessor.)
                 System.Diagnostics.Debugger.Break();
             }
+#endif
 
             return result;
         }
