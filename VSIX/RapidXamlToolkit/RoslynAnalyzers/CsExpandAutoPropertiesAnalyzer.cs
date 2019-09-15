@@ -49,6 +49,8 @@ namespace RapidXamlToolkit.RoslynAnalyzers
 
         private void AnalyzeSyntaxNode(SyntaxNodeAnalysisContext context)
         {
+            try
+            {
             var pds = (PropertyDeclarationSyntax)context.Node;
 
             if (pds.AccessorList.ToString().Replace(" ", string.Empty) == "{get;set;}")
@@ -91,6 +93,11 @@ namespace RapidXamlToolkit.RoslynAnalyzers
 
                     context.ReportDiagnostic(onPropertyDiagnostic);
                 }
+            }
+            }
+            catch (System.Exception exc)
+            {
+                System.Diagnostics.Debug.WriteLine(exc);
             }
         }
     }
