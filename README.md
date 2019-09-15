@@ -19,8 +19,6 @@ Consider this project as in a beta stage. There's still lots to do before it is 
 | CI | ![CI Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.ci) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/151.md) | - |
 | nightly | ![Nightly Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.version.create) ![nightly build version](https://rxtstorage.blob.core.windows.net/badges/img.nightly.version.svg) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/152.md) | [myget](https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/docs/installation.md#nightly-dev-builds) |
 
-:heavy_exclamation_mark: If you're using the nightly builds, please see the [changelog](./CHANGELOG.md) for details of a **breaking change** :heavy_exclamation_mark:
-
 ## XAML Generation
 
 Creating a XAML UI can be slow and require a lot of manual effort. These tools reduce the time and effort required to get the basics working, allowing more time to customize the UI to meet the specific needs of your app.
