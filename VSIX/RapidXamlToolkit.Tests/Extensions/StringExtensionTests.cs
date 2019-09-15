@@ -544,5 +544,63 @@ namespace RapidXamlToolkit.Tests.Extensions
 
             StringAssert.AreEqual(expectedOutput, formatted);
         }
+
+        [TestMethod]
+        public void InComment_NoComments()
+        {
+            var xaml = @"1234☆56789";
+
+            this.StarIsNotInComment(xaml);
+        }
+
+        [TestMethod]
+        public void InComment_BeforeComment()
+        {
+            var xaml = @"1234☆56<!--7-->89";
+
+            this.StarIsNotInComment(xaml);
+        }
+
+        [TestMethod]
+        public void InComment_InComment()
+        {
+            var xaml = @"12<!--34☆567-->89";
+
+            this.StarIsInComment(xaml);
+        }
+
+        [TestMethod]
+        public void InComment_BetweenComments()
+        {
+            var xaml = @"12<!--3-->4☆56<!--7-->89";
+
+            this.StarIsNotInComment(xaml);
+        }
+
+        [TestMethod]
+        public void InComment_AfterComment()
+        {
+            var xaml = @"12<!--3-->4☆56789";
+
+            this.StarIsNotInComment(xaml);
+        }
+
+        private void StarIsNotInComment(string xaml)
+        {
+            var offset = xaml.IndexOf("☆");
+
+            var xamlToProcess = xaml.Replace("☆", string.Empty);
+
+            Assert.IsFalse(xamlToProcess.InComment(offset));
+        }
+
+        private void StarIsInComment(string xaml)
+        {
+            var offset = xaml.IndexOf("☆");
+
+            var xamlToProcess = xaml.Replace("☆", string.Empty);
+
+            Assert.IsTrue(xamlToProcess.InComment(offset));
+        }
     }
 }

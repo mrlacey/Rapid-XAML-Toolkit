@@ -53,7 +53,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
 
-                var elementName = xamlElement.Substring(1, xamlElement.IndexOfAny(new[] { ' ', '/' }) - 1);
+                var nameEndPos = xamlElement.IndexOfAny(new[] { ' ', '/', '>' });
+                var elementName = xamlElement.Substring(1, nameEndPos - 1);
 
                 this.CheckForHardCodedAttribute(
                     fileName,

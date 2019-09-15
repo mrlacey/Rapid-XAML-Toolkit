@@ -157,66 +157,69 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (nextDefUseIndex > endOfOpening)
                 {
-                    // Get assigned value
-                    if (xamlElement.Substring(defUseOffset).StartsWith(rowDefUse))
+                    if (!xamlElement.InComment(defUseOffset))
                     {
-                        var valueStartPos = defUseOffset + rowDefUse.Length;
-                        var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
-
-                        var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
-
-                        if (int.TryParse(assignedStr, out int assignedInt))
+                        // Get assigned value
+                        if (xamlElement.Substring(defUseOffset).StartsWith(rowDefUse))
                         {
-                            if (assignedInt > 0 && assignedInt >= rowDefsCount)
-                            {
-                                undefinedTags.Add(new MissingRowDefinitionTag(
-                                    new Span(offset + defUseOffset, closePos - defUseOffset + 1),
-                                    snapshot,
-                                    fileName)
-                                {
-                                    AssignedInt = assignedInt,
-                                    Description = StringRes.Info_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
-                                    ExistingDefsCount = rowDefsCount,
-                                    HasSomeDefinitions = hasRowDef,
-                                    InsertPosition = offset + rowDefsClosingPos,
-                                    LeftPad = leftPad,
-                                });
-                            }
+                            var valueStartPos = defUseOffset + rowDefUse.Length;
+                            var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
 
-                            if (assignedInt > highestAssignedRow)
+                            var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
+
+                            if (int.TryParse(assignedStr, out int assignedInt))
                             {
-                                highestAssignedRow = assignedInt;
+                                if (assignedInt > 0 && assignedInt >= rowDefsCount)
+                                {
+                                    undefinedTags.Add(new MissingRowDefinitionTag(
+                                        new Span(offset + defUseOffset, closePos - defUseOffset + 1),
+                                        snapshot,
+                                        fileName)
+                                    {
+                                        AssignedInt = assignedInt,
+                                        Description = StringRes.Info_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
+                                        ExistingDefsCount = rowDefsCount,
+                                        HasSomeDefinitions = hasRowDef,
+                                        InsertPosition = offset + rowDefsClosingPos,
+                                        LeftPad = leftPad,
+                                    });
+                                }
+
+                                if (assignedInt > highestAssignedRow)
+                                {
+                                    highestAssignedRow = assignedInt;
+                                }
                             }
                         }
-                    }
-                    else if (xamlElement.Substring(defUseOffset).StartsWith(colDefUse))
-                    {
-                        var valueStartPos = defUseOffset + colDefUse.Length;
-                        var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
-
-                        var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
-
-                        if (int.TryParse(assignedStr, out int assignedInt))
+                        else if (xamlElement.Substring(defUseOffset).StartsWith(colDefUse))
                         {
-                            if (assignedInt > 0 && assignedInt >= colDefsCount)
-                            {
-                                undefinedTags.Add(new MissingColumnDefinitionTag(
-                                    new Span(offset + defUseOffset, closePos - defUseOffset + 1),
-                                    snapshot,
-                                    fileName)
-                                {
-                                    AssignedInt = assignedInt,
-                                    Description = StringRes.Info_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
-                                    ExistingDefsCount = colDefsCount,
-                                    HasSomeDefinitions = hasColDef,
-                                    InsertPosition = offset + colDefsClosingPos,
-                                    LeftPad = leftPad,
-                                });
-                            }
+                            var valueStartPos = defUseOffset + colDefUse.Length;
+                            var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
 
-                            if (assignedInt > highestAssignedCol)
+                            var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
+
+                            if (int.TryParse(assignedStr, out int assignedInt))
                             {
-                                highestAssignedCol = assignedInt;
+                                if (assignedInt > 0 && assignedInt >= colDefsCount)
+                                {
+                                    undefinedTags.Add(new MissingColumnDefinitionTag(
+                                        new Span(offset + defUseOffset, closePos - defUseOffset + 1),
+                                        snapshot,
+                                        fileName)
+                                    {
+                                        AssignedInt = assignedInt,
+                                        Description = StringRes.Info_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
+                                        ExistingDefsCount = colDefsCount,
+                                        HasSomeDefinitions = hasColDef,
+                                        InsertPosition = offset + colDefsClosingPos,
+                                        LeftPad = leftPad,
+                                    });
+                                }
+
+                                if (assignedInt > highestAssignedCol)
+                                {
+                                    highestAssignedCol = assignedInt;
+                                }
                             }
                         }
                     }
@@ -244,43 +247,45 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (nextSpanUseIndex > endOfOpening)
                 {
-                    if (xamlElement.Substring(spanUseOffset).StartsWith(rowSpanUse))
+                    if (!xamlElement.InComment(spanUseOffset))
                     {
-                        var valueStartPos = spanUseOffset + rowSpanUse.Length;
-                        var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
-
-                        var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
-
-                        if (int.TryParse(assignedStr, out int assignedInt))
+                        if (xamlElement.Substring(spanUseOffset).StartsWith(rowSpanUse))
                         {
-                            var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger);
+                            var valueStartPos = spanUseOffset + rowSpanUse.Length;
+                            var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
 
-                            var row = 0;
-                            if (this.TryGetAttribute(element, "Grid.Row", AttributeType.InlineOrElement, out _, out _, out _, out string rowStr))
-                            {
-                                row = int.Parse(rowStr);
-                            }
+                            var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
 
-                            if (assignedInt > 1 && assignedInt - 1 + row >= rowDefsCount)
+                            if (int.TryParse(assignedStr, out int assignedInt))
                             {
-                                var rowTag = new RowSpanOverflowTag(
-                                    new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
-                                    snapshot,
-                                    fileName)
+                                var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger);
+
+                                var row = 0;
+                                if (this.TryGetAttribute(element, "Grid.Row", AttributeType.InlineOrElement, out _, out _, out _, out string rowStr))
                                 {
-                                    TotalDefsRequired = assignedInt + row - 1,
-                                    Description = StringRes.Info_XamlAnalysisRowSpanOverflowDescription,
-                                    ExistingDefsCount = rowDefsCount,
-                                    HasSomeDefinitions = hasRowDef,
-                                    InsertPosition = offset + rowDefsClosingPos,
-                                    LeftPad = leftPad,
-                                };
+                                    row = int.Parse(rowStr);
+                                }
 
-                                tags.TryAdd(rowTag, xamlElement, suppressions);
+                                if (assignedInt > 1 && assignedInt - 1 + row >= rowDefsCount)
+                                {
+                                    var rowTag = new RowSpanOverflowTag(
+                                        new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
+                                        snapshot,
+                                        fileName)
+                                    {
+                                        TotalDefsRequired = assignedInt + row - 1,
+                                        Description = StringRes.Info_XamlAnalysisRowSpanOverflowDescription,
+                                        ExistingDefsCount = rowDefsCount,
+                                        HasSomeDefinitions = hasRowDef,
+                                        InsertPosition = offset + rowDefsClosingPos,
+                                        LeftPad = leftPad,
+                                    };
+
+                                    tags.TryAdd(rowTag, xamlElement, suppressions);
+                                }
                             }
                         }
-                    }
-                    else if (xamlElement.Substring(spanUseOffset).StartsWith(colSpanUse))
+                        else if (xamlElement.Substring(spanUseOffset).StartsWith(colSpanUse))
                     {
                         var valueStartPos = spanUseOffset + colSpanUse.Length;
                         var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
@@ -314,6 +319,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                                 tags.TryAdd(colTag, xamlElement, suppressions);
                             }
+                        }
                         }
                     }
                 }

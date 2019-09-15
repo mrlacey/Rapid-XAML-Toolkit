@@ -52,6 +52,25 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
+        public void CanGetRootElement_WithUnderscore()
+        {
+            var xaml = @"<Gr_id></Gr_id>";
+
+            var processor = new FakeXamlElementProcessor();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("Gr_id", processor),
+            };
+
+            this.TestParsingWithoutSnapshot(xaml, processors);
+
+            Assert.IsTrue(processor.ProcessCalled);
+            Assert.AreEqual(0, processor.Offset);
+            Assert.AreEqual(xaml, processor.XamlElement);
+        }
+
+        [TestMethod]
         public void CanGetRootElement_WithLineEnding()
         {
             var xaml = @"<Grid>

@@ -36,6 +36,7 @@ namespace RapidXamlToolkit.Tests.Manual.Options
             ExecutionEnvironment.CheckRunningAsAdmin();
         }
 
+        [Ignore("This does not work under 1903. Need to update dependencies in WindowsTestHelpers. X-Ref Issue #243")]
         [TestMethod]
         public async Task AllTextVisibleInHighContrastModesAsync()
         {

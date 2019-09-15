@@ -515,5 +515,15 @@ namespace RapidXamlToolkit
                 return source;
             }
         }
+
+        public static bool InComment(this string source, int offset)
+        {
+            var substring = source.Substring(0, offset);
+
+            var lastCommentOpening = substring.LastIndexOf("<!--");
+            var lastCommentClosing = substring.LastIndexOf("-->");
+
+            return lastCommentOpening > lastCommentClosing;
+        }
     }
 }
