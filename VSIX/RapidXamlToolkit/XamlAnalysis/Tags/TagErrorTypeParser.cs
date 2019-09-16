@@ -7,6 +7,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     {
         public static bool TryParse(string value, out TagErrorType tagErrorType)
         {
+            // Could potentially happen with a corrupt/invalid settings file.
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                // Most tags are warnings so return that but caller shouldn't use as this returns false.
+                tagErrorType = TagErrorType.Warning;
+                return false;
+            }
+
             switch (value.Trim().ToLowerInvariant())
             {
                 case "error":
