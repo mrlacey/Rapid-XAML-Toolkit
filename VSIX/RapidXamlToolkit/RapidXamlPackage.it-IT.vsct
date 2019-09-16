@@ -74,6 +74,7 @@
         </Strings>
       </Button>
       <Button guid="guidRapidXamlPackageCmdSet" id="FeedbackCommandId" priority="0x0900" type="Button">
+        <Icon guid="guidImages" id="bmpFeedback"/>
         <Strings>
           <ButtonText>Give Feedback</ButtonText>
         </Strings>
@@ -85,7 +86,7 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\RapidXamlPackage.png" usedList="bmpCopyAsXaml, bmpToolbox, bmpCreateView, bmpOptions, bmpSetDc, bmpPicStrikethrough" />
+      <Bitmap guid="guidImages" href="Resources\RapidXamlPackage.png" usedList="bmpCopyAsXaml, bmpToolbox, bmpCreateView, bmpOptions, bmpSetDc, bmpFeedback" />
     </Bitmaps>
   </Commands>
   <CommandPlacements>
@@ -160,7 +161,7 @@
       <IDSymbol name="bmpCreateView" value="3" />
       <IDSymbol name="bmpOptions" value="4" />
       <IDSymbol name="bmpSetDc" value="5" />
-      <IDSymbol name="bmpPicStrikethrough" value="6" />
+      <IDSymbol name="bmpFeedback" value="6" />
     </GuidSymbol>
     <GuidSymbol name="GuidVisualStudioXAMLWindowContextMenu" value="{4c87b692-1202-46aa-b64c-ef01faec53da}">
       <IDSymbol name="IDVisualStudioXAMLWindowContextMenu" value="0x103" />
