@@ -72,7 +72,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         {
             if (string.IsNullOrWhiteSpace(this.FileName))
             {
-                tagErrorType = this.DefaultErrorType;
+                tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
                 return false;
             }
 
@@ -80,7 +80,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
             if (proj == null)
             {
-                tagErrorType = this.DefaultErrorType;
+                tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
                 return false;
             }
 
@@ -117,7 +117,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             }
 
             // Set to default if no override in file
-            tagErrorType = this.DefaultErrorType;
+            tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
 
             return false;
         }
