@@ -53,7 +53,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
             {
             var pds = (PropertyDeclarationSyntax)context.Node;
 
-            if (pds.AccessorList.ToString().Replace(" ", string.Empty) == "{get;set;}")
+            if ((pds?.AccessorList?.ToString().Replace(" ", string.Empty) ?? string.Empty) == "{get;set;}")
             {
                 var classNode = pds.Parent;
                 var classTypeSymbol = (ITypeSymbol)context.SemanticModel.GetDeclaredSymbol(classNode);
@@ -98,6 +98,10 @@ namespace RapidXamlToolkit.RoslynAnalyzers
             catch (System.Exception exc)
             {
                 System.Diagnostics.Debug.WriteLine(exc);
+#if DEBUG
+                // Throw in debug to fail tests.
+                throw;
+#endif
             }
         }
     }

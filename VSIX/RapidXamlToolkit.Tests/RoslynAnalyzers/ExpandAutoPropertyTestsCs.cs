@@ -24,6 +24,14 @@ namespace RapidXamlToolkit.Tests.RoslynAnalyzers
         }
 
         [TestMethod]
+        public void NoAccessorList_NotIdentified()
+        {
+            var test = @"public string Property1 => $""Some static value"";";
+
+            this.VerifyCSharpDiagnostic(this.ClassWithOnPropertyChanged(test));
+        }
+
+        [TestMethod]
         public void ClassWithOnPropertyChanged_Identified()
         {
             var test = @"public string Property1 { get; set; }";
