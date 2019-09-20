@@ -30,5 +30,25 @@ namespace RapidXamlToolkit
         {
             return (source & comparewith) == comparewith;
         }
+
+        public static ProjectType AsProjectTypeEnum(this string source)
+        {
+            if (ProjectType.Uwp.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return ProjectType.Uwp;
+            }
+            else if (ProjectType.Wpf.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return ProjectType.Wpf;
+            }
+            else if (ProjectType.XamarinForms.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return ProjectType.XamarinForms;
+            }
+            else
+            {
+                return ProjectType.Unknown;
+            }
+        }
     }
 }
