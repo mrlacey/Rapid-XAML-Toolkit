@@ -64,7 +64,7 @@ namespace RapidXamlToolkit.Options
 
                 if (selectedIndex >= 0)
                 {
-                    // Can't rely on selected Index to get the item as it doens't handle headers correctly.
+                    // Can't rely on selected Index to get the item as it doesn't handle headers correctly.
                     ProfileSummary selectedItem = (ProfileSummary)this.DisplayedProfiles.SelectedItem;
 
                     var selectedProfile = this.SettingsProvider.ActualSettings.ProfilesList.FirstOrDefault(p => p.Name == selectedItem.Name && p.ProjectType == selectedItem.ProjectType);
@@ -95,10 +95,10 @@ namespace RapidXamlToolkit.Options
             try
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
-
                 var selectedIndex = this.DisplayedProfiles.SelectedIndex;
+                ProfileSummary selectedItem = (ProfileSummary)this.DisplayedProfiles.SelectedItem;
 
-                this.SettingsProvider.ActualSettings.Profiles.Add(Profile.CreateNew());
+                this.SettingsProvider.ActualSettings.Profiles.Add(Profile.CreateNew(selectedItem.ProjectType.AsProjectTypeEnum()));
                 this.SettingsProvider.Save();
                 this.SettingsProvider.ActualSettings.RefreshProfilesList();
 
@@ -185,9 +185,11 @@ namespace RapidXamlToolkit.Options
 
                 if (this.DisplayedProfiles.SelectedIndex >= 0)
                 {
+                    ProfileSummary selectedItem = (ProfileSummary)this.DisplayedProfiles.SelectedItem;
+
                     var selectedProfile = this.SettingsProvider.ActualSettings.ProfilesList[this.DisplayedProfiles.SelectedIndex];
                     var msgResult = MessageBox.Show(
-                                                    StringRes.Prompt_ConfirmDeleteProfileMessage.WithParams(selectedProfile.Name),
+                                                    StringRes.Prompt_ConfirmDeleteProfileMessage.WithParams(selectedItem.Name),
                                                     StringRes.Prompt_ConfirmDeleteProfileTitle,
                                                     MessageBoxButton.YesNo,
                                                     MessageBoxImage.Warning);
@@ -198,9 +200,12 @@ namespace RapidXamlToolkit.Options
 
                         if (selectedProfile.Name == this.SettingsProvider.ActualSettings.ActiveProfileNames[selectedProfile.ProjectType])
                         {
-                            var firstProfile = this.SettingsProvider.ActualSettings.Profiles.FirstOrDefault();
+                            var firstProfile =
+                                this.SettingsProvider.ActualSettings.Profiles
+                                    .FirstOrDefault(p => p.ProjectTypeDescription == selectedProfile.ProjectType);
 
-                            this.SettingsProvider.ActualSettings.ActiveProfileNames[selectedProfile.ProjectType] = firstProfile?.Name ?? string.Empty;
+                            this.SettingsProvider.ActualSettings.ActiveProfileNames[selectedProfile.ProjectType] =
+                                firstProfile?.Name ?? string.Empty;
                         }
 
                         this.SettingsProvider.Save();

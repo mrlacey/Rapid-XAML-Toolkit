@@ -105,7 +105,7 @@ namespace RapidXamlToolkit.Options
             }
         }
 
-        public static Profile CreateNew()
+        public static Profile CreateNew(ProjectType projectType)
         {
             return new Profile
             {
@@ -116,6 +116,7 @@ namespace RapidXamlToolkit.Options
                 EnumMemberOutput = string.Empty,
                 Mappings = new ObservableCollection<Mapping>(),
                 AttemptAutomaticDocumentFormatting = true,
+                ProjectType = projectType,
             };
         }
 
@@ -130,6 +131,7 @@ namespace RapidXamlToolkit.Options
                 EnumMemberOutput = this.EnumMemberOutput,
                 Mappings = new ObservableCollection<Mapping>(),
                 AttemptAutomaticDocumentFormatting = this.AttemptAutomaticDocumentFormatting,
+                ProjectType = this.ProjectType,
             };
 
             foreach (var mapping in this.Mappings)
