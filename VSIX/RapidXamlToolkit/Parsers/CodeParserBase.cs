@@ -137,12 +137,14 @@ namespace RapidXamlToolkit.Parsers
 
             if (mappingOfInterest != null)
             {
+                // Mapped a simple type
                 rawOutput = mappingOfInterest.Output;
             }
             else
             {
                 if (property.PropertyType.IsGenericTypeName())
                 {
+                    // Handle mapping of generic type
                     var wildcardGenericType = property.PropertyType.Substring(0, property.PropertyType.ToCSharpFormat().IndexOf("<", StringComparison.Ordinal)) + "<T>";
 
                     Logger?.RecordInfo(StringRes.Info_SearchingForMappingWithGenericWildcard.WithParams(wildcardGenericType));
@@ -155,8 +157,17 @@ namespace RapidXamlToolkit.Parsers
                     }
                 }
 
+                // See if there's a wildcard type mapping
+                var wildcardTypeMapping = this.GetMappingOfInterest("T", property.Name, property.IsReadOnly);
+
+                if (wildcardTypeMapping != null)
+                {
+                    rawOutput = wildcardTypeMapping.Output;
+                }
+
                 if (rawOutput == null && semModel != null)
                 {
+                    // Handle mapping of a complex type
                     var tempOutput = new StringBuilder();
                     var tempNumb = numericSubstitute;
                     foreach (var prop in this.GetAllPublicProperties(property.Symbol, semModel))

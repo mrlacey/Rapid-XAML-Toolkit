@@ -2005,6 +2005,152 @@ namespace tests
             this.PositionAtStarShouldProduceExpected(code, expected, relPanelProfile);
         }
 
+        [TestMethod]
+        public void GetClass_ExcludePropertiesPurelyByName()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1☆
+    {
+        public string Property1 { get; set; }
+        public int Property2 { get; set; }
+        public string Property3 { get; set; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBlock Text=\"FALLBACK_Property3\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            var nameExcludeProfile = new Profile
+            {
+                Name = "NameExcludeProfile",
+                ClassGrouping = "StackPanel",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "T",
+                        NameContains = "Property1|Property2",
+                        Output = "$nooutput$",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, nameExcludeProfile);
+        }
+
+        [TestMethod]
+        public void CanMatchOnAnyType()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1☆
+    {
+        public string Property1 { get; set; }
+        public int Property2 { get; set; }
+        public string Property3 { get; set; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBlock Text=\"Property1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property2\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"Property3\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            var nameExcludeProfile = new Profile
+            {
+                Name = "NameExcludeProfile",
+                ClassGrouping = "StackPanel",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "T",
+                        NameContains = "",
+                        Output = "<TextBlock Text=\"$name$\" />",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, nameExcludeProfile);
+        }
+
+        [TestMethod]
+        public void WildCardTypeMathingHasLowestPriority()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1☆
+    {
+        public string Property1 { get; set; }
+        public int Property2 { get; set; }
+        public string Property3 { get; set; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBlock IsInteger=\"False\" Text=\"Property1\" />"
+         + Environment.NewLine + "    <TextBlock IsInteger=\"True\" Text=\"Property2\" />"
+         + Environment.NewLine + "    <TextBlock IsInteger=\"False\" Text=\"Property3\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            var nameExcludeProfile = new Profile
+            {
+                Name = "NameExcludeProfile",
+                ClassGrouping = "StackPanel",
+                FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "T",
+                        NameContains = "",
+                        Output = "<TextBlock IsInteger=\"False\" Text=\"$name$\" />",
+                        IfReadOnly = false,
+                    },
+                    new Mapping
+                    {
+                        Type = "int",
+                        NameContains = "",
+                        Output = "<TextBlock IsInteger=\"True\" Text=\"$name$\" />",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, nameExcludeProfile);
+        }
+
         private void ClassNotFoundTest(string code)
         {
             var expected = ParserOutput.Empty;
