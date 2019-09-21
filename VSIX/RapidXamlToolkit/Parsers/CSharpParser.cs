@@ -377,13 +377,22 @@ namespace RapidXamlToolkit.Parsers
 
                         if (arg?.NameColon != null)
                         {
-                            name = arg.NameColon.Name.ToString();
-                            value = ((arg.NameColon.Parent as AttributeArgumentSyntax).Expression as IdentifierNameSyntax).Identifier.Value.ToString();
+                            name = arg.NameColon.Name.Identifier.Text;
                         }
                         else if (arg?.NameEquals != null)
                         {
                             name = arg.NameEquals.Name.ToString();
-                            value = ((arg.NameEquals.Parent as AttributeArgumentSyntax).Expression as IdentifierNameSyntax).Identifier.Value.ToString();
+                        }
+
+                        var expression = arg.Expression;
+
+                        if (expression is IdentifierNameSyntax ins)
+                        {
+                            value = ins.Identifier.Value.ToString();
+                        }
+                        else if (expression is LiteralExpressionSyntax les)
+                        {
+                            value = les.ToString().Replace("\"", string.Empty);
                         }
                         else
                         {
