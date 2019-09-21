@@ -8,7 +8,7 @@ Mappings are the encapsulation of the logic for turning the properties in C# or 
 Each profile will contain multiple mappings.
 Each mapping is the specific rule for the generation of XAML for a specific property. A profile includes a configurable list of mappings for different combinations of type, name, and accessibility.
 
-A mapping can match multiple property types. To specify multiple types, separate them with the pipe (|) character.
+A mapping can match multiple property types. To specify multiple types, separate them with the pipe (|) character. To match any type specify `T`.
 
 A mapping can be made to only apply to properties that are read-only. This is useful if you want different output for properties that can be edited.
 
