@@ -72,12 +72,37 @@ namespace RapidXamlToolkit.Tests.Parsers
         };
 
         [TestMethod]
-        public void Display_NamedParam()
+        public void Display_NamedParam_Identifier()
         {
             var code = @"
 Namespace tests
     Class Class1
-        <Display(Name:= ShortName)>
+        Const AlternativeName As String = ""Not my name""
+
+        <Display(Name:=AlternativeName)>
+        Public Property ☆Name As String
+    End Class
+End Namespace";
+
+            var expectedOutput = "<TextBox Text=\"Name\" Header=\"AlternativeName\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "Name",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameProfile);
+        }
+
+        [TestMethod]
+        public void Display_NamedParam_Literal()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        <Display(Name:= ""ShortName"")>
         Public Property ☆Name As String
     End Class
 End Namespace";
@@ -100,7 +125,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        <Display(Name:= ShortName)>
+        <Display(Name:= ""ShortName"")>
         <MaxLength(50)>
         Public Property ☆Name As String
     End Class
@@ -124,7 +149,7 @@ End Namespace";
             var code = @"
 Namespace tests
     Class Class1
-        <Display(Name:= ShortName), MaxLength(50)>
+        <Display(Name:= ""ShortName""), MaxLength(50)>
         Public Property ☆Name As String
     End Class
 End Namespace";

@@ -11,7 +11,6 @@ using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Parsers
 {
@@ -446,7 +445,15 @@ namespace RapidXamlToolkit.Parsers
                         if (arg is SimpleArgumentSyntax sas)
                         {
                             name = sas.NameColonEquals?.Name.ToString();
-                            value = (sas.Expression as IdentifierNameSyntax)?.Identifier.ValueText;
+
+                            if (sas.Expression is IdentifierNameSyntax ins)
+                            {
+                                value = ins.Identifier.ValueText;
+                            }
+                            else if (sas.Expression is LiteralExpressionSyntax les)
+                            {
+                                value = les.ToString().Replace("\"", string.Empty);
+                            }
                         }
 
                         if (value == null)
