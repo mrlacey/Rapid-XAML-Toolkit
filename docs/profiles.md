@@ -76,7 +76,7 @@ This is the name of the attribute to look for. In the following code snippet thi
 
 ```csharp
     [Display(Name = ShortName)]
-    public ☆string UserName { get; set; }
+    public string UserName { get; set; }
 ```
 
 #### &lt;output-if-attribute-on-property&gt;
@@ -122,6 +122,6 @@ public string FullName { get; set; }
 will produce:
 
 ```xml
-<TextBlock Text="ShortName" />
+<TextBlock Text="Short Name" />
 <TextBlock Text="Full Name" />
 ```
