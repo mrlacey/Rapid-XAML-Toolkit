@@ -122,6 +122,6 @@ public string FullName { get; set; }
 will produce:
 
 ```xml
-<TextBlock Text="ShortName" />
+<TextBlock Text="Short Name" />
 <TextBlock Text="Full Name" />
 ```
