@@ -81,7 +81,7 @@ namespace tests
 {
     class Class1
     {
-        [Display(Name = ShortName)]
+        [Display(Name = ""ShortName"")]
         public ☆string Name { get; set; }
     }
 }";
@@ -106,7 +106,7 @@ namespace tests
 {
     class Class1
     {
-        [Display(Name: ShortName)]
+        [Display(Name: ""ShortName"")]
         public ☆string Name { get; set; }
     }
 }";
@@ -131,7 +131,7 @@ namespace tests
 {
     class Class1
     {
-        //[Display(Name = ShortName)]
+        //[Display(Name = ""ShortName"")]
         public ☆string UserName { get; set; }
     }
 }";
@@ -159,7 +159,7 @@ namespace tests
 {
     class Class1
     {
-        //[Display(Name = ShortName)]
+        //[Display(Name = ""ShortName"")]
         public ☆string UserName { get; set; }
     }
 }";
@@ -187,7 +187,7 @@ namespace tests
 {
     class Class1
     {
-        [NotDisplay(Name = ShortName)]
+        [NotDisplay(Name = ""ShortName"")]
         public ☆string UserName { get; set; }
     }
 }";
@@ -215,7 +215,7 @@ namespace tests
 {
     class Class1
     {
-        [Display(Name = ShortName)]
+        [Display(Name = ""ShortName"")]
         public ☆string UserName { get; set; }
     }
 }";
@@ -243,7 +243,7 @@ namespace tests
 {
     class Class1
     {
-        [Display(Name: ShortName)]
+        [Display(Name: ""ShortName"")]
         [MaxLength(50)]
         public ☆string Name { get; set; }
     }
@@ -269,7 +269,7 @@ namespace tests
 {
     class Class1
     {
-        [Display(Name: ShortName), MaxLength(50)]
+        [Display(Name: ""ShortName""), MaxLength(50)]
         public ☆string Name { get; set; }
     }
 }";
