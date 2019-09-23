@@ -99,7 +99,7 @@ namespace RapidXamlToolkit.Parsers
                         output.AppendLine("<Grid.RowDefinitions>");
 
                         Logger?.RecordInfo(StringRes.Info_AddedRowDefsCount.WithParams(numericCounter));
-                        for (int i = 1; i <= numericCounter + 1; i++)
+                        for (var i = 1; i <= numericCounter + 1; i++)
                         {
                             output.AppendLine(i <= numericCounter
                                 ? "<RowDefinition Height=\"Auto\" />"
@@ -370,32 +370,55 @@ namespace RapidXamlToolkit.Parsers
                     };
 
                     var count = 1;
-                    foreach (var arg in attrib.ArgumentList.Arguments)
+
+                    if (attrib?.ArgumentList?.Arguments.Any() ?? false)
                     {
-                        string name = null;
-                        string value = null;
+                        foreach (var arg in attrib?.ArgumentList.Arguments)
+                        {
+                            string name = null;
+                            string value = null;
 
-                        if (arg?.NameColon != null)
-                        {
-                            name = arg.NameColon.Name.ToString();
-                            value = ((arg.NameColon.Parent as AttributeArgumentSyntax).Expression as IdentifierNameSyntax).Identifier.Value.ToString();
-                        }
-                        else if (arg?.NameEquals != null)
-                        {
-                            name = arg.NameEquals.Name.ToString();
-                            value = ((arg.NameEquals.Parent as AttributeArgumentSyntax).Expression as IdentifierNameSyntax).Identifier.Value.ToString();
-                        }
-                        else
-                        {
-                            value = arg.ToString();
-                        }
+                            if (arg?.NameColon != null)
+                            {
+                                name = arg.NameColon.Name.Identifier.Text;
+                            }
+                            else if (arg?.NameEquals != null)
+                            {
+                                name = arg.NameEquals.Name.ToString();
+                            }
+                            else
+                            {
+                                name = string.Empty;
+                            }
 
-                        att.Arguments.Add(new AttributeArgumentDetails
-                        {
-                            Index = count++,
-                            Name = name,
-                            Value = value,
-                        });
+                            var expression = arg.Expression;
+
+                            if (expression is IdentifierNameSyntax ins)
+                            {
+                                value = ins.Identifier.Value.ToString();
+                            }
+                            else if (expression is LiteralExpressionSyntax les)
+                            {
+                                value = les.ToString().Replace("\"", string.Empty);
+                            }
+                            else
+                            {
+                                value = arg.ToString();
+                            }
+
+                            Logger?.RecordInfo(StringRes.Info_FoundAttributeArgument.WithParams(name, value));
+
+                            att.Arguments.Add(new AttributeArgumentDetails
+                            {
+                                Index = count++,
+                                Name = name,
+                                Value = value,
+                            });
+                        }
+                    }
+                    else
+                    {
+                        Logger?.RecordInfo(StringRes.Info_NoArgumentsForAttribute);
                     }
 
                     pd.Attributes.Add(att);

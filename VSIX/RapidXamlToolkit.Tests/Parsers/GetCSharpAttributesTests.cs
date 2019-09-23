@@ -409,5 +409,30 @@ namespace tests
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.rangeProfile);
         }
+
+        [TestMethod]
+        public void AttributeWithoutArguments()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1
+    {
+        [Display]
+        public ☆string Name { get; set; }
+    }
+}";
+
+            var expectedOutput = "<TextBox Text=\"Name\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "Name",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
+        }
     }
 }

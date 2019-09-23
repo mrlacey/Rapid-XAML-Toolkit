@@ -438,28 +438,38 @@ namespace RapidXamlToolkit.Parsers
                     };
 
                     var count = 1;
-                    foreach (var arg in attrib.ArgumentList.Arguments)
+
+                    if (attrib?.ArgumentList?.Arguments.Any() ?? false)
                     {
-                        string name = null;
-                        string value = null;
-
-                        if (arg is SimpleArgumentSyntax sas)
+                        foreach (var arg in attrib.ArgumentList.Arguments)
                         {
-                            name = sas.NameColonEquals?.Name.ToString();
-                            value = (sas.Expression as IdentifierNameSyntax)?.Identifier.ValueText;
+                            string name = null;
+                            string value = null;
+
+                            if (arg is SimpleArgumentSyntax sas)
+                            {
+                                name = sas.NameColonEquals?.Name.ToString();
+                                value = (sas.Expression as IdentifierNameSyntax)?.Identifier.ValueText;
+                            }
+
+                            if (value == null)
+                            {
+                                value = arg.ToString();
+                            }
+
+                            Logger?.RecordInfo(StringRes.Info_FoundAttributeArgument.WithParams(name, value));
+
+                            att.Arguments.Add(new AttributeArgumentDetails
+                            {
+                                Index = count++,
+                                Name = name,
+                                Value = value,
+                            });
                         }
-
-                        if (value == null)
-                        {
-                            value = arg.ToString();
-                        }
-
-                        att.Arguments.Add(new AttributeArgumentDetails
-                        {
-                            Index = count++,
-                            Name = name,
-                            Value = value,
-                        });
+                    }
+                    else
+                    {
+                        Logger?.RecordInfo(StringRes.Info_NoArgumentsForAttribute);
                     }
 
                     pd.Attributes.Add(att);

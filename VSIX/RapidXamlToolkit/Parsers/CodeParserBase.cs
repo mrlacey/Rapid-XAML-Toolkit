@@ -438,6 +438,8 @@ namespace RapidXamlToolkit.Parsers
             {
                 var attrib = match.Groups["AttribName"].Value;
 
+                Logger?.RecordInfo(StringRes.Info_OutputContainsAttributePlaceholder.WithParams(attrib));
+
                 if (attributes?.Any(a => a.Name == attrib || $"{a.Name}Attribute" == attrib || a.Name == $"{attrib}Attribute") == true)
                 {
                     var replace = match.Groups["Replace"].Value;
@@ -450,24 +452,48 @@ namespace RapidXamlToolkit.Parsers
                     {
                         var replaceVal = attributeOfInterest.Arguments.FirstOrDefault(a => a.Index == subIndex);
 
-                        replace = replace.Replace($"[{substitute}]", replaceVal.Value);
+                        if (replaceVal is null)
+                        {
+                            Logger?.RecordInfo(StringRes.Info_AttributeParameterWIthoutIndex.WithParams(subIndex));
+
+                            // Output nothing for the attribute rather than something incomplete.
+                            replace = string.Empty;
+                        }
+                        else
+                        {
+                            replace = replace.Replace($"[{substitute}]", replaceVal.Value);
+                        }
                     }
                     else
                     {
                         var replaceVal = attributeOfInterest.Arguments.FirstOrDefault(a => a.Name == substitute);
 
-                        replace = replace.Replace($"[{substitute}]", replaceVal.Value);
+                        if (replaceVal is null)
+                        {
+                            Logger?.RecordInfo(StringRes.Info_NamedAttributeParameterNotFound.WithParams(substitute));
+
+                            // Output nothing for the attribute rather than something incomplete.
+                            replace = string.Empty;
+                        }
+                        else
+                        {
+                            replace = replace.Replace($"[{substitute}]", replaceVal.Value);
+                        }
                     }
 
                     result = result.Replace(match.Groups[0].Value, replace);
                 }
                 else
                 {
+                    Logger?.RecordInfo(StringRes.Info_AttributeNotFoundOnProperty);
+
                     // If the attribute isn't specified on the property then chek for the fallback.
                     var fallback = match.Groups["Fallback"].Value;
 
                     if (!string.IsNullOrEmpty(fallback))
                     {
+                        Logger?.RecordInfo(StringRes.Info_AddingAttributeFallback);
+
                         // Skip the first two chars as they just indicate the start of the fallback.
                         // Swap '@' for '$' to allow for the fallback containing replacements.
                         var fallbackToUse = fallback.Substring(2).Replace('@', '$');
