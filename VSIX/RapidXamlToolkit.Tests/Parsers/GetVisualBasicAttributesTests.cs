@@ -313,5 +313,28 @@ End Namespace";
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
         }
+
+        [TestMethod]
+        public void AttributeWithoutArguments_ButArguments()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        <Display()>
+        Public Property ☆Name As String
+    End Class
+End Namespace";
+
+            var expectedOutput = "<TextBox Text=\"Name\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "Name",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
+        }
     }
 }
