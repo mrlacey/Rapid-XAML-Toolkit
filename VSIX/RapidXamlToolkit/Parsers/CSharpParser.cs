@@ -247,6 +247,21 @@ namespace RapidXamlToolkit.Parsers
                 IsReadOnly = propIsReadOnly ?? false,
             };
 
+            pd.Attributes.AddRange(this.GetAttributes(propDecSyntax));
+
+            Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
+
+            ITypeSymbol typeSymbol = this.GetTypeSymbol(semModel, propDecSyntax, pd);
+
+            pd.Symbol = typeSymbol;
+
+            return pd;
+        }
+
+        protected IEnumerable<AttributeDetails> GetAttributes(PropertyDeclarationSyntax propDecSyntax)
+        {
+            var result = new List<AttributeDetails>();
+
             foreach (var attribList in propDecSyntax.AttributeLists)
             {
                 foreach (var attrib in attribList.Attributes)
@@ -262,9 +277,7 @@ namespace RapidXamlToolkit.Parsers
                     {
                         foreach (var arg in attrib?.ArgumentList.Arguments)
                         {
-                            string name = null;
-                            string value = null;
-
+                            string name;
                             if (arg?.NameColon != null)
                             {
                                 name = arg.NameColon.Name.Identifier.Text;
@@ -280,6 +293,7 @@ namespace RapidXamlToolkit.Parsers
 
                             var expression = arg.Expression;
 
+                            string value;
                             if (expression is IdentifierNameSyntax ins)
                             {
                                 value = ins.Identifier.Value.ToString();
@@ -308,17 +322,11 @@ namespace RapidXamlToolkit.Parsers
                         Logger?.RecordInfo(StringRes.Info_NoArgumentsForAttribute);
                     }
 
-                    pd.Attributes.Add(att);
+                    result.Add(att);
                 }
             }
 
-            Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
-
-            ITypeSymbol typeSymbol = this.GetTypeSymbol(semModel, propDecSyntax, pd);
-
-            pd.Symbol = typeSymbol;
-
-            return pd;
+            return result;
         }
 
         protected override string GetIdentifier(SyntaxNode syntaxNode)

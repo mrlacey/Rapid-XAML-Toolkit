@@ -313,6 +313,21 @@ namespace RapidXamlToolkit.Parsers
                 IsReadOnly = propIsReadOnly ?? false,
             };
 
+            pd.Attributes.AddRange(this.GetAttributeDetails(attributeLists));
+
+            Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
+
+            ITypeSymbol typeSymbol = this.GetTypeSymbol(semModel, propertyNode, pd);
+
+            pd.Symbol = typeSymbol;
+
+            return pd;
+        }
+
+        protected IEnumerable<AttributeDetails> GetAttributeDetails(SyntaxList<AttributeListSyntax> attributeLists)
+        {
+            var result = new List<AttributeDetails>();
+
             foreach (var attribList in attributeLists)
             {
                 foreach (var attrib in attribList.Attributes)
@@ -357,17 +372,11 @@ namespace RapidXamlToolkit.Parsers
                         Logger?.RecordInfo(StringRes.Info_NoArgumentsForAttribute);
                     }
 
-                    pd.Attributes.Add(att);
+                    result.Add(att);
                 }
             }
 
-            Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
-
-            ITypeSymbol typeSymbol = this.GetTypeSymbol(semModel, propertyNode, pd);
-
-            pd.Symbol = typeSymbol;
-
-            return pd;
+            return result;
         }
 
         protected override string GetIdentifier(SyntaxNode syntaxNode)
