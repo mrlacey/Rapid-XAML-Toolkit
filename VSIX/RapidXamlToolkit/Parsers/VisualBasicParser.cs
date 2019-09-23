@@ -24,121 +24,6 @@ namespace RapidXamlToolkit.Parsers
 
         public override string FileExtension { get; } = "vb";
 
-        public ParserOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition)
-        {
-            Logger?.RecordInfo(StringRes.Info_GetSingleItemOutput);
-            var (propertyNode, classNode) = this.GetNodeUnderCaret(documentRoot, caretPosition);
-
-            if (propertyNode != null)
-            {
-                Logger?.RecordInfo(StringRes.Info_GetSinglePropertyOutput);
-
-                var propDetails = this.GetPropertyDetails(propertyNode, semModel);
-
-                var (output, name, _) = this.GetOutputToAdd(semModel, propDetails);
-
-                return new ParserOutput
-                {
-                    Name = name,
-                    Output = output,
-                    OutputType = ParserOutputType.Property,
-                };
-            }
-
-            if (classNode != null)
-            {
-                Logger?.RecordInfo(StringRes.Info_GetSingleClassOutput);
-
-                var className = this.GetIdentifier(classNode);
-
-                var classTypeSymbol = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
-                var properties = this.GetAllPublicProperties(classTypeSymbol, semModel);
-
-                var output = new StringBuilder();
-
-                var classGrouping = this.Profile.ClassGrouping;
-
-                if (!string.IsNullOrWhiteSpace(classGrouping))
-                {
-                    output.AppendLine($"<{FormattedClassGroupingOpener(classGrouping)}>");
-                }
-
-                if (properties.Any())
-                {
-                    Logger?.RecordInfo(StringRes.Info_ClassPropertyCount.WithParams(properties.Count));
-
-                    var propertyOutput = new List<string>();
-
-                    var numericCounter = 0;
-
-                    foreach (var prop in properties)
-                    {
-                        Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(prop.Name));
-                        var toAdd = this.GetOutputToAdd(semModel, prop, numericCounter);
-
-                        numericCounter = toAdd.counter;
-                        propertyOutput.Add(toAdd.output);
-                    }
-
-                    if (classGrouping != null
-                     && (classGrouping.Equals(GridWithRowDefsIndicator, StringComparison.InvariantCultureIgnoreCase)
-                      || classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase)))
-                    {
-                        Logger?.RecordInfo(StringRes.Info_AddingGridToOutput);
-
-                        if (classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            Logger?.RecordInfo(StringRes.Info_AddingColDefsToGrid);
-
-                            output.AppendLine("<Grid.ColumnDefinitions>");
-                            output.AppendLine("<ColumnDefinition Width=\"Auto\" />");
-                            output.AppendLine("<ColumnDefinition Width=\"*\" />");
-                            output.AppendLine("</Grid.ColumnDefinitions>");
-                        }
-
-                        output.AppendLine("<Grid.RowDefinitions>");
-
-                        Logger?.RecordInfo(StringRes.Info_AddedRowDefsCount.WithParams(numericCounter));
-                        for (var i = 1; i <= numericCounter + 1; i++)
-                        {
-                            output.AppendLine(i <= numericCounter
-                                ? "<RowDefinition Height=\"Auto\" />"
-                                : "<RowDefinition Height=\"*\" />");
-                        }
-
-                        output.AppendLine("</Grid.RowDefinitions>");
-                    }
-
-                    foreach (var po in propertyOutput)
-                    {
-                        output.AppendLine(po);
-                    }
-                }
-                else
-                {
-                    Logger?.RecordInfo(StringRes.Info_ClassNoPublicProperties);
-                    output.AppendLine(StringRes.UI_NoPropertiesXaml);
-                }
-
-                if (!string.IsNullOrWhiteSpace(classGrouping))
-                {
-                    output.Append($"</{FormattedClassGroupingCloser(classGrouping)}>");
-                }
-
-                var finalOutput = output.ToString().FormatXaml(CodeParserBase.XamlIndentSize);
-
-                return new ParserOutput
-                {
-                    Name = className,
-                    Output = finalOutput,
-                    OutputType = ParserOutputType.Class,
-                };
-            }
-
-            Logger?.RecordInfo(StringRes.Info_NoPropertiesToOutput);
-            return ParserOutput.Empty;
-        }
-
         public ParserOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd)
         {
             Logger?.RecordInfo(StringRes.Info_GetSelectionOutput);
@@ -279,7 +164,7 @@ namespace RapidXamlToolkit.Parsers
             return result;
         }
 
-        private (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
+        protected override (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
         {
             var result = new List<string>();
 
@@ -315,7 +200,7 @@ namespace RapidXamlToolkit.Parsers
             return (result, numericSubstitute);
         }
 
-        private PropertyDetails GetPropertyDetails(SyntaxNode propertyNode, SemanticModel semModel)
+        protected override PropertyDetails GetPropertyDetails(SyntaxNode propertyNode, SemanticModel semModel)
         {
             var propertyName = this.GetIdentifier(propertyNode);
             var propertyType = Unknown;
@@ -427,51 +312,7 @@ namespace RapidXamlToolkit.Parsers
                 IsReadOnly = propIsReadOnly ?? false,
             };
 
-            foreach (var attribList in attributeLists)
-            {
-                foreach (var attrib in attribList.Attributes)
-                {
-                    var att = new AttributeDetails
-                    {
-                        Name = attrib.Name.ToString(),
-                    };
-
-                    var count = 1;
-                    foreach (var arg in attrib.ArgumentList.Arguments)
-                    {
-                        string name = null;
-                        string value = null;
-
-                        if (arg is SimpleArgumentSyntax sas)
-                        {
-                            name = sas.NameColonEquals?.Name.ToString();
-
-                            if (sas.Expression is IdentifierNameSyntax ins)
-                            {
-                                value = ins.Identifier.ValueText;
-                            }
-                            else if (sas.Expression is LiteralExpressionSyntax les)
-                            {
-                                value = les.ToString().Replace("\"", string.Empty);
-                            }
-                        }
-
-                        if (value == null)
-                        {
-                            value = arg.ToString();
-                        }
-
-                        att.Arguments.Add(new AttributeArgumentDetails
-                        {
-                            Index = count++,
-                            Name = name,
-                            Value = value,
-                        });
-                    }
-
-                    pd.Attributes.Add(att);
-                }
-            }
+            pd.Attributes.AddRange(this.GetAttributeDetails(attributeLists));
 
             Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
 
@@ -482,14 +323,69 @@ namespace RapidXamlToolkit.Parsers
             return pd;
         }
 
-        private (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, PropertyDetails prop, int numericCounter = 0)
+        protected IEnumerable<AttributeDetails> GetAttributeDetails(SyntaxList<AttributeListSyntax> attributeLists)
         {
-            var (output, counter) = this.GetPropertyOutputAndCounter(prop, numericCounter, semModel, () => this.GetSubPropertyOutput(prop, semModel));
+            var result = new List<AttributeDetails>();
 
-            return (output, prop.Name, counter);
+            foreach (var attribList in attributeLists)
+            {
+                foreach (var attrib in attribList?.Attributes)
+                {
+                    var att = new AttributeDetails
+                    {
+                        Name = attrib.Name.ToString(),
+                    };
+
+                    var count = 1;
+
+                    if (attrib?.ArgumentList?.Arguments.Any() ?? false)
+                    {
+                        foreach (var arg in attrib?.ArgumentList?.Arguments)
+                        {
+                            string name = null;
+                            string value = null;
+
+                            if (arg is SimpleArgumentSyntax sas)
+                            {
+                                name = sas.NameColonEquals?.Name.ToString();
+                                if (sas.Expression is IdentifierNameSyntax ins)
+                                {
+                                    value = ins.Identifier.ValueText;
+                                }
+                                else if (sas.Expression is LiteralExpressionSyntax les)
+                                {
+                                    value = les.ToString().Replace("\"", string.Empty);
+                                }
+                            }
+
+                            if (value == null)
+                            {
+                                value = arg.ToString();
+                            }
+
+                            Logger?.RecordInfo(StringRes.Info_FoundAttributeArgument.WithParams(name, value));
+
+                            att.Arguments.Add(new AttributeArgumentDetails
+                            {
+                                Index = count++,
+                                Name = name,
+                                Value = value,
+                            });
+                        }
+                    }
+                    else
+                    {
+                        Logger?.RecordInfo(StringRes.Info_NoArgumentsForAttribute);
+                    }
+
+                    result.Add(att);
+                }
+            }
+
+            return result;
         }
 
-        private string GetIdentifier(SyntaxNode syntaxNode)
+        protected override string GetIdentifier(SyntaxNode syntaxNode)
         {
             if (syntaxNode is ModuleBlockSyntax)
             {
@@ -509,7 +405,7 @@ namespace RapidXamlToolkit.Parsers
             return syntaxNode?.ChildTokens().FirstOrDefault(t => t.RawKind == (int)SyntaxKind.IdentifierToken).ValueText;
         }
 
-        private (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        protected override (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             SyntaxNode propertyNode = null;
             SyntaxNode classNode = null;

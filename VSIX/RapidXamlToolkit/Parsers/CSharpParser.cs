@@ -24,121 +24,6 @@ namespace RapidXamlToolkit.Parsers
 
         public override string FileExtension { get; } = "cs";
 
-        public ParserOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition)
-        {
-            Logger?.RecordInfo(StringRes.Info_GetSingleItemOutput);
-            var (propertyNode, classNode) = this.GetNodeUnderCaret(documentRoot, caretPosition);
-
-            if (propertyNode != null)
-            {
-                Logger?.RecordInfo(StringRes.Info_GetSinglePropertyOutput);
-
-                var propDetails = this.GetPropertyDetails(propertyNode, semModel);
-
-                var (output, name, _) = this.GetOutputToAdd(semModel, propDetails);
-
-                return new ParserOutput
-                {
-                    Name = name,
-                    Output = output,
-                    OutputType = ParserOutputType.Property,
-                };
-            }
-
-            if (classNode != null)
-            {
-                Logger?.RecordInfo(StringRes.Info_GetSingleClassOutput);
-
-                var className = this.GetIdentifier(classNode);
-
-                var classTypeSymbol = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
-                var properties = this.GetAllPublicProperties(classTypeSymbol, semModel);
-
-                var output = new StringBuilder();
-
-                var classGrouping = this.Profile.ClassGrouping;
-
-                if (!string.IsNullOrWhiteSpace(classGrouping))
-                {
-                    output.AppendLine($"<{FormattedClassGroupingOpener(classGrouping)}>");
-                }
-
-                if (properties.Any())
-                {
-                    Logger?.RecordInfo(StringRes.Info_ClassPropertyCount.WithParams(properties.Count));
-
-                    var propertyOutput = new List<string>();
-
-                    var numericCounter = 0;
-
-                    foreach (var prop in properties)
-                    {
-                        Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(prop.Name));
-                        var toAdd = this.GetOutputToAdd(semModel, prop, numericCounter);
-
-                        numericCounter = toAdd.counter;
-                        propertyOutput.Add(toAdd.output);
-                    }
-
-                    if (classGrouping != null
-                     && (classGrouping.Equals(GridWithRowDefsIndicator, StringComparison.InvariantCultureIgnoreCase)
-                      || classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase)))
-                    {
-                        Logger?.RecordInfo(StringRes.Info_AddingGridToOutput);
-
-                        if (classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            Logger?.RecordInfo(StringRes.Info_AddingColDefsToGrid);
-
-                            output.AppendLine("<Grid.ColumnDefinitions>");
-                            output.AppendLine("<ColumnDefinition Width=\"Auto\" />");
-                            output.AppendLine("<ColumnDefinition Width=\"*\" />");
-                            output.AppendLine("</Grid.ColumnDefinitions>");
-                        }
-
-                        output.AppendLine("<Grid.RowDefinitions>");
-
-                        Logger?.RecordInfo(StringRes.Info_AddedRowDefsCount.WithParams(numericCounter));
-                        for (int i = 1; i <= numericCounter + 1; i++)
-                        {
-                            output.AppendLine(i <= numericCounter
-                                ? "<RowDefinition Height=\"Auto\" />"
-                                : "<RowDefinition Height=\"*\" />");
-                        }
-
-                        output.AppendLine("</Grid.RowDefinitions>");
-                    }
-
-                    foreach (var po in propertyOutput)
-                    {
-                        output.AppendLine(po);
-                    }
-                }
-                else
-                {
-                    Logger?.RecordInfo(StringRes.Info_ClassNoPublicProperties);
-                    output.AppendLine(StringRes.UI_NoPropertiesXaml);
-                }
-
-                if (!string.IsNullOrWhiteSpace(classGrouping))
-                {
-                    output.Append($"</{FormattedClassGroupingCloser(classGrouping)}>");
-                }
-
-                var finalOutput = output.ToString().FormatXaml(CodeParserBase.XamlIndentSize);
-
-                return new ParserOutput
-                {
-                    Name = className,
-                    Output = finalOutput,
-                    OutputType = ParserOutputType.Class,
-                };
-            }
-
-            Logger?.RecordInfo(StringRes.Info_NoPropertiesToOutput);
-            return ParserOutput.Empty;
-        }
-
         public ParserOutput GetSelectionOutput(SyntaxNode documentRoot, SemanticModel semModel, int selStart, int selEnd)
         {
             Logger?.RecordInfo(StringRes.Info_GetSelectionOutput);
@@ -263,7 +148,7 @@ namespace RapidXamlToolkit.Parsers
             return result;
         }
 
-        private (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
+        protected override (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
         {
             var result = new List<string>();
 
@@ -299,11 +184,13 @@ namespace RapidXamlToolkit.Parsers
             return (result, numericSubstitute);
         }
 
-        private PropertyDetails GetPropertyDetails(PropertyDeclarationSyntax propertyDeclaration, SemanticModel semModel)
+        protected override PropertyDetails GetPropertyDetails(SyntaxNode propertyDeclaration, SemanticModel semModel)
         {
             var propertyType = Unknown;
 
-            switch (propertyDeclaration.Type)
+            var propDecSyntax = propertyDeclaration as PropertyDeclarationSyntax;
+
+            switch (propDecSyntax.Type)
             {
                 case GenericNameSyntax gns:
                     propertyType = gns.ToString(); // Lazy way to get generic types
@@ -340,7 +227,7 @@ namespace RapidXamlToolkit.Parsers
             var propertyName = this.GetIdentifier(propertyDeclaration);
 
             bool? propIsReadOnly;
-            var setter = propertyDeclaration?.AccessorList?.Accessors
+            var setter = propDecSyntax?.AccessorList?.Accessors
                 .FirstOrDefault(a => a.RawKind == (ushort)SyntaxKind.SetAccessorDeclaration);
 
             if (setter == null)
@@ -360,7 +247,22 @@ namespace RapidXamlToolkit.Parsers
                 IsReadOnly = propIsReadOnly ?? false,
             };
 
-            foreach (var attribList in propertyDeclaration.AttributeLists)
+            pd.Attributes.AddRange(this.GetAttributes(propDecSyntax));
+
+            Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
+
+            ITypeSymbol typeSymbol = this.GetTypeSymbol(semModel, propDecSyntax, pd);
+
+            pd.Symbol = typeSymbol;
+
+            return pd;
+        }
+
+        protected IEnumerable<AttributeDetails> GetAttributes(PropertyDeclarationSyntax propDecSyntax)
+        {
+            var result = new List<AttributeDetails>();
+
+            foreach (var attribList in propDecSyntax.AttributeLists)
             {
                 foreach (var attrib in attribList.Attributes)
                 {
@@ -370,62 +272,69 @@ namespace RapidXamlToolkit.Parsers
                     };
 
                     var count = 1;
-                    foreach (var arg in attrib.ArgumentList.Arguments)
+
+                    if (attrib?.ArgumentList?.Arguments.Any() ?? false)
                     {
-                        string name = null;
-                        string value = null;
+                        foreach (var arg in attrib?.ArgumentList.Arguments)
+                        {
+                            string name;
+                            if (arg?.NameColon != null)
+                            {
+                                name = arg.NameColon.Name.Identifier.Text;
+                            }
+                            else if (arg?.NameEquals != null)
+                            {
+                                name = arg.NameEquals.Name.ToString();
+                            }
+                            else
+                            {
+                                name = string.Empty;
+                            }
 
-                        if (arg?.NameColon != null)
-                        {
-                            name = arg.NameColon.Name.Identifier.Text;
-                        }
-                        else if (arg?.NameEquals != null)
-                        {
-                            name = arg.NameEquals.Name.ToString();
-                        }
+                            var expression = arg.Expression;
 
-                        var expression = arg.Expression;
+                            string value;
+                            if (expression is IdentifierNameSyntax ins)
+                            {
+                                value = ins.Identifier.Value.ToString();
+                            }
+                            else if (expression is LiteralExpressionSyntax les)
+                            {
+                                value = les.ToString().Replace("\"", string.Empty);
+                            }
+                            else
+                            {
+                                value = arg.ToString();
+                            }
 
-                        if (expression is IdentifierNameSyntax ins)
-                        {
-                            value = ins.Identifier.Value.ToString();
-                        }
-                        else if (expression is LiteralExpressionSyntax les)
-                        {
-                            value = les.ToString().Replace("\"", string.Empty);
-                        }
-                        else
-                        {
-                            value = arg.ToString();
-                        }
+                            Logger?.RecordInfo(StringRes.Info_FoundAttributeArgument.WithParams(name, value));
 
-                        att.Arguments.Add(new AttributeArgumentDetails
-                        {
-                            Index = count++,
-                            Name = name,
-                            Value = value,
-                        });
+                            att.Arguments.Add(new AttributeArgumentDetails
+                            {
+                                Index = count++,
+                                Name = name,
+                                Value = value,
+                            });
+                        }
+                    }
+                    else
+                    {
+                        Logger?.RecordInfo(StringRes.Info_NoArgumentsForAttribute);
                     }
 
-                    pd.Attributes.Add(att);
+                    result.Add(att);
                 }
             }
 
-            Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
-
-            ITypeSymbol typeSymbol = this.GetTypeSymbol(semModel, propertyDeclaration, pd);
-
-            pd.Symbol = typeSymbol;
-
-            return pd;
+            return result;
         }
 
-        private string GetIdentifier(SyntaxNode syntaxNode)
+        protected override string GetIdentifier(SyntaxNode syntaxNode)
         {
             return syntaxNode?.ChildTokens().FirstOrDefault(t => t.Kind() is SyntaxKind.IdentifierToken).ValueText;
         }
 
-        private (PropertyDeclarationSyntax propertyNode, TypeDeclarationSyntax classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        protected override (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             PropertyDeclarationSyntax propertyNode = null;
             TypeDeclarationSyntax classNode = null;
@@ -452,13 +361,6 @@ namespace RapidXamlToolkit.Parsers
             }
 
             return (propertyNode, classNode);
-        }
-
-        private (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, PropertyDetails prop, int numericCounter = 0)
-        {
-            var (output, counter) = this.GetPropertyOutputAndCounter(prop, numericCounter, semModel, () => this.GetSubPropertyOutput(prop, semModel));
-
-            return (output, prop.Name, counter);
         }
 
         private ITypeSymbol GetTypeSymbol(SemanticModel semModel, PropertyDeclarationSyntax prop, PropertyDetails propDetails)

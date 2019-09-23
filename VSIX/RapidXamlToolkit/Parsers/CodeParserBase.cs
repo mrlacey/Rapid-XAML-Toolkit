@@ -89,6 +89,121 @@ namespace RapidXamlToolkit.Parsers
             return this.GetPropertyOutputAndCounter(new PropertyDetails { PropertyType = type, Name = name, IsReadOnly = isReadOnly }, 1, semModel, getSubProperties).output;
         }
 
+        public ParserOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition)
+        {
+            Logger?.RecordInfo(StringRes.Info_GetSingleItemOutput);
+            var (propertyNode, classNode) = this.GetNodeUnderCaret(documentRoot, caretPosition);
+
+            if (propertyNode != null)
+            {
+                Logger?.RecordInfo(StringRes.Info_GetSinglePropertyOutput);
+
+                var propDetails = this.GetPropertyDetails(propertyNode, semModel);
+
+                var (output, name, _) = this.GetOutputToAdd(semModel, propDetails);
+
+                return new ParserOutput
+                {
+                    Name = name,
+                    Output = output,
+                    OutputType = ParserOutputType.Property,
+                };
+            }
+
+            if (classNode != null)
+            {
+                Logger?.RecordInfo(StringRes.Info_GetSingleClassOutput);
+
+                var className = this.GetIdentifier(classNode);
+
+                var classTypeSymbol = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
+                var properties = this.GetAllPublicProperties(classTypeSymbol, semModel);
+
+                var output = new StringBuilder();
+
+                var classGrouping = this.Profile.ClassGrouping;
+
+                if (!string.IsNullOrWhiteSpace(classGrouping))
+                {
+                    output.AppendLine($"<{FormattedClassGroupingOpener(classGrouping)}>");
+                }
+
+                if (properties.Any())
+                {
+                    Logger?.RecordInfo(StringRes.Info_ClassPropertyCount.WithParams(properties.Count));
+
+                    var propertyOutput = new List<string>();
+
+                    var numericCounter = 0;
+
+                    foreach (var prop in properties)
+                    {
+                        Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(prop.Name));
+                        var toAdd = this.GetOutputToAdd(semModel, prop, numericCounter);
+
+                        numericCounter = toAdd.counter;
+                        propertyOutput.Add(toAdd.output);
+                    }
+
+                    if (classGrouping != null
+                     && (classGrouping.Equals(GridWithRowDefsIndicator, StringComparison.InvariantCultureIgnoreCase)
+                      || classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase)))
+                    {
+                        Logger?.RecordInfo(StringRes.Info_AddingGridToOutput);
+
+                        if (classGrouping.Equals(GridWithRowDefs2ColsIndicator, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            Logger?.RecordInfo(StringRes.Info_AddingColDefsToGrid);
+
+                            output.AppendLine("<Grid.ColumnDefinitions>");
+                            output.AppendLine("<ColumnDefinition Width=\"Auto\" />");
+                            output.AppendLine("<ColumnDefinition Width=\"*\" />");
+                            output.AppendLine("</Grid.ColumnDefinitions>");
+                        }
+
+                        output.AppendLine("<Grid.RowDefinitions>");
+
+                        Logger?.RecordInfo(StringRes.Info_AddedRowDefsCount.WithParams(numericCounter));
+                        for (var i = 1; i <= numericCounter + 1; i++)
+                        {
+                            output.AppendLine(i <= numericCounter
+                                ? "<RowDefinition Height=\"Auto\" />"
+                                : "<RowDefinition Height=\"*\" />");
+                        }
+
+                        output.AppendLine("</Grid.RowDefinitions>");
+                    }
+
+                    foreach (var po in propertyOutput)
+                    {
+                        output.AppendLine(po);
+                    }
+                }
+                else
+                {
+                    Logger?.RecordInfo(StringRes.Info_ClassNoPublicProperties);
+                    output.AppendLine(StringRes.UI_NoPropertiesXaml);
+                }
+
+                if (!string.IsNullOrWhiteSpace(classGrouping))
+                {
+                    output.Append($"</{FormattedClassGroupingCloser(classGrouping)}>");
+                }
+
+                var finalOutput = output.ToString().FormatXaml(CodeParserBase.XamlIndentSize);
+
+                return new ParserOutput
+                {
+                    Name = className,
+                    Output = finalOutput,
+                    OutputType = ParserOutputType.Class,
+                };
+            }
+
+            Logger?.RecordInfo(StringRes.Info_NoPropertiesToOutput);
+            return ParserOutput.Empty;
+        }
+
         public virtual List<PropertyDetails> GetAllPublicProperties(ITypeSymbol typeSymbol, SemanticModel semModel)
         {
             return new List<PropertyDetails>();
@@ -121,6 +236,33 @@ namespace RapidXamlToolkit.Parsers
                 default:
                     return classGrouping;
             }
+        }
+
+        protected virtual (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual PropertyDetails GetPropertyDetails(SyntaxNode propertyDeclaration, SemanticModel semModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual string GetIdentifier(SyntaxNode syntaxNode)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, PropertyDetails prop, int numericCounter = 0)
+        {
+            var (output, counter) = this.GetPropertyOutputAndCounter(prop, numericCounter, semModel, () => this.GetSubPropertyOutput(prop, semModel));
+
+            return (output, prop.Name, counter);
         }
 
         protected (string output, int counter) GetSubPropertyOutputAndCounter(string name, int numericSubstitute)
@@ -438,6 +580,8 @@ namespace RapidXamlToolkit.Parsers
             {
                 var attrib = match.Groups["AttribName"].Value;
 
+                Logger?.RecordInfo(StringRes.Info_OutputContainsAttributePlaceholder.WithParams(attrib));
+
                 if (attributes?.Any(a => a.Name == attrib || $"{a.Name}Attribute" == attrib || a.Name == $"{attrib}Attribute") == true)
                 {
                     var replace = match.Groups["Replace"].Value;
@@ -450,24 +594,48 @@ namespace RapidXamlToolkit.Parsers
                     {
                         var replaceVal = attributeOfInterest.Arguments.FirstOrDefault(a => a.Index == subIndex);
 
-                        replace = replace.Replace($"[{substitute}]", replaceVal.Value);
+                        if (replaceVal is null)
+                        {
+                            Logger?.RecordInfo(StringRes.Info_AttributeParameterWIthoutIndex.WithParams(subIndex));
+
+                            // Output nothing for the attribute rather than something incomplete.
+                            replace = string.Empty;
+                        }
+                        else
+                        {
+                            replace = replace.Replace($"[{substitute}]", replaceVal.Value);
+                        }
                     }
                     else
                     {
                         var replaceVal = attributeOfInterest.Arguments.FirstOrDefault(a => a.Name == substitute);
 
-                        replace = replace.Replace($"[{substitute}]", replaceVal.Value);
+                        if (replaceVal is null)
+                        {
+                            Logger?.RecordInfo(StringRes.Info_NamedAttributeParameterNotFound.WithParams(substitute));
+
+                            // Output nothing for the attribute rather than something incomplete.
+                            replace = string.Empty;
+                        }
+                        else
+                        {
+                            replace = replace.Replace($"[{substitute}]", replaceVal.Value);
+                        }
                     }
 
                     result = result.Replace(match.Groups[0].Value, replace);
                 }
                 else
                 {
+                    Logger?.RecordInfo(StringRes.Info_AttributeNotFoundOnProperty);
+
                     // If the attribute isn't specified on the property then chek for the fallback.
                     var fallback = match.Groups["Fallback"].Value;
 
                     if (!string.IsNullOrEmpty(fallback))
                     {
+                        Logger?.RecordInfo(StringRes.Info_AddingAttributeFallback);
+
                         // Skip the first two chars as they just indicate the start of the fallback.
                         // Swap '@' for '$' to allow for the fallback containing replacements.
                         var fallbackToUse = fallback.Substring(2).Replace('@', '$');

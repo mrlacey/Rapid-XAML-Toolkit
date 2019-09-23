@@ -955,4 +955,25 @@
   <data name="Info_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage" xml:space="preserve">
     <value>TooltipService contains hard-coded ToolTip value '{0}'.</value>
   </data>
+  <data name="Info_AddingAttributeFallback" xml:space="preserve">
+    <value>Adding attribute fallback.</value>
+  </data>
+  <data name="Info_AttributeNotFoundOnProperty" xml:space="preserve">
+    <value>Attribute not found on property.</value>
+  </data>
+  <data name="Info_AttributeParameterWIthoutIndex" xml:space="preserve">
+    <value>Attribute parameter with index '{0}' not found.</value>
+  </data>
+  <data name="Info_FoundAttributeArgument" xml:space="preserve">
+    <value>Found attribute argument: '{0}'='{1}'</value>
+  </data>
+  <data name="Info_NamedAttributeParameterNotFound" xml:space="preserve">
+    <value>Attribute parameter named '{0}' not found.</value>
+  </data>
+  <data name="Info_NoArgumentsForAttribute" xml:space="preserve">
+    <value>No arguments for attribute.</value>
+  </data>
+  <data name="Info_OutputContainsAttributePlaceholder" xml:space="preserve">
+    <value>Output contains placeholder for attribute '{0}'</value>
+  </data>
 </root>

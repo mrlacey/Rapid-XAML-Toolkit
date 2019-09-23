@@ -115,6 +115,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adding attribute fallback..
+        /// </summary>
+        public static string Info_AddingAttributeFallback {
+            get {
+                return ResourceManager.GetString("Info_AddingAttributeFallback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adding ColumnDefinitions to grid..
         /// </summary>
         public static string Info_AddingColDefsToGrid {
@@ -183,6 +192,24 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_AttemptingToCreateView {
             get {
                 return ResourceManager.GetString("Info_AttemptingToCreateView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attribute not found on property..
+        /// </summary>
+        public static string Info_AttributeNotFoundOnProperty {
+            get {
+                return ResourceManager.GetString("Info_AttributeNotFoundOnProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attribute parameter with index &apos;{0}&apos; not found..
+        /// </summary>
+        public static string Info_AttributeParameterWIthoutIndex {
+            get {
+                return ResourceManager.GetString("Info_AttributeParameterWIthoutIndex", resourceCulture);
             }
         }
         
@@ -349,6 +376,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Found attribute argument: &apos;{0}&apos;=&apos;{1}&apos;.
+        /// </summary>
+        public static string Info_FoundAttributeArgument {
+            get {
+                return ResourceManager.GetString("Info_FoundAttributeArgument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Found mapping for &apos;{0}&apos; as an Enum..
         /// </summary>
         public static string Info_FoundEnumMapping {
@@ -466,6 +502,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attribute parameter named &apos;{0}&apos; not found..
+        /// </summary>
+        public static string Info_NamedAttributeParameterNotFound {
+            get {
+                return ResourceManager.GetString("Info_NamedAttributeParameterNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No arguments for attribute..
+        /// </summary>
+        public static string Info_NoArgumentsForAttribute {
+            get {
+                return ResourceManager.GetString("Info_NoArgumentsForAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No mapping found for &apos;{0}&apos; as an Enum so now checking by type name..
         /// </summary>
         public static string Info_NoEnumMappingFound {
@@ -552,6 +606,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_NoXamlCopied {
             get {
                 return ResourceManager.GetString("Info_NoXamlCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output contains placeholder for attribute &apos;{0}&apos;.
+        /// </summary>
+        public static string Info_OutputContainsAttributePlaceholder {
+            get {
+                return ResourceManager.GetString("Info_OutputContainsAttributePlaceholder", resourceCulture);
             }
         }
         

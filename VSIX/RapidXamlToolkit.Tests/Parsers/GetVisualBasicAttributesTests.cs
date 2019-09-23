@@ -315,5 +315,97 @@ End Namespace";
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.maxLengthProfile);
         }
+
+        [TestMethod]
+        public void AttributeWithoutArguments()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        <Display>
+        Public Property ☆Name As String
+    End Class
+End Namespace";
+
+            var expectedOutput = "<TextBox Text=\"Name\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "Name",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
+        }
+
+        [TestMethod]
+        public void AttributeWithoutArguments_ButArguments()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        <Display()>
+        Public Property ☆Name As String
+    End Class
+End Namespace";
+
+            var expectedOutput = "<TextBox Text=\"Name\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "Name",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
+        }
+
+        [TestMethod]
+        public void RangeAttribute_MultipleNumericParams_ButNotAllProvided()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        <Range(1)>
+        Public Property ☆Rating As Integer
+    End Class
+End Namespace";
+
+            var expectedOutput = "<Slider Name=\"Rating\" Minimum=\"1\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "Rating",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, this.rangeProfile);
+        }
+
+        [TestMethod]
+        public void Display_NamedParam_DiffferntToTemplate()
+        {
+            var code = @"
+Namespace tests
+    Class Class1
+        <Display(NotName:= ShortName)>
+        Public Property ☆Name As String
+    End Class
+End Namespace";
+
+            var expectedOutput = "<TextBox Text=\"Name\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "Name",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameProfile);
+        }
     }
 }
