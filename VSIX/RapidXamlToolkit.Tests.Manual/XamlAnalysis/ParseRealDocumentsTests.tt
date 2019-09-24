@@ -35,7 +35,7 @@ foreach (var subFolder in Directory.GetDirectories(rootFolder))
 {
     WriteLine("");
     WriteLine("        [TestMethod]");
-    WriteLine($"        public void TextXamlFilesIn_{string.Concat(new DirectoryInfo(subFolder).Name.Where(ch => Char.IsLetterOrDigit(ch)))}()");
+    WriteLine($"        public void TestXamlFilesIn_{string.Concat(new DirectoryInfo(subFolder).Name.Where(ch => Char.IsLetterOrDigit(ch)))}()");
     WriteLine("        {");
     WriteLine($"            this.CanParseWithoutErrors(@\"{subFolder}\");");
     WriteLine("        }");

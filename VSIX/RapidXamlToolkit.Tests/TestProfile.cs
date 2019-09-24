@@ -3,7 +3,6 @@
 
 using System.Collections.ObjectModel;
 using RapidXamlToolkit.Options;
-using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests
 {
