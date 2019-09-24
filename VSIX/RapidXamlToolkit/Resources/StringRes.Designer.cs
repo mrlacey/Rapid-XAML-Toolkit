@@ -853,6 +853,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unexpected property type &apos;{0}&apos; cannot be converted to XAML..
+        /// </summary>
+        public static string Info_UnexpectedPropertyType {
+            get {
+                return ResourceManager.GetString("Info_UnexpectedPropertyType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Using class grouping of &apos;{0}&apos;..
         /// </summary>
         public static string Info_UsingClassGrouping {

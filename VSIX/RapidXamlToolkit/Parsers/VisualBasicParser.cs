@@ -54,6 +54,12 @@ namespace RapidXamlToolkit.Parsers
             {
                 var propDetails = this.GetPropertyDetails(prop, semModel);
 
+                if (propDetails is null)
+                {
+                    Logger?.RecordInfo(StringRes.Info_UnexpectedPropertyType.WithParams(prop.GetType()));
+                    continue;
+                }
+
                 if (propDetails.Name.IsOneOf(NamesOfPropertiesToExcludeFromOutput))
                 {
                     Logger?.RecordInfo(StringRes.Info_NotIncludingExcludedProperty.WithParams(propDetails.Name));
@@ -151,8 +157,11 @@ namespace RapidXamlToolkit.Parsers
 
                     var details = this.GetPropertyDetails(syntax, semModel);
 
-                    Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
-                    result.Add(details);
+                    if (details != null)
+                    {
+                        Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
+                        result.Add(details);
+                    }
                 }
                 else
                 {
@@ -207,6 +216,16 @@ namespace RapidXamlToolkit.Parsers
             bool? propIsReadOnly = null;
 
             var descendantNodes = propertyNode.DescendantNodes().ToList();
+
+            var paramListIndex = descendantNodes.IndexOf(descendantNodes.FirstOrDefault(n => n is ParameterListSyntax));
+
+            if (paramListIndex > 0)
+            {
+                if (paramListIndex < descendantNodes.IndexOf(descendantNodes.FirstOrDefault(n => n is AccessorBlockSyntax)))
+                {
+                    return null;
+                }
+            }
 
             if (descendantNodes.Any(n => n is SimpleAsClauseSyntax))
             {

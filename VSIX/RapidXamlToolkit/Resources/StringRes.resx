@@ -976,4 +976,7 @@
   <data name="Info_OutputContainsAttributePlaceholder" xml:space="preserve">
     <value>Output contains placeholder for attribute '{0}'</value>
   </data>
+  <data name="Info_UnexpectedPropertyType" xml:space="preserve">
+    <value>Unexpected property type '{0}' cannot be converted to XAML.</value>
+  </data>
 </root>

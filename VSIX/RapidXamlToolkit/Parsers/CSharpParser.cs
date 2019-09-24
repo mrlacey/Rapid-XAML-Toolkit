@@ -131,7 +131,18 @@ namespace RapidXamlToolkit.Parsers
                 {
                     var decRef = decRefs.First();
 
-                    var syntax = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyDeclarationSyntax>().First();
+                    SyntaxNode syntax = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<PropertyDeclarationSyntax>().FirstOrDefault();
+
+                    if (syntax is null)
+                    {
+                        syntax = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<IndexerDeclarationSyntax>().FirstOrDefault();
+
+                        if (syntax != null)
+                        {
+                            // Don't output anything for indexers.
+                            continue;
+                        }
+                    }
 
                     var details = this.GetPropertyDetails(syntax, semModel);
 
@@ -187,48 +198,58 @@ namespace RapidXamlToolkit.Parsers
         protected override PropertyDetails GetPropertyDetails(SyntaxNode propertyDeclaration, SemanticModel semModel)
         {
             var propertyType = Unknown;
+            string propertyName = null;
+            AccessorDeclarationSyntax setter = null;
+            SyntaxList<AttributeListSyntax> attributeList;
 
-            var propDecSyntax = propertyDeclaration as PropertyDeclarationSyntax;
-
-            switch (propDecSyntax.Type)
+            if (propertyDeclaration is PropertyDeclarationSyntax propDecSyntax)
             {
-                case GenericNameSyntax gns:
-                    propertyType = gns.ToString(); // Lazy way to get generic types
-                    break;
-                case PredefinedTypeSyntax pds:
-                    propertyType = pds.Keyword.ValueText;
-                    break;
-                case IdentifierNameSyntax ins:
-                    propertyType = ins.Identifier.ValueText;
-                    break;
-                case QualifiedNameSyntax qns:
-                    propertyType = qns.Right.Identifier.ValueText;
+                switch (propDecSyntax.Type)
+                {
+                    case GenericNameSyntax gns:
+                        propertyType = gns.ToString(); // Lazy way to get generic types
+                        break;
+                    case PredefinedTypeSyntax pds:
+                        propertyType = pds.Keyword.ValueText;
+                        break;
+                    case IdentifierNameSyntax ins:
+                        propertyType = ins.Identifier.ValueText;
+                        break;
+                    case QualifiedNameSyntax qns:
+                        propertyType = qns.Right.Identifier.ValueText;
 
-                    if (qns.Right is GenericNameSyntax qgns)
-                    {
-                        propertyType += qgns.TypeArgumentList.ToString();
-                    }
+                        if (qns.Right is GenericNameSyntax qgns)
+                        {
+                            propertyType += qgns.TypeArgumentList.ToString();
+                        }
 
-                    break;
-                case NullableTypeSyntax nts:
-                    propertyType = ((PredefinedTypeSyntax)nts.ElementType).Keyword.Text;
+                        break;
+                    case NullableTypeSyntax nts:
+                        propertyType = ((PredefinedTypeSyntax)nts.ElementType).Keyword.Text;
 
-                    if (!propertyType.ToLowerInvariant().Contains("nullable"))
-                    {
-                        propertyType += nts.QuestionToken.Text;
-                    }
+                        if (!propertyType.ToLowerInvariant().Contains("nullable"))
+                        {
+                            propertyType += nts.QuestionToken.Text;
+                        }
 
-                    break;
-                case ArrayTypeSyntax ats:
-                    propertyType = ats.ToString();
-                    break;
+                        break;
+                    case ArrayTypeSyntax ats:
+                        propertyType = ats.ToString();
+                        break;
+                }
+
+                propertyName = this.GetIdentifier(propertyDeclaration);
+
+                setter = propDecSyntax?.AccessorList?.Accessors.FirstOrDefault(a => a.RawKind == (ushort)SyntaxKind.SetAccessorDeclaration);
+
+                attributeList = propDecSyntax.AttributeLists;
+            }
+            else
+            {
+                Logger?.RecordInfo(StringRes.Info_UnexpectedPropertyType.WithParams(propertyDeclaration.GetType()));
             }
 
-            var propertyName = this.GetIdentifier(propertyDeclaration);
-
             bool? propIsReadOnly;
-            var setter = propDecSyntax?.AccessorList?.Accessors
-                .FirstOrDefault(a => a.RawKind == (ushort)SyntaxKind.SetAccessorDeclaration);
 
             if (setter == null)
             {
@@ -247,22 +268,22 @@ namespace RapidXamlToolkit.Parsers
                 IsReadOnly = propIsReadOnly ?? false,
             };
 
-            pd.Attributes.AddRange(this.GetAttributes(propDecSyntax));
+            pd.Attributes.AddRange(this.GetAttributes(attributeList));
 
             Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
 
-            ITypeSymbol typeSymbol = this.GetTypeSymbol(semModel, propDecSyntax, pd);
+            ITypeSymbol typeSymbol = this.GetTypeSymbol(semModel, propertyDeclaration as BasePropertyDeclarationSyntax, pd);
 
             pd.Symbol = typeSymbol;
 
             return pd;
         }
 
-        protected IEnumerable<AttributeDetails> GetAttributes(PropertyDeclarationSyntax propDecSyntax)
+        protected IEnumerable<AttributeDetails> GetAttributes(SyntaxList<AttributeListSyntax> attributeList)
         {
             var result = new List<AttributeDetails>();
 
-            foreach (var attribList in propDecSyntax.AttributeLists)
+            foreach (var attribList in attributeList)
             {
                 foreach (var attrib in attribList.Attributes)
                 {
@@ -363,7 +384,7 @@ namespace RapidXamlToolkit.Parsers
             return (propertyNode, classNode);
         }
 
-        private ITypeSymbol GetTypeSymbol(SemanticModel semModel, PropertyDeclarationSyntax prop, PropertyDetails propDetails)
+        private ITypeSymbol GetTypeSymbol(SemanticModel semModel, BasePropertyDeclarationSyntax prop, PropertyDetails propDetails)
         {
             ITypeSymbol typeSymbol = null;
 
