@@ -54,6 +54,7 @@
     <DocumentationFile>bin\Debug\RapidXamlToolkitExt.xml</DocumentationFile>
     <NoWarn>,1573,1591,1712,1762,NU1605,NU1608</NoWarn>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
