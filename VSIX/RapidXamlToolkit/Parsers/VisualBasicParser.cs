@@ -54,6 +54,12 @@ namespace RapidXamlToolkit.Parsers
             {
                 var propDetails = this.GetPropertyDetails(prop, semModel);
 
+                if (propDetails is null)
+                {
+                    Logger?.RecordInfo(StringRes.Info_UnexpectedPropertyType.WithParams(prop.GetType()));
+                    continue;
+                }
+
                 if (propDetails.Name.IsOneOf(NamesOfPropertiesToExcludeFromOutput))
                 {
                     Logger?.RecordInfo(StringRes.Info_NotIncludingExcludedProperty.WithParams(propDetails.Name));
@@ -151,8 +157,11 @@ namespace RapidXamlToolkit.Parsers
 
                     var details = this.GetPropertyDetails(syntax, semModel);
 
-                    Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
-                    result.Add(details);
+                    if (details != null)
+                    {
+                        Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
+                        result.Add(details);
+                    }
                 }
                 else
                 {
@@ -207,6 +216,16 @@ namespace RapidXamlToolkit.Parsers
             bool? propIsReadOnly = null;
 
             var descendantNodes = propertyNode.DescendantNodes().ToList();
+
+            var paramListIndex = descendantNodes.IndexOf(descendantNodes.FirstOrDefault(n => n is ParameterListSyntax));
+
+            if (paramListIndex > 0)
+            {
+                if (paramListIndex < descendantNodes.IndexOf(descendantNodes.FirstOrDefault(n => n is AccessorBlockSyntax)))
+                {
+                    return null;
+                }
+            }
 
             if (descendantNodes.Any(n => n is SimpleAsClauseSyntax))
             {
@@ -331,10 +350,16 @@ namespace RapidXamlToolkit.Parsers
             {
                 foreach (var attrib in attribList?.Attributes)
                 {
-                    var att = new AttributeDetails
+                    var att = new AttributeDetails();
+
+                    if (attrib.Name is IdentifierNameSyntax ins)
                     {
-                        Name = attrib.Name.ToString(),
-                    };
+                        att.Name = ins.Identifier.Text;
+                    }
+                    else
+                    {
+                        att.Name = attrib.Name.ToString();
+                    }
 
                     var count = 1;
 
@@ -348,13 +373,14 @@ namespace RapidXamlToolkit.Parsers
                             if (arg is SimpleArgumentSyntax sas)
                             {
                                 name = sas.NameColonEquals?.Name.ToString();
-                                if (sas.Expression is IdentifierNameSyntax ins)
+
+                                if (sas.Expression is IdentifierNameSyntax expins)
                                 {
-                                    value = ins.Identifier.ValueText;
+                                    value = expins.Identifier.ValueText;
                                 }
                                 else if (sas.Expression is LiteralExpressionSyntax les)
                                 {
-                                    value = les.ToString().Replace("\"", string.Empty);
+                                    value = les.Token.ValueText;
                                 }
                             }
 
@@ -495,7 +521,18 @@ namespace RapidXamlToolkit.Parsers
                 {
                     if (pss.AsClause != null)
                     {
-                        typeSymbol = GetWithFallback(((SimpleAsClauseSyntax)pss.AsClause).Type, semModel, prop.SyntaxTree);
+                        TypeSyntax clauseType = null;
+
+                        if (pss.AsClause is SimpleAsClauseSyntax sacs)
+                        {
+                            clauseType = sacs.Type;
+                        }
+                        else if (pss.AsClause is AsNewClauseSyntax ancs)
+                        {
+                            clauseType = ancs.Type();
+                        }
+
+                        typeSymbol = GetWithFallback(clauseType, semModel, prop.SyntaxTree);
                     }
                     else
                     {

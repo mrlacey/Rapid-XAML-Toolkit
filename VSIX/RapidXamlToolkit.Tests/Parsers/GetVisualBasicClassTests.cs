@@ -1621,7 +1621,7 @@ End Namespace";
         }
 
         [TestMethod]
-        public void WildCardTypeMathingHasLowestPriority()
+        public void WildCardTypeMatchingHasLowestPriority()
         {
             var code = @"
 Namespace tests
@@ -1670,6 +1670,64 @@ End Namespace";
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, nameExcludeProfile);
+        }
+
+        [TestMethod]
+        public void GetClassWithRecursivePropertyTypes()
+        {
+            var code = @"
+Public Class Detail☆
+    Public Property Name As String
+    Public Property Description As String
+    Public Property Dependencies As List(Of Detail) = New List(Of Detail)()
+End Class";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Description, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Dependencies.Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Dependencies.Description, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Detail",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
+        public void GetClassWithIndexers_HaveNoOutput()
+        {
+            var code = @"
+Namespace tests
+    Public Class Detail☆
+        Public Property Name As String
+
+        Default Public ReadOnly Property Item(id As Integer) As String
+            Get
+                ' Actual logic not implemented
+                Return String.Empty
+            End Get
+        End Property
+    End Class
+End Namespace";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Detail",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
         }
 
         private void FindNoPropertiesInClass(string code)

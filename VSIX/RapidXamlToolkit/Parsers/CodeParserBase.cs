@@ -100,14 +100,17 @@ namespace RapidXamlToolkit.Parsers
 
                 var propDetails = this.GetPropertyDetails(propertyNode, semModel);
 
-                var (output, name, _) = this.GetOutputToAdd(semModel, propDetails);
-
-                return new ParserOutput
+                if (propDetails != null)
                 {
-                    Name = name,
-                    Output = output,
-                    OutputType = ParserOutputType.Property,
-                };
+                    var (output, name, _) = this.GetOutputToAdd(semModel, propDetails);
+
+                    return new ParserOutput
+                    {
+                        Name = name,
+                        Output = output,
+                        OutputType = ParserOutputType.Property,
+                    };
+                }
             }
 
             if (classNode != null)
@@ -315,6 +318,13 @@ namespace RapidXamlToolkit.Parsers
                     foreach (var prop in this.GetAllPublicProperties(property.Symbol, semModel))
                     {
                         var prefix = string.IsNullOrWhiteSpace(namePrefix) ? property.Name : $"{namePrefix}.{property.Name}";
+
+                        // Don't get into an infinite loop when a property has the same type as the containing class.
+                        if (prefix == prop.Name)
+                        {
+                            break;
+                        }
+
                         var (output, counter) = this.GetPropertyOutputAndCounter(prop, tempNumb, semModel, getSubPropertyOutput, namePrefix: prefix);
                         tempOutput.AppendLine(output);
                         tempNumb = counter;

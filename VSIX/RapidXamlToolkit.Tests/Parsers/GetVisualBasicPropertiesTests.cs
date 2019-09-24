@@ -979,5 +979,34 @@ End Namespace";
 
             this.SelectionBetweenStarsShouldProduceExpected(code, expected, noOutputProfile);
         }
+
+        [TestMethod]
+        public void GetAsNewProperty()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "ShellViewModel",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<Element Name=\"$name$\" />",
+            });
+
+            var code = @"
+Namespace tests
+    Class Class1
+        ☆Public ReadOnly Property ViewModel As New ShellViewModel
+    End Class
+End Namespace";
+
+            var expected = new ParserOutput
+            {
+                Name = "ViewModel",
+                Output = "<Element Name=\"ViewModel\" />",
+                OutputType = ParserOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
     }
 }
