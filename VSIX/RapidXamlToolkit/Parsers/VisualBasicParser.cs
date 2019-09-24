@@ -331,10 +331,16 @@ namespace RapidXamlToolkit.Parsers
             {
                 foreach (var attrib in attribList?.Attributes)
                 {
-                    var att = new AttributeDetails
+                    var att = new AttributeDetails();
+
+                    if (attrib.Name is IdentifierNameSyntax ins)
                     {
-                        Name = attrib.Name.ToString(),
-                    };
+                        att.Name = ins.Identifier.Text;
+                    }
+                    else
+                    {
+                        att.Name = attrib.Name.ToString();
+                    }
 
                     var count = 1;
 
@@ -348,13 +354,14 @@ namespace RapidXamlToolkit.Parsers
                             if (arg is SimpleArgumentSyntax sas)
                             {
                                 name = sas.NameColonEquals?.Name.ToString();
-                                if (sas.Expression is IdentifierNameSyntax ins)
+
+                                if (sas.Expression is IdentifierNameSyntax expins)
                                 {
-                                    value = ins.Identifier.ValueText;
+                                    value = expins.Identifier.ValueText;
                                 }
                                 else if (sas.Expression is LiteralExpressionSyntax les)
                                 {
-                                    value = les.ToString().Replace("\"", string.Empty);
+                                    value = les.Token.ValueText;
                                 }
                             }
 
@@ -495,7 +502,18 @@ namespace RapidXamlToolkit.Parsers
                 {
                     if (pss.AsClause != null)
                     {
-                        typeSymbol = GetWithFallback(((SimpleAsClauseSyntax)pss.AsClause).Type, semModel, prop.SyntaxTree);
+                        TypeSyntax clauseType = null;
+
+                        if (pss.AsClause is SimpleAsClauseSyntax sacs)
+                        {
+                            clauseType = sacs.Type;
+                        }
+                        else if (pss.AsClause is AsNewClauseSyntax ancs)
+                        {
+                            clauseType = ancs.Type();
+                        }
+
+                        typeSymbol = GetWithFallback(clauseType, semModel, prop.SyntaxTree);
                     }
                     else
                     {
