@@ -1,0 +1,116 @@
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT license.
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".g.cs" #>
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.VisualBasic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.DragDrop;
+
+namespace RapidXamlToolkit.Tests.Manual.Parsers
+{
+    [TestClass]
+    public class ParseRealDocumentsTests
+    {
+        public TestContext TestContext { get; set; }
+<#
+
+// IMPORANT - Change this to an appropriate folder on your machine.
+// This folder should contain sub-folders that contain XAML files.
+// Individual tests are created for each sub-folder to help manage the testing of large numbers of files.
+const string rootFolder = @"C:\Users\matt\Documents\GitHub\";
+
+foreach (var subFolder in Directory.GetDirectories(rootFolder))
+{
+    WriteLine("");
+    WriteLine("        [TestMethod]");
+    WriteLine($"        public async Task TestCodeFilesIn_{string.Concat(new DirectoryInfo(subFolder).Name.Where(ch => Char.IsLetterOrDigit(ch)))}()");
+    WriteLine("        {");
+    WriteLine($"            await this.CanParseWithoutErrors(@\"{subFolder}\");");
+    WriteLine("        }");
+}
+#>
+
+        private static IEnumerable<string> GetCodeFiles(string folder)
+        {
+            foreach (var file in Directory.GetFiles(folder, "*.cs", SearchOption.AllDirectories))
+            {
+                yield return file;
+            }
+
+            foreach (var file in Directory.GetFiles(folder, "*.vb", SearchOption.AllDirectories))
+            {
+                yield return file;
+            }
+        }
+
+        private async Task CanParseWithoutErrors(string folderPath)
+        {
+            var profile = RapidXamlToolkit.Tests.TestProfile.CreateEmpty();
+            profile.ClassGrouping = "Grid";
+            profile.FallbackOutput = "<TextBlock Text=\"$name$\" />";
+
+            var logger = new RecordingTestLogger();
+
+            // DropHandlerLogic already has everything needed to parse a file so reuse that for testing.
+            var dhl = new DropHandlerLogic(
+                logger,
+                new HybridTestVisualStudioAbstraction(),
+                new WindowsFileSystem(),
+                profile);
+
+            bool anyFailures = false;
+
+            foreach (var filePath in GetCodeFiles(folderPath))
+            {
+                string output;
+
+                if (filePath.Contains("\\obj\\") || filePath.Contains("\\AssemblyInfo.") || filePath.Contains("GlobalSuppressions."))
+                {
+                    continue;
+                }
+
+                try
+                {
+                    Debug.WriteLine($"Attempting to parse '{filePath}'.");
+
+                    output = await dhl.ExecuteAsync(filePath, 0, ProjectType.Any);
+
+                    if (output is null)
+                    {
+                        this.TestContext.WriteLine($"No output after parsing '{filePath}'");
+                        this.TestContext.AddResultFile(filePath);
+
+                        if (!logger.Info.Last().StartsWith("Unable to find class definition in file"))
+                        {
+                            anyFailures = true;
+                        }
+                    }
+                }
+                catch (Exception exc)
+                {
+                    this.TestContext.WriteLine($"Found error while parsing '{filePath}'{Environment.NewLine}{exc.Message}");
+                    this.TestContext.AddResultFile(filePath);
+                    anyFailures = true;
+                }
+            }
+
+            Assert.IsFalse(anyFailures);
+        }
+    }
+}

@@ -43,7 +43,7 @@ namespace RapidXamlToolkit.Tests
             return this.NamedProject;
         }
 
-        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
+        public virtual async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
         {
             await Task.CompletedTask;
             return (this.SyntaxTree, this.SemanticModel);

@@ -56,6 +56,7 @@
     <Compile Include="..\RapidXamlToolkit.Tests\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
+    <Compile Include="HybridTestVisualStudioAbstraction.cs" />
     <Compile Include="Options\WindowContentsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestSettings.cs" />
@@ -111,6 +112,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Parsers\ParseRealDocumentsTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ParseRealDocumentsTests.g.cs</LastGenOutput>
+    </Content>
     <Content Include="XamlAnalysis\ParseRealDocumentsTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ParseRealDocumentsTests.g.cs</LastGenOutput>
