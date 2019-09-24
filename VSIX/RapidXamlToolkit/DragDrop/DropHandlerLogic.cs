@@ -38,7 +38,7 @@ namespace RapidXamlToolkit.DragDrop
                                           : (IDocumentParser)new VisualBasicParser(this.logger, projectType, indent, this.profileOverride);
 
             // IndexOf is allowing for "class " in C# and "Class " in VB
-            var cursorPos = fileContents.IndexOf("lass ");
+            var cursorPos = fileContents.FirstIndexOf(" class ", " Class ");
 
             if (cursorPos == -1 && fileExt == ".vb")
             {
