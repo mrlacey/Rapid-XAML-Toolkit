@@ -106,6 +106,16 @@ namespace RapidXamlToolkit
             return result;
         }
 
+        public static string WithoutNamespaces(this string value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            return value.Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries).Last();
+        }
+
         public static bool IsGenericTypeName(this string value)
         {
             if (value == null)

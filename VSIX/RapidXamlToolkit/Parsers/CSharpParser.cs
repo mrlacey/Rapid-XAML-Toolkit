@@ -163,7 +163,18 @@ namespace RapidXamlToolkit.Parsers
         {
             var result = new List<string>();
 
-            var subProperties = this.GetAllPublicProperties(property.Symbol, semModel);
+            var symbol = property.Symbol;
+
+            if (symbol is INamedTypeSymbol nts)
+            {
+                if (nts.Arity > 0)
+                {
+                    System.Diagnostics.Debug.WriteLine(symbol);
+                    symbol = nts.TypeArguments.First();
+                }
+            }
+
+            var subProperties = this.GetAllPublicProperties(symbol, semModel);
 
             var numericSubstitute = 0;
 
@@ -216,16 +227,28 @@ namespace RapidXamlToolkit.Parsers
                         propertyType = ins.Identifier.ValueText;
                         break;
                     case QualifiedNameSyntax qns:
-                        propertyType = qns.Right.Identifier.ValueText;
-
-                        if (qns.Right is GenericNameSyntax qgns)
-                        {
-                            propertyType += qgns.TypeArgumentList.ToString();
-                        }
-
+                        propertyType = qns.ToString();
                         break;
                     case NullableTypeSyntax nts:
-                        propertyType = ((PredefinedTypeSyntax)nts.ElementType).Keyword.Text;
+
+                        switch (nts.ElementType)
+                        {
+                            case PredefinedTypeSyntax npts:
+                                propertyType = npts.Keyword.Text;
+                                break;
+                            case IdentifierNameSyntax nins:
+                                propertyType = nins.Identifier.ValueText;
+                                break;
+                            case QualifiedNameSyntax nqns:
+                                propertyType = nqns.ToString();
+
+                                if (nqns.Right is GenericNameSyntax qngns)
+                                {
+                                    propertyType += qngns.TypeArgumentList.ToString();
+                                }
+
+                                break;
+                        }
 
                         if (!propertyType.ToLowerInvariant().Contains("nullable"))
                         {
@@ -384,29 +407,30 @@ namespace RapidXamlToolkit.Parsers
             return (propertyNode, classNode);
         }
 
+        private ITypeSymbol GetTypeSymbolWithFallback(TypeSyntax ts, SemanticModel sm, SyntaxTree tree)
+        {
+            ITypeSymbol result;
+
+            try
+            {
+                result = sm.GetTypeInfo(ts).Type;
+            }
+            catch (Exception)
+            {
+                // By default, the semanticmodel passed into this method is the one for the active document.
+                // If the type is in another file, generate a new model to use to look up the typeinfo.
+                // Don't do this by default as it's expensive.
+                var localSemModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(tree).GetSemanticModel(tree, ignoreAccessibility: true);
+
+                result = localSemModel.GetTypeInfo(ts).Type;
+            }
+
+            return result;
+        }
+
         private ITypeSymbol GetTypeSymbol(SemanticModel semModel, BasePropertyDeclarationSyntax prop, PropertyDetails propDetails)
         {
             ITypeSymbol typeSymbol = null;
-
-            ITypeSymbol GetWithFallback(TypeSyntax ts, SemanticModel sm, SyntaxTree tree)
-            {
-                ITypeSymbol result;
-
-                try
-                {
-                    result = sm.GetTypeInfo(ts).Type;
-                }
-                catch (Exception)
-                {
-                    // By default, the semanticmodel passed into this method is the one for the active document.
-                    // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
-                    var localSemModel = CSharpCompilation.Create(string.Empty).AddSyntaxTrees(tree).GetSemanticModel(tree, ignoreAccessibility: true);
-
-                    result = localSemModel.GetTypeInfo(ts).Type;
-                }
-
-                return result;
-            }
 
             if (propDetails.PropertyType.IsGenericTypeName())
             {
@@ -416,13 +440,28 @@ namespace RapidXamlToolkit.Parsers
                 {
                     var t = gns.TypeArgumentList.Arguments.First();
 
-                    typeSymbol = GetWithFallback(t, semModel, prop.SyntaxTree);
+                    if (t is QualifiedNameSyntax tqns)
+                    {
+                        var right = tqns.Right;
+
+                        if (right is IdentifierNameSyntax rins)
+                        {
+                            System.Diagnostics.Debug.WriteLine(rins);
+                            t = right;
+                        }
+                        else if (right is GenericNameSyntax rgns)
+                        {
+                            t = rgns.TypeArgumentList.Arguments.First();
+                        }
+                    }
+
+                    typeSymbol = this.GetTypeSymbolWithFallback(gns, semModel, prop.SyntaxTree);
                 }
                 else if (prop.Type is QualifiedNameSyntax qns)
                 {
                     var t = ((GenericNameSyntax)qns.Right).TypeArgumentList.Arguments.First();
 
-                    typeSymbol = GetWithFallback(t, semModel, prop.SyntaxTree);
+                    typeSymbol = this.GetTypeSymbolWithFallback(t, semModel, prop.SyntaxTree);
                 }
                 else
                 {
@@ -432,7 +471,7 @@ namespace RapidXamlToolkit.Parsers
 
             if (typeSymbol == null)
             {
-                typeSymbol = GetWithFallback(prop.Type, semModel, prop.SyntaxTree);
+                typeSymbol = this.GetTypeSymbolWithFallback(prop.Type, semModel, prop.SyntaxTree);
             }
 
             if (typeSymbol == null)

@@ -51,7 +51,7 @@ Profile settings and mappings can include placeholders. A placeholder is somethi
 - **$name$** Property name.
 - **$safename** Property name formatted for use as an `x:Name` within XAML.
 - **$namewithspaces$** Property name with spaces inserted between words if the name is camelCase or PascalCase.
-- **$type$** Property type.
+- **$type$** Property type. If a generic type this will be the inner type.
 - **$incint$** Incrementing integer. A number (starting at zero) that will increase with each property that is matched in a class.
 - **$repint$** Repeating integer. The same number that was last used, repeated without increment. Useful when you want output with multiple items in the same row.
 - **$subprops$** Sub-properties. Is replaced with output from the sub-property mapping for each property of the matched type. Useful when outputting collections of items.

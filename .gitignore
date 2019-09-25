@@ -288,3 +288,4 @@ __pycache__/
 *.xsd.cs
 *.secret
 VSIX/RapidXamlToolkit.Tests.Manual/XamlAnalysis/ParseRealDocumentsTests.g.cs
+VSIX/RapidXamlToolkit.Tests.Manual/Parsers/ParseRealDocumentsTests.g.cs

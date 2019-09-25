@@ -320,7 +320,7 @@ namespace RapidXamlToolkit.Parsers
                         var prefix = string.IsNullOrWhiteSpace(namePrefix) ? property.Name : $"{namePrefix}.{property.Name}";
 
                         // Don't get into an infinite loop when a property has the same type as the containing class.
-                        if (prefix == prop.Name)
+                        if (prefix.Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries).Contains(prop.Name))
                         {
                             break;
                         }
@@ -688,7 +688,8 @@ namespace RapidXamlToolkit.Parsers
 
         private Mapping GetMappingOfInterest(string type, string name, bool isReadOnly)
         {
-            var typeMappings = this.Profile.Mappings.Where(m => type.ToCSharpFormat().MatchesAnyOfInCSharpFormat(m.Type)).ToList();
+            var typeMappings = this.Profile.Mappings.Where(
+                m => type.WithoutNamespaces().ToCSharpFormat().MatchesAnyOfInCSharpFormat(m.Type)).ToList();
 
             if (!isReadOnly)
             {
@@ -711,8 +712,8 @@ namespace RapidXamlToolkit.Parsers
             if (mappingOfInterest == null)
             {
                 Logger?.RecordInfo(StringRes.Info_LookingForReadWriteMappings);
-                mappingOfInterest = typeMappings.FirstOrDefault(m => name.ToLowerInvariant().ContainsAnyOf(m.NameContains.ToLowerInvariant()) && !m.IfReadOnly)
-                                 ?? typeMappings.FirstOrDefault(m => string.IsNullOrWhiteSpace(m.NameContains) && !m.IfReadOnly);
+                mappingOfInterest = typeMappings.FirstOrDefault(m => name.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty) && !m.IfReadOnly)
+                                 ?? typeMappings.FirstOrDefault(m => string.IsNullOrWhiteSpace(m?.NameContains) && !m.IfReadOnly);
             }
 
             return mappingOfInterest;

@@ -391,7 +391,12 @@ namespace RapidXamlToolkit.Tests.Parsers
         private void AssertOutput(ParserOutput expected, ParserOutput actual)
         {
             Assert.AreEqual(expected.OutputType, actual.OutputType);
-            Assert.AreEqual(expected.Name, actual.Name);
+
+            if (expected.Name != "IgNoRe")
+            {
+                Assert.AreEqual(expected.Name, actual.Name);
+            }
+
             StringAssert.AreEqual(expected.Output, actual.Output);
         }
 
