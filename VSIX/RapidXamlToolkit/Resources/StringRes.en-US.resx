@@ -979,4 +979,7 @@
   <data name="Info_UnexpectedPropertyType" xml:space="preserve">
     <value>Unexpected property type '{0}' cannot be converted to XAML.</value>
   </data>
+  <data name="Options_HelpWithProfilesAndMappings" xml:space="preserve">
+    <value>About Profiles and Mappings</value>
+  </data>
 </root>

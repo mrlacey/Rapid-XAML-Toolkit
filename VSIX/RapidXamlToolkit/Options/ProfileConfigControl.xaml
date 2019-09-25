@@ -381,10 +381,22 @@
 
         </Grid>
 
-        <Button
+        <TextBlock
             Grid.Row="8"
             Grid.Column="0"
-            Grid.ColumnSpan="2"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Margin="0,4">
+        <Hyperlink
+            NavigateUri="https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/docs/profiles.md"
+            RequestNavigate="HelpLinkNavigate">
+            <Run Text="{x:Static strings:StringRes.Options_HelpWithProfilesAndMappings}" />
+            </Hyperlink>
+        </TextBlock>
+
+        <Button
+            Grid.Row="8"
+            Grid.Column="1"
             Width="75"
             Height="23"
             Margin="0,18,0,0"
