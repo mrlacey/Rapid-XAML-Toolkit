@@ -1726,6 +1726,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About Profiles and Mappings.
+        /// </summary>
+        public static string Options_HelpWithProfilesAndMappings {
+            get {
+                return ResourceManager.GetString("Options_HelpWithProfilesAndMappings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only if read-only.
         /// </summary>
         public static string Options_MappingIfReadOnly {

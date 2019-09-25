@@ -325,5 +325,28 @@ namespace RapidXamlToolkit.Options
                 }
             }
         }
+
+#pragma warning disable VSTHRD100 // Avoid async void methods
+        private async void HelpLinkNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+#pragma warning restore VSTHRD100 // Avoid async void methods
+        {
+            if (this.disabled)
+            {
+                return;
+            }
+
+            try
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+                RapidXamlPackage.Logger?.RecordFeatureUsage(nameof(this.HelpLinkNavigate));
+
+                System.Diagnostics.Process.Start("https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/docs/profiles.md");
+            }
+            catch (Exception exc)
+            {
+                RapidXamlPackage.Logger?.RecordException(exc);
+            }
+        }
     }
 }
