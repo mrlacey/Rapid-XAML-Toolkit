@@ -80,7 +80,11 @@ foreach (var subFolder in Directory.GetDirectories(rootFolder))
             {
                 string output;
 
-                if (filePath.Contains("\\obj\\") || filePath.Contains("\\AssemblyInfo.") || filePath.Contains("GlobalSuppressions."))
+                if (filePath.Contains("\\obj\\") ||
+                    filePath.Contains("\\AssemblyInfo.") ||
+                    filePath.Contains("GlobalSuppressions.") ||
+                    filePath.Contains("_postaction.") ||
+                    filePath.Contains("_gpostaction."))
                 {
                     continue;
                 }
@@ -96,7 +100,8 @@ foreach (var subFolder in Directory.GetDirectories(rootFolder))
                         this.TestContext.WriteLine($"No output after parsing '{filePath}'");
                         this.TestContext.AddResultFile(filePath);
 
-                        if (!logger.Info.Last().StartsWith("Unable to find class definition in file"))
+                        if (!logger.Info.Last().StartsWith("Unable to find class definition in file")
+                          & logger.Info.Last() != "No properties to provide output for.")
                         {
                             anyFailures = true;
                         }
