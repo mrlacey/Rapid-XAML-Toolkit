@@ -8,6 +8,14 @@ namespace RapidXamlToolkit.Parsers
 {
     public class PropertyDetails
     {
+        public static PropertyDetails Empty => new PropertyDetails()
+        {
+            Name = string.Empty,
+            PropertyType = string.Empty,
+            IsReadOnly = false,
+            Symbol = null,
+        };
+
         public string Name { get; set; }
 
         public string PropertyType { get; set; }

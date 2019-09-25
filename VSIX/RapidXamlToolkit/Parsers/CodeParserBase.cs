@@ -268,10 +268,10 @@ namespace RapidXamlToolkit.Parsers
             return (output, prop.Name, counter);
         }
 
-        protected (string output, int counter) GetSubPropertyOutputAndCounter(string name, int numericSubstitute)
+        protected (string output, int counter) GetSubPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute)
         {
             // Type is blank as it's can't be used in a subproperty
-            return this.FormatOutput(this.Profile.SubPropertyOutput, type: string.Empty, name: name, numericSubstitute: numericSubstitute, symbol: null, attributes: null, getSubPropertyOutput: null);
+            return this.FormatOutput(this.Profile.SubPropertyOutput, type: string.Empty, name: property.Name, numericSubstitute: numericSubstitute, symbol: property.Symbol, attributes: property.Attributes, getSubPropertyOutput: null);
         }
 
         protected (string output, int counter) GetPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute, SemanticModel semModel, Func<(List<string> strings, int count)> getSubPropertyOutput = null, string namePrefix = "")

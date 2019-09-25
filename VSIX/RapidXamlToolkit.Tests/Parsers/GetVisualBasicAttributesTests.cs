@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
@@ -406,6 +407,55 @@ End Namespace";
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameProfile);
+        }
+
+        [TestMethod]
+        public void SubPropertyOutputCanUseAttributes()
+        {
+            var code = @"
+Namespace tests
+    Class ProductsViewModel☆
+        Public Property AllProducts As List(Of Product)
+    End Class
+
+    Class Product
+        <Display(Name:=""SKU"")>
+        Public Property ProductId As Integer
+        Public Property ProductName As String
+        Public Property Description As String
+        Public Property UnitPrice As Double
+    End Class
+End Namespace";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <StackPanel>"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_SKU\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_ProductName\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_Description\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_UnitPrice\" />"
+         + Environment.NewLine + "    </StackPanel>"
+         + Environment.NewLine + "</Grid>";
+
+            var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "Grid";
+            profile.FallbackOutput = "<TextBlock Text=\"FB_$name$\" />";
+            profile.SubPropertyOutput = "<TextBlock Text=\"SP_$att:Display:[Name]::@name@$\" />";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "List<T>",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<StackPanel>$subprops$</StackPanel>",
+            });
+
+            var expected = new ParserOutput
+            {
+                Name = "ProductsViewModel",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
         }
     }
 }

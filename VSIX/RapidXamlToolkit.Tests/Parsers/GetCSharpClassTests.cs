@@ -2452,6 +2452,58 @@ namespace tests
             this.PositionAtStarShouldProduceExpected(code, expected);
         }
 
+        [TestMethod]
+        public void SubPropertyOutputCanUseAttributes()
+        {
+            var code = @"
+namespace tests
+{
+    public class ProductsViewModel☆
+    {
+        public List<Product> AllProducts { get; set; }
+    }
+
+    public class Product
+    {
+        [Display(Name=""SKU"")]
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public string Description { get; set; }
+        public double UnitPrice { get; set; }
+    }
+}";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <StackPanel>"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_SKU\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_ProductName\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_Description\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SP_UnitPrice\" />"
+         + Environment.NewLine + "    </StackPanel>"
+         + Environment.NewLine + "</Grid>";
+
+            var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "Grid";
+            profile.FallbackOutput = "<TextBlock Text=\"FB_$name$\" />";
+            profile.SubPropertyOutput = "<TextBlock Text=\"SP_$att:Display:[Name]::@name@$\" />";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "List<T>",
+                IfReadOnly = false,
+                NameContains = string.Empty,
+                Output = "<StackPanel>$subprops$</StackPanel>",
+            });
+
+            var expected = new ParserOutput
+            {
+                Name = "ProductsViewModel",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
         private void ClassNotFoundTest(string code)
         {
             var expected = ParserOutput.Empty;
