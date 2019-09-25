@@ -186,7 +186,7 @@ namespace RapidXamlToolkit.Parsers
                 {
                     Logger?.RecordInfo(StringRes.Info_GettingSubPropertyOutput.WithParams(subprop.Name));
 
-                    var (output, counter) = this.GetSubPropertyOutputAndCounter(subprop.Name, numericSubstitute: numericSubstitute);
+                    var (output, counter) = this.GetSubPropertyOutputAndCounter(subprop, numericSubstitute: numericSubstitute);
 
                     numericSubstitute = counter;
                     result.Add(output);
@@ -197,7 +197,7 @@ namespace RapidXamlToolkit.Parsers
                 Logger?.RecordInfo(StringRes.Info_PropertyTypeHasNoSubProperties.WithParams(property.Name, property.PropertyType));
 
                 // There are no subproperties so leave blank
-                var (output, counter) = this.GetSubPropertyOutputAndCounter(string.Empty, numericSubstitute: numericSubstitute);
+                var (output, counter) = this.GetSubPropertyOutputAndCounter(PropertyDetails.Empty, numericSubstitute: numericSubstitute);
 
                 numericSubstitute = counter;
                 result.Add(output);
