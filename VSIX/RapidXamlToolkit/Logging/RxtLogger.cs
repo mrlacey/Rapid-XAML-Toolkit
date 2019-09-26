@@ -68,7 +68,7 @@ namespace RapidXamlToolkit.Logging
             ThreadHelper.ThrowIfNotOnUIThread();
 
             // this logger doesn't need to do anything special with feature usage messages
-            this.RecordInfo(feature);
+            this.RecordInfo(StringRes.Info_FeatureUsage.WithParams(feature));
         }
 
         public void WriteToActivityLog(string message)
