@@ -113,7 +113,7 @@ If a mapping output is defined as:
 these properties:
 
 ```csharp
-[Display(Name = ShortName)]
+[Display(Name = "ShortName")]
 public string UserName { get; set; }
 
 public string FullName { get; set; }
@@ -122,6 +122,6 @@ public string FullName { get; set; }
 will produce:
 
 ```xml
-<TextBlock Text="Short Name" />
+<TextBlock Text="ShortName" />
 <TextBlock Text="Full Name" />
 ```
