@@ -322,6 +322,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feature used: {0}.
+        /// </summary>
+        public static string Info_FeatureUsage {
+            get {
+                return ResourceManager.GetString("Info_FeatureUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dropping &apos;{0}&apos; onto view..
         /// </summary>
         public static string Info_FileDropped {
@@ -363,6 +372,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_FormattingOutputForProperty {
             get {
                 return ResourceManager.GetString("Info_FormattingOutputForProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output template: &apos;{0}&apos;.
+        /// </summary>
+        public static string Info_FormattingRawOutput {
+            get {
+                return ResourceManager.GetString("Info_FormattingRawOutput", resourceCulture);
             }
         }
         
@@ -489,6 +507,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_IntializingCommands {
             get {
                 return ResourceManager.GetString("Info_IntializingCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Known attributes: {0}.
+        /// </summary>
+        public static string Info_KnownAttributes {
+            get {
+                return ResourceManager.GetString("Info_KnownAttributes", resourceCulture);
             }
         }
         

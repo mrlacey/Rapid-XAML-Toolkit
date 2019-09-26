@@ -979,4 +979,13 @@
   <data name="Info_UnexpectedPropertyType" xml:space="preserve">
     <value>Unexpected property type '{0}' cannot be converted to XAML.</value>
   </data>
+  <data name="Info_FeatureUsage" xml:space="preserve">
+    <value>Feature used: {0}</value>
+  </data>
+  <data name="Info_FormattingRawOutput" xml:space="preserve">
+    <value>Output template: '{0}'</value>
+  </data>
+  <data name="Info_KnownAttributes" xml:space="preserve">
+    <value>Known attributes: {0}</value>
+  </data>
 </root>

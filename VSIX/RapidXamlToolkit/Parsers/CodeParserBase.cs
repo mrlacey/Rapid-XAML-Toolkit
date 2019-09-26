@@ -360,6 +360,7 @@ namespace RapidXamlToolkit.Parsers
         private (string output, int counter) FormatOutput(string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, List<AttributeDetails> attributes, Func<(List<string> strings, int count)> getSubPropertyOutput)
         {
             Logger?.RecordInfo(StringRes.Info_FormattingOutputForProperty.WithParams(name));
+            Logger?.RecordInfo(StringRes.Info_FormattingRawOutput.WithParams(rawOutput));
 
             var result = this.ReplaceAttributes(rawOutput, attributes);
 
@@ -638,6 +639,32 @@ namespace RapidXamlToolkit.Parsers
                 else
                 {
                     Logger?.RecordInfo(StringRes.Info_AttributeNotFoundOnProperty);
+
+                    var knownAttributes = string.Empty;
+
+                    if (attributes.Any())
+                    {
+                        var attributeBuilder = new StringBuilder();
+
+                        foreach (var att in attributes)
+                        {
+                            attributeBuilder.Append($"{att.Name}(");
+                            foreach (var arg in att.Arguments)
+                            {
+                                attributeBuilder.Append($"{arg.Index}={arg.Name}:{arg.Value},");
+                            }
+
+                            attributeBuilder.Append(") ");
+                        }
+
+                        knownAttributes = attributeBuilder.ToString();
+                    }
+                    else
+                    {
+                        knownAttributes = "*NONE*";
+                    }
+
+                    Logger?.RecordInfo(StringRes.Info_KnownAttributes.WithParams(knownAttributes));
 
                     // If the attribute isn't specified on the property then chek for the fallback.
                     var fallback = match.Groups["Fallback"].Value;
