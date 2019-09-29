@@ -1185,6 +1185,22 @@ End Namespace";
                 "<TextBlock Name=\"Property25\" Type=\"ISomething\" />");
         }
 
+        [TestMethod]
+        public void AllProperties41_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property41 As(Integer, String)",
+                "<TextBlock Name=\"Property41\" Type=\"Tuple\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties42_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property42 As(id As Integer, name As String)",
+                "<TextBlock Name=\"Property42\" Type=\"Tuple\" />");
+        }
+
         // This is based on GetVisualBasicClassTests.GetClassWithAllTheProperties
         private void GetNameAndType(string property, string xaml)
         {

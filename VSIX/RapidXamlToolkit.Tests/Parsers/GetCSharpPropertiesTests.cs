@@ -1332,6 +1332,22 @@ namespace tests
                 "<TextBlock Name=\"Property42\" Type=\"Nullable<x:Int32>[]\" />");
         }
 
+        [TestMethod]
+        public void AllProperties43_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "public (int, string) Property43 { get; set; }",
+                "<TextBlock Name=\"Property43\" Type=\"Tuple\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties44_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "public (int id, string name) Property44 { get; set; }",
+                "<TextBlock Name=\"Property44\" Type=\"Tuple\" />");
+        }
+
         // This is based on GetCSharpClassTests.GetClassWithAllTheProperties
         private void GetNameAndType(string property, string xaml)
         {

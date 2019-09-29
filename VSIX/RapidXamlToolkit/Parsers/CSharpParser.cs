@@ -258,6 +258,9 @@ namespace RapidXamlToolkit.Parsers
                     case ArrayTypeSyntax ats:
                         propertyType = ats.ToString();
                         break;
+                    case TupleTypeSyntax tts:
+                        propertyType = "Tuple";
+                        break;
                 }
 
                 propertyName = this.GetIdentifier(propertyDeclaration);

@@ -227,7 +227,11 @@ namespace RapidXamlToolkit.Parsers
                 }
             }
 
-            if (descendantNodes.Any(n => n is SimpleAsClauseSyntax))
+            if (descendantNodes.Any(n => n is TupleTypeSyntax))
+            {
+                propertyType = "Tuple";
+            }
+            else if (descendantNodes.Any(n => n is SimpleAsClauseSyntax))
             {
                 propertyType = descendantNodes.OfType<SimpleAsClauseSyntax>().FirstOrDefault()?.Type.ToString();
             }
