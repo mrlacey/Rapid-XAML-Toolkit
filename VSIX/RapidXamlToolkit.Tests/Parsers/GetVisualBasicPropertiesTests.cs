@@ -1008,5 +1008,221 @@ End Namespace";
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
         }
+
+        [TestMethod]
+        public void AllProperties1_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property1 As Integer",
+                "<TextBlock Name=\"Property1\" Type=\"x:Int32\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties2_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property2 As String",
+                "<TextBlock Name=\"Property2\" Type=\"x:String\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties3_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property3 As MyType",
+                "<TextBlock Name=\"Property3\" Type=\"MyType\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties4_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property4 As MyType.MySubType",
+                "<TextBlock Name=\"Property4\" Type=\"MyType.MySubType\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties5_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property5 As List(Of String)",
+                "<TextBlock Name=\"Property5\" Type=\"x:String\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties6_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property6 As Object",
+                "<TextBlock Name=\"Property6\" Type=\"x:Object\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties7_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property7 As ISomething",
+                "<TextBlock Name=\"Property7\" Type=\"ISomething\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties8_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property8() As String",
+                "<TextBlock Name=\"Property8\" Type=\"x:String()\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties9_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property9 As MyType.MyGenericType(Of Integer)",
+                "<TextBlock Name=\"Property9\" Type=\"x:Int32\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties11_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property11 As Integer?",
+                "<TextBlock Name=\"Property11\" Type=\"x:Int32?\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties12_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property12 As List(Of Integer?)",
+                "<TextBlock Name=\"Property12\" Type=\"x:Int32?\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties13_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property13() As Integer?",
+                "<TextBlock Name=\"Property13\" Type=\"x:Int32?()\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties14_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property14 As MyType.MyGenericType(Of Integer?)",
+                "<TextBlock Name=\"Property14\" Type=\"x:Int32?\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties15_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property15 As Nullable(Of Integer)",
+                "<TextBlock Name=\"Property15\" Type=\"x:Int32\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties16_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property16 As List(Of Nullable(Of Integer))",
+                "<TextBlock Name=\"Property16\" Type=\"Nullable<x:Int32>\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties17_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property17() As Nullable(Of Integer)",
+                "<TextBlock Name=\"Property17\" Type=\"Nullable(Of x:Int32)()\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties18_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property18 As MyType.MyGenericType(Of Nullable(Of Integer))",
+                "<TextBlock Name=\"Property18\" Type=\"Nullable<x:Int32>\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties21_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property21 As List(Of MyType)",
+                "<TextBlock Name=\"Property21\" Type=\"MyType\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties22_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property22 As List(Of MyType.MySubType)",
+                "<TextBlock Name=\"Property22\" Type=\"MyType.MySubType\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties23_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property23 As List(Of MyType.MyGenericType(Of Integer))",
+                "<TextBlock Name=\"Property23\" Type=\"MyType.MyGenericType<x:Int32>\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties24_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property24 As List(Of List(Of String))",
+                "<TextBlock Name=\"Property24\" Type=\"List<x:String>\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties25_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property25 As List(Of ISomething)",
+                "<TextBlock Name=\"Property25\" Type=\"ISomething\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties41_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property41 As(Integer, String)",
+                "<TextBlock Name=\"Property41\" Type=\"Tuple\" />");
+        }
+
+        [TestMethod]
+        public void AllProperties42_GetNameAndType()
+        {
+            this.GetNameAndType(
+                "Public Property Property42 As(id As Integer, name As String)",
+                "<TextBlock Name=\"Property42\" Type=\"Tuple\" />");
+        }
+
+        // This is based on GetVisualBasicClassTests.GetClassWithAllTheProperties
+        private void GetNameAndType(string property, string xaml)
+        {
+            var code = @"
+Namespace tests
+    Public Class TestClass
+        ☆" + property + @"
+    EndClass
+End Namespace";
+
+            var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "StackPanel";
+            profile.FallbackOutput = "<TextBlock Name=\"$name$\" Type=\"$type$\" />";
+
+            var expected = new ParserOutput
+            {
+                Name = "IgNoRe",
+                Output = xaml,
+                OutputType = ParserOutputType.Property,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
     }
 }
