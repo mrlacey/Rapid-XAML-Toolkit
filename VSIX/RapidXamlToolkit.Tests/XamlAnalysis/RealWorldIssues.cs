@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-using System.Xml.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis
