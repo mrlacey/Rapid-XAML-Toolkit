@@ -1734,15 +1734,14 @@ End Namespace";
         public void GetClassWithRecursivePropertyTypes_AndSpecificMapping()
         {
             var code = @"
-namespace tests
-{
-    public class Detail☆
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public List<Detail> Dependencies { get; set; } = new List<Detail>();
-    }
-}";
+Namespace tests
+    Public Class Detail☆
+        Public Property Name As String
+        Public Property Description As String
+        Public Property Dependencies As List(Of Detail) = New List(Of Detail)()
+    End Class
+End Namespace
+";
 
             var expectedOutput = "<StackPanel>"
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind Name, Mode=TwoWay}\" />"
@@ -1777,20 +1776,21 @@ namespace tests
         public void GetClassWithStaticDefaultProperty()
         {
             var code = @"
-namespace tests
-{
-    public class Boundary☆
-    {
-        public static Boundary Default => new Boundary
-        {
-            Low = 1,
-            High = 9,
-        };
+Namespace tests
+    Public Class Boundary☆
+        Public Shared ReadOnly Property [Default] As Boundary
+            Get
+                Return New Boundary With {
+                    .Low = 1,
+                    .High = 9
+                }
+            End Get
+        End Property
 
-        public int Low { get; set; }
-        public int High { get; set; }
-    }
-}";
+        Public Property Low As Integer
+        Public Property High As Integer
+    End Class
+End Namespace";
 
             var expectedOutput = "<StackPanel>"
          + Environment.NewLine + "    <Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"Low\" Value=\"{x:Bind Low, Mode=TwoWay}\" />"
@@ -1811,14 +1811,12 @@ namespace tests
         public void GetClassWithNullableProperty()
         {
             var code = @"
-namespace tests
-{
-    public class Boundary☆
-    {
-        public int Low { get; set; }
-        public int? High { get; set; }
-    }
-}";
+Namespace tests
+    Public Class Boundary☆
+        Public Property Low As Integer
+        Public Property High As Integer?
+    End Class
+End Namespace";
 
             var expectedOutput = "<StackPanel>"
          + Environment.NewLine + "    <Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"Low\" Value=\"{x:Bind Low, Mode=TwoWay}\" />"
@@ -1841,38 +1839,30 @@ namespace tests
             var code = @"
 Namespace tests
     Public Class TestClass☆
-    {
-        ' Basic syntaxes
-        public int Property1 { get; set; }
-        public MyType Property2 { get; set; }
-        public MyType.MySubType Property3 { get; set; }
-        public List<string> Property4 { get; set; }
-        public string[] Property5 { get; set; }
-        public object Property6 { get; set; }
-        public ISomething Property7 { get; set; }
-        public MyType.MyGenericType<int> Property8 { get; set; }
+        Public Property Property1 As Integer
+        Public Property Property2 As String
+        Public Property Property3 As MyType
+        Public Property Property4 As MyType.MySubType
+        Public Property Property5 As List(Of String)
+        Public Property Property6 As Object
+        Public Property Property7 As ISomething
+        Public Property Property8() As String
+        Public Property Property9 As MyType.MyGenericType(Of Integer)
 
-        ' nullables
-        public int? Property11 { get; set; }
-        public MyType.MySubStruct? Property12 { get; set; }
-        public Nullable<int> Property13 { get; set; }
-        public Nullable<MyType.MySubStruct> Property14 { get; set; }
-        public object? Property15 { get; set; }
-        public ISomething? Property16 { get; set; }
-        public Nullable<object> Property17 { get; set; }
-        public Nullable<ISomething> Property18 { get; set; }
-        public Nullable<MyType.MyGenericType<int>> Property19 { get; set; }
+        Public Property Property11 As Integer?
+        Public Property Property12 As List(Of Integer?)
+        Public Property Property13() As Integer?
+        Public Property Property14 As MyType.MyGenericType(Of Integer?)
+        Public Property Property15 As Nullable(Of Integer)
+        Public Property Property16 As List(Of Nullable(Of Integer))
+        Public Property Property17() As Nullable(Of Integer)
+        Public Property Property18 As MyType.MyGenericType(Of Nullable(Of Integer))
 
-        ' Generic variations
-        public List<Nullable<int>> Property21 { get; set; }
-        public List<MyType> Property22 { get; set; }
-        public List<MyType.MySubType> Property23 { get; set; }
-        public List<int?> Property24 { get; set; }
-        public List<string[]> Property25 { get; set; }
-        public List<object> Property26 { get; set; }
-        public List<ISomething> Property27 { get; set; }
-        public List<List<string>> Property28 { get; set; }
-        public List<MyType.MyGenericType<int>> Property29 { get; set; }
+        Public Property Property21 As List(Of MyType)
+        Public Property Property22 As List(Of MyType.MySubType)
+        Public Property Property23 As List(Of MyType.MyGenericType(Of Integer))
+        Public Property Property24 As List(Of List(Of String))
+        Public Property Property25 As List(Of ISomething)
     End Class
 End Namespace";
 
@@ -1883,31 +1873,27 @@ End Namespace";
             // Note that this isn't indented as it's not valid XAML
             var expectedOutput = "<StackPanel>"
          + Environment.NewLine + "<TextBlock Name=\"Property1\" Type=\"x:Int32\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property2\" Type=\"MyType\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property3\" Type=\"MyType.MySubType\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property4\" Type=\"x:String\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property5\" Type=\"x:String[]\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property2\" Type=\"x:String\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property3\" Type=\"MyType\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property4\" Type=\"MyType.MySubType\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property5\" Type=\"x:String\" />"
          + Environment.NewLine + "<TextBlock Name=\"Property6\" Type=\"x:Object\" />"
          + Environment.NewLine + "<TextBlock Name=\"Property7\" Type=\"ISomething\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property8\" Type=\"x:Int32\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property8\" Type=\"x:String()\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property9\" Type=\"x:Int32\" />"
          + Environment.NewLine + "<TextBlock Name=\"Property11\" Type=\"x:Int32?\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property12\" Type=\"MyType.MySubStruct?\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property13\" Type=\"x:Int32\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property14\" Type=\"MyType.MySubStruct\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property15\" Type=\"x:Object?\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property16\" Type=\"ISomething?\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property17\" Type=\"x:Object\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property18\" Type=\"ISomething\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property19\" Type=\"MyType.MyGenericType<x:Int32>\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property21\" Type=\"Nullable<x:Int32>\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property22\" Type=\"MyType\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property23\" Type=\"MyType.MySubType\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property24\" Type=\"x:Int32?\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property25\" Type=\"x:String[]\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property26\" Type=\"x:Object\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property27\" Type=\"ISomething\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property28\" Type=\"List<x:String>\" />"
-         + Environment.NewLine + "<TextBlock Name=\"Property29\" Type=\"MyType.MyGenericType<x:Int32>\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property12\" Type=\"x:Int32?\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property13\" Type=\"x:Int32?()\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property14\" Type=\"x:Int32?\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property15\" Type=\"x:Int32\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property16\" Type=\"Nullable<x:Int32>\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property17\" Type=\"Nullable(Of x:Int32)()\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property18\" Type=\"Nullable<x:Int32>\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property21\" Type=\"MyType\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property22\" Type=\"MyType.MySubType\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property23\" Type=\"MyType.MyGenericType<x:Int32>\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property24\" Type=\"List<x:String>\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property25\" Type=\"ISomething\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new ParserOutput
@@ -1924,17 +1910,16 @@ End Namespace";
         public void GetClassWithIndirectNestedRecursivePropertyTypes()
         {
             var code = @"
-namespace tests
-{
-    public class Adult☆
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public Adult Partner { get; set; }
-        public Adult Parent1 { get; set; }
-        public Adult Parent2 { get; set; }
-    }
-}";
+Namespace tests
+    Public Class Adult☆
+        Public Property Name As String
+        Public Property Description As String
+        Public Property Partner As Adult
+        Public Property Parent1 As Adult
+        Public Property Parent2 As Adult
+    End Class
+End Namespace
+";
 
             var expectedOutput = "<StackPanel>"
          + Environment.NewLine + "    <TextBox Text=\"{x:Bind Name, Mode=TwoWay}\" />"

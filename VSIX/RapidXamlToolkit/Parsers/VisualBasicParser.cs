@@ -274,7 +274,6 @@ namespace RapidXamlToolkit.Parsers
                 }
             }
 
-            // Remove any namespace qualifications as we match class names as strings
             if (propertyType?.Contains(".") == true)
             {
                 if (propertyType.Contains("Of "))
@@ -286,16 +285,6 @@ namespace RapidXamlToolkit.Parsers
                     {
                         propertyType = propertyType.Substring(dotBeforeOfPos + 1);
                     }
-
-                    if (propertyType.Contains("."))
-                    {
-                        propertyType = propertyType.Substring(0, propertyType.IndexOf("Of ") + 3) +
-                                       propertyType.Substring(propertyType.LastIndexOf(".") + 1);
-                    }
-                }
-                else
-                {
-                    propertyType = propertyType.Substring(propertyType.LastIndexOf(".") + 1);
                 }
             }
 
