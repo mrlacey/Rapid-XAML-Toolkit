@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
@@ -773,6 +774,24 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.IsTrue(true, "Parsing completed without exception.");
         }
 
+        [TestMethod]
+        public void EveryElementParsedEvenIfDoesNotHaveProcessor()
+        {
+            var xaml = @"<Window><TextBox x:Name=""myTextBox"" /><Border x:Name=""myBorder"" /></Window>";
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                ("TextBox", new TextBoxProcessor(ProjectType.Any, new DefaultTestLogger())),
+            };
+
+            var tags = new TagList();
+
+            this.TestParsingWithFakeSnapshot(xaml, processors, tags);
+
+            Assert.IsTrue(true, "Parsing completed without exception.");
+            Assert.AreEqual(2, tags.OfType<NameTitleCaseTag>().Count());
+        }
+
         private void TestParsingWithoutSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags = null)
         {
             if (tags == null)
@@ -781,6 +800,18 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             }
 
             XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", null, xaml, processors, tags);
+        }
+
+        private void TestParsingWithFakeSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags = null)
+        {
+            if (tags == null)
+            {
+                tags = new TagList();
+            }
+
+            var snapshot = new FakeTextSnapshot();
+
+            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", snapshot, xaml, processors, tags);
         }
     }
 }
