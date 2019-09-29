@@ -155,18 +155,29 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                             {
-                                everyElementProcessor.Process(fileName, toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags, suppressions);
+                                var elementBody = toProcess.ElementBody.ToString();
+
+                                // Do this here with values already calculated
+                                everyElementProcessor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
 
                                 foreach (var (element, processor) in processors)
                                 {
                                     if (element == toProcess.ElementName
                                      || element == toProcess.ElementNameWithoutNamespace)
                                     {
-                                        processor.Process(fileName, toProcess.StartPos, toProcess.ElementBody.ToString(), lineIndent.ToString(), snapshot, tags, suppressions);
+                                        processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
                                     }
                                 }
 
                                 elementsBeingTracked.Remove(toProcess);
+                            }
+                            else
+                            {
+                                if (!inComment)
+                                {
+                                    // Do this in the else so don't always have to calculate the substring.
+                                    everyElementProcessor.Process(fileName, currentElementStartPos, xaml.Substring(currentElementStartPos, i - currentElementStartPos + 1), lineIndent.ToString(), snapshot, tags, suppressions);
+                                }
                             }
 
                             // Reset this so know what we should be tracking
