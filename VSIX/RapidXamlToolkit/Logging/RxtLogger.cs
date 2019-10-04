@@ -4,6 +4,7 @@
 using System;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 
@@ -23,7 +24,7 @@ namespace RapidXamlToolkit.Logging
             ThreadHelper.ThrowIfNotOnUIThread();
 
             // Activate the pane (bring to front) so errors are obvious
-            if (force || CodeParserBase.GetSettings().ExtendedOutputEnabled)
+            if (force || this.IsExtendedLoggingEnabled())
             {
                 RxtOutputPane.Instance.Write(TimeStampMessage(message));
                 RxtOutputPane.Instance.Activate();
@@ -44,7 +45,7 @@ namespace RapidXamlToolkit.Logging
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            if (CodeParserBase.GetSettings().ExtendedOutputEnabled)
+            if (this.IsExtendedLoggingEnabled())
             {
                 RxtOutputPane.Instance.Write(TimeStampMessage(message));
             }
@@ -77,6 +78,33 @@ namespace RapidXamlToolkit.Logging
             {
                 this.VsActivityLog.LogEntry((uint)__ACTIVITYLOG_ENTRYTYPE.ALE_ERROR, StringRes.VSIX__LocalizedName, message);
             }
+        }
+
+        private bool IsExtendedLoggingEnabled()
+        {
+            Settings settings;
+
+            try
+            {
+                settings = CodeParserBase.GetSettings();
+
+                if (settings != null)
+                {
+                    return settings.ExtendedOutputEnabled;
+                }
+                else
+                {
+                    // Writing this directly to avoid potential infinite loop 
+                    RxtOutputPane.Instance.Write(TimeStampMessage(StringRes.Info_UnableToDetermineIfExtendedOutputEnabled));
+                }
+            }
+            catch (Exception exc)
+            {
+                // May be unable to get settings if package hasn't loaded yet.
+                System.Diagnostics.Debug.WriteLine(exc.Message);
+            }
+
+            return true;
         }
     }
 }
