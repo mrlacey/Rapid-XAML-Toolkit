@@ -24,6 +24,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
     {
         private readonly ILogger logger;
         private readonly IAsyncServiceProvider serviceProvider;
+        private IComponentModel componentModel;
+        private NuGet.VisualStudio.IVsPackageInstallerServices nugetService;
 
         // Pass in the DTE even though could get it from the ServiceProvider because it's needed in constructors but usage is async
         public VisualStudioAbstraction(ILogger logger, IAsyncServiceProvider serviceProvider, DTE dte)
@@ -64,14 +66,13 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             {
                 try
                 {
-                    var componentModel = this.GetService(proj.DTE, typeof(SComponentModel)) as IComponentModel;
-                    var nugetService = componentModel.GetService<NuGet.VisualStudio.IVsPackageInstallerServices>();
+                    var nugetService = this.GetNuGetService(proj);
 
                     if (nugetService != null)
                     {
                         foreach (var item in nugetService.GetInstalledPackages(proj))
                         {
-                            if (item.Id.ToLowerInvariant().Contains(name))
+                            if (item?.Id.ToLowerInvariant().Contains(name) ?? false)
                             {
                                 return true;
                             }
@@ -359,6 +360,22 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             var indent = new IndentSize();
 
             return indent.Default;
+        }
+
+        private NuGet.VisualStudio.IVsPackageInstallerServices GetNuGetService(EnvDTE.Project proj)
+        {
+            // Cache these to avoid the overhead of looking them up multiple times for the same solution.
+            if (this.componentModel is null)
+            {
+                this.componentModel = this.GetService(proj.DTE, typeof(SComponentModel)) as IComponentModel;
+            }
+
+            if (this.nugetService is null)
+            {
+                this.nugetService = this.componentModel.GetService<NuGet.VisualStudio.IVsPackageInstallerServices>();
+            }
+
+            return this.nugetService;
         }
     }
 }

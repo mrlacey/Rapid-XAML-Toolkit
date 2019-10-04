@@ -772,6 +772,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to determine if extended output is enabled so assuming it is..
+        /// </summary>
+        public static string Info_UnableToDetermineIfExtendedOutputEnabled {
+            get {
+                return ResourceManager.GetString("Info_UnableToDetermineIfExtendedOutputEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load Drop Handler as extension not yet loaded..
         /// </summary>
         public static string Info_UnableToGetDropHandler {
