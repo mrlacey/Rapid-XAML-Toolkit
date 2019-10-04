@@ -1730,6 +1730,226 @@ End Namespace";
             this.PositionAtStarShouldProduceExpected(code, expected);
         }
 
+        [TestMethod]
+        public void GetClassWithRecursivePropertyTypes_AndSpecificMapping()
+        {
+            var code = @"
+Namespace tests
+    Public Class Detail☆
+        Public Property Name As String
+        Public Property Description As String
+        Public Property Dependencies As List(Of Detail) = New List(Of Detail)()
+    End Class
+End Namespace
+";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Description, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <StackPanel>"
+         + Environment.NewLine + "        <TextBlock Text=\"SUBPROP_Name\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SUBPROP_Description\" />"
+         + Environment.NewLine + "        <TextBlock Text=\"SUBPROP_Dependencies\" />"
+         + Environment.NewLine + "    </StackPanel>"
+         + Environment.NewLine + "</StackPanel>";
+
+            var profile = this.FallBackProfile;
+            profile.Mappings.Add(
+                new Mapping
+                {
+                    Type = "List<Detail>",
+                    IfReadOnly = false,
+                    Output = "<StackPanel>$subprops$</StackPanel>",
+                });
+
+            var expected = new ParserOutput
+            {
+                Name = "Detail",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void GetClassWithStaticDefaultProperty()
+        {
+            var code = @"
+Namespace tests
+    Public Class Boundary☆
+        Public Shared ReadOnly Property [Default] As Boundary
+            Get
+                Return New Boundary With {
+                    .Low = 1,
+                    .High = 9
+                }
+            End Get
+        End Property
+
+        Public Property Low As Integer
+        Public Property High As Integer
+    End Class
+End Namespace";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"Low\" Value=\"{x:Bind Low, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"High\" Value=\"{x:Bind High, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Boundary",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
+        public void GetClassWithNullableProperty()
+        {
+            var code = @"
+Namespace tests
+    Public Class Boundary☆
+        Public Property Low As Integer
+        Public Property High As Integer?
+    End Class
+End Namespace";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"Low\" Value=\"{x:Bind Low, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FALLBACK_High\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Boundary",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
+        [TestMethod]
+        public void GetClassWithAllTheProperties()
+        {
+            var code = @"
+Namespace tests
+    Public Class TestClass☆
+        Public Property Property1 As Integer
+        Public Property Property2 As String
+        Public Property Property3 As MyType
+        Public Property Property4 As MyType.MySubType
+        Public Property Property5 As List(Of String)
+        Public Property Property6 As Object
+        Public Property Property7 As ISomething
+        Public Property Property8() As String
+        Public Property Property9 As MyType.MyGenericType(Of Integer)
+
+        Public Property Property11 As Integer?
+        Public Property Property12 As List(Of Integer?)
+        Public Property Property13() As Integer?
+        Public Property Property14 As MyType.MyGenericType(Of Integer?)
+        Public Property Property15 As Nullable(Of Integer)
+        Public Property Property16 As List(Of Nullable(Of Integer))
+        Public Property Property17() As Nullable(Of Integer)
+        Public Property Property18 As MyType.MyGenericType(Of Nullable(Of Integer))
+
+        Public Property Property21 As List(Of MyType)
+        Public Property Property22 As List(Of MyType.MySubType)
+        Public Property Property23 As List(Of MyType.MyGenericType(Of Integer))
+        Public Property Property24 As List(Of List(Of String))
+        Public Property Property25 As List(Of ISomething)
+    End Class
+End Namespace";
+
+            var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "StackPanel";
+            profile.FallbackOutput = "<TextBlock Name=\"$name$\" Type=\"$type$\" />";
+
+            // Note that this isn't indented as it's not valid XAML
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "<TextBlock Name=\"Property1\" Type=\"x:Int32\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property2\" Type=\"x:String\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property3\" Type=\"MyType\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property4\" Type=\"MyType.MySubType\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property5\" Type=\"x:String\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property6\" Type=\"x:Object\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property7\" Type=\"ISomething\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property8\" Type=\"x:String()\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property9\" Type=\"x:Int32\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property11\" Type=\"x:Int32?\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property12\" Type=\"x:Int32?\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property13\" Type=\"x:Int32?()\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property14\" Type=\"x:Int32?\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property15\" Type=\"x:Int32\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property16\" Type=\"Nullable<x:Int32>\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property17\" Type=\"Nullable(Of x:Int32)()\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property18\" Type=\"Nullable<x:Int32>\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property21\" Type=\"MyType\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property22\" Type=\"MyType.MySubType\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property23\" Type=\"MyType.MyGenericType<x:Int32>\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property24\" Type=\"List<x:String>\" />"
+         + Environment.NewLine + "<TextBlock Name=\"Property25\" Type=\"ISomething\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "TestClass",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void GetClassWithIndirectNestedRecursivePropertyTypes()
+        {
+            var code = @"
+Namespace tests
+    Public Class Adult☆
+        Public Property Name As String
+        Public Property Description As String
+        Public Property Partner As Adult
+        Public Property Parent1 As Adult
+        Public Property Parent2 As Adult
+    End Class
+End Namespace
+";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Description, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Partner.Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Partner.Description, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent1.Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent1.Description, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent1.Partner.Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent1.Partner.Description, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent2.Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent2.Description, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent2.Partner.Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent2.Partner.Description, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent2.Parent1.Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent2.Parent1.Description, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent2.Parent1.Partner.Name, Mode=TwoWay}\" />"
+         + Environment.NewLine + "    <TextBox Text=\"{x:Bind Parent2.Parent1.Partner.Description, Mode=TwoWay}\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Adult",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected);
+        }
+
         private void FindNoPropertiesInClass(string code)
         {
             var expectedOutput = "<StackPanel>"

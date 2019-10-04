@@ -169,7 +169,6 @@ namespace RapidXamlToolkit.Parsers
             {
                 if (nts.Arity > 0)
                 {
-                    System.Diagnostics.Debug.WriteLine(symbol);
                     symbol = nts.TypeArguments.First();
                 }
             }
@@ -258,6 +257,9 @@ namespace RapidXamlToolkit.Parsers
                         break;
                     case ArrayTypeSyntax ats:
                         propertyType = ats.ToString();
+                        break;
+                    case TupleTypeSyntax tts:
+                        propertyType = "Tuple";
                         break;
                 }
 
@@ -439,21 +441,6 @@ namespace RapidXamlToolkit.Parsers
                 if (prop.Type is GenericNameSyntax gns)
                 {
                     var t = gns.TypeArgumentList.Arguments.First();
-
-                    if (t is QualifiedNameSyntax tqns)
-                    {
-                        var right = tqns.Right;
-
-                        if (right is IdentifierNameSyntax rins)
-                        {
-                            System.Diagnostics.Debug.WriteLine(rins);
-                            t = right;
-                        }
-                        else if (right is GenericNameSyntax rgns)
-                        {
-                            t = rgns.TypeArgumentList.Arguments.First();
-                        }
-                    }
 
                     typeSymbol = this.GetTypeSymbolWithFallback(gns, semModel, prop.SyntaxTree);
                 }

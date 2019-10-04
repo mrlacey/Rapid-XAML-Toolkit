@@ -227,7 +227,11 @@ namespace RapidXamlToolkit.Parsers
                 }
             }
 
-            if (descendantNodes.Any(n => n is SimpleAsClauseSyntax))
+            if (descendantNodes.Any(n => n is TupleTypeSyntax))
+            {
+                propertyType = "Tuple";
+            }
+            else if (descendantNodes.Any(n => n is SimpleAsClauseSyntax))
             {
                 propertyType = descendantNodes.OfType<SimpleAsClauseSyntax>().FirstOrDefault()?.Type.ToString();
             }
@@ -274,7 +278,6 @@ namespace RapidXamlToolkit.Parsers
                 }
             }
 
-            // Remove any namespace qualifications as we match class names as strings
             if (propertyType?.Contains(".") == true)
             {
                 if (propertyType.Contains("Of "))
@@ -286,16 +289,6 @@ namespace RapidXamlToolkit.Parsers
                     {
                         propertyType = propertyType.Substring(dotBeforeOfPos + 1);
                     }
-
-                    if (propertyType.Contains("."))
-                    {
-                        propertyType = propertyType.Substring(0, propertyType.IndexOf("Of ") + 3) +
-                                       propertyType.Substring(propertyType.LastIndexOf(".") + 1);
-                    }
-                }
-                else
-                {
-                    propertyType = propertyType.Substring(propertyType.LastIndexOf(".") + 1);
                 }
             }
 
