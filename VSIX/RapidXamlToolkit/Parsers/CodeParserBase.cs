@@ -579,9 +579,7 @@ namespace RapidXamlToolkit.Parsers
 
         private string ReplaceAttributes(string rawOutput, List<AttributeDetails> attributes)
         {
-            var attributePattern = "\\$att:(?'AttribName'[a-zA-Z]{2,}):(?'Replace'[ a-zA-Z0-9=\\\'\\\"\\{\\[\\]\\}]{1,})(?'Fallback'(::([ a-zA-Z0-9=\\'\\\"\\{\\[\\]\\}@]{1,})))?\\$";
-
-            var regex = new Regex(attributePattern);
+            var regex = new Regex(AllowedPlaceholderValidator.AttributePlaceholderPattern);
 
             var result = rawOutput;
 

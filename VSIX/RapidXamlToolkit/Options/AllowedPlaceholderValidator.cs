@@ -10,6 +10,14 @@ namespace RapidXamlToolkit.Options
 {
     public class AllowedPlaceholderValidator
     {
+        public static string AttributePlaceholderPattern
+        {
+            get
+            {
+                return "\\$att:(?'AttribName'[a-zA-Z]{2,}):(?'Replace'[ a-zA-Z0-9=\\\'\\\"\\{\\[\\]\\}]{1,})(?'Fallback'(::([ a-zA-Z0-9=\\'\\\"\\{\\[\\]\\}@]{1,})))?\\$";
+            }
+        }
+
         public bool ContainsIncorrectUseOfNoOutputPlaceholder(string output)
         {
             return output.Contains(Placeholder.NoOutput) && output.Trim() != Placeholder.NoOutput;
