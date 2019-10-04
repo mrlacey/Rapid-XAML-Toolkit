@@ -94,7 +94,7 @@ namespace RapidXamlToolkit.Logging
                 }
                 else
                 {
-                    // Writing this directly to avoid potential infinite loop 
+                    // Writing this directly to avoid potential infinite loop
                     RxtOutputPane.Instance.Write(TimeStampMessage(StringRes.Info_UnableToDetermineIfExtendedOutputEnabled));
                 }
             }

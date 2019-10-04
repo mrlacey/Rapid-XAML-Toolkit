@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Serialization;
+using RapidXamlToolkit.Options;
 
 namespace RapidXamlToolkit
 {
@@ -480,7 +480,7 @@ namespace RapidXamlToolkit
 
         public static List<string> GetAllAttributes(this string source)
         {
-            var attRgx = new Regex("([$$]att:[\\w]+:[\\w =\"\\[\\]]+[$$])");
+            var attRgx = new Regex(AllowedPlaceholderValidator.AttributePlaceholderPattern);
 
             var matches = attRgx.Matches(source);
 
