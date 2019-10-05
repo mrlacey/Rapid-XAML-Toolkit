@@ -15,6 +15,8 @@ namespace RapidXamlToolkit.Tests.Parsers
         public void GetClassAllAttributedTypeCombinations()
         {
             var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "StackPanel";
+            profile.FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />";
             profile.Mappings.Add(new Mapping
             {
                 Type = "string",
@@ -102,6 +104,8 @@ namespace tests
         public void GetAttributedTypeAndNameContainsCombinations()
         {
             var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "StackPanel";
+            profile.FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />";
             profile.Mappings.Add(new Mapping
             {
                 Type = "string",
@@ -147,9 +151,11 @@ namespace tests
     }
 }";
 
+            // Note that property1 test does not start "STRING_" because the mapping with an attribute takes priority over the one without.
+            // Note that property2 test does not start "STRING2_" because the attribute/Type mapping takes priority over name.
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "    <TextBlock Text=\"STRING_Property1\" />"
-         + Environment.NewLine + "    <TextBlock Text=\"STRING2_Property2\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_STRING_Property1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_STRING_Property2\" />"
          + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_STRING_Property3\" />"
          + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_STRING4_Property4\" />"
          + Environment.NewLine + "</StackPanel>";
@@ -168,6 +174,8 @@ namespace tests
         public void GetAttributedTypeAndReadOnlyCombinations()
         {
             var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "StackPanel";
+            profile.FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />";
             profile.Mappings.Add(new Mapping
             {
                 Type = "string",
@@ -205,17 +213,19 @@ namespace tests
         [Hidden]
         public string Property1 { get; set; }
         [Hidden]
-        public string Property2 { get; set; }
+        public string Property2 { get; private set; }
         [Hidden]
         public string Property3 { get; set; }
         [Hidden]
-        public string Property4 { get; set; }
+        public string Property4 { get; private set; }
     }
 }";
 
+            // Note that property1 test does not start "STRING_" because the mapping with an attribute takes priority over the one without.
+            // Note that property2 test does not start "STRING2_" because the attribute/Type mapping takes priority over name.
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "    <TextBlock Text=\"STRING_Property1\" />"
-         + Environment.NewLine + "    <TextBlock Text=\"STRING_RO_Property2\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_STRING_Property1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_STRING_RO_Property2\" />"
          + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_STRING_Property3\" />"
          + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_STRING_RO_Property4\" />"
          + Environment.NewLine + "</StackPanel>";
@@ -234,6 +244,8 @@ namespace tests
         public void GetClassAttributeWithoutType()
         {
             var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "StackPanel";
+            profile.FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />";
             profile.Mappings.Add(new Mapping
             {
                 Type = "T",
@@ -271,7 +283,7 @@ namespace tests
 }";
 
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "    <TextBlock Text=\"STRING_Property1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"T_Property1\" />"
          + Environment.NewLine + "    <TextBlock Text=\"T_Property2\" />"
          + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_STRING_Property5\" />"
          + Environment.NewLine + "    <TextBlock Text=\"HIDDEN__Property6\" />"
@@ -291,11 +303,13 @@ namespace tests
         public void AttributeForAnyTypeTakesPriorityOverSpecificType()
         {
             var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "StackPanel";
+            profile.FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />";
             profile.Mappings.Add(new Mapping
             {
                 Type = "string",
                 NameContains = "",
-                Output = "<TextBlock Text=\"T_$name$\" />",
+                Output = "<TextBlock Text=\"STRING_$name$\" />",
                 IfReadOnly = false,
             });
             profile.Mappings.Add(new Mapping
@@ -341,11 +355,13 @@ namespace tests
         public void DoNotMapTypeWithAttributesIfDeclarationDoesNotHaveAttribute()
         {
             var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "StackPanel";
+            profile.FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />";
             profile.Mappings.Add(new Mapping
             {
                 Type = "string",
                 NameContains = "",
-                Output = "<TextBlock Text=\"T_$name$\" />",
+                Output = "<TextBlock Text=\"STRING_$name$\" />",
                 IfReadOnly = false,
             });
             profile.Mappings.Add(new Mapping
