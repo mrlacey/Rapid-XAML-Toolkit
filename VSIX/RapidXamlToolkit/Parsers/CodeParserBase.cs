@@ -274,72 +274,98 @@ namespace RapidXamlToolkit.Parsers
             return this.FormatOutput(this.Profile.SubPropertyOutput, type: string.Empty, name: property.Name, numericSubstitute: numericSubstitute, symbol: property.Symbol, attributes: property.Attributes, getSubPropertyOutput: null);
         }
 
+        // Mapping match order = Type > ReadOnly > Name
+        // Mapping Type match priority = Att+TypeName > Att+T > TypeName > T
         protected (string output, int counter) GetPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute, SemanticModel semModel, Func<(List<string> strings, int count)> getSubPropertyOutput = null, string namePrefix = "")
         {
-            var mappingOfInterest = this.GetMappingOfInterest(property);
-
+            Mapping mappingOfInterest = null;
             string rawOutput = null;
 
-            if (mappingOfInterest != null)
+            if (property.Attributes.Any())
             {
-                // Mapped a simple type
-                rawOutput = mappingOfInterest.Output;
-            }
-            else
-            {
-                if (property.PropertyType.IsGenericTypeName())
+                // Get mappings with attributes that match the attributes or type we have
+                mappingOfInterest = this.GetMappingOfInterest(property, includeAttributes: true);
+
+                if (mappingOfInterest != null)
                 {
-                    // Handle mapping of generic type
-                    var wildcardGenericType = property.PropertyType.Substring(0, property.PropertyType.ToCSharpFormat().IndexOf("<", StringComparison.Ordinal)) + "<T>";
-
-                    Logger?.RecordInfo(StringRes.Info_SearchingForMappingWithGenericWildcard.WithParams(wildcardGenericType));
-
-                    mappingOfInterest = this.GetMappingOfInterest(wildcardGenericType, property.Name, property.IsReadOnly);
+                    rawOutput = mappingOfInterest.Output;
+                }
+                else
+                {
+                    mappingOfInterest = this.GetMappingOfInterest("T", property.Name, property.IsReadOnly, property.Attributes);
 
                     if (mappingOfInterest != null)
                     {
                         rawOutput = mappingOfInterest.Output;
                     }
                 }
+            }
 
-                // See if there's a wildcard type mapping
-                var wildcardTypeMapping = this.GetMappingOfInterest("T", property.Name, property.IsReadOnly);
+            if (mappingOfInterest is null)
+            {
+                mappingOfInterest = this.GetMappingOfInterest(property, includeAttributes: false);
 
-                if (wildcardTypeMapping != null)
+                if (mappingOfInterest != null)
                 {
-                    rawOutput = wildcardTypeMapping.Output;
+                    // Mapped a simple type
+                    rawOutput = mappingOfInterest.Output;
                 }
-
-                if (rawOutput == null && semModel != null)
+                else
                 {
-                    // Handle mapping of a complex type
-                    var tempOutput = new StringBuilder();
-                    var tempNumb = numericSubstitute;
-                    foreach (var prop in this.GetAllPublicProperties(property.Symbol, semModel))
+                    if (property.PropertyType.IsGenericTypeName())
                     {
-                        var prefix = string.IsNullOrWhiteSpace(namePrefix) ? property.Name : $"{namePrefix}.{property.Name}";
+                        // Handle mapping of generic type
+                        var wildcardGenericType = property.PropertyType.Substring(0, property.PropertyType.ToCSharpFormat().IndexOf("<", StringComparison.Ordinal)) + "<T>";
 
-                        // Don't get into an infinite loop when a property has the same type as the containing class.
-                        if (prefix.Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries).Contains(prop.Name))
+                        Logger?.RecordInfo(StringRes.Info_SearchingForMappingWithGenericWildcard.WithParams(wildcardGenericType));
+
+                        mappingOfInterest = this.GetMappingOfInterest(wildcardGenericType, property.Name, property.IsReadOnly, new List<AttributeDetails>());
+
+                        if (mappingOfInterest != null)
                         {
-                            break;
+                            rawOutput = mappingOfInterest.Output;
+                        }
+                    }
+
+                    // See if there's a wildcard type mapping
+                    var wildcardTypeMapping = this.GetMappingOfInterest("T", property.Name, property.IsReadOnly, new List<AttributeDetails>());
+
+                    if (wildcardTypeMapping != null)
+                    {
+                        rawOutput = wildcardTypeMapping.Output;
+                    }
+
+                    if (rawOutput == null && semModel != null)
+                    {
+                        // Handle mapping of a complex type
+                        var tempOutput = new StringBuilder();
+                        var tempNumb = numericSubstitute;
+                        foreach (var prop in this.GetAllPublicProperties(property.Symbol, semModel))
+                        {
+                            var prefix = string.IsNullOrWhiteSpace(namePrefix) ? property.Name : $"{namePrefix}.{property.Name}";
+
+                            // Don't get into an infinite loop when a property has the same type as the containing class.
+                            if (prefix.Split(new[] { "." }, StringSplitOptions.RemoveEmptyEntries).Contains(prop.Name))
+                            {
+                                break;
+                            }
+
+                            var (output, counter) = this.GetPropertyOutputAndCounter(prop, tempNumb, semModel, getSubPropertyOutput, namePrefix: prefix);
+                            tempOutput.AppendLine(output);
+                            tempNumb = counter;
                         }
 
-                        var (output, counter) = this.GetPropertyOutputAndCounter(prop, tempNumb, semModel, getSubPropertyOutput, namePrefix: prefix);
-                        tempOutput.AppendLine(output);
-                        tempNumb = counter;
+                        if (tempOutput.Length > 0)
+                        {
+                            rawOutput = tempOutput.ToString();
+                        }
                     }
 
-                    if (tempOutput.Length > 0)
+                    if (rawOutput == null)
                     {
-                        rawOutput = tempOutput.ToString();
+                        Logger?.RecordInfo(StringRes.Info_NoMappingFoundUsingFallback);
+                        rawOutput = this.Profile?.FallbackOutput;
                     }
-                }
-
-                if (rawOutput == null)
-                {
-                    Logger?.RecordInfo(StringRes.Info_NoMappingFoundUsingFallback);
-                    rawOutput = this.Profile?.FallbackOutput;
                 }
             }
 
@@ -690,12 +716,12 @@ namespace RapidXamlToolkit.Parsers
             return result;
         }
 
-        private Mapping GetMappingOfInterest(PropertyDetails property)
+        private Mapping GetMappingOfInterest(PropertyDetails property, bool includeAttributes)
         {
             // Enums can be mapped by name or that they're enums - check enum first
             if (property.Symbol?.BaseType?.Name == "Enum")
             {
-                var enumMapping = this.GetMappingOfInterest("enum", property.Name, property.IsReadOnly);
+                var enumMapping = this.GetMappingOfInterest("enum", property.Name, property.IsReadOnly, includeAttributes ? property.Attributes : new List<AttributeDetails>());
 
                 if (enumMapping != null)
                 {
@@ -708,13 +734,37 @@ namespace RapidXamlToolkit.Parsers
                 }
             }
 
-            return this.GetMappingOfInterest(property.PropertyType, property.Name, property.IsReadOnly);
+            return this.GetMappingOfInterest(property.PropertyType, property.Name, property.IsReadOnly, property.Attributes);
         }
 
-        private Mapping GetMappingOfInterest(string type, string name, bool isReadOnly)
+        private Mapping GetMappingOfInterest(string type, string name, bool isReadOnly, List<AttributeDetails> attributes)
         {
-            var typeMappings = this.Profile.Mappings.Where(
-                m => type.WithoutNamespaces().ToCSharpFormat().MatchesAnyOfInCSharpFormat(m.Type)).ToList();
+            List<Mapping> typeMappings = null;
+
+            if (attributes.Any())
+            {
+                typeMappings = this.Profile.Mappings.Where(
+                    m => type.WithoutNamespaces().ToCSharpFormat().MatchesAnyOfInCSharpFormat(m.Type.RemoveAttributesFromTypes())
+                      && m.Type.GetAttributes().Intersects(string.Join("|", attributes.Select(a => a.Name).ToList()))).ToList();
+
+                if (!typeMappings.Any())
+                {
+                    typeMappings = this.Profile.Mappings.Where(
+                        m => "T".MatchesAnyOfInCSharpFormat(m.Type.RemoveAttributesFromTypes())
+                          && m.Type.GetAttributes().Intersects(string.Join("|", attributes.Select(a => a.Name).ToList()))).ToList();
+                }
+
+                if (!typeMappings.Any())
+                {
+                    typeMappings = this.Profile.Mappings.Where(
+                        m => type.WithoutNamespaces().ToCSharpFormat().MatchesAnyOfInCSharpFormat(m.Type)).ToList();
+                }
+            }
+            else
+            {
+                typeMappings = this.Profile.Mappings.Where(
+                    m => type.WithoutNamespaces().ToCSharpFormat().MatchesAnyOfInCSharpFormat(m.Type)).ToList();
+            }
 
             if (!isReadOnly)
             {
