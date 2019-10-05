@@ -268,7 +268,104 @@ End Namespace
          + Environment.NewLine + "    <TextBlock Text=\"T_Property2\" />"
          + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_STRING_Property5\" />"
          + Environment.NewLine + "    <TextBlock Text=\"HIDDEN__Property6\" />"
-         + Environment.NewLine + "    <TextBlock Text=\"T_Property10\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void AttributeForAnyTypeTakesPriorityOverSpecificType()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "string",
+                NameContains = "",
+                Output = "<TextBlock Text=\"T_$name$\" />",
+                IfReadOnly = false,
+            });
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "[Hidden]T",
+                NameContains = "",
+                Output = "<TextBlock Text=\"HIDDEN__$name$\" />",
+                IfReadOnly = false,
+            });
+
+            var code = @"
+Namespace tests
+    Class Class1☆
+        Public Property Property1 As String
+        Public Property Property2 As Integer
+        <Hidden>
+        Public Property Property5 As String
+        <Hidden>
+        Public Property Property6 As Integer
+    End Class
+End Namespace
+";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBlock Text=\"STRING_Property1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FALLBACK_Property2\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"HIDDEN__Property5\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"HIDDEN__Property6\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void DoNotMapTypeWithAttributesIfDeclarationDoesNotHaveAttribute()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "string",
+                NameContains = "",
+                Output = "<TextBlock Text=\"T_$name$\" />",
+                IfReadOnly = false,
+            });
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "[Hidden]int",
+                NameContains = "",
+                Output = "<TextBlock Text=\"HIDDEN__$name$\" />",
+                IfReadOnly = false,
+            });
+
+            var code = @"
+Namespace tests
+    Class Class1☆
+        Public Property Property1 As String
+        Public Property Property2 As Integer
+        <Hidden>
+        Public Property Property5 As String
+        <Hidden>
+        Public Property Property6 As Integer
+    End Class
+End Namespace
+";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBlock Text=\"STRING_Property1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FALLBACK_Property2\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"STRING_Property5\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"HIDDEN__Property6\" />"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new ParserOutput
