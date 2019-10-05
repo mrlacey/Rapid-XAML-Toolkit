@@ -402,5 +402,102 @@ namespace tests
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
         }
+
+        [TestMethod]
+        public void CanMapMultipleTypesWithAttributesInSingleMapping()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "StackPanel";
+            profile.FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "string",
+                NameContains = "",
+                Output = "<TextBlock Text=\"STRING_$name$\" />",
+                IfReadOnly = false,
+            });
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "[Hidden]int|[Hidden]string",
+                NameContains = "",
+                Output = "<TextBlock Text=\"HIDDEN_$type$_$name$\" />",
+                IfReadOnly = false,
+            });
+
+            var code = @"
+namespace tests
+{
+    class Class1☆
+    {
+        public string Property1 { get; set; }
+        public int Property2 { get; set; }
+        [Hidden]
+        public string Property5 { get; set; }
+        [Hidden]
+        public int Property6 { get; set; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBlock Text=\"STRING_Property1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FALLBACK_Property2\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_x:String_Property5\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"HIDDEN_x:Int32_Property6\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void CanMapMultipleAttributesToSameTypeInSingleMapping()
+        {
+            var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "StackPanel";
+            profile.FallbackOutput = "<TextBlock Text=\"FALLBACK_$name$\" />";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "[Foo]int|[Bar]int",
+                NameContains = "",
+                Output = "<TextBlock Text=\"FOOBAR_$name$\" />",
+                IfReadOnly = false,
+            });
+
+            var code = @"
+namespace tests
+{
+    class Class1☆
+    {
+        public string Property1 { get; set; }
+        public int Property2 { get; set; }
+        [Foo]
+        public int Property5 { get; set; }
+        [Bar]
+        public int Property6 { get; set; }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "    <TextBlock Text=\"FALLBACK_Property1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FALLBACK_Property2\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FOOBAR_Property5\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"FOOBAR_Property6\" />"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
     }
 }
