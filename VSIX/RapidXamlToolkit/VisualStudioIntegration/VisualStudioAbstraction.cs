@@ -93,8 +93,9 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 foreach (var otherProj in proj.DTE.Solution.GetAllProjects())
                 {
                     // Don't check self or any shard projects to avoid infinite loops and unnecessary work.
+                    // Unique name is ususally a relative path but may not be (esp. in .NETCore projects)
                     if (otherProj.UniqueName != project.UniqueName
-                     && !System.IO.Path.GetExtension(otherProj.UniqueName).Equals(".shproj", StringComparison.OrdinalIgnoreCase))
+                     && otherProj.UniqueName.EndsWith(".shproj", StringComparison.OrdinalIgnoreCase))
                     {
                         var item = otherProj.ProjectItems?.GetEnumerator();
 
