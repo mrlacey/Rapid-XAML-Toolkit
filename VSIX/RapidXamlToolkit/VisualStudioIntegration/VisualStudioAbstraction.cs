@@ -141,6 +141,15 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
             var guids = this.GetProjectTypeGuids(project);
 
+            // This will be the case in CPS projects
+            if (string.IsNullOrWhiteSpace(guids))
+            {
+                if (this.ProjectUsesWpf(project))
+                {
+                    return ProjectType.Wpf;
+                }
+            }
+
             var result = ProjectType.Unknown;
 
             // Check with `Contains` as there may be multiple GUIDs specified (e.g. for programming language too)
@@ -188,6 +197,13 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
 
             return result;
+        }
+
+        public bool ProjectUsesWpf(EnvDTE.Project project)
+        {
+            var rawContent = System.IO.File.ReadAllText(project.FullName);
+
+            return rawContent.Contains("<UseWPF>true</UseWPF>");
         }
 
         public string GetProjectTypeGuids(EnvDTE.Project proj)
