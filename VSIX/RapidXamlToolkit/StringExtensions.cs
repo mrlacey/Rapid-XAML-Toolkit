@@ -68,6 +68,19 @@ namespace RapidXamlToolkit
             return allOptions.Any(o => string.Equals(value, o, StringComparison.OrdinalIgnoreCase));
         }
 
+        public static bool Intersects(this string thisList, string otherList)
+        {
+            foreach (var item in thisList.Split('|'))
+            {
+                if (item.MatchesAnyOf(otherList))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public static bool MatchesAnyOfInCSharpFormat(this string value, string options)
         {
             if (value == null)
@@ -83,6 +96,57 @@ namespace RapidXamlToolkit
             var allOptions = options.Split('|');
 
             return allOptions.Any(o => string.Equals(value, o.ToCSharpFormat(), StringComparison.OrdinalIgnoreCase));
+        }
+
+        public static string RemoveAttributesFromTypes(this string value)
+        {
+            var result = new StringBuilder();
+
+            foreach (var item in value.Split('|'))
+            {
+                if (item.StartsWith("["))
+                {
+                    var attClosingIndex = item.IndexOf(']');
+
+                    var typeName = item.Substring(attClosingIndex + 1);
+
+                    if (string.IsNullOrWhiteSpace(typeName))
+                    {
+                        result.Append("T");
+                    }
+                    else
+                    {
+                        result.Append(typeName);
+                    }
+                }
+                else
+                {
+                    result.Append(item);
+                }
+
+                result.Append("|");
+            }
+
+            return result.ToString().TrimEnd('|');
+        }
+
+        public static string GetAttributes(this string value)
+        {
+            var result = new StringBuilder();
+
+            foreach (var item in value.Split('|'))
+            {
+                if (item.StartsWith("["))
+                {
+                    var attClosingIndex = item.IndexOf(']');
+
+                    result.Append(item.Substring(1, attClosingIndex - 1));
+
+                    result.Append("|");
+                }
+            }
+
+            return result.ToString().TrimEnd('|');
         }
 
         public static string ToCSharpFormat(this string value)

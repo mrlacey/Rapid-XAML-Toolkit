@@ -585,6 +585,114 @@ namespace RapidXamlToolkit.Tests.Extensions
             this.StarIsNotInComment(xaml);
         }
 
+        [TestMethod]
+        public void RemoveAttributesFromTypes_NoAttribute()
+        {
+            Assert.AreEqual("string", "string".RemoveAttributesFromTypes());
+        }
+
+        [TestMethod]
+        public void RemoveAttributesFromTypes_WithAttribute()
+        {
+            Assert.AreEqual("string", "[Hidden]string".RemoveAttributesFromTypes());
+        }
+
+        [TestMethod]
+        public void RemoveAttributesFromTypes_NoAttributeButArray()
+        {
+            Assert.AreEqual("string[]", "string[]".RemoveAttributesFromTypes());
+        }
+
+        [TestMethod]
+        public void RemoveAttributesFromTypes_WithAttributeAndArray()
+        {
+            Assert.AreEqual("string[]", "[Hidden]string[]".RemoveAttributesFromTypes());
+        }
+
+        [TestMethod]
+        public void RemoveAttributesFromTypes_Multiple_NoAttribute()
+        {
+            Assert.AreEqual("string|int", "string|int".RemoveAttributesFromTypes());
+        }
+
+        [TestMethod]
+        public void RemoveAttributesFromTypes_Multiple_WithAttribute()
+        {
+            Assert.AreEqual("string|int", "[Hidden]string|[Hidden]int".RemoveAttributesFromTypes());
+        }
+
+        [TestMethod]
+        public void RemoveAttributesFromTypes_Multiple_NoAttributeButArray()
+        {
+            Assert.AreEqual("string[]|int[]", "string[]|int[]".RemoveAttributesFromTypes());
+        }
+
+        [TestMethod]
+        public void RemoveAttributesFromTypes_Multiple_WithAttributeAndArray()
+        {
+            Assert.AreEqual("string[]|int[]", "[Hidden]string[]|[Hidden]int[]".RemoveAttributesFromTypes());
+        }
+
+        [TestMethod]
+        public void RemoveAttributesFromTypes_Multiple_ManyScenarios()
+        {
+            Assert.AreEqual("string[]|int[]|bool|double", "[Hidden]string[]|int[]|[Hidden]bool|double".RemoveAttributesFromTypes());
+        }
+
+        [TestMethod]
+        public void GetAttributes_NoAttribute()
+        {
+            Assert.AreEqual(string.Empty, "string".GetAttributes());
+        }
+
+        [TestMethod]
+        public void GetAttributes_WithAttribute()
+        {
+            Assert.AreEqual("MyAttribute", "[MyAttribute]string".GetAttributes());
+        }
+
+        [TestMethod]
+        public void GetAttributes_NoAttributeButArray()
+        {
+            Assert.AreEqual(string.Empty, "string[]".GetAttributes());
+        }
+
+        [TestMethod]
+        public void GetAttribtues_WithAttributeAndArray()
+        {
+            Assert.AreEqual("MyAttribute", "[MyAttribute]string[]".GetAttributes());
+        }
+
+        [TestMethod]
+        public void GetAttributes_Multiple_NoAttribute()
+        {
+            Assert.AreEqual(string.Empty, "string|integer".GetAttributes());
+        }
+
+        [TestMethod]
+        public void GetAttributes_Multiple_WithAttribute()
+        {
+            Assert.AreEqual("MyAttribute|Bar", "[MyAttribute]string|[Bar]string".GetAttributes());
+        }
+
+        [TestMethod]
+        public void GetAttributes_Multiple_NoAttributeButArray()
+        {
+            Assert.AreEqual(string.Empty, "string[]|bool[]".GetAttributes());
+        }
+
+        [TestMethod]
+        public void GetAttribtues_Multiple_WithAttributeAndArray()
+        {
+            Assert.AreEqual("MyAttribute|Foo", "[MyAttribute]string[]|[Foo]double[]".GetAttributes());
+        }
+
+        [TestMethod]
+        public void GetAttribtues_Multiple_ManyScenariosCombined()
+        {
+            Assert.AreEqual("MyAttribute|Bar|Foo", "[MyAttribute]int|[Bar]string[]|[Foo]double[]|bool[]|float".GetAttributes());
+        }
+
         private void StarIsNotInComment(string xaml)
         {
             var offset = xaml.IndexOf("☆");

@@ -22,6 +22,12 @@ Mappings are matched in the following order:
 
 If a property matches multiple mappings, there is no guarantee on which will be used.
 
+### Matching types with attributes
+
+It's possible to use attributes applied to properties to determine what to output. (Attributes can also be used in the output--see below.)
+To specify that a property should produce different output when a specific attribute is applied, include `[attribute-name]` before the property type. For example, to create a mapping for a property that is a `string` and has the `HiddenAttribute` applied, specify the type as `[Hidden]string`.
+To create a mapping for a property of any type that has a specific attribute applied, specify the type as `[attribute-name]T`.
+
 ### Special mappings
 
 In addition to the mappings for properties, there are also three special mappings that must be configured.
