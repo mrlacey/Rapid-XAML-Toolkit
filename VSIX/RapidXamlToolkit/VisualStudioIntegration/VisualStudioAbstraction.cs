@@ -93,8 +93,9 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 foreach (var otherProj in proj.DTE.Solution.GetAllProjects())
                 {
                     // Don't check self or any shard projects to avoid infinite loops and unnecessary work.
+                    // Unique name is ususally a relative path but may not be (esp. in .NETCore projects)
                     if (otherProj.UniqueName != project.UniqueName
-                     && !System.IO.Path.GetExtension(otherProj.UniqueName).Equals(".shproj", StringComparison.OrdinalIgnoreCase))
+                     && otherProj.UniqueName.EndsWith(".shproj", StringComparison.OrdinalIgnoreCase))
                     {
                         var item = otherProj.ProjectItems?.GetEnumerator();
 
@@ -139,6 +140,15 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
 
             var guids = this.GetProjectTypeGuids(project);
+
+            // This will be the case in CPS projects
+            if (string.IsNullOrWhiteSpace(guids))
+            {
+                if (this.ProjectUsesWpf(project))
+                {
+                    return ProjectType.Wpf;
+                }
+            }
 
             var result = ProjectType.Unknown;
 
@@ -187,6 +197,13 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
 
             return result;
+        }
+
+        public bool ProjectUsesWpf(EnvDTE.Project project)
+        {
+            var rawContent = System.IO.File.ReadAllText(project.FullName);
+
+            return rawContent.Contains("<UseWPF>true</UseWPF>");
         }
 
         public string GetProjectTypeGuids(EnvDTE.Project proj)
