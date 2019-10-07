@@ -4,6 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/kryvt4vdvy39940m/branch/dev?svg=true)](https://ci.appveyor.com/project/mrlacey/rapid-xaml-toolkit/branch/dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 ![Works with Visual Studio 2019](https://img.shields.io/static/v1.svg?label=VS&message=2019&color=5F2E96)
+![AppVeyor tests](https://img.shields.io/appveyor/tests/mrlacey/rapid-xaml-toolkit)
 
 This is a collection of tools for making it easier for developers to work with XAML (**UWP**, **WPF**, and **Xamarin.Forms**). These tools fall into two categories
 
