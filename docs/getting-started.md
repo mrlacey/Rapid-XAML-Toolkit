@@ -4,8 +4,8 @@ Whether you just want to use the extension or help make it even better--this is 
 
 ## Using the extension
 
-Before you can do anything, you need to install the extesion.
-While it's being installed you might learn how to configure it to meet your needs. Or just try it out and then adjust the configuration to your prefered way of working.
+Before you can do anything, you need to install the extension.
+While it's being installed you might learn how to configure it to meet your needs. Or just try it out and then adjust the configuration to your preferred way of working.
 
 ### Installing the extension
 
@@ -37,7 +37,7 @@ The solution contains five projects:
 - `RapidXamlToolkit.Tests` is a test project containing the automated tests.
 - `RapidXamlToolkit.Tests.Manual` is a test project containing tests that require additional configuration or manual verification. You will need to make changes to the code to run these tests. Look for comments in the code for details of what to change/specify.
 - `Tools/LocalizationHelper` is a console app that contains helper functionality related to localizing content in the extension.
-- `Tools/OptionsEmulator` is a WPF app that allows viewing the UI that is displayed in the Options dialogs without having to start an instance of VisualStudio.
+- `Tools/OptionsEmulator` is a WPF app that allows viewing the UI that is displayed in the Options dialogs without having to start an instance of Visual Studio.
 
 There is another solution (`RapidXamlToolkit.PRBuild.sln`) which only contains the main extension project and the automated tests project. This solution is used by the PR and CI pipelines. Depending on what you do with the source, you _may_ be able to get by just with using this solution.
 
@@ -49,4 +49,4 @@ The area where contributions are most expected (and appreciated) is in creating 
 
 ### Localization
 
-Because of the many components of the codebase and the way they interact, the localization of content is not as straight-forward as in other projects. Specifics are detailed in the [localizaiton document](./localization.md).
+Because of the many components of the codebase and the way they interact, the localization of content is not as straight-forward as in other projects. Specifics are detailed in the [localization document](./localization.md).
