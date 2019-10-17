@@ -400,22 +400,6 @@ End Class
         }
 
         [TestMethod]
-        public void GetClassWithFocusInMethod()
-        {
-            var code = @"
-Public Class Class1
-        Public Property Property1 As String
-
-      ☆ Public Function IsSpecial(someValue As String) As Boolean
-            Return True
-        End Function☆
-End Class
-";
-
-            this.FindSinglePropertyInClass(code);
-        }
-
-        [TestMethod]
         public void GetClassWithFocusInField()
         {
             var code = @"

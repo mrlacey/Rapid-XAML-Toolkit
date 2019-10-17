@@ -421,27 +421,6 @@ namespace tests
         }
 
         [TestMethod]
-        public void GetClassWithFocusInMethod()
-        {
-            var code = @"
-namespace tests
-{
-    class Class1
-    {
-        public string Property1 { get; set; }
-
-      ☆  public bool IsSpecial(string someValue)
-        {
-            return true;
-        }☆
-    }
-}
-";
-
-            this.FindSinglePropertyInClass(code);
-        }
-
-        [TestMethod]
         public void GetClassWithFocusInField()
         {
             var code = @"
