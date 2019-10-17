@@ -91,7 +91,7 @@ End Namespace";
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameProfile);
@@ -114,7 +114,7 @@ End Namespace";
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameProfile);
@@ -138,7 +138,7 @@ End Namespace";
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
@@ -161,7 +161,7 @@ End Namespace";
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
@@ -184,7 +184,7 @@ End Namespace";
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.maxLengthProfile);
@@ -208,7 +208,7 @@ End Namespace";
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.maxLengthProfile);
@@ -231,7 +231,7 @@ End Namespace";
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.maxLengthAttributeProfile);
@@ -254,7 +254,7 @@ End Namespace";
             {
                 Name = "Rating",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.rangeProfile);
@@ -276,7 +276,7 @@ End Namespace";
             {
                 Name = "Rating",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.rangeProfile);
@@ -311,7 +311,7 @@ End Namespace";
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.maxLengthProfile);
@@ -334,7 +334,7 @@ End Namespace";
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
@@ -357,7 +357,7 @@ End Namespace";
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
@@ -380,7 +380,7 @@ End Namespace";
             {
                 Name = "Rating",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.rangeProfile);
@@ -403,7 +403,7 @@ End Namespace";
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameProfile);

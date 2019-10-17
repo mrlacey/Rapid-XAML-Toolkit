@@ -6,7 +6,7 @@ namespace RapidXamlToolkit.Parsers
     public enum ParserOutputType
     {
         None,
-        Property,
+        Member,
         Class,
         Selection,
     }

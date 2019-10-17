@@ -82,7 +82,7 @@ End Namespace";
             {
                 Name = "MyArray",
                 Output = "<Array />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
@@ -102,7 +102,7 @@ End Namespace";
             {
                 Name = "MyArrayBool",
                 Output = "<ArrayBool />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);

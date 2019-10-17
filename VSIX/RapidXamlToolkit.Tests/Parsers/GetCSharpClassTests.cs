@@ -1306,7 +1306,7 @@ public class Class1
             {
                 Name = "SomeProperty",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);

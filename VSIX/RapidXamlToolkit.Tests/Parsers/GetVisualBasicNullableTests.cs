@@ -93,7 +93,7 @@ End Namespace";
             {
                 Name = "MyBoolQ",
                 Output = "<BoolQ />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -113,7 +113,7 @@ End Namespace";
             {
                 Name = "MyBoolQ",
                 Output = "<BoolQ />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -133,7 +133,7 @@ End Namespace";
             {
                 Name = "MyNullableBool",
                 Output = "<NullBool />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -153,7 +153,7 @@ End Namespace";
             {
                 Name = "MyFqNullableBool",
                 Output = "<NullBool />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -182,7 +182,7 @@ End Namespace";
             {
                 Name = "MyListOfNullables",
                 Output = "<LBnull />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
