@@ -74,7 +74,7 @@ namespace RapidXamlToolkit.Parsers
 
             if (propertyNames.Any())
             {
-                var outputName = GetSelectionPropertiesName(propertyNames);
+                var outputName = GetSelectionMemberName(propertyNames);
 
                 Logger?.RecordInfo(StringRes.Info_ReturningOutput.WithParams(outputName));
 

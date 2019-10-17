@@ -242,7 +242,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Null()
         {
-            var result = CodeParserBase.GetSelectionPropertiesName(null);
+            var result = CodeParserBase.GetSelectionMemberName(null);
 
             Assert.IsTrue(string.IsNullOrEmpty(result));
         }
@@ -250,7 +250,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Empty()
         {
-            var result = CodeParserBase.GetSelectionPropertiesName(new List<string>());
+            var result = CodeParserBase.GetSelectionMemberName(new List<string>());
 
             Assert.IsTrue(string.IsNullOrEmpty(result));
         }
@@ -258,7 +258,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_One()
         {
-            var result = CodeParserBase.GetSelectionPropertiesName(new List<string> { "one" });
+            var result = CodeParserBase.GetSelectionMemberName(new List<string> { "one" });
 
             Assert.IsTrue(result.Equals("one"));
         }
@@ -266,7 +266,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Two()
         {
-            var result = CodeParserBase.GetSelectionPropertiesName(new List<string> { "one", "two" });
+            var result = CodeParserBase.GetSelectionMemberName(new List<string> { "one", "two" });
 
             Assert.IsTrue(result.Equals("one and two"));
         }
@@ -274,7 +274,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Three()
         {
-            var result = CodeParserBase.GetSelectionPropertiesName(new List<string> { "one", "two", "three" });
+            var result = CodeParserBase.GetSelectionMemberName(new List<string> { "one", "two", "three" });
 
             Assert.IsTrue(result.Equals("one, two and 1 other property"));
         }
@@ -282,7 +282,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Four()
         {
-            var result = CodeParserBase.GetSelectionPropertiesName(new List<string> { "one", "two", "three", "four" });
+            var result = CodeParserBase.GetSelectionMemberName(new List<string> { "one", "two", "three", "four" });
 
             Assert.IsTrue(result.Equals("one, two and 2 other properties"));
         }
@@ -290,7 +290,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         [TestMethod]
         public void GetSelectionPropertiesName_Five()
         {
-            var result = CodeParserBase.GetSelectionPropertiesName(new List<string> { "one", "two", "three", "four", "five" });
+            var result = CodeParserBase.GetSelectionMemberName(new List<string> { "one", "two", "three", "four", "five" });
 
             Assert.IsTrue(result.Equals("one, two and 3 other properties"));
         }

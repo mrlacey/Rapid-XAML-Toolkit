@@ -59,7 +59,7 @@ namespace RapidXamlToolkit.Parsers
             return configuredSettings.ActualSettings;
         }
 
-        public static string GetSelectionPropertiesName(List<string> names)
+        public static string GetSelectionMemberName(List<string> names)
         {
             if (names == null || !names.Any())
             {
