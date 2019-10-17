@@ -358,6 +358,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Formatting output for method &apos;{0}&apos;.
+        /// </summary>
+        public static string Info_FormattingOutputForMethod {
+            get {
+                return ResourceManager.GetString("Info_FormattingOutputForMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Formatting output for non-generic type &apos;{0}&apos;..
         /// </summary>
         public static string Info_FormattingOutputForNonGenericType {
@@ -466,6 +475,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Getting output for a single method..
+        /// </summary>
+        public static string Info_GetSingleMethodOutput {
+            get {
+                return ResourceManager.GetString("Info_GetSingleMethodOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Getting output for a single property..
         /// </summary>
         public static string Info_GetSinglePropertyOutput {
@@ -552,6 +570,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_NoEnumMappingFound {
             get {
                 return ResourceManager.GetString("Info_NoEnumMappingFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No mapping found for {0} so no output being generated..
+        /// </summary>
+        public static string Info_NoMappingFoundForMethod {
+            get {
+                return ResourceManager.GetString("Info_NoMappingFoundForMethod", resourceCulture);
             }
         }
         

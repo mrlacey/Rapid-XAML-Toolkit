@@ -994,4 +994,13 @@
   <data name="Info_UnableToDetermineIfExtendedOutputEnabled" xml:space="preserve">
     <value>Unable to determine if extended output is enabled so assuming it is.</value>
   </data>
+  <data name="Info_FormattingOutputForMethod" xml:space="preserve">
+    <value>Formatting output for method '{0}'</value>
+  </data>
+  <data name="Info_GetSingleMethodOutput" xml:space="preserve">
+    <value>Getting output for a single method.</value>
+  </data>
+  <data name="Info_NoMappingFoundForMethod" xml:space="preserve">
+    <value>No mapping found for {0} so no output being generated.</value>
+  </data>
 </root>

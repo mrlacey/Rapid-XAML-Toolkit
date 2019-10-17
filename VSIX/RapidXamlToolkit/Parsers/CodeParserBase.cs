@@ -92,7 +92,7 @@ namespace RapidXamlToolkit.Parsers
         public ParserOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition)
         {
             Logger?.RecordInfo(StringRes.Info_GetSingleItemOutput);
-            var (propertyNode, classNode) = this.GetNodeUnderCaret(documentRoot, caretPosition);
+            var (propertyNode, classNode, methodNode) = this.GetNodeUnderCaret(documentRoot, caretPosition);
 
             if (propertyNode != null)
             {
@@ -108,7 +108,26 @@ namespace RapidXamlToolkit.Parsers
                     {
                         Name = name,
                         Output = output,
-                        OutputType = ParserOutputType.Property,
+                        OutputType = ParserOutputType.Member,
+                    };
+                }
+            }
+
+            if (methodNode != null)
+            {
+                Logger?.RecordInfo(StringRes.Info_GetSingleMethodOutput);
+
+                var methodDetails = this.GetMethodDetails(methodNode, semModel);
+
+                if (methodDetails != null)
+                {
+                    var (output, name, _) = this.GetOutputToAdd(semModel, methodDetails);
+
+                    return new ParserOutput
+                    {
+                        Name = name,
+                        Output = output,
+                        OutputType = ParserOutputType.Member,
                     };
                 }
             }
@@ -241,12 +260,17 @@ namespace RapidXamlToolkit.Parsers
             }
         }
 
-        protected virtual (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        protected virtual (SyntaxNode propertyNode, SyntaxNode classNode, SyntaxNode methodNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             throw new NotImplementedException();
         }
 
         protected virtual PropertyDetails GetPropertyDetails(SyntaxNode propertyDeclaration, SemanticModel semModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual MethodDetails GetMethodDetails(SyntaxNode methodDeclaration, SemanticModel semModel)
         {
             throw new NotImplementedException();
         }
@@ -266,6 +290,13 @@ namespace RapidXamlToolkit.Parsers
             var (output, counter) = this.GetPropertyOutputAndCounter(prop, numericCounter, semModel, () => this.GetSubPropertyOutput(prop, semModel));
 
             return (output, prop.Name, counter);
+        }
+
+        protected (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, MethodDetails method, int numericCounter = 0)
+        {
+            var (output, counter) = this.GetMethodOutputAndCounter(method, numericCounter, semModel);
+
+            return (output, method.Name, counter);
         }
 
         protected (string output, int counter) GetSubPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute)
@@ -381,6 +412,36 @@ namespace RapidXamlToolkit.Parsers
             }
 
             return this.FormatOutput(rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, property.Attributes, getSubPropertyOutput);
+        }
+
+        protected (string output, int counter) GetMethodOutputAndCounter(MethodDetails method, int numericSubstitute, SemanticModel semModel)
+        {
+            var mappingOfInterest = this.GetMappingOfInterest(method);
+
+            if (mappingOfInterest is null)
+            {
+                Logger?.RecordInfo(StringRes.Info_NoMappingFoundForMethod.WithParams(method.Name));
+                return (null, numericSubstitute);
+            }
+
+            var rawOutput = mappingOfInterest.Output;
+
+            return this.FormatMethodOutput(rawOutput, method.Name, numericSubstitute, method.Argument1Name, method.Argument2Name);
+        }
+
+        private (string output, int counter) FormatMethodOutput(string rawOutput, string name, int numericSubstitute, string arg1, string arg2)
+        {
+            Logger?.RecordInfo(StringRes.Info_FormattingOutputForMethod.WithParams(name));
+            Logger?.RecordInfo(StringRes.Info_FormattingRawOutput.WithParams(rawOutput));
+
+            var result = rawOutput.Replace(Placeholder.MethodName, name)
+                                  .Replace(Placeholder.Argument1, arg1)
+                                  .Replace(Placeholder.Argument2, arg2);
+
+            // TODO: add grid support and counter replacement
+            var finalResult = result.FormatXaml(CodeParserBase.XamlIndentSize);
+
+            return (finalResult, numericSubstitute);
         }
 
         private (string output, int counter) FormatOutput(string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, List<AttributeDetails> attributes, Func<(List<string> strings, int count)> getSubPropertyOutput)
@@ -792,6 +853,12 @@ namespace RapidXamlToolkit.Parsers
             }
 
             return mappingOfInterest;
+        }
+
+        private Mapping GetMappingOfInterest(MethodDetails method)
+        {
+            // return this.GetMappingOfInterest(property.PropertyType, method.Name, property.IsReadOnly, method.Attributes);
+            return new Mapping { Output = "FROM A METHOD" };
         }
     }
 }

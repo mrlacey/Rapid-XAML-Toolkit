@@ -73,6 +73,9 @@
     <Compile Include="Options\EnumConverter.cs" />
     <Compile Include="Parsers\AttributeArgumentDetails.cs" />
     <Compile Include="Parsers\AttributeDetails.cs" />
+    <Compile Include="Parsers\MemberDetails.cs" />
+    <Compile Include="Parsers\MemberType.cs" />
+    <Compile Include="Parsers\MethodDetails.cs" />
     <Compile Include="ProjectTypeExtensions.cs" />
     <Compile Include="RoslynAnalyzers\CsDependencyPropertyCodeFixProvider.cs" />
     <Compile Include="RoslynAnalyzers\CsExpandAutoPropertiesAnalyzer.cs" />

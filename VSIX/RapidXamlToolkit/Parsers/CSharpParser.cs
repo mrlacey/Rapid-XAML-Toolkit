@@ -304,6 +304,24 @@ namespace RapidXamlToolkit.Parsers
             return pd;
         }
 
+        protected override MethodDetails GetMethodDetails(SyntaxNode methodDeclaration, SemanticModel semModel)
+        {
+            var md = new MethodDetails();
+
+            if (methodDeclaration is MethodDeclarationSyntax methodDec)
+            {
+                md.Name = methodDec.Identifier.ValueText;
+
+                // TODO: get attributes too
+            }
+            else
+            {
+                // TODO: Log error
+            }
+
+            return md;
+        }
+
         protected IEnumerable<AttributeDetails> GetAttributes(SyntaxList<AttributeListSyntax> attributeList)
         {
             var result = new List<AttributeDetails>();
@@ -380,33 +398,36 @@ namespace RapidXamlToolkit.Parsers
             return syntaxNode?.ChildTokens().FirstOrDefault(t => t.Kind() is SyntaxKind.IdentifierToken).ValueText;
         }
 
-        protected override (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        protected override (SyntaxNode propertyNode, SyntaxNode classNode, SyntaxNode methodNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             PropertyDeclarationSyntax propertyNode = null;
             TypeDeclarationSyntax classNode = null;
+            MethodDeclarationSyntax methodNode = null;
             var currentNode = documentRoot.FindToken(caretPosition).Parent;
 
-            while (currentNode != null && propertyNode == null && classNode == null)
+            while (currentNode != null && propertyNode == null && classNode == null && methodNode == null)
             {
-                if (currentNode is ClassDeclarationSyntax)
+                if (currentNode is ClassDeclarationSyntax cds)
                 {
-                    classNode = currentNode as ClassDeclarationSyntax;
+                    classNode = cds;
                 }
-
-                if (currentNode is StructDeclarationSyntax)
+                else if (currentNode is StructDeclarationSyntax sds)
                 {
-                    classNode = currentNode as StructDeclarationSyntax;
+                    classNode = sds;
                 }
-
-                if (currentNode is PropertyDeclarationSyntax)
+                else if (currentNode is PropertyDeclarationSyntax pds)
                 {
-                    propertyNode = currentNode as PropertyDeclarationSyntax;
+                    propertyNode = pds;
+                }
+                else if (currentNode is MethodDeclarationSyntax mds)
+                {
+                    methodNode = mds;
                 }
 
                 currentNode = currentNode.Parent;
             }
 
-            return (propertyNode, classNode);
+            return (propertyNode, classNode, methodNode);
         }
 
         private ITypeSymbol GetTypeSymbolWithFallback(TypeSyntax ts, SemanticModel sm, SyntaxTree tree)

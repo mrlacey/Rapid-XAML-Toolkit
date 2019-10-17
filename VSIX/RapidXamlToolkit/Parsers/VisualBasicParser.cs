@@ -424,10 +424,11 @@ namespace RapidXamlToolkit.Parsers
             return syntaxNode?.ChildTokens().FirstOrDefault(t => t.RawKind == (int)SyntaxKind.IdentifierToken).ValueText;
         }
 
-        protected override (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        protected override (SyntaxNode propertyNode, SyntaxNode classNode, SyntaxNode methodNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             SyntaxNode propertyNode = null;
             SyntaxNode classNode = null;
+            SyntaxNode methodNode = null;
 
             var currentNode = documentRoot.FindToken(caretPosition).Parent;
 
@@ -437,16 +438,19 @@ namespace RapidXamlToolkit.Parsers
                 {
                     classNode = currentNode;
                 }
-
-                if (currentNode is PropertyStatementSyntax || currentNode is PropertyBlockSyntax)
+                else if (currentNode is PropertyStatementSyntax || currentNode is PropertyBlockSyntax)
                 {
                     propertyNode = currentNode;
+                }
+                else if (currentNode is MethodStatementSyntax || currentNode is MethodBlockSyntax)
+                {
+                    methodNode = currentNode;
                 }
 
                 currentNode = currentNode.Parent;
             }
 
-            return (propertyNode, classNode);
+            return (propertyNode, classNode, methodNode);
         }
 
         private ITypeSymbol GetTypeSymbol(SemanticModel semModel, SyntaxNode prop, PropertyDetails propDetails)
