@@ -855,10 +855,82 @@ namespace RapidXamlToolkit.Parsers
             return mappingOfInterest;
         }
 
+        private Mapping FirstWithTwoTypes(List<Mapping> mappings, string typeName1, string typeName2)
+        {
+            // Both types set explicitly
+            // With or without space
+            var mappingOfInterest = mappings.FirstOrDefault(
+                    m => m.Type.EndsWith($"({typeName1},{typeName2})")
+                      || m.Type.EndsWith($"({typeName1}, {typeName2})"));
+
+            if (mappingOfInterest != null)
+            {
+                return mappingOfInterest;
+            }
+
+            // first anything, second explicit
+            mappingOfInterest = mappings.FirstOrDefault(
+                    m => m.Type.EndsWith($"(T,{typeName2})") || m.Type.EndsWith($"(T, {typeName2})"));
+
+            if (mappingOfInterest != null)
+            {
+                return mappingOfInterest;
+            }
+
+            // Second anything, first explicit
+            mappingOfInterest = mappings.FirstOrDefault(
+                    m => m.Type.EndsWith($"({typeName1},T)") || m.Type.EndsWith($"({typeName1}, T)"));
+
+            if (mappingOfInterest != null)
+            {
+                return mappingOfInterest;
+            }
+
+            // Both anything
+            mappingOfInterest = mappings.FirstOrDefault(
+                m => m.Type.EndsWith($"(T,T)") || m.Type.EndsWith($"(T, T)"));
+
+            if (mappingOfInterest != null)
+            {
+                return mappingOfInterest;
+            }
+
+            return null;
+        }
+
         private Mapping GetMappingOfInterest(MethodDetails method)
         {
-            // return this.GetMappingOfInterest(property.PropertyType, method.Name, property.IsReadOnly, method.Attributes);
-            return new Mapping { Output = "FROM A METHOD" };
+            List<Mapping> typeMappings = this.Profile.Mappings.Where(m => m.Type.StartsWith("method(")).ToList();
+
+            if (!string.IsNullOrWhiteSpace(method.Argument2Type?.Name))
+            {
+                var arg1TypeName = method.Argument1Type.Name.ToLowerInvariant();
+                var arg2TypeName = method.Argument2Type.Name.ToLowerInvariant();
+
+                return this.FirstWithTwoTypes(typeMappings, arg1TypeName, arg2TypeName);
+            }
+            else if (!string.IsNullOrWhiteSpace(method.Argument1Type?.Name))
+            {
+                var arg1TypeName = method.Argument1Type.Name.ToLowerInvariant();
+
+                var mappingOfInterest = typeMappings.FirstOrDefault(
+                        m => m.Type.Equals($"method({arg1TypeName})"));
+
+                if (mappingOfInterest != null)
+                {
+                    return mappingOfInterest;
+                }
+
+                mappingOfInterest = typeMappings.FirstOrDefault(
+                        m => m.Type.Equals($"method(T)"));
+
+                if (mappingOfInterest != null)
+                {
+                    return mappingOfInterest;
+                }
+            }
+
+            return typeMappings.First();
         }
     }
 }

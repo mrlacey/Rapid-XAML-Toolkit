@@ -312,6 +312,22 @@ namespace RapidXamlToolkit.Parsers
             {
                 md.Name = methodDec.Identifier.ValueText;
 
+                if (methodDec.ParameterList.Parameters.Count > 0)
+                {
+                    var param1 = methodDec.ParameterList.Parameters.First();
+
+                    md.Argument1Name = param1.Identifier.ValueText;
+                    md.Argument1Type = this.GetTypeSymbolWithFallback(param1.Type, semModel, methodDec.SyntaxTree);
+
+                    if (methodDec.ParameterList.Parameters.Count > 1)
+                    {
+                        var param2 = methodDec.ParameterList.Parameters[1];
+
+                        md.Argument2Name = param2.Identifier.ValueText;
+                        md.Argument2Type = this.GetTypeSymbolWithFallback(param2.Type, semModel, methodDec.SyntaxTree);
+                    }
+                }
+
                 // TODO: get attributes too
             }
             else

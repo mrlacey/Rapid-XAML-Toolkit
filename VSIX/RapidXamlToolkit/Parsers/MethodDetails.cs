@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using Microsoft.CodeAnalysis;
+
 namespace RapidXamlToolkit.Parsers
 {
     public class MethodDetails : MemberDetails
@@ -26,6 +28,10 @@ namespace RapidXamlToolkit.Parsers
 
         public string Argument1Name { get; set; }
 
+        public ITypeSymbol Argument1Type { get; set; }
+
         public string Argument2Name { get; set; }
+
+        public ITypeSymbol Argument2Type { get; set; }
     }
 }
