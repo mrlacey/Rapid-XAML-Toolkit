@@ -126,7 +126,7 @@ End Namespace";
 
             var expected = new ParserOutput
             {
-                Name = "MyBool, MyArray and 1 other property",
+                Name = "MyBool, MyArray and 1 other member",
                 Output = expectedXaml,
                 OutputType = ParserOutputType.Selection,
             };

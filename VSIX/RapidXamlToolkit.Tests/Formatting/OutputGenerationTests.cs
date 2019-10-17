@@ -276,7 +276,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         {
             var result = CodeParserBase.GetSelectionMemberName(new List<string> { "one", "two", "three" });
 
-            Assert.IsTrue(result.Equals("one, two and 1 other property"));
+            Assert.IsTrue(result.Equals("one, two and 1 other member"));
         }
 
         [TestMethod]
@@ -284,7 +284,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         {
             var result = CodeParserBase.GetSelectionMemberName(new List<string> { "one", "two", "three", "four" });
 
-            Assert.IsTrue(result.Equals("one, two and 2 other properties"));
+            Assert.IsTrue(result.Equals("one, two and 2 other members"));
         }
 
         [TestMethod]
@@ -292,7 +292,7 @@ namespace RapidXamlToolkit.Tests.Formatting
         {
             var result = CodeParserBase.GetSelectionMemberName(new List<string> { "one", "two", "three", "four", "five" });
 
-            Assert.IsTrue(result.Equals("one, two and 3 other properties"));
+            Assert.IsTrue(result.Equals("one, two and 3 other members"));
         }
 
         [TestMethod]

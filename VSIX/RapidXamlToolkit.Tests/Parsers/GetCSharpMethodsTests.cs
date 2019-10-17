@@ -83,7 +83,7 @@ namespace tests
 
             var expected = new ParserOutput
             {
-                Name = "Class1",
+                Name = "OnPhotoTaken, ZoomIn and 4 other members",
                 Output = expectedOutput,
                 OutputType = ParserOutputType.Selection,
             };

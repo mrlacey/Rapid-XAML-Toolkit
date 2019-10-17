@@ -210,7 +210,7 @@ namespace tests
 
             var expected = new ParserOutput
             {
-                Name = "MyBool, MyBoolQ and 2 other properties",
+                Name = "MyBool, MyBoolQ and 2 other members",
                 Output = expectedXaml,
                 OutputType = ParserOutputType.Selection,
             };

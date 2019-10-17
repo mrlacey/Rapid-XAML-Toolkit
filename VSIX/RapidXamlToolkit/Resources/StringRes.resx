@@ -512,10 +512,10 @@
     <value>Rapid XAML Profile</value>
   </data>
   <data name="UI_SelectionMoreThanThreeNames" xml:space="preserve">
-    <value>{0}, {1} and {2} other properties</value>
+    <value>{0}, {1} and {2} other members</value>
   </data>
   <data name="UI_SelectionThreeNames" xml:space="preserve">
-    <value>{0}, {1} and 1 other property</value>
+    <value>{0}, {1} and 1 other member</value>
   </data>
   <data name="UI_SelectionTwoNames" xml:space="preserve">
     <value>{0} and {1}</value>
@@ -994,13 +994,25 @@
   <data name="Info_UnableToDetermineIfExtendedOutputEnabled" xml:space="preserve">
     <value>Unable to determine if extended output is enabled so assuming it is.</value>
   </data>
+  <data name="Info_AddingMemberToOutput" xml:space="preserve">
+    <value>Adding '{0}' to the output.</value>
+  </data>
+  <data name="Info_DocumentMethodCount" xml:space="preserve">
+    <value>Document contains {0} methods.</value>
+  </data>
   <data name="Info_FormattingOutputForMethod" xml:space="preserve">
     <value>Formatting output for method '{0}'</value>
   </data>
   <data name="Info_GetSingleMethodOutput" xml:space="preserve">
     <value>Getting output for a single method.</value>
   </data>
+  <data name="Info_MethodsInSelectedAreaCount" xml:space="preserve">
+    <value>{0} methods within the selection area.</value>
+  </data>
   <data name="Info_NoMappingFoundForMethod" xml:space="preserve">
     <value>No mapping found for {0} so no output being generated.</value>
+  </data>
+  <data name="Info_NoMembersToOutput" xml:space="preserve">
+    <value>No properties or methods to provide output for.</value>
   </data>
 </root>

@@ -144,6 +144,15 @@ namespace RapidXamlToolkit.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Adding &apos;{0}&apos; to the output..
         /// </summary>
+        public static string Info_AddingMemberToOutput {
+            get {
+                return ResourceManager.GetString("Info_AddingMemberToOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding &apos;{0}&apos; to the output..
+        /// </summary>
         public static string Info_AddingPropertyToOutput {
             get {
                 return ResourceManager.GetString("Info_AddingPropertyToOutput", resourceCulture);
@@ -273,6 +282,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_DetectedProjectType {
             get {
                 return ResourceManager.GetString("Info_DetectedProjectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document contains {0} methods..
+        /// </summary>
+        public static string Info_DocumentMethodCount {
+            get {
+                return ResourceManager.GetString("Info_DocumentMethodCount", resourceCulture);
             }
         }
         
@@ -547,6 +565,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} methods within the selection area..
+        /// </summary>
+        public static string Info_MethodsInSelectedAreaCount {
+            get {
+                return ResourceManager.GetString("Info_MethodsInSelectedAreaCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attribute parameter named &apos;{0}&apos; not found..
         /// </summary>
         public static string Info_NamedAttributeParameterNotFound {
@@ -588,6 +615,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_NoMappingFoundUsingFallback {
             get {
                 return ResourceManager.GetString("Info_NoMappingFoundUsingFallback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No properties or methods to provide output for..
+        /// </summary>
+        public static string Info_NoMembersToOutput {
+            get {
+                return ResourceManager.GetString("Info_NoMembersToOutput", resourceCulture);
             }
         }
         
@@ -2547,7 +2583,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}, {1} and {2} other properties.
+        ///   Looks up a localized string similar to {0}, {1} and {2} other members.
         /// </summary>
         public static string UI_SelectionMoreThanThreeNames {
             get {
@@ -2556,7 +2592,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}, {1} and 1 other property.
+        ///   Looks up a localized string similar to {0}, {1} and 1 other member.
         /// </summary>
         public static string UI_SelectionThreeNames {
             get {

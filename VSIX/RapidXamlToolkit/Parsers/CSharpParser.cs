@@ -44,11 +44,27 @@ namespace RapidXamlToolkit.Parsers
 
             Logger?.RecordInfo(StringRes.Info_PropertiesInSelectedAreaCount.WithParams(propertiesOfInterest.Count));
 
+            var allMethods = documentRoot.DescendantNodes().OfType<MethodDeclarationSyntax>().ToList();
+
+            Logger?.RecordInfo(StringRes.Info_DocumentMethodCount.WithParams(allMethods.Count));
+
+            var methodsOfInterest = new List<MethodDeclarationSyntax>();
+
+            foreach (var method in allMethods)
+            {
+                if (method.FullSpan.End >= selStart && method.FullSpan.Start < selEnd)
+                {
+                    methodsOfInterest.Add(method);
+                }
+            }
+
+            Logger?.RecordInfo(StringRes.Info_MethodsInSelectedAreaCount.WithParams(methodsOfInterest.Count));
+
             var output = new StringBuilder();
 
             var numericCounter = 1;
 
-            var propertyNames = new List<string>();
+            var memberNames = new List<string>();
 
             foreach (var prop in propertiesOfInterest)
             {
@@ -68,13 +84,29 @@ namespace RapidXamlToolkit.Parsers
                     numericCounter = toAdd.counter;
                     output.AppendLine(toAdd.output);
 
-                    propertyNames.Add(propDetails.Name);
+                    memberNames.Add(propDetails.Name);
                 }
             }
 
-            if (propertyNames.Any())
+            foreach (var method in methodsOfInterest)
             {
-                var outputName = GetSelectionMemberName(propertyNames);
+                var memberDets = this.GetMethodDetails(method, semModel);
+
+                Logger?.RecordInfo(StringRes.Info_AddingMemberToOutput.WithParams(memberDets.Name));
+                var toAdd = this.GetMethodOutputAndCounter(memberDets, numericCounter, semModel);
+
+                if (!string.IsNullOrWhiteSpace(toAdd.output))
+                {
+                    numericCounter = toAdd.counter;
+                    output.AppendLine(toAdd.output);
+
+                    memberNames.Add(memberDets.Name);
+                }
+            }
+
+            if (memberNames.Any())
+            {
+                var outputName = GetSelectionMemberName(memberNames);
 
                 Logger?.RecordInfo(StringRes.Info_ReturningOutput.WithParams(outputName));
 
@@ -88,7 +120,7 @@ namespace RapidXamlToolkit.Parsers
             }
             else
             {
-                Logger?.RecordInfo(StringRes.Info_NoPropertiesToOutput);
+                Logger?.RecordInfo(StringRes.Info_NoMembersToOutput);
                 return ParserOutput.Empty;
             }
         }

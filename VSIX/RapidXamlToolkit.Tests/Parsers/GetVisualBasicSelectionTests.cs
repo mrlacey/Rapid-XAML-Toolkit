@@ -50,7 +50,7 @@ End Namespace";
 
             var expected = new ParserOutput
             {
-                Name = "Property1, Property2 and 6 other properties",
+                Name = "Property1, Property2 and 6 other members",
                 Output = expectedOutput,
                 OutputType = ParserOutputType.Selection,
             };
