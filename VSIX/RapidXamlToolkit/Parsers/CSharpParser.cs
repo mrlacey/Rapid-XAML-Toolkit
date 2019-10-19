@@ -191,6 +191,51 @@ namespace RapidXamlToolkit.Parsers
             return result;
         }
 
+        public override List<MethodDetails> GetAllMethods(ITypeSymbol typeSymbol, SemanticModel semModel)
+        {
+            var methods = new List<ISymbol>();
+
+            foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
+            {
+                switch (baseType.Kind)
+                {
+                    case SymbolKind.NamedType:
+                        methods.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Method && m.DeclaredAccessibility == Accessibility.Public && !m.IsStatic));
+                        break;
+                    case SymbolKind.ErrorType:
+                        // TODO: update error message
+                        Logger?.RecordInfo(StringRes.Info_CannotGetPropertiesForKnownType.WithParams(baseType.Name));
+                        break;
+                }
+            }
+
+            var result = new List<MethodDetails>();
+
+            foreach (var method in methods)
+            {
+                var decRefs = method.OriginalDefinition.DeclaringSyntaxReferences;
+
+                if (decRefs.Any())
+                {
+                    var decRef = decRefs.First();
+
+                    SyntaxNode syntax = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<MethodDeclarationSyntax>().FirstOrDefault();
+
+                    var details = this.GetMethodDetails(syntax, semModel);
+
+                    Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
+                    result.Add(details);
+                }
+                else
+                {
+                    // TODO: update message
+                    Logger?.RecordInfo(StringRes.Info_FoundSubPropertyOfUnknownType.WithParams(method.Name));
+                }
+            }
+
+            return result;
+        }
+
         protected override (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
         {
             var result = new List<string>();

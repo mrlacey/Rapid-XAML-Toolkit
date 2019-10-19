@@ -141,6 +141,8 @@ namespace RapidXamlToolkit.Parsers
                 var classTypeSymbol = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
                 var properties = this.GetAllPublicProperties(classTypeSymbol, semModel);
 
+                var methods = this.GetAllMethods(classTypeSymbol, semModel);
+
                 var output = new StringBuilder();
 
                 var classGrouping = this.Profile.ClassGrouping;
@@ -150,7 +152,7 @@ namespace RapidXamlToolkit.Parsers
                     output.AppendLine($"<{FormattedClassGroupingOpener(classGrouping)}>");
                 }
 
-                if (properties.Any())
+                if (properties.Any() || methods.Any())
                 {
                     Logger?.RecordInfo(StringRes.Info_ClassPropertyCount.WithParams(properties.Count));
 
@@ -162,6 +164,15 @@ namespace RapidXamlToolkit.Parsers
                     {
                         Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(prop.Name));
                         var toAdd = this.GetOutputToAdd(semModel, prop, numericCounter);
+
+                        numericCounter = toAdd.counter;
+                        propertyOutput.Add(toAdd.output);
+                    }
+
+                    foreach (var method in methods)
+                    {
+                        Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(method.Name));
+                        var toAdd = this.GetOutputToAdd(semModel, method, numericCounter);
 
                         numericCounter = toAdd.counter;
                         propertyOutput.Add(toAdd.output);
@@ -229,6 +240,11 @@ namespace RapidXamlToolkit.Parsers
         public virtual List<PropertyDetails> GetAllPublicProperties(ITypeSymbol typeSymbol, SemanticModel semModel)
         {
             return new List<PropertyDetails>();
+        }
+
+        public virtual List<MethodDetails> GetAllMethods(ITypeSymbol typeSymbol, SemanticModel semModel)
+        {
+            return new List<MethodDetails>();
         }
 
         protected static string FormattedClassGroupingOpener(string classGrouping)
