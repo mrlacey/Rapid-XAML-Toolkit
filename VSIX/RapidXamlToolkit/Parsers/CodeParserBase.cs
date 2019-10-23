@@ -906,13 +906,18 @@ namespace RapidXamlToolkit.Parsers
             return mappingOfInterest;
         }
 
-        private Mapping FirstWithTwoTypes(List<Mapping> mappings, string typeName1, string typeName2)
+        private Mapping FirstWithTwoTypes(List<Mapping> mappings, string methodName, string typeName1, string typeName2)
         {
             // Both types set explicitly
             // With or without space
             var mappingOfInterest = mappings.FirstOrDefault(
-                    m => m.Type.EndsWith($"({typeName1},{typeName2})")
-                      || m.Type.EndsWith($"({typeName1}, {typeName2})"));
+                    m => methodName.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"({typeName1},{typeName2})")
+                      || m.Type.EndsWith($"({typeName1}, {typeName2})")))
+                ?? mappings.FirstOrDefault(
+                    m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"({typeName1},{typeName2})")
+                      || m.Type.EndsWith($"({typeName1}, {typeName2})")));
 
             if (mappingOfInterest != null)
             {
@@ -921,7 +926,11 @@ namespace RapidXamlToolkit.Parsers
 
             // first anything, second explicit
             mappingOfInterest = mappings.FirstOrDefault(
-                    m => m.Type.EndsWith($"(T,{typeName2})") || m.Type.EndsWith($"(T, {typeName2})"));
+                    m => methodName.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"(T,{typeName2})") || m.Type.EndsWith($"(T, {typeName2})")))
+                ?? mappings.FirstOrDefault(
+                    m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"(T,{typeName2})") || m.Type.EndsWith($"(T, {typeName2})")));
 
             if (mappingOfInterest != null)
             {
@@ -930,7 +939,11 @@ namespace RapidXamlToolkit.Parsers
 
             // Second anything, first explicit
             mappingOfInterest = mappings.FirstOrDefault(
-                    m => m.Type.EndsWith($"({typeName1},T)") || m.Type.EndsWith($"({typeName1}, T)"));
+                    m => methodName.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"({typeName1},T)") || m.Type.EndsWith($"({typeName1}, T)")))
+                ?? mappings.FirstOrDefault(
+                    m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"({typeName1},T)") || m.Type.EndsWith($"({typeName1}, T)")));
 
             if (mappingOfInterest != null)
             {
@@ -939,7 +952,11 @@ namespace RapidXamlToolkit.Parsers
 
             // Both anything
             mappingOfInterest = mappings.FirstOrDefault(
-                m => m.Type.EndsWith($"(T,T)") || m.Type.EndsWith($"(T, T)"));
+                    m => methodName.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"(T,T)") || m.Type.EndsWith($"(T, T)")))
+                ?? mappings.FirstOrDefault(
+                    m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"(T,T)") || m.Type.EndsWith($"(T, T)")));
 
             if (mappingOfInterest != null)
             {
@@ -968,22 +985,32 @@ namespace RapidXamlToolkit.Parsers
                 var arg1TypeName = method.Argument1Type.Name.ToLowerInvariant();
                 var arg2TypeName = method.Argument2Type.Name.ToLowerInvariant();
 
-                return this.FirstWithTwoTypes(typeMappings, arg1TypeName, arg2TypeName);
+                return this.FirstWithTwoTypes(typeMappings, method.Name, arg1TypeName, arg2TypeName);
             }
             else if (!string.IsNullOrWhiteSpace(method.Argument1Type?.Name))
             {
                 var arg1TypeName = method.Argument1Type.Name.ToLowerInvariant();
 
-                var mappingOfInterest = typeMappings.FirstOrDefault(
-                        m => m.Type.Contains($"]method({arg1TypeName})") || m.Type.Equals($"method({arg1TypeName})"));
+                var mappingOfInterest =
+                     typeMappings.FirstOrDefault(
+                         m => method.Name.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                           && (m.Type.Contains($"]method({arg1TypeName})") || m.Type.Equals($"method({arg1TypeName})")))
+                     ?? typeMappings.FirstOrDefault(
+                         m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                           && (m.Type.Contains($"]method({arg1TypeName})") || m.Type.Equals($"method({arg1TypeName})")));
 
                 if (mappingOfInterest != null)
                 {
                     return mappingOfInterest;
                 }
 
-                mappingOfInterest = typeMappings.FirstOrDefault(
-                        m => m.Type.Contains($"]method(T)") || m.Type.Equals($"method(T)"));
+                mappingOfInterest =
+                    typeMappings.FirstOrDefault(
+                        m => method.Name.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                          && (m.Type.Contains($"]method(T)") || m.Type.Equals($"method(T)")))
+                    ?? typeMappings.FirstOrDefault(
+                        m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                          && (m.Type.Contains($"]method(T)") || m.Type.Equals($"method(T)")));
 
                 if (mappingOfInterest != null)
                 {
@@ -991,7 +1018,10 @@ namespace RapidXamlToolkit.Parsers
                 }
             }
 
-            return typeMappings.First();
+            return typeMappings.FirstOrDefault(
+                    m => method.Name.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty))
+                ?? typeMappings.FirstOrDefault(
+                    m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty));
         }
     }
 }
