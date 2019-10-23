@@ -19,6 +19,11 @@ namespace tests
 {
     class Class1☆
     {
+        public Class1()
+        {
+            // Constructor is a method but shouldn't match anything
+        }
+
         public void OnPhotoTaken(CameraControlEventArgs args) { }
 
         public void ZoomIn() => _zoomService?.ZoomIn();
@@ -30,6 +35,16 @@ namespace tests
         public async void Redo() {  }
 
         public void MethodName(string name, int amount) { }
+
+        private void DoNotMatchBecausePrivate() { }
+
+        public int DoNotMatchBecauseOfReturnType() { }
+
+        internal void DoNotMatchBecauseInternal() { }
+
+        protected void DoNotMatchBecauseProtected() { }
+
+        public void DoNotMatchAsGeneric<T>() { }
     }
 }";
 

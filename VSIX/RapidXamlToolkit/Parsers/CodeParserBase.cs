@@ -141,7 +141,7 @@ namespace RapidXamlToolkit.Parsers
                 var classTypeSymbol = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
                 var properties = this.GetAllPublicProperties(classTypeSymbol, semModel);
 
-                var methods = this.GetAllMethods(classTypeSymbol, semModel);
+                var methods = this.GetAllPublicVoidMethods(classTypeSymbol, semModel);
 
                 var output = new StringBuilder();
 
@@ -245,7 +245,7 @@ namespace RapidXamlToolkit.Parsers
             return new List<PropertyDetails>();
         }
 
-        public virtual List<MethodDetails> GetAllMethods(ITypeSymbol typeSymbol, SemanticModel semModel)
+        public virtual List<MethodDetails> GetAllPublicVoidMethods(ITypeSymbol typeSymbol, SemanticModel semModel)
         {
             return new List<MethodDetails>();
         }

@@ -191,7 +191,7 @@ namespace RapidXamlToolkit.Parsers
             return result;
         }
 
-        public override List<MethodDetails> GetAllMethods(ITypeSymbol typeSymbol, SemanticModel semModel)
+        public override List<MethodDetails> GetAllPublicVoidMethods(ITypeSymbol typeSymbol, SemanticModel semModel)
         {
             var methods = new List<ISymbol>();
 
@@ -210,6 +210,8 @@ namespace RapidXamlToolkit.Parsers
                                     .Where(
                                         m => m.Kind == SymbolKind.Method
                                           && m.DeclaredAccessibility == Accessibility.Public
+                                          && ((IMethodSymbol)m).ReturnsVoid
+                                          && !((IMethodSymbol)m).IsGenericMethod
                                           && !m.MetadataName.StartsWith("get_")
                                           && !m.MetadataName.StartsWith("set_")
                                           && !m.IsStatic));
