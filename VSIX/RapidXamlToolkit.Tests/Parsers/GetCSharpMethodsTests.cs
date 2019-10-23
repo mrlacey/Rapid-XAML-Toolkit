@@ -408,6 +408,164 @@ namespace tests
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
         }
 
+        [TestMethod]
+        public void MethodOutputCanBeInGrid_OneColumn()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1☆
+    {
+        public void OnPhotoTaken(CameraControlEventArgs args) { }
+
+        public void ZoomIn() => _zoomService?.ZoomIn();
+
+        public void Undo() {  }
+
+        public async void SwitchTheme(ElementTheme theme) { }
+
+        public async void Redo() {  }
+
+        public void MethodName(string name, int amount) { }
+    }
+}";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <Grid.RowDefinitions>"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"*\" />"
+         + Environment.NewLine + "    </Grid.RowDefinitions>"
+         + Environment.NewLine + "    <TextBlock Text=\"ONEPARAM_OnPhotoTaken_args\" Grid.Row=\"0\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"NOPARAMS_ZoomIn\" Grid.Row=\"1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"NOPARAMS_Undo\" Grid.Row=\"2\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"ONEPARAM_SwitchTheme_theme\" Grid.Row=\"3\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"NOPARAMS_Redo\" Grid.Row=\"4\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"TWOPARAMS_MethodName_name_amount\" Grid.Row=\"5\" />"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "GRID-PLUS-ROWDEFS";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "method()",
+                NameContains = "",
+                Output = "<TextBlock Text=\"NOPARAMS_$method$\" Grid.Row=\"$incint$\" />",
+                IfReadOnly = false,
+            });
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "method(T)",
+                NameContains = "",
+                Output = "<TextBlock Text=\"ONEPARAM_$method$_$arg1$\" Grid.Row=\"$incint$\" />",
+                IfReadOnly = false,
+            });
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "method(T,T)",
+                NameContains = "",
+                Output = "<TextBlock Text=\"TWOPARAMS_$method$_$arg1$_$arg2$\" Grid.Row=\"$incint$\" />",
+                IfReadOnly = false,
+            });
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
+        [TestMethod]
+        public void MethodOutputCanBeInGrid_TwoColumns()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1☆
+    {
+        public void OnPhotoTaken(CameraControlEventArgs args) { }
+
+        public void ZoomIn() => _zoomService?.ZoomIn();
+
+        public void Undo() {  }
+
+        public async void SwitchTheme(ElementTheme theme) { }
+
+        public async void Redo() {  }
+
+        public void MethodName(string name, int amount) { }
+    }
+}";
+
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <Grid.ColumnDefinitions>"
+         + Environment.NewLine + "        <ColumnDefinition Width=\"Auto\" />"
+         + Environment.NewLine + "        <ColumnDefinition Width=\"*\" />"
+         + Environment.NewLine + "    </Grid.ColumnDefinitions>"
+         + Environment.NewLine + "    <Grid.RowDefinitions>"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"Auto\" />"
+         + Environment.NewLine + "        <RowDefinition Height=\"*\" />"
+         + Environment.NewLine + "    </Grid.RowDefinitions>"
+         + Environment.NewLine + "    <Lbl Grid.Column=\"0\" Grid.Row=\"0\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"ONEPARAM_OnPhotoTaken_args\" Grid.Column=\"1\" Grid.Row=\"0\" />"
+         + Environment.NewLine + "    <Lbl Grid.Column=\"0\" Grid.Row=\"1\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"NOPARAMS_ZoomIn\" Grid.Column=\"1\" Grid.Row=\"1\" />"
+         + Environment.NewLine + "    <Lbl Grid.Column=\"0\" Grid.Row=\"2\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"NOPARAMS_Undo\" Grid.Column=\"1\" Grid.Row=\"2\" />"
+         + Environment.NewLine + "    <Lbl Grid.Column=\"0\" Grid.Row=\"3\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"ONEPARAM_SwitchTheme_theme\" Grid.Column=\"1\" Grid.Row=\"3\" />"
+         + Environment.NewLine + "    <Lbl Grid.Column=\"0\" Grid.Row=\"4\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"NOPARAMS_Redo\" Grid.Column=\"1\" Grid.Row=\"4\" />"
+         + Environment.NewLine + "    <Lbl Grid.Column=\"0\" Grid.Row=\"5\" />"
+         + Environment.NewLine + "    <TextBlock Text=\"TWOPARAMS_MethodName_name_amount\" Grid.Column=\"1\" Grid.Row=\"5\" />"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "GRID-PLUS-ROWDEFS-2COLS";
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "method()",
+                NameContains = "",
+                Output = "<Lbl Grid.Column=\"0\" Grid.Row=\"$incint$\" /><TextBlock Text=\"NOPARAMS_$method$\" Grid.Column=\"1\" Grid.Row=\"$repint$\" />",
+                IfReadOnly = false,
+            });
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "method(T)",
+                NameContains = "",
+                Output = "<Lbl Grid.Column=\"0\" Grid.Row=\"$incint$\" /><TextBlock Text=\"ONEPARAM_$method$_$arg1$\" Grid.Column=\"1\" Grid.Row=\"$repint$\" />",
+                IfReadOnly = false,
+            });
+            profile.Mappings.Add(new Mapping
+            {
+                Type = "method(T,T)",
+                NameContains = "",
+                Output = "<Lbl Grid.Column=\"0\" Grid.Row=\"$incint$\" /><TextBlock Text=\"TWOPARAMS_$method$_$arg1$_$arg2$\" Grid.Column=\"1\" Grid.Row=\"$repint$\" />",
+                IfReadOnly = false,
+            });
+
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
         private Profile MethodTestProfile()
         {
             var profile = TestProfile.CreateEmpty();

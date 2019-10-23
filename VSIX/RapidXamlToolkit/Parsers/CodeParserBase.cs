@@ -463,7 +463,32 @@ namespace RapidXamlToolkit.Parsers
                                       .Replace(Placeholder.Argument1, arg1)
                                       .Replace(Placeholder.Argument2, arg2);
 
-                // TODO: add grid support and counter replacement
+                var currentNumber = numericSubstitute;
+
+                while (result.Contains(Placeholder.IncrementingInteger))
+                {
+                    Logger?.RecordInfo(StringRes.Info_ReplacingIncIntPlaceholder);
+
+                    var subPosition = result.IndexOf(Placeholder.IncrementingInteger, StringComparison.OrdinalIgnoreCase);
+
+                    result = result.Remove(subPosition, Placeholder.IncrementingInteger.Length);
+                    result = result.Insert(subPosition, numericSubstitute.ToString());
+
+                    numericSubstitute += 1;
+
+                    currentNumber = numericSubstitute - 1;
+                }
+
+                while (result.Contains(Placeholder.RepeatingInteger))
+                {
+                    Logger?.RecordInfo(StringRes.Info_ReplacingRepIntPlaceholder);
+
+                    var subPosition = result.IndexOf(Placeholder.RepeatingInteger, StringComparison.OrdinalIgnoreCase);
+
+                    result = result.Remove(subPosition, Placeholder.RepeatingInteger.Length);
+                    result = result.Insert(subPosition, currentNumber.ToString());
+                }
+
                 var finalResult = result.FormatXaml(CodeParserBase.XamlIndentSize);
 
                 return (finalResult, numericSubstitute);
