@@ -47,7 +47,7 @@ namespace RapidXamlToolkit.Parsers
 
         public Profile Profile { get; }
 
-        protected static string[] TypesToSkipWhenCheckingForSubProperties { get; } = new[] { "String", "ValueType", "Object" };
+        protected static string[] TypesToSkipWhenCheckingForSubMembers { get; } = new[] { "String", "ValueType", "Object" };
 
         protected static string[] NamesOfPropertiesToExcludeFromOutput { get; } = new[] { "IsInDesignMode", "IsInDesignModeStatic", "DataStore" };
 
@@ -209,7 +209,10 @@ namespace RapidXamlToolkit.Parsers
 
                     foreach (var po in propertyOutput)
                     {
-                        output.AppendLine(po);
+                        if (!string.IsNullOrEmpty(po))
+                        {
+                            output.AppendLine(po);
+                        }
                     }
                 }
                 else
@@ -450,14 +453,21 @@ namespace RapidXamlToolkit.Parsers
             Logger?.RecordInfo(StringRes.Info_FormattingOutputForMethod.WithParams(name));
             Logger?.RecordInfo(StringRes.Info_FormattingRawOutput.WithParams(rawOutput));
 
-            var result = rawOutput.Replace(Placeholder.MethodName, name)
-                                  .Replace(Placeholder.Argument1, arg1)
-                                  .Replace(Placeholder.Argument2, arg2);
+            if (rawOutput.Trim().Equals(Placeholder.NoOutput))
+            {
+                return (string.Empty, numericSubstitute);
+            }
+            else
+            {
+                var result = rawOutput.Replace(Placeholder.MethodName, name)
+                                      .Replace(Placeholder.Argument1, arg1)
+                                      .Replace(Placeholder.Argument2, arg2);
 
-            // TODO: add grid support and counter replacement
-            var finalResult = result.FormatXaml(CodeParserBase.XamlIndentSize);
+                // TODO: add grid support and counter replacement
+                var finalResult = result.FormatXaml(CodeParserBase.XamlIndentSize);
 
-            return (finalResult, numericSubstitute);
+                return (finalResult, numericSubstitute);
+            }
         }
 
         private (string output, int counter) FormatOutput(string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, List<AttributeDetails> attributes, Func<(List<string> strings, int count)> getSubPropertyOutput)
@@ -916,7 +926,17 @@ namespace RapidXamlToolkit.Parsers
 
         private Mapping GetMappingOfInterest(MethodDetails method)
         {
-            List<Mapping> typeMappings = this.Profile.Mappings.Where(m => m.Type.StartsWith("method(")).ToList();
+            List<Mapping> typeMappings = new List<Mapping>();
+
+            if (method.Attributes.Any())
+            {
+                foreach (var attribute in method.Attributes)
+                {
+                    typeMappings.AddRange(this.Profile.Mappings.Where(m => m.Type.StartsWith($"[{attribute.Name}]method(")).ToList());
+                }
+            }
+
+            typeMappings.AddRange(this.Profile.Mappings.Where(m => m.Type.StartsWith("method(")).ToList());
 
             if (!string.IsNullOrWhiteSpace(method.Argument2Type?.Name))
             {
@@ -930,7 +950,7 @@ namespace RapidXamlToolkit.Parsers
                 var arg1TypeName = method.Argument1Type.Name.ToLowerInvariant();
 
                 var mappingOfInterest = typeMappings.FirstOrDefault(
-                        m => m.Type.Equals($"method({arg1TypeName})"));
+                        m => m.Type.Contains($"]method({arg1TypeName})") || m.Type.Equals($"method({arg1TypeName})"));
 
                 if (mappingOfInterest != null)
                 {
@@ -938,7 +958,7 @@ namespace RapidXamlToolkit.Parsers
                 }
 
                 mappingOfInterest = typeMappings.FirstOrDefault(
-                        m => m.Type.Equals($"method(T)"));
+                        m => m.Type.Contains($"]method(T)") || m.Type.Equals($"method(T)"));
 
                 if (mappingOfInterest != null)
                 {

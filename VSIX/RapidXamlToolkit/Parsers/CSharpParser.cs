@@ -131,7 +131,7 @@ namespace RapidXamlToolkit.Parsers
 
             foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
             {
-                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubProperties))
+                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubMembers))
                 {
                     continue;
                 }
@@ -197,14 +197,25 @@ namespace RapidXamlToolkit.Parsers
 
             foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
             {
+                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubMembers))
+                {
+                    continue;
+                }
+
                 switch (baseType.Kind)
                 {
                     case SymbolKind.NamedType:
-                        methods.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Method && m.DeclaredAccessibility == Accessibility.Public && !m.IsStatic));
+                        methods.AddRange(
+                            baseType.GetMembers()
+                                    .Where(
+                                        m => m.Kind == SymbolKind.Method
+                                          && m.DeclaredAccessibility == Accessibility.Public
+                                          && !m.MetadataName.StartsWith("get_")
+                                          && !m.MetadataName.StartsWith("set_")
+                                          && !m.IsStatic));
                         break;
                     case SymbolKind.ErrorType:
-                        // TODO: update error message
-                        Logger?.RecordInfo(StringRes.Info_CannotGetPropertiesForKnownType.WithParams(baseType.Name));
+                        Logger?.RecordInfo(StringRes.Info_CannotGetMethodsForKnownType.WithParams(baseType.Name));
                         break;
                 }
             }
@@ -213,6 +224,11 @@ namespace RapidXamlToolkit.Parsers
 
             foreach (var method in methods)
             {
+                if (((IMethodSymbol)method).MethodKind == MethodKind.Constructor)
+                {
+                    continue;
+                }
+
                 var decRefs = method.OriginalDefinition.DeclaringSyntaxReferences;
 
                 if (decRefs.Any())
@@ -228,8 +244,10 @@ namespace RapidXamlToolkit.Parsers
                 }
                 else
                 {
-                    // TODO: update message
-                    Logger?.RecordInfo(StringRes.Info_FoundSubPropertyOfUnknownType.WithParams(method.Name));
+                    if (method.Name != ".ctor")
+                    {
+                        Logger?.RecordInfo(StringRes.Info_FoundSubMethodOfUnknownType.WithParams(method.Name));
+                    }
                 }
             }
 
@@ -405,11 +423,11 @@ namespace RapidXamlToolkit.Parsers
                     }
                 }
 
-                // TODO: get attributes too
+                md.Attributes.AddRange(this.GetAttributes(methodDec.AttributeLists));
             }
             else
             {
-                // TODO: Log error
+                Logger?.RecordInfo(StringRes.Info_UnexpectedMethodType.WithParams(methodDeclaration.GetType()));
             }
 
             return md;

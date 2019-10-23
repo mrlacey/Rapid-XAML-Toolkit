@@ -1015,4 +1015,13 @@
   <data name="Info_NoMembersToOutput" xml:space="preserve">
     <value>No properties or methods to provide output for.</value>
   </data>
+  <data name="Info_CannotGetMethodsForKnownType" xml:space="preserve">
+    <value>Cannot get sub-members for known type '{0}'</value>
+  </data>
+  <data name="Info_FoundSubMethodOfUnknownType" xml:space="preserve">
+    <value>Found sub-method of unknown type: {0}</value>
+  </data>
+  <data name="Info_UnexpectedMethodType" xml:space="preserve">
+    <value>Unexpected method type '{0}' cannot be converted to XAML.</value>
+  </data>
 </root>

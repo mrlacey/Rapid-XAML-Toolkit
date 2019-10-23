@@ -223,6 +223,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot get sub-members for known type &apos;{0}&apos;.
+        /// </summary>
+        public static string Info_CannotGetMethodsForKnownType {
+            get {
+                return ResourceManager.GetString("Info_CannotGetMethodsForKnownType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot get sub-properties for known type &apos;{0}&apos;..
         /// </summary>
         public static string Info_CannotGetPropertiesForKnownType {
@@ -444,6 +453,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_FoundPropertyCount {
             get {
                 return ResourceManager.GetString("Info_FoundPropertyCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found sub-method of unknown type: {0}.
+        /// </summary>
+        public static string Info_FoundSubMethodOfUnknownType {
+            get {
+                return ResourceManager.GetString("Info_FoundSubMethodOfUnknownType", resourceCulture);
             }
         }
         
@@ -948,6 +966,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_UndoContextMoveStringToResourceFile {
             get {
                 return ResourceManager.GetString("Info_UndoContextMoveStringToResourceFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected method type &apos;{0}&apos; cannot be converted to XAML..
+        /// </summary>
+        public static string Info_UnexpectedMethodType {
+            get {
+                return ResourceManager.GetString("Info_UnexpectedMethodType", resourceCulture);
             }
         }
         

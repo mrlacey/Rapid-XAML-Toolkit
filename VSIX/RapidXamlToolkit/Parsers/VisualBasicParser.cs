@@ -105,7 +105,7 @@ namespace RapidXamlToolkit.Parsers
 
             foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
             {
-                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubProperties))
+                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubMembers))
                 {
                     continue;
                 }
