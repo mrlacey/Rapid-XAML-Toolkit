@@ -647,6 +647,59 @@ namespace tests
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
         }
 
+        [TestMethod]
+        public void FallbackIsNotUsedForMethods()
+        {
+            var code = @"
+namespace tests
+{
+    class Class1☆
+    {
+        public Class1()
+        {
+            // Constructor is a method but shouldn't match anything
+        }
+
+        public void OnPhotoTaken(CameraControlEventArgs args) { }
+
+        public void ZoomIn() => _zoomService?.ZoomIn();
+
+        public void Undo() {  }
+
+        public async void SwitchTheme(ElementTheme theme) { }
+
+        public async void Redo() {  }
+
+        public void MethodName(string name, int amount) { }
+
+        private void DoNotMatchBecausePrivate() { }
+
+        public int DoNotMatchBecauseOfReturnType() { }
+
+        internal void DoNotMatchBecauseInternal() { }
+
+        protected void DoNotMatchBecauseProtected() { }
+
+        public void DoNotMatchAsGeneric<T>() { }
+    }
+}";
+
+            var expectedOutput = "<StackPanel>"
+         + Environment.NewLine + "</StackPanel>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            var profile = TestProfile.CreateEmpty();
+            profile.ClassGrouping = "StackPanel";
+            profile.FallbackOutput = "<DoNotOutputForMethods />";
+            this.PositionAtStarShouldProduceExpected(code, expected, profile);
+        }
+
         private Profile MethodTestProfile()
         {
             var profile = TestProfile.CreateEmpty();
