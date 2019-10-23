@@ -1017,11 +1017,17 @@ namespace RapidXamlToolkit.Parsers
                     return mappingOfInterest;
                 }
             }
+            else
+            {
+                return typeMappings.FirstOrDefault(
+                        m => method.Name.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                          && m.Type.ToLowerInvariant().Contains("method()"))
+                    ?? typeMappings.FirstOrDefault(
+                        m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                          && m.Type.ToLowerInvariant().Contains("method()"));
+            }
 
-            return typeMappings.FirstOrDefault(
-                    m => method.Name.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty))
-                ?? typeMappings.FirstOrDefault(
-                    m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty));
+            return null;
         }
     }
 }
