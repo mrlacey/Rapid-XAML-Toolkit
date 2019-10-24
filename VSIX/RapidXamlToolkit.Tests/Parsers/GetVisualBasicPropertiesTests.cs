@@ -29,7 +29,7 @@ End Class";
             {
                 Name = "Property2",
                 Output = "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -51,7 +51,7 @@ End Class";
             {
                 Name = "Property2",
                 Output = "<TextBlock Text=\"Property2\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -87,7 +87,7 @@ End Namespace";
             {
                 Name = "Property2",
                 Output = "<TextBox Text=\"{x:Bind Property2, Mode=TwoWay}\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -123,7 +123,7 @@ End Namespace";
             {
                 Name = "Property2",
                 Output = "<TextBlock Text=\"Property2\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -155,7 +155,7 @@ End Namespace";
             {
                 Name = "Property2",
                 Output = "<TextBlock Text=\"Property2\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -173,7 +173,7 @@ End Class";
             {
                 Name = "SomeProperty",
                 Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"SomeProperty\" Value=\"{x:Bind SomeProperty, Mode=TwoWay}\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -196,7 +196,7 @@ End Namespace";
                 Name = "MyListProperty",
                 Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\">" + Environment.NewLine +
                          "</ItemsControl>",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -260,7 +260,7 @@ End Namespace";
                 Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty}\">" + Environment.NewLine +
                          "    <TextBlock Text=\"SUBPROP_OtherListProperty\" />" + Environment.NewLine +
                          "</ItemsControl>",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(codeFile1, expected, testProfile, codeFile2, codeFile3);
@@ -293,7 +293,7 @@ End Namespace";
                 Name = "MyListProperty2",
                 Output = "<ItemsControl ItemsSource=\"{x:Bind MyListProperty2}\">" + Environment.NewLine +
                          "</ItemsControl>",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -311,7 +311,7 @@ End Class";
             {
                 Name = "TestProperty",
                 Output = "<TextBox Text=\"{x:Bind TestProperty, Mode=TwoWay}\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -329,7 +329,7 @@ End Class";
             {
                 Name = "TestProperty",
                 Output = "<TextBox Text=\"{x:Bind TestProperty, Mode=TwoWay}\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -347,7 +347,7 @@ End Class";
             {
                 Name = "TestProperty",
                 Output = "<TextBox Text=\"{x:Bind TestProperty, Mode=TwoWay}\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -367,7 +367,7 @@ End Namespace";
             {
                 Name = "TestProperty",
                 Output = "<TextBox Text=\"{x:Bind TestProperty, Mode=TwoWay}\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -393,7 +393,7 @@ End Namespace";
                 Name = "LastOrder",
                 Output = @"<Slider Minimum=""0"" Maximum=""100"" x:Name=""LastOrder.OrderId"" Value=""{x:Bind LastOrder.OrderId, Mode=TwoWay}"" />"
  + Environment.NewLine + @"<TextBox Text=""{x:Bind LastOrder.OrderDescription, Mode=TwoWay}"" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -431,7 +431,7 @@ End Namespace";
             {
                 Name = "LastOrder",
                 Output = "<TextBlock Text=\"LastOrder\" x:Array=\"true\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, arrayProfile);
@@ -469,7 +469,7 @@ End Namespace";
             {
                 Name = "LastOrder",
                 Output = "<TextBlock Text=\"LastOrder\" x:DneType=\"true\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, dneProfile);
@@ -498,7 +498,7 @@ End Namespace";
                 Name = "LastOrder",
                 Output = "<Slider Minimum=\"0\" Maximum=\"100\" x:Name=\"LastOrder.OrderId\" Value=\"{x:Bind LastOrder.OrderId, Mode=TwoWay}\" />"
  + Environment.NewLine + "<TextBox Text=\"{x:Bind LastOrder.OrderDescription, Mode=TwoWay}\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, additionalCode: code2);
@@ -518,7 +518,7 @@ End Namespace";
             {
                 Name = "SomeProperty",
                 Output = "<TextBlock Text=\"FALLBACK_SomeProperty\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected);
@@ -561,7 +561,7 @@ End Namespace";
             {
                 Name = "LastOrder",
                 Output = "<TextBlock Text=\"LastOrder\" x:Order=\"true\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, orderProfile);
@@ -613,7 +613,7 @@ End Namespace";
             {
                 Name = "LastOrder",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
@@ -664,7 +664,7 @@ End Namespace";
             {
                 Name = "LastOrder",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
@@ -715,7 +715,7 @@ End Namespace";
             {
                 Name = "OrderStatus",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, enumProfile);
@@ -764,7 +764,7 @@ End Namespace";
             {
                 Name = "OrderStatus",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, enumProfile);
@@ -818,7 +818,7 @@ End Namespace";
             {
                 Name = "OrderStatus",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, enumProfile, code2);
@@ -860,7 +860,7 @@ End Namespace";
             {
                 Name = "LastOrder",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, recurseProfile);
@@ -889,7 +889,7 @@ End Namespace";
             {
                 Name = "SomeProperty",
                 Output = "<Dynamic Name=\"SomeProperty\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -924,7 +924,7 @@ End Namespace";
             {
                 Name = "SomeList",
                 Output = expectedXaml,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -1003,7 +1003,7 @@ End Namespace";
             {
                 Name = "ViewModel",
                 Output = "<Element Name=\"ViewModel\" />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
@@ -1219,7 +1219,7 @@ End Namespace";
             {
                 Name = "IgNoRe",
                 Output = xaml,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);

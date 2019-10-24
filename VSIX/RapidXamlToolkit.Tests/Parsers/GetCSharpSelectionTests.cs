@@ -44,7 +44,7 @@ namespace tests
 
             var expected = new ParserOutput
             {
-                Name = "Property1, Property2 and 6 other properties",
+                Name = "Property1, Property2 and 6 other members",
                 Output = expectedOutput,
                 OutputType = ParserOutputType.Selection,
             };
@@ -223,26 +223,6 @@ namespace tests
  ☆       private int _someField = 3;☆
 
         public string Property2 { get; private set; }
-    }
-}";
-
-            this.NoPropertiesFoundInSelectionTest(code);
-        }
-
-        [TestMethod]
-        public void GetSelectionNothingFoundOverMethod()
-        {
-            var code = @"
-namespace tests
-{
-    class SomeClass
-    {
-        public string Property2 { get; private set; }
-
-      ☆  public bool IsSpecial(string someValue)
-        {
-            return true;
-        }☆
     }
 }";
 

@@ -88,7 +88,7 @@ namespace tests
             {
                 Name = "MyBoolBrackets",
                 Output = "<BoolBrackets />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
@@ -112,7 +112,7 @@ namespace tests
             {
                 Name = "MyArrayBool",
                 Output = "<ArrayBool />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
@@ -140,7 +140,7 @@ namespace tests
 
             var expected = new ParserOutput
             {
-                Name = "MyBool, MyBoolBrackets and 1 other property",
+                Name = "MyBool, MyBoolBrackets and 1 other member",
                 Output = expectedXaml,
                 OutputType = ParserOutputType.Selection,
             };

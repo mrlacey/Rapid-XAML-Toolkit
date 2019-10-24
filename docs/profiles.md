@@ -22,6 +22,22 @@ Mappings are matched in the following order:
 
 If a property matches multiple mappings, there is no guarantee on which will be used.
 
+### Mapping methods
+
+It is possible to create a mapping to generate XAML based on a method.  
+To do this specify the type as `method()`, `method(T)`, or `method(T,T)`. These will match methods that take zero, one, or two parameters of any type. The `T` value can also be replaced with a specific type name to further limit the methods it applies to.  
+Filtering by name or applied attribute works in the same way as for properties.
+
+The following special considerations apply to mappings for methods.
+
+- A mapping type for a method cannot contain multiple method specifications, nor be combined with property types.
+- Only public methods that return `void` can be mapped.
+- Only methods that take fewer than three parameters can be used for XAML generation.
+- The 'Read-Only' setting is ignored for method mappings.
+- The fallback mapping is not applied to methods. XAML will only be generated for methods if a specific mapping is matched.
+- The name of the first argument passed to a method can be output with the placeholder `$arg1$`. For `void LogOut(User user) {}` this would be `user`.
+- The name of the second argument passed to a method can be output with the placeholder `$arg2$`. For `void DoSomething(User user, int operationId) {}` this would be `operationId`.
+
 ### Matching types with attributes
 
 It's possible to use attributes applied to properties to determine what to output. (Attributes can also be used in the output--see below.)
@@ -68,6 +84,9 @@ Profile settings and mappings can include placeholders. A placeholder is somethi
 - **$nooutput$** No Output. Nothing will be included in the generated XAML when this is in the mapping output.
 - **$xname$** A generated value based on the property name and the XAML element this is used within.
 - **$repxname$** Repeat the last generated $xname$ value. If no $xname$ value has been generated, the attribute this is used within will be omitted from the output.
+- **$method$** The name of the method.
+- **$arg1$** The name of the first argument passed to a method (if any).
+- **$arg2$** The name of the second argument passed to a method (if any).
 
 ### Attribute based placeholders
 

@@ -3,11 +3,10 @@
 
 namespace RapidXamlToolkit.Parsers
 {
-    public enum ParserOutputType
+    public enum TypeOfMember
     {
         None,
-        Member,
-        Class,
-        Selection,
+        Property,
+        Method,
     }
 }

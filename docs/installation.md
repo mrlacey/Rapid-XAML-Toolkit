@@ -1,15 +1,15 @@
 # Installation
 
 There are multiple installation options available if you don't want to build from source.
-We do not reommend having more than one version of the extension installed in a version of Visual Studio.
+We do not recommend having more than one version of the extension installed in a version of Visual Studio.
 
 ## Preview Release
 
-You can now get an early preview release from the marketplace.
+You can now [get an early preview release from the marketplace](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlPreview).
 
 ![Manage Extensions dialog showing preview version in the Search Results](./Assets/install-preview.png)
 
-Please note that the preview release once the official release is avaialble.
+Please note that the [preview release](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlPreview) will be removed once the official release is available.
 
 ## Official Releases
 

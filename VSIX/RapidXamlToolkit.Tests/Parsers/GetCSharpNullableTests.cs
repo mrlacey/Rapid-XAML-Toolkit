@@ -101,7 +101,7 @@ namespace tests
             {
                 Name = "MyBoolQ",
                 Output = "<BoolQ />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -125,7 +125,7 @@ namespace tests
             {
                 Name = "MyNullableBool",
                 Output = "<NullBool />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -147,7 +147,7 @@ namespace tests
             {
                 Name = "MyFqNullableBool",
                 Output = "<NullBool />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.NullableTestsProfile);
@@ -180,7 +180,7 @@ namespace tests
             {
                 Name = "MyListOfNullables",
                 Output = "<LBnull />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, profile);
@@ -210,7 +210,7 @@ namespace tests
 
             var expected = new ParserOutput
             {
-                Name = "MyBool, MyBoolQ and 2 other properties",
+                Name = "MyBool, MyBoolQ and 2 other members",
                 Output = expectedXaml,
                 OutputType = ParserOutputType.Selection,
             };

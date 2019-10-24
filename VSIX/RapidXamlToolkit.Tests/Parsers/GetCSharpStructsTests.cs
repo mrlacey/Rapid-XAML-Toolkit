@@ -70,7 +70,7 @@ namespace tests
             {
                 Name = "Property2",
                 Output = "<MyStruct />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -127,7 +127,7 @@ namespace tests
             {
                 Name = "MyListProperty",
                 Output = expectedXaml,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);

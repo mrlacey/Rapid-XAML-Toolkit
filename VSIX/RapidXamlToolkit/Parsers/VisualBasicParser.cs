@@ -44,11 +44,27 @@ namespace RapidXamlToolkit.Parsers
 
             Logger?.RecordInfo(StringRes.Info_PropertiesInSelectedAreaCount.WithParams(propertiesOfInterest.Count));
 
+            var allMethods = documentRoot.DescendantNodes().OfType<MethodStatementSyntax>().ToList();
+
+            Logger?.RecordInfo(StringRes.Info_DocumentMethodCount.WithParams(allMethods.Count));
+
+            var methodsOfInterest = new List<MethodStatementSyntax>();
+
+            foreach (var method in allMethods)
+            {
+                if (method.FullSpan.End >= selStart && method.FullSpan.Start < selEnd)
+                {
+                    methodsOfInterest.Add(method);
+                }
+            }
+
+            Logger?.RecordInfo(StringRes.Info_MethodsInSelectedAreaCount.WithParams(methodsOfInterest.Count));
+
             var output = new StringBuilder();
 
             var numericCounter = 1;
 
-            var propertyNames = new List<string>();
+            var memberNames = new List<string>();
 
             foreach (var prop in propertiesOfInterest)
             {
@@ -74,13 +90,29 @@ namespace RapidXamlToolkit.Parsers
                     numericCounter = toAdd.counter;
                     output.AppendLine(toAdd.output);
 
-                    propertyNames.Add(propDetails.Name);
+                    memberNames.Add(propDetails.Name);
                 }
             }
 
-            if (propertyNames.Any())
+            foreach (var method in methodsOfInterest)
             {
-                var outputName = GetSelectionPropertiesName(propertyNames);
+                var memberDets = this.GetMethodDetails(method, semModel);
+
+                Logger?.RecordInfo(StringRes.Info_AddingMemberToOutput.WithParams(memberDets.Name));
+                var toAdd = this.GetMethodOutputAndCounter(memberDets, numericCounter, semModel);
+
+                if (!string.IsNullOrWhiteSpace(toAdd.output))
+                {
+                    numericCounter = toAdd.counter;
+                    output.AppendLine(toAdd.output);
+
+                    memberNames.Add(memberDets.Name);
+                }
+            }
+
+            if (memberNames.Any())
+            {
+                var outputName = GetSelectionMemberName(memberNames);
 
                 Logger?.RecordInfo(StringRes.Info_ReturningOutput.WithParams(outputName));
 
@@ -94,7 +126,7 @@ namespace RapidXamlToolkit.Parsers
             }
             else
             {
-                Logger?.RecordInfo(StringRes.Info_NoPropertiesToOutput);
+                Logger?.RecordInfo(StringRes.Info_NoMembersToOutput);
                 return ParserOutput.Empty;
             }
         }
@@ -105,7 +137,7 @@ namespace RapidXamlToolkit.Parsers
 
             foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
             {
-                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubProperties))
+                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubMembers))
                 {
                     continue;
                 }
@@ -167,6 +199,71 @@ namespace RapidXamlToolkit.Parsers
                 {
                     Logger?.RecordInfo(StringRes.Info_FoundSubPropertyOfUnknownType.WithParams(prop.Name));
                     result.Add(new PropertyDetails { Name = prop.Name, PropertyType = UnknownOrInvalidTypeName, IsReadOnly = false, Symbol = null });
+                }
+            }
+
+            return result;
+        }
+
+        public override List<MethodDetails> GetAllPublicVoidMethods(ITypeSymbol typeSymbol, SemanticModel semModel)
+        {
+            var methods = new List<ISymbol>();
+
+            foreach (var baseType in typeSymbol.GetSelfAndBaseTypes())
+            {
+                if (baseType.Name.IsOneOf(TypesToSkipWhenCheckingForSubMembers))
+                {
+                    continue;
+                }
+
+                switch (baseType.Kind)
+                {
+                    case SymbolKind.NamedType:
+                        methods.AddRange(
+                            baseType.GetMembers()
+                                    .Where(
+                                        m => m.Kind == SymbolKind.Method
+                                          && m.DeclaredAccessibility == Accessibility.Public
+                                          && ((IMethodSymbol)m).ReturnsVoid
+                                          && !((IMethodSymbol)m).IsGenericMethod
+                                          && !m.MetadataName.StartsWith("get_")
+                                          && !m.MetadataName.StartsWith("set_")
+                                          && !m.IsStatic));
+                        break;
+                    case SymbolKind.ErrorType:
+                        Logger?.RecordInfo(StringRes.Info_CannotGetMethodsForKnownType.WithParams(baseType.Name));
+                        break;
+                }
+            }
+
+            var result = new List<MethodDetails>();
+
+            foreach (var method in methods)
+            {
+                if (((IMethodSymbol)method).MethodKind == MethodKind.Constructor)
+                {
+                    continue;
+                }
+
+                var decRefs = method.OriginalDefinition.DeclaringSyntaxReferences;
+
+                if (decRefs.Any())
+                {
+                    var decRef = decRefs.First();
+
+                    SyntaxNode syntax = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<MethodStatementSyntax>().FirstOrDefault();
+
+                    var details = this.GetMethodDetails(syntax, semModel);
+
+                    Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
+                    result.Add(details);
+                }
+                else
+                {
+                    if (method.Name != ".ctor")
+                    {
+                        Logger?.RecordInfo(StringRes.Info_FoundSubMethodOfUnknownType.WithParams(method.Name));
+                    }
                 }
             }
 
@@ -335,6 +432,41 @@ namespace RapidXamlToolkit.Parsers
             return pd;
         }
 
+        protected override MethodDetails GetMethodDetails(SyntaxNode methodDeclaration, SemanticModel semModel)
+        {
+            var md = new MethodDetails();
+
+            if (methodDeclaration is MethodStatementSyntax methodDec)
+            {
+                md.Name = methodDec.Identifier.ValueText;
+
+                if (methodDec.ParameterList.Parameters.Count > 0)
+                {
+                    var param1 = methodDec.ParameterList.Parameters.First();
+
+                    md.Argument1Name = param1.Identifier.Identifier.Text;
+
+                    md.Argument1Type = this.GetTypeSymbolWithFallback(param1.AsClause.Type, semModel, methodDec.SyntaxTree);
+
+                    if (methodDec.ParameterList.Parameters.Count > 1)
+                    {
+                        var param2 = methodDec.ParameterList.Parameters[1];
+
+                        md.Argument2Name = param2.Identifier.Identifier.Text;
+                        md.Argument2Type = this.GetTypeSymbolWithFallback(param2.AsClause.Type, semModel, methodDec.SyntaxTree);
+                    }
+                }
+
+                md.Attributes.AddRange(this.GetAttributeDetails(methodDec.AttributeLists));
+            }
+            else
+            {
+                Logger?.RecordInfo(StringRes.Info_UnexpectedMethodType.WithParams(methodDeclaration.GetType()));
+            }
+
+            return md;
+        }
+
         protected IEnumerable<AttributeDetails> GetAttributeDetails(SyntaxList<AttributeListSyntax> attributeLists)
         {
             var result = new List<AttributeDetails>();
@@ -424,54 +556,58 @@ namespace RapidXamlToolkit.Parsers
             return syntaxNode?.ChildTokens().FirstOrDefault(t => t.RawKind == (int)SyntaxKind.IdentifierToken).ValueText;
         }
 
-        protected override (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        protected override (SyntaxNode propertyNode, SyntaxNode classNode, SyntaxNode methodNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             SyntaxNode propertyNode = null;
             SyntaxNode classNode = null;
+            SyntaxNode methodNode = null;
 
             var currentNode = documentRoot.FindToken(caretPosition).Parent;
 
-            while (currentNode != null && propertyNode == null && classNode == null)
+            while (currentNode != null && propertyNode == null && classNode == null && methodNode == null)
             {
                 if (currentNode is ClassBlockSyntax || currentNode is ModuleBlockSyntax || currentNode is TypeStatementSyntax)
                 {
                     classNode = currentNode;
                 }
-
-                if (currentNode is PropertyStatementSyntax || currentNode is PropertyBlockSyntax)
+                else if (currentNode is PropertyStatementSyntax || currentNode is PropertyBlockSyntax)
                 {
                     propertyNode = currentNode;
+                }
+                else if (currentNode is MethodStatementSyntax)
+                {
+                    methodNode = currentNode;
                 }
 
                 currentNode = currentNode.Parent;
             }
 
-            return (propertyNode, classNode);
+            return (propertyNode, classNode, methodNode);
+        }
+
+        private ITypeSymbol GetTypeSymbolWithFallback(TypeSyntax ts, SemanticModel sm, SyntaxTree tree)
+        {
+            ITypeSymbol result;
+
+            try
+            {
+                result = sm.GetTypeInfo(ts).Type;
+            }
+            catch (Exception)
+            {
+                // By default, the semanticmodel passed into this method is the one for the active document.
+                // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
+                var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(tree).GetSemanticModel(tree, ignoreAccessibility: true);
+
+                result = localSemModel.GetTypeInfo(ts).Type;
+            }
+
+            return result;
         }
 
         private ITypeSymbol GetTypeSymbol(SemanticModel semModel, SyntaxNode prop, PropertyDetails propDetails)
         {
             ITypeSymbol typeSymbol = null;
-
-            ITypeSymbol GetWithFallback(TypeSyntax ts, SemanticModel sm, SyntaxTree tree)
-            {
-                ITypeSymbol result;
-
-                try
-                {
-                    result = sm.GetTypeInfo(ts).Type;
-                }
-                catch (Exception)
-                {
-                    // By default, the semanticmodel passed into this method is the one for the active document.
-                    // If the type is in another file, generate a new model to use to look up the typeinfo. Don't do this by default as it's expensive.
-                    var localSemModel = VisualBasicCompilation.Create(string.Empty).AddSyntaxTrees(tree).GetSemanticModel(tree, ignoreAccessibility: true);
-
-                    result = localSemModel.GetTypeInfo(ts).Type;
-                }
-
-                return result;
-            }
 
             if (propDetails.PropertyType.IsGenericTypeName())
             {
@@ -506,7 +642,7 @@ namespace RapidXamlToolkit.Parsers
                     Logger?.RecordInfo(StringRes.Info_PropertyCannotBeAnalyzed.WithParams(prop.ToString()));
                 }
 
-                typeSymbol = GetWithFallback(typeSyntax, semModel, prop.SyntaxTree);
+                typeSymbol = this.GetTypeSymbolWithFallback(typeSyntax, semModel, prop.SyntaxTree);
             }
             else
             {
@@ -525,7 +661,7 @@ namespace RapidXamlToolkit.Parsers
                             clauseType = ancs.Type();
                         }
 
-                        typeSymbol = GetWithFallback(clauseType, semModel, prop.SyntaxTree);
+                        typeSymbol = this.GetTypeSymbolWithFallback(clauseType, semModel, prop.SyntaxTree);
                     }
                     else
                     {
@@ -553,7 +689,7 @@ namespace RapidXamlToolkit.Parsers
                 }
                 else if (prop is PropertyBlockSyntax pbs)
                 {
-                    typeSymbol = GetWithFallback(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type, semModel, prop.SyntaxTree);
+                    typeSymbol = this.GetTypeSymbolWithFallback(((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type, semModel, prop.SyntaxTree);
                 }
                 else
                 {

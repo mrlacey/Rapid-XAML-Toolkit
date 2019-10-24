@@ -47,7 +47,7 @@ namespace RapidXamlToolkit.Parsers
 
         public Profile Profile { get; }
 
-        protected static string[] TypesToSkipWhenCheckingForSubProperties { get; } = new[] { "String", "ValueType", "Object" };
+        protected static string[] TypesToSkipWhenCheckingForSubMembers { get; } = new[] { "String", "ValueType", "Object" };
 
         protected static string[] NamesOfPropertiesToExcludeFromOutput { get; } = new[] { "IsInDesignMode", "IsInDesignModeStatic", "DataStore" };
 
@@ -59,7 +59,7 @@ namespace RapidXamlToolkit.Parsers
             return configuredSettings.ActualSettings;
         }
 
-        public static string GetSelectionPropertiesName(List<string> names)
+        public static string GetSelectionMemberName(List<string> names)
         {
             if (names == null || !names.Any())
             {
@@ -92,7 +92,7 @@ namespace RapidXamlToolkit.Parsers
         public ParserOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition)
         {
             Logger?.RecordInfo(StringRes.Info_GetSingleItemOutput);
-            var (propertyNode, classNode) = this.GetNodeUnderCaret(documentRoot, caretPosition);
+            var (propertyNode, classNode, methodNode) = this.GetNodeUnderCaret(documentRoot, caretPosition);
 
             if (propertyNode != null)
             {
@@ -108,7 +108,26 @@ namespace RapidXamlToolkit.Parsers
                     {
                         Name = name,
                         Output = output,
-                        OutputType = ParserOutputType.Property,
+                        OutputType = ParserOutputType.Member,
+                    };
+                }
+            }
+
+            if (methodNode != null)
+            {
+                Logger?.RecordInfo(StringRes.Info_GetSingleMethodOutput);
+
+                var methodDetails = this.GetMethodDetails(methodNode, semModel);
+
+                if (methodDetails != null)
+                {
+                    var (output, name, _) = this.GetOutputToAdd(semModel, methodDetails);
+
+                    return new ParserOutput
+                    {
+                        Name = name,
+                        Output = output,
+                        OutputType = ParserOutputType.Member,
                     };
                 }
             }
@@ -122,6 +141,8 @@ namespace RapidXamlToolkit.Parsers
                 var classTypeSymbol = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
                 var properties = this.GetAllPublicProperties(classTypeSymbol, semModel);
 
+                var methods = this.GetAllPublicVoidMethods(classTypeSymbol, semModel);
+
                 var output = new StringBuilder();
 
                 var classGrouping = this.Profile.ClassGrouping;
@@ -131,7 +152,7 @@ namespace RapidXamlToolkit.Parsers
                     output.AppendLine($"<{FormattedClassGroupingOpener(classGrouping)}>");
                 }
 
-                if (properties.Any())
+                if (properties.Any() || methods.Any())
                 {
                     Logger?.RecordInfo(StringRes.Info_ClassPropertyCount.WithParams(properties.Count));
 
@@ -143,6 +164,15 @@ namespace RapidXamlToolkit.Parsers
                     {
                         Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(prop.Name));
                         var toAdd = this.GetOutputToAdd(semModel, prop, numericCounter);
+
+                        numericCounter = toAdd.counter;
+                        propertyOutput.Add(toAdd.output);
+                    }
+
+                    foreach (var method in methods)
+                    {
+                        Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(method.Name));
+                        var toAdd = this.GetOutputToAdd(semModel, method, numericCounter);
 
                         numericCounter = toAdd.counter;
                         propertyOutput.Add(toAdd.output);
@@ -179,7 +209,10 @@ namespace RapidXamlToolkit.Parsers
 
                     foreach (var po in propertyOutput)
                     {
-                        output.AppendLine(po);
+                        if (!string.IsNullOrEmpty(po))
+                        {
+                            output.AppendLine(po);
+                        }
                     }
                 }
                 else
@@ -212,6 +245,11 @@ namespace RapidXamlToolkit.Parsers
             return new List<PropertyDetails>();
         }
 
+        public virtual List<MethodDetails> GetAllPublicVoidMethods(ITypeSymbol typeSymbol, SemanticModel semModel)
+        {
+            return new List<MethodDetails>();
+        }
+
         protected static string FormattedClassGroupingOpener(string classGrouping)
         {
             switch (classGrouping.ToUpperInvariant())
@@ -241,12 +279,17 @@ namespace RapidXamlToolkit.Parsers
             }
         }
 
-        protected virtual (SyntaxNode propertyNode, SyntaxNode classNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        protected virtual (SyntaxNode propertyNode, SyntaxNode classNode, SyntaxNode methodNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             throw new NotImplementedException();
         }
 
         protected virtual PropertyDetails GetPropertyDetails(SyntaxNode propertyDeclaration, SemanticModel semModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected virtual MethodDetails GetMethodDetails(SyntaxNode methodDeclaration, SemanticModel semModel)
         {
             throw new NotImplementedException();
         }
@@ -266,6 +309,13 @@ namespace RapidXamlToolkit.Parsers
             var (output, counter) = this.GetPropertyOutputAndCounter(prop, numericCounter, semModel, () => this.GetSubPropertyOutput(prop, semModel));
 
             return (output, prop.Name, counter);
+        }
+
+        protected (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, MethodDetails method, int numericCounter = 0)
+        {
+            var (output, counter) = this.GetMethodOutputAndCounter(method, numericCounter, semModel);
+
+            return (output, method.Name, counter);
         }
 
         protected (string output, int counter) GetSubPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute)
@@ -381,6 +431,68 @@ namespace RapidXamlToolkit.Parsers
             }
 
             return this.FormatOutput(rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, property.Attributes, getSubPropertyOutput);
+        }
+
+        protected (string output, int counter) GetMethodOutputAndCounter(MethodDetails method, int numericSubstitute, SemanticModel semModel)
+        {
+            var mappingOfInterest = this.GetMappingOfInterest(method);
+
+            if (mappingOfInterest is null)
+            {
+                Logger?.RecordInfo(StringRes.Info_NoMappingFoundForMethod.WithParams(method.Name));
+                return (null, numericSubstitute);
+            }
+
+            var rawOutput = mappingOfInterest.Output;
+
+            return this.FormatMethodOutput(rawOutput, method.Name, numericSubstitute, method.Argument1Name, method.Argument2Name);
+        }
+
+        private (string output, int counter) FormatMethodOutput(string rawOutput, string name, int numericSubstitute, string arg1, string arg2)
+        {
+            Logger?.RecordInfo(StringRes.Info_FormattingOutputForMethod.WithParams(name));
+            Logger?.RecordInfo(StringRes.Info_FormattingRawOutput.WithParams(rawOutput));
+
+            if (rawOutput.Trim().Equals(Placeholder.NoOutput))
+            {
+                return (string.Empty, numericSubstitute);
+            }
+            else
+            {
+                var result = rawOutput.Replace(Placeholder.MethodName, name)
+                                      .Replace(Placeholder.Argument1, arg1)
+                                      .Replace(Placeholder.Argument2, arg2);
+
+                var currentNumber = numericSubstitute;
+
+                while (result.Contains(Placeholder.IncrementingInteger))
+                {
+                    Logger?.RecordInfo(StringRes.Info_ReplacingIncIntPlaceholder);
+
+                    var subPosition = result.IndexOf(Placeholder.IncrementingInteger, StringComparison.OrdinalIgnoreCase);
+
+                    result = result.Remove(subPosition, Placeholder.IncrementingInteger.Length);
+                    result = result.Insert(subPosition, numericSubstitute.ToString());
+
+                    numericSubstitute += 1;
+
+                    currentNumber = numericSubstitute - 1;
+                }
+
+                while (result.Contains(Placeholder.RepeatingInteger))
+                {
+                    Logger?.RecordInfo(StringRes.Info_ReplacingRepIntPlaceholder);
+
+                    var subPosition = result.IndexOf(Placeholder.RepeatingInteger, StringComparison.OrdinalIgnoreCase);
+
+                    result = result.Remove(subPosition, Placeholder.RepeatingInteger.Length);
+                    result = result.Insert(subPosition, currentNumber.ToString());
+                }
+
+                var finalResult = result.FormatXaml(CodeParserBase.XamlIndentSize);
+
+                return (finalResult, numericSubstitute);
+            }
         }
 
         private (string output, int counter) FormatOutput(string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, List<AttributeDetails> attributes, Func<(List<string> strings, int count)> getSubPropertyOutput)
@@ -792,6 +904,130 @@ namespace RapidXamlToolkit.Parsers
             }
 
             return mappingOfInterest;
+        }
+
+        private Mapping FirstWithTwoTypes(List<Mapping> mappings, string methodName, string typeName1, string typeName2)
+        {
+            // Both types set explicitly
+            // With or without space
+            var mappingOfInterest = mappings.FirstOrDefault(
+                    m => methodName.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"({typeName1},{typeName2})")
+                      || m.Type.EndsWith($"({typeName1}, {typeName2})")))
+                ?? mappings.FirstOrDefault(
+                    m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"({typeName1},{typeName2})")
+                      || m.Type.EndsWith($"({typeName1}, {typeName2})")));
+
+            if (mappingOfInterest != null)
+            {
+                return mappingOfInterest;
+            }
+
+            // first anything, second explicit
+            mappingOfInterest = mappings.FirstOrDefault(
+                    m => methodName.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"(T,{typeName2})") || m.Type.EndsWith($"(T, {typeName2})")))
+                ?? mappings.FirstOrDefault(
+                    m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"(T,{typeName2})") || m.Type.EndsWith($"(T, {typeName2})")));
+
+            if (mappingOfInterest != null)
+            {
+                return mappingOfInterest;
+            }
+
+            // Second anything, first explicit
+            mappingOfInterest = mappings.FirstOrDefault(
+                    m => methodName.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"({typeName1},T)") || m.Type.EndsWith($"({typeName1}, T)")))
+                ?? mappings.FirstOrDefault(
+                    m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"({typeName1},T)") || m.Type.EndsWith($"({typeName1}, T)")));
+
+            if (mappingOfInterest != null)
+            {
+                return mappingOfInterest;
+            }
+
+            // Both anything
+            mappingOfInterest = mappings.FirstOrDefault(
+                    m => methodName.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"(T,T)") || m.Type.EndsWith($"(T, T)")))
+                ?? mappings.FirstOrDefault(
+                    m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                      && (m.Type.EndsWith($"(T,T)") || m.Type.EndsWith($"(T, T)")));
+
+            if (mappingOfInterest != null)
+            {
+                return mappingOfInterest;
+            }
+
+            return null;
+        }
+
+        private Mapping GetMappingOfInterest(MethodDetails method)
+        {
+            List<Mapping> typeMappings = new List<Mapping>();
+
+            if (method.Attributes.Any())
+            {
+                foreach (var attribute in method.Attributes)
+                {
+                    typeMappings.AddRange(this.Profile.Mappings.Where(m => m.Type.StartsWith($"[{attribute.Name}]method(")).ToList());
+                }
+            }
+
+            typeMappings.AddRange(this.Profile.Mappings.Where(m => m.Type.StartsWith("method(")).ToList());
+
+            if (!string.IsNullOrWhiteSpace(method.Argument2Type?.Name))
+            {
+                var arg1TypeName = method.Argument1Type.Name.ToLowerInvariant();
+                var arg2TypeName = method.Argument2Type.Name.ToLowerInvariant();
+
+                return this.FirstWithTwoTypes(typeMappings, method.Name, arg1TypeName, arg2TypeName);
+            }
+            else if (!string.IsNullOrWhiteSpace(method.Argument1Type?.Name))
+            {
+                var arg1TypeName = method.Argument1Type.Name.ToLowerInvariant();
+
+                var mappingOfInterest =
+                     typeMappings.FirstOrDefault(
+                         m => method.Name.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                           && (m.Type.Contains($"]method({arg1TypeName})") || m.Type.Equals($"method({arg1TypeName})")))
+                     ?? typeMappings.FirstOrDefault(
+                         m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                           && (m.Type.Contains($"]method({arg1TypeName})") || m.Type.Equals($"method({arg1TypeName})")));
+
+                if (mappingOfInterest != null)
+                {
+                    return mappingOfInterest;
+                }
+
+                mappingOfInterest =
+                    typeMappings.FirstOrDefault(
+                        m => method.Name.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                          && (m.Type.Contains($"]method(T)") || m.Type.Equals($"method(T)")))
+                    ?? typeMappings.FirstOrDefault(
+                        m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                          && (m.Type.Contains($"]method(T)") || m.Type.Equals($"method(T)")));
+
+                if (mappingOfInterest != null)
+                {
+                    return mappingOfInterest;
+                }
+            }
+            else
+            {
+                return typeMappings.FirstOrDefault(
+                        m => method.Name.ToLowerInvariant().ContainsAnyOf(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                          && m.Type.ToLowerInvariant().Contains("method()"))
+                    ?? typeMappings.FirstOrDefault(
+                        m => string.IsNullOrWhiteSpace(m?.NameContains?.ToLowerInvariant() ?? string.Empty)
+                          && m.Type.ToLowerInvariant().Contains("method()"));
+            }
+
+            return null;
         }
     }
 }
