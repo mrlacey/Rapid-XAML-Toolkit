@@ -90,7 +90,7 @@ namespace tests
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameProfile);
@@ -115,7 +115,7 @@ namespace tests
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameProfile);
@@ -140,7 +140,7 @@ namespace tests
             {
                 Name = "UserName",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             var profile = this.displayNameProfile;
@@ -168,7 +168,7 @@ namespace tests
             {
                 Name = "UserName",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             var profile = this.displayNameProfile;
@@ -196,7 +196,7 @@ namespace tests
             {
                 Name = "UserName",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             var profile = this.displayNameProfile;
@@ -224,7 +224,7 @@ namespace tests
             {
                 Name = "UserName",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             var profile = this.displayNameProfile;
@@ -253,7 +253,7 @@ namespace tests
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
@@ -278,7 +278,7 @@ namespace tests
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
@@ -303,7 +303,7 @@ namespace tests
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.maxLengthProfile);
@@ -328,7 +328,7 @@ namespace tests
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.maxLengthProfile);
@@ -353,7 +353,7 @@ namespace tests
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.maxLengthAttributeProfile);
@@ -378,7 +378,7 @@ namespace tests
             {
                 Name = "Rating",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.rangeProfile);
@@ -402,7 +402,7 @@ namespace tests
             {
                 Name = "Rating",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.rangeProfile);
@@ -427,7 +427,7 @@ namespace tests
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);
@@ -452,7 +452,7 @@ namespace tests
             {
                 Name = "Name",
                 Output = expectedOutput,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.displayNameAndMaxLengthProfile);

@@ -82,7 +82,7 @@ End Namespace";
             {
                 Name = "MyArray",
                 Output = "<Array />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
@@ -102,7 +102,7 @@ End Namespace";
             {
                 Name = "MyArrayBool",
                 Output = "<ArrayBool />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.PositionAtStarShouldProduceExpected(code, expected, this.ArrayTestsProfile);
@@ -126,7 +126,7 @@ End Namespace";
 
             var expected = new ParserOutput
             {
-                Name = "MyBool, MyArray and 1 other property",
+                Name = "MyBool, MyArray and 1 other member",
                 Output = expectedXaml,
                 OutputType = ParserOutputType.Selection,
             };

@@ -144,6 +144,15 @@ namespace RapidXamlToolkit.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Adding &apos;{0}&apos; to the output..
         /// </summary>
+        public static string Info_AddingMemberToOutput {
+            get {
+                return ResourceManager.GetString("Info_AddingMemberToOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding &apos;{0}&apos; to the output..
+        /// </summary>
         public static string Info_AddingPropertyToOutput {
             get {
                 return ResourceManager.GetString("Info_AddingPropertyToOutput", resourceCulture);
@@ -214,6 +223,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot get sub-members for known type &apos;{0}&apos;.
+        /// </summary>
+        public static string Info_CannotGetMethodsForKnownType {
+            get {
+                return ResourceManager.GetString("Info_CannotGetMethodsForKnownType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot get sub-properties for known type &apos;{0}&apos;..
         /// </summary>
         public static string Info_CannotGetPropertiesForKnownType {
@@ -273,6 +291,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_DetectedProjectType {
             get {
                 return ResourceManager.GetString("Info_DetectedProjectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document contains {0} methods..
+        /// </summary>
+        public static string Info_DocumentMethodCount {
+            get {
+                return ResourceManager.GetString("Info_DocumentMethodCount", resourceCulture);
             }
         }
         
@@ -358,6 +385,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Formatting output for method &apos;{0}&apos;.
+        /// </summary>
+        public static string Info_FormattingOutputForMethod {
+            get {
+                return ResourceManager.GetString("Info_FormattingOutputForMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Formatting output for non-generic type &apos;{0}&apos;..
         /// </summary>
         public static string Info_FormattingOutputForNonGenericType {
@@ -421,6 +457,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Found sub-method of unknown type: {0}.
+        /// </summary>
+        public static string Info_FoundSubMethodOfUnknownType {
+            get {
+                return ResourceManager.GetString("Info_FoundSubMethodOfUnknownType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Found sub-property &apos;{0}&apos;..
         /// </summary>
         public static string Info_FoundSubProperty {
@@ -462,6 +507,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_GetSingleItemOutput {
             get {
                 return ResourceManager.GetString("Info_GetSingleItemOutput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting output for a single method..
+        /// </summary>
+        public static string Info_GetSingleMethodOutput {
+            get {
+                return ResourceManager.GetString("Info_GetSingleMethodOutput", resourceCulture);
             }
         }
         
@@ -529,6 +583,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} methods within the selection area..
+        /// </summary>
+        public static string Info_MethodsInSelectedAreaCount {
+            get {
+                return ResourceManager.GetString("Info_MethodsInSelectedAreaCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attribute parameter named &apos;{0}&apos; not found..
         /// </summary>
         public static string Info_NamedAttributeParameterNotFound {
@@ -556,11 +619,29 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No mapping found for {0} so no output being generated..
+        /// </summary>
+        public static string Info_NoMappingFoundForMethod {
+            get {
+                return ResourceManager.GetString("Info_NoMappingFoundForMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No mapping found so using fallback output..
         /// </summary>
         public static string Info_NoMappingFoundUsingFallback {
             get {
                 return ResourceManager.GetString("Info_NoMappingFoundUsingFallback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No properties or methods to provide output for..
+        /// </summary>
+        public static string Info_NoMembersToOutput {
+            get {
+                return ResourceManager.GetString("Info_NoMembersToOutput", resourceCulture);
             }
         }
         
@@ -885,6 +966,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_UndoContextMoveStringToResourceFile {
             get {
                 return ResourceManager.GetString("Info_UndoContextMoveStringToResourceFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unexpected method type &apos;{0}&apos; cannot be converted to XAML..
+        /// </summary>
+        public static string Info_UnexpectedMethodType {
+            get {
+                return ResourceManager.GetString("Info_UnexpectedMethodType", resourceCulture);
             }
         }
         
@@ -2520,7 +2610,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}, {1} and {2} other properties.
+        ///   Looks up a localized string similar to {0}, {1} and {2} other members.
         /// </summary>
         public static string UI_SelectionMoreThanThreeNames {
             get {
@@ -2529,7 +2619,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}, {1} and 1 other property.
+        ///   Looks up a localized string similar to {0}, {1} and 1 other member.
         /// </summary>
         public static string UI_SelectionThreeNames {
             get {

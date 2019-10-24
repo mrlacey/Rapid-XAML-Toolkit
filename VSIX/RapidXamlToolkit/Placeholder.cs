@@ -38,6 +38,12 @@ namespace RapidXamlToolkit
 
         public const string RepeatingXName = "$repxname$";
 
+        public const string MethodName = "$method$";
+
+        public const string Argument1 = "$arg1$";
+
+        public const string Argument2 = "$arg2$";
+
         private static List<string> all = null;
 
         public static List<string> All()

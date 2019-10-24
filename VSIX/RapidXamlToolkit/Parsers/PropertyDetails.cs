@@ -1,29 +1,38 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
-using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 
 namespace RapidXamlToolkit.Parsers
 {
-    public class PropertyDetails
+    public class PropertyDetails : MemberDetails
     {
-        public static PropertyDetails Empty => new PropertyDetails()
+        public PropertyDetails()
+            : base(TypeOfMember.Property)
         {
-            Name = string.Empty,
-            PropertyType = string.Empty,
-            IsReadOnly = false,
-            Symbol = null,
-        };
+        }
 
-        public string Name { get; set; }
+        public static new PropertyDetails Empty
+        {
+            get
+            {
+                var empty = new PropertyDetails
+                {
+                    Name = MemberDetails.Empty.Name,
+                    TypeOfMember = TypeOfMember.Property,
+                    PropertyType = string.Empty,
+                    IsReadOnly = false,
+                    Symbol = null,
+                };
+
+                return empty;
+            }
+        }
 
         public string PropertyType { get; set; }
 
         public bool IsReadOnly { get; set; }
 
         public ITypeSymbol Symbol { get; set; }
-
-        public List<AttributeDetails> Attributes { get; set; } = new List<AttributeDetails>();
     }
 }

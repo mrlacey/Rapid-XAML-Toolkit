@@ -50,7 +50,7 @@ End Namespace";
 
             var expected = new ParserOutput
             {
-                Name = "Property1, Property2 and 6 other properties",
+                Name = "Property1, Property2 and 6 other members",
                 Output = expectedOutput,
                 OutputType = ParserOutputType.Selection,
             };
@@ -217,23 +217,6 @@ Namespace tests
  ☆       Private _someField As Integer = 3☆
 
         Public ReadOnly Property Property2 As String
-    End Class
-End Namespace";
-
-            this.NoPropertiesFoundInSelectionTest(code);
-        }
-
-        [TestMethod]
-        public void GetSelectionNothingFoundOverMethod()
-        {
-            var code = @"
-Namespace tests
-    Public Class SomeClass
-        Public ReadOnly Property Property2 As String
-
-      ☆  Public Function IsSpecial(someValue As String) As Boolean
-            Return True
-        End Function☆
     End Class
 End Namespace";
 

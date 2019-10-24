@@ -82,7 +82,7 @@ End Namespace";
             {
                 Name = "Property2",
                 Output = "<MyStruct />",
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
@@ -134,7 +134,7 @@ End Namespace";
             {
                 Name = "MyListProperty",
                 Output = expectedXaml,
-                OutputType = ParserOutputType.Property,
+                OutputType = ParserOutputType.Member,
             };
 
             this.EachPositionBetweenStarsShouldProduceExpected(code, expected, profile);
