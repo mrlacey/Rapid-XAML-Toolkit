@@ -59,6 +59,7 @@
     <Compile Include="Misc\MiscRealWorldTests.cs" />
     <Compile Include="Parsers\CSharpTestsBase.cs" />
     <Compile Include="Parsers\GetCSharpAttributesTests.cs" />
+    <Compile Include="Parsers\GetVisualBasicMethodsTests.cs" />
     <Compile Include="Parsers\GetCSharpMethodsTests.cs" />
     <Compile Include="Parsers\GetVisualBasicAttributeTypeTests.cs" />
     <Compile Include="Parsers\GetCSharpAttributeTypeTests.cs" />
