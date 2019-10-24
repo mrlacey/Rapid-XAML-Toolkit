@@ -224,23 +224,6 @@ End Namespace";
         }
 
         [TestMethod]
-        public void GetSelectionNothingFoundOverMethod()
-        {
-            var code = @"
-Namespace tests
-    Public Class SomeClass
-        Public ReadOnly Property Property2 As String
-
-      ☆  Public Function IsSpecial(someValue As String) As Boolean
-            Return True
-        End Function☆
-    End Class
-End Namespace";
-
-            this.NoPropertiesFoundInSelectionTest(code);
-        }
-
-        [TestMethod]
         public void GetSelectionNothingFoundOverConstructor()
         {
             var code = @"
