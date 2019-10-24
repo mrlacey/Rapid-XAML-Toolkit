@@ -574,7 +574,7 @@ namespace RapidXamlToolkit.Parsers
                 {
                     propertyNode = currentNode;
                 }
-                else if (currentNode is MethodStatementSyntax
+                else if (currentNode is MethodStatementSyntax)
                 {
                     methodNode = currentNode;
                 }
