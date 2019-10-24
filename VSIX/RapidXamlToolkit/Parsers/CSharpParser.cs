@@ -390,7 +390,7 @@ namespace RapidXamlToolkit.Parsers
                 IsReadOnly = propIsReadOnly ?? false,
             };
 
-            pd.Attributes.AddRange(this.GetAttributes(attributeList));
+            pd.Attributes.AddRange(this.GetAttributeDetails(attributeList));
 
             Logger?.RecordInfo(StringRes.Info_IdentifiedPropertySummary.WithParams(pd.Name, pd.PropertyType, pd.IsReadOnly));
 
@@ -425,7 +425,7 @@ namespace RapidXamlToolkit.Parsers
                     }
                 }
 
-                md.Attributes.AddRange(this.GetAttributes(methodDec.AttributeLists));
+                md.Attributes.AddRange(this.GetAttributeDetails(methodDec.AttributeLists));
             }
             else
             {
@@ -435,7 +435,7 @@ namespace RapidXamlToolkit.Parsers
             return md;
         }
 
-        protected IEnumerable<AttributeDetails> GetAttributes(SyntaxList<AttributeListSyntax> attributeList)
+        protected IEnumerable<AttributeDetails> GetAttributeDetails(SyntaxList<AttributeListSyntax> attributeList)
         {
             var result = new List<AttributeDetails>();
 
@@ -574,8 +574,6 @@ namespace RapidXamlToolkit.Parsers
 
                 if (prop.Type is GenericNameSyntax gns)
                 {
-                    var t = gns.TypeArgumentList.Arguments.First();
-
                     typeSymbol = this.GetTypeSymbolWithFallback(gns, semModel, prop.SyntaxTree);
                 }
                 else if (prop.Type is QualifiedNameSyntax qns)
