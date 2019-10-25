@@ -239,10 +239,13 @@ namespace RapidXamlToolkit.Parsers
 
                     SyntaxNode syntax = decRef.SyntaxTree.GetRoot().DescendantNodes(decRef.Span).OfType<MethodDeclarationSyntax>().FirstOrDefault();
 
-                    var details = this.GetMethodDetails(syntax, semModel);
+                    if (syntax != null)
+                    {
+                        var details = this.GetMethodDetails(syntax, semModel);
 
-                    Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
-                    result.Add(details);
+                        Logger?.RecordInfo(StringRes.Info_FoundSubProperty.WithParams(details.Name));
+                        result.Add(details);
+                    }
                 }
                 else
                 {
