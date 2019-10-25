@@ -10,6 +10,9 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
+   <LangVersion>7.1</LangVersion>
+</PropertyGroup>
+  <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
