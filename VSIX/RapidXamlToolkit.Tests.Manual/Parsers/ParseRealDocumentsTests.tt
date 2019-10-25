@@ -100,8 +100,10 @@ foreach (var subFolder in Directory.GetDirectories(rootFolder))
                         this.TestContext.WriteLine($"No output after parsing '{filePath}'");
                         this.TestContext.AddResultFile(filePath);
 
-                        if (!logger.Info.Last().StartsWith("Unable to find class definition in file")
-                          & logger.Info.Last() != "No properties to provide output for.")
+                        var lastLogMsg = logger.Info.Last();
+
+                        if (!lastLogMsg.StartsWith("Unable to find class definition in file")
+                         && !lastLogMsg.Equals("No properties to provide output for."))
                         {
                             anyFailures = true;
                         }
