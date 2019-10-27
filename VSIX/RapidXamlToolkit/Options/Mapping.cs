@@ -67,7 +67,7 @@ namespace RapidXamlToolkit.Options
             }
         }
 
-        [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.SafePropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger, Placeholder.EnumMembers, Placeholder.SubProperties, Placeholder.NoOutput, Placeholder.XName, Placeholder.RepeatingXName)]
+        [AllowedPlaceholders(Placeholder.PropertyName, Placeholder.SafePropertyName, Placeholder.PropertyNameWithSpaces, Placeholder.PropertyType, Placeholder.IncrementingInteger, Placeholder.RepeatingInteger, Placeholder.EnumMembers, Placeholder.SubProperties, Placeholder.NoOutput, Placeholder.XName, Placeholder.RepeatingXName, Placeholder.MethodName, Placeholder.Argument1, Placeholder.Argument2)]
         public string Output
         {
             get
