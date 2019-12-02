@@ -15,10 +15,7 @@ This is a collection of tools for making it easier for developers to work with X
 
 Consider this project as in a beta stage. There's still lots to do before it is ready for a full release and there's more functionality we want to add but we're keen to get feedback as soon as possible and focus on the features people want.
 
-| Build | Status | Details | Install |
-|-------|--------|---------|---------|
-| CI | ![CI Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.ci) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/151.md) | - |
-| nightly | ![Nightly Build Status](https://winappstudio.visualstudio.com/DefaultCollection/Vegas/_apis/build/status/rxt/rxt.dev.version.create) ![nightly build version](https://rxtstorage.blob.core.windows.net/badges/img.nightly.version.svg) | [details](https://github.com/Microsoft/Rapid-XAML-Toolkit/blob/vsts-builds/docs/vsts-builds/152.md) | [myget](https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/docs/installation.md#nightly-dev-builds) |
+Get the preview from the [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlPreview)
 
 ## XAML Generation
 
