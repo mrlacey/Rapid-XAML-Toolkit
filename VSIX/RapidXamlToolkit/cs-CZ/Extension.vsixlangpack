@@ -2,6 +2,6 @@
 <VsixLanguagePack Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema-lp/2010">
   <LocalizedName>Sada nástrojů Rapid XAML (local)</LocalizedName>
   <LocalizedDescription>Nástroje pro urychlení vývoje aplikací XAML</LocalizedDescription>
-  <License>..\License\EULA.cs-CZ.rtf</License>
-  <MoreInfoUrl>https://github.com/Microsoft/Rapid-XAML-Toolkit/</MoreInfoUrl>
+  <License>..\LICENSE.txt</License>
+  <MoreInfoUrl>https://github.com/mrlacey/Rapid-XAML-Toolkit/</MoreInfoUrl>
 </VsixLanguagePack>
