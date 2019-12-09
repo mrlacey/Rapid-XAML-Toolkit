@@ -24,6 +24,8 @@ Here's a quick guide to (hopefully) all you might want to know.
 
 [Known Limitations](./known-limitations.md) - Want to do something complicated, or not getting the results you expect? This might explain why.
 
+[Reference docs](./reference.md) - Useful other information stored for reference.
+
 ---
 
 Is there something else you wish to know or think should be documented? If so, please [raise an issue](https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/new).
