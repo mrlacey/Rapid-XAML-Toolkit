@@ -1,7 +1,7 @@
 {
   "AboutUsingThisFile": "If you don't want to change this file, create a copy called 'testsettings.json.secret' (does not need to be part of the solution & automatically excluded from git) and that file will be used instead.",
   "Notes": "See more on getting a key from https://docs.microsoft.com/en-us/azure/cognitive-services/computer-vision/vision-api-how-to-topics/howtosubscribe",
-  "TextServiceSubscriptionKey": "7f297a1133a54c60b555aa679a638b48",
-  "TextServiceAzureRegion": "westeurope",
-  "TextServiceIsFreeSubscription": "False"
+  "TextServiceSubscriptionKey": "MUST-BE-SET",
+  "TextServiceAzureRegion": "",
+  "TextServiceIsFreeSubscription": "True"
 }

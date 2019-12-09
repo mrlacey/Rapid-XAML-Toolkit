@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Matt Lacey Ltd.. All rights reserved.
 // Licensed under the MIT license.
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "CS1591:Missing XML Comment", Justification="Documentation of code in test projects is not required.")]
