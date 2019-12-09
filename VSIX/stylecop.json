@@ -3,7 +3,7 @@
   "settings": {
     "documentationRules": {
       "copyrightText": "Copyright (c) {companyName}. All rights reserved.\nLicensed under the MIT license.",
-      "companyName": "Microsoft Corporation",
+      "companyName": "Matt Lacey Ltd",
       "xmlHeader": false
     },
     "layoutRules": {
