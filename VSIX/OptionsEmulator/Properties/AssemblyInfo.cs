@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using System.Reflection;
-using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -14,7 +13,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("OptionsEmulator")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © Matt Lacey Ltd. 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
