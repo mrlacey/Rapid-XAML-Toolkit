@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="RapidXamlToolkit.Local.25067190-b212-4873-aecf-84547ed9b962" Version="0.4" Language="en-US" Publisher="Matt Lacey Ltd." />
+        <Identity Id="RapidXamlToolkit.25067190-b212-4873-aecf-84547ed9b962" Version="0.4" Language="en-US" Publisher="Matt Lacey Ltd." />
         <DisplayName>Rapid XAML Toolkit</DisplayName>
         <Description xml:space="preserve">Tools to accelerate XAML app development</Description>
         <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
@@ -10,6 +10,7 @@
         <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/releases</ReleaseNotes>
         <Icon>Resources\RapidXamlPackage.ico</Icon>
         <Tags>XAML UWP WPF Xamarin.Forms</Tags>
+        <Preview>true</Preview>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
