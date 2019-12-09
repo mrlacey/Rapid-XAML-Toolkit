@@ -424,9 +424,6 @@
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
-    <Content Include="..\..\LICENSE.txt">
-      <Link>License\LICENSE.txt</Link>
-    </Content>
     <Content Include="appsettings.json">
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

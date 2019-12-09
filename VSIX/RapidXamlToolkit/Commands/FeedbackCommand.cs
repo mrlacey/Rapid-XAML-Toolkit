@@ -49,7 +49,7 @@ namespace RapidXamlToolkit.Commands
 
                 this.Logger?.RecordFeatureUsage(nameof(FeedbackCommand));
 
-                System.Diagnostics.Process.Start("https://github.com/microsoft/Rapid-XAML-Toolkit/issues/new/choose");
+                System.Diagnostics.Process.Start("https://github.com/mrlacey/Rapid-XAML-Toolkit/issues/new/choose");
             }
             catch (Exception exc)
             {

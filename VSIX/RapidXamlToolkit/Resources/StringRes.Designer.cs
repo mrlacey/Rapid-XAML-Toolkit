@@ -61,7 +61,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md.
+        ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md.
         /// </summary>
         public static string Error_OutdatedConfigurationDetected2 {
             get {
@@ -88,7 +88,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: {0}.
+        ///   Looks up a localized string similar to Please log an issue to https://github.com/mrlacey/Rapid-XAML-Toolkit/issues Reason: {0}.
         /// </summary>
         public static string Error_XamlAnalysisExtendedMessage {
             get {
@@ -736,7 +736,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you have problems with this extension, or suggestions for improvement, report them at https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/new/choose .
+        ///   Looks up a localized string similar to If you have problems with this extension, or suggestions for improvement, report them at https://github.com/mrlacey/Rapid-XAML-Toolkit/issues/new/choose .
         /// </summary>
         public static string Info_ProblemsInstructionsAndLink {
             get {
