@@ -15,9 +15,11 @@ Please note that the [preview release](https://marketplace.visualstudio.com/item
 
 Details will be added here once available.
 
-## Nightly (dev) builds
+## Canary builds
 
-A new nightly build will be available shortly. The one that Micorsoft previously made available via MyGet is no longer updated and will eventually be deleted.
+Automated builds with the [latest version](http://vsixgallery.com/extension/RapidXamlToolkit.0dc8e86a-836b-47e5-aa3f-f5e71c15e37a/) of all functionality are available from the [VSIX Gallery](http://vsixgallery.com/guide/feed/). These are produced every time PRs are merged that contain code changes.
+
+_A version distributed via MyGet is no longer available._
 
 ***
 
