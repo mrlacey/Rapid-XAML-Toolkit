@@ -9,7 +9,7 @@
         <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/master/docs</GettingStartedGuide>
         <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/releases</ReleaseNotes>
         <Icon>Resources\RapidXamlPackage.ico</Icon>
-        <Tags>XAML UWP WPF Xamarin.Forms</Tags>
+        <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno</Tags>
         <Preview>true</Preview>
     </Metadata>
     <Installation>
