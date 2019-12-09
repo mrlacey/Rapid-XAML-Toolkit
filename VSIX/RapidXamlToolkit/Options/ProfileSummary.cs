@@ -1,4 +1,4 @@
-﻿// Copyright (c) Matt Lacey Ltd.. All rights reserved.
+﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
 using RapidXamlToolkit.Resources;
