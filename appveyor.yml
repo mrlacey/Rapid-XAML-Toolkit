@@ -3,16 +3,16 @@ configuration: Release
 image: Visual Studio 2019
 
 install:
-- ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
+#- ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
+- ps: (new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mrlacey/wts3206/master/vsix.ps1") | iex
 
 before_build:
 - cmd: nuget restore .\VSIX\RapidXamlToolkit.PRBuild.sln -Verbosity quiet
 - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
   #- ps: Vsix-TokenReplacement src\source.extension.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
-build:
-  project: .\VSIX\RapidXamlToolkit.PRBuild.sln
-  verbosity: minimal
+build_script:
+  - msbuild .\VSIX\RapidXamlToolkit.PRBuild.sln /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
 after_test:
   - ps: Vsix-PushArtifacts | Vsix-PublishToGallery

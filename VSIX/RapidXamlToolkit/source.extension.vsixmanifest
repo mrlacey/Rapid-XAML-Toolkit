@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="RapidXamlToolkit.Local.25067190-b212-4873-aecf-84547ed9b962" Version="0.2" Language="en-US" Publisher="Microsoft Corporation" />
-        <DisplayName>Rapid XAML Toolkit (local)</DisplayName>
+        <Identity Id="RapidXamlToolkit.0dc8e86a-836b-47e5-aa3f-f5e71c15e37a" Version="0.4" Language="en-US" Publisher="Matt Lacey Ltd." />
+        <DisplayName>Rapid XAML Toolkit</DisplayName>
         <Description xml:space="preserve">Tools to accelerate XAML app development</Description>
         <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
         <License>LICENSE.txt</License>
         <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/master/docs</GettingStartedGuide>
         <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/releases</ReleaseNotes>
         <Icon>Resources\RapidXamlPackage.ico</Icon>
-        <Tags>XAML UWP WPF Xamarin.Forms</Tags>
+        <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno</Tags>
+        <Preview>true</Preview>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
@@ -19,7 +20,7 @@
     </Dependencies>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
-    <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[16.0,)" DisplayName="Roslyn Language Services" />
+        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[16.0,)" DisplayName="Roslyn Language Services" />
     </Prerequisites>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
