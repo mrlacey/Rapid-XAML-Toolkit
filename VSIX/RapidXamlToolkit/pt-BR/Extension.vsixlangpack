@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<VsixLanguagePack Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema-lp/2010">
-  <LocalizedName>Kit de Ferramentas de XAML Rápido (local)</LocalizedName>
-  <LocalizedDescription>Ferramentas para acelerar o desenvolvimento de aplicativos XAML</LocalizedDescription>
-  <License>..\LICENSE.txt</License>
-  <MoreInfoUrl>https://github.com/mrlacey/Rapid-XAML-Toolkit/</MoreInfoUrl>
-</VsixLanguagePack>
