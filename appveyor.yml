@@ -10,9 +10,8 @@ before_build:
 - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
   #- ps: Vsix-TokenReplacement src\source.extension.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
-build:
-  project: .\VSIX\RapidXamlToolkit.PRBuild.sln
-  verbosity: minimal
+build_script:
+  - msbuild .\VSIX\RapidXamlToolkit.PRBuild.sln /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
 after_test:
   - ps: Vsix-PushArtifacts | Vsix-PublishToGallery
