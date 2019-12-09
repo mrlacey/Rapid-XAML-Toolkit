@@ -100,4 +100,7 @@ Please see the [contribution guide](./CONTRIBUTING.md).
 
 ***
 
-The Rapid XAML Toolkit (RXT) is a sister project to [Windows Template Studio (WinTS)](https://aka.ms/wts). They're separate projects but some of the same people are behind both. Anyone using WTS should also benefit from using RXT.
+## History
+
+The Rapid XAML Toolkit (RXT) was started as a sister project to [Windows Template Studio (WinTS)](https://aka.ms/wts).  
+It was oringinally created in partnership with Microsoft (that's why [github.com/microsoft/rapid-xaml-toolkit redirects](github.com/microsoft/rapid-xaml-toolkit) here) but is now primarily cared for by [Matt Lacey](https://github.com/mrlacey).
