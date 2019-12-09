@@ -3,7 +3,8 @@ configuration: Release
 image: Visual Studio 2019
 
 install:
-- ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
+#- ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
+- ps: (new-object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mrlacey/wts3206/master/vsix.ps1") | iex
 
 before_build:
 - cmd: nuget restore .\VSIX\RapidXamlToolkit.PRBuild.sln -Verbosity quiet
