@@ -384,13 +384,11 @@
         <TextBlock
             Grid.Row="8"
             Grid.Column="0"
+            Margin="0,4"
             HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Margin="0,4">
-        <Hyperlink
-            NavigateUri="https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/docs/profiles.md"
-            RequestNavigate="HelpLinkNavigate">
-            <Run Text="{x:Static strings:StringRes.Options_HelpWithProfilesAndMappings}" />
+            VerticalAlignment="Bottom">
+            <Hyperlink NavigateUri="https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/profiles.md" RequestNavigate="HelpLinkNavigate">
+                <Run Text="{x:Static strings:StringRes.Options_HelpWithProfilesAndMappings}" />
             </Hyperlink>
         </TextBlock>
 

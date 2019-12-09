@@ -638,7 +638,7 @@
     <value>Do not leave blank. Use '{0}' if no output is required.</value>
   </data>
   <data name="Info_ProblemsInstructionsAndLink" xml:space="preserve">
-    <value>If you have problems with this extension, or suggestions for improvement, report them at https://github.com/Microsoft/Rapid-XAML-Toolkit/issues/new/choose </value>
+    <value>If you have problems with this extension, or suggestions for improvement, report them at https://github.com/mrlacey/Rapid-XAML-Toolkit/issues/new/choose </value>
   </data>
   <data name="Info_UndoContextAddColumnDefinitions" xml:space="preserve">
     <value>Add ColumnDefinitions</value>
@@ -680,7 +680,7 @@
     <value>Unexpected error occurred while parsing XAML.</value>
   </data>
   <data name="Error_XamlAnalysisExtendedMessage" xml:space="preserve">
-    <value>Please log an issue to https://github.com/Microsoft/Rapid-XAML-Toolkit/issues Reason: {0}</value>
+    <value>Please log an issue to https://github.com/mrlacey/Rapid-XAML-Toolkit/issues Reason: {0}</value>
   </data>
   <data name="Info_UndoContextAddMissingColumnDefinitions" xml:space="preserve">
     <value>Add missing column definitions</value>
@@ -923,7 +923,7 @@
     <value>Using profile '{0}'.</value>
   </data>
   <data name="Error_OutdatedConfigurationDetected2" xml:space="preserve">
-    <value>Out-dated configuration detected. See https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md</value>
+    <value>Out-dated configuration detected. See https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md</value>
   </data>
   <data name="Info_XamlAnalysisHardcodedStringPasswordboxDescriptionMessage" xml:space="preserve">
     <value>PasswordBox contains hard-coded Description value '{0};</value>

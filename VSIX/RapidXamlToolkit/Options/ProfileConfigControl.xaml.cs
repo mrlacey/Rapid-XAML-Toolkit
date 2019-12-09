@@ -341,7 +341,7 @@ namespace RapidXamlToolkit.Options
 
                 RapidXamlPackage.Logger?.RecordFeatureUsage(nameof(this.HelpLinkNavigate));
 
-                System.Diagnostics.Process.Start("https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/docs/profiles.md");
+                System.Diagnostics.Process.Start("https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/profiles.md");
             }
             catch (Exception exc)
             {

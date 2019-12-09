@@ -2,6 +2,6 @@
 <VsixLanguagePack Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema-lp/2010">
   <LocalizedName>Rapid XAML Toolkit (local)</LocalizedName>
   <LocalizedDescription>XAML 앱 개발 가속화 도구</LocalizedDescription>
-  <License>..\License\EULA.ko-KR.rtf</License>
-  <MoreInfoUrl>https://github.com/Microsoft/Rapid-XAML-Toolkit/</MoreInfoUrl>
+  <License>..\LICENSE.txt</License>
+  <MoreInfoUrl>https://github.com/mrlacey/Rapid-XAML-Toolkit/</MoreInfoUrl>
 </VsixLanguagePack>

@@ -1,15 +1,18 @@
+skip_tags: true
+configuration: Release
 image: Visual Studio 2019
 
 install:
 - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
 
 before_build:
-  - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
+- cmd: nuget restore .\VSIX\RapidXamlToolkit.PRBuild.sln -Verbosity quiet
+- ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
   #- ps: Vsix-TokenReplacement src\source.extension.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
-build_script:
-  - nuget restore -Verbosity quiet
-  - msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
+build:
+  project: .\VSIX\RapidXamlToolkit.PRBuild.sln
+  verbosity: minimal
 
 after_test:
   - ps: Vsix-PushArtifacts | Vsix-PublishToGallery
