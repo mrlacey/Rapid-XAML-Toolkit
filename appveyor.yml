@@ -7,7 +7,7 @@ install:
 
 before_build:
 - cmd: nuget restore .\VSIX\RapidXamlToolkit.PRBuild.sln -Verbosity quiet
-  - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
+- ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
   #- ps: Vsix-TokenReplacement src\source.extension.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
 build:
