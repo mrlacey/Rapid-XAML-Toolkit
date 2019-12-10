@@ -1,0 +1,318 @@
+﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
+// Licensed under the MIT license.
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.XamlAnalysis.Tags;
+
+namespace RapidXamlToolkit.XamlAnalysis.Processors
+{
+    public abstract class XamlElementProcessor
+    {
+        public XamlElementProcessor(ProjectType projectType, ILogger logger)
+        {
+            this.ProjectType = projectType;
+            this.Logger = logger;
+        }
+
+        internal ProjectType ProjectType { get; }
+
+        internal ILogger Logger { get; }
+
+        public static bool IsSelfClosing(string xaml, int startPoint = 0)
+        {
+            var foundSelfCloser = false;
+
+            for (var i = startPoint; i < xaml.Length; i++)
+            {
+                switch (xaml[i])
+                {
+                    case '/':
+                        foundSelfCloser = true;
+                        break;
+                    case '>':
+                        return foundSelfCloser;
+                    default:
+                        break;
+                }
+            }
+
+            // Shouldn't ever get here if passed valid XAML and startPoint is valid
+            return false;
+        }
+
+        public static Dictionary<int, int> GetExclusions(string xaml, string elementName)
+        {
+            string elementOpen = $"<{elementName}";
+            string elementOpenSpace = $"<{elementName} ";
+            string elementOpenComplete = $"<{elementName}>";
+            string elementClose = $"</{elementName}>";
+
+            var exclusions = new Dictionary<int, int>();
+
+            // This is the opening position of the next opening (here) or closing (when set subsequently) tag
+            var tagOfInterestPos = xaml.Substring(elementOpen.Length).FirstIndexOf(elementOpenComplete, elementOpenSpace) + elementOpen.Length;
+
+            // track the number of open tags seen so know when get to the corresponding closing one.
+            var openings = 0;
+
+            // Track this outside the loop as may have nesting.
+            int startClosePos = 0;
+
+            while (tagOfInterestPos > elementOpen.Length && tagOfInterestPos < xaml.Length)
+            {
+                // closing tags
+                if (xaml.Substring(tagOfInterestPos, 2) == "</")
+                {
+                    // Allow for having seen multiple openings before the closing
+                    if (openings == 1)
+                    {
+                        exclusions.Add(startClosePos + 1, tagOfInterestPos + elementClose.Length);
+                        openings = 0;
+                    }
+                    else
+                    {
+                        openings -= 1;
+                    }
+                }
+                else
+                {
+                    // ignore self closing tags as nothing to exclude
+                    if (!XamlElementProcessor.IsSelfClosing(xaml, tagOfInterestPos))
+                    {
+                        // opening tag s
+                        if (openings <= 0)
+                        {
+                            startClosePos = xaml.IndexOf(">", tagOfInterestPos, StringComparison.Ordinal);
+                            openings = 1;
+                        }
+                        else
+                        {
+                            openings += 1;
+                        }
+                    }
+                }
+
+                // Find next opening or closing tag
+                var nextOpening = xaml.Substring(tagOfInterestPos + elementOpen.Length).FirstIndexOf(elementOpenComplete, elementOpenSpace);
+
+                if (nextOpening > -1)
+                {
+                    nextOpening += tagOfInterestPos + elementOpen.Length;
+                }
+
+                var nextClosing = xaml.IndexOf(elementClose, tagOfInterestPos + elementOpen.Length, StringComparison.Ordinal);
+
+                tagOfInterestPos = nextOpening > -1 && nextOpening < nextClosing ? nextOpening : nextClosing;
+            }
+
+            return exclusions;
+        }
+
+        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger)
+        {
+            var startPos = xaml.Substring(0, position).LastIndexOf('<');
+
+            var elementName = xaml.Substring(startPos + 1, xaml.IndexOfAny(new[] { ' ', '>', '\r', '\n' }, startPos) - startPos - 1);
+
+            string result = null;
+
+            var processor = new SubElementProcessor(projectType, logger);
+            processor.SubElementFound += (s, e) => { result = e.SubElement; };
+
+            XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList());
+
+#if DEBUG
+            if (result == null)
+            {
+                // If get here it's because there's a subelement that can't be identified correctly by XamlElementExtractor
+                // but was detected elsewhere. (Probably by something extending XamlElementProcessor.)
+                System.Diagnostics.Debugger.Break();
+            }
+#endif
+
+            return result;
+        }
+
+        /// <summary>
+        /// Implementations of this method are used to identify any issues in the specified XAML and create Tags to highlight them.
+        /// </summary>
+        /// <remarks>
+        /// Use of snapshot in the Process implementation should be kept to a minimum as it requires test workarounds
+        /// - better to just pass through to where needed in VS initiated functionality.
+        /// </remarks>
+        /// <param name="fileName">The name of the file being analyzed.</param>
+        /// <param name="offset">The number of characters from the start of the file to the element.</param>
+        /// <param name="xamlElement">The full string representing the element to process.</param>
+        /// <param name="linePadding">The amount of left padding the element has on the line where it starts.</param>
+        /// <param name="snapshot">The ITextSnapshot containing the XAML being analyzed.</param>
+        /// <param name="tags">Reference to the list of all tags found in the document. Add any new tags here.</param>
+        /// <param name="suppressions">A list of user defined suppressions to override default behavior.</param>
+        public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null);
+
+        public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
+        {
+            if (attributeTypesToCheck.HasFlag(AttributeType.Inline))
+            {
+                var searchText = $"{attributeName}=\"";
+
+                if (string.IsNullOrWhiteSpace(xaml))
+                {
+                    System.Diagnostics.Debugger.Break();
+                    this.Logger.RecordError($"xaml not passed to `TryGetAttribute({xaml}, {attributeName}, {attributeTypesToCheck})`");
+
+                    attributeType = AttributeType.None;
+                    index = -1;
+                    length = 0;
+                    value = string.Empty;
+                    return false;
+                }
+
+                var tbIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
+
+                if (tbIndex >= 0 && char.IsWhiteSpace(xaml[tbIndex - 1]))
+                {
+                    var tbEnd = xaml.IndexOf("\"", tbIndex + searchText.Length, StringComparison.Ordinal);
+
+                    attributeType = AttributeType.Inline;
+                    index = tbIndex;
+                    length = tbEnd - tbIndex + 1;
+                    value = xaml.Substring(tbIndex + searchText.Length, tbEnd - tbIndex - searchText.Length);
+                    return true;
+                }
+            }
+
+            var elementName = xaml.Substring(1, xaml.IndexOfAny(new[] { ' ', '>' }) - 1);
+
+            if (attributeTypesToCheck.HasFlag(AttributeType.Element))
+            {
+                var searchText = $"<{elementName}.{attributeName}>";
+
+                var startIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
+
+                if (startIndex > -1)
+                {
+                    var closingElement = $"</{elementName}.{attributeName}>";
+                    var endPos = xaml.IndexOf(closingElement, startIndex, StringComparison.Ordinal);
+
+                    if (endPos > -1)
+                    {
+                        attributeType = AttributeType.Element;
+                        index = startIndex;
+                        length = endPos - startIndex + closingElement.Length;
+                        value = xaml.Substring(startIndex + searchText.Length, endPos - startIndex - searchText.Length);
+                        return true;
+                    }
+                }
+            }
+
+            if (attributeTypesToCheck.HasFlag(AttributeType.DefaultValue))
+            {
+                var endOfOpening = xaml.IndexOf(">");
+                var closingTag = $"</{elementName}>";
+                var startOfClosing = xaml.IndexOf(closingTag, StringComparison.Ordinal);
+
+                if (startOfClosing > 0 && startOfClosing > endOfOpening)
+                {
+                    var defaultValue = xaml.Substring(endOfOpening + 1, startOfClosing - endOfOpening - 1);
+
+                    if (!string.IsNullOrWhiteSpace(defaultValue) && !defaultValue.TrimStart().StartsWith("<"))
+                    {
+                        attributeType = AttributeType.DefaultValue;
+                        index = 0;
+                        length = xaml.Length;
+                        value = defaultValue;
+                        return true;
+                    }
+                }
+            }
+
+            attributeType = AttributeType.None;
+            index = -1;
+            length = 0;
+            value = string.Empty;
+            return false;
+        }
+
+        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions)
+        {
+            if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
+            {
+                if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
+                {
+                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, elementName, attributeName)
+                    {
+                        AttributeType = foundAttributeType,
+                        Value = value,
+                        Description = descriptionFormat.WithParams(value),
+                        UidExists = uidExists,
+                        UidValue = uidValue,
+                        ElementGuid = elementIdentifier,
+                    };
+
+                    tags.TryAdd(tag, xamlElement, suppressions);
+                }
+            }
+        }
+
+        protected (bool uidExists, string uidValue) GetOrGenerateUid(string xamlElement, string attributeName)
+        {
+            var uidExists = this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
+
+            if (!uidExists)
+            {
+                // reuse `Name` or `x:Name` if exist
+                if (this.TryGetAttribute(xamlElement, Attributes.Name, AttributeType.InlineOrElement, out AttributeType _, out int _, out int _, out string name))
+                {
+                    uid = name;
+                }
+                else
+                {
+                    this.TryGetAttribute(xamlElement, attributeName, AttributeType.InlineOrElement, out _, out _, out _, out string value);
+
+                    var elementName = xamlElement.Substring(1, xamlElement.IndexOfAny(new[] { ' ', '>' }) - 1);
+
+                    if (!string.IsNullOrWhiteSpace(value))
+                    {
+                        uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value)}{elementName}";
+
+                        uid = uid.RemoveAllWhitespace().RemoveNonAlphaNumerics();
+                    }
+                    else
+                    {
+                        // This is just a large random number created to hopefully avoid collisions
+                        uid = $"{elementName}{new Random().Next(1001, 8999)}";
+                    }
+                }
+            }
+
+            return (uidExists, uid);
+        }
+
+        public class SubElementProcessor : XamlElementProcessor
+        {
+            public SubElementProcessor(ProjectType projectType, ILogger logger)
+                : base(projectType, logger)
+            {
+            }
+
+            public event EventHandler<SubElementEventArgs> SubElementFound;
+
+            public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
+            {
+                if (offset == 0)
+                {
+                    this.SubElementFound?.Invoke(this, new SubElementEventArgs { SubElement = xamlElement });
+                }
+            }
+
+            public class SubElementEventArgs : EventArgs
+            {
+                public string SubElement { get; set; }
+            }
+        }
+    }
+}

@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.Parsers
 
         public const string GridWithRowDefs2ColsIndicator = "GRID-PLUS-ROWDEFS-2COLS";
 
-        internal const string Unknown = "**unknown**";
+        public const string Unknown = "**unknown**";
 
         // Used to store the generated xname for reuse when formatting subsequent properties
         private static string xname = string.Empty;

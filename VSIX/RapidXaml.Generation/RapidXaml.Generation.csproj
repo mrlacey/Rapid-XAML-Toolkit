@@ -48,28 +48,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\GlobalSuppressions.cs">
+      <Link>GlobalSuppressions.cs</Link>
+    </Compile>
+    <Compile Include="Commands\CopyToClipboardCommand.cs" />
+    <Compile Include="Commands\GetXamlFromCodeWindowBaseCommand.cs" />
+    <Compile Include="Commands\SendToToolboxCommand.cs" />
     <Compile Include="DragDrop\DropHandlerLogic.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandler.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandlerProvider.cs" />
-    <Compile Include="Parsers\AttributeArgumentDetails.cs" />
-    <Compile Include="Parsers\AttributeDetails.cs" />
-    <Compile Include="Parsers\CodeParserBase.cs" />
     <Compile Include="Parsers\CSharpParser.cs" />
     <Compile Include="Parsers\IDocumentParser.cs" />
-    <Compile Include="Parsers\MemberDetails.cs" />
-    <Compile Include="Parsers\MemberType.cs" />
-    <Compile Include="Parsers\MethodDetails.cs" />
-    <Compile Include="Parsers\ParserOutput.cs" />
-    <Compile Include="Parsers\ParserOutputType.cs" />
-    <Compile Include="Parsers\PropertyDetails.cs" />
     <Compile Include="Parsers\VisualBasicParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RapidXaml.GenerationPackage.cs" />
+    <Compile Include="RapidXamlGenerationPackage.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -78,6 +78,15 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp">
+      <Version>3.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces">
+      <Version>3.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic">
+      <Version>3.2.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.202" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.3.2099" />
     <PackageReference Include="StyleCop.Analyzers">

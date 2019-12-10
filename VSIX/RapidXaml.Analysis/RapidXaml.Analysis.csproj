@@ -48,6 +48,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\GlobalSuppressions.cs">
+      <Link>GlobalSuppressions.cs</Link>
+    </Compile>
+    <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
+    <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="ErrorList\ErrorRow.cs" />
     <Compile Include="ErrorList\FileErrorCollection.cs" />
@@ -55,12 +60,111 @@
     <Compile Include="ErrorList\TableDataSource.cs" />
     <Compile Include="ErrorList\TableEntriesSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RapidXaml.AnalysisPackage.cs" />
+    <Compile Include="RapidXamlAnalysisPackage.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddEntryKeyboardAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddRowAndColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddRowDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\BaseSuggestedAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\ColumnSpanOverflowAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\HardCodedStringAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\InjectFixedXamlSuggestedAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\InsertRowDefinitionAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MakeNameStartWithCapitalAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MakeUidStartWithCapitalAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MediaElementAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MissingCheckBoxEventAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\SelectedItemBindingModeAction.cs" />
+    <Compile Include="XamlAnalysis\Attributes.cs" />
+    <Compile Include="XamlAnalysis\AttributeType.cs" />
+    <Compile Include="XamlAnalysis\Elements.cs" />
+    <Compile Include="XamlAnalysis\ParsedAction.cs" />
+    <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\CalendarDatePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\CheckBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ComboBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\DatePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\EntryProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\EveryElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\GridProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\LabelProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\MediaElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\PasswordBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\PivotItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\PivotProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\RepeatButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\RichEditBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\SelectedItemAttributeProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\SliderProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\TextBlockProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\TextBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\TimePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlParsingEventArgs.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlRunningDocTableEvents.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlTagger.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlTagProvider.cs" />
+    <Compile Include="XamlAnalysis\SuggestedActionsSource.cs" />
+    <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
+    <Compile Include="XamlAnalysis\TagList.cs" />
+    <Compile Include="XamlAnalysis\TagSuppression.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddColumnDefinitionsTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddEntryKeyboardTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddRowDefinitionsTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\CheckBoxCheckedAndUncheckedEventsTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\InsertRowDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\IRapidXamlAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\IRapidXamlErrorListTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\IRapidXamlTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingColumnDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingRowDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\NameTitleCaseTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTagExtensions.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlDiscreteTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlDisplayedTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlSuggestionAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlWarningAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\SelectedItemBindingModeTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\TagErrorType.cs" />
+    <Compile Include="XamlAnalysis\Tags\TagErrorTypeParser.cs" />
+    <Compile Include="XamlAnalysis\Tags\UidTitleCaseTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\UseMediaPlayerElementTag.cs" />
+    <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -70,11 +174,23 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.202" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.VisualStudio.Text.Data">
+      <Version>16.1.89</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Text.Logic">
+      <Version>16.1.89</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.TextManager.Interop.12.0">
+      <Version>12.0.30112</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.3.2099" />
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Reactive">
+      <Version>4.1.6</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

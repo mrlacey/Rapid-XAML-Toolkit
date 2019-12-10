@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.ErrorList
 
         public string SourceTypeIdentifier => StandardTableDataSources.ErrorTableDataSource;
 
-        public string Identifier => RapidXamlPackage.PackageGuidString;
+        public string Identifier => RapidXamlPackage.TelemetryGuid;
 
         public string DisplayName => StringRes.VSIX__LocalizedName;
 

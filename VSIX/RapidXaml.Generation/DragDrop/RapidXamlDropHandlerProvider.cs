@@ -13,7 +13,6 @@ using Microsoft.VisualStudio.Utilities;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
-using RapidXamlToolkit.XamlAnalysis;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.DragDrop
