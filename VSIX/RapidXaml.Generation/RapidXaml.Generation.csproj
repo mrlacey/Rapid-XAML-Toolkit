@@ -4,6 +4,9 @@
     <MinimumVisualStudioVersion>16.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\RapidXamlGeneration.ico</ApplicationIcon>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -45,6 +48,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DragDrop\DropHandlerLogic.cs" />
+    <Compile Include="DragDrop\RapidXamlDropHandler.cs" />
+    <Compile Include="DragDrop\RapidXamlDropHandlerProvider.cs" />
+    <Compile Include="Parsers\AttributeArgumentDetails.cs" />
+    <Compile Include="Parsers\AttributeDetails.cs" />
+    <Compile Include="Parsers\CodeParserBase.cs" />
+    <Compile Include="Parsers\CSharpParser.cs" />
+    <Compile Include="Parsers\IDocumentParser.cs" />
+    <Compile Include="Parsers\MemberDetails.cs" />
+    <Compile Include="Parsers\MemberType.cs" />
+    <Compile Include="Parsers\MethodDetails.cs" />
+    <Compile Include="Parsers\ParserOutput.cs" />
+    <Compile Include="Parsers\ParserOutputType.cs" />
+    <Compile Include="Parsers\PropertyDetails.cs" />
+    <Compile Include="Parsers\VisualBasicParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXaml.GenerationPackage.cs" />
   </ItemGroup>
@@ -62,6 +80,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.202" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.3.2099" />
+    <PackageReference Include="StyleCop.Analyzers">
+      <Version>1.1.118</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
