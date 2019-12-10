@@ -311,7 +311,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include=".editorconfig" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>

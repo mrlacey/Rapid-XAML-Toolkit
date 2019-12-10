@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+    <Metadata>
+        <Identity Id="RapidXaml.Generation.bd250c2a-3aa1-4838-9d3d-c36e956cd8d0" Version="1.0" Language="en-US" Publisher="Matt Lacey Ltd" />
+        <DisplayName>RapidXaml.Generation</DisplayName>
+        <Description xml:space="preserve">Empty VSIX Project.</Description>
+        <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
+        <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/master/docs</GettingStartedGuide>
+        <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/releases</ReleaseNotes>
+        <Icon>Resources\RapidXamlGeneration.ico</Icon>
+        <Preview>true</Preview>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    </Dependencies>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,17.0)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
+</PackageManifest>
