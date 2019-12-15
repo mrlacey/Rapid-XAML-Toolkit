@@ -28,7 +28,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
 
         private static readonly DiagnosticDescriptor SetRule = new DiagnosticDescriptor(SetDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
-        private static readonly DiagnosticDescriptor SetPropertyRule = new DiagnosticDescriptor(SetPropertyDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Info, isEnabledByDefault: true);
+        private static readonly DiagnosticDescriptor SetPropertyRule = new DiagnosticDescriptor(SetPropertyDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
         private static readonly DiagnosticDescriptor DependencyPropertyRule = new DiagnosticDescriptor(DependencyPropertyDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
