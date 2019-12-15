@@ -71,8 +71,8 @@
     <NoWarn>,1573,1591,1712,1762,NU1605,NU1608</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\FeedbackCommand.cs" />
-    <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
+    <Compile Include="Configuration\Commands\FeedbackCommand.cs" />
+    <Compile Include="Configuration\Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
     <Compile Include="Options\EnumConverter.cs" />
     <Compile Include="Parsers\AttributeArgumentDetails.cs" />
     <Compile Include="Parsers\AttributeDetails.cs" />
@@ -104,23 +104,23 @@
     <Compile Include="Parsers\ParserOutputType.cs" />
     <Compile Include="Parsers\PropertyDetails.cs" />
     <Compile Include="Parsers\VisualBasicParser.cs" />
-    <Compile Include="Commands\BaseCommand.cs" />
-    <Compile Include="Commands\IFileSystemAbstraction.cs" />
-    <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
+    <Compile Include="Configuration\Commands\BaseCommand.cs" />
+    <Compile Include="Configuration\Commands\IFileSystemAbstraction.cs" />
+    <Compile Include="Configuration\Commands\InsertGridRowDefinitionCommandLogic.cs" />
     <Compile Include="VisualStudioIntegration\IVisualStudioAbstraction.cs" />
-    <Compile Include="Commands\OpenOptionsCommand.cs" />
-    <Compile Include="Commands\ProjectWrapper.cs" />
+    <Compile Include="Configuration\Commands\OpenOptionsCommand.cs" />
+    <Compile Include="Configuration\Commands\ProjectWrapper.cs" />
     <Compile Include="VisualStudioIntegration\VisualStudioAbstraction.cs" />
-    <Compile Include="Commands\WindowsFileSystem.cs" />
+    <Compile Include="Configuration\Commands\WindowsFileSystem.cs" />
     <Compile Include="Configuration\RxtSettings.cs" />
     <Compile Include="DragDrop\DropHandlerLogic.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandlerProvider.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandler.cs" />
     <Compile Include="DteExtensions.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />
-    <Compile Include="Commands\GetXamlFromCodeWindowBaseCommand.cs" />
-    <Compile Include="Commands\SendToToolboxCommand.cs" />
-    <Compile Include="Commands\CopyToClipboardCommand.cs" />
+    <Compile Include="Configuration\Commands\GetXamlFromCodeWindowBaseCommand.cs" />
+    <Compile Include="Configuration\Commands\SendToToolboxCommand.cs" />
+    <Compile Include="Configuration\Commands\CopyToClipboardCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Logging\GeneralOutputPane.cs" />
     <Compile Include="Logging\ILogger.cs" />

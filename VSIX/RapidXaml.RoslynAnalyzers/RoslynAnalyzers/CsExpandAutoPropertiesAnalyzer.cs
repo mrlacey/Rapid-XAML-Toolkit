@@ -16,10 +16,10 @@ namespace RapidXamlToolkit.RoslynAnalyzers
     public class CsExpandAutoPropertiesAnalyzer : DiagnosticAnalyzer
     {
         // Ids need to be defined but shouldn't ever be visible as descriptor is hidden
-        public const string OnPropertyChangedDiagnosticId = "RXD001";
-        public const string SetDiagnosticId = "RXD002";
-        public const string SetPropertyDiagnosticId = "RXD003";
-        public const string DependencyPropertyDiagnosticId = "RXD004";
+        public const string OnPropertyChangedDiagnosticId = "RXRA001";
+        public const string SetDiagnosticId = "RXRA002";
+        public const string SetPropertyDiagnosticId = "RXRA003";
+        public const string DependencyPropertyDiagnosticId = "RXRA004";
 
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(StringRes.Info_ExpandAutoPropertyAnalyzerTitle), StringRes.ResourceManager, typeof(StringRes));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(StringRes.Info_ExpandAutoPropertyAnalyzerMessage), StringRes.ResourceManager, typeof(StringRes));
@@ -28,7 +28,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
 
         private static readonly DiagnosticDescriptor SetRule = new DiagnosticDescriptor(SetDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
-        private static readonly DiagnosticDescriptor SetPropertyRule = new DiagnosticDescriptor(SetPropertyDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
+        private static readonly DiagnosticDescriptor SetPropertyRule = new DiagnosticDescriptor(SetPropertyDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Info, isEnabledByDefault: true);
 
         private static readonly DiagnosticDescriptor DependencyPropertyRule = new DiagnosticDescriptor(DependencyPropertyDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
@@ -51,49 +51,49 @@ namespace RapidXamlToolkit.RoslynAnalyzers
         {
             try
             {
-            var pds = (PropertyDeclarationSyntax)context.Node;
+                var pds = (PropertyDeclarationSyntax)context.Node;
 
-            if ((pds?.AccessorList?.ToString().Replace(" ", string.Empty) ?? string.Empty) == "{get;set;}")
-            {
-                var classNode = pds.Parent;
-                var classTypeSymbol = (ITypeSymbol)context.SemanticModel.GetDeclaredSymbol(classNode);
-
-                var propertyNames = new List<string>();
-
-                foreach (var baseType in classTypeSymbol.GetSelfAndBaseTypes())
+                if ((pds?.AccessorList?.ToString().Replace(" ", string.Empty) ?? string.Empty) == "{get;set;}")
                 {
-                    propertyNames.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Method && !m.IsStatic).Select(m => m.Name));
+                    var classNode = pds.Parent;
+                    var classTypeSymbol = (ITypeSymbol)context.SemanticModel.GetDeclaredSymbol(classNode);
 
-                    if (baseType.Name == "DependencyObject")
+                    var propertyNames = new List<string>();
+
+                    foreach (var baseType in classTypeSymbol.GetSelfAndBaseTypes())
                     {
-                        var depPropertyDiagnostic = Diagnostic.Create(DependencyPropertyRule, context.ContainingSymbol.Locations[0], pds.Identifier);
+                        propertyNames.AddRange(baseType.GetMembers().Where(m => m.Kind == SymbolKind.Method && !m.IsStatic).Select(m => m.Name));
 
-                        context.ReportDiagnostic(depPropertyDiagnostic);
-                        break;  // Don't bother looking any deeper in the inheritance hierarchy if found what looking for.
+                        if (baseType.Name == "DependencyObject")
+                        {
+                            var depPropertyDiagnostic = Diagnostic.Create(DependencyPropertyRule, context.ContainingSymbol.Locations[0], pds.Identifier);
+
+                            context.ReportDiagnostic(depPropertyDiagnostic);
+                            break;  // Don't bother looking any deeper in the inheritance hierarchy if found what looking for.
+                        }
+                    }
+
+                    if (propertyNames.Contains("Set"))
+                    {
+                        var setDiagnostic = Diagnostic.Create(SetRule, context.ContainingSymbol.Locations[0], pds.Identifier);
+
+                        context.ReportDiagnostic(setDiagnostic);
+                    }
+
+                    if (propertyNames.Contains("SetProperty"))
+                    {
+                        var setPropertyDiagnostic = Diagnostic.Create(SetPropertyRule, context.ContainingSymbol.Locations[0], pds.Identifier);
+
+                        context.ReportDiagnostic(setPropertyDiagnostic);
+                    }
+
+                    if (propertyNames.Contains("OnPropertyChanged"))
+                    {
+                        var onPropertyDiagnostic = Diagnostic.Create(OnPropertyRule, context.ContainingSymbol.Locations[0], pds.Identifier);
+
+                        context.ReportDiagnostic(onPropertyDiagnostic);
                     }
                 }
-
-                if (propertyNames.Contains("Set"))
-                {
-                    var setDiagnostic = Diagnostic.Create(SetRule, context.ContainingSymbol.Locations[0], pds.Identifier);
-
-                    context.ReportDiagnostic(setDiagnostic);
-                }
-
-                if (propertyNames.Contains("SetProperty"))
-                {
-                    var setPropertyDiagnostic = Diagnostic.Create(SetPropertyRule, context.ContainingSymbol.Locations[0], pds.Identifier);
-
-                    context.ReportDiagnostic(setPropertyDiagnostic);
-                }
-
-                if (propertyNames.Contains("OnPropertyChanged"))
-                {
-                    var onPropertyDiagnostic = Diagnostic.Create(OnPropertyRule, context.ContainingSymbol.Locations[0], pds.Identifier);
-
-                    context.ReportDiagnostic(onPropertyDiagnostic);
-                }
-            }
             }
             catch (System.Exception exc)
             {

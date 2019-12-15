@@ -39,6 +39,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\RapidXamlToolkit.Tests.xml</DocumentationFile>
     <NoWarn>,1573,1591,1712,NU1605,NU1608</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -147,6 +148,9 @@
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
+    <AdditionalFiles Include="..\todo-warn.config" Condition=" '$(Configuration)' == 'Release' ">
+      <Link>todo-warn.config</Link>
+    </AdditionalFiles>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +180,7 @@
       <Version>3.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK">
-      <Version>16.0.200</Version>
+      <Version>16.0.202</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestAdapter">
       <Version>1.4.0</Version>
@@ -188,6 +192,9 @@
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="WarnAboutTODOs">
+      <Version>1.5.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

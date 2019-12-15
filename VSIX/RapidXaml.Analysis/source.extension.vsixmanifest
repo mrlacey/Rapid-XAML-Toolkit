@@ -2,9 +2,10 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
         <Identity Id="RapidXaml.Analysis.09349b25-a606-429c-ac92-8d4acf027e25" Version="1.0" Language="en-US" Publisher="Matt Lacey Ltd." />
-        <DisplayName>RapidXaml.Analysis</DisplayName>
-        <Description xml:space="preserve">Empty VSIX Project.</Description>
+        <DisplayName>Rapid XAML Analysis</DisplayName>
+        <Description xml:space="preserve">Tools to accelerate XAML app development by analyzing files for issues.</Description>
         <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
+        <License>LICENSE.txt</License>
         <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/master/docs</GettingStartedGuide>
         <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/releases</ReleaseNotes>
         <Icon>Resources\RapidXamlAnalysis.ico</Icon>

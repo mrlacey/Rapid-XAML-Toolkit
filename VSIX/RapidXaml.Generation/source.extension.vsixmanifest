@@ -2,9 +2,10 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
         <Identity Id="RapidXaml.Generation.bd250c2a-3aa1-4838-9d3d-c36e956cd8d0" Version="1.0" Language="en-US" Publisher="Matt Lacey Ltd" />
-        <DisplayName>RapidXaml.Generation</DisplayName>
-        <Description xml:space="preserve">Empty VSIX Project.</Description>
+        <DisplayName>Rapid XAML Generation</DisplayName>
+        <Description xml:space="preserve">Tools to accelerate XAML app development by generating XAML.</Description>
         <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
+        <License>LICENSE.txt</License>
         <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/master/docs</GettingStartedGuide>
         <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/releases</ReleaseNotes>
         <Icon>Resources\RapidXamlGeneration.ico</Icon>

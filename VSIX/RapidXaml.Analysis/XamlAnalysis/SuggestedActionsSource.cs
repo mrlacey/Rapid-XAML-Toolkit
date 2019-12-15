@@ -39,8 +39,10 @@ namespace RapidXamlToolkit.XamlAnalysis
             RapidXamlDocumentCache.Add(this.file, textBuffer.CurrentSnapshot);
         }
 
-        // This is not called and so a warning (CS0067) is raised but not supressing this as expect to call this in future.
+        // This is not called and so a warning (CS0067) is raised but expect to call this in future.
+#pragma warning disable CS0067
         public event EventHandler<EventArgs> SuggestedActionsChanged;
+#pragma warning restore CS0067
 
         // Observable event wrapper
         public IObservable<TextViewLayoutChangedEventArgs> WhenViewLayoutChanged

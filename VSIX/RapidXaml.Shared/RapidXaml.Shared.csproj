@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1591,NU1605,NU1608</NoWarn>
+    <DocumentationFile>bin\Debug\RapidXaml.Shared.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591,NU1605,NU1608</NoWarn>
+    <DocumentationFile>bin\Release\RapidXaml.Shared.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -150,7 +155,7 @@
       <Version>1.8.0</Version>
     </PackageReference>
     <PackageReference Include="AvalonEdit">
-      <Version>6.0.0</Version>
+      <Version>5.0.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.ApplicationInsights">
       <Version>2.10.0</Version>
@@ -186,6 +191,9 @@
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="WarnAboutTODOs">
+      <Version>1.5.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +238,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\RapidXamlPackage.png" />
+    <AdditionalFiles Include="..\todo-warn.config" Condition=" '$(Configuration)' == 'Release' ">
+      <Link>todo-warn.config</Link>
+    </AdditionalFiles>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
