@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.Commands
             }
             else
             {
-                RapidXamlPackage.Logger?.RecordError("Failed to get IComponentModel in BaseCommand.GetEditorAdaptersFactoryServiceAsync");
+                SharedRapidXamlPackage.Logger?.RecordGeneralError("Failed to get IComponentModel in BaseCommand.GetEditorAdaptersFactoryServiceAsync");
 
                 return null;
             }
@@ -80,7 +80,7 @@ namespace RapidXamlToolkit.Commands
                 }
                 else
                 {
-                    RapidXamlPackage.Logger?.RecordError("Failed to get IVsTextManager4 in BaseCommand.GetXamlIndentAsync");
+                    SharedRapidXamlPackage.Logger?.RecordGeneralError("Failed to get IVsTextManager4 in BaseCommand.GetXamlIndentAsync");
                 }
             }
             catch (Exception exc)

@@ -19,6 +19,8 @@ namespace RapidXamlToolkit.Logging
 
         public TelemetryAccessor Telem { get; }
 
+        public bool UseExtendedLogging { get; set; }
+
         public void RecordError(string message, bool force = false)
         {
             ThreadHelper.ThrowIfNotOnUIThread();

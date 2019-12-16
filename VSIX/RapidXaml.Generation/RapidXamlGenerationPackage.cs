@@ -5,25 +5,51 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.DragDrop;
+using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.Telemetry;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit
 {
+    [ProvideAutoLoad(UIContextGuids.SolutionHasMultipleProjects, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [Guid(RapidXamlGenerationPackage.PackageGuidString)]
-    public sealed class RapidXamlGenerationPackage : RapidXamlPackage
+    [InstalledProductRegistration("#110", "#112", "0.0.0.0")] // Info on this package for Help/About
+    [ProvideMenuResource("Menus.ctmenu", 1)]
+    [Guid(PackageGuids.guidRapidXamlPackageString)]
+    [ProvideOptionPage(typeof(SettingsConfigPage), "RapidXAML", "Profiles", 106, 107, true)]
+    public sealed class RapidXamlGenerationPackage : AsyncPackage
     {
-        public const string PackageGuidString = "c5301a37-5906-4dd7-a1eb-a21a330be695";
-
 #pragma warning disable CS0628 // New protected member declared in sealed class
-        protected new async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
+        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 #pragma warning restore CS0628 // New protected member declared in sealed class
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
-            await base.InitializeAsync(cancellationToken, progress);
+            try
+            {
+                await SharedRapidXamlPackage.InitializeAsync(cancellationToken, this);
+
+                // TODO: localize this package name
+                SharedRapidXamlPackage.Logger.RecordInfo("Rapid XAML Generation");
+                SharedRapidXamlPackage.Logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
+                SharedRapidXamlPackage.Logger.RecordInfo(string.Empty);
+
+                await CopyToClipboardCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+                await SendToToolboxCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+                await OpenOptionsCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+                await RapidXamlDropHandlerProvider.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+            }
+            catch (Exception exc)
+            {
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
+            }
         }
     }
 }

@@ -41,8 +41,8 @@ namespace RapidXamlToolkit.Options
                         configurationErrorReported = true;
 
                         // `RecordError` may query settings and a problem with settings is why we may be here.
-                        RapidXamlPackage.Logger.RecordError(StringRes.Error_OutdatedConfigurationDetected2, force: true);
-                        RapidXamlPackage.Logger.RecordGeneralError(StringRes.Error_OutdatedConfigurationDetected2);
+                        SharedRapidXamlPackage.Logger.RecordError(StringRes.Error_OutdatedConfigurationDetected2, force: true);
+                        SharedRapidXamlPackage.Logger.RecordGeneralError(StringRes.Error_OutdatedConfigurationDetected2);
                     }
                 }
                 else
@@ -52,7 +52,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -89,7 +89,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
                 return string.Empty;
             }
         }
@@ -120,7 +120,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
                 return null;
             }
         }
@@ -142,7 +142,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -162,7 +162,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
     }

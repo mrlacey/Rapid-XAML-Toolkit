@@ -34,6 +34,11 @@ namespace RapidXamlToolkit.Logging
 
         public static RxtOutputPane Instance => instance ?? (instance = new RxtOutputPane());
 
+        public static bool IsInitialized()
+        {
+            return instance != null;
+        }
+
         public void Write(string message)
         {
             ThreadHelper.ThrowIfNotOnUIThread();

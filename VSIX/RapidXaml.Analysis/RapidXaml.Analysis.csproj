@@ -39,7 +39,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\RapidXaml.Analysis.xml</DocumentationFile>
-    <NoWarn>NU1605,NU1608</NoWarn>
+    <NoWarn>1591,NU1605,NU1608</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,13 +49,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>NU1605,NU1608</NoWarn>
+    <NoWarn>1591,NU1605,NU1608</NoWarn>
     <DocumentationFile>bin\Release\RapidXaml.Analysis.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
+    <Compile Include="Commands\FeedbackCommand.cs" />
     <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
     <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
@@ -242,6 +243,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VSPackage.en-US.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

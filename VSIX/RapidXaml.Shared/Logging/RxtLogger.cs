@@ -4,8 +4,6 @@
 using System;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using RapidXamlToolkit.Options;
-using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Logging
@@ -13,6 +11,8 @@ namespace RapidXamlToolkit.Logging
     public class RxtLogger : ILogger
     {
         public IVsActivityLog VsActivityLog { get; set; }
+
+        public bool UseExtendedLogging { get; set; } = false;
 
         public static string TimeStampMessage(string message)
         {
@@ -24,7 +24,7 @@ namespace RapidXamlToolkit.Logging
             ThreadHelper.ThrowIfNotOnUIThread();
 
             // Activate the pane (bring to front) so errors are obvious
-            if (force || this.IsExtendedLoggingEnabled())
+            if (force)
             {
                 RxtOutputPane.Instance.Write(TimeStampMessage(message));
                 RxtOutputPane.Instance.Activate();
@@ -45,7 +45,7 @@ namespace RapidXamlToolkit.Logging
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            if (this.IsExtendedLoggingEnabled())
+            if (this.UseExtendedLogging)
             {
                 RxtOutputPane.Instance.Write(TimeStampMessage(message));
             }
@@ -78,33 +78,6 @@ namespace RapidXamlToolkit.Logging
             {
                 this.VsActivityLog.LogEntry((uint)__ACTIVITYLOG_ENTRYTYPE.ALE_ERROR, StringRes.VSIX__LocalizedName, message);
             }
-        }
-
-        private bool IsExtendedLoggingEnabled()
-        {
-            Settings settings;
-
-            try
-            {
-                settings = CodeParserBase.GetSettings();
-
-                if (settings != null)
-                {
-                    return settings.ExtendedOutputEnabled;
-                }
-                else
-                {
-                    // Writing this directly to avoid potential infinite loop
-                    RxtOutputPane.Instance.Write(TimeStampMessage(StringRes.Info_UnableToDetermineIfExtendedOutputEnabled));
-                }
-            }
-            catch (Exception exc)
-            {
-                // May be unable to get settings if package hasn't loaded yet.
-                System.Diagnostics.Debug.WriteLine(exc.Message);
-            }
-
-            return true;
         }
     }
 }

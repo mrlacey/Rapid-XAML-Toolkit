@@ -360,7 +360,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
                 if (!(await this.serviceProvider.GetServiceAsync(typeof(SVsTextManager)) is IVsTextManager4 textManager))
                 {
-                    RapidXamlPackage.Logger?.RecordError("Failed to get IVsTextManager4 in VisualStudioAbstraction.GetXamlIndentAsync");
+                    SharedRapidXamlPackage.Logger?.RecordGeneralError("Failed to get IVsTextManager4 in VisualStudioAbstraction.GetXamlIndentAsync");
                 }
                 else
                 {

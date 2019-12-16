@@ -53,12 +53,10 @@
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
     <Compile Include="Commands\BaseCommand.cs" />
-    <Compile Include="Commands\FeedbackCommand.cs" />
     <Compile Include="Commands\IFileSystemAbstraction.cs" />
     <Compile Include="Commands\ProjectWrapper.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />
     <Compile Include="Configuration\RxtSettings.cs" />
-    <Compile Include="DteExtensions.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />
     <Compile Include="KnownContentTypes.cs" />
     <Compile Include="Logging\GeneralOutputPane.cs" />
@@ -68,61 +66,12 @@
     <Compile Include="Logging\RxtLoggerWithTelemtry.cs" />
     <Compile Include="Logging\RxtOutputPane.cs" />
     <Compile Include="NotUnitTestableAttribute.cs" />
-    <Compile Include="Options\AllowedPlaceholdersAttribute.cs" />
-    <Compile Include="Options\AllowedPlaceholderValidator.cs" />
-    <Compile Include="Options\CanNotifyPropertyChanged.cs" />
-    <Compile Include="Options\CanNotifyPropertyChangedAndDataErrorInfo.cs" />
-    <Compile Include="Options\ConfiguredSettings.cs" />
-    <Compile Include="Options\ConfiguredSettings.Default.cs" />
-    <Compile Include="Options\EnumConverter.cs" />
-    <Compile Include="Options\ICanClose.cs" />
-    <Compile Include="Options\Mapping.cs" />
-    <Compile Include="Options\OptionsEntryValidator.cs" />
-    <Compile Include="Options\Profile.cs" />
-    <Compile Include="Options\ProfileConfigControl.xaml.cs">
-      <DependentUpon>ProfileConfigControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Options\ProfileConfigPage.xaml.cs">
-      <DependentUpon>ProfileConfigPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Options\ProfileFontWeightConverter.cs" />
-    <Compile Include="Options\ProfileSummary.cs" />
-    <Compile Include="Options\Settings.cs" />
-    <Compile Include="Options\SettingsConfigPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Options\SettingsControl.xaml.cs">
-      <DependentUpon>SettingsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Options\VisualNode.cs" />
-    <Compile Include="Options\WarningTriangle.xaml.cs">
-      <DependentUpon>WarningTriangle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Parsers\AttributeArgumentDetails.cs" />
-    <Compile Include="Parsers\AttributeDetails.cs" />
-    <Compile Include="Parsers\CodeParserBase.cs" />
-    <Compile Include="Parsers\MemberDetails.cs" />
-    <Compile Include="Parsers\MemberType.cs" />
-    <Compile Include="Parsers\MethodDetails.cs" />
-    <Compile Include="Parsers\ParserOutput.cs" />
-    <Compile Include="Parsers\ParserOutputType.cs" />
-    <Compile Include="Parsers\PropertyDetails.cs" />
     <Compile Include="Placeholder.cs" />
     <Compile Include="ProjectHelpers.cs" />
     <Compile Include="ProjectType.cs" />
     <Compile Include="ProjectTypeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RapidXamlPackage.cs" />
-    <Compile Include="Resources\ImageResources.Designer.cs">
-      <DependentUpon>ImageResources.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Resources\ImageResources.en-us.Designer.cs">
-      <DependentUpon>ImageResources.en-us.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
+    <Compile Include="SharedRapidXamlPackage.cs" />
     <Compile Include="Resources\StringRes.Designer.cs">
       <DependentUpon>StringRes.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -153,9 +102,6 @@
   <ItemGroup>
     <PackageReference Include="ApiAnalysis.SimpleJsonAnalyzer.vsixuse">
       <Version>1.8.0</Version>
-    </PackageReference>
-    <PackageReference Include="AvalonEdit">
-      <Version>5.0.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.ApplicationInsights">
       <Version>2.10.0</Version>
@@ -197,32 +143,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Options\ProfileConfigControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Options\ProfileConfigPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Options\SettingsControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Options\WarningTriangle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\ImageResources.en-us.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ImageResources.en-us.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ImageResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ImageResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\StringRes.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringRes.en-US.Designer.cs</LastGenOutput>
@@ -233,18 +153,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\MarkupTag_16x.png" />
     <Content Include="Resources\RapidXamlPackage.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\RapidXamlPackage.png" />
     <AdditionalFiles Include="..\todo-warn.config" Condition=" '$(Configuration)' == 'Release' ">
       <Link>todo-warn.config</Link>
     </AdditionalFiles>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\WarningIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

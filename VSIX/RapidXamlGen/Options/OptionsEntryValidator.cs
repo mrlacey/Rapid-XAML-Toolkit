@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.Options
         {
             if (checkforNoOutput && string.IsNullOrWhiteSpace(enteredText))
             {
-                return StringRes.Options_Warn_UseNoOutputNotBlank.WithParams(Placeholder.NoOutput);
+                return OptionsStringRes.Options_Warn_UseNoOutputNotBlank.WithParams(Placeholder.NoOutput);
             }
 
             var apv = new AllowedPlaceholderValidator();
@@ -25,11 +25,11 @@ namespace RapidXamlToolkit.Options
 
                 if (!allKnown)
                 {
-                    return StringRes.Options_Warn_UnknownPlaceholders.WithParams(string.Join(", ", unknownPlaceholders));
+                    return OptionsStringRes.Options_Warn_UnknownPlaceholders.WithParams(string.Join(", ", unknownPlaceholders));
                 }
                 else
                 {
-                    return StringRes.Options_Warn_InvalidPlaceholders.WithParams(string.Join(", ", invalidPlaceholders));
+                    return OptionsStringRes.Options_Warn_InvalidPlaceholders.WithParams(string.Join(", ", invalidPlaceholders));
                 }
             }
 
@@ -62,7 +62,7 @@ namespace RapidXamlToolkit.Options
                     invalidPlaceholder = modifiedValue.Substring(modifiedValue.IndexOf("$"));
                 }
 
-                return StringRes.Options_Warn_UnknownPlaceholders.WithParams(invalidPlaceholder);
+                return OptionsStringRes.Options_Warn_UnknownPlaceholders.WithParams(invalidPlaceholder);
             }
 
             return null;

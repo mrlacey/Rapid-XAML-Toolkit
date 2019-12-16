@@ -7,6 +7,8 @@ namespace RapidXamlToolkit.Logging
 {
     public interface ILogger
     {
+        bool UseExtendedLogging { get; set; }
+
         void RecordInfo(string message);
 
         void RecordFeatureUsage(string feature);

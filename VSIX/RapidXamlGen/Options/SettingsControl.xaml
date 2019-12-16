@@ -2,23 +2,23 @@
     x:Class="RapidXamlToolkit.Options.SettingsControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:componentmodel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:RapidXamlToolkit"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:options="clr-namespace:RapidXamlToolkit.Options"
     xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
-    xmlns:componentmodel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     d:DesignHeight="350"
     d:DesignWidth="400"
     mc:Ignorable="d">
     <UserControl.Resources>
         <options:ProfileFontWeightConverter x:Key="FontWeightConverter" />
-        <CollectionViewSource Source="{Binding ProfilesList}" x:Key="listViewSource">
+        <CollectionViewSource x:Key="listViewSource" Source="{Binding ProfilesList}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="ProjectType"/>
+                <PropertyGroupDescription PropertyName="ProjectType" />
             </CollectionViewSource.GroupDescriptions>
             <CollectionViewSource.SortDescriptions>
-                <componentmodel:SortDescription PropertyName="ProjectType"/>
+                <componentmodel:SortDescription PropertyName="ProjectType" />
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
     </UserControl.Resources>
@@ -38,13 +38,13 @@
             Grid.ColumnSpan="2"
             Margin="0,0,0,12"
             Padding="9"
-            Header="{x:Static strings:StringRes.Options_GeneralSettingsHeader}">
+            Header="{x:Static strings:OptionsStringRes.Options_GeneralSettingsHeader}">
             <CheckBox VerticalAlignment="Center" IsChecked="{Binding ExtendedOutputEnabled, Mode=TwoWay}">
-                <TextBlock Text="{x:Static strings:StringRes.Options_EnableExtendedLogging}" ToolTip="{x:Static strings:StringRes.Options_EnableExtendedLoggingDescription}" />
+                <TextBlock Text="{x:Static strings:OptionsStringRes.Options_EnableExtendedLogging}" ToolTip="{x:Static strings:OptionsStringRes.Options_EnableExtendedLoggingDescription}" />
             </CheckBox>
         </GroupBox>
 
-        <TextBlock Grid.Row="1" Text="{x:Static strings:StringRes.Options_ProfilesSectionHeader}" />
+        <TextBlock Grid.Row="1" Text="{x:Static strings:OptionsStringRes.Options_ProfilesSectionHeader}" />
 
         <ListBox
             x:Name="DisplayedProfiles"
@@ -56,7 +56,7 @@
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
                             <Grid>
-                            <TextBlock FontWeight="Bold" Text="{Binding Path=Name}"/>
+                                <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" />
                             </Grid>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
@@ -80,15 +80,15 @@
                     <Setter Property="Margin" Value="0,0,0,6" />
                 </Style>
             </StackPanel.Resources>
-            <Button Click="SetActiveClicked" Content="{x:Static strings:StringRes.Options_ButtonSetAsActive}" />
-            <Button Click="SetFallBackClicked" Content="{x:Static strings:StringRes.Options_ButtonSetAsFallBack}" />
-            <Button Click="AddClicked" Content="{x:Static strings:StringRes.Options_ButtonAdd}" />
-            <Button Click="EditClicked" Content="{x:Static strings:StringRes.Options_ButtonEdit}" />
-            <Button Click="CopyClicked" Content="{x:Static strings:StringRes.Options_ButtonCopy}" />
-            <Button Click="DeleteClicked" Content="{x:Static strings:StringRes.Options_ButtonDelete}" />
-            <Button Click="ImportClicked" Content="{x:Static strings:StringRes.Options_ButtonImport}" />
-            <Button Click="ExportClicked" Content="{x:Static strings:StringRes.Options_ButtonExport}" />
-            <Button Click="ResetClicked" Content="{x:Static strings:StringRes.Options_ButtonReset}" />
+            <Button Click="SetActiveClicked" Content="{x:Static strings:OptionsStringRes.Options_ButtonSetAsActive}" />
+            <Button Click="SetFallBackClicked" Content="{x:Static strings:OptionsStringRes.Options_ButtonSetAsFallBack}" />
+            <Button Click="AddClicked" Content="{x:Static strings:OptionsStringRes.Options_ButtonAdd}" />
+            <Button Click="EditClicked" Content="{x:Static strings:OptionsStringRes.Options_ButtonEdit}" />
+            <Button Click="CopyClicked" Content="{x:Static strings:OptionsStringRes.Options_ButtonCopy}" />
+            <Button Click="DeleteClicked" Content="{x:Static strings:OptionsStringRes.Options_ButtonDelete}" />
+            <Button Click="ImportClicked" Content="{x:Static strings:OptionsStringRes.Options_ButtonImport}" />
+            <Button Click="ExportClicked" Content="{x:Static strings:OptionsStringRes.Options_ButtonExport}" />
+            <Button Click="ResetClicked" Content="{x:Static strings:OptionsStringRes.Options_ButtonReset}" />
         </StackPanel>
     </Grid>
 </UserControl>

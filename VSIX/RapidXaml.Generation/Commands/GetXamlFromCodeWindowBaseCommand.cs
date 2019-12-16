@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.Commands
             {
                 if (!(await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) is DTE dte))
                 {
-                    RapidXamlPackage.Logger?.RecordError("Failed to get DTE in GetXamlFromCodeWindowBaseCommand.GetXamlAsync");
+                    SharedRapidXamlPackage.Logger?.RecordError("Failed to get DTE in GetXamlFromCodeWindowBaseCommand.GetXamlAsync");
                 }
                 else
                 {
@@ -96,12 +96,12 @@ namespace RapidXamlToolkit.Commands
                 }
                 else
                 {
-                    RapidXamlPackage.Logger?.RecordError("Failed to get DTE in GetXamlFromCodeWindowBaseCommand.ShowStatusBarMessageAsync");
+                    SharedRapidXamlPackage.Logger?.RecordError("Failed to get DTE in GetXamlFromCodeWindowBaseCommand.ShowStatusBarMessageAsync");
                 }
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
     }

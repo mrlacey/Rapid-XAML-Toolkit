@@ -81,7 +81,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -106,7 +106,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -138,7 +138,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -168,7 +168,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -215,7 +215,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -268,7 +268,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -304,7 +304,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -334,7 +334,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -367,7 +367,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
         }
     }
