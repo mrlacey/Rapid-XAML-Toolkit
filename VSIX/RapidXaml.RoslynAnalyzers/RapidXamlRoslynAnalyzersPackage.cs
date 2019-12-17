@@ -16,14 +16,14 @@ namespace RapidXamlToolkit
     [ProvideAutoLoad(UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UIContextGuids80.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.0.0.0")] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.0.0.0", IconResourceID = 400)] // Info on this package for Help/About
     [Guid(RapidXamlRoslynAnalyzersPackage.PackageGuidString)]
     public sealed class RapidXamlRoslynAnalyzersPackage : AsyncPackage
     {
         public const string PackageGuidString = "021218fd-3667-42e9-8e27-6775cc561445";
 
 #pragma warning disable CS0628 // New protected member declared in sealed class
-        public new async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
+        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 #pragma warning restore CS0628 // New protected member declared in sealed class
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
