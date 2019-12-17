@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <Extern href="stdidcmd.h" />
   <Extern href="vsshlids.h" />
-  <Commands package="guidRapidXamlPackage">
+
+  <Commands package="guidRapidXamlGenerationPackage">
     <Groups>
       <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextGroup" priority="0x0600" />
       <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
@@ -82,8 +84,8 @@
   </CommandPlacements>
 
   <Symbols>
-    <!-- This is the package guid. -->
-    <GuidSymbol name="guidRapidXamlPackage" value="{c735dfc3-c416-4501-bc33-558e2aaad8c5}" />
+    <!-- This is the package guid. Matching definition in RapidXamlAnalysisPackage.cs -->
+    <GuidSymbol name="guidRapidXamlGenerationPackage" value="{fd0b0440-83be-4d1b-a449-9ca75d53007c}" />
 
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidRapidXamlPackageCmdSet" value="{8c20aab1-50b0-4523-8d9d-24d512fa8154}">

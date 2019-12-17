@@ -21,7 +21,7 @@ namespace RapidXamlToolkit
     [InstalledProductRegistration("#110", "#112", "0.0.0.0")] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(RapidXamlGenerationPackage.PackageGuidString)]
-    [ProvideOptionPage(typeof(SettingsConfigPage), "RapidXAML", "Profiles", 106, 107, true)]
+    [ProvideOptionPage(typeof(SettingsConfigPage), "Rapid XAML", "Profiles", 106, 107, true)]
     public sealed class RapidXamlGenerationPackage : AsyncPackage
     {
         public const string PackageGuidString = "ad4704fc-2e81-4406-9833-084d6642cf5b";

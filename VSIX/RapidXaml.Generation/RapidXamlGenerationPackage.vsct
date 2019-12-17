@@ -5,7 +5,7 @@
   <Extern href="stdidcmd.h" />
   <Extern href="vsshlids.h" />
 
-  <Commands package="guidRapidXamlPackage">
+  <Commands package="guidRapidXamlAnalysisPackage">
     <Groups>
       <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextGroup" priority="0x0600" />
       <Group guid="guidRapidXamlPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
@@ -94,8 +94,8 @@
   </CommandPlacements>
 
   <Symbols>
-    <!-- This is the package guid. -->
-    <GuidSymbol name="guidRapidXamlPackage" value="{c735dfc3-c416-4501-bc33-558e2aaad8c5}" />
+    <!-- This is the package guid. Matching definition in RapidXamlGenerationPackage.cs -->
+    <GuidSymbol name="guidRapidXamlAnalysisPackage" value="{ad4704fc-2e81-4406-9833-084d6642cf5b}" />
 
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidRapidXamlPackageCmdSet" value="{8c20aab1-50b0-4523-8d9d-24d512fa8154}">
