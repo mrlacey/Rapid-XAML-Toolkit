@@ -9,7 +9,7 @@ namespace RapidXamlToolkit.Telemetry
     {
         public static string GetVersion()
         {
-            var assembly = Assembly.GetExecutingAssembly();
+            var assembly = Assembly.GetCallingAssembly();
 
             return assembly.GetName().Version.ToString();
         }
