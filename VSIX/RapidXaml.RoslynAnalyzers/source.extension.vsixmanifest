@@ -3,7 +3,7 @@
     <Metadata>
         <Identity Id="RapidXaml.RoslynAnalyzers.c58ca4bd-0d58-46cd-afc3-c47a1e1b8c7f" Version="1.0" Language="en-US" Publisher="Matt Lacey Ltd." />
         <DisplayName>Rapid XAML RoslynAnalyzers</DisplayName>
-        <Description xml:space="preserve">Roslyn analyzers to help with XAML development.</Description>
+        <Description xml:space="preserve">Roslyn analyzers to help with XAML app development.</Description>
         <License>LICENSE.txt</License>
         <Icon>Resources\RapidXamlRoslynAnalyzers.ico</Icon>
         <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, MVVM</Tags>
