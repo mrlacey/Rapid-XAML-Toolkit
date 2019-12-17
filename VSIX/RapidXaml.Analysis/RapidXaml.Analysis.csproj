@@ -73,11 +73,6 @@
     <Compile Include="ErrorList\TableEntriesSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlAnalysisPackage.cs" />
-    <Compile Include="RapidXamlAnalysisPackage1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RapidXamlAnalysisPackage.vsct</DependentUpon>
-    </Compile>
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddEntryKeyboardAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
@@ -189,7 +184,6 @@
     </Content>
     <None Include="RapidXamlAnalysisPackage.vsct">
       <SubType>Designer</SubType>
-      <Generator>VsctGenerator</Generator>
       <LastGenOutput>RapidXamlAnalysisPackage1.cs</LastGenOutput>
     </None>
     <None Include="Resources\400.ico" />

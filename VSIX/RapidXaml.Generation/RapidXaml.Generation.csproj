@@ -210,9 +210,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="RapidXamlGenerationPackage.vsct">
-      <Generator>VsctGenerator</Generator>
       <ResourceName>Menus.ctmenu</ResourceName>
-      <LastGenOutput>RapidXamlGenerationPackage1.cs</LastGenOutput>
     </None>
     <Content Include="Resources\RapidXamlGeneration.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
