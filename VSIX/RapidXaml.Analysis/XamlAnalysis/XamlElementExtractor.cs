@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             var elementsBeingTracked = new List<TrackingElement>();
 
-            var everyElementProcessor = new EveryElementProcessor(projectType, RapidXamlPackage.Logger);
+            var everyElementProcessor = new EveryElementProcessor(projectType, SharedRapidXamlPackage.Logger);
 
             bool isIdentifyingElement = false;
             bool isClosingElement = false;

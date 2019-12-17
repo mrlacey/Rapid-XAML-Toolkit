@@ -36,7 +36,14 @@ namespace RapidXamlToolkit.Logging
 
         public static bool IsInitialized()
         {
-            return instance != null;
+            if (ServiceProvider.GlobalProvider.GetService(typeof(SVsOutputWindow)) is IVsOutputWindow outWindow)
+            {
+                outWindow.GetPane(ref rxtPaneGuid, out IVsOutputWindowPane pane);
+
+                return pane != null;
+            }
+
+            return false;
         }
 
         public void Write(string message)

@@ -35,6 +35,12 @@
     <NoWarn>1591,NU1605,NU1608</NoWarn>
     <DocumentationFile>bin\Release\RapidXaml.Shared.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>RapidXamlStrongNameDependency.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -162,6 +168,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="RapidXamlStrongNameDependency.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

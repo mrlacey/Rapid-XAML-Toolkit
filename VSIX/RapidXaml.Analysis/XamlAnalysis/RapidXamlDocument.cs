@@ -68,7 +68,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     ExtendedMessage = StringRes.Error_XamlAnalysisExtendedMessage.WithParams(e),
                 });
 
-                RapidXamlPackage.Logger?.RecordException(e);
+                SharedRapidXamlPackage.Logger?.RecordException(e);
             }
 
             return result;
@@ -76,38 +76,40 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType)
         {
+            var logger = SharedRapidXamlPackage.Logger;
+
             return new List<(string, XamlElementProcessor)>
                     {
-                        (Elements.Grid, new GridProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.TextBlock, new TextBlockProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.TextBox, new TextBoxProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.Button, new ButtonProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.Entry, new EntryProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.AppBarButton, new AppBarButtonProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.CheckBox, new CheckBoxProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.ComboBox, new ComboBoxProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.DatePicker, new DatePickerProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.TimePicker, new TimePickerProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.Hub, new HubProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.HubSection, new HubSectionProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.HyperlinkButton, new HyperlinkButtonProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.RepeatButton, new RepeatButtonProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.Pivot, new PivotProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.PivotItem, new PivotItemProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.MenuFlyoutItem, new MenuFlyoutItemProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.MenuFlyoutSubItem, new MenuFlyoutSubItemProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.RichEditBox, new RichEditBoxProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.ToggleSwitch, new ToggleSwitchProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.Slider, new SliderProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.Label, new LabelProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.PasswordBox, new PasswordBoxProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.MediaElement, new MediaElementProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.ListView, new SelectedItemAttributeProcessor(projType, RapidXamlPackage.Logger)),
-                        (Elements.DataGrid, new SelectedItemAttributeProcessor(projType, RapidXamlPackage.Logger)),
+                        (Elements.Grid, new GridProcessor(projType, logger)),
+                        (Elements.TextBlock, new TextBlockProcessor(projType, logger)),
+                        (Elements.TextBox, new TextBoxProcessor(projType, logger)),
+                        (Elements.Button, new ButtonProcessor(projType, logger)),
+                        (Elements.Entry, new EntryProcessor(projType, logger)),
+                        (Elements.AppBarButton, new AppBarButtonProcessor(projType, logger)),
+                        (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(projType, logger)),
+                        (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(projType, logger)),
+                        (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(projType, logger)),
+                        (Elements.CheckBox, new CheckBoxProcessor(projType, logger)),
+                        (Elements.ComboBox, new ComboBoxProcessor(projType, logger)),
+                        (Elements.DatePicker, new DatePickerProcessor(projType, logger)),
+                        (Elements.TimePicker, new TimePickerProcessor(projType, logger)),
+                        (Elements.Hub, new HubProcessor(projType, logger)),
+                        (Elements.HubSection, new HubSectionProcessor(projType, logger)),
+                        (Elements.HyperlinkButton, new HyperlinkButtonProcessor(projType, logger)),
+                        (Elements.RepeatButton, new RepeatButtonProcessor(projType, logger)),
+                        (Elements.Pivot, new PivotProcessor(projType, logger)),
+                        (Elements.PivotItem, new PivotItemProcessor(projType, logger)),
+                        (Elements.MenuFlyoutItem, new MenuFlyoutItemProcessor(projType, logger)),
+                        (Elements.MenuFlyoutSubItem, new MenuFlyoutSubItemProcessor(projType, logger)),
+                        (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(projType, logger)),
+                        (Elements.RichEditBox, new RichEditBoxProcessor(projType, logger)),
+                        (Elements.ToggleSwitch, new ToggleSwitchProcessor(projType, logger)),
+                        (Elements.Slider, new SliderProcessor(projType, logger)),
+                        (Elements.Label, new LabelProcessor(projType, logger)),
+                        (Elements.PasswordBox, new PasswordBoxProcessor(projType, logger)),
+                        (Elements.MediaElement, new MediaElementProcessor(projType, logger)),
+                        (Elements.ListView, new SelectedItemAttributeProcessor(projType, logger)),
+                        (Elements.DataGrid, new SelectedItemAttributeProcessor(projType, logger)),
                     };
         }
 
@@ -147,8 +149,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordError("Failed to load 'suppressions.xamlAnalysis' file.");
-                RapidXamlPackage.Logger?.RecordException(exc);
+                SharedRapidXamlPackage.Logger?.RecordError("Failed to load 'suppressions.xamlAnalysis' file.");
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
 
             return result;

@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.Logging
     {
         public IVsActivityLog VsActivityLog { get; set; }
 
-        public bool UseExtendedLogging { get; set; } = false;
+        public bool UseExtendedLogging { get; set; } = true;
 
         public static string TimeStampMessage(string message)
         {
@@ -39,6 +39,13 @@ namespace RapidXamlToolkit.Logging
         {
             GeneralOutputPane.Instance.Write($"[{StringRes.VSIX__LocalizedName}]  {message}{Environment.NewLine}{Environment.NewLine}");
             GeneralOutputPane.Instance.Activate();
+        }
+
+        public void RecordNotice(string message)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            RxtOutputPane.Instance.Write(TimeStampMessage(message));
         }
 
         public void RecordInfo(string message)

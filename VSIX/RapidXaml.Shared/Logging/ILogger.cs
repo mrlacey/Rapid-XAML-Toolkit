@@ -9,6 +9,8 @@ namespace RapidXamlToolkit.Logging
     {
         bool UseExtendedLogging { get; set; }
 
+        void RecordNotice(string message);
+
         void RecordInfo(string message);
 
         void RecordFeatureUsage(string feature);

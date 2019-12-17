@@ -1,24 +1,20 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
 using System.IO;
 using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.ComponentModelHost;
-using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.TextManager.Interop;
 using RapidXamlToolkit.ErrorList;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
     internal class RapidXamlRunningDocTableEvents : IVsRunningDocTableEvents
     {
-        private readonly RapidXamlPackage package;
+        private readonly AsyncPackage package;
         private readonly RunningDocumentTable runningDocumentTable;
 
-        public RapidXamlRunningDocTableEvents(RapidXamlPackage package, RunningDocumentTable runningDocumentTable)
+        public RapidXamlRunningDocTableEvents(AsyncPackage package, RunningDocumentTable runningDocumentTable)
         {
             this.package = package;
             this.runningDocumentTable = runningDocumentTable;

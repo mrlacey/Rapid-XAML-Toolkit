@@ -142,7 +142,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception e)
             {
-                RapidXamlPackage.Logger?.RecordException(e);
+                SharedRapidXamlPackage.Logger?.RecordException(e);
             }
 
             return list;

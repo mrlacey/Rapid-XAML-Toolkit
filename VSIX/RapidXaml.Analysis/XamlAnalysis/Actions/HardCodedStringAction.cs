@@ -171,7 +171,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             if (reswFiles.Count == 0)
             {
-                RapidXamlPackage.Logger?.RecordInfo(StringRes.Info_NoResourceFileFound);
+                SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_NoResourceFileFound);
                 return null;
             }
             else if (reswFiles.Count == 1)

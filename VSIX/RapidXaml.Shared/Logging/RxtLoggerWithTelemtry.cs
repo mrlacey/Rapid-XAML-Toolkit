@@ -51,6 +51,13 @@ namespace RapidXamlToolkit.Logging
             this.Telem.TrackEvent(feature);
         }
 
+        public void RecordNotice(string message)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            this.Logger.RecordNotice(message);
+        }
+
         public void RecordInfo(string message)
         {
             ThreadHelper.ThrowIfNotOnUIThread();

@@ -21,12 +21,12 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         private static readonly Dictionary<string, RapidXamlDocument> Cache = new Dictionary<string, RapidXamlDocument>();
         private static readonly List<string> CurrentlyProcessing = new List<string>();
-        private static RapidXamlPackage package;
+        private static AsyncPackage package;
         private static IVisualStudioAbstraction vsa;
 
         public static event EventHandler<RapidXamlParsingEventArgs> Parsed;
 
-        public static void Initialize(RapidXamlPackage rxPackage, ILogger logger)
+        public static void Initialize(AsyncPackage rxPackage, ILogger logger)
         {
             package = rxPackage;
             vsa = new VisualStudioAbstraction(logger, rxPackage, ProjectHelpers.Dte);

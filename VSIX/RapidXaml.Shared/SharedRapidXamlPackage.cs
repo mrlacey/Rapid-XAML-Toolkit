@@ -46,8 +46,8 @@ namespace RapidXamlToolkit
                 // Only want the default info loading once.
                 if (!RxtOutputPane.IsInitialized())
                 {
-                    Logger.RecordInfo(StringRes.Info_ProblemsInstructionsAndLink);
-                    Logger.RecordInfo(string.Empty);
+                    Logger.RecordNotice(StringRes.Info_ProblemsInstructionsAndLink);
+                    Logger.RecordNotice(string.Empty);
                 }
             }
             catch (Exception exc)
