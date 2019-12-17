@@ -38,7 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>NU1605,NU1608</NoWarn>
+    <NoWarn>1591,NU1605,NU1608</NoWarn>
     <DocumentationFile>bin\Debug\RapidXaml.Generation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -49,7 +49,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>NU1605,NU1608</NoWarn>
+    <NoWarn>1591,NU1605,NU1608</NoWarn>
     <DocumentationFile>bin\Release\RapidXaml.Generation.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
@@ -63,16 +63,51 @@
     <Compile Include="DragDrop\DropHandlerLogic.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandler.cs" />
     <Compile Include="DragDrop\RapidXamlDropHandlerProvider.cs" />
+    <Compile Include="GenerationStringExtensions.cs" />
+    <Compile Include="Options\AllowedPlaceholdersAttribute.cs" />
+    <Compile Include="Options\AllowedPlaceholderValidator.cs" />
+    <Compile Include="Options\CanNotifyPropertyChanged.cs" />
+    <Compile Include="Options\CanNotifyPropertyChangedAndDataErrorInfo.cs" />
+    <Compile Include="Options\ConfiguredSettings.cs" />
+    <Compile Include="Options\ConfiguredSettings.Default.cs" />
+    <Compile Include="Options\EnumConverter.cs" />
+    <Compile Include="Options\ICanClose.cs" />
+    <Compile Include="Options\Mapping.cs" />
+    <Compile Include="Options\OptionsEntryValidator.cs" />
+    <Compile Include="Options\Profile.cs" />
+    <Compile Include="Options\ProfileConfigControl.xaml.cs">
+      <DependentUpon>ProfileConfigControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Options\ProfileConfigPage.xaml.cs">
+      <DependentUpon>ProfileConfigPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Options\ProfileFontWeightConverter.cs" />
+    <Compile Include="Options\ProfileSummary.cs" />
+    <Compile Include="Options\Settings.cs" />
+    <Compile Include="Options\SettingsConfigPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Options\SettingsControl.xaml.cs">
+      <DependentUpon>SettingsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Options\VisualNode.cs" />
+    <Compile Include="Options\WarningTriangle.xaml.cs">
+      <DependentUpon>WarningTriangle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Parsers\AttributeArgumentDetails.cs" />
+    <Compile Include="Parsers\AttributeDetails.cs" />
+    <Compile Include="Parsers\CodeParserBase.cs" />
     <Compile Include="Parsers\CSharpParser.cs" />
     <Compile Include="Parsers\IDocumentParser.cs" />
+    <Compile Include="Parsers\MemberDetails.cs" />
+    <Compile Include="Parsers\MemberType.cs" />
+    <Compile Include="Parsers\MethodDetails.cs" />
+    <Compile Include="Parsers\ParserOutput.cs" />
+    <Compile Include="Parsers\ParserOutputType.cs" />
+    <Compile Include="Parsers\PropertyDetails.cs" />
     <Compile Include="Parsers\VisualBasicParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlGenerationPackage.cs" />
-    <Compile Include="RapidXamlGenerationPackage1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RapidXamlGenerationPackage.vsct</DependentUpon>
-    </Compile>
     <Compile Include="Resources\ImageResources.Designer.cs">
       <DependentUpon>ImageResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -80,6 +115,16 @@
     </Compile>
     <Compile Include="Resources\ImageResources.en-us.Designer.cs">
       <DependentUpon>ImageResources.en-us.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\OptionsStringRes.Designer.cs">
+      <DependentUpon>OptionsStringRes.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\OptionsStringRes.en-US.Designer.cs">
+      <DependentUpon>OptionsStringRes.en-US.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -107,7 +152,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Classic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
@@ -116,13 +163,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AvalonEdit">
+      <Version>5.0.4</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis">
       <Version>3.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Common">
-      <Version>3.2.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp">
       <Version>3.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces">
@@ -162,11 +209,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <VSCTCompile Include="RapidXamlGenerationPackage.vsct">
+    <None Include="RapidXamlGenerationPackage.vsct">
       <Generator>VsctGenerator</Generator>
       <ResourceName>Menus.ctmenu</ResourceName>
       <LastGenOutput>RapidXamlGenerationPackage1.cs</LastGenOutput>
-    </VSCTCompile>
+    </None>
     <Content Include="Resources\RapidXamlGeneration.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -181,7 +228,33 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ImageResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\OptionsStringRes.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>OptionsStringRes.en-US.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\OptionsStringRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>OptionsStringRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="VSPackage.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Options\ProfileConfigControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Options\ProfileConfigPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Options\SettingsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Options\WarningTriangle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />

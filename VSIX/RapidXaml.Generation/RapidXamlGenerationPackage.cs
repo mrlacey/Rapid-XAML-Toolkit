@@ -20,10 +20,12 @@ namespace RapidXamlToolkit
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", "0.0.0.0")] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [Guid(PackageGuids.guidRapidXamlPackageString)]
+    [Guid(RapidXamlGenerationPackage.PackageGuidString)]
     [ProvideOptionPage(typeof(SettingsConfigPage), "RapidXAML", "Profiles", 106, 107, true)]
     public sealed class RapidXamlGenerationPackage : AsyncPackage
     {
+        public const string PackageGuidString = "ad4704fc-2e81-4406-9833-084d6642cf5b";
+
 #pragma warning disable CS0628 // New protected member declared in sealed class
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 #pragma warning restore CS0628 // New protected member declared in sealed class
@@ -37,9 +39,9 @@ namespace RapidXamlToolkit
                 await SharedRapidXamlPackage.InitializeAsync(cancellationToken, this);
 
                 // TODO: localize this package name
-                SharedRapidXamlPackage.Logger.RecordInfo("Rapid XAML Generation");
-                SharedRapidXamlPackage.Logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
-                SharedRapidXamlPackage.Logger.RecordInfo(string.Empty);
+                SharedRapidXamlPackage.Logger.RecordNotice("Rapid XAML Generation");
+                SharedRapidXamlPackage.Logger.RecordNotice(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
+                SharedRapidXamlPackage.Logger.RecordNotice(string.Empty);
 
                 await CopyToClipboardCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
                 await SendToToolboxCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
