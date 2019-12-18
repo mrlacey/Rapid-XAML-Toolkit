@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.DragDrop;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.Telemetry;
 using Task = System.Threading.Tasks.Task;
@@ -47,6 +48,14 @@ namespace RapidXamlToolkit
                 await SendToToolboxCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
                 await OpenOptionsCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
                 await RapidXamlDropHandlerProvider.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+
+                // Set the ServiceProvider of CodeParserBase as it's needed to get settings
+                CodeParserBase.ServiceProvider = this;
+
+                if (SharedRapidXamlPackage.Logger != null)
+                {
+                    SharedRapidXamlPackage.Logger.UseExtendedLogging = CodeParserBase.GetSettings().ExtendedOutputEnabled;
+                }
             }
             catch (Exception exc)
             {
