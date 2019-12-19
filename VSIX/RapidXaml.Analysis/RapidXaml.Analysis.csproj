@@ -182,11 +182,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="RapidXamlAnalysisPackage.vsct">
-      <SubType>Designer</SubType>
-      <LastGenOutput>RapidXamlAnalysisPackage1.cs</LastGenOutput>
-    </None>
-    <None Include="Resources\400.ico" />
+    <VSCTCompile Include="RapidXamlAnalysisPackage.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+    </VSCTCompile>
     <Content Include="Resources\RapidXamlPackage.png" />
     <None Include="app.config">
       <SubType>Designer</SubType>
