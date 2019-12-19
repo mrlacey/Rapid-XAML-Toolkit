@@ -152,6 +152,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="PresentationFramework.Classic" />
@@ -209,9 +210,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="RapidXamlGenerationPackage.vsct">
+    <VSCTCompile Include="RapidXamlGenerationPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
-    </None>
+    </VSCTCompile>
     <Content Include="Resources\RapidXamlGeneration.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

@@ -27,6 +27,10 @@ namespace RapidXamlToolkit
     {
         public const string PackageGuidString = "ad4704fc-2e81-4406-9833-084d6642cf5b";
 
+        public RapidXamlGenerationPackage()
+        {
+        }
+
 #pragma warning disable CS0628 // New protected member declared in sealed class
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 #pragma warning restore CS0628 // New protected member declared in sealed class
