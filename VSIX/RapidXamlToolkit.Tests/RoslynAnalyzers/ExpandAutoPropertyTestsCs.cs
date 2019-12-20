@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.Tests.RoslynAnalyzers
         {
             var test = @"public string Property1 { get; set; }";
 
-            var expected = this.CreateDiagnosticResult("RXD001");
+            var expected = this.CreateDiagnosticResult("RXRA001");
 
             this.VerifyCSharpDiagnostic(this.ClassWithOnPropertyChanged(test), expected);
         }
@@ -46,8 +46,8 @@ namespace RapidXamlToolkit.Tests.RoslynAnalyzers
         {
             var test = @"public string Property1 { get; set; }";
 
-            var expected2 = this.CreateDiagnosticResult("RXD002");
-            var expected1 = this.CreateDiagnosticResult("RXD001");
+            var expected2 = this.CreateDiagnosticResult("RXRA002");
+            var expected1 = this.CreateDiagnosticResult("RXRA001");
 
             this.VerifyCSharpDiagnostic(this.ClassWithSetAndOnPropertyChanged(test), expected2, expected1);
         }
@@ -57,8 +57,8 @@ namespace RapidXamlToolkit.Tests.RoslynAnalyzers
         {
             var test = @"public string Property1 { get; set; }";
 
-            var expected3 = this.CreateDiagnosticResult("RXD003");
-            var expected1 = this.CreateDiagnosticResult("RXD001");
+            var expected3 = this.CreateDiagnosticResult("RXRA003");
+            var expected1 = this.CreateDiagnosticResult("RXRA001");
 
             this.VerifyCSharpDiagnostic(this.ClassWithSetPropertyAndOnPropertyChanged(test), expected3, expected1);
         }
@@ -68,7 +68,7 @@ namespace RapidXamlToolkit.Tests.RoslynAnalyzers
         {
             var test = @"public string Property1 { get; set; }";
 
-            var expected4 = this.CreateDiagnosticResult("RXD004");
+            var expected4 = this.CreateDiagnosticResult("RXRA004");
 
             this.VerifyCSharpDiagnostic(this.ClassInheritsFromDependencyObject(test), expected4);
         }

@@ -204,12 +204,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RapidXamlToolkit\RapidXamlToolkit.csproj">
-      <Project>{053a3048-276a-49ed-bd34-9c3ab1273a26}</Project>
-      <Name>RapidXamlToolkit</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Misc\ComboBox.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -220,6 +214,24 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RapidXaml.Analysis\RapidXaml.Analysis.csproj">
+      <Project>{fc81b148-4683-4557-bea1-69ad39241576}</Project>
+      <Name>RapidXaml.Analysis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Generation\RapidXaml.Generation.csproj">
+      <Project>{f3e12d01-04d9-49d0-bb5b-f4fd62cff54a}</Project>
+      <Name>RapidXaml.Generation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.RoslynAnalyzers\RapidXaml.RoslynAnalyzers.csproj">
+      <Project>{333feec8-4973-4471-9f0c-a90072383fa8}</Project>
+      <Name>RapidXaml.RoslynAnalyzers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
+      <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
+      <Name>RapidXaml.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
