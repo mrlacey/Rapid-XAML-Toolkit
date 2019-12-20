@@ -9,7 +9,7 @@
   <Commands package="guidRapidXamlAnalysisPackage">
     <Groups>
       <Group guid="guidRapidXamlAnalysisPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
-      <Group guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100" />
       <Group guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0700" />
     </Groups>
 
@@ -43,7 +43,7 @@
     <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100">
       <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0200">
+    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0800">
       <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
     </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0200">

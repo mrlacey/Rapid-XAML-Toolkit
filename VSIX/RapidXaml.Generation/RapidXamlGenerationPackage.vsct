@@ -10,7 +10,7 @@
     <Groups>
       <Group guid="guidRapidXamlGenerationPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
       <Group guid="guidRapidXamlGenerationPackageCmdSet" id="CodeContextMenuSecondaryGroup" priority="0x0700" />
-      <Group guid="guidRapidXamlGenerationPackageCmdSet" id="XamlContextMenuGroup" priority="0x0800" />
+      <Group guid="guidRapidXamlGenerationPackageCmdSet" id="XamlContextMenuGroup" priority="0x0500" />
     </Groups>
 
     <Buttons>
@@ -56,7 +56,7 @@
       <Parent guid="guidRapidXamlGenerationPackageCmdSet" id="CodeContextMenuSecondaryGroup" />
     </CommandPlacement>
 
-    <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100">
+    <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="XamlContextMenuGroup" priority="0x0700">
       <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
     </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">

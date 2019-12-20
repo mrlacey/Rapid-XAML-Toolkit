@@ -6,11 +6,7 @@
   <Extern href="vsshlids.h" />
 
   <Commands package="guidRapidXamlCommonMenuPackage">
-    <Groups>
-      <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextGroup" priority="0x0600" />
-      <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextGroup" priority="0x0600" />
-    </Groups>
-
+    
     <Menus>
       <Menu guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" type="Context" priority="0x0100">
         <Strings>
@@ -27,18 +23,12 @@
   </Commands>
 
   <CommandPlacements>
-    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextGroup" priority="0x0200">
+    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" priority="0x0200">
       <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
     </CommandPlacement>
-    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" priority="0x0100">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextGroup" />
-    </CommandPlacement>
 
-    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextGroup" priority="0x0200">
+    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" priority="0x0200">
       <Parent guid="GuidVisualStudioXAMLWindowContextMenu" id="IDVisualStudioXAMLWindowContextMenu" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" priority="0x0100">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextGroup" />
     </CommandPlacement>
   </CommandPlacements>
 
