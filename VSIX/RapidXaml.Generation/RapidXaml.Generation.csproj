@@ -141,7 +141,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="RapidXamlCommonMenus.vsct" />
+    <None Include="RapidXamlCommonMenus.vsct">
+      <LastGenOutput>RapidXamlCommonMenus.cs</LastGenOutput>
+    </None>
     <Content Include="Resources\MarkupTag_16x.png" />
     <Content Include="Resources\RapidXamlGenerationIcons.png" />
     <None Include="Resources\WarningIcon.png" />
