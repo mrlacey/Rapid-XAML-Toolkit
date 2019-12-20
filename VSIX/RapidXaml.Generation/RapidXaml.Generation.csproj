@@ -141,6 +141,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <None Include="RapidXamlCommonMenus.vsct" />
     <Content Include="Resources\MarkupTag_16x.png" />
     <Content Include="Resources\RapidXamlGenerationIcons.png" />
     <None Include="Resources\WarningIcon.png" />
@@ -210,7 +211,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="RapidXamlCommonMenus.vsct" />
     <VSCTCompile Include="RapidXamlGenerationPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>

@@ -8,11 +8,7 @@
   <Commands package="guidRapidXamlCommonMenuPackage">
     <Groups>
       <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextGroup" priority="0x0600" />
-      <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
-      <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenuSecondaryGroup" priority="0x0700" />
       <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextGroup" priority="0x0600" />
-      <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenuGroup" priority="0x0600" />
-      <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0700" />
     </Groups>
 
     <Menus>
@@ -37,24 +33,12 @@
     <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" priority="0x0100">
       <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextGroup" />
     </CommandPlacement>
-    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenuGroup" priority="0x0100">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenuSecondaryGroup" priority="0x0100">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" />
-    </CommandPlacement>
 
     <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextGroup" priority="0x0200">
       <Parent guid="GuidVisualStudioXAMLWindowContextMenu" id="IDVisualStudioXAMLWindowContextMenu" />
     </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" priority="0x0100">
       <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextGroup" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
-    </CommandPlacement>
-    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0200">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
     </CommandPlacement>
   </CommandPlacements>
 
@@ -65,12 +49,8 @@
     <GuidSymbol name="guidRapidXamlCommonMenuPackageCmdSet" value="{c38bde3a-c557-43e4-bb0a-9f167ace4c10}">
       <IDSymbol value="0x1100" name="CodeContextGroup" />
       <IDSymbol value="0x1200" name="CodeContextMenu" />
-      <IDSymbol value="0x1300" name="CodeContextMenuGroup" />
-      <IDSymbol value="0x1400" name="CodeContextMenuSecondaryGroup" />
       <IDSymbol value="0x2100" name="XamlContextGroup" />
       <IDSymbol value="0x2200" name="XamlContextMenu" />
-      <IDSymbol value="0x2300" name="XamlContextMenuGroup" />
-      <IDSymbol value="0x2400" name="XamlContextMenuSecondaryGroup" />
     </GuidSymbol>
 
     <GuidSymbol name="GuidVisualStudioXAMLWindowContextMenu" value="{4c87b692-1202-46aa-b64c-ef01faec53da}">

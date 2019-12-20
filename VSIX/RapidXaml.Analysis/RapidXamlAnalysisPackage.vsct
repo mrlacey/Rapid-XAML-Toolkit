@@ -7,6 +7,11 @@
   <Extern href="vsshlids.h" />
 
   <Commands package="guidRapidXamlAnalysisPackage">
+    <Groups>
+      <Group guid="guidRapidXamlAnalysisPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0700" />
+    </Groups>
 
     <Buttons>
       <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0100" type="Button">
@@ -15,7 +20,7 @@
         </Strings>
       </Button>
       <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900" type="Button">
-        <Icon guid="guidImages" id="bmpFeedback"/>
+        <Icon guid="guidAnalysisImages" id="bmpFeedback"/>
         <Strings>
           <ButtonText>Give Feedback</ButtonText>
         </Strings>
@@ -23,20 +28,29 @@
     </Buttons>
 
     <Bitmaps>
-      <Bitmap guid="guidImages" href="Resources\RapidXamlAnalysisIcons.png" usedList="bmpCopyAsXaml, bmpToolbox, bmpCreateView, bmpOptions, bmpSetDc, bmpFeedback" />
+      <Bitmap guid="guidAnalysisImages" href="Resources\RapidXamlAnalysisIcons.png" usedList="bmpCopyAsXaml, bmpToolbox, bmpCreateView, bmpOptions, bmpSetDc, bmpFeedback" />
     </Bitmaps>
   </Commands>
 
   <CommandPlacements>
+    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="CodeContextMenuGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" />
+    </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0400">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenuSecondaryGroup" />
+      <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="CodeContextMenuGroup" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0200">
+      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
+    </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0200">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenuGroup" />
+      <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" />
     </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenuSecondaryGroup" />
+      <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" />
     </CommandPlacement>
   </CommandPlacements>
 
@@ -46,12 +60,16 @@
 
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidRapidXamlAnalysisPackageCmdSet" value="{f1a4455d-b523-4b08-8ff7-2a964177fcf6}">
+      <IDSymbol value="0x1300" name="CodeContextMenuGroup" />
+
+      <IDSymbol value="0x2300" name="XamlContextMenuGroup" />
+      <IDSymbol value="0x2400" name="XamlContextMenuSecondaryGroup" />
 
       <IDSymbol name="MoveAllHardCodedStringsToResourceFileCommandId" value="4134" />
       <IDSymbol name="FeedbackCommandId" value="4135" />
     </GuidSymbol>
 
-    <GuidSymbol name="guidImages" value="{65bebd64-018e-442f-937f-c435cf70f9b8}">
+    <GuidSymbol name="guidAnalysisImages" value="{65bebd64-018e-442f-937f-c435cf70f9b8}">
       <IDSymbol name="bmpCopyAsXaml" value="1" />
       <IDSymbol name="bmpToolbox" value="2" />
       <IDSymbol name="bmpCreateView" value="3" />

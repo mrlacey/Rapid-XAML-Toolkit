@@ -7,22 +7,27 @@
   <Extern href="vsshlids.h" />
 
   <Commands package="guidRapidXamlGenerationPackage">
+    <Groups>
+      <Group guid="guidRapidXamlGenerationPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlGenerationPackageCmdSet" id="CodeContextMenuSecondaryGroup" priority="0x0700" />
+      <Group guid="guidRapidXamlGenerationPackageCmdSet" id="XamlContextMenuGroup" priority="0x0800" />
+    </Groups>
 
     <Buttons>
       <Button guid="guidRapidXamlGenerationPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100" type="Button">
-        <Icon guid="guidImages" id="bmpCopyAsXaml" />
+        <Icon guid="guidGenerationImages" id="bmpCopyAsXaml" />
         <Strings>
           <ButtonText>Copy to Clipboard</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlGenerationPackageCmdSet" id="SendToToolboxCommandId" priority="0x0100" type="Button">
-        <Icon guid="guidImages" id="bmpToolbox" />
+        <Icon guid="guidGenerationImages" id="bmpToolbox" />
         <Strings>
           <ButtonText>Send to Toolbox</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlGenerationPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100" type="Button">
-        <Icon guid="guidImages" id="bmpOptions" />
+        <Icon guid="guidGenerationImages" id="bmpOptions" />
         <Strings>
           <ButtonText>Profiles</ButtonText>
         </Strings>
@@ -30,23 +35,32 @@
     </Buttons>
 
     <Bitmaps>
-      <Bitmap guid="guidImages" href="Resources\RapidXamlGenerationIcons.png" usedList="bmpCopyAsXaml, bmpToolbox, bmpCreateView, bmpOptions, bmpSetDc, bmpFeedback" />
+      <Bitmap guid="guidGenerationImages" href="Resources\RapidXamlGenerationIcons.png" usedList="bmpCopyAsXaml, bmpToolbox, bmpCreateView, bmpOptions, bmpSetDc, bmpFeedback" />
     </Bitmaps>
   </Commands>
 
   <CommandPlacements>
+    <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="CodeContextMenuGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="CodeContextMenuSecondaryGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" />
+    </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenuGroup" />
+      <Parent guid="guidRapidXamlGenerationPackageCmdSet" id="CodeContextMenuGroup" />
     </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="SendToToolboxCommandId" priority="0x0200">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenuGroup" />
+      <Parent guid="guidRapidXamlGenerationPackageCmdSet" id="CodeContextMenuGroup" />
     </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenuSecondaryGroup" />
+      <Parent guid="guidRapidXamlGenerationPackageCmdSet" id="CodeContextMenuSecondaryGroup" />
     </CommandPlacement>
 
+    <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
+    </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
-      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenuSecondaryGroup" />
+      <Parent guid="guidRapidXamlGenerationPackageCmdSet" id="XamlContextMenuGroup" />
     </CommandPlacement>
   </CommandPlacements>
 
@@ -55,12 +69,17 @@
     <GuidSymbol name="guidRapidXamlGenerationPackage" value="{ad4704fc-2e81-4406-9833-084d6642cf5b}" />
 
     <GuidSymbol name="guidRapidXamlGenerationPackageCmdSet" value="{8c20aab1-50b0-4523-8d9d-24d512fa8154}">
+      <IDSymbol value="0x1300" name="CodeContextMenuGroup" />
+      <IDSymbol value="0x1400" name="CodeContextMenuSecondaryGroup" />
+
+      <IDSymbol value="0x2300" name="XamlContextMenuGroup" />
+
       <IDSymbol name="CopyToClipboardCommandId" value="4128" />
       <IDSymbol name="SendToToolboxCommandId" value="4129" />
       <IDSymbol name="OpenOptionsCommandId" value="4131" />
     </GuidSymbol>
 
-    <GuidSymbol name="guidImages" value="{092daafa-627f-4f53-a712-4e3e5fa72e0d}">
+    <GuidSymbol name="guidGenerationImages" value="{092daafa-627f-4f53-a712-4e3e5fa72e0d}">
       <IDSymbol name="bmpCopyAsXaml" value="1" />
       <IDSymbol name="bmpToolbox" value="2" />
       <IDSymbol name="bmpCreateView" value="3" />
