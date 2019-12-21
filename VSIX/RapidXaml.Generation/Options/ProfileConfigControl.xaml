@@ -77,14 +77,14 @@
             Margin="0,0,0,6"
             Orientation="Horizontal">
             <StackPanel.Resources>
-                <local:EnumConverter x:Key="EnumConverter" />
+                <local:ProjectTypeConverter x:Key="ProjectTypeConverter" />
                 <Style TargetType="RadioButton">
                     <Setter Property="Margin" Value="0,0,10,0" />
                 </Style>
             </StackPanel.Resources>
-            <!--  <RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlUwp}" IsChecked="{Binding Path=ProjectType, Converter={StaticResource EnumConverter}, ConverterParameter={x:Static local:ProjectType.Uwp}}" />
-            <RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlWpf}" IsChecked="{Binding Path=ProjectType, Converter={StaticResource EnumConverter}, ConverterParameter={x:Static rxt:ProjectType.Wpf}}" />
-            <RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlXamarinForms}" IsChecked="{Binding Path=ProjectType, Converter={StaticResource EnumConverter}, ConverterParameter={x:Static rxt:ProjectType.XamarinForms}}" />            -->
+            <RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlUwp}" IsChecked="{Binding ProjectType, Converter={StaticResource ProjectTypeConverter}, ConverterParameter=Uwp}" />
+            <RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlWpf}" IsChecked="{Binding ProjectType, Converter={StaticResource ProjectTypeConverter}, ConverterParameter=Wpf}" />
+            <RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlXamarinForms}" IsChecked="{Binding ProjectType, Converter={StaticResource ProjectTypeConverter}, ConverterParameter=XamarinForms}" />
             <!--<RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlAll}" IsChecked="{Binding Path=ProjectType, Converter={StaticResource EnumConverter}, ConverterParameter={x:Static rxt:ProjectType.Any}}" />-->
         </StackPanel>
 

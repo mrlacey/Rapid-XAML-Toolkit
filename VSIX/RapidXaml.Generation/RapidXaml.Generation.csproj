@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="Options\ProfileFontWeightConverter.cs" />
     <Compile Include="Options\ProfileSummary.cs" />
+    <Compile Include="Options\ProjectTypeConverter.cs" />
     <Compile Include="Options\Settings.cs" />
     <Compile Include="Options\SettingsConfigPage.cs">
       <SubType>Component</SubType>
