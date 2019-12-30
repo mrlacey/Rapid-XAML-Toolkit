@@ -122,7 +122,8 @@
     <comment>Title for Help/About</comment>
   </data>
   <data name="112" xml:space="preserve">
-    <value>Tools to accelerate XAML app development</value>
+    <value>Tools to accelerate XAML app development.
+This extension holds references and functionality used by the other Rapid XAML extensions.</value>
     <comment>Detailed description for Help/About</comment>
   </data>
 </root>
