@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="RapidXamlToolkit.0dc8e86a-836b-47e5-aa3f-f5e71c15e37a" Version="0.4" Language="en-US" Publisher="Matt Lacey Ltd." />
+        <Identity Id="RapidXamlToolkit.0dc8e86a-836b-47e5-aa3f-f5e71c15e37a" Version="0.8" Language="en-US" Publisher="Matt Lacey Ltd." />
         <DisplayName>Rapid XAML Toolkit</DisplayName>
         <Description xml:space="preserve">Tools to accelerate XAML app development.
 This extension holds references and functionality used by the other Rapid XAML extensions.</Description>
