@@ -574,6 +574,33 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Analysis (v{0}).
+        /// </summary>
+        public static string Info_LaunchVersionAnalysis {
+            get {
+                return ResourceManager.GetString("Info_LaunchVersionAnalysis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Generation (v{0}).
+        /// </summary>
+        public static string Info_LaunchVersionGeneration {
+            get {
+                return ResourceManager.GetString("Info_LaunchVersionGeneration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Roslyn Analyzers (v{0}).
+        /// </summary>
+        public static string Info_LaunchVersionRoslynAnalyzers {
+            get {
+                return ResourceManager.GetString("Info_LaunchVersionRoslynAnalyzers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Looking for mappings that are not read-only..
         /// </summary>
         public static string Info_LookingForReadWriteMappings {

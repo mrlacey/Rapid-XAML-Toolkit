@@ -790,4 +790,13 @@
   <data name="Info_UnexpectedMethodType" xml:space="preserve">
     <value>Unexpected method type '{0}' cannot be converted to XAML.</value>
   </data>
+  <data name="Info_LaunchVersionAnalysis" xml:space="preserve">
+    <value>Rapid XAML Analysis (v{0})</value>
+  </data>
+  <data name="Info_LaunchVersionGeneration" xml:space="preserve">
+    <value>Rapid XAML Generation (v{0})</value>
+  </data>
+  <data name="Info_LaunchVersionRoslynAnalyzers" xml:space="preserve">
+    <value>Rapid XAML Roslyn Analyzers (v{0})</value>
+  </data>
 </root>

@@ -45,9 +45,7 @@ namespace RapidXamlToolkit
             {
                 await SharedRapidXamlPackage.InitializeAsync(cancellationToken, this);
 
-                // TODO: localize this package name
-                SharedRapidXamlPackage.Logger.RecordNotice("Rapid XAML Generation");
-                SharedRapidXamlPackage.Logger.RecordNotice(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
+                SharedRapidXamlPackage.Logger.RecordNotice(StringRes.Info_LaunchVersionGeneration.WithParams(CoreDetails.GetVersion()));
                 SharedRapidXamlPackage.Logger.RecordNotice(string.Empty);
 
                 await CopyToClipboardCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);

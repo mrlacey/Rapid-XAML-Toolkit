@@ -34,9 +34,7 @@ namespace RapidXamlToolkit
             {
                 await SharedRapidXamlPackage.InitializeAsync(cancellationToken, this);
 
-                // TODO: localize this package name
-                SharedRapidXamlPackage.Logger?.RecordNotice("Rapid XAML Roslyn Analyzers");
-                SharedRapidXamlPackage.Logger?.RecordNotice(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
+                SharedRapidXamlPackage.Logger?.RecordNotice(StringRes.Info_LaunchVersionRoslynAnalyzers.WithParams(CoreDetails.GetVersion()));
                 SharedRapidXamlPackage.Logger?.RecordNotice(string.Empty);
             }
             catch (Exception exc)

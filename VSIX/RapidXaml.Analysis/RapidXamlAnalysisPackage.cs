@@ -43,9 +43,7 @@ namespace RapidXamlToolkit
             {
                 await SharedRapidXamlPackage.InitializeAsync(cancellationToken, this);
 
-                // TODO: localize this package name
-                SharedRapidXamlPackage.Logger?.RecordNotice("Rapid XAML Analysis");
-                SharedRapidXamlPackage.Logger?.RecordNotice(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
+                SharedRapidXamlPackage.Logger?.RecordNotice(StringRes.Info_LaunchVersionAnalysis.WithParams(CoreDetails.GetVersion()));
                 SharedRapidXamlPackage.Logger?.RecordNotice(string.Empty);
 
                 await FeedbackCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
