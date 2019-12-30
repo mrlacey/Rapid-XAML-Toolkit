@@ -20,14 +20,14 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             (IFileSystemAbstraction _, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
 
-            var sut = new DropHandlerLogic(null, vsa);
+            var _ = new DropHandlerLogic(null, vsa);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException), "vs")]
         public void CheckConstructorRequiredParam_VS()
         {
-            var sut = new DropHandlerLogic(DefaultTestLogger.Create(), null);
+            var _ = new DropHandlerLogic(DefaultTestLogger.Create(), null);
         }
     }
 }

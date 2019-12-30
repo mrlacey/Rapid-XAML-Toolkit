@@ -35,10 +35,12 @@ namespace RapidXamlToolkit.Options
                 var list = new ObservableCollection<ProfileSummary>();
 
                 // If multile profiles have the same name as the active (or fall back) profile, use the first one in the list with matching name
-                Dictionary<string, bool> activeIndicated = new Dictionary<string, bool>();
-                activeIndicated.Add(ProjectType.Uwp.GetDescription(), false);
-                activeIndicated.Add(ProjectType.Wpf.GetDescription(), false);
-                activeIndicated.Add(ProjectType.XamarinForms.GetDescription(), false);
+                Dictionary<string, bool> activeIndicated = new Dictionary<string, bool>
+                {
+                    { ProjectType.Uwp.GetDescription(), false },
+                    { ProjectType.Wpf.GetDescription(), false },
+                    { ProjectType.XamarinForms.GetDescription(), false },
+                };
 
                 bool fallBackIndicated = false;
 
