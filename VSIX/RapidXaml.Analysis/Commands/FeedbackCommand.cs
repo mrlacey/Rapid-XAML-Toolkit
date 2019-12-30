@@ -45,8 +45,7 @@ namespace RapidXamlToolkit.Commands
         {
             try
             {
-              //  ThreadHelper.ThrowIfNotOnUIThread();
-              await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 this.Logger?.RecordFeatureUsage(nameof(FeedbackCommand));
 
