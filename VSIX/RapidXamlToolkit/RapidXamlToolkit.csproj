@@ -128,7 +128,7 @@
       <Version>16.1.89</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK">
-      <Version>16.0.200</Version>
+      <Version>16.0.202</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers">
       <Version>16.3.2</Version>
