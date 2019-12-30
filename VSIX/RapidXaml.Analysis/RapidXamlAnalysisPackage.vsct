@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable"
-              xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <Include href="RapidXamlCommonMenus.vsct" />
 
   <Extern href="stdidcmd.h" />
@@ -20,7 +19,7 @@
         </Strings>
       </Button>
       <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900" type="Button">
-        <Icon guid="guidAnalysisImages" id="bmpFeedback"/>
+        <Icon guid="guidAnalysisImages" id="bmpFeedback" />
         <Strings>
           <ButtonText>Give Feedback</ButtonText>
         </Strings>

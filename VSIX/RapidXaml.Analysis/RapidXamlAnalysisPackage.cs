@@ -25,6 +25,12 @@ namespace RapidXamlToolkit
     {
         public const string PackageGuidString = "fd0b0440-83be-4d1b-a449-9ca75d53007c";
 
+        public static readonly Guid AnalysisCommandSet = new Guid("f1a4455d-b523-4b08-8ff7-2a964177fcf6");
+
+        public RapidXamlAnalysisPackage()
+        {
+        }
+
 #pragma warning disable CS0628 // New protected member declared in sealed class
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 #pragma warning restore CS0628 // New protected member declared in sealed class

@@ -37,7 +37,6 @@ namespace RapidXamlToolkit.Tests
 
         public void RecordNotice(string message)
         {
-
         }
     }
 }

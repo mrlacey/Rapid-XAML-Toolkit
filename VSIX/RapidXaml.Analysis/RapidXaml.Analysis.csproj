@@ -185,7 +185,9 @@
     <VSCTCompile Include="RapidXamlAnalysisPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
-    <None Include="RapidXamlCommonMenus.vsct" />
+    <None Include="RapidXamlCommonMenus.vsct">
+      <LastGenOutput>RapidXamlCommonMenus.cs</LastGenOutput>
+    </None>
     <Content Include="Resources\RapidXamlAnalysisIcons.png" />
     <None Include="app.config">
       <SubType>Designer</SubType>

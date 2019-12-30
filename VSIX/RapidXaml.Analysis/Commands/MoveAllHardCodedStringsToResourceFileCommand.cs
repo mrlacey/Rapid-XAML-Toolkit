@@ -27,7 +27,7 @@ namespace RapidXamlToolkit.Commands
         {
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
-            var menuCommandID = new CommandID(CommandSet, CommandId);
+            var menuCommandID = new CommandID(RapidXamlAnalysisPackage.AnalysisCommandSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
             commandService.AddCommand(menuItem);
         }

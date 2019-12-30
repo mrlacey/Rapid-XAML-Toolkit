@@ -13,8 +13,6 @@ namespace RapidXamlToolkit.Commands
 {
     public class BaseCommand
     {
-        public static readonly Guid CommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
-
         private readonly AsyncPackage package;
 
         public BaseCommand(AsyncPackage package, ILogger logger)

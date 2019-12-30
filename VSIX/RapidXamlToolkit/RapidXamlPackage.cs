@@ -18,6 +18,6 @@ namespace RapidXamlToolkit
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class RapidXamlPackage : AsyncPackage
     {
-        public const string PackageGuidString = "c735dfc3-c416-4501-bc33-558e2aaad8c5";
+        public const string PackageGuidString = "ed7fe961-2d10-4598-8040-7423b66b6540";
     }
 }

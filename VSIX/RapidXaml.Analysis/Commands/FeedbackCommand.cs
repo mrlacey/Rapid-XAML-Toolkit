@@ -9,16 +9,16 @@ using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit.Commands
 {
-    public sealed class FeedbackCommand : BaseCommand
+    internal sealed class FeedbackCommand : BaseCommand
     {
         public const int CommandId = 4135;
 
-        public FeedbackCommand(AsyncPackage package, OleMenuCommandService commandService, ILogger logger)
+        private FeedbackCommand(AsyncPackage package, OleMenuCommandService commandService, ILogger logger)
             : base(package, logger)
         {
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
-            var menuCommandId = new CommandID(CommandSet, CommandId);
+            var menuCommandId = new CommandID(RapidXamlAnalysisPackage.AnalysisCommandSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandId);
             commandService.AddCommand(menuItem);
         }
@@ -45,7 +45,8 @@ namespace RapidXamlToolkit.Commands
         {
             try
             {
-                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+              //  ThreadHelper.ThrowIfNotOnUIThread();
+              await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
                 this.Logger?.RecordFeatureUsage(nameof(FeedbackCommand));
 

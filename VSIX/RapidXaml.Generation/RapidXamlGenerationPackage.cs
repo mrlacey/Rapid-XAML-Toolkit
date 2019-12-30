@@ -27,6 +27,8 @@ namespace RapidXamlToolkit
     {
         public const string PackageGuidString = "ad4704fc-2e81-4406-9833-084d6642cf5b";
 
+        public static readonly Guid GenerationCommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
+
         public RapidXamlGenerationPackage()
         {
         }
