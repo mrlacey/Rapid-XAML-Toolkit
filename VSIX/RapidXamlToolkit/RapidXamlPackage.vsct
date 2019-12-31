@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+
+  <Commands package="guidRapidXamlCommonMenuPackage">
+    <Groups>
+      <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextGroup" priority="0x0600" />
+    </Groups>
+    
+    <Menus>
+      <Menu guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" type="Context" priority="0x0100">
+        <Strings>
+          <ButtonText>Rapid XAML</ButtonText>
+        </Strings>
+      </Menu>
+      <Menu guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" type="Context" priority="0x0100">
+        <Strings>
+          <ButtonText>Rapid XAML</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
+  </Commands>
+
+  <CommandPlacements>
+    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextGroup" priority="0x0200">
+      <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" priority="0x0100">
+      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextGroup" priority="0x0200">
+      <Parent guid="GuidVisualStudioXAMLWindowContextMenu" id="IDVisualStudioXAMLWindowContextMenu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" priority="0x0100">
+      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextGroup" />
+    </CommandPlacement>
+  </CommandPlacements>
+
+  <Symbols>
+    <GuidSymbol name="guidRapidXamlCommonMenuPackage" value="{ed7fe961-2d10-4598-8040-7423b66b6540}" />
+
+    <!-- This is the guid used to group the menu commands together -->
+    <GuidSymbol name="guidRapidXamlCommonMenuPackageCmdSet" value="{c38bde3a-c557-43e4-bb0a-9f167ace4c10}">
+      <IDSymbol value="0x1100" name="CodeContextGroup" />
+      <IDSymbol value="0x1200" name="CodeContextMenu" />
+      <IDSymbol value="0x2100" name="XamlContextGroup" />
+      <IDSymbol value="0x2200" name="XamlContextMenu" />
+    </GuidSymbol>
+
+    <GuidSymbol name="GuidVisualStudioXAMLWindowContextMenu" value="{4c87b692-1202-46aa-b64c-ef01faec53da}">
+      <IDSymbol name="IDVisualStudioXAMLWindowContextMenu" value="0x103" />
+    </GuidSymbol>
+
+  </Symbols>
+  
+</CommandTable>

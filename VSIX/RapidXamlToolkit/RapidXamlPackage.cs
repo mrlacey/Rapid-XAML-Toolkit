@@ -4,94 +4,20 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
-using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using RapidXamlToolkit.Commands;
-using RapidXamlToolkit.Configuration;
-using RapidXamlToolkit.DragDrop;
-using RapidXamlToolkit.ErrorList;
-using RapidXamlToolkit.Logging;
-using RapidXamlToolkit.Options;
-using RapidXamlToolkit.Parsers;
-using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.Telemetry;
-using RapidXamlToolkit.XamlAnalysis;
-using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit
 {
-    [ProvideAutoLoad(Microsoft.VisualStudio.Shell.Interop.UIContextGuids.SolutionHasMultipleProjects, PackageAutoLoadFlags.BackgroundLoad)]
-    [ProvideAutoLoad(Microsoft.VisualStudio.Shell.Interop.UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(UIContextGuids.SolutionHasMultipleProjects, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.0.0.0", IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.8.1")] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
-    [ProvideOptionPage(typeof(SettingsConfigPage), "RapidXAML", "Profiles", 106, 107, true)]
     public sealed class RapidXamlPackage : AsyncPackage
     {
-        public const string PackageGuidString = "c735dfc3-c416-4501-bc33-558e2aaad8c5";
-
-        public static ILogger Logger { get; private set; }
-
-        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
-        {
-            // When initialized asynchronously, the current thread may be a background thread at this point.
-            // Do any initialization that requires the UI thread after switching to the UI thread.
-            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-
-            var rxtLogger = new RxtLogger();
-
-            var config = new RxtSettings();
-
-            var telemLogger = TelemetryAccessor.Create(rxtLogger, config.TelemetryKey);
-
-            Logger = new RxtLoggerWithTelemtry(rxtLogger, telemLogger);
-
-            try
-            {
-                var activityLog = await this.GetServiceAsync(typeof(SVsActivityLog)) as IVsActivityLog;
-                rxtLogger.VsActivityLog = activityLog;
-
-                // Set the ServiceProvider of CodeParserBase as it's needed to get settings
-                CodeParserBase.ServiceProvider = this;
-                Logger.RecordInfo(StringRes.Info_ProblemsInstructionsAndLink);
-                Logger.RecordInfo(StringRes.Info_IntializingCommands.WithParams(CoreDetails.GetVersion()));
-                Logger.RecordInfo(string.Empty);
-
-                await CopyToClipboardCommand.InitializeAsync(this, Logger);
-                await SendToToolboxCommand.InitializeAsync(this, Logger);
-                await OpenOptionsCommand.InitializeAsync(this, Logger);
-                await FeedbackCommand.InitializeAsync(this, Logger);
-                await MoveAllHardCodedStringsToResourceFileCommand.InitializeAsync(this, Logger);
-                await RapidXamlDropHandlerProvider.InitializeAsync(this, Logger);
-
-                await this.SetUpRunningDocumentTableEventsAsync(cancellationToken);
-                RapidXamlDocumentCache.Initialize(this, Logger);
-
-                Microsoft.VisualStudio.Shell.Events.SolutionEvents.OnAfterCloseSolution += this.HandleCloseSolution;
-            }
-            catch (Exception exc)
-            {
-                Logger.RecordException(exc);
-            }
-        }
-
-        private void HandleCloseSolution(object sender, EventArgs e)
-        {
-            TableDataSource.Instance.CleanAllErrors();
-        }
-
-        private async Task SetUpRunningDocumentTableEventsAsync(CancellationToken cancellationToken)
-        {
-            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-
-            var runningDocumentTable = new RunningDocumentTable(this);
-
-            var plugin = new RapidXamlRunningDocTableEvents(this, runningDocumentTable);
-
-            runningDocumentTable.Advise(plugin);
-        }
+        public const string PackageGuidString = "ed7fe961-2d10-4598-8040-7423b66b6540";
     }
 }

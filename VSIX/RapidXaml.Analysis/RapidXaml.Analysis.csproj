@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>16.0</MinimumVisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\RapidXamlAnalysis.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{FC81B148-4683-4557-BEA1-69AD39241576}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RapidXamlToolkit</RootNamespace>
+    <AssemblyName>RapidXaml.Analysis</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <UseCodebase>true</UseCodebase>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>false</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
+    <StartAction>Program</StartAction>
+    <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\RapidXaml.Analysis.xml</DocumentationFile>
+    <NoWarn>1591,NU1605,NU1608</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591,NU1605,NU1608</NoWarn>
+    <DocumentationFile>bin\Release\RapidXaml.Analysis.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalSuppressions.cs">
+      <Link>GlobalSuppressions.cs</Link>
+    </Compile>
+    <Compile Include="Commands\FeedbackCommand.cs" />
+    <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
+    <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
+    <Compile Include="ErrorList\ErrorListService.cs" />
+    <Compile Include="ErrorList\ErrorRow.cs" />
+    <Compile Include="ErrorList\FileErrorCollection.cs" />
+    <Compile Include="ErrorList\SinkManager.cs" />
+    <Compile Include="ErrorList\TableDataSource.cs" />
+    <Compile Include="ErrorList\TableEntriesSnapshot.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RapidXamlAnalysisPackage.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddEntryKeyboardAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddRowAndColumnDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddRowDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\BaseSuggestedAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\ColumnSpanOverflowAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\HardCodedStringAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\InjectFixedXamlSuggestedAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\InsertRowDefinitionAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MakeNameStartWithCapitalAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MakeUidStartWithCapitalAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MediaElementAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MissingCheckBoxEventAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\SelectedItemBindingModeAction.cs" />
+    <Compile Include="XamlAnalysis\Attributes.cs" />
+    <Compile Include="XamlAnalysis\AttributeType.cs" />
+    <Compile Include="XamlAnalysis\Elements.cs" />
+    <Compile Include="XamlAnalysis\ParsedAction.cs" />
+    <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\CalendarDatePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\CheckBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ComboBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\DatePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\EntryProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\EveryElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\GridProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\LabelProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\MediaElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\PasswordBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\PivotItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\PivotProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\RepeatButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\RichEditBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\SelectedItemAttributeProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\SliderProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\TextBlockProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\TextBoxProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\TimePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlParsingEventArgs.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlRunningDocTableEvents.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlTagger.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlTagProvider.cs" />
+    <Compile Include="XamlAnalysis\SuggestedActionsSource.cs" />
+    <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
+    <Compile Include="XamlAnalysis\TagList.cs" />
+    <Compile Include="XamlAnalysis\TagSuppression.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddColumnDefinitionsTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddEntryKeyboardTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddRowDefinitionsTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\CheckBoxCheckedAndUncheckedEventsTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\InsertRowDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\IRapidXamlAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\IRapidXamlErrorListTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\IRapidXamlTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingColumnDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\MissingRowDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\NameTitleCaseTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTagExtensions.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlDiscreteTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlDisplayedTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlSuggestionAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlWarningAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\SelectedItemBindingModeTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\TagErrorType.cs" />
+    <Compile Include="XamlAnalysis\Tags\TagErrorTypeParser.cs" />
+    <Compile Include="XamlAnalysis\Tags\UidTitleCaseTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\UseMediaPlayerElementTag.cs" />
+    <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+    <AdditionalFiles Include="..\todo-warn.config" Condition=" '$(Configuration)' == 'Release' ">
+      <Link>todo-warn.config</Link>
+    </AdditionalFiles>
+    <Content Include="..\appsettings.json">
+      <Link>appsettings.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <VSCTCompile Include="RapidXamlAnalysisPackage.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+    </VSCTCompile>
+    <None Include="RapidXamlCommonMenus.vsct">
+      <LastGenOutput>RapidXamlCommonMenus.cs</LastGenOutput>
+    </None>
+    <Content Include="Resources\RapidXamlAnalysisIcons.png" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Key.snk" />
+    <Content Include="RxaExtensions.vsext">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis">
+      <Version>3.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.Common">
+      <Version>3.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.InteractiveHost">
+      <Version>3.3.0-beta3-19409-05</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.LanguageServices">
+      <Version>3.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.202" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.VisualStudio.SDK.Analyzers">
+      <Version>16.3.14</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Text.Data">
+      <Version>16.1.89</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Text.Logic">
+      <Version>16.1.89</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.TextManager.Interop.12.0">
+      <Version>12.0.30112</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.2.3074">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers">
+      <Version>1.1.118</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="System.Reactive">
+      <Version>4.1.6</Version>
+    </PackageReference>
+    <PackageReference Include="WarnAboutTODOs">
+      <Version>1.5.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
+      <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
+      <Name>RapidXaml.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\RapidXamlAnalysis.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VSPackage.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -43,6 +43,9 @@ There is another solution (`RapidXamlToolkit.PRBuild.sln`) which only contains t
 
 Please note that **only Visual Studio 2019** is supported for opening the solution and running the extension. This is due to the tight levels of integration needed with Visual Studio by the code in this extension.
 
+All warnings are treated as errors for the release build.  
+'TODO' comments that do not reference an issue number will create warnings.
+
 ### Extending XAML Analysis
 
 The area where contributions are most expected (and appreciated) is in creating more functionality for XAML Analysis. To help with this, there is a [guide to extending XAML Analysis](./extending-xaml-analysis.md) which contributors are encouraged to read.

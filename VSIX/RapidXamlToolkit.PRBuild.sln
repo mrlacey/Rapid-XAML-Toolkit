@@ -1,11 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27520.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXamlToolkit", "RapidXamlToolkit\RapidXamlToolkit.csproj", "{053A3048-276A-49ED-BD34-9C3AB1273A26}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXamlToolkit.Tests", "RapidXamlToolkit.Tests\RapidXamlToolkit.Tests.csproj", "{8A7DD653-78BC-4EAB-8227-4309CC25E750}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.Shared", "RapidXaml.Shared\RapidXaml.Shared.csproj", "{891D63BC-FA0D-4657-B433-F7F8DD27CD28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.RoslynAnalyzers", "RapidXaml.RoslynAnalyzers\RapidXaml.RoslynAnalyzers.csproj", "{333FEEC8-4973-4471-9F0C-A90072383FA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.Generation", "RapidXaml.Generation\RapidXaml.Generation.csproj", "{F3E12D01-04D9-49D0-BB5B-F4FD62CFF54A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.Analysis", "RapidXaml.Analysis\RapidXaml.Analysis.csproj", "{FC81B148-4683-4557-BEA1-69AD39241576}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,22 @@ Global
 		{8A7DD653-78BC-4EAB-8227-4309CC25E750}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A7DD653-78BC-4EAB-8227-4309CC25E750}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A7DD653-78BC-4EAB-8227-4309CC25E750}.Release|Any CPU.Build.0 = Release|Any CPU
+		{891D63BC-FA0D-4657-B433-F7F8DD27CD28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{891D63BC-FA0D-4657-B433-F7F8DD27CD28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{891D63BC-FA0D-4657-B433-F7F8DD27CD28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{891D63BC-FA0D-4657-B433-F7F8DD27CD28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{333FEEC8-4973-4471-9F0C-A90072383FA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{333FEEC8-4973-4471-9F0C-A90072383FA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{333FEEC8-4973-4471-9F0C-A90072383FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{333FEEC8-4973-4471-9F0C-A90072383FA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3E12D01-04D9-49D0-BB5B-F4FD62CFF54A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3E12D01-04D9-49D0-BB5B-F4FD62CFF54A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3E12D01-04D9-49D0-BB5B-F4FD62CFF54A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3E12D01-04D9-49D0-BB5B-F4FD62CFF54A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC81B148-4683-4557-BEA1-69AD39241576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC81B148-4683-4557-BEA1-69AD39241576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC81B148-4683-4557-BEA1-69AD39241576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC81B148-4683-4557-BEA1-69AD39241576}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

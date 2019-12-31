@@ -8,6 +8,8 @@ namespace RapidXamlToolkit.Tests
 {
     public class DefaultTestLogger : ILogger
     {
+        public bool UseExtendedLogging { get; set; }
+
         public static DefaultTestLogger Create()
         {
             return new DefaultTestLogger();
@@ -30,6 +32,10 @@ namespace RapidXamlToolkit.Tests
         }
 
         public void RecordInfo(string message)
+        {
+        }
+
+        public void RecordNotice(string message)
         {
         }
     }

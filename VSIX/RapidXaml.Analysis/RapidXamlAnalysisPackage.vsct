@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <Include href="RapidXamlCommonMenus.vsct" />
+
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+
+  <Commands package="guidRapidXamlAnalysisPackage">
+    <Groups>
+      <Group guid="guidRapidXamlAnalysisPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
+      <Group guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100" />
+      <Group guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0700" />
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0100" type="Button">
+        <Strings>
+          <ButtonText>Move all hard-coded strings to Resource file</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900" type="Button">
+        <Icon guid="guidAnalysisImages" id="bmpFeedback" />
+        <Strings>
+          <ButtonText>Give Feedback</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+    <Bitmaps>
+      <Bitmap guid="guidAnalysisImages" href="Resources\RapidXamlAnalysisIcons.png" usedList="bmpCopyAsXaml, bmpToolbox, bmpCreateView, bmpOptions, bmpSetDc, bmpFeedback" />
+    </Bitmaps>
+  </Commands>
+
+  <CommandPlacements>
+    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="CodeContextMenuGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0400">
+      <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="CodeContextMenuGroup" />
+    </CommandPlacement>
+
+    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100">
+      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0800">
+      <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0200">
+      <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" />
+    </CommandPlacement>
+    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900">
+      <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" />
+    </CommandPlacement>
+  </CommandPlacements>
+
+  <Symbols>
+    <!-- This is the package guid. Matching definition in RapidXamlAnalysisPackage.cs -->
+    <GuidSymbol name="guidRapidXamlAnalysisPackage" value="{fd0b0440-83be-4d1b-a449-9ca75d53007c}" />
+
+    <!-- This is the guid used to group the menu commands together -->
+    <GuidSymbol name="guidRapidXamlAnalysisPackageCmdSet" value="{f1a4455d-b523-4b08-8ff7-2a964177fcf6}">
+      <IDSymbol value="0x1300" name="CodeContextMenuGroup" />
+
+      <IDSymbol value="0x2300" name="XamlContextMenuGroup" />
+      <IDSymbol value="0x2400" name="XamlContextMenuSecondaryGroup" />
+
+      <IDSymbol name="MoveAllHardCodedStringsToResourceFileCommandId" value="4134" />
+      <IDSymbol name="FeedbackCommandId" value="4135" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidAnalysisImages" value="{65bebd64-018e-442f-937f-c435cf70f9b8}">
+      <IDSymbol name="bmpCopyAsXaml" value="1" />
+      <IDSymbol name="bmpToolbox" value="2" />
+      <IDSymbol name="bmpCreateView" value="3" />
+      <IDSymbol name="bmpOptions" value="4" />
+      <IDSymbol name="bmpSetDc" value="5" />
+      <IDSymbol name="bmpFeedback" value="6" />
+    </GuidSymbol>
+
+  </Symbols>
+</CommandTable>

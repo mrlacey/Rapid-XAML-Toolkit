@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+
+  <Symbols>
+    <GuidSymbol name="guidRapidXamlCommonMenuPackage" value="{ed7fe961-2d10-4598-8040-7423b66b6540}" />
+
+    <!-- This is the guid used to group the menu commands together -->
+    <GuidSymbol name="guidRapidXamlCommonMenuPackageCmdSet" value="{c38bde3a-c557-43e4-bb0a-9f167ace4c10}">
+      <IDSymbol value="0x1200" name="CodeContextMenu" />
+      <IDSymbol value="0x2200" name="XamlContextMenu" />
+    </GuidSymbol>
+
+  </Symbols>
+</CommandTable>

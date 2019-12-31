@@ -34,25 +34,36 @@ Due to the level of integration with Visual Studio, the automated testing of som
 
 ##### Drag & Drop VM
 
-- Details to follow
+- Drag a ViewModel file onto a XAML document and check that UI elements are created.
 
 ##### Copy to Clipboard
 
 - Check copying a **class** actually adds to the clipboard.
 - Check copying a **property** actually adds to the clipboard.
-- Check copying a **selection** actually adds to the clipboard. 
+- Check copying a **selection** actually adds to the clipboard.
 - Check that failing to copy anything does not add anything to the clipboard.
 
 ##### Send to Toolbox
 
 - Check sending a **class** actually adds to the Toolbox.
 - Check sending a **property** actually adds to the Toolbox.
-- Check sending a **selection** actually adds to the Toolbox. 
+- Check sending a **selection** actually adds to the Toolbox.
 - Check that failing to select anything valid does not add anything to the Toolbox.
 
 #### XAML Analysis
 
-- Details to follow
+- Open a .xaml file and check that items are underlined (as appropriate.)
+- Check that equivalent entries exist in the Error List table for the underlined items.
+- Check a code fix can be invoked from the Ctrl+. menu.
+- Check that the appropriate entries are added to the context menu on the XAML editor.
+- Check that it's possible to 'move all hard-coded strings to Resource file' at once.
+
+#### Roslyn Analyzers
+
+- Add a property with basic syntax to a property that inherits from a class that has a public `SetProperty` method. Ensure correct code fix option is displayed.
+- Add a property with basic syntax to a property that inherits from a class that has a public `Set` method. Ensure correct code fix option is displayed.
+- Add a property with basic syntax to a property that inherits from a class that has a public `OnPropertyChanged` method. Ensure correct code fix option is displayed.
+- Add a property with basic syntax to a property that inherits from a DependencyObject. Ensure correct code fix option for 'To dependency property' is displayed.
 
 ## Verifying generated VSIX
 

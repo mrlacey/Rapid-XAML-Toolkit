@@ -19,6 +19,10 @@ namespace RapidXamlToolkit.Tests
 
         public List<string> Info { get; set; } = new List<string>();
 
+        public List<string> Notices { get; set; } = new List<string>();
+
+        public bool UseExtendedLogging { get; set; }
+
         public void RecordError(string message, bool force = false)
         {
             this.Errors.Add(message);
@@ -42,6 +46,11 @@ namespace RapidXamlToolkit.Tests
         public void RecordInfo(string message)
         {
             this.Info.Add(message);
+        }
+
+        public void RecordNotice(string message)
+        {
+            this.Notices.Add(message);
         }
     }
 }
