@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <StartupObject>BuildAnalysisTestProject.Program</StartupObject>
+  </PropertyGroup>
+
+  <!-- Custom package source -->
+  <PropertyGroup>
+    <RestoreSources>$(RestoreSources);../RapidXaml.BuildAnalysis/bin/Debug/;https://api.nuget.org/v3/index.json</RestoreSources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RapidXamlBuildAnalysis" Version="0.1.11" />
+  </ItemGroup>
+</Project>

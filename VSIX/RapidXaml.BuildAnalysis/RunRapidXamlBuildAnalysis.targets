@@ -1,0 +1,15 @@
+﻿<Project>
+  <PropertyGroup>
+    <IntermediateOutputPath Condition="$(IntermediateOutputPath) == '' Or $(IntermediateOutputPath) == '*Undefined*'">$(MSBuildProjectDirectory)obj\$(Configuration)\</IntermediateOutputPath>
+        
+    <!-- Command to invoke RapidXamlBuildAnalysis -->
+    <RapidXamlBuildAnalysis>dotnet "$(MSBuildThisFileDirectory)/netcoreapp2.2/RapidXamlBuildAnalysis.dll"</RapidXamlBuildAnalysis>
+    
+    <!-- Other variables  -->
+    <CustomVariable>"$(MSBuildProjectDir)"</CustomVariable>
+  </PropertyGroup>
+
+    <Target Name="RapidXamlBuildAnalysis" BeforeTargets="CoreCompile" DependsOnTargets="PrepareForBuild">
+        <Exec Command="$(RapidXamlBuildAnalysis) $(ProjectPath)" />
+    </Target>
+</Project>

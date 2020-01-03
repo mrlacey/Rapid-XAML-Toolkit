@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFrameworks>netcoreapp2.2</TargetFrameworks>
+    </PropertyGroup>
+    <!-- Pack settings -->
+    <PropertyGroup>
+        <NoPackageAnalysis>true</NoPackageAnalysis>
+        <NuspecFile>RapidXamlBuildAnalysis.nuspec</NuspecFile>
+        <IntermediatePackDir>$(MSBuildProjectDirectory)/bin/$(Configuration)/publish/</IntermediatePackDir>
+        <PublishDir>$(IntermediatePackDir)$(TargetFramework)/</PublishDir>
+        <NuspecProperties>publishDir=$([MSBuild]::NormalizeDirectory($(IntermediatePackDir)))</NuspecProperties>
+    </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Framework" Version="15.1.1012" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.1.1012" PrivateAssets="All" />
+  </ItemGroup>
+
+    <!-- Don't clutter up our solution view with generated packages -->
+    <ItemGroup>
+      <None Remove="*.nupkg" />
+    </ItemGroup>
+
+    <!-- Executes /t:Publish for all target frameworks before packing-->
+    <Target Name="Nuget" AfterTargets="Build">
+        <ItemGroup>
+            <_TargetFramework Include="$(TargetFrameworks)" />
+        </ItemGroup>
+        <MSBuild Projects="$(MSBuildProjectFullPath)" Targets="Publish" Properties="TargetFramework=%(_TargetFramework.Identity)" />
+    </Target>
+</Project>
