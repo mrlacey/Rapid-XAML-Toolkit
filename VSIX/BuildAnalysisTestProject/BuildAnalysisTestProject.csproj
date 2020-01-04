@@ -12,6 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RapidXamlBuildAnalysis" Version="0.1.11" />
+    <PackageReference Include="RapidXaml.BuildAnalysis" Version="0.1.21" />
   </ItemGroup>
 </Project>

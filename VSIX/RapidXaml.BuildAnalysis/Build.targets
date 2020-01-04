@@ -1,0 +1,19 @@
+﻿<Project>
+  <Target Name="SetPackageProperties" BeforeTargets="GenerateNuspec" >
+    <!-- Create a dummy file when building on linux so the pack task passes. -->
+    <MakeDir Directories="$(BaseOutputPath)\$(Configuration)\net472\" />
+    <Touch Files="$(BaseOutputPath)\$(Configuration)\net472\RapidXaml.BuildAnalysis.dll" AlwaysCreate="true" />
+
+    <PropertyGroup>
+      <NuspecProperties>
+        $(NuspecProperties);
+        releasenotes=$([MSBuild]::Escape($(PackageReleaseNotes)));
+        output=$([MSBuild]::NormalizeDirectory('$(BaseOutputPath)\$(Configuration)'));
+      </NuspecProperties>
+      <NuspecProperties Condition="'$(RepositoryCommit)' != ''">
+        $(NuspecProperties);
+        repositoryCommit=$(SourceRevisionId);
+      </NuspecProperties>
+    </PropertyGroup>
+  </Target>
+</Project>

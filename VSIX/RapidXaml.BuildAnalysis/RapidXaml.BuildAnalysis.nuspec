@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>RapidXaml.BuildAnalysis</id>
+    <version>0.1.21</version>
+    <authors>Matt Lacey</authors>
+    <owners>Matt Lacey</owners>
+    <copyright>Copyright © Matt Lacey</copyright>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>XAML UWP WPF Xamarin.Forms Uno</tags>
+    <description>Custom build tool packaged with Nuget</description>
+    <releaseNotes>details to go here</releaseNotes>
+    <repository type="git" url="https://github.com/mrlacey/rapid-xaml-toolkit" />
+  </metadata>
+  <files>
+    <!-- Make this work with "pretty much" anything -->
+    <file src="_._" target="lib/netstandard1.0/" />
+    <file src="_._" target="lib/net40/" />
+
+    <file src="$output$netstandard2.0/RapidXaml.BuildAnalysis.dll" target="tools/netstandard2.0/" />
+    <file src="$output$netstandard2.0/RapidXaml.BuildAnalysis.pdb" target="tools/netstandard2.0/" />
+    <file src="$output$net472/RapidXaml.BuildAnalysis.dll" target="tools/net472/" />
+    <file src="$output$net472/RapidXaml.BuildAnalysis.pdb" target="tools/net472/" />
+    
+    <file src="targets\" target="build/" />
+    <file src="buildMultiTargeting\" target="buildMultiTargeting/" />
+    <file src="dist\" target="dist/" />
+
+  </files>
+</package>

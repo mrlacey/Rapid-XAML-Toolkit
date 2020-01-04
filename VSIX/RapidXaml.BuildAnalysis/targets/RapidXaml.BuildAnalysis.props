@@ -1,0 +1,8 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_BuildAnalysisAssembly Condition="'$(MSBuildRuntimeType)' == 'Core'">..\tools\netstandard2.0\RapidXaml.BuildAnalysis.dll</_BuildAnalysisAssembly>
+    <_BuildAnalysisAssembly Condition="'$(MSBuildRuntimeType)' != 'Core'">..\tools\net472\RapidXaml.BuildAnalysis.dll</_BuildAnalysisAssembly>
+  </PropertyGroup>
+
+  <UsingTask AssemblyFile="$(_BuildAnalysisAssembly)" TaskName="RapidXaml.BuildAnalysis.Program" />
+</Project>
