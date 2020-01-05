@@ -26,6 +26,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public string FileName { get; }
 
+        public string ErrorCode { get; set; }
+
         public abstract ITagSpan<IErrorTag> AsErrorTag();
     }
 }

@@ -39,10 +39,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             RapidXamlDocumentCache.Add(this.file, textBuffer.CurrentSnapshot);
         }
 
-        // This is not called and so a warning (CS0067) is raised but expect to call this in future.
-#pragma warning disable CS0067
         public event EventHandler<EventArgs> SuggestedActionsChanged;
-#pragma warning restore CS0067
 
         // Observable event wrapper
         public IObservable<TextViewLayoutChangedEventArgs> WhenViewLayoutChanged
@@ -55,6 +52,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                         h => this.view.LayoutChanged -= h)
                     .Select(x => x.EventArgs);
             }
+        }
+
+        public void Refresh()
+        {
+            this.SuggestedActionsChanged.Invoke(this, new EventArgs());
         }
 
         public Task<ISuggestedActionCategorySet> GetSuggestedActionCategoriesAsync(ISuggestedActionCategorySet requestedActionCategories, SnapshotSpan range, CancellationToken cancellationToken)
@@ -90,52 +92,52 @@ namespace RapidXamlToolkit.XamlAnalysis
                     switch (rxTag.SuggestedAction.Name)
                     {
                         case nameof(HardCodedStringAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, new HardCodedStringAction(this.file, this.view, (HardCodedStringTag)rxTag)));
+                            list.AddRange(this.CreateActionSet(rxTag, new HardCodedStringAction(this.file, this.view, (HardCodedStringTag)rxTag)));
                             break;
                         case nameof(InsertRowDefinitionAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rxTag, this.file, this.view)));
+                            list.AddRange(this.CreateActionSet(rxTag, InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rxTag, this.file, this.view)));
                             break;
                         case nameof(AddRowDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rxTag, this.file)));
                             break;
                         case nameof(AddColumnDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rxTag, this.file)));
                             break;
                         case nameof(AddRowAndColumnDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rxTag, this.file)));
                             break;
                         case nameof(AddMissingRowDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddMissingRowDefinitionsAction.Create((MissingRowDefinitionTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, AddMissingRowDefinitionsAction.Create((MissingRowDefinitionTag)rxTag, this.file)));
                             break;
                         case nameof(AddMissingColumnDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddMissingColumnDefinitionsAction.Create((MissingColumnDefinitionTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, AddMissingColumnDefinitionsAction.Create((MissingColumnDefinitionTag)rxTag, this.file)));
                             break;
                         case nameof(RowSpanOverflowAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, RowSpanOverflowAction.Create((RowSpanOverflowTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, RowSpanOverflowAction.Create((RowSpanOverflowTag)rxTag, this.file)));
                             break;
                         case nameof(ColumnSpanOverflowAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, ColumnSpanOverflowAction.Create((ColumnSpanOverflowTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, ColumnSpanOverflowAction.Create((ColumnSpanOverflowTag)rxTag, this.file)));
                             break;
                         case nameof(AddEntryKeyboardAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddEntryKeyboardAction.Create((AddEntryKeyboardTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, AddEntryKeyboardAction.Create((AddEntryKeyboardTag)rxTag, this.file)));
                             break;
                         case nameof(AddTextBoxInputScopeAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, AddTextBoxInputScopeAction.Create((AddTextBoxInputScopeTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, AddTextBoxInputScopeAction.Create((AddTextBoxInputScopeTag)rxTag, this.file)));
                             break;
                         case nameof(MissingCheckBoxEventAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, MissingCheckBoxEventAction.Create((CheckBoxCheckedAndUncheckedEventsTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, MissingCheckBoxEventAction.Create((CheckBoxCheckedAndUncheckedEventsTag)rxTag, this.file)));
                             break;
                         case nameof(MediaElementAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, MediaElementAction.Create((UseMediaPlayerElementTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, MediaElementAction.Create((UseMediaPlayerElementTag)rxTag, this.file)));
                             break;
                         case nameof(MakeNameStartWithCapitalAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, MakeNameStartWithCapitalAction.Create((NameTitleCaseTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, MakeNameStartWithCapitalAction.Create((NameTitleCaseTag)rxTag, this.file)));
                             break;
                         case nameof(MakeUidStartWithCapitalAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, MakeUidStartWithCapitalAction.Create((UidTitleCaseTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, MakeUidStartWithCapitalAction.Create((UidTitleCaseTag)rxTag, this.file)));
                             break;
                         case nameof(SelectedItemBindingModeAction):
-                            list.AddRange(this.CreateActionSet(rxTag.Span, SelectedItemBindingModeAction.Create((SelectedItemBindingModeTag)rxTag, this.file)));
+                            list.AddRange(this.CreateActionSet(rxTag, SelectedItemBindingModeAction.Create((SelectedItemBindingModeTag)rxTag, this.file)));
                             break;
                     }
                 }
@@ -148,18 +150,35 @@ namespace RapidXamlToolkit.XamlAnalysis
             return list;
         }
 
-        public IEnumerable<SuggestedActionSet> CreateActionSet(Span span, params BaseSuggestedAction[] actions)
+        public IEnumerable<SuggestedActionSet> CreateActionSet(IRapidXamlTag tag, params BaseSuggestedAction[] actions)
         {
             var enabledActions = actions.Where(action => action.IsEnabled);
-            return new[]
+
+            // TODO: Localize titles
+            var result = new List<SuggestedActionSet>()
             {
                 new SuggestedActionSet(
                     PredefinedSuggestedActionCategoryNames.Refactoring,
                     actions: enabledActions,
                     title: "Rapid XAML",
                     priority: SuggestedActionSetPriority.None,
-                    applicableToSpan: span),
+                    applicableToSpan: tag.Span),
             };
+
+            if (tag is RapidXamlDisplayedTag rxdt)
+            {
+                foreach (var action in actions)
+                {
+                    result.Add(new SuggestedActionSet(
+                        PredefinedSuggestedActionCategoryNames.Any,
+                        actions: new[] { SuppressWarningAction.Create(rxdt, action.File, this) },
+                        title: "Rapid XAML",
+                        priority: SuggestedActionSetPriority.None,
+                        applicableToSpan: tag.Span));
+                }
+            }
+
+            return result;
         }
 
         public void Dispose()

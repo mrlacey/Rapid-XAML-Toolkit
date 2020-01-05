@@ -14,6 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlDisplayedTag : RapidXamlAdornmentTag, IRapidXamlErrorListTag
     {
+        private const string SettingsFileName = "settings.xamlAnalysis";
+
         protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType)
             : base(span, snapshot, fileName)
         {
@@ -38,11 +40,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public int Column { get; }
 
         public TagErrorType DefaultErrorType { get; }
-
-        /// <summary>
-        /// Gets the code shown in the error list. Also used as the file name in the help link.
-        /// </summary>
-        public string ErrorCode { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the tag is for something that should show in the Errors tab of the error list.
@@ -84,7 +81,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 return false;
             }
 
-            var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), "settings.xamlAnalysis");
+            var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
 
             if (File.Exists(settingsFile))
             {
@@ -115,11 +112,64 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                     }
                 }
             }
+            else
+            {
+                // If settings file is removed need to remove any cached reference to it.
+                if (SettingsCache.ContainsKey(settingsFile))
+                {
+                    SettingsCache.Remove(settingsFile);
+                }
+            }
 
             // Set to default if no override in file
             tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
 
             return false;
+        }
+
+        // TODO: remove duplication from TryGetConfiguredErrorType
+        // TODO: add some logging info in case of problems
+        public void SetAsHiddenInSettingsFile()
+        {
+            if (string.IsNullOrWhiteSpace(this.FileName))
+            {
+                return;
+            }
+
+            var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
+
+            if (proj == null)
+            {
+                return;
+            }
+
+            var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
+
+            Dictionary<string, string> settings = null;
+
+            bool addToProject = false;
+
+            if (File.Exists(settingsFile))
+            {
+                var json = File.ReadAllText(settingsFile);
+                settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+            }
+            else
+            {
+                settings = new Dictionary<string, string>();
+                addToProject = true;
+            }
+
+            settings[this.ErrorCode] = nameof(TagErrorType.Hidden);
+
+            var jsonSettings = new JsonSerializerSettings { Formatting = Formatting.Indented };
+
+            File.WriteAllText(settingsFile, JsonConvert.SerializeObject(settings, settings: jsonSettings));
+
+            if (addToProject)
+            {
+                proj.ProjectItems.AddFromFile(settingsFile);
+            }
         }
 
         public override ITagSpan<IErrorTag> AsErrorTag()

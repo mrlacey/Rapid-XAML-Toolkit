@@ -43,6 +43,17 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     if (span.IntersectsWith(viewTag.Span))
                     {
+                        if (span.Snapshot.TextBuffer != viewTag.Snapshot.TextBuffer)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Incompatible TextBuffers - cache is out of date.");
+                            continue;
+                        }
+
+                        if (span.Snapshot.Version.VersionNumber != viewTag.Snapshot.Version.VersionNumber)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Incompatible snapshot versions - cache is out of date.");
+                        }
+
                         yield return viewTag.AsErrorTag();
                     }
                 }

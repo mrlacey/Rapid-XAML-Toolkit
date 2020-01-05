@@ -97,6 +97,11 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
         }
 
+        public static void Invalidate(string file)
+        {
+            Cache.Remove(file);
+        }
+
         public static void Update(string file, ITextSnapshot snapshot)
         {
             var snapshotText = snapshot.GetText();
