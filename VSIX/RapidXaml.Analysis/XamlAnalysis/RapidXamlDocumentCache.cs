@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.TextManager.Interop;
+using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -97,9 +98,21 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
         }
 
+        public static void RemoveTags(string file, string errorCode)
+        {
+            for (int i = Cache[file].Tags.Count - 1; i >= 0; i--)
+            {
+                if (Cache[file].Tags[i] is RapidXamlDisplayedTag rxdt && rxdt.ErrorCode == errorCode)
+                {
+                    Cache[file].Tags.RemoveAt(i);
+                }
+            }
+        }
+
         public static void Invalidate(string file)
         {
-            Cache.Remove(file);
+            Cache[file].Clear();
+            TableDataSource.Instance.CleanErrors(file);
         }
 
         public static void Update(string file, ITextSnapshot snapshot)

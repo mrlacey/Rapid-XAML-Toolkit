@@ -62,7 +62,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception e)
             {
-                result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot, fileName)
+                result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot, fileName, SharedRapidXamlPackage.Logger)
                 {
                     Description = StringRes.Error_XamlAnalysisDescription,
                     ExtendedMessage = StringRes.Error_XamlAnalysisExtendedMessage.WithParams(e),
@@ -111,6 +111,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.ListView, new SelectedItemAttributeProcessor(projType, logger)),
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(projType, logger)),
                     };
+        }
+
+        public void Clear()
+        {
+            this.RawText = string.Empty;
+            this.Tags.Clear();
+            SuppressionsCache.Clear();
         }
 
         private static List<TagSuppression> GetSuppressions(string fileName)

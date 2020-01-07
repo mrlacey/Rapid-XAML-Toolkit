@@ -8,6 +8,8 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using Newtonsoft.Json;
 using RapidXamlToolkit.ErrorList;
+using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
@@ -16,8 +18,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     {
         private const string SettingsFileName = "settings.xamlAnalysis";
 
-        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType)
-            : base(span, snapshot, fileName)
+        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger)
+            : base(span, snapshot, fileName, logger)
         {
             var line = snapshot.GetLineFromPosition(span.Start);
             var col = span.Start - line.Start.Position;
@@ -127,12 +129,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             return false;
         }
 
-        // TODO: remove duplication from TryGetConfiguredErrorType
-        // TODO: add some logging info in case of problems
         public void SetAsHiddenInSettingsFile()
         {
             if (string.IsNullOrWhiteSpace(this.FileName))
             {
+                this.Logger.RecordInfo(StringRes.Info_FileNameMissingFromTag);
                 return;
             }
 
@@ -140,12 +141,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
             if (proj == null)
             {
+                this.Logger.RecordInfo(StringRes.Info_UnableToFindProjectContainingFile.WithParams(this.FileName));
                 return;
             }
 
             var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
 
-            Dictionary<string, string> settings = null;
+            Dictionary<string, string> settings;
 
             bool addToProject = false;
 

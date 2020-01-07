@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
@@ -10,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     public class CheckBoxCheckedAndUncheckedEventsTag : RapidXamlDisplayedTag
     {
         // https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/checkbox#handle-click-and-checked-events
-        public CheckBoxCheckedAndUncheckedEventsTag(Span span, ITextSnapshot snapshot, string fileName, string existingName, bool hasChecked)
-            : base(span, snapshot, fileName, "RXT401", TagErrorType.Warning)
+        public CheckBoxCheckedAndUncheckedEventsTag(Span span, ITextSnapshot snapshot, string fileName, string existingName, bool hasChecked, ILogger logger)
+            : base(span, snapshot, fileName, "RXT401", TagErrorType.Warning, logger)
         {
             this.SuggestedAction = typeof(MissingCheckBoxEventAction);
             this.ToolTip = StringRes.Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip;

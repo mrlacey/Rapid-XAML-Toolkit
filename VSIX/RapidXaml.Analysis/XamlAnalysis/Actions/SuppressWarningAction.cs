@@ -35,6 +35,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         public override void Execute(CancellationToken cancellationToken)
         {
             this.Tag.SetAsHiddenInSettingsFile();
+            RapidXamlDocumentCache.RemoveTags(this.Tag.FileName, this.ErrorCode);
             this.Source.Refresh();
         }
     }

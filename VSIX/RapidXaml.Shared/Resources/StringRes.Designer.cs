@@ -376,6 +376,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FileName missing from tag.
+        /// </summary>
+        public static string Info_FileNameMissingFromTag {
+            get {
+                return ResourceManager.GetString("Info_FileNameMissingFromTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Formatting output for generic type &apos;{0}&apos;..
         /// </summary>
         public static string Info_FormattingOutputForGenericType {
@@ -862,11 +871,29 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Snapshot version has changed-invalidating cache for &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_SnapshotVersionChanged {
+            get {
+                return ResourceManager.GetString("Info_SnapshotVersionChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Property &apos;{0}&apos; has {1} sub-properties..
         /// </summary>
         public static string Info_SubpropertyCount {
             get {
                 return ResourceManager.GetString("Info_SubpropertyCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TextBuffer has changed-invalidating cache for &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_TextBufferChanged {
+            get {
+                return ResourceManager.GetString("Info_TextBufferChanged", resourceCulture);
             }
         }
         
@@ -885,6 +912,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_UnableToDetermineIfExtendedOutputEnabled {
             get {
                 return ResourceManager.GetString("Info_UnableToDetermineIfExtendedOutputEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to find project containing file &apos;{0}&apos;..
+        /// </summary>
+        public static string Info_UnableToFindProjectContainingFile {
+            get {
+                return ResourceManager.GetString("Info_UnableToFindProjectContainingFile", resourceCulture);
             }
         }
         
@@ -1967,6 +2003,15 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_SetBindingModeToTwoWay {
             get {
                 return ResourceManager.GetString("UI_SetBindingModeToTwoWay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML.
+        /// </summary>
+        public static string UI_SuggestedActionSetTitle {
+            get {
+                return ResourceManager.GetString("UI_SuggestedActionSetTitle", resourceCulture);
             }
         }
         

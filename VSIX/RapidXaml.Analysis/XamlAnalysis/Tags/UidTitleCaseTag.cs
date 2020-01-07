@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
@@ -9,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class UidTitleCaseTag : RapidXamlDisplayedTag
     {
-        public UidTitleCaseTag(Span span, ITextSnapshot snapshot, string fileName, string value)
-            : base(span, snapshot, fileName, "RXT451", TagErrorType.Suggestion)
+        public UidTitleCaseTag(Span span, ITextSnapshot snapshot, string fileName, string value, ILogger logger)
+            : base(span, snapshot, fileName, "RXT451", TagErrorType.Suggestion, logger)
         {
             this.SuggestedAction = typeof(MakeUidStartWithCapitalAction);
             this.ToolTip = StringRes.Info_XamlAnalysisUidTitleCaseToolTip;

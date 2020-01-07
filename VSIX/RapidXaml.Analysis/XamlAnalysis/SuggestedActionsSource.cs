@@ -12,6 +12,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
 using RapidXamlToolkit.Configuration;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 using Task = System.Threading.Tasks.Task;
@@ -154,13 +155,12 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var enabledActions = actions.Where(action => action.IsEnabled);
 
-            // TODO: Localize titles
             var result = new List<SuggestedActionSet>()
             {
                 new SuggestedActionSet(
                     PredefinedSuggestedActionCategoryNames.Refactoring,
                     actions: enabledActions,
-                    title: "Rapid XAML",
+                    title: StringRes.UI_SuggestedActionSetTitle,
                     priority: SuggestedActionSetPriority.None,
                     applicableToSpan: tag.Span),
             };
@@ -172,7 +172,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     result.Add(new SuggestedActionSet(
                         PredefinedSuggestedActionCategoryNames.Any,
                         actions: new[] { SuppressWarningAction.Create(rxdt, action.File, this) },
-                        title: "Rapid XAML",
+                        title: StringRes.UI_SuggestedActionSetTitle,
                         priority: SuggestedActionSetPriority.None,
                         applicableToSpan: tag.Span));
                 }

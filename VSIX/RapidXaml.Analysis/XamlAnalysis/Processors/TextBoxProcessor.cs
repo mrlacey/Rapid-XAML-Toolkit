@@ -61,7 +61,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             if (!this.TryGetAttribute(xamlElement, Attributes.InputScope, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
                 tags.TryAdd(
-                    new AddTextBoxInputScopeTag(new Span(offset, xamlElement.Length), snapshot, fileName)
+                    new AddTextBoxInputScopeTag(new Span(offset, xamlElement.Length), snapshot, fileName, this.Logger)
                     {
                         InsertPosition = offset,
                     },
