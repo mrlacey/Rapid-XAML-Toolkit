@@ -3,6 +3,7 @@
 
 using System;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
@@ -10,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class HardCodedStringTag : RapidXamlDisplayedTag
     {
-        public HardCodedStringTag(Span span, ITextSnapshot snapshot, string fileName, string elementName, string attributeName)
-            : base(span, snapshot, fileName, "RXT200", TagErrorType.Warning)
+        public HardCodedStringTag(Span span, ITextSnapshot snapshot, string fileName, string elementName, string attributeName, ILogger logger)
+            : base(span, snapshot, fileName, "RXT200", TagErrorType.Warning, logger)
         {
             this.SuggestedAction = typeof(HardCodedStringAction);
             this.ToolTip = StringRes.Info_XamlAnalysisHardcodedStringTooltip;

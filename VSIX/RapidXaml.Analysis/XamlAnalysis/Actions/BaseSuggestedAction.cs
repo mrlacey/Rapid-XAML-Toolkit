@@ -49,7 +49,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             get { return null; }
         }
 
-        protected string File { get; }
+        internal string File { get; }
 
         protected ITextView View { get; set; }
 

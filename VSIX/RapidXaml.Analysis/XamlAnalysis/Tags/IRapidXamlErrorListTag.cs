@@ -15,8 +15,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         int Column { get; }
 
-        string ErrorCode { get; }
-
         bool IsInternalError { get; }
 
         ErrorRow AsErrorRow();

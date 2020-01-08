@@ -3,9 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using RapidXamlToolkit.ErrorList;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
@@ -43,10 +45,30 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     if (span.IntersectsWith(viewTag.Span))
                     {
+                        if (span.Snapshot.TextBuffer != viewTag.Snapshot.TextBuffer)
+                        {
+                            SharedRapidXamlPackage.Logger.RecordInfo(StringRes.Info_TextBufferChanged.WithParams(this.file));
+                            RapidXamlDocumentCache.Invalidate(this.file);
+                            break;
+                        }
+
+                        if (span.Snapshot.Version.VersionNumber != viewTag.Snapshot.Version.VersionNumber)
+                        {
+                            SharedRapidXamlPackage.Logger.RecordInfo(StringRes.Info_SnapshotVersionChanged.WithParams(this.file));
+                            RapidXamlDocumentCache.Invalidate(this.file);
+                            break;
+                        }
+
                         yield return viewTag.AsErrorTag();
                     }
                 }
             }
+        }
+
+        public void RaiseTagsChanged()
+        {
+            var args = new RapidXamlParsingEventArgs(null, this.file, this.buffer.CurrentSnapshot, ParsedAction.Update);
+            this.OnXamlDocParsed(this, args);
         }
 
         // This handles adding and removing things from the error list

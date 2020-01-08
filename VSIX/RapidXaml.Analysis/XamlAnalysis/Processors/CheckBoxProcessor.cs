@@ -47,7 +47,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (hasCheckedEvent && !hasuncheckedEvent)
                 {
-                    var checkedTag = new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + checkedIndex, checkedLength), snapshot, fileName, checkedEventName, hasChecked: true)
+                    var checkedTag = new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + checkedIndex, checkedLength), snapshot, fileName, checkedEventName, hasChecked: true, this.Logger)
                     {
                         InsertPosition = offset,
                     };
@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (!hasCheckedEvent && hasuncheckedEvent)
                 {
-                    var uncheckedTag = new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + uncheckedIndex, uncheckedLength), snapshot, fileName, uncheckedEventName, hasChecked: false)
+                    var uncheckedTag = new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + uncheckedIndex, uncheckedLength), snapshot, fileName, uncheckedEventName, hasChecked: false, this.Logger)
                     {
                         InsertPosition = offset,
                     };

@@ -93,6 +93,7 @@
     <Compile Include="XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
     <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
     <Compile Include="XamlAnalysis\Actions\SelectedItemBindingModeAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\SuppressWarningAction.cs" />
     <Compile Include="XamlAnalysis\Attributes.cs" />
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />

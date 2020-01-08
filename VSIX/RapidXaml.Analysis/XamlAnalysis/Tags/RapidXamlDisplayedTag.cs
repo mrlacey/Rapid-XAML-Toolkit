@@ -8,14 +8,18 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using Newtonsoft.Json;
 using RapidXamlToolkit.ErrorList;
+using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlDisplayedTag : RapidXamlAdornmentTag, IRapidXamlErrorListTag
     {
-        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType)
-            : base(span, snapshot, fileName)
+        private const string SettingsFileName = "settings.xamlAnalysis";
+
+        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger)
+            : base(span, snapshot, fileName, logger)
         {
             var line = snapshot.GetLineFromPosition(span.Start);
             var col = span.Start - line.Start.Position;
@@ -38,11 +42,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public int Column { get; }
 
         public TagErrorType DefaultErrorType { get; }
-
-        /// <summary>
-        /// Gets the code shown in the error list. Also used as the file name in the help link.
-        /// </summary>
-        public string ErrorCode { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the tag is for something that should show in the Errors tab of the error list.
@@ -84,7 +83,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 return false;
             }
 
-            var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), "settings.xamlAnalysis");
+            var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
 
             if (File.Exists(settingsFile))
             {
@@ -115,11 +114,64 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                     }
                 }
             }
+            else
+            {
+                // If settings file is removed need to remove any cached reference to it.
+                if (SettingsCache.ContainsKey(settingsFile))
+                {
+                    SettingsCache.Remove(settingsFile);
+                }
+            }
 
             // Set to default if no override in file
             tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
 
             return false;
+        }
+
+        public void SetAsHiddenInSettingsFile()
+        {
+            if (string.IsNullOrWhiteSpace(this.FileName))
+            {
+                this.Logger.RecordInfo(StringRes.Info_FileNameMissingFromTag);
+                return;
+            }
+
+            var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
+
+            if (proj == null)
+            {
+                this.Logger.RecordInfo(StringRes.Info_UnableToFindProjectContainingFile.WithParams(this.FileName));
+                return;
+            }
+
+            var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
+
+            Dictionary<string, string> settings;
+
+            bool addToProject = false;
+
+            if (File.Exists(settingsFile))
+            {
+                var json = File.ReadAllText(settingsFile);
+                settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+            }
+            else
+            {
+                settings = new Dictionary<string, string>();
+                addToProject = true;
+            }
+
+            settings[this.ErrorCode] = nameof(TagErrorType.Hidden);
+
+            var jsonSettings = new JsonSerializerSettings { Formatting = Formatting.Indented };
+
+            File.WriteAllText(settingsFile, JsonConvert.SerializeObject(settings, settings: jsonSettings));
+
+            if (addToProject)
+            {
+                proj.ProjectItems.AddFromFile(settingsFile);
+            }
         }
 
         public override ITagSpan<IErrorTag> AsErrorTag()

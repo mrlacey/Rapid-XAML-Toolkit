@@ -23,14 +23,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
+                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
                 }
             }
             else if (this.TryGetAttribute(xamlElement, Attributes.X_Uid, AttributeType.InlineOrElement, out _, out index, out length, out value))
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
+                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
                 }
             }
 
@@ -38,14 +38,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
+                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
                 }
             }
             else if (this.TryGetAttribute(xamlElement, Attributes.X_Name, AttributeType.InlineOrElement, out _, out index, out length, out value))
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
+                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
                 }
             }
 

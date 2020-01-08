@@ -799,4 +799,22 @@
   <data name="Info_LaunchVersionRoslynAnalyzers" xml:space="preserve">
     <value>Rapid XAML Roslyn Analyzers (v{0})</value>
   </data>
+  <data name="UI_SuggestedActionSetTitle" xml:space="preserve">
+    <value>Rapid XAML</value>
+  </data>
+  <data name="Info_FileNameMissingFromTag" xml:space="preserve">
+    <value>FileName missing from tag</value>
+  </data>
+  <data name="Info_SnapshotVersionChanged" xml:space="preserve">
+    <value>Snapshot version has changed-invalidating cache for '{0}'.</value>
+  </data>
+  <data name="Info_SuggestedActionDoNotWarn" xml:space="preserve">
+    <value>Do not warn about {0}.</value>
+  </data>
+  <data name="Info_TextBufferChanged" xml:space="preserve">
+    <value>TextBuffer has changed-invalidating cache for '{0}'.</value>
+  </data>
+  <data name="Info_UnableToFindProjectContainingFile" xml:space="preserve">
+    <value>Unable to find project containing file '{0}'.</value>
+  </data>
 </root>

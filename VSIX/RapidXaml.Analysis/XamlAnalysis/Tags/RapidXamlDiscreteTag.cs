@@ -3,13 +3,14 @@
 
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlDiscreteTag : RapidXamlAdornmentTag
     {
-        protected RapidXamlDiscreteTag(Span span, ITextSnapshot snapshot, string fileName)
-            : base(span, snapshot, fileName)
+        protected RapidXamlDiscreteTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger)
+            : base(span, snapshot, fileName, logger)
         {
         }
 
