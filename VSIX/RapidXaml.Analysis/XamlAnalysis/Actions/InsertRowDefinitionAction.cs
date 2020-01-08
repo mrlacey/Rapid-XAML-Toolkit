@@ -60,6 +60,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public static Dictionary<int, int> GetExclusions(string xaml)
         {
+            // Find other nested grids
             return XamlElementProcessor.GetExclusions(xaml, Elements.Grid);
         }
 

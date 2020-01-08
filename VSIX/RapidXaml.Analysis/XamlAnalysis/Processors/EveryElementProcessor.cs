@@ -19,6 +19,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
+            xamlElement = GetOpeningWithoutChildren(xamlElement);
+
             if (this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.InlineOrElement, out _, out int index, out int length, out string value))
             {
                 if (!char.IsUpper(value[0]))
