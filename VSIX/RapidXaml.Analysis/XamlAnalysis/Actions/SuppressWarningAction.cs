@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System.Threading;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
@@ -24,7 +25,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             var result = new SuppressWarningAction(file)
             {
                 Tag = tag,
-                DisplayText = $"Do not warn about {tag.ErrorCode}.",
+                DisplayText = StringRes.Info_SuggestedActionDoNotWarn.WithParams(tag.ErrorCode),
                 ErrorCode = tag.ErrorCode,
                 Source = suggestedActionsSource,
             };

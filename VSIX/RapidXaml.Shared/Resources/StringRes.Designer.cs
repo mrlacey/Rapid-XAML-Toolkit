@@ -889,6 +889,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not warn about {0}..
+        /// </summary>
+        public static string Info_SuggestedActionDoNotWarn {
+            get {
+                return ResourceManager.GetString("Info_SuggestedActionDoNotWarn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TextBuffer has changed-invalidating cache for &apos;{0}&apos;..
         /// </summary>
         public static string Info_TextBufferChanged {

@@ -808,6 +808,9 @@
   <data name="Info_SnapshotVersionChanged" xml:space="preserve">
     <value>Snapshot version has changed-invalidating cache for '{0}'.</value>
   </data>
+  <data name="Info_SuggestedActionDoNotWarn" xml:space="preserve">
+    <value>Do not warn about {0}.</value>
+  </data>
   <data name="Info_TextBufferChanged" xml:space="preserve">
     <value>TextBuffer has changed-invalidating cache for '{0}'.</value>
   </data>
