@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -25,7 +23,7 @@ namespace RapidXaml.BuildAnalysis
 
         protected override string GenerateFullPathToTool()
         {
-            // TODO: generate the full path to the exe.
+            // TODO: need to remove the need to hardcode this path with the version number
             return Path.Combine(this.NuGetPath, "rapidxaml.buildanalysis", "0.1.37", "tools", "net472", ToolExe);
         }
 
@@ -36,7 +34,6 @@ namespace RapidXaml.BuildAnalysis
 
         protected override string GetWorkingDirectory()
         {
-            // TODO: set the path to that of the project file to make references work correctly
             return base.GetWorkingDirectory();
         }
 
@@ -44,11 +41,7 @@ namespace RapidXaml.BuildAnalysis
         {
             Log.LogMessage(MessageImportance.High, $"In {ToolName} tool : {Command}");
             Log.LogWarning($"Command : {Command}");
-            Log.LogWarning($"NuGetPath : {NuGetPath}");
-            Log.LogWarning($"Missing {ToolName} functionality 37");
-            Log.LogWarning($"ToolPath: {ToolPath} ");
-            Log.LogWarning($"GetWorkingDirectory: {GetWorkingDirectory()} ");
-            Log.LogWarning($"GenerateFullPathToTool: {GenerateFullPathToTool()} ");
+            Log.LogWarning($"{ToolName} 37");
 
             return base.Execute();
         }
