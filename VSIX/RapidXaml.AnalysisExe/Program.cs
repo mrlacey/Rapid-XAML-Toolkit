@@ -6,7 +6,7 @@ namespace RapidXaml.AnalysisExe
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello World!  24");
 
             if (args.Length < 1)
             {
@@ -14,6 +14,7 @@ namespace RapidXaml.AnalysisExe
             }
             else
             {
+                Console.WriteLine(args[0]);
                 // TODO: check file exists
                 // TODO: check file is a project file
 
@@ -32,7 +33,8 @@ namespace RapidXaml.AnalysisExe
                         {
                             var relativeFilePath = line.Substring(startPos + 9, endPos + 5 - startPos - 9);
 
-                            Log.LogMessage(MessageImportance.High, $"- {relativeFilePath}");
+                            //Log.LogMessage(MessageImportance.High, $"- {relativeFilePath}");
+                            Console.WriteLine($"Warning: {relativeFilePath}");
                         }
                     }
                 }
