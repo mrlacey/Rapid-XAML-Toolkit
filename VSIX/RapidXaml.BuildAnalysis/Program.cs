@@ -15,6 +15,8 @@ namespace RapidXaml.BuildAnalysis
         // This is the project file to analyze
         public string Command { get; set; }
 
+        public string NuGetPath { get; set; }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
@@ -24,7 +26,7 @@ namespace RapidXaml.BuildAnalysis
         protected override string GenerateFullPathToTool()
         {
             // TODO: generate the full path to the exe.
-            return this.Command; // Returning the command here causes the project file to be opened.
+            return Path.Combine(this.NuGetPath, "rapidxaml.buildanalysis", "0.1.37", "tools", "net472", ToolExe);
         }
 
         protected override string GenerateCommandLineCommands()
@@ -41,12 +43,20 @@ namespace RapidXaml.BuildAnalysis
         public override bool Execute()
         {
             Log.LogMessage(MessageImportance.High, $"In {ToolName} tool : {Command}");
-            Log.LogWarning($"Missing {ToolName} functionality");
+            Log.LogWarning($"Command : {Command}");
+            Log.LogWarning($"NuGetPath : {NuGetPath}");
+            Log.LogWarning($"Missing {ToolName} functionality 37");
+            Log.LogWarning($"ToolPath: {ToolPath} ");
+            Log.LogWarning($"GetWorkingDirectory: {GetWorkingDirectory()} ");
+            Log.LogWarning($"GenerateFullPathToTool: {GenerateFullPathToTool()} ");
+
             return base.Execute();
         }
 
         protected override int ExecuteTool(string pathToTool, string responseFileCommands, string commandLineCommands)
         {
+            Log.LogWarning($"ExecuteTool>pathToTool: {pathToTool} ");
+            Log.LogMessage(MessageImportance.High, $"In ExecuteTool : {GenerateFullPathToTool()}");
             return base.ExecuteTool(pathToTool, responseFileCommands, commandLineCommands);
         }
     }

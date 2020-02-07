@@ -153,13 +153,13 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.9</Version>
     </PackageReference>
+    <PackageReference Include="RapidXaml.BuildAnalysis">
+      <Version>0.1.37</Version>
+    </PackageReference>
   </ItemGroup>
   <PropertyGroup>
     <RestoreSources>$(RestoreSources);../RapidXaml.BuildAnalysis/bin/Debug/;https://api.nuget.org/v3/index.json</RestoreSources>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="RapidXaml.BuildAnalysis" Version="0.1.21" />
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

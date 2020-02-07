@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>RapidXaml.BuildAnalysis</id>
-    <version>0.1.25</version>
+    <version>0.1.37</version>
     <authors>Matt Lacey</authors>
     <owners>Matt Lacey</owners>
     <copyright>Copyright © Matt Lacey</copyright>

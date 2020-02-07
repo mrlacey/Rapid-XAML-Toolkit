@@ -7,6 +7,6 @@
   </PropertyGroup>
 
   <Target Name="RapidXamlBuildAnalysis">
-    <Program Command="$(ProjectPath)" />
+    <Program Command="$(ProjectPath)" NuGetPath="$(NuGetPackageRoot)" />
   </Target>
 </Project>
