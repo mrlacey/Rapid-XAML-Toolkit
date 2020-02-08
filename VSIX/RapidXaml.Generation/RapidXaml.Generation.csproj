@@ -149,6 +149,9 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\RapidXamlGenerationIcons.png" />
+    <Content Include="RapidXamlGenerationExtensions.vsext">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="Resources\WarningIcon.png" />
     <None Include="app.config">
       <SubType>Designer</SubType>

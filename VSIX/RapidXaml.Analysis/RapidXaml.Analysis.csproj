@@ -186,6 +186,9 @@
     <VSCTCompile Include="RapidXamlAnalysisPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
+    <Content Include="RapidXamlAnalysisExtensions.vsext">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="RapidXamlCommonMenus.vsct">
       <LastGenOutput>RapidXamlCommonMenus.cs</LastGenOutput>
     </None>
