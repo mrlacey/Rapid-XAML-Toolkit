@@ -4,6 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Text;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -135,6 +137,59 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 #endif
 
             return result;
+        }
+
+        public static string GetOpeningWithoutChildren(string xamlElementThatMayHaveChildren)
+        {
+            // Following logic assumes no whitespace at front
+            xamlElementThatMayHaveChildren = xamlElementThatMayHaveChildren.TrimStart();
+
+            if (xamlElementThatMayHaveChildren.EndsWith("/>"))
+            {
+                // If self-closing then definitely doesn't have children
+                return xamlElementThatMayHaveChildren;
+            }
+
+            // Don't walk the whole string if we can avoid it for something without any sub-elements
+            if (xamlElementThatMayHaveChildren.Count(x => x == '<') == 2
+             && xamlElementThatMayHaveChildren.Count(x => x == '>') == 2)
+            {
+                return xamlElementThatMayHaveChildren.Substring(0, xamlElementThatMayHaveChildren.IndexOf('>') + 1).Trim();
+            }
+
+            var endOfElementName = xamlElementThatMayHaveChildren.FirstIndexOf(" ", "\r", "\n", ">");
+
+            var elementName = xamlElementThatMayHaveChildren.Substring(1, endOfElementName - 1);
+
+            var nextElementStart = xamlElementThatMayHaveChildren.IndexOf('<', endOfElementName);
+
+            var possibleNextElementName = string.Empty;
+
+            while (nextElementStart > 0)
+            {
+                possibleNextElementName = xamlElementThatMayHaveChildren.Substring(nextElementStart + 1, elementName.Length + 1);
+
+                if (possibleNextElementName != $"{elementName}."
+                    && possibleNextElementName != $"/{elementName}")
+                {
+                    var stringSoFar = xamlElementThatMayHaveChildren.Substring(0, nextElementStart);
+
+                    var openings = stringSoFar.Count(s => s == '<');
+                    var closings = stringSoFar.OccurrenceCount("</");
+                    openings -= closings; // Allow for the openings count incorrectly including closings
+                    var selfClosings = stringSoFar.OccurrenceCount("/>");
+
+                    if (openings == closings + selfClosings + 1)
+                    {
+                        return stringSoFar;
+                    }
+                }
+
+                nextElementStart = xamlElementThatMayHaveChildren.IndexOf('<', nextElementStart + 1);
+            }
+
+            // Only something unaccounted for above should get here - Give everything as fallback.
+            return xamlElementThatMayHaveChildren;
         }
 
         /// <summary>
