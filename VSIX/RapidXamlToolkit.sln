@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.Shared", "RapidXa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.RoslynAnalyzers", "RapidXaml.RoslynAnalyzers\RapidXaml.RoslynAnalyzers.csproj", "{333FEEC8-4973-4471-9F0C-A90072383FA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.Common", "RapidXaml.Common\RapidXaml.Common.csproj", "{BD7D2207-DD5A-48FC-A84A-4B3307A689B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +74,10 @@ Global
 		{333FEEC8-4973-4471-9F0C-A90072383FA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{333FEEC8-4973-4471-9F0C-A90072383FA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{333FEEC8-4973-4471-9F0C-A90072383FA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD7D2207-DD5A-48FC-A84A-4B3307A689B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD7D2207-DD5A-48FC-A84A-4B3307A689B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD7D2207-DD5A-48FC-A84A-4B3307A689B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD7D2207-DD5A-48FC-A84A-4B3307A689B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

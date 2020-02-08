@@ -2,21 +2,19 @@
 // Licensed under the MIT license.
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace RapidXamlToolkit
+namespace RapidXaml.Common
 {
     [ProvideAutoLoad(UIContextGuids.SolutionHasMultipleProjects, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.8.1")] // Info on this package for Help/About
+    [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuidString)]
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
-    public sealed class RapidXamlPackage : AsyncPackage
+    public sealed class RapidXamlCommonPackage : AsyncPackage
     {
-        public const string PackageGuidString = "ed7fe961-2d10-4598-8040-7423b66b6540";
+        public const string PackageGuidString = "b6d30102-8ee9-4cdd-befe-6c8a0ae7a5ac";
     }
 }
