@@ -141,6 +141,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public static string GetOpeningWithoutChildren(string xamlElementThatMayHaveChildren)
         {
+            // Following logic assumes no whitespace at front
+            xamlElementThatMayHaveChildren = xamlElementThatMayHaveChildren.TrimStart();
+
             if (xamlElementThatMayHaveChildren.EndsWith("/>"))
             {
                 // If self-closing then definitely doesn't have children
@@ -151,12 +154,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             if (xamlElementThatMayHaveChildren.Count(x => x == '<') == 2
              && xamlElementThatMayHaveChildren.Count(x => x == '>') == 2)
             {
-                return xamlElementThatMayHaveChildren;
+                return xamlElementThatMayHaveChildren.Substring(0, xamlElementThatMayHaveChildren.IndexOf('>') + 1).Trim();
             }
-
-            // Get element name
-
-            // Get all subsequent element openings until find one that doesn't start with elementName + '.'
 
             var endOfElementName = xamlElementThatMayHaveChildren.FirstIndexOf(" ", "\r", "\n", ">");
 
@@ -170,15 +169,17 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 possibleNextElementName = xamlElementThatMayHaveChildren.Substring(nextElementStart + 1, elementName.Length + 1);
 
-                if (!possibleNextElementName.StartsWith(elementName) || possibleNextElementName.EndsWith(" "))
+                if (possibleNextElementName != $"{elementName}."
+                    && possibleNextElementName != $"/{elementName}")
                 {
-                    var stringSoFar = xamlElementThatMayHaveChildren.Substring(0, nextElementStart)
+                    var stringSoFar = xamlElementThatMayHaveChildren.Substring(0, nextElementStart);
 
                     var openings = stringSoFar.Count(s => s == '<');
                     var closings = stringSoFar.OccurrenceCount("</");
+                    openings -= closings; // Allow for the openings count incorrectly including closings
                     var selfClosings = stringSoFar.OccurrenceCount("/>");
 
-                    if ()
+                    if (openings == closings + selfClosings + 1)
                     {
                         return stringSoFar;
                     }
@@ -189,57 +190,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             // Only something unaccounted for above should get here - Give everything as fallback.
             return xamlElementThatMayHaveChildren;
-
-
-            //var openingElementName = new StringBuilder();
-            //var currentElementBody = new StringBuilder();
-            //var inOpeningElementName = false;
-
-            //var openCount = 0;
-            //var closeCount = 0;
-
-            //var xaml = xamlElementThatMayHaveChildren;
-
-            //for (int i = 0; i < xaml.Length; i++)
-            //{
-            //    currentElementBody.Append(xaml[i]);
-
-            //    if (xaml[i] == '<')
-            //    {
-            //        openCount += 1;
-            //    }
-            //    else if (xaml[i] == '>')
-            //    {
-            //        closeCount += 1;
-
-            //        if (closeCount == openCount)
-            //        {
-            //            break;
-            //        }
-            //    }
-            //    else if (char.IsLetterOrDigit(xaml[i]) || xaml[i] == ':' || xaml[i] == '_' || xaml[i] == '.')
-            //    {
-            //        if (!inOpeningElementName && openingElementName.Length == 0)
-            //        {
-            //            inOpeningElementName = true;
-            //        }
-
-            //        if (inOpeningElementName)
-            //        {
-            //            openingElementName.Append(xaml[i]);
-            //        }
-            //    }
-            //    else if (xaml[i] == '\r' || xaml[i] == '\n' || char.IsWhiteSpace(xaml[i]))
-            //    {
-            //        inOpeningElementName = false;
-            //    }
-
-
-
-
-            //}
-
-            //return currentElementBody.ToString();
         }
 
         /// <summary>

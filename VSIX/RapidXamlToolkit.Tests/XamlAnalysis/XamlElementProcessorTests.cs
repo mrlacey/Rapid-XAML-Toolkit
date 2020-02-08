@@ -375,7 +375,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void GetOpeningWithoutChildren_NoChildren()
         {
             var origin = "<Foo Bar=\"123\"></Foo>";
-            var expected = origin;
+            var expected = "<Foo Bar=\"123\">";
 
             var actual = XamlElementProcessor.GetOpeningWithoutChildren(origin);
 
@@ -399,7 +399,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var origin = "<Foo Bar=\"123\">content</Foo>";
 
-            var expected = origin;
+            var expected = "<Foo Bar=\"123\">";
 
             var actual = XamlElementProcessor.GetOpeningWithoutChildren(origin);
 
@@ -435,7 +435,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var origin = "<Foo><Foo.Bar=\"123\" /><Foo.Bar=\"123\" /><FuBar /><FuBar /></Foo>";
 
-            var expected = "";
+            var expected = "<Foo><Foo.Bar=\"123\" /><Foo.Bar=\"123\" />";
 
             var actual = XamlElementProcessor.GetOpeningWithoutChildren(origin);
 
@@ -448,6 +448,18 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var origin = "<Foo><Foo.Bar=\"123\"><Other /><Other /></Foo.Bar><Foo.Bar=\"123\"><Other /><Other /></Foo.Bar><Fu><Baa /></Fu><FuBar /></Foo>";
 
             var expected = "<Foo><Foo.Bar=\"123\"><Other /><Other /></Foo.Bar><Foo.Bar=\"123\"><Other /><Other /></Foo.Bar>";
+
+            var actual = XamlElementProcessor.GetOpeningWithoutChildren(origin);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void GetOpeningWithoutChildren_MultipleChildren_AndMultipleAttributesAsElementsWithNesting_PlusAssortedWhitespace()
+        {
+            var origin = "   <Foo>  <Foo.Bar=\"123\">\r\n<Other />\r<Other />\r\n\r\n</Foo.Bar>\r\n<Foo.Bar=\"123\">\r\n    <Other />\r\n    <Other  /></Foo.Bar ><Fu><Baa /></Fu><FuBar  />  </Foo>";
+
+            var expected = "<Foo>  <Foo.Bar=\"123\">\r\n<Other />\r<Other />\r\n\r\n</Foo.Bar>\r\n<Foo.Bar=\"123\">\r\n    <Other />\r\n    <Other  /></Foo.Bar >";
 
             var actual = XamlElementProcessor.GetOpeningWithoutChildren(origin);
 
