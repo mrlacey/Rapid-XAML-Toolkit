@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="28cm"
+   height="10cm"
+   viewBox="0 0 280 99.999991"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="logo-clothing.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="790.30245"
+     inkscape:cy="318.23441"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="cm"
+     inkscape:window-width="3240"
+     inkscape:window-height="2035"
+     inkscape:window-x="-13"
+     inkscape:window-y="-13"
+     inkscape:window-maximized="1"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-midpoints="true"
+     showguides="false"
+     inkscape:snap-page="false" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-197.00003)">
+    <g
+       id="g829">
+      <path
+         id="path852"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.1"
+         d="m 238.04526,220.08884 34.82992,29.30053 -34.82992,29.35221 -8.00984,-8.16487 25.57983,-21.08399 -25.57983,-21.23901 z m -44.53474,71.39099 H 181.2632 l 36.07015,-84.12924 h 12.29899 z m -18.28313,-12.73825 -34.82991,-29.35221 34.82991,-29.30053 8.06153,8.16487 -25.63151,21.03231 25.63151,21.29069 z"
+         inkscape:connector-curvature="0" />
+      <g
+         transform="translate(-68.980655,119.48066)"
+         id="g888">
+        <path
+           id="path823-6"
+           style="fill:none;stroke:#ffffff;stroke-width:8;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 192.76786,148.07741 c -101.48661,0 -102.05357,0 -102.05357,0 m 90.14732,-18.14286 c -101.486609,0 -102.053569,0 -102.053569,0 M 193.14583,111.79169 c -101.486605,0 -102.05357,0 -102.05357,0"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
+  </g>
+</svg>
