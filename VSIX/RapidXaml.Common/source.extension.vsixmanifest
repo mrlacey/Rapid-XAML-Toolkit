@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="RapidXaml.RoslynAnalyzers.c58ca4bd-0d58-46cd-afc3-c47a1e1b8c7f" Version="0.8.3" Language="en-US" Publisher="Matt Lacey" />
-        <DisplayName>Rapid XAML RoslynAnalyzers</DisplayName>
-        <Description xml:space="preserve">Roslyn analyzers to help with XAML app development.</Description>
+        <Identity Id="RapidXaml.Common.3cb31872-64f7-49f8-91a7-31393173c5ce" Version="0.8.1" Language="en-US" Publisher="Matt Lacey" />
+        <DisplayName>Rapid XAML Common Functionality</DisplayName>
+        <Description xml:space="preserve">Common infrastructure used by other extensions that are part of the Rapid XAML Toolkit.</Description>
+        <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
         <License>LICENSE.txt</License>
-        <Icon>Resources\RapidXamlRoslynAnalyzers.ico</Icon>
+        <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/master/docs</GettingStartedGuide>
+        <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/releases</ReleaseNotes>
+        <Icon>Resources\RapidXamlCommon.ico</Icon>
         <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, MVVM</Tags>
         <Preview>true</Preview>
     </Metadata>
@@ -17,11 +20,8 @@
     </Dependencies>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
-        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[16.0,)" DisplayName="Roslyn Language Services" />
     </Prerequisites>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-        <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
     </Assets>
 </PackageManifest>
