@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.AppBarToggleButton,
                 Attributes.Label,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringAppBarToggleButtonLabelMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringAppBarToggleButtonLabelMessage,
                 xamlElement,
                 snapshot,
                 offset,

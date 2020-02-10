@@ -15,9 +15,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, fileName, "RXT402", TagErrorType.Warning, logger)
         {
             this.SuggestedAction = typeof(MediaElementAction);
-            this.ToolTip = StringRes.Info_XamlAnalysisUseMediaPlayerElementToolTip;
-            this.Description = StringRes.Info_XamlAnalysisUseMediaPlayerElementDescription;
-            this.ExtendedMessage = StringRes.Info_XamlAnalysisUseMediaPlayerElementExtendedMessage;
+            this.ToolTip = StringRes.UI_XamlAnalysisUseMediaPlayerElementToolTip;
+            this.Description = StringRes.UI_XamlAnalysisUseMediaPlayerElementDescription;
+            this.ExtendedMessage = StringRes.UI_XamlAnalysisUseMediaPlayerElementExtendedMessage;
         }
 
         public int InsertPosition { get; set; }

@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                         Elements.CheckBox,
                         Attributes.Content,
                         AttributeType.Any,
-                        StringRes.Info_XamlAnalysisHardcodedStringCheckboxContentMessage,
+                        StringRes.UI_XamlAnalysisHardcodedStringCheckboxContentMessage,
                         xamlElement,
                         snapshot,
                         offset,

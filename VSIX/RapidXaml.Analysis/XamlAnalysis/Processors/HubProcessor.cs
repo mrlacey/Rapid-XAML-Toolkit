@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.Hub,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringHubHeaderMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringHubHeaderMessage,
                 xamlElement,
                 snapshot,
                 offset,

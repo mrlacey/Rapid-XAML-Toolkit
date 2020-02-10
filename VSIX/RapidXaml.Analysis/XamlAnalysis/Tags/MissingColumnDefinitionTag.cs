@@ -14,8 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, fileName, "RXT102", TagErrorType.Warning, logger)
         {
             this.SuggestedAction = typeof(AddMissingColumnDefinitionsAction);
-            this.ToolTip = StringRes.Info_XamlAnalysisMissingColumnDefinitionTooltip;
-            this.ExtendedMessage = StringRes.Info_XamlAnalysisMissingColumnDefinitionExtendedMessage;
+            this.ToolTip = StringRes.UI_XamlAnalysisMissingColumnDefinitionTooltip;
+            this.ExtendedMessage = StringRes.UI_XamlAnalysisMissingColumnDefinitionExtendedMessage;
         }
     }
 }

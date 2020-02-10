@@ -14,8 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, fileName, "RXT452",  TagErrorType.Suggestion, logger)
         {
             this.SuggestedAction = typeof(MakeNameStartWithCapitalAction);
-            this.ToolTip = StringRes.Info_XamlAnalysisNameTitleCaseToolTip;
-            this.Description = StringRes.Info_XamlAnalysisNameTitleCaseDescription.WithParams(value);
+            this.ToolTip = StringRes.UI_XamlAnalysisNameTitleCaseToolTip;
+            this.Description = StringRes.UI_XamlAnalysisNameTitleCaseDescription.WithParams(value);
 
             this.CurrentValue = value;
         }

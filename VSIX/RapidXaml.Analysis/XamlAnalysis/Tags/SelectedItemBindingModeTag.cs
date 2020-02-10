@@ -14,8 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, fileName, "RXT160", TagErrorType.Warning, logger)
         {
             this.SuggestedAction = typeof(SelectedItemBindingModeAction);
-            this.ToolTip = StringRes.Info_XamlAnalysisSetBindingModeToTwoWayToolTip;
-            this.Description = StringRes.Info_XamlAnalysisSetBindingModeToTwoWayDescription;
+            this.ToolTip = StringRes.UI_XamlAnalysisSetBindingModeToTwoWayToolTip;
+            this.Description = StringRes.UI_XamlAnalysisSetBindingModeToTwoWayDescription;
         }
 
         public int InsertPosition { get; set; }

@@ -21,8 +21,8 @@ namespace RapidXamlToolkit.RoslynAnalyzers
         public const string SetPropertyDiagnosticId = "RXRA003";
         public const string DependencyPropertyDiagnosticId = "RXRA004";
 
-        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(StringRes.Info_ExpandAutoPropertyAnalyzerTitle), StringRes.ResourceManager, typeof(StringRes));
-        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(StringRes.Info_ExpandAutoPropertyAnalyzerMessage), StringRes.ResourceManager, typeof(StringRes));
+        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(StringRes.UI_ExpandAutoPropertyAnalyzerTitle), StringRes.ResourceManager, typeof(StringRes));
+        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(StringRes.UI_ExpandAutoPropertyAnalyzerMessage), StringRes.ResourceManager, typeof(StringRes));
 
         private static readonly DiagnosticDescriptor OnPropertyRule = new DiagnosticDescriptor(OnPropertyChangedDiagnosticId, Title, MessageFormat, StringRes.RapidXamlToolkit, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 

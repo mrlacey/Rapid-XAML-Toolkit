@@ -15,8 +15,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, fileName, "RXT200", TagErrorType.Warning, logger)
         {
             this.SuggestedAction = typeof(HardCodedStringAction);
-            this.ToolTip = StringRes.Info_XamlAnalysisHardcodedStringTooltip;
-            this.ExtendedMessage = StringRes.Info_XamlAnalysisHardcodedStringExtendedMessage;
+            this.ToolTip = StringRes.UI_XamlAnalysisHardcodedStringTooltip;
+            this.ExtendedMessage = StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage;
             this.ElementName = elementName;
             this.AttributeName = attributeName;
         }

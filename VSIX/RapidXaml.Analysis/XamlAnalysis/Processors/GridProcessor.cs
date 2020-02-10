@@ -178,7 +178,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         this.Logger)
                                     {
                                         AssignedInt = assignedInt,
-                                        Description = StringRes.Info_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
+                                        Description = StringRes.UI_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
                                         ExistingDefsCount = rowDefsCount,
                                         HasSomeDefinitions = hasRowDef,
                                         InsertPosition = offset + rowDefsClosingPos,
@@ -210,7 +210,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         this.Logger)
                                     {
                                         AssignedInt = assignedInt,
-                                        Description = StringRes.Info_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
+                                        Description = StringRes.UI_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
                                         ExistingDefsCount = colDefsCount,
                                         HasSomeDefinitions = hasColDef,
                                         InsertPosition = offset + colDefsClosingPos,
@@ -277,7 +277,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         this.Logger)
                                     {
                                         TotalDefsRequired = assignedInt + row - 1,
-                                        Description = StringRes.Info_XamlAnalysisRowSpanOverflowDescription,
+                                        Description = StringRes.UI_XamlAnalysisRowSpanOverflowDescription,
                                         ExistingDefsCount = rowDefsCount,
                                         HasSomeDefinitions = hasRowDef,
                                         InsertPosition = offset + rowDefsClosingPos,
@@ -314,7 +314,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                     this.Logger)
                                 {
                                     TotalDefsRequired = assignedInt - 1 + gridCol,
-                                    Description = StringRes.Info_XamlAnalysisColumnSpanOverflowDescription,
+                                    Description = StringRes.UI_XamlAnalysisColumnSpanOverflowDescription,
                                     ExistingDefsCount = colDefsCount,
                                     HasSomeDefinitions = hasColDef,
                                     InsertPosition = offset + colDefsClosingPos,

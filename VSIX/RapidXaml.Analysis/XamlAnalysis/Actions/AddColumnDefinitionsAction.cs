@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
     <ColumnDefinition Width=""*"" />
 </Grid.ColumnDefinitions>";
 
-            this.UndoOperationName = StringRes.Info_UndoContextAddColumnDefinitions;
+            this.UndoOperationName = StringRes.UI_UndoContextAddColumnDefinitions;
             this.DisplayText = StringRes.UI_AddColumnDefinitions;
         }
 

@@ -14,8 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, fileName, "RXT101", TagErrorType.Warning, logger)
         {
             this.SuggestedAction = typeof(AddMissingRowDefinitionsAction);
-            this.ToolTip = StringRes.Info_XamlAnalysisMissingRowDefinitionTooltip;
-            this.ExtendedMessage = StringRes.Info_XamlAnalysisMissingRowDefinitionExtendedMessage;
+            this.ToolTip = StringRes.UI_XamlAnalysisMissingRowDefinitionTooltip;
+            this.ExtendedMessage = StringRes.UI_XamlAnalysisMissingRowDefinitionExtendedMessage;
         }
     }
 }

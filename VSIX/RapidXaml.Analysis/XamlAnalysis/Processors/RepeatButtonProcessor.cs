@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.RepeatButton,
                 Attributes.Content,
                 AttributeType.Any,
-                StringRes.Info_XamlAnalysisHardcodedStringRepeatButtonContentMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringRepeatButtonContentMessage,
                 xamlElement,
                 snapshot,
                 offset,
