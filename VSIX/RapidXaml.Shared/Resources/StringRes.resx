@@ -336,7 +336,7 @@
   <data name="Prompt_ImportFailedTitle" xml:space="preserve">
     <value>Unable to import profile</value>
   </data>
-  <data name="UI_AccessingOutputPaneFailed" xml:space="preserve">
+  <data name="Error_AccessingOutputPaneFailed" xml:space="preserve">
     <value>Failed to get the Output window pane.</value>
   </data>
   <data name="UI_ActiveProfileName" xml:space="preserve">
@@ -345,7 +345,7 @@
   <data name="UI_CopiedProfileName" xml:space="preserve">
     <value>{0} (copy)</value>
   </data>
-  <data name="UI_CreatingOutputPaneFailed" xml:space="preserve">
+  <data name="Error_CreatingOutputPaneFailed" xml:space="preserve">
     <value>Failed to create the Output window pane.</value>
   </data>
   <data name="UI_NewProfileDefaultName" xml:space="preserve">

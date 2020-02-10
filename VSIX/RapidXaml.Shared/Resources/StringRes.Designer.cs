@@ -61,6 +61,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to get the Output window pane..
+        /// </summary>
+        public static string Error_AccessingOutputPaneFailed {
+            get {
+                return ResourceManager.GetString("Error_AccessingOutputPaneFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to create the Output window pane..
+        /// </summary>
+        public static string Error_CreatingOutputPaneFailed {
+            get {
+                return ResourceManager.GetString("Error_CreatingOutputPaneFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md.
         /// </summary>
         public static string Error_OutdatedConfigurationDetected2 {
@@ -1701,15 +1719,6 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to get the Output window pane..
-        /// </summary>
-        public static string UI_AccessingOutputPaneFailed {
-            get {
-                return ResourceManager.GetString("UI_AccessingOutputPaneFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0}    [*ACTIVE*].
         /// </summary>
         public static string UI_ActiveProfileName {
@@ -1859,15 +1868,6 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_CopiedProfileName {
             get {
                 return ResourceManager.GetString("UI_CopiedProfileName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to create the Output window pane..
-        /// </summary>
-        public static string UI_CreatingOutputPaneFailed {
-            get {
-                return ResourceManager.GetString("UI_CreatingOutputPaneFailed", resourceCulture);
             }
         }
         
