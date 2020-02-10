@@ -310,7 +310,7 @@
   <data name="Prompt_FileExistsTitle" xml:space="preserve">
     <value>File already exists</value>
   </data>
-  <data name="Propt_FileExistsMessage" xml:space="preserve">
+  <data name="Prompt_FileExistsMessage" xml:space="preserve">
     <value>Do you want to override the existing file?</value>
   </data>
   <data name="UI_NoPropertiesXaml" xml:space="preserve">

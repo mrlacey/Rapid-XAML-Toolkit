@@ -1654,6 +1654,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to override the existing file?.
+        /// </summary>
+        public static string Prompt_FileExistsMessage {
+            get {
+                return ResourceManager.GetString("Prompt_FileExistsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File already exists.
         /// </summary>
         public static string Prompt_FileExistsTitle {
@@ -1679,15 +1688,6 @@ namespace RapidXamlToolkit.Resources {
         public static string Prompt_ImportFailedTitle {
             get {
                 return ResourceManager.GetString("Prompt_ImportFailedTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do you want to override the existing file?.
-        /// </summary>
-        public static string Propt_FileExistsMessage {
-            get {
-                return ResourceManager.GetString("Propt_FileExistsMessage", resourceCulture);
             }
         }
         
