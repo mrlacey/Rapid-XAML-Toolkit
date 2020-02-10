@@ -14,8 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, fileName, "RXT300", TagErrorType.Suggestion, logger)
         {
             this.SuggestedAction = typeof(AddEntryKeyboardAction);
-            this.Description = StringRes.Info_XamlAnalysisEntryWithoutKeyboardDescription;
-            this.ExtendedMessage = StringRes.Info_XamlAnalysisEntryWithoutKeyboardExtendedMessage;
+            this.Description = StringRes.UI_XamlAnalysisEntryWithoutKeyboardDescription;
+            this.ExtendedMessage = StringRes.UI_XamlAnalysisEntryWithoutKeyboardExtendedMessage;
 
             var xaml = originalXaml.ToLowerInvariant();
             if (xaml.Contains("email"))

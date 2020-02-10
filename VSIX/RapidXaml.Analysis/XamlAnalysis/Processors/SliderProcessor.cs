@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.Slider,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringSliderHeaderMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringSliderHeaderMessage,
                 xamlElement,
                 snapshot,
                 offset,

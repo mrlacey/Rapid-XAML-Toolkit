@@ -1,74 +1,42 @@
 # Localization
 
-The following is important information to know for anyone working with this codebase. It explains how to add new localized resources.
+The following is essential information to know for anyone working with this codebase. It explains how to add new localized resources.
 
-There are 5 places where localized resources are defined in the solution. (There are also localized versions of each of these files for all locales into which  Visual Studio is translated.)
+## Background
 
-- Resources/StringRes.resx (all strings)
-- Resources/ImageResources.resx (all images used in the UI)
-- VSPackage.en-US.resx (strings used in registering the packages with Visual Studio and visible in the Help>About dialog)
-- RapidXamlPackage.en-US.vsct (defines commands and menus--including displayed text)
-- xx-XX/Extension.vsixlangpack (localized versions of extension name and description)
+When the project was created (with Microsoft), the development included full support for all languages into which translations of Visual Studio are available. When Microsoft withdrew from this project, we also lost their resources for translating and testing those translations. Given this, we are unable to provide translations of the toolkit. However, all text content should be created in a resource file so that, hopefully, we will be able to provide translated versions in the future.
 
-`Resources/StringRes.resx` is the only place you are likely to need to add resources.
+## Extension specific resources
 
-## Important points to note
+Localized extension-specific strings are in `VSPackage.resx` within each project. You should not need to change this.
+
+The exception to this is in `RapidXaml.Generation\Resources\OptionsStringRes.resx` which contains strings used in the UI of the options dialog for configuring XAML generation.
+
+## General resources
+
+`RapidXaml.Shared\Resources\StringRes.resx` is the only place you are likely to need to add resources.
+
+The shared library contains the string resources used by all extensions, as it is simpler to keep everything together rather than manage multiple resource files.
+
+### Naming conventions
+
+Resource names use the following prefixes:
+
+- **Error_** - used in relation to an error or exception in the toolkit code.
+- **Info_** - used for content that is output to the Output Pane or other logs.
+- **Prompt_** - indicates display in a dialog.
+- **UI_** - indicates display in the UI of Visual Studio.
+
+Do not add other prefixes without discussion.
+
+There is also a special, non-prefixed entry for the project's name.
+
+### Important points to note
 
 - Avoid modifying existing string resources.
-- Avoid reusing string resources in multiple locations.
+- Avoid reusing string resources in multiple locations unless the context is the same.
 - Please follow the existing naming conventions.
 
 Make working with embedded string resources easier by installing the [String Resource Visualizer Extension](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.StringResourceVisualizer).
 
 ![See the default resource translations inline](./Assets/string-res-viz.png)
-
-## Adding new string resources used in code
-
-1. Add new strings to the file `StringRes.resx` following the naming convention that already exists.
-2. After adding the new entries, run LocalizationHelper.exe and select option 2.
-3. Reference the newly created resource in code.
-
-## LocalizationHelper.exe
-
-This is a console app, in the Tools folder, that provides functionality to help working with localized files.
-
-When started it lists 4 options.
-
-1. Copy values from StringRes to other loc files
-2. Copy from StringRes to StringRes.en-US
-3. Extract new entries for localization
-4. Merge translated files
-
-### 1. Copy values from StringRes to other loc files
-
-To simplify the initial process of localizing all the text content in the different files, StringRes.resx also contains a copy of the text from the other files. This option copies the translated strings from the localized versions of StringRes.resx to the other resx and vsct files.
-
-### 2. Copy from StringRes to StringRes.en-US
-
-This is the option you will use most. It copies `StringRes.resx` to `StringRes.en-US.resx`. The Visual Studio designer requires a neutral language file but the extension needs a locale specific version for the default locale (en-US).
-
-### 3. Extract new entries for localization
-
-Run this option when preparing to send new strings for localization. It will identify any strings in the default resource file that are not in the localized versions. It will then create resx files containing the strings that require translation. The output will include a list of these files.
-
-```ps
-The following files need translation:
-- ../../../RapidXamlToolkit/Resources/StringRes.cs-CZ.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.de-DE.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.es-ES.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.fr-FR.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.it-IT.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.ja-JP.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.ko-KR.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.pl-PL.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.pt-BR.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.ru-RU.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.tr-TR.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.zh-CN.translation-needed.resx
-- ../../../RapidXamlToolkit/Resources/StringRes.zh-TW.translation-needed.resx
-Once translated, rename to 'xxx.translation-done.resx' and run option 4.
-```
-
-### 4. Merge translated files
-
-Run this option once the new strings have been translated and the files renamed from `StringRes.xx-XX.translation-needed.resx` to `StringRes.xx-XX.translation-done.resx`. The new translations will then be merged into the main resource files.

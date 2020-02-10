@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.HyperlinkButton,
                 Attributes.Content,
                 AttributeType.Any,
-                StringRes.Info_XamlAnalysisHardcodedStringHyperlinkButtonContentMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringHyperlinkButtonContentMessage,
                 xamlElement,
                 snapshot,
                 offset,

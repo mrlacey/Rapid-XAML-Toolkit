@@ -26,13 +26,13 @@ namespace RapidXamlToolkit.Logging
             {
                 if (ErrorHandler.Failed(outWindow.CreatePane(ref generalPaneGuid, "General", 1, 0)))
                 {
-                    System.Diagnostics.Debug.WriteLine(StringRes.UI_CreatingOutputPaneFailed);
+                    System.Diagnostics.Debug.WriteLine(StringRes.Error_CreatingOutputPaneFailed);
                     return;
                 }
 
                 if (ErrorHandler.Failed(outWindow.GetPane(ref generalPaneGuid, out this.generalPane)) || (this.generalPane == null))
                 {
-                    System.Diagnostics.Debug.WriteLine(StringRes.UI_AccessingOutputPaneFailed);
+                    System.Diagnostics.Debug.WriteLine(StringRes.Error_AccessingOutputPaneFailed);
                 }
             }
         }

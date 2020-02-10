@@ -64,7 +64,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     elementName,
                     Attributes.TooltipServiceDotToolTip,
                     AttributeType.Inline,
-                    StringRes.Info_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage,
+                    StringRes.UI_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage,
                     xamlElement,
                     snapshot,
                     offset,

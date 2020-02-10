@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.AppBarButton,
                 Attributes.Label,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringAppBarButtonLabelMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringAppBarButtonLabelMessage,
                 xamlElement,
                 snapshot,
                 offset,

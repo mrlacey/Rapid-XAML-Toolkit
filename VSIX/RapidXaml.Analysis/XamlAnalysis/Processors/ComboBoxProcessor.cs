@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.ComboBox,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringComboboxHeaderMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringComboboxHeaderMessage,
                 xamlElement,
                 snapshot,
                 offset,

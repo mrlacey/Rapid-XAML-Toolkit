@@ -44,7 +44,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             var vs = this.vstm ?? new VisualStudioTextManipulation(ProjectHelpers.Dte);
 
-            var undo = vs.StartSingleUndoOperation(StringRes.Info_UndoContextMoveStringToResourceFile);
+            var undo = vs.StartSingleUndoOperation(StringRes.UI_UndoContextMoveStringToResourceFile);
 
             try
             {

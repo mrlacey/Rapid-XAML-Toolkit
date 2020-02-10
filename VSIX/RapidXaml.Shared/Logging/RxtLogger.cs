@@ -37,7 +37,7 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordGeneralError(string message)
         {
-            GeneralOutputPane.Instance.Write($"[{StringRes.VSIX__LocalizedName}]  {message}{Environment.NewLine}{Environment.NewLine}");
+            GeneralOutputPane.Instance.Write($"[{StringRes.RapidXamlToolkit}]  {message}{Environment.NewLine}{Environment.NewLine}");
             GeneralOutputPane.Instance.Activate();
         }
 
@@ -83,7 +83,7 @@ namespace RapidXamlToolkit.Logging
         {
             if (this.VsActivityLog != null)
             {
-                this.VsActivityLog.LogEntry((uint)__ACTIVITYLOG_ENTRYTYPE.ALE_ERROR, StringRes.VSIX__LocalizedName, message);
+                this.VsActivityLog.LogEntry((uint)__ACTIVITYLOG_ENTRYTYPE.ALE_ERROR, StringRes.RapidXamlToolkit, message);
             }
         }
     }

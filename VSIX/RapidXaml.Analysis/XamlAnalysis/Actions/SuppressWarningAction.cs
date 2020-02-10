@@ -25,7 +25,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             var result = new SuppressWarningAction(file)
             {
                 Tag = tag,
-                DisplayText = StringRes.Info_SuggestedActionDoNotWarn.WithParams(tag.ErrorCode),
+                DisplayText = StringRes.UI_SuggestedActionDoNotWarn.WithParams(tag.ErrorCode),
                 ErrorCode = tag.ErrorCode,
                 Source = suggestedActionsSource,
             };

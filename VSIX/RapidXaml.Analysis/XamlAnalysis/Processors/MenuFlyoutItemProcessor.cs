@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.MenuFlyoutItem,
                 Attributes.Text,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringMenuFlyoutItemTextMessage,
                 xamlElement,
                 snapshot,
                 offset,

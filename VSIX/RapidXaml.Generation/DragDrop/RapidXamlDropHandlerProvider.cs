@@ -66,7 +66,7 @@ namespace RapidXamlToolkit.DragDrop
             }
             catch (Exception exc)
             {
-                RxtOutputPane.Instance.Write(RxtLogger.TimeStampMessage(StringRes.Info_UnableToGetDropHandler));
+                RxtOutputPane.Instance.Write(RxtLogger.TimeStampMessage(StringRes.Error_UnableToGetDropHandler));
                 Logger?.RecordException(exc);
                 return null;
             }

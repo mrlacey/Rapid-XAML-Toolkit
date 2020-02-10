@@ -15,9 +15,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, fileName, "RXT401", TagErrorType.Warning, logger)
         {
             this.SuggestedAction = typeof(MissingCheckBoxEventAction);
-            this.ToolTip = StringRes.Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip;
-            this.Description = StringRes.Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsDescription;
-            this.ExtendedMessage = StringRes.Info_XamlAnalysisCheckBoxCheckedAndUncheckedEventsExtendedMessage;
+            this.ToolTip = StringRes.UI_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip;
+            this.Description = StringRes.UI_XamlAnalysisCheckBoxCheckedAndUncheckedEventsDescription;
+            this.ExtendedMessage = StringRes.UI_XamlAnalysisCheckBoxCheckedAndUncheckedEventsExtendedMessage;
 
             this.ExistingIsChecked = hasChecked;
             this.ExistingName = existingName;

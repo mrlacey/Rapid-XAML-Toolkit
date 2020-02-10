@@ -14,7 +14,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, fileName, "RXT104", TagErrorType.Warning, logger)
         {
             this.SuggestedAction = typeof(ColumnSpanOverflowAction);
-            this.ToolTip = StringRes.Info_XamlAnalysisColumnSpanOverflowTooltip;
+            this.ToolTip = StringRes.UI_XamlAnalysisColumnSpanOverflowTooltip;
         }
     }
 }

@@ -14,8 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             : base(span, snapshot, fileName, "RXT150", TagErrorType.Suggestion, logger)
         {
             this.SuggestedAction = typeof(AddTextBoxInputScopeAction);
-            this.Description = StringRes.Info_XamlAnalysisTextBoxWithoutInputScopeDescription;
-            this.ExtendedMessage = StringRes.Info_XamlAnalysisTextBoxWithoutInputScopeExtendedMessage;
+            this.Description = StringRes.UI_XamlAnalysisTextBoxWithoutInputScopeDescription;
+            this.ExtendedMessage = StringRes.UI_XamlAnalysisTextBoxWithoutInputScopeExtendedMessage;
         }
 
         public int InsertPosition { get; set; }

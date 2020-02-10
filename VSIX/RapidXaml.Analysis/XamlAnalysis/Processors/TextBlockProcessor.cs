@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.TextBlock,
                 Attributes.Text,
                 AttributeType.Any,
-                StringRes.Info_XamlAnalysisHardcodedStringTextblockTextMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringTextblockTextMessage,
                 xamlElement,
                 snapshot,
                 offset,
