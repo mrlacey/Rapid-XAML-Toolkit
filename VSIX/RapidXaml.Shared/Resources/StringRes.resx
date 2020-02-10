@@ -360,13 +360,9 @@
   <data name="UI_ToolboxGroupHeader" xml:space="preserve">
     <value>Rapid XAML</value>
   </data>
-  <data name="VSIX__LocalizedDescription" xml:space="preserve">
-    <value>Tools to accelerate XAML app development</value>
-    <comment>Description used in vsixlangpack</comment>
-  </data>
-  <data name="VSIX__LocalizedName" xml:space="preserve">
+  <data name="RapidXamlToolkit" xml:space="preserve">
     <value>Rapid XAML Toolkit</value>
-    <comment>Name used in vsixlangpack</comment>
+    <comment>project name</comment>
   </data>
   <data name="Info_UndoContextInsertRowDef" xml:space="preserve">
     <value>Insert RowDefinition</value>

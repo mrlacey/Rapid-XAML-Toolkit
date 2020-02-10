@@ -1692,6 +1692,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Toolkit.
+        /// </summary>
+        public static string RapidXamlToolkit {
+            get {
+                return ResourceManager.GetString("RapidXamlToolkit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to get the Output window pane..
         /// </summary>
         public static string UI_AccessingOutputPaneFailed {
@@ -1994,24 +2003,6 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_ToolboxGroupHeader {
             get {
                 return ResourceManager.GetString("UI_ToolboxGroupHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tools to accelerate XAML app development.
-        /// </summary>
-        public static string VSIX__LocalizedDescription {
-            get {
-                return ResourceManager.GetString("VSIX__LocalizedDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rapid XAML Toolkit.
-        /// </summary>
-        public static string VSIX__LocalizedName {
-            get {
-                return ResourceManager.GetString("VSIX__LocalizedName", resourceCulture);
             }
         }
     }

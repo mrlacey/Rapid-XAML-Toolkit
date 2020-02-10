@@ -24,13 +24,13 @@ namespace RapidXamlToolkit.RoslynAnalyzers
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(StringRes.Info_ExpandAutoPropertyAnalyzerTitle), StringRes.ResourceManager, typeof(StringRes));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(StringRes.Info_ExpandAutoPropertyAnalyzerMessage), StringRes.ResourceManager, typeof(StringRes));
 
-        private static readonly DiagnosticDescriptor OnPropertyRule = new DiagnosticDescriptor(OnPropertyChangedDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
+        private static readonly DiagnosticDescriptor OnPropertyRule = new DiagnosticDescriptor(OnPropertyChangedDiagnosticId, Title, MessageFormat, StringRes.RapidXamlToolkit, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
-        private static readonly DiagnosticDescriptor SetRule = new DiagnosticDescriptor(SetDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
+        private static readonly DiagnosticDescriptor SetRule = new DiagnosticDescriptor(SetDiagnosticId, Title, MessageFormat, StringRes.RapidXamlToolkit, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
-        private static readonly DiagnosticDescriptor SetPropertyRule = new DiagnosticDescriptor(SetPropertyDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
+        private static readonly DiagnosticDescriptor SetPropertyRule = new DiagnosticDescriptor(SetPropertyDiagnosticId, Title, MessageFormat, StringRes.RapidXamlToolkit, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
-        private static readonly DiagnosticDescriptor DependencyPropertyRule = new DiagnosticDescriptor(DependencyPropertyDiagnosticId, Title, MessageFormat, StringRes.VSIX__LocalizedName, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
+        private static readonly DiagnosticDescriptor DependencyPropertyRule = new DiagnosticDescriptor(DependencyPropertyDiagnosticId, Title, MessageFormat, StringRes.RapidXamlToolkit, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
