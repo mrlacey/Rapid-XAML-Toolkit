@@ -2,13 +2,14 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class InsertionTag : RapidXamlDiscreteTag
     {
-        protected InsertionTag(Span span, ITextSnapshot snapshot, string fileName)
-            : base(span, snapshot, fileName)
+        protected InsertionTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger)
+            : base(span, snapshot, fileName, logger)
         {
         }
 

@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
@@ -9,12 +10,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class AddEntryKeyboardTag : RapidXamlDisplayedTag
     {
-        public AddEntryKeyboardTag(Span span, ITextSnapshot snapshot, string fileName, string originalXaml)
-            : base(span, snapshot, fileName, "RXT300", TagErrorType.Suggestion)
+        public AddEntryKeyboardTag(Span span, ITextSnapshot snapshot, string fileName, string originalXaml, ILogger logger)
+            : base(span, snapshot, fileName, "RXT300", TagErrorType.Suggestion, logger)
         {
             this.SuggestedAction = typeof(AddEntryKeyboardAction);
-            this.Description = StringRes.Info_XamlAnalysisEntryWithoutKeyboardDescription;
-            this.ExtendedMessage = StringRes.Info_XamlAnalysisEntryWithoutKeyboardExtendedMessage;
+            this.Description = StringRes.UI_XamlAnalysisEntryWithoutKeyboardDescription;
+            this.ExtendedMessage = StringRes.UI_XamlAnalysisEntryWithoutKeyboardExtendedMessage;
 
             var xaml = originalXaml.ToLowerInvariant();
             if (xaml.Contains("email"))

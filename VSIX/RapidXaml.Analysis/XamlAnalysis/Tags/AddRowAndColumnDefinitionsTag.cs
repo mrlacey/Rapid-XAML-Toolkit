@@ -2,14 +2,15 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class AddRowAndColumnDefinitionsTag : InsertionTag
     {
-        public AddRowAndColumnDefinitionsTag(Span span, ITextSnapshot snapshot, string fileName)
-            : base(span, snapshot, fileName)
+        public AddRowAndColumnDefinitionsTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger)
+            : base(span, snapshot, fileName, logger)
         {
             this.SuggestedAction = typeof(AddRowAndColumnDefinitionsAction);
         }

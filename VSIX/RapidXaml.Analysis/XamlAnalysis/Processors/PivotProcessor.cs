@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.Pivot,
                 Attributes.Title,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringPivotTitleMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringPivotTitleMessage,
                 xamlElement,
                 snapshot,
                 offset,

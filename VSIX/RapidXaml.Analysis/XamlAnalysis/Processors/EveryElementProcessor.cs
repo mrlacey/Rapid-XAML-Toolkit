@@ -19,18 +19,21 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
+            // Remove children to avoid getting duplicates when children are processed.
+            xamlElement = GetOpeningWithoutChildren(xamlElement);
+
             if (this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.InlineOrElement, out _, out int index, out int length, out string value))
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
+                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
                 }
             }
             else if (this.TryGetAttribute(xamlElement, Attributes.X_Uid, AttributeType.InlineOrElement, out _, out index, out length, out value))
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
+                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
                 }
             }
 
@@ -38,14 +41,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
+                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
                 }
             }
             else if (this.TryGetAttribute(xamlElement, Attributes.X_Name, AttributeType.InlineOrElement, out _, out index, out length, out value))
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value), xamlElement, suppressions);
+                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
                 }
             }
 
@@ -61,7 +64,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     elementName,
                     Attributes.TooltipServiceDotToolTip,
                     AttributeType.Inline,
-                    StringRes.Info_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage,
+                    StringRes.UI_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage,
                     xamlElement,
                     snapshot,
                     offset,

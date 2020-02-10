@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.TimePicker,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringTimePickerHeaderMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringTimePickerHeaderMessage,
                 xamlElement,
                 snapshot,
                 offset,

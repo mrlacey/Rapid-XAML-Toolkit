@@ -78,7 +78,7 @@ namespace RapidXamlToolkit.Commands
 
                 this.Logger?.RecordFeatureUsage(nameof(SendToToolboxCommand));
 
-                this.Logger?.RecordInfo(StringRes.Info_AttemptingoAddToToolbox);
+                this.Logger?.RecordInfo(StringRes.Info_AttemptingToAddToToolbox);
                 var parserResult = await this.GetXamlAsync(Instance.ServiceProvider);
 
                 if (parserResult != null && parserResult.OutputType != ParserOutputType.None)
@@ -87,13 +87,13 @@ namespace RapidXamlToolkit.Commands
 
                     await AddToToolboxAsync(label, parserResult.Output);
 
-                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.Info_AddedXamlToToolbox.WithParams(label));
-                    this.Logger.RecordInfo(StringRes.Info_AddedXamlToToolbox.WithParams(label));
+                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.UI_AddedXamlToToolbox.WithParams(label));
+                    this.Logger.RecordInfo(StringRes.UI_AddedXamlToToolbox.WithParams(label));
                 }
                 else
                 {
-                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.Info_NothingAddedToToolbox);
-                    this.Logger.RecordInfo(StringRes.Info_NothingAddedToToolbox);
+                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.UI_NothingAddedToToolbox);
+                    this.Logger.RecordInfo(StringRes.UI_NothingAddedToToolbox);
                 }
             }
             catch (Exception exc)

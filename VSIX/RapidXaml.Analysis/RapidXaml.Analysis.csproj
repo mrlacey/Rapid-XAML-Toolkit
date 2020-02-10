@@ -93,6 +93,7 @@
     <Compile Include="XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
     <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
     <Compile Include="XamlAnalysis\Actions\SelectedItemBindingModeAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\SuppressWarningAction.cs" />
     <Compile Include="XamlAnalysis\Attributes.cs" />
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />
@@ -185,6 +186,9 @@
     <VSCTCompile Include="RapidXamlAnalysisPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
+    <Content Include="RapidXamlAnalysisExtensions.vsext">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="RapidXamlCommonMenus.vsct">
       <LastGenOutput>RapidXamlCommonMenus.cs</LastGenOutput>
     </None>
@@ -193,9 +197,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Key.snk" />
-    <Content Include="RxaExtensions.vsext">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>

@@ -85,7 +85,7 @@ namespace RapidXamlToolkit.Commands
 
                 var referenceUids = new Dictionary<Guid, string>();
 
-                vs.StartSingleUndoOperation(StringRes.Info_UndoContextMoveStringsToResourceFile);
+                vs.StartSingleUndoOperation(StringRes.UI_UndoContextMoveStringsToResourceFile);
 
                 try
                 {

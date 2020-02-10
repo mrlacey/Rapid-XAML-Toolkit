@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
     <RowDefinition Height=""*"" />
 </Grid.RowDefinitions>";
 
-            this.UndoOperationName = StringRes.Info_UndoContextAddRowDefinitions;
+            this.UndoOperationName = StringRes.UI_UndoContextAddRowDefinitions;
             this.DisplayText = StringRes.UI_AddRowDefinitions;
         }
 

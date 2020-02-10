@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.DatePicker,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringDatePickerHeaderMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringDatePickerHeaderMessage,
                 xamlElement,
                 snapshot,
                 offset,

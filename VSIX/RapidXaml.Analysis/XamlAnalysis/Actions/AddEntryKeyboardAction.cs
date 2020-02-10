@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         public override void Execute(CancellationToken cancellationToken)
         {
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
-            vs.StartSingleUndoOperation(StringRes.Info_UndoContextAddEntryKeyboard);
+            vs.StartSingleUndoOperation(StringRes.UI_UndoContextAddEntryKeyboard);
             try
             {
                 var lineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;

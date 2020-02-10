@@ -80,7 +80,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="RxraExtensions.vsext">
+    <Content Include="RapidXamlRoslynAnalzersExtensions.vsext">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="source.extension.vsixmanifest">

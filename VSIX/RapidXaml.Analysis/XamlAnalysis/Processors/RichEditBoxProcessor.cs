@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.RichEditBox,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringRichEditBoxHeaderMessage,
                 xamlElement,
                 snapshot,
                 offset,

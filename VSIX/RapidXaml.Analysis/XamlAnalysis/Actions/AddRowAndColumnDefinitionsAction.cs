@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
     <ColumnDefinition Width=""*"" />
 </Grid.ColumnDefinitions>";
 
-            this.UndoOperationName = StringRes.Info_UndoContextAddRowAndColumnDefinitions;
+            this.UndoOperationName = StringRes.UI_UndoContextAddRowAndColumnDefinitions;
             this.DisplayText = StringRes.UI_AddRowAndColumnDefinitions;
         }
 

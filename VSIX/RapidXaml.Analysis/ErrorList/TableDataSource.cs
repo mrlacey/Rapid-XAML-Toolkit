@@ -59,7 +59,7 @@ namespace RapidXamlToolkit.ErrorList
 
         public string Identifier => SharedRapidXamlPackage.TelemetryGuid;
 
-        public string DisplayName => StringRes.VSIX__LocalizedName;
+        public string DisplayName => StringRes.RapidXamlToolkit;
 
         [Import]
         private ITableManagerProvider TableManagerProvider { get; set; } = null;

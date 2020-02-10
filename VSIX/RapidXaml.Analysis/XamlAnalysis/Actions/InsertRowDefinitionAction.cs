@@ -60,6 +60,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public static Dictionary<int, int> GetExclusions(string xaml)
         {
+            // Find other nested grids
             return XamlElementProcessor.GetExclusions(xaml, Elements.Grid);
         }
 
@@ -157,7 +158,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         public override void Execute(CancellationToken cancellationToken)
         {
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
-            vs.StartSingleUndoOperation(StringRes.Info_UndoContextInsertRowDef);
+            vs.StartSingleUndoOperation(StringRes.UI_UndoContextInsertRowDef);
             try
             {
                 vs.ReplaceInActiveDoc(this.Replacements, this.tag.GridStartPos, this.tag.GridStartPos + this.tag.GridLength, this.Exclusions);

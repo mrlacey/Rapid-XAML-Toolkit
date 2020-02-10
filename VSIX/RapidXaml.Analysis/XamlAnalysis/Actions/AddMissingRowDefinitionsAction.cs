@@ -16,7 +16,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         protected AddMissingRowDefinitionsAction(string file)
             : base(file)
         {
-            this.UndoOperationName = StringRes.Info_UndoContextAddMissingRowDefinitions;
+            this.UndoOperationName = StringRes.UI_UndoContextAddMissingRowDefinitions;
             this.DisplayText = StringRes.UI_AddMissingRowDefinitions;
         }
 
@@ -35,7 +35,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         public override void Execute(CancellationToken cancellationToken)
         {
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
-            vs.StartSingleUndoOperation(StringRes.Info_UndoContextAddRowDefinitions);
+            vs.StartSingleUndoOperation(StringRes.UI_UndoContextAddRowDefinitions);
 
             try
             {

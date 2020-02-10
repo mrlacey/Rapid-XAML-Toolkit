@@ -33,7 +33,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.TextBox,
                 Attributes.Header,
                 AttributeType.InlineOrElement,
-                StringRes.Info_XamlAnalysisHardcodedStringTextboxHeaderMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringTextboxHeaderMessage,
                 xamlElement,
                 snapshot,
                 offset,
@@ -48,7 +48,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 Elements.TextBox,
                 Attributes.PlaceholderText,
                 AttributeType.Inline | AttributeType.Element,
-                StringRes.Info_XamlAnalysisHardcodedStringTextboxPlaceholderMessage,
+                StringRes.UI_XamlAnalysisHardcodedStringTextboxPlaceholderMessage,
                 xamlElement,
                 snapshot,
                 offset,
@@ -61,7 +61,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             if (!this.TryGetAttribute(xamlElement, Attributes.InputScope, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
                 tags.TryAdd(
-                    new AddTextBoxInputScopeTag(new Span(offset, xamlElement.Length), snapshot, fileName)
+                    new AddTextBoxInputScopeTag(new Span(offset, xamlElement.Length), snapshot, fileName, this.Logger)
                     {
                         InsertPosition = offset,
                     },

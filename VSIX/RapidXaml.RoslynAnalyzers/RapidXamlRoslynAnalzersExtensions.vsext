@@ -1,0 +1,10 @@
+{
+    "description": "Rapid XAML RoslynAnalyzers - Dependencies",
+    "version": "1.0.0.0",
+    "extensions": [
+        {
+            "vsixId": "RapidXaml.Common.3cb31872-64f7-49f8-91a7-31393173c5ce",
+            "name": "Rapid XAML Common Functionality"
+        }
+    ]
+}

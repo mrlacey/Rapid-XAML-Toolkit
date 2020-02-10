@@ -87,7 +87,5 @@
       <IDSymbol name="bmpSetDc" value="5" />
       <IDSymbol name="bmpFeedback" value="6" />
     </GuidSymbol>
-
-    <GuidSymbol name="guidRapidXamlCommonMenuPackageCmdSet" value="{c38bde3a-c557-43e4-bb0a-9f167ace4c10}" />
   </Symbols>
 </CommandTable>
