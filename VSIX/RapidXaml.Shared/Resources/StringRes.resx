@@ -328,22 +328,6 @@
   <data name="UI_SelectionTwoNames" xml:space="preserve">
     <value>{0} and {1}</value>
   </data>
-  <data name="Package__106" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
-    <comment>Options group header</comment>
-  </data>
-  <data name="Package__107" xml:space="preserve">
-    <value>Profiles</value>
-    <comment>Options section header</comment>
-  </data>
-  <data name="Package__110" xml:space="preserve">
-    <value>Rapid XAML Toolkit</value>
-    <comment>Title for Help/About</comment>
-  </data>
-  <data name="Package__112" xml:space="preserve">
-    <value>Tools to accelerate XAML app development</value>
-    <comment>Detailed description for Help/About</comment>
-  </data>
   <data name="Prompt_ImportFailedMessage" xml:space="preserve">
     <value>The following issues prevented the profile from being imported:
 

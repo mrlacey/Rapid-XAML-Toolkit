@@ -1618,42 +1618,6 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rapid XAML Toolkit.
-        /// </summary>
-        public static string Package__106 {
-            get {
-                return ResourceManager.GetString("Package__106", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profiles.
-        /// </summary>
-        public static string Package__107 {
-            get {
-                return ResourceManager.GetString("Package__107", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rapid XAML Toolkit.
-        /// </summary>
-        public static string Package__110 {
-            get {
-                return ResourceManager.GetString("Package__110", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tools to accelerate XAML app development.
-        /// </summary>
-        public static string Package__112 {
-            get {
-                return ResourceManager.GetString("Package__112", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete profile &apos;{0}&apos;?.
         /// </summary>
         public static string Prompt_ConfirmDeleteProfileMessage {
