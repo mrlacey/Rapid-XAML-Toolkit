@@ -12,3 +12,6 @@ insert_final_newline = true
 
 # SA1200: Using directives should be placed correctly
 dotnet_diagnostic.SA1200.severity = warning
+
+# SA0001: XML comment analysis disabled
+dotnet_diagnostic.SA0001.severity = none
