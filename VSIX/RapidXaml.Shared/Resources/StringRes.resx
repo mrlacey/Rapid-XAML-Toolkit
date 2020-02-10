@@ -376,30 +376,6 @@
   <data name="UI_ToolboxGroupHeader" xml:space="preserve">
     <value>Rapid XAML</value>
   </data>
-  <data name="VSCT__ContextMenu" xml:space="preserve">
-    <value>Rapid XAML</value>
-    <comment>VS Context menu text</comment>
-  </data>
-  <data name="VSCT__CopyToClipboardCommandId" xml:space="preserve">
-    <value>Copy to Clipboard</value>
-    <comment>Command button text for when copying to the clipboard as XAML</comment>
-  </data>
-  <data name="VSCT__CreateViewCommandId" xml:space="preserve">
-    <value>Create View</value>
-    <comment>Command button text for when creating a view from the SolutionExplorer</comment>
-  </data>
-  <data name="VSCT__OpenOptionsCommandId" xml:space="preserve">
-    <value>Profiles</value>
-    <comment>Command button text for opening profile options</comment>
-  </data>
-  <data name="VSCT__SendToToolboxCommandId" xml:space="preserve">
-    <value>Send to Toolbox</value>
-    <comment>Command button text for when sending to the clipboard as XAML</comment>
-  </data>
-  <data name="VSCT__SetDatacontextCommandId" xml:space="preserve">
-    <value>Set Datacontext</value>
-    <comment>Command button text for setting the datacontext of a page</comment>
-  </data>
   <data name="VSIX__LocalizedDescription" xml:space="preserve">
     <value>Tools to accelerate XAML app development</value>
     <comment>Description used in vsixlangpack</comment>
@@ -410,10 +386,6 @@
   </data>
   <data name="Info_UndoContextInsertRowDef" xml:space="preserve">
     <value>Insert RowDefinition</value>
-  </data>
-  <data name="VSCT_InsertGridRowDefinitionCommandId" xml:space="preserve">
-    <value>Insert Row Definition</value>
-    <comment>Command button text for when inserting a new RowDefinition</comment>
   </data>
   <data name="Info_UnableToInsertRowDefinitionInvalidXaml" xml:space="preserve">
     <value>Unable to insert RowDefinition (Invalid XAML)</value>

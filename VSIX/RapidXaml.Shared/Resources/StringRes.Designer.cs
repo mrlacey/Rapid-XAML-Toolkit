@@ -2034,69 +2034,6 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rapid XAML.
-        /// </summary>
-        public static string VSCT__ContextMenu {
-            get {
-                return ResourceManager.GetString("VSCT__ContextMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copy to Clipboard.
-        /// </summary>
-        public static string VSCT__CopyToClipboardCommandId {
-            get {
-                return ResourceManager.GetString("VSCT__CopyToClipboardCommandId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create View.
-        /// </summary>
-        public static string VSCT__CreateViewCommandId {
-            get {
-                return ResourceManager.GetString("VSCT__CreateViewCommandId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Profiles.
-        /// </summary>
-        public static string VSCT__OpenOptionsCommandId {
-            get {
-                return ResourceManager.GetString("VSCT__OpenOptionsCommandId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Send to Toolbox.
-        /// </summary>
-        public static string VSCT__SendToToolboxCommandId {
-            get {
-                return ResourceManager.GetString("VSCT__SendToToolboxCommandId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set Datacontext.
-        /// </summary>
-        public static string VSCT__SetDatacontextCommandId {
-            get {
-                return ResourceManager.GetString("VSCT__SetDatacontextCommandId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insert Row Definition.
-        /// </summary>
-        public static string VSCT_InsertGridRowDefinitionCommandId {
-            get {
-                return ResourceManager.GetString("VSCT_InsertGridRowDefinitionCommandId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Tools to accelerate XAML app development.
         /// </summary>
         public static string VSIX__LocalizedDescription {
