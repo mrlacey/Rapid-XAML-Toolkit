@@ -16,7 +16,6 @@ using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXaml.AnalysisExe
 {
-
     public class BuildAnalysisVisulaStudioAbstraction : IVisualStudioAbstraction
     {
         public bool ActiveDocumentIsCSharp()
