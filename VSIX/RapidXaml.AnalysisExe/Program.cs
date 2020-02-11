@@ -100,6 +100,8 @@ namespace RapidXaml.AnalysisExe
                                             messageType = "warning";
                                             break;
                                         case TagErrorType.Suggestion:
+                                            // TODO: work out what should set messageType to here
+                                            break;
                                         case TagErrorType.Hidden:
                                             break;
                                     }
