@@ -16,7 +16,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
         private readonly string element = "<MenuFlyoutItem Text=\"menu1\" />";
 
-        private readonly IRapidXamlAdornmentTag tag = new HardCodedStringTag(new Span(1, 14), new FakeTextSnapshot(), TestFileName, Elements.MenuFlyoutItem, Attributes.Text, DefaultTestLogger.Create());
+        private readonly IRapidXamlAdornmentTag tag = new HardCodedStringTag(new Span(1, 14), new FakeTextSnapshot(), TestFileName, Elements.MenuFlyoutItem, Attributes.Text, DefaultTestLogger.Create(), string.Empty);
 
         [TestMethod]
         public void Tag_AddedIf_NoSuppressions()

@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class HyperlinkButtonProcessor : XamlElementProcessor
     {
-        public HyperlinkButtonProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public HyperlinkButtonProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

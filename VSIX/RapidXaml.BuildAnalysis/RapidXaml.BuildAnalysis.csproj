@@ -18,12 +18,20 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="..\RapidXaml.AnalysisExe\bin\$(Configuration)\$(TargetFramework)\*.*" CopyToOutputDirectory="PreserveNewest"  />
+        <Content Include="..\RapidXaml.AnalysisExe\bin\$(Configuration)\$(TargetFramework)\*.*" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
     </ItemGroup>
     
     <ItemGroup>
       <PackageReference Include="Microsoft.Build.Framework" Version="16.4.0" />
       <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.4.0" />
+      <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
     </ItemGroup>
 
   <Import Project="build.targets" />

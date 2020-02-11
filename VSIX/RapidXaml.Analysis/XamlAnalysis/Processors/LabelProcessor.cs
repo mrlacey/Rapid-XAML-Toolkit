@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class LabelProcessor : XamlElementProcessor
     {
-        public LabelProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public LabelProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

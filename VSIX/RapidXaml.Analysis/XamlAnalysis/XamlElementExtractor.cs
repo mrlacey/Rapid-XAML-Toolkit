@@ -11,13 +11,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions = null)
+        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions = null, string projectFilePath = null)
         {
             var elementsOfInterest = processors.Select(p => p.element).ToList();
 
             var elementsBeingTracked = new List<TrackingElement>();
 
-            var everyElementProcessor = new EveryElementProcessor(projectType, SharedRapidXamlPackage.Logger);
+            var everyElementProcessor = new EveryElementProcessor(new ProcessorEssentials(projectType, SharedRapidXamlPackage.Logger, projectFilePath));
 
             bool isIdentifyingElement = false;
             bool isClosingElement = false;

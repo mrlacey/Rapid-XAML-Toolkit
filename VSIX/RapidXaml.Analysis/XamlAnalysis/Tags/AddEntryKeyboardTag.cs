@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class AddEntryKeyboardTag : RapidXamlDisplayedTag
     {
-        public AddEntryKeyboardTag(Span span, ITextSnapshot snapshot, string fileName, string originalXaml, ILogger logger)
-            : base(span, snapshot, fileName, "RXT300", TagErrorType.Suggestion, logger)
+        public AddEntryKeyboardTag(Span span, ITextSnapshot snapshot, string fileName, string originalXaml, ILogger logger, string projectPath)
+            : base(span, snapshot, fileName, "RXT300", TagErrorType.Suggestion, logger, projectPath)
         {
             this.SuggestedAction = typeof(AddEntryKeyboardAction);
             this.Description = StringRes.UI_XamlAnalysisEntryWithoutKeyboardDescription;

@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class SelectedItemAttributeProcessor : XamlElementProcessor
     {
-        public SelectedItemAttributeProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public SelectedItemAttributeProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 
@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
 
                     tags.TryAdd(
-                        new SelectedItemBindingModeTag(new Span(offset + index, length), snapshot, fileName, this.Logger)
+                        new SelectedItemBindingModeTag(new Span(offset + index, length), snapshot, fileName, this.Logger, this.ProjectFile)
                         {
                             InsertPosition = offset + index,
                             ExistingBindingMode = existingMode,

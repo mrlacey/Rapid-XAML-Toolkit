@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class HubSectionProcessor : XamlElementProcessor
     {
-        public HubSectionProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public HubSectionProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

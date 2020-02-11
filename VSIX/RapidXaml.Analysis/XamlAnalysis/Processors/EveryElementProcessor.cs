@@ -12,8 +12,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class EveryElementProcessor : XamlElementProcessor
     {
-        public EveryElementProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public EveryElementProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 
@@ -26,14 +26,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
+                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger, this.ProjectFile), xamlElement, suppressions);
                 }
             }
             else if (this.TryGetAttribute(xamlElement, Attributes.X_Uid, AttributeType.InlineOrElement, out _, out index, out length, out value))
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
+                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger, this.ProjectFile), xamlElement, suppressions);
                 }
             }
 
@@ -41,14 +41,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
+                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger, this.ProjectFile), xamlElement, suppressions);
                 }
             }
             else if (this.TryGetAttribute(xamlElement, Attributes.X_Name, AttributeType.InlineOrElement, out _, out index, out length, out value))
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger), xamlElement, suppressions);
+                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger, this.ProjectFile), xamlElement, suppressions);
                 }
             }
 

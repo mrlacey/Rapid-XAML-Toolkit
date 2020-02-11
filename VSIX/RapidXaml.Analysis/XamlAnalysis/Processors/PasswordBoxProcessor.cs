@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class PasswordBoxProcessor : XamlElementProcessor
     {
-        public PasswordBoxProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public PasswordBoxProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

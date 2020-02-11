@@ -12,8 +12,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class GridProcessor : XamlElementProcessor
     {
-        public GridProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public GridProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 
@@ -175,7 +175,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         new Span(offset + defUseOffset, closePos - defUseOffset + 1),
                                         snapshot,
                                         fileName,
-                                        this.Logger)
+                                        this.Logger,
+                                        this.ProjectFile)
                                     {
                                         AssignedInt = assignedInt,
                                         Description = StringRes.UI_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
@@ -207,7 +208,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         new Span(offset + defUseOffset, closePos - defUseOffset + 1),
                                         snapshot,
                                         fileName,
-                                        this.Logger)
+                                        this.Logger,
+                                        this.ProjectFile)
                                     {
                                         AssignedInt = assignedInt,
                                         Description = StringRes.UI_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
@@ -260,7 +262,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                             if (int.TryParse(assignedStr, out int assignedInt))
                             {
-                                var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger);
+                                var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger, this.ProjectFile);
 
                                 var row = 0;
                                 if (this.TryGetAttribute(element, "Grid.Row", AttributeType.InlineOrElement, out _, out _, out _, out string rowStr))
@@ -274,7 +276,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
                                         snapshot,
                                         fileName,
-                                        this.Logger)
+                                        this.Logger,
+                                        this.ProjectFile)
                                     {
                                         TotalDefsRequired = assignedInt + row - 1,
                                         Description = StringRes.UI_XamlAnalysisRowSpanOverflowDescription,
@@ -297,7 +300,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                         if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger);
+                            var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger, this.ProjectFile);
 
                             var gridCol = 0;
                             if (this.TryGetAttribute(element, "Grid.Column", AttributeType.InlineOrElement, out _, out _, out _, out string colStr))
@@ -311,7 +314,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                     new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
                                     snapshot,
                                     fileName,
-                                    this.Logger)
+                                    this.Logger,
+                                    this.ProjectFile)
                                 {
                                     TotalDefsRequired = assignedInt - 1 + gridCol,
                                     Description = StringRes.UI_XamlAnalysisColumnSpanOverflowDescription,

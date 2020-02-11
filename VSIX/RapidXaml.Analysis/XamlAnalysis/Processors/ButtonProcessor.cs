@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class ButtonProcessor : XamlElementProcessor
     {
-        public ButtonProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public ButtonProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

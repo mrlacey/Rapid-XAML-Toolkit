@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     public class UseMediaPlayerElementTag : RapidXamlDisplayedTag
     {
         // https://docs.microsoft.com/en-us/uwp/api/Windows.UI.Xaml.Controls.MediaElement#remarks
-        public UseMediaPlayerElementTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger)
-            : base(span, snapshot, fileName, "RXT402", TagErrorType.Warning, logger)
+        public UseMediaPlayerElementTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger, string projectPath)
+            : base(span, snapshot, fileName, "RXT402", TagErrorType.Warning, logger, projectPath)
         {
             this.SuggestedAction = typeof(MediaElementAction);
             this.ToolTip = StringRes.UI_XamlAnalysisUseMediaPlayerElementToolTip;

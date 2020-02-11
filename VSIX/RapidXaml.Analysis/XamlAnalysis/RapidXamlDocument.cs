@@ -26,10 +26,12 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public TagList Tags { get; set; }
 
+        public VisualStudioAbstraction VsAbstraction { get; set; }
+
         private static Dictionary<string, (DateTime timeStamp, List<TagSuppression> suppressions)> SuppressionsCache { get; }
             = new Dictionary<string, (DateTime, List<TagSuppression>)>();
 
-        public static RapidXamlDocument Create(ITextSnapshot snapshot, string fileName, IVisualStudioAbstraction vsa)
+        public static RapidXamlDocument Create(ITextSnapshot snapshot, string fileName, IVisualStudioAbstraction vsa, string projectFile)
         {
             var result = new RapidXamlDocument();
 
@@ -41,7 +43,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     result.RawText = text;
 
-                    var suppressions = GetSuppressions(fileName);
+                    var suppressions = GetSuppressions(fileName, vsa, projectFile);
 
                     // If suppressing all tags in file, don't bother parsing the file
                     if (suppressions == null || suppressions?.Any(s => string.IsNullOrWhiteSpace(s.TagErrorCode)) == false)
@@ -54,9 +56,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                             vsAbstraction = new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
                         }
 
-                        var projType = vsAbstraction.GetProjectType(ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName));
+                        var projType = vsAbstraction.GetProjectType(vsa.GetProjectContainingFile(fileName));
 
-                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, GetAllProcessors(projType), result.Tags, suppressions);
+                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, GetAllProcessors(projType, projectFile), result.Tags, suppressions);
                     }
                 }
             }
@@ -74,42 +76,49 @@ namespace RapidXamlToolkit.XamlAnalysis
             return result;
         }
 
-        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType)
+        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectFile)
         {
             var logger = SharedRapidXamlPackage.Logger;
 
+            var processorEssentials = new ProcessorEssentials
+            {
+                ProjectType = projType,
+                Logger = logger,
+                ProjectFilePath = projectFile,
+            };
+
             return new List<(string, XamlElementProcessor)>
                     {
-                        (Elements.Grid, new GridProcessor(projType, logger)),
-                        (Elements.TextBlock, new TextBlockProcessor(projType, logger)),
-                        (Elements.TextBox, new TextBoxProcessor(projType, logger)),
-                        (Elements.Button, new ButtonProcessor(projType, logger)),
-                        (Elements.Entry, new EntryProcessor(projType, logger)),
-                        (Elements.AppBarButton, new AppBarButtonProcessor(projType, logger)),
-                        (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(projType, logger)),
-                        (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(projType, logger)),
-                        (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(projType, logger)),
-                        (Elements.CheckBox, new CheckBoxProcessor(projType, logger)),
-                        (Elements.ComboBox, new ComboBoxProcessor(projType, logger)),
-                        (Elements.DatePicker, new DatePickerProcessor(projType, logger)),
-                        (Elements.TimePicker, new TimePickerProcessor(projType, logger)),
-                        (Elements.Hub, new HubProcessor(projType, logger)),
-                        (Elements.HubSection, new HubSectionProcessor(projType, logger)),
-                        (Elements.HyperlinkButton, new HyperlinkButtonProcessor(projType, logger)),
-                        (Elements.RepeatButton, new RepeatButtonProcessor(projType, logger)),
-                        (Elements.Pivot, new PivotProcessor(projType, logger)),
-                        (Elements.PivotItem, new PivotItemProcessor(projType, logger)),
-                        (Elements.MenuFlyoutItem, new MenuFlyoutItemProcessor(projType, logger)),
-                        (Elements.MenuFlyoutSubItem, new MenuFlyoutSubItemProcessor(projType, logger)),
-                        (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(projType, logger)),
-                        (Elements.RichEditBox, new RichEditBoxProcessor(projType, logger)),
-                        (Elements.ToggleSwitch, new ToggleSwitchProcessor(projType, logger)),
-                        (Elements.Slider, new SliderProcessor(projType, logger)),
-                        (Elements.Label, new LabelProcessor(projType, logger)),
-                        (Elements.PasswordBox, new PasswordBoxProcessor(projType, logger)),
-                        (Elements.MediaElement, new MediaElementProcessor(projType, logger)),
-                        (Elements.ListView, new SelectedItemAttributeProcessor(projType, logger)),
-                        (Elements.DataGrid, new SelectedItemAttributeProcessor(projType, logger)),
+                        (Elements.Grid, new GridProcessor(processorEssentials)),
+                        (Elements.TextBlock, new TextBlockProcessor(processorEssentials)),
+                        (Elements.TextBox, new TextBoxProcessor(processorEssentials)),
+                        (Elements.Button, new ButtonProcessor(processorEssentials)),
+                        (Elements.Entry, new EntryProcessor(processorEssentials)),
+                        (Elements.AppBarButton, new AppBarButtonProcessor(processorEssentials)),
+                        (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(processorEssentials)),
+                        (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(processorEssentials)),
+                        (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(processorEssentials)),
+                        (Elements.CheckBox, new CheckBoxProcessor(processorEssentials)),
+                        (Elements.ComboBox, new ComboBoxProcessor(processorEssentials)),
+                        (Elements.DatePicker, new DatePickerProcessor(processorEssentials)),
+                        (Elements.TimePicker, new TimePickerProcessor(processorEssentials)),
+                        (Elements.Hub, new HubProcessor(processorEssentials)),
+                        (Elements.HubSection, new HubSectionProcessor(processorEssentials)),
+                        (Elements.HyperlinkButton, new HyperlinkButtonProcessor(processorEssentials)),
+                        (Elements.RepeatButton, new RepeatButtonProcessor(processorEssentials)),
+                        (Elements.Pivot, new PivotProcessor(processorEssentials)),
+                        (Elements.PivotItem, new PivotItemProcessor(processorEssentials)),
+                        (Elements.MenuFlyoutItem, new MenuFlyoutItemProcessor(processorEssentials)),
+                        (Elements.MenuFlyoutSubItem, new MenuFlyoutSubItemProcessor(processorEssentials)),
+                        (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(processorEssentials)),
+                        (Elements.RichEditBox, new RichEditBoxProcessor(processorEssentials)),
+                        (Elements.ToggleSwitch, new ToggleSwitchProcessor(processorEssentials)),
+                        (Elements.Slider, new SliderProcessor(processorEssentials)),
+                        (Elements.Label, new LabelProcessor(processorEssentials)),
+                        (Elements.PasswordBox, new PasswordBoxProcessor(processorEssentials)),
+                        (Elements.MediaElement, new MediaElementProcessor(processorEssentials)),
+                        (Elements.ListView, new SelectedItemAttributeProcessor(processorEssentials)),
+                        (Elements.DataGrid, new SelectedItemAttributeProcessor(processorEssentials)),
                     };
         }
 
@@ -120,15 +129,19 @@ namespace RapidXamlToolkit.XamlAnalysis
             SuppressionsCache.Clear();
         }
 
-        private static List<TagSuppression> GetSuppressions(string fileName)
+        private static List<TagSuppression> GetSuppressions(string fileName, IVisualStudioAbstraction vsa, string projectFile)
         {
             List<TagSuppression> result = null;
 
             try
             {
-                var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName);
+                if (string.IsNullOrWhiteSpace(projectFile))
+                {
+                    var proj = vsa.GetProjectContainingFile(fileName);
+                    projectFile = proj.FullName;
+                }
 
-                var suppressionsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), "suppressions.xamlAnalysis");
+                var suppressionsFile = Path.Combine(Path.GetDirectoryName(projectFile), "suppressions.xamlAnalysis");
 
                 if (File.Exists(suppressionsFile))
                 {

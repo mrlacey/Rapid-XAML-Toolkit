@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     public class CheckBoxCheckedAndUncheckedEventsTag : RapidXamlDisplayedTag
     {
         // https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/checkbox#handle-click-and-checked-events
-        public CheckBoxCheckedAndUncheckedEventsTag(Span span, ITextSnapshot snapshot, string fileName, string existingName, bool hasChecked, ILogger logger)
-            : base(span, snapshot, fileName, "RXT401", TagErrorType.Warning, logger)
+        public CheckBoxCheckedAndUncheckedEventsTag(Span span, ITextSnapshot snapshot, string fileName, string existingName, bool hasChecked, ILogger logger, string projectPath)
+            : base(span, snapshot, fileName, "RXT401", TagErrorType.Warning, logger, projectPath)
         {
             this.SuggestedAction = typeof(MissingCheckBoxEventAction);
             this.ToolTip = StringRes.UI_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip;

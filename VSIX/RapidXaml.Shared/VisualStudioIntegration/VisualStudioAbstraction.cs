@@ -379,6 +379,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return indent.Default;
         }
 
+        public EnvDTE.Project GetProjectContainingFile(string fileName)
+        {
+            return this.Dte.Solution.GetProjectContainingFile(fileName);
+        }
+
         private NuGet.VisualStudio.IVsPackageInstallerServices GetNuGetService(EnvDTE.Project proj)
         {
             // Cache these to avoid the overhead of looking them up multiple times for the same solution.

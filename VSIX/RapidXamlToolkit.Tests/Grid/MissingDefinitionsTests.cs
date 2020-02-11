@@ -161,7 +161,7 @@ namespace RapidXamlToolkit.Tests.Grid
         {
             var outputTags = new TagList();
 
-            var sut = new GridProcessor(ProjectType.Any, new DefaultTestLogger());
+            var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
 
             var snapshot = new FakeTextSnapshot();
 

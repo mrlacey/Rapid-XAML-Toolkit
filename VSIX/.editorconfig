@@ -15,3 +15,12 @@ dotnet_diagnostic.SA1200.severity = warning
 
 # SA0001: XML comment analysis disabled
 dotnet_diagnostic.SA0001.severity = none
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = none
+
+# IDE0040: Add accessibility modifiers
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:none
+
+# SA1602: Enumeration items should be documented
+dotnet_diagnostic.SA1602.severity = none

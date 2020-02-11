@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             else
             {
-                var doc = RapidXamlDocument.Create(snapshot, file, vsa);
+                var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
                 Cache.Add(file, doc);
 
                 Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Add));
@@ -127,7 +127,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         CurrentlyProcessing.Add(snapshotText);
 
-                        var doc = RapidXamlDocument.Create(snapshot, file, vsa);
+                        var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
                         Cache[file] = doc;
 
                         Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Update));

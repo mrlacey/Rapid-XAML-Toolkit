@@ -12,8 +12,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class TextBoxProcessor : XamlElementProcessor
     {
-        public TextBoxProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public TextBoxProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 
@@ -61,7 +61,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             if (!this.TryGetAttribute(xamlElement, Attributes.InputScope, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
                 tags.TryAdd(
-                    new AddTextBoxInputScopeTag(new Span(offset, xamlElement.Length), snapshot, fileName, this.Logger)
+                    new AddTextBoxInputScopeTag(new Span(offset, xamlElement.Length), snapshot, fileName, this.Logger, this.ProjectFile)
                     {
                         InsertPosition = offset,
                     },

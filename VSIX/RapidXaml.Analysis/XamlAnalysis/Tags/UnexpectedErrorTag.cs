@@ -9,7 +9,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     public class UnexpectedErrorTag : RapidXamlDisplayedTag
     {
         public UnexpectedErrorTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger)
-            : base(span, snapshot, fileName, "RXT999", TagErrorType.Error, logger)
+            : base(span, snapshot, fileName, "RXT999", TagErrorType.Error, logger, string.Empty)
         {
             this.ToolTip = string.Empty;
             this.IsInternalError = true;

@@ -296,7 +296,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 </Grid>";
 
             var offset = xaml.IndexOf('☆');
-            var element = XamlElementProcessor.GetSubElementAtPosition(ProjectType.Wpf, "testFile.xaml", new FakeTextSnapshot(), xaml.Replace("☆", string.Empty), offset, new DefaultTestLogger());
+            var element = XamlElementProcessor.GetSubElementAtPosition(ProjectType.Wpf, "testFile.xaml", new FakeTextSnapshot(), xaml.Replace("☆", string.Empty), offset, new DefaultTestLogger(), string.Empty);
 
             Assert.IsNotNull(element);
         }

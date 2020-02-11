@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class AutoSuggestBoxProcessor : XamlElementProcessor
     {
-        public AutoSuggestBoxProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public AutoSuggestBoxProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

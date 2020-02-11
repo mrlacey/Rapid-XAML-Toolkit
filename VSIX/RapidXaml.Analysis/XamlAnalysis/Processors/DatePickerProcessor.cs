@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class DatePickerProcessor : XamlElementProcessor
     {
-        public DatePickerProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public DatePickerProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

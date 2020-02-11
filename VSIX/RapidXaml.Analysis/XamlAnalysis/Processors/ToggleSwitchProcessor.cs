@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class ToggleSwitchProcessor : XamlElementProcessor
     {
-        public ToggleSwitchProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public ToggleSwitchProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

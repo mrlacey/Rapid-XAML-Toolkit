@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class MediaElementProcessor : XamlElementProcessor
     {
-        public MediaElementProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public MediaElementProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 
@@ -23,7 +23,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
 
             tags.TryAdd(
-                new UseMediaPlayerElementTag(new Span(offset, xamlElement.Length), snapshot, fileName, this.Logger)
+                new UseMediaPlayerElementTag(new Span(offset, xamlElement.Length), snapshot, fileName, this.Logger, this.ProjectFile)
                 {
                     InsertPosition = offset,
                 },

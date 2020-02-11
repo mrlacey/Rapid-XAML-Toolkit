@@ -64,7 +64,7 @@ namespace RapidXamlToolkit.Tests
             return this.ActiveDocumentText;
         }
 
-        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Document document)
+        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Microsoft.CodeAnalysis.Document document)
         {
             await Task.CompletedTask;
             return (this.SyntaxTree, this.SemanticModel);
@@ -144,6 +144,11 @@ namespace RapidXamlToolkit.Tests
         public ProjectType GetProjectType(EnvDTE.Project project)
         {
             return ProjectType.Unknown;
+        }
+
+        public EnvDTE.Project GetProjectContainingFile(string fileName)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

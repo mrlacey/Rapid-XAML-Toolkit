@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class HardCodedStringTag : RapidXamlDisplayedTag
     {
-        public HardCodedStringTag(Span span, ITextSnapshot snapshot, string fileName, string elementName, string attributeName, ILogger logger)
-            : base(span, snapshot, fileName, "RXT200", TagErrorType.Warning, logger)
+        public HardCodedStringTag(Span span, ITextSnapshot snapshot, string fileName, string elementName, string attributeName, ILogger logger, string projectPath)
+            : base(span, snapshot, fileName, "RXT200", TagErrorType.Warning, logger, projectPath)
         {
             this.SuggestedAction = typeof(HardCodedStringAction);
             this.ToolTip = StringRes.UI_XamlAnalysisHardcodedStringTooltip;

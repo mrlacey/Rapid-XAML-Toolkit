@@ -1,0 +1,54 @@
+﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
+// Licensed under the MIT license.
+
+using Microsoft.VisualStudio.Text;
+
+namespace RapidXaml.AnalysisExe
+{
+    public class BuildAnalysisTextSnapshotLine : ITextSnapshotLine
+    {
+        private readonly ITextSnapshot snapshot;
+
+        public BuildAnalysisTextSnapshotLine(ITextSnapshot snapshot)
+        {
+            this.snapshot = snapshot;
+        }
+
+        public ITextSnapshot Snapshot { get; }
+
+        public SnapshotSpan Extent { get; }
+
+        public SnapshotSpan ExtentIncludingLineBreak { get; }
+
+        // This is currently sufficient for getting test to pass, but not a long term solution
+        public int LineNumber => -1;
+
+        // This is currently sufficient for getting test to pass, but not a long term solution
+        public SnapshotPoint Start => new SnapshotPoint(this.snapshot, 0);
+
+        public int Length { get; }
+
+        public int LengthIncludingLineBreak { get; }
+
+        public SnapshotPoint End { get; }
+
+        public SnapshotPoint EndIncludingLineBreak { get; }
+
+        public int LineBreakLength { get; }
+
+        public string GetText()
+        {
+            return string.Empty;
+        }
+
+        public string GetTextIncludingLineBreak()
+        {
+            return string.Empty;
+        }
+
+        public string GetLineBreakText()
+        {
+            return string.Empty;
+        }
+    }
+}

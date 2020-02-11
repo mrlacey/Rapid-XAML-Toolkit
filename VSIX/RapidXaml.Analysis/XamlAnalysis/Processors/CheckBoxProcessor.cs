@@ -12,8 +12,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class CheckBoxProcessor : XamlElementProcessor
     {
-        public CheckBoxProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public CheckBoxProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 
@@ -47,7 +47,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (hasCheckedEvent && !hasuncheckedEvent)
                 {
-                    var checkedTag = new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + checkedIndex, checkedLength), snapshot, fileName, checkedEventName, hasChecked: true, this.Logger)
+                    var checkedTag = new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + checkedIndex, checkedLength), snapshot, fileName, checkedEventName, hasChecked: true, this.Logger, this.ProjectFile)
                     {
                         InsertPosition = offset,
                     };
@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (!hasCheckedEvent && hasuncheckedEvent)
                 {
-                    var uncheckedTag = new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + uncheckedIndex, uncheckedLength), snapshot, fileName, uncheckedEventName, hasChecked: false, this.Logger)
+                    var uncheckedTag = new CheckBoxCheckedAndUncheckedEventsTag(new Span(offset + uncheckedIndex, uncheckedLength), snapshot, fileName, uncheckedEventName, hasChecked: false, this.Logger, this.ProjectFile)
                     {
                         InsertPosition = offset,
                     };

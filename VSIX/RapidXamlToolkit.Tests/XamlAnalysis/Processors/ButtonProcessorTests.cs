@@ -150,7 +150,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var outputTags = new TagList();
 
-            var sut = new ButtonProcessor(ProjectType.Any, new DefaultTestLogger());
+            var sut = new ButtonProcessor(new ProcessorEssentialsForSimpleTests());
 
             var snapshot = new FakeTextSnapshot();
 

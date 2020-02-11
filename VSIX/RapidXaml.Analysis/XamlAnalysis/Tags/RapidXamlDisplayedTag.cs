@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     {
         private const string SettingsFileName = "settings.xamlAnalysis";
 
-        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger)
+        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, string projectPath)
             : base(span, snapshot, fileName, logger)
         {
             var line = snapshot.GetLineFromPosition(span.Start);
@@ -28,6 +28,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Line = line.LineNumber;
             this.Column = col;
             this.DefaultErrorType = defaultErrorType;
+            this.ProjectPath = projectPath;
         }
 
         public string Description { get; set; }
@@ -42,6 +43,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public int Column { get; }
 
         public TagErrorType DefaultErrorType { get; }
+
+        public string ProjectPath { get; private set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the tag is for something that should show in the Errors tab of the error list.
@@ -75,15 +78,20 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 return false;
             }
 
-            var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
-
-            if (proj == null)
+            if (string.IsNullOrWhiteSpace(this.ProjectPath))
             {
-                tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
-                return false;
+                var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
+
+                if (proj == null)
+                {
+                    tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
+                    return false;
+                }
+
+                this.ProjectPath = proj.FullName;
             }
 
-            var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
+            var settingsFile = Path.Combine(Path.GetDirectoryName(this.ProjectPath), SettingsFileName);
 
             if (File.Exists(settingsFile))
             {

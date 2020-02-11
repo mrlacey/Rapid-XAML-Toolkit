@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class NameTitleCaseTag : RapidXamlDisplayedTag
     {
-        public NameTitleCaseTag(Span span, ITextSnapshot snapshot, string fileName, string value, ILogger logger)
-            : base(span, snapshot, fileName, "RXT452",  TagErrorType.Suggestion, logger)
+        public NameTitleCaseTag(Span span, ITextSnapshot snapshot, string fileName, string value, ILogger logger, string projectPath)
+            : base(span, snapshot, fileName, "RXT452",  TagErrorType.Suggestion, logger, projectPath)
         {
             this.SuggestedAction = typeof(MakeNameStartWithCapitalAction);
             this.ToolTip = StringRes.UI_XamlAnalysisNameTitleCaseToolTip;

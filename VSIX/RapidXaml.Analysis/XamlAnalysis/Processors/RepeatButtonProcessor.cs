@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class RepeatButtonProcessor : XamlElementProcessor
     {
-        public RepeatButtonProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public RepeatButtonProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

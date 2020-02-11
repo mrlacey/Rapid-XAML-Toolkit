@@ -14,15 +14,18 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public abstract class XamlElementProcessor
     {
-        public XamlElementProcessor(ProjectType projectType, ILogger logger)
+        public XamlElementProcessor(ProcessorEssentials pe)
         {
-            this.ProjectType = projectType;
-            this.Logger = logger;
+            this.ProjectType = pe.ProjectType;
+            this.Logger = pe.Logger;
+            this.ProjectFile = pe.ProjectFilePath;
         }
 
         internal ProjectType ProjectType { get; }
 
         internal ILogger Logger { get; }
+
+        internal string ProjectFile { get; }
 
         public static bool IsSelfClosing(string xaml, int startPoint = 0)
         {
@@ -114,7 +117,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
-        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger)
+        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger, string projectFile)
         {
             var startPos = xaml.Substring(0, position).LastIndexOf('<');
 
@@ -122,7 +125,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             string result = null;
 
-            var processor = new SubElementProcessor(projectType, logger);
+            var processor = new SubElementProcessor(new ProcessorEssentials(projectType, logger, projectFile));
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
             XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList());
@@ -298,7 +301,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
-                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, elementName, attributeName, this.Logger)
+                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, elementName, attributeName, this.Logger, this.ProjectFile)
                     {
                         AttributeType = foundAttributeType,
                         Value = value,
@@ -349,8 +352,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public class SubElementProcessor : XamlElementProcessor
         {
-            public SubElementProcessor(ProjectType projectType, ILogger logger)
-                : base(projectType, logger)
+            public SubElementProcessor(ProcessorEssentials essentials)
+                : base(essentials)
             {
             }
 

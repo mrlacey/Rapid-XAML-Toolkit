@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class TimePickerProcessor : XamlElementProcessor
     {
-        public TimePickerProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public TimePickerProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

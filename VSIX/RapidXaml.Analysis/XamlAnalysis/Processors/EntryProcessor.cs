@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class EntryProcessor : XamlElementProcessor
     {
-        public EntryProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public EntryProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 
@@ -25,7 +25,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             if (!this.TryGetAttribute(xamlElement, Attributes.Keyboard, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
                 tags.TryAdd(
-                    new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, fileName, xamlElement, this.Logger)
+                    new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, fileName, xamlElement, this.Logger, this.ProjectFile)
                     {
                         InsertPosition = offset,
                     },

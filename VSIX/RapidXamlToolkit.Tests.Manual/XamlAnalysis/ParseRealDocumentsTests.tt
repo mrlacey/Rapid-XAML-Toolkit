@@ -62,7 +62,7 @@ foreach (var subFolder in Directory.GetDirectories(rootFolder))
 
                     var snapshot = new FakeTextSnapshot();
 
-                    XamlElementExtractor.Parse(ProjectType.Any, filePath, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Any), result.Tags);
+                    XamlElementExtractor.Parse(ProjectType.Any, filePath, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Any, string.Empty), result.Tags);
 
                     Debug.WriteLine($"Found {result.Tags.Count} taggable issues in '{filePath}'.");
 

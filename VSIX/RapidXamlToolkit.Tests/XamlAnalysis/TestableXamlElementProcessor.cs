@@ -12,8 +12,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 {
     public class TestableXamlElementProcessor : XamlElementProcessor
     {
-        public TestableXamlElementProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public TestableXamlElementProcessor(ProcessorEssentials deps)
+            : base(deps)
         {
         }
 

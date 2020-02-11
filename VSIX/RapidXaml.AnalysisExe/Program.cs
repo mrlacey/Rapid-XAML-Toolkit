@@ -1,16 +1,24 @@
-﻿using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Utilities;
-using RapidXamlToolkit;
-using RapidXamlToolkit.XamlAnalysis;
+﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
+// Licensed under the MIT license.
+
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.CodeAnalysis;
+using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit;
+using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.VisualStudioIntegration;
+using RapidXamlToolkit.XamlAnalysis;
+using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXaml.AnalysisExe
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("Hello World!  25");
 
@@ -42,7 +50,10 @@ namespace RapidXaml.AnalysisExe
                 var projFileLines = File.ReadAllLines(projectPath);
 
                 var projDir = Path.GetDirectoryName(projectPath);
-              //  Console.WriteLine($"Warning: {projDir}");
+
+                //// Console.WriteLine($"Warning: {projDir}");
+
+                var bavsa = new BuildAnalysisVisulaStudioAbstraction();
 
                 foreach (var line in projFileLines)
                 {
@@ -57,177 +68,35 @@ namespace RapidXaml.AnalysisExe
 
                             var xamlFilePath = Path.Combine(projDir, relativeFilePath);
 
-                            //Log.LogMessage(MessageImportance.High, $"- {relativeFilePath}");
+                            // Log.LogMessage(MessageImportance.High, $"- {relativeFilePath}");
                             Console.WriteLine($"Warning: {xamlFilePath}");
 
+                            var snapshot = new BuildAnalysisTextSnapshot(xamlFilePath);
 
-                            var text = File.ReadAllText(xamlFilePath);
+                            var rxdoc = RapidXamlDocument.Create(snapshot, xamlFilePath, bavsa, projectPath);
 
-                            if (text.IsValidXml())
+                          //// XamlElementExtractor.Parse(ProjectType.Any, xamlFilePath, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Any), result.Tags);
+
+                            if (rxdoc.Tags.Count > 0)
                             {
-                                var result = new RapidXamlDocument();
+                                Console.WriteLine($"Found {rxdoc.Tags.Count} taggable issues in '{xamlFilePath}'.");
 
-                                var snapshot = new BuildAnalysisTextSnapshot();
+                                var tagsOfInterest = rxdoc.Tags
+                                                          .Where(t => t is RapidXamlDisplayedTag)
+                                                          .Select(t => t as RapidXamlDisplayedTag)
+                                                          .ToList();
 
-                                XamlElementExtractor.Parse(ProjectType.Any, xamlFilePath, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Any), result.Tags);
+                                Console.WriteLine($"Found {tagsOfInterest.Count} issues to report '{xamlFilePath}'.");
 
-                                Console.WriteLine($"Found {result.Tags.Count} taggable issues in '{xamlFilePath}'.");
-
-                                if (result.Tags.Count > 0)
+                                foreach (var issue in tagsOfInterest)
                                 {
-                                    Console.WriteLine($"Found {result.Tags.Count} taggable issues in '{xamlFilePath}'.");
+                                    Console.WriteLine($"Warning: {issue.Description}");
                                 }
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Invalid XAML found in '{xamlFilePath}'.");
                             }
                         }
                     }
                 }
             }
-        }
-    }
-
-    public class BuildAnalysisTextSnapshot : ITextSnapshot
-    {
-        public ITextBuffer TextBuffer { get; }
-
-        public IContentType ContentType { get; }
-
-        public ITextVersion Version { get; }
-
-        public int Length { get; }
-
-        public int LineCount { get; }
-
-        public IEnumerable<ITextSnapshotLine> Lines { get; }
-
-        public char this[int position] => throw new NotImplementedException();
-
-        public string GetText(Span span)
-        {
-            return string.Empty;
-        }
-
-        public string GetText(int startIndex, int length)
-        {
-            return string.Empty;
-        }
-
-        public string GetText()
-        {
-            return string.Empty;
-        }
-
-        public char[] ToCharArray(int startIndex, int length)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(int sourceIndex, char[] destination, int destinationIndex, int count)
-        {
-        }
-
-        public ITrackingPoint CreateTrackingPoint(int position, PointTrackingMode trackingMode)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITrackingPoint CreateTrackingPoint(int position, PointTrackingMode trackingMode, TrackingFidelityMode trackingFidelity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITrackingSpan CreateTrackingSpan(Span span, SpanTrackingMode trackingMode)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITrackingSpan CreateTrackingSpan(Span span, SpanTrackingMode trackingMode, TrackingFidelityMode trackingFidelity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITrackingSpan CreateTrackingSpan(int start, int length, SpanTrackingMode trackingMode)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITrackingSpan CreateTrackingSpan(int start, int length, SpanTrackingMode trackingMode, TrackingFidelityMode trackingFidelity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITextSnapshotLine GetLineFromLineNumber(int lineNumber)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITextSnapshotLine GetLineFromPosition(int position)
-        {
-            return new BuildAnalysisTextSnapshotLine(this);
-        }
-
-        public int GetLineNumberFromPosition(int position)
-        {
-            // This is sufficient for current testing needs
-            return -1;
-        }
-
-        public void Write(TextWriter writer, Span span)
-        {
-        }
-
-        public void Write(TextWriter writer)
-        {
-        }
-    }
-
-    public class BuildAnalysisTextSnapshotLine : ITextSnapshotLine
-    {
-        private readonly ITextSnapshot snapshot;
-
-        public BuildAnalysisTextSnapshotLine(ITextSnapshot snapshot)
-        {
-            this.snapshot = snapshot;
-        }
-
-        public ITextSnapshot Snapshot { get; }
-
-        public SnapshotSpan Extent { get; }
-
-        public SnapshotSpan ExtentIncludingLineBreak { get; }
-
-        // This is currently sufficient for getting test to pass, but not a long term solution
-        public int LineNumber => -1;
-
-        // This is currently sufficient for getting test to pass, but not a long term solution
-        public SnapshotPoint Start => new SnapshotPoint(this.snapshot, 0);
-
-        public int Length { get; }
-
-        public int LengthIncludingLineBreak { get; }
-
-        public SnapshotPoint End { get; }
-
-        public SnapshotPoint EndIncludingLineBreak { get; }
-
-        public int LineBreakLength { get; }
-
-        public string GetText()
-        {
-            return string.Empty;
-        }
-
-        public string GetTextIncludingLineBreak()
-        {
-            return string.Empty;
-        }
-
-        public string GetLineBreakText()
-        {
-            return string.Empty;
         }
     }
 }

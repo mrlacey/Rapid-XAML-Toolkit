@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class AppBarToggleButtonProcessor : XamlElementProcessor
     {
-        public AppBarToggleButtonProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public AppBarToggleButtonProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

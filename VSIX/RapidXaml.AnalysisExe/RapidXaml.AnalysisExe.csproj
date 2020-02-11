@@ -6,13 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-      <Compile Include="..\RapidXaml.Analysis\ErrorList\**" />
+    <Compile Include="..\RapidXaml.Analysis\ErrorList\**" />
     <Compile Include="..\RapidXaml.Analysis\XamlAnalysis\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="16.1.89" />
-    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="16.1.89" />
+    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\RapidXaml.Analysis\app.config" Link="app.config" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,11 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="XamlAnalysis\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\RapidXaml.Analysis\app.config" Link="app.config" />
+    <PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="16.1.89" />
+    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="16.1.89" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

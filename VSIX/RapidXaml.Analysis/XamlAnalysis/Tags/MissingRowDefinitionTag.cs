@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class MissingRowDefinitionTag : MissingDefinitionTag
     {
-        public MissingRowDefinitionTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger)
-            : base(span, snapshot, fileName, "RXT101", TagErrorType.Warning, logger)
+        public MissingRowDefinitionTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger, string projectPath)
+            : base(span, snapshot, fileName, "RXT101", TagErrorType.Warning, logger, projectPath)
         {
             this.SuggestedAction = typeof(AddMissingRowDefinitionsAction);
             this.ToolTip = StringRes.UI_XamlAnalysisMissingRowDefinitionTooltip;

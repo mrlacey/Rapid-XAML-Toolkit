@@ -53,7 +53,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor(ProjectType.Any, new DefaultTestLogger());
+            var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
 
             var snapshot = new FakeTextSnapshot();
 
@@ -69,7 +69,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var outputTags = new TagList();
 
-            var sut = new GridProcessor(ProjectType.Wpf, new DefaultTestLogger());
+            var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests(ProjectType.Wpf));
 
             var snapshot = new FakeTextSnapshot();
 
@@ -87,7 +87,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var snapshot = new FakeTextSnapshot();
 
-            XamlElementExtractor.Parse(ProjectType.Uwp, "Generic.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp), result.Tags);
+            XamlElementExtractor.Parse(ProjectType.Uwp, "Generic.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty), result.Tags);
 
             Assert.AreEqual(0, result.Tags.OfType<MissingRowDefinitionTag>().Count());
             Assert.AreEqual(0, result.Tags.OfType<MissingColumnDefinitionTag>().Count());
@@ -114,7 +114,7 @@ namespace RapidXamlToolkit.Tests.Misc
                     Path.GetFileName(filePath),
                     snapshot,
                     text,
-                    RapidXamlDocument.GetAllProcessors(projType),
+                    RapidXamlDocument.GetAllProcessors(projType, string.Empty),
                     result.Tags);
             }
             catch (Exception exc)
