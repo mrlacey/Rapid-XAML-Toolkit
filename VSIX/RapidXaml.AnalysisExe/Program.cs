@@ -90,7 +90,24 @@ namespace RapidXaml.AnalysisExe
 
                                 foreach (var issue in tagsOfInterest)
                                 {
-                                    Console.WriteLine($"Warning: {issue.Description}");
+                                    string messageType = null;
+                                    switch (issue.ConfiguredErrorType)
+                                    {
+                                        case TagErrorType.Error:
+                                            messageType = "error";
+                                            break;
+                                        case TagErrorType.Warning:
+                                            messageType = "warning";
+                                            break;
+                                        case TagErrorType.Suggestion:
+                                        case TagErrorType.Hidden:
+                                            break;
+                                    }
+
+                                    if (!string.IsNullOrEmpty(messageType))
+                                    {
+                                        Console.WriteLine($"{relativeFilePath}({issue.Line},{issue.Column},{issue.Line},{issue.Column}) {messageType} {issue.ErrorCode}: {issue.Description}");
+                                    }
                                 }
                             }
                         }

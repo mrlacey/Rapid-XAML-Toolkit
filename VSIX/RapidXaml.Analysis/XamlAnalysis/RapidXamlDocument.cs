@@ -58,7 +58,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         var projType = vsAbstraction.GetProjectType(vsa.GetProjectContainingFile(fileName));
 
-                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, GetAllProcessors(projType, projectFile), result.Tags, suppressions);
+                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, GetAllProcessors(projType, projectFile), result.Tags, suppressions, projectFile);
                     }
                 }
             }
