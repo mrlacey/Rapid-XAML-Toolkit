@@ -53,7 +53,7 @@ namespace RapidXaml.AnalysisExe
 
                 //// Console.WriteLine($"Warning: {projDir}");
 
-                var bavsa = new BuildAnalysisVisulaStudioAbstraction();
+                var bavsa = new BuildAnalysisVisualStudioAbstraction();
 
                 foreach (var line in projFileLines)
                 {

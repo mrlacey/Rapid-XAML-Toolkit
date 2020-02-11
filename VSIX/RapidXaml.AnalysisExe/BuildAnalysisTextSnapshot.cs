@@ -11,6 +11,8 @@ namespace RapidXaml.AnalysisExe
 {
     public class BuildAnalysisTextSnapshot : ITextSnapshot
     {
+        private string rawText;
+
         public BuildAnalysisTextSnapshot(string fileName)
         {
             this.FileName = fileName;
@@ -22,7 +24,7 @@ namespace RapidXaml.AnalysisExe
 
         public ITextVersion Version { get; }
 
-        public int Length { get; }
+        public int Length => this.rawText?.Length ?? 0;
 
         public int LineCount { get; }
 
@@ -44,7 +46,12 @@ namespace RapidXaml.AnalysisExe
 
         public string GetText()
         {
-            return File.ReadAllText(this.FileName);
+            if (string.IsNullOrWhiteSpace(this.rawText))
+            {
+                this.rawText = File.ReadAllText(this.FileName);
+            }
+
+            return this.rawText;
         }
 
         public char[] ToCharArray(int startIndex, int length)
@@ -93,13 +100,12 @@ namespace RapidXaml.AnalysisExe
 
         public ITextSnapshotLine GetLineFromPosition(int position)
         {
-            return new BuildAnalysisTextSnapshotLine(this);
+            return new BuildAnalysisTextSnapshotLine(this, position);
         }
 
         public int GetLineNumberFromPosition(int position)
         {
-            // This is sufficient for current testing needs
-            return -1;
+            throw new NotImplementedException();
         }
 
         public void Write(TextWriter writer, Span span)
