@@ -67,7 +67,7 @@ namespace RapidXaml.AnalysisExe
                             {
                                 var result = new RapidXamlDocument();
 
-                                var snapshot = new StubTextSnapshot();
+                                var snapshot = new BuildAnalysisTextSnapshot();
 
                                 XamlElementExtractor.Parse(ProjectType.Any, xamlFilePath, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Any), result.Tags);
 
@@ -89,7 +89,7 @@ namespace RapidXaml.AnalysisExe
         }
     }
 
-    public class StubTextSnapshot : ITextSnapshot
+    public class BuildAnalysisTextSnapshot : ITextSnapshot
     {
         public ITextBuffer TextBuffer { get; }
 
@@ -166,7 +166,7 @@ namespace RapidXaml.AnalysisExe
 
         public ITextSnapshotLine GetLineFromPosition(int position)
         {
-            return new StubTextSnapshotLine(this);
+            return new BuildAnalysisTextSnapshotLine(this);
         }
 
         public int GetLineNumberFromPosition(int position)
@@ -184,11 +184,11 @@ namespace RapidXaml.AnalysisExe
         }
     }
 
-    public class StubTextSnapshotLine : ITextSnapshotLine
+    public class BuildAnalysisTextSnapshotLine : ITextSnapshotLine
     {
         private readonly ITextSnapshot snapshot;
 
-        public StubTextSnapshotLine(ITextSnapshot snapshot)
+        public BuildAnalysisTextSnapshotLine(ITextSnapshot snapshot)
         {
             this.snapshot = snapshot;
         }

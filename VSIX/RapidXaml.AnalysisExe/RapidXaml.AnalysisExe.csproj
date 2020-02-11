@@ -23,4 +23,8 @@
     <Folder Include="XamlAnalysis\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\RapidXaml.Analysis\app.config" Link="app.config" />
+  </ItemGroup>
+
 </Project>
