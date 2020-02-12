@@ -33,10 +33,8 @@ namespace RapidXaml.AnalysisExe
 
         public SnapshotSpan ExtentIncludingLineBreak { get; }
 
-        // This is currently sufficient for getting test to pass, but not a long term solution
         public int LineNumber => this.lineNumber;
 
-        // This is currently sufficient for getting test to pass, but not a long term solution
         public SnapshotPoint Start => new SnapshotPoint(this.snapshot, this.start);
 
         public int Length { get; }
