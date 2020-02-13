@@ -96,6 +96,8 @@
     <Compile Include="XamlAnalysis\Actions\SuppressWarningAction.cs" />
     <Compile Include="XamlAnalysis\Attributes.cs" />
     <Compile Include="XamlAnalysis\AttributeType.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\FooAnalysis.cs" />
+    <Compile Include="XamlAnalysis\CustomProcessorWrapper.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />
     <Compile Include="XamlAnalysis\ParsedAction.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
@@ -253,6 +255,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
+      <Project>{93ba7914-1204-49f8-977a-091d30e4718b}</Project>
+      <Name>RapidXaml.CustomAnalysis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
       <Name>RapidXaml.Shared</Name>

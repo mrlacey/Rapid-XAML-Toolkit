@@ -78,7 +78,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var logger = SharedRapidXamlPackage.Logger;
 
-            return new List<(string, XamlElementProcessor)>
+            var processors = new List<(string, XamlElementProcessor)>
                     {
                         (Elements.Grid, new GridProcessor(projType, logger)),
                         (Elements.TextBlock, new TextBlockProcessor(projType, logger)),
@@ -111,6 +111,26 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.ListView, new SelectedItemAttributeProcessor(projType, logger)),
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(projType, logger)),
                     };
+
+            var customProcessors = GetCustomProcessors();
+
+            foreach (var customProcessor in customProcessors)
+            {
+                processors.Add((customProcessor.TargetType(), new CustomProcessorWrapper(customProcessor, projType, logger)));
+            }
+
+            return processors;
+        }
+
+        public static List<RapidXaml.CustomAnalysis> GetCustomProcessors()
+        {
+            var result = new List<RapidXaml.CustomAnalysis>();
+
+            //// TODO: Do MEF magic to find other custom processors here
+
+            result.Add(new CustomAnalysis.FooAnalysis());
+
+            return result;
         }
 
         public void Clear()

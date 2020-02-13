@@ -1,10 +1,12 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.Text;
+using RapidXaml;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 
 namespace RapidXamlToolkit.XamlAnalysis
@@ -196,6 +198,45 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
             return true;
+        }
+
+        public static RapidXaml.RapidXamlElement GetElement(string xamlElement)
+        {
+            //// TODO: parse this into custom elements
+            //// TODO: Cache these responses to avoid repeated parsing
+            var xdoc = new System.Xml.XmlDocument();
+            xdoc.LoadXml(xamlElement);
+
+            var elementName = xdoc.DocumentElement.Name;
+
+            var result = RapidXamlElement.Build(elementName);
+
+            var content = xdoc.DocumentElement.InnerXml;
+
+            for (int i = 0; i < xdoc.DocumentElement.Attributes.Count; i++)
+            {
+                var attr = xdoc.DocumentElement.Attributes[i];
+                result.AddAttribute(attr.Name, attr.Value);
+            }
+
+            for (int i = 0; i < xdoc.DocumentElement.ChildNodes.Count; i++)
+            {
+                var child = xdoc.DocumentElement.ChildNodes[i];
+
+                if (child.Name.StartsWith($"{elementName}."))
+                {
+                    result.AddAttribute(child.Name.Substring(elementName.Length + 1), child.InnerText);
+
+                    if (content.StartsWith(child.OuterXml))
+                    {
+                        content = content.Substring(child.OuterXml.Length);
+                    }
+                }
+            }
+
+            result.SetContent(content);
+
+            return result;
         }
 
         private struct TrackingElement
