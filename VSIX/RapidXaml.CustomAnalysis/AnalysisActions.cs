@@ -28,6 +28,15 @@ namespace RapidXaml
             return result;
         }
 
+        public static AnalysisActions Highlight(RapidXamlErrorType errorType, string code, string description, string actionText)
+        {
+            var result = new AnalysisActions();
+
+            result.Highlight(errorType, code, description, actionText);
+
+            return result;
+        }
+
         private static AnalysisActions CreateNone()
         {
             return new AnalysisActions { IsNone = true };

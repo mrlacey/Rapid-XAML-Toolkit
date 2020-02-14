@@ -140,6 +140,7 @@
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessorTests.cs" />
     <Compile Include="XamlAnalysis\RapidXamlElementAssert.cs" />
     <Compile Include="XamlAnalysis\RapidXamlElementExtractorTests.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlElementTests.cs" />
     <Compile Include="XamlAnalysis\RealWorldIssues.cs" />
     <Compile Include="XamlAnalysis\TagListSuppressionTests.cs" />
     <Compile Include="XamlAnalysis\TestableXamlElementProcessor.cs" />

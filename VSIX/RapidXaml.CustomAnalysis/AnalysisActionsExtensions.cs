@@ -22,5 +22,21 @@ namespace RapidXaml
 
             return result;
         }
+
+        public static AnalysisActions Highlight(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText)
+        {
+            var result = analysisActions;
+
+            result.Actions.Add(new AnalysisAction
+            {
+                Action = ActionType.HighlightWithoutAction,
+                Code = code,
+                Description = description,
+                ErrorType = errorType,
+                ActionText = actionText,
+            });
+
+            return result;
+        }
     }
 }

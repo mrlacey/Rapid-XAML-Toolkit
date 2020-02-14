@@ -40,6 +40,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         vs.ReplaceInActiveDocOnLine(before, after, lineNumber);
 
                         break;
+
+                    case RapidXaml.ActionType.HighlightWithoutAction:
+                        // As the name applies, do nothing.
+                        break;
                 }
 
                 RapidXamlDocumentCache.TryUpdate(this.File);

@@ -29,9 +29,11 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 foreach (var action in analysisActions.Actions)
                 {
+                    // TODO: review if need this switch statement
                     switch (action.Action)
                     {
                         case RapidXaml.ActionType.AddAttribute:
+                        case RapidXaml.ActionType.HighlightWithoutAction:
 
                             var tagDeps = new CustomAnalysisTagDependencies
                             {
@@ -52,6 +54,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 suppressions);
 
                             break;
+
                         default:
                             break;
                     }

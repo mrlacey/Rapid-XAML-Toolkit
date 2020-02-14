@@ -22,16 +22,30 @@ namespace RapidXaml
             return new RapidXamlElement { Name = name };
         }
 
-        // Utility method to simplify usage
+        public override string ToString()
+        {
+            return $"{this.Name} ({this.Attributes.Count} attributes, {this.Children.Count} children)";
+        }
+
+        // Utility methods to simplify usage
         public bool ContainsAttribute(string attributeName)
         {
             return this.Attributes.Any(
                 a => a.Name.Equals(attributeName, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public override string ToString()
+        public bool ContainsChild(string childName)
         {
-            return $"{this.Name} ({this.Attributes.Count} attributes, {this.Children.Count} children)";
+            // TODO: add tests, including for with and without namespace aliases
+            return this.Children.Any(
+                a => a.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        public bool ContainsDescendant(string childName)
+        {
+            // TODO: add tests, including for with and without namespace aliases
+            return this.Children.Any(
+                a => a.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

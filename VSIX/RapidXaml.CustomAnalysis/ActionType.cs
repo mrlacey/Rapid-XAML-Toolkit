@@ -6,8 +6,13 @@ namespace RapidXaml
     public enum ActionType
     {
         /// <summary>
-        /// Add an atribute to the element
+        /// Add an attribute to the element.
         /// </summary>
         AddAttribute,
+
+        /// <summary>
+        /// Report the error but provide no fix.
+        /// </summary>
+        HighlightWithoutAction,
     }
 }
