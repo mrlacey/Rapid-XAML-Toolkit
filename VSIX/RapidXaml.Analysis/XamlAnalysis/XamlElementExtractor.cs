@@ -203,13 +203,9 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             //// TODO: parse this into custom elements
             //// TODO: Cache these responses to avoid repeated parsing
-
             var docSyntax = Microsoft.Language.Xml.Parser.ParseText(xamlElement);
 
             var xdoc = docSyntax.RootSyntax;
-
-           // var xdoc = new System.Xml.XmlDocument();
-           // xdoc.LoadXml(xamlElement);
 
             var elementName = xdoc.Name;
 
@@ -246,27 +242,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                     }
                 }
             }
-
-            //for (int i = 0; i < xdoc.Attributes.Count(); i++)
-            //{
-            //    var attr = xdoc.Attributes[i];
-            //    result.AddAttribute(attr.Name, attr.Value);
-            //}
-
-            //for (int i = 0; i < xdoc.ChildNodes.Count; i++)
-            //{
-            //    var child = xdoc.ChildNodes[i];
-
-            //    if (child.Name.StartsWith($"{elementName}."))
-            //    {
-            //        result.AddAttribute(child.Name.Substring(elementName.Length + 1), child.InnerText);
-
-            //        if (content.StartsWith(child.OuterXml))
-            //        {
-            //            content = content.Substring(child.OuterXml.Length);
-            //        }
-            //    }
-            //}
 
             result.SetContent(content);
 

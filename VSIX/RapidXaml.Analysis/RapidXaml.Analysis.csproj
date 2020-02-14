@@ -82,6 +82,7 @@
     <Compile Include="XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
     <Compile Include="XamlAnalysis\Actions\BaseSuggestedAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ColumnSpanOverflowAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\CustomAnalysisAction.cs" />
     <Compile Include="XamlAnalysis\Actions\HardCodedStringAction.cs" />
     <Compile Include="XamlAnalysis\Actions\InjectFixedXamlSuggestedAction.cs" />
     <Compile Include="XamlAnalysis\Actions\InsertRowDefinitionAction.cs" />
@@ -148,6 +149,8 @@
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
     <Compile Include="XamlAnalysis\Tags\CheckBoxCheckedAndUncheckedEventsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\CustomAnalysisTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\CustomAnalysisTagDependencies.cs" />
     <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertRowDefinitionTag.cs" />
@@ -167,6 +170,7 @@
     <Compile Include="XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
     <Compile Include="XamlAnalysis\Tags\SelectedItemBindingModeTag.cs" />
     <Compile Include="XamlAnalysis\Tags\TagErrorType.cs" />
+    <Compile Include="XamlAnalysis\Tags\TagErrorTypeCreator.cs" />
     <Compile Include="XamlAnalysis\Tags\TagErrorTypeParser.cs" />
     <Compile Include="XamlAnalysis\Tags\UidTitleCaseTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />

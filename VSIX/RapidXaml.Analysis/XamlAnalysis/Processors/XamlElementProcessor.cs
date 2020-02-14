@@ -118,7 +118,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
             var startPos = xaml.Substring(0, position).LastIndexOf('<');
 
-            var elementName = GetElementName(xaml, startPos);// xaml.Substring(startPos + 1, xaml.IndexOfAny(new[] { ' ', '>', '\r', '\n' }, startPos) - startPos - 1);
+            var elementName = GetElementName(xaml, startPos);
 
             string result = null;
 
