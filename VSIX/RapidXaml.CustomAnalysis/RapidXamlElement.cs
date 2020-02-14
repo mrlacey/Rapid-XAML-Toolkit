@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
+// Licensed under the MIT license.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,23 +31,7 @@ namespace RapidXaml
 
         public override string ToString()
         {
-            return $"{Name} ({Attributes.Count} attributes, {Children.Count} children)";
-        }
-    }
-
-    public static class RapidXamlElementExtensions
-    {
-        public static RapidXamlElement AddAttribute(this RapidXamlElement expected, string name, string value)
-        {
-            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, Value = value });
-
-            return expected;
-        }
-        public static RapidXamlElement SetContent(this RapidXamlElement expected, string content)
-        {
-            expected.Content = content;
-
-            return expected;
+            return $"{this.Name} ({this.Attributes.Count} attributes, {this.Children.Count} children)";
         }
     }
 }

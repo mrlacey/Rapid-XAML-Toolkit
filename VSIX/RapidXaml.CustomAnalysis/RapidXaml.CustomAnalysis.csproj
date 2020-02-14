@@ -47,10 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionType.cs" />
+    <Compile Include="AnalysisAction.cs" />
+    <Compile Include="AnalysisActions.cs" />
+    <Compile Include="AnalysisActionsExtensions.cs" />
     <Compile Include="CustomAnalysis.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlAttribute.cs" />
     <Compile Include="RapidXamlElement.cs" />
+    <Compile Include="RapidXamlElementExtensions.cs" />
+    <Compile Include="RapidXamlErrorType.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
@@ -59,6 +65,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="CustomAnalysis.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers">
+      <Version>1.1.118</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

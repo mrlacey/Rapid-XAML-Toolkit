@@ -15,3 +15,6 @@ dotnet_diagnostic.SA1200.severity = warning
 
 # SA0001: XML comment analysis disabled
 dotnet_diagnostic.SA0001.severity = none
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = none
