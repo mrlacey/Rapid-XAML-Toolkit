@@ -140,6 +140,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(SelectedItemBindingModeAction):
                             list.AddRange(this.CreateActionSet(rxTag, SelectedItemBindingModeAction.Create((SelectedItemBindingModeTag)rxTag, this.file)));
                             break;
+                        case nameof(CustomAnalysisAction):
+                            list.AddRange(this.CreateActionSet(rxTag, CustomAnalysisAction.Create((CustomAnalysisTag)rxTag, this.file)));
+                            break;
                     }
                 }
             }

@@ -12,15 +12,11 @@ namespace RapidXamlToolkit.XamlAnalysis
     public class CustomProcessorWrapper : XamlElementProcessor
     {
         private RapidXaml.CustomAnalysis customProcessor;
-        private ProjectType projType;
-        private ILogger logger;
 
         public CustomProcessorWrapper(RapidXaml.CustomAnalysis customProcessor, ProjectType projType, ILogger logger)
             : base(ProjectType.Any, logger)
         {
             this.customProcessor = customProcessor;
-            this.projType = projType;
-            this.logger = logger;
         }
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
@@ -40,7 +36,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                             var tagDeps = new CustomAnalysisTagDependencies
                             {
                                 Action = action,
-                                ElementName = this.customProcessor.TargetType(),
+                                ElementName = GetElementName(xamlElement), // Do this to get any xmlns
                                 ErrorCode = action.Code,
                                 ErrorType = TagErrorTypeCreator.FromCustomAnalysisErrorType(action.ErrorType),
                                 FileName = fileName,

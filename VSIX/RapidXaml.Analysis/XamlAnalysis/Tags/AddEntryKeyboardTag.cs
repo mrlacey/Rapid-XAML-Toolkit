@@ -49,6 +49,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.ElementName = deps.ElementName;
             this.Description = deps.Action.Description;
             this.InsertPostion = deps.InsertPos;
+            this.ToolTip = deps.Action.ActionText;
             this.ActionText = deps.Action.ActionText;
             this.Name = deps.Action.Name;
             this.Value = deps.Action.Value;
