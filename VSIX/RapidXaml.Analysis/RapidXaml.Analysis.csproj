@@ -213,6 +213,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="GuiLabs.Language.Xml">
+      <Version>1.2.46</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis">
       <Version>3.2.0</Version>
     </PackageReference>

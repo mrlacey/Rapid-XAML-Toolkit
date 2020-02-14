@@ -204,35 +204,70 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             //// TODO: parse this into custom elements
             //// TODO: Cache these responses to avoid repeated parsing
-            var xdoc = new System.Xml.XmlDocument();
-            xdoc.LoadXml(xamlElement);
 
-            var elementName = xdoc.DocumentElement.Name;
+            var docSyntax = Microsoft.Language.Xml.Parser.ParseText(xamlElement);
+
+            var xdoc = docSyntax.RootSyntax;
+
+           // var xdoc = new System.Xml.XmlDocument();
+           // xdoc.LoadXml(xamlElement);
+
+            var elementName = xdoc.Name;
 
             var result = RapidXamlElement.Build(elementName);
 
-            var content = xdoc.DocumentElement.InnerXml;
+            var content = xamlElement.Substring(xdoc.Content.FullSpan.Start, xdoc.Content.FullSpan.Length);
 
-            for (int i = 0; i < xdoc.DocumentElement.Attributes.Count; i++)
+            foreach (var attr in xdoc.Attributes)
             {
-                var attr = xdoc.DocumentElement.Attributes[i];
                 result.AddAttribute(attr.Name, attr.Value);
             }
 
-            for (int i = 0; i < xdoc.DocumentElement.ChildNodes.Count; i++)
+            foreach (var child in docSyntax.Body.ChildNodes)
             {
-                var child = xdoc.DocumentElement.ChildNodes[i];
-
-                if (child.Name.StartsWith($"{elementName}."))
+                if (child == null)
                 {
-                    result.AddAttribute(child.Name.Substring(elementName.Length + 1), child.InnerText);
+                    continue;
+                }
 
-                    if (content.StartsWith(child.OuterXml))
+                if (child.SpanStart > 0 && child is Microsoft.Language.Xml.XmlElementSyntax childElement)
+                {
+                    if (childElement.Name.StartsWith($"{elementName}."))
                     {
-                        content = content.Substring(child.OuterXml.Length);
+                        result.AddAttribute(
+                            childElement.Name.Substring(elementName.Length + 1),
+                            xamlElement.Substring(childElement.Content.FullSpan.Start, childElement.Content.FullSpan.Length));
+
+                        var childAsString = xamlElement.Substring(childElement.Start, childElement.Width);
+
+                        if (content.StartsWith(childAsString))
+                        {
+                            content = content.Substring(childAsString.Length);
+                        }
                     }
                 }
             }
+
+            //for (int i = 0; i < xdoc.Attributes.Count(); i++)
+            //{
+            //    var attr = xdoc.Attributes[i];
+            //    result.AddAttribute(attr.Name, attr.Value);
+            //}
+
+            //for (int i = 0; i < xdoc.ChildNodes.Count; i++)
+            //{
+            //    var child = xdoc.ChildNodes[i];
+
+            //    if (child.Name.StartsWith($"{elementName}."))
+            //    {
+            //        result.AddAttribute(child.Name.Substring(elementName.Length + 1), child.InnerText);
+
+            //        if (content.StartsWith(child.OuterXml))
+            //        {
+            //            content = content.Substring(child.OuterXml.Length);
+            //        }
+            //    }
+            //}
 
             result.SetContent(content);
 

@@ -2,6 +2,8 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
+using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis
@@ -299,6 +301,18 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var element = XamlElementProcessor.GetSubElementAtPosition(ProjectType.Wpf, "testFile.xaml", new FakeTextSnapshot(), xaml.Replace("☆", string.Empty), offset, new DefaultTestLogger());
 
             Assert.IsNotNull(element);
+        }
+
+        [TestMethod]
+        public void FooElement_WithXmlns()
+        {
+            var xaml = @"<demo:Foo />";
+
+            var expected = RapidXamlElement.Build("demo:Foo");
+
+            var actual = XamlElementExtractor.GetElement(xaml);
+
+            RapidXamlElementAssert.AreEqual(expected, actual);
         }
     }
 }
