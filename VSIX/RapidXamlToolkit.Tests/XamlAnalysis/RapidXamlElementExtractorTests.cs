@@ -113,5 +113,19 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void Element_NoAttributes_OneChildren()
+        {
+            var xaml = @"<Grid><Label /></Grid>";
+
+            var expected = RapidXamlElement.Build("Grid");
+            expected.AddChild("Label");
+            expected.SetContent("<Label />");
+
+            var actual = XamlElementExtractor.GetElement(xaml);
+
+            RapidXamlElementAssert.AreEqual(expected, actual);
+        }
     }
 }

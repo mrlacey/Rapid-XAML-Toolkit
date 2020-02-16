@@ -36,9 +36,9 @@ namespace RapidXaml
 
         public bool ContainsChild(string childName)
         {
-            // TODO: add tests, including for with and without namespace aliases
             return this.Children.Any(
-                a => a.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase));
+                a => a.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase)
+                  || a.Name.EndsWith($":{childName}", StringComparison.InvariantCultureIgnoreCase));
         }
 
         public bool ContainsDescendant(string childName)

@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Language.Xml;
 using Microsoft.VisualStudio.Text;
 using RapidXaml;
 using RapidXamlToolkit.XamlAnalysis.Processors;
@@ -199,11 +200,11 @@ namespace RapidXamlToolkit.XamlAnalysis
             return true;
         }
 
-        public static RapidXaml.RapidXamlElement GetElement(string xamlElement)
+        public static RapidXamlElement GetElement(string xamlElement)
         {
             //// TODO: parse this into custom elements
             //// TODO: Cache these responses to avoid repeated parsing
-            var docSyntax = Microsoft.Language.Xml.Parser.ParseText(xamlElement);
+            var docSyntax = Parser.ParseText(xamlElement);
 
             var xdoc = docSyntax.RootSyntax;
 
@@ -225,7 +226,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                     continue;
                 }
 
-                if (child.SpanStart > 0 && child is Microsoft.Language.Xml.XmlElementSyntax childElement)
+                // Self is counted as a child so skip that (based on start pos)
+                if (child.SpanStart > 0 && child is XmlElementSyntax childElement)
                 {
                     if (childElement.Name.StartsWith($"{elementName}."))
                     {
@@ -240,6 +242,14 @@ namespace RapidXamlToolkit.XamlAnalysis
                             content = content.Substring(childAsString.Length);
                         }
                     }
+                    else
+                    {
+                        result.AddChild(childElement.Name);
+                    }
+                }
+                else if (child is XmlEmptyElementSyntax selfClosingChild)
+                {
+                    result.AddChild(selfClosingChild.Name);
                 }
             }
 

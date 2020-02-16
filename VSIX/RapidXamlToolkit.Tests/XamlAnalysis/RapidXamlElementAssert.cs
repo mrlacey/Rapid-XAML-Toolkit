@@ -71,6 +71,30 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                     }
                 }
 
+                // Children checks
+                if (string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    if (expected.Children.Count > 0)
+                    {
+                        for (int i = 0; i < expected.Children.Count; i++)
+                        {
+                            var expChild = expected.Children[0];
+                            var actChild = actual.Children[0];
+
+                            if (expChild.Name != actChild.Name)
+                            {
+                                errorMessage = $"At index {i}, found child named '{actChild.Name}' when expecting '{expChild.Name}'.";
+                            }
+                            else if (expChild.Attributes.Count != actChild.Attributes.Count)
+                            {
+                                errorMessage = $"At index {i}, found child with {actChild.Attributes.Count} attributes when expecting '{expChild.Attributes.Count}'.";
+                            }
+                            // TODO: Check attributes of child
+                            // TODO: Check children of child
+                        }
+                    }
+                }
+
                 if (!string.IsNullOrWhiteSpace(errorMessage))
                 {
                     Assert.Fail($"{Environment.NewLine}{errorMessage}{Environment.NewLine}Expected:<{expected}>.{Environment.NewLine}Actual<{actual}>.{Environment.NewLine}{message}");
