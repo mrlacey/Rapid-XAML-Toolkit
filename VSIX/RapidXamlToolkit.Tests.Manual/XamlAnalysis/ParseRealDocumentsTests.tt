@@ -62,7 +62,30 @@ foreach (var subFolder in Directory.GetDirectories(rootFolder))
 
                     var snapshot = new FakeTextSnapshot();
 
-                    XamlElementExtractor.Parse(ProjectType.Any, filePath, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Any), result.Tags);
+                    var logger = DefaultTestLogger.Create();
+
+                    var processors = RapidXamlDocument.GetAllProcessors(ProjectType.Any, logger);
+
+                    var customProcessor = new CustomProcessorWrapper(new StubCustomAnalysisProcessor(), ProjectType.Any, logger);
+
+                    processors.Add(("Application", customProcessor));
+                    processors.Add(("Page", customProcessor));
+                    processors.Add(("DrawingGroup", customProcessor));
+                    processors.Add(("ResourceDictionary", customProcessor));
+                    processors.Add(("UserControl", customProcessor));
+                    processors.Add(("Canvas", customProcessor));
+                    processors.Add(("Viewbox", customProcessor));
+                    processors.Add(("PhoneApplicationPage", customProcessor));
+                    processors.Add(("Window", customProcessor));
+                    processors.Add(("ContentPage", customProcessor));
+                    processors.Add(("MasterDetailPage", customProcessor));
+                    processors.Add(("NavigationPage", customProcessor));
+                    processors.Add(("TabbedPage", customProcessor));
+                    processors.Add(("CarouselPage", customProcessor));
+                    processors.Add(("TemplatedPage", customProcessor));
+                    processors.Add(("Shell", customProcessor));
+
+                    XamlElementExtractor.Parse(ProjectType.Any, filePath, snapshot, text, processors, result.Tags);
 
                     Debug.WriteLine($"Found {result.Tags.Count} taggable issues in '{filePath}'.");
 

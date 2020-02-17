@@ -74,9 +74,9 @@ namespace RapidXamlToolkit.XamlAnalysis
             return result;
         }
 
-        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType)
+        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, ILogger logger = null)
         {
-            var logger = SharedRapidXamlPackage.Logger;
+            logger = logger ?? SharedRapidXamlPackage.Logger;
 
             var processors = new List<(string, XamlElementProcessor)>
                     {

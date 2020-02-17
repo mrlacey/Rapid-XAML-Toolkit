@@ -87,7 +87,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var snapshot = new FakeTextSnapshot();
 
-            XamlElementExtractor.Parse(ProjectType.Uwp, "Generic.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp), result.Tags);
+            XamlElementExtractor.Parse(ProjectType.Uwp, "Generic.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, DefaultTestLogger.Create()), result.Tags);
 
             Assert.AreEqual(0, result.Tags.OfType<MissingRowDefinitionTag>().Count());
             Assert.AreEqual(0, result.Tags.OfType<MissingColumnDefinitionTag>().Count());
@@ -114,7 +114,7 @@ namespace RapidXamlToolkit.Tests.Misc
                     Path.GetFileName(filePath),
                     snapshot,
                     text,
-                    RapidXamlDocument.GetAllProcessors(projType),
+                    RapidXamlDocument.GetAllProcessors(projType, DefaultTestLogger.Create()),
                     result.Tags);
             }
             catch (Exception exc)
