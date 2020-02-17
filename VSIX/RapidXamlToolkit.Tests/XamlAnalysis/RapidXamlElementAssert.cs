@@ -89,8 +89,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                             {
                                 errorMessage = $"At index {i}, found child with {actChild.Attributes.Count} attributes when expecting '{expChild.Attributes.Count}'.";
                             }
-                            // TODO: Check attributes of child
-                            // TODO: Check children of child
+                            else if (expChild.Children.Count != actChild.Children.Count)
+                            {
+                                errorMessage = $"At index {i}, found child with {actChild.Children.Count} children when expecting '{expChild.Children.Count}'.";
+                            }
+                            // TODO: Check children recursively
                         }
                     }
                 }
