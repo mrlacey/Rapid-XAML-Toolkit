@@ -37,7 +37,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                     }
                     else if (expected.Content != actual.Content)
                     {
-                        errorMessage = "Content does not match.";
+                        StringAssert.AreEqual(expected.Content, actual.Content, $"Evaluating content for {expected}");
                     }
                     else if (expected.Attributes.Count != actual.Attributes.Count)
                     {
@@ -93,7 +93,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                             {
                                 errorMessage = $"At index {i}, found child with {actChild.Children.Count} children when expecting '{expChild.Children.Count}'.";
                             }
-                            // TODO: Check children recursively
+                            else
+                            {
+                                // Check children recursively
+                                AreEqual(expChild, actChild);
+                            }
                         }
                     }
                 }

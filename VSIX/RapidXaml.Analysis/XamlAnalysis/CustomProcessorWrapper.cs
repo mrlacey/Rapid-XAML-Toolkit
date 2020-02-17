@@ -29,7 +29,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 foreach (var action in analysisActions.Actions)
                 {
-                    // TODO: review if need this switch statement
+                    // May not need this switch statement but keeping it around for now.
                     switch (action.Action)
                     {
                         case RapidXaml.ActionType.AddAttribute:

@@ -202,7 +202,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static RapidXamlElement GetElement(string xamlElement)
         {
-            RapidXamlElement GetElement(XmlDocumentSyntax docSyntax, string elementContent)
+            RapidXamlElement GetElement(XmlDocumentSyntax docSyntax, string elementContent, string docString)
             {
                 var xdoc = docSyntax.RootSyntax;
 
@@ -219,7 +219,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 foreach (var child in docSyntax.Body.ChildNodes)
                 {
-                    if (child == null | child is XmlElementStartTagSyntax)
+                    if (child == null | child is XmlElementStartTagSyntax | child is XmlElementEndTagSyntax)
                     {
                         continue;
                     }
@@ -231,9 +231,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                         {
                             result.AddAttribute(
                                 childElement.Name.Substring(elementName.Length + 1),
-                                xamlElement.Substring(childElement.Content.FullSpan.Start, childElement.Content.FullSpan.Length));
+                                docString.Substring(childElement.Content.FullSpan.Start, childElement.Content.FullSpan.Length));
 
-                            var childAsString = xamlElement.Substring(childElement.Start, childElement.Width);
+                            var childAsString = docString.Substring(childElement.Start, childElement.Width);
 
                             if (content.StartsWith(childAsString))
                             {
@@ -243,11 +243,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                         else
                         {
                             var childContentSpan = childElement.Content.FullSpan;
-                            var childContent = elementContent.Substring(childContentSpan.Start, childContentSpan.Length);
+                            var childContent = docString.Substring(childContentSpan.Start, childContentSpan.Length);
 
                             var childDoc = Parser.ParseText(elementContent);
 
-                            result.AddChild(GetElement(childDoc, childContent));
+                            result.AddChild(GetElement(childDoc, childContent, elementContent));
                         }
                     }
                     else if (child is XmlEmptyElementSyntax selfClosingChild)
@@ -265,14 +265,38 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         foreach (var nodeChild in node.ChildNodes)
                         {
+                            if (nodeChild is XmlTextTokenSyntax)
+                            {
+                                continue;
+                            }
+
                             if (nodeChild is XmlElementSyntax ncElement)
                             {
-                                var childContentSpan = ncElement.Content.FullSpan;
-                                var childContent = xamlElement.Substring(childContentSpan.Start, childContentSpan.Length);
+                                if (ncElement.Name.StartsWith($"{elementName}."))
+                                {
+                                    result.AddAttribute(
+                                        ncElement.Name.Substring(elementName.Length + 1),
+                                        docString.Substring(ncElement.Content.FullSpan.Start, ncElement.Content.FullSpan.Length));
 
-                                var childDoc = Parser.ParseText(elementContent);
+                                    var trimmedDocString = docString.TrimStart();
+                                    var childAsString = trimmedDocString.Substring(ncElement.Start, ncElement.Width);
 
-                                result.AddChild(GetElement(childDoc, childContent));
+                                    if (content.TrimStart().StartsWith(childAsString.TrimStart()))
+                                    {
+                                        content = content.TrimStart().Substring(childAsString.Length).Trim();
+                                    }
+                                }
+                                else
+                                {
+                                    var childContentSpan = ncElement.Content.FullSpan;
+                                    var childContent = docString.Substring(childContentSpan.Start, childContentSpan.Length);
+
+                                    var childString = docString.Substring(ncElement.Start, ncElement.Width);
+
+                                    var childDoc = Parser.ParseText(childString);
+
+                                    result.AddChild(GetElement(childDoc, childContent, docString.Substring(nodeChild.Start, nodeChild.Width)));
+                                }
                             }
                             else if (nodeChild is XmlEmptyElementSyntax ncSelfClosing)
                             {
@@ -301,7 +325,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             var innerContent = xamlElement.Substring(contentSpan.Start, contentSpan.Length);
 
-            return GetElement(documentSyntax, innerContent);
+            return GetElement(documentSyntax, innerContent, xamlElement);
         }
 
         private struct TrackingElement
