@@ -204,7 +204,12 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             RapidXamlElement GetElement(XmlDocumentSyntax docSyntax, string elementContent, string docString)
             {
-                var xdoc = docSyntax.RootSyntax;
+                var xdoc = docSyntax?.RootSyntax;
+
+                if (xdoc == null)
+                {
+                    return null;
+                }
 
                 var elementName = xdoc.Name;
 
@@ -278,8 +283,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                         ncElement.Name.Substring(elementName.Length + 1),
                                         docString.Substring(ncElement.Content.FullSpan.Start, ncElement.Content.FullSpan.Length));
 
-                                    var trimmedDocString = docString.TrimStart();
-                                    var childAsString = trimmedDocString.Substring(ncElement.Start, ncElement.Width);
+                                    var childAsString = docString.Substring(ncElement.Start, ncElement.Width);
 
                                     if (content.TrimStart().StartsWith(childAsString.TrimStart()))
                                     {

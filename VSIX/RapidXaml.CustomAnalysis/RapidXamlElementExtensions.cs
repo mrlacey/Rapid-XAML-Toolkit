@@ -21,7 +21,10 @@ namespace RapidXaml
 
         public static RapidXamlElement AddChild(this RapidXamlElement expected, RapidXamlElement child)
         {
-            expected.Children.Add(child);
+            if (child != null)
+            {
+                expected.Children.Add(child);
+            }
 
             return expected;
         }
