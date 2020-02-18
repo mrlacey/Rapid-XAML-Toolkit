@@ -129,6 +129,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             //// TODO: Do MEF magic to find other custom processors here
 
             result.Add(new CustomAnalysis.FooAnalysis());
+            result.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
 
             return result;
         }

@@ -11,7 +11,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
-            if (!element.ContainsDescendant("TwoPaneView"))
+            if (element.ContainsDescendant("TwoPaneView"))
             {
                 return AnalysisActions.Highlight(
                     RapidXamlErrorType.Error,
