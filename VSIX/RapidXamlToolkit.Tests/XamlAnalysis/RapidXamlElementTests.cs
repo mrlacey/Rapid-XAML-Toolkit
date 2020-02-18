@@ -392,5 +392,81 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             Assert.AreEqual(2, actual.Count());
         }
+
+        [TestMethod]
+        public void GetChildren_None_NoMatches()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+
+            var actual = sut.GetChildren("Label");
+
+            Assert.AreEqual(0, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetChildren_One_NoMatches()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddChild(RapidXamlElement.Build("StackPanel"));
+
+            var actual = sut.GetChildren("Label");
+
+            Assert.AreEqual(0, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetChildren_Many_NoMatches()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddChild(RapidXamlElement.Build("StackPanel"));
+            sut.AddChild(RapidXamlElement.Build("StackPanel"));
+            sut.AddChild(RapidXamlElement.Build("StackPanel"));
+            sut.AddChild(RapidXamlElement.Build("StackPanel"));
+
+            var actual = sut.GetChildren("Label");
+
+            Assert.AreEqual(0, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetChildren_One_Matches()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddChild(RapidXamlElement.Build("Label"));
+
+            var actual = sut.GetChildren("Label");
+
+            Assert.AreEqual(1, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetChildren_Many_OneMatch()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddChild(RapidXamlElement.Build("StackPanel"));
+            sut.AddChild(RapidXamlElement.Build("StackPanel"));
+            sut.AddChild(RapidXamlElement.Build("Label"));
+            sut.AddChild(RapidXamlElement.Build("StackPanel"));
+
+            var actual = sut.GetChildren("Label");
+
+            Assert.AreEqual(1, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetChildren_Many_ManyMatches()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddChild(RapidXamlElement.Build("StackPanel"));
+            sut.AddChild(RapidXamlElement.Build("StackPanel"));
+            sut.AddChild(RapidXamlElement.Build("Label"));
+            sut.AddChild(RapidXamlElement.Build("Label"));
+            sut.AddChild(RapidXamlElement.Build("StackPanel"));
+            sut.AddChild(RapidXamlElement.Build("Label"));
+
+            var actual = sut.GetChildren("Label");
+
+            Assert.AreEqual(3, actual.Count());
+        }
     }
 }

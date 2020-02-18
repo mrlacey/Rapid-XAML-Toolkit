@@ -98,8 +98,14 @@ namespace RapidXaml
 
         public IEnumerable<RapidXamlElement> GetChildren(string childName)
         {
-            // TODO: implement this
-            throw new NotImplementedException();
+            foreach (var child in this.Children)
+            {
+                if (child.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase)
+                 || child.Name.EndsWith($":{childName}", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    yield return child;
+                }
+            }
         }
 
         public IEnumerable<RapidXamlElement> GetDescendants(string childName)
