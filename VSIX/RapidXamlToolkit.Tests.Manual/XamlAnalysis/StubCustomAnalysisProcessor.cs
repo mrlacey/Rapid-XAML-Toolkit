@@ -20,9 +20,4 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
             throw new System.NotImplementedException();
         }
     }
-
-    public class ApplicationStubCustomAnalysisProcessor : StubCustomAnalysisProcessor
-    {
-        public override string TargetType() => "Application";
-    }
 }
