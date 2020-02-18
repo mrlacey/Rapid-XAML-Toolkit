@@ -40,15 +40,37 @@ namespace RapidXaml
         public bool ContainsChild(string childName)
         {
             return this.Children.Any(
-                a => a.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase)
-                  || a.Name.EndsWith($":{childName}", StringComparison.InvariantCultureIgnoreCase));
+                c => c.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase)
+                  || c.Name.EndsWith($":{childName}", StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        public bool ContainsChildOrAttribute(string childName)
+        {
+            return this.Children.Any(
+                c => c.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase)
+                  || c.Name.EndsWith($":{childName}", StringComparison.InvariantCultureIgnoreCase))
+                || this.Attributes.Any(
+                    a => !a.HasStringValue
+                      && (a.ElementValue.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase)
+                       || a.ElementValue.Name.EndsWith($":{childName}", StringComparison.InvariantCultureIgnoreCase)));
         }
 
         public bool ContainsDescendant(string childName)
         {
-            if (this.ContainsChild(childName))
+            if (this.ContainsChildOrAttribute(childName))
             {
                 return true;
+            }
+
+            foreach (var attr in this.Attributes)
+            {
+                if (!attr.HasStringValue)
+                {
+                    if (attr.ElementValue.ContainsDescendant(childName))
+                    {
+                        return true;
+                    }
+                }
             }
 
             foreach (var child in this.Children)
@@ -65,8 +87,13 @@ namespace RapidXaml
         // This returns an enumerable because attribute element may have multiple content values
         public IEnumerable<RapidXamlAttribute> GetAttributes(string attributeName)
         {
-            // TODO: implement this
-            throw new NotImplementedException();
+            foreach (var attr in this.Attributes)
+            {
+                if (attr.Name.Equals(attributeName, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    yield return attr;
+                }
+            }
         }
 
         public IEnumerable<RapidXamlElement> GetChildren(string childName)

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
 
@@ -278,6 +279,118 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             sut.AddChild(child);
 
             Assert.IsTrue(sut.ContainsDescendant("ml:Greatgrandchild"));
+        }
+
+        [TestMethod]
+        public void ContainsDescendant_InGrandChild_AsAttribute_Xmlns_CaseInsensitive_Match()
+        {
+            var sut = RapidXamlElement.Build("ml:Parent");
+            var child = RapidXamlElement.Build("ml:Child");
+            var grandChild = RapidXamlElement.Build("ml:Grandchild");
+            grandChild.AddAttribute("Content", RapidXamlElement.Build("tst:Attached.Nested"));
+            child.AddChild(grandChild);
+            sut.AddChild(child);
+
+            Assert.IsTrue(sut.ContainsDescendant("Attached.nested"));
+        }
+
+        [TestMethod]
+        public void ContainsDescendant_DeepNesting_AsAttribute_Xmlns_CaseInsensitive_Match()
+        {
+            var sut = RapidXamlElement.Build("ml:Parent");
+            var child = RapidXamlElement.Build("ml:Child");
+            var grandChild = RapidXamlElement.Build("ml:Grandchild");
+            grandChild.AddAttribute(
+                "Content",
+                RapidXamlElement.Build("Panel")
+                                .AddAttribute(
+                                    "Content",
+                                    RapidXamlElement.Build("StackPanel")
+                                                    .AddAttribute(
+                                                        "Content",
+                                                        RapidXamlElement.Build("ListBox")
+                                                                        .AddAttribute(
+                                                                            "Content",
+                                                                            RapidXamlElement.Build("tst:DeepNested")))));
+            child.AddChild(grandChild);
+            sut.AddChild(child);
+
+            Assert.IsTrue(sut.ContainsDescendant("deepnested"));
+        }
+
+        [TestMethod]
+        public void GetAttributes_Empty()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+
+            var actual = sut.GetAttributes("Height");
+
+            Assert.AreEqual(0, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetAttributes_One_NoMatch()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddAttribute("Width", "Auto");
+
+            var actual = sut.GetAttributes("Height");
+
+            Assert.AreEqual(0, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetAttributes_Many_NoMatch()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddAttribute("Width", "Auto");
+            sut.AddAttribute("Direction", "LTR");
+            sut.AddAttribute("Color", "Red");
+
+            var actual = sut.GetAttributes("Height");
+
+            Assert.AreEqual(0, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetAttributes_One_Match()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddAttribute("Width", "Auto");
+
+            var actual = sut.GetAttributes("Width");
+
+            Assert.AreEqual(1, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetAttributes_Many_OneMatch()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddAttribute("Width", "Auto");
+            sut.AddAttribute("Direction", "LTR");
+            sut.AddAttribute("Color", "Red");
+            sut.AddAttribute("Height", "Red");
+
+            var actual = sut.GetAttributes("Height");
+
+            Assert.AreEqual(1, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetAttributes_Many_ManyMatches()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddAttribute("Width", "Auto");
+            sut.AddAttribute("Direction", "LTR");
+            sut.AddAttribute("Color", "Red");
+            sut.AddAttribute("Height", "Red");
+            sut.AddAttribute("Content", RapidXamlElement.Build("Label").AddAttribute("Text", "Hello"));
+            sut.AddAttribute("Content", RapidXamlElement.Build("Label").SetContent("World!"));
+
+            var actual = sut.GetAttributes("Content");
+
+            Assert.AreEqual(2, actual.Count());
         }
     }
 }
