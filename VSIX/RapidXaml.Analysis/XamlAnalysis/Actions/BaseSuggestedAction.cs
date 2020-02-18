@@ -77,8 +77,15 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 undoContext.Open(this.DisplayText);
                 this.Execute(cancellationToken);
 
-                // TODO: need to record more info for custom analysis
-                SharedRapidXamlPackage.Logger?.RecordFeatureUsage(this.GetType().Name);
+                var type = this.GetType();
+                var name = type.Name;
+
+                if (type.Equals(typeof(CustomAnalysisAction)))
+                {
+                    name += $" {(this as CustomAnalysisAction).Tag.ErrorCode}";
+                }
+
+                SharedRapidXamlPackage.Logger?.RecordFeatureUsage(name);
             }
             catch (Exception exc)
             {
