@@ -13,6 +13,9 @@ namespace RapidXaml
 
         public string Content { get; internal set; } = string.Empty;
 
+        // TODO: calculate StartPostions
+        public int StartPostion { get; internal set; }
+
         public List<RapidXamlAttribute> Attributes { get; internal set; } = new List<RapidXamlAttribute>();
 
         public List<RapidXamlElement> Children { get; internal set; } = new List<RapidXamlElement>();
@@ -57,6 +60,18 @@ namespace RapidXaml
             }
 
             return false;
+        }
+
+        public IEnumerable<RapidXamlElement> GetChildren(string childName)
+        {
+            // TODO: implement this
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<RapidXamlElement> GetDescendants(string childName)
+        {
+            // TODO: implement this
+            throw new NotImplementedException();
         }
     }
 }

@@ -7,11 +7,21 @@ namespace RapidXaml
     {
         public string Name { get; internal set; }
 
-        public string Value { get; internal set; }
+        public bool HasStringValue
+        {
+            get
+            {
+                return string.IsNullOrEmpty(this.StringValue);
+            }
+        }
+
+        public string StringValue { get; internal set; }
+
+        public RapidXamlElement ElementValue { get; internal set; }
 
         public override string ToString()
         {
-            return $"{this.Name}=\"{this.Value}\"";
+            return $"{this.Name}=\"{(this.HasStringValue ? this.StringValue : this.ElementValue.ToString())}\"";
         }
     }
 }

@@ -63,9 +63,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                             {
                                 errorMessage = $"At index {i}, found attribute named '{actAttr.Name}' when expecting '{expAttr.Name}'.";
                             }
-                            else if (expAttr.Value != actAttr.Value)
+                            else if (expAttr.StringValue != actAttr.StringValue)
                             {
-                                errorMessage = $"At index {i}, found attribute with value '{actAttr.Value}' when expecting '{expAttr.Value}'.";
+                                errorMessage = $"At index {i}, found attribute with value '{actAttr.StringValue}' when expecting '{expAttr.StringValue}'.";
                             }
                         }
                     }

@@ -7,7 +7,7 @@ namespace RapidXaml
     {
         public static RapidXamlElement AddAttribute(this RapidXamlElement expected, string name, string value)
         {
-            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, Value = value });
+            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, StringValue = value });
 
             return expected;
         }
