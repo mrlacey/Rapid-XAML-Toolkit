@@ -175,5 +175,109 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             Assert.IsTrue(sut.ContainsChild("one"));
         }
+
+        [TestMethod]
+        public void ContainsDescendant_NoChildren()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+
+            Assert.IsFalse(sut.ContainsDescendant("one"));
+        }
+
+        [TestMethod]
+        public void ContainsDescendant_OneChild_NotMatch()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+            sut.AddChild("Child");
+
+            Assert.IsFalse(sut.ContainsDescendant("one"));
+        }
+
+        [TestMethod]
+        public void ContainsDescendant_OneChild_Match()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+            sut.AddChild("Child");
+
+            Assert.IsTrue(sut.ContainsDescendant("Child"));
+        }
+
+        [TestMethod]
+        public void ContainsDescendant_OneChild_OneGrandChild_Match()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+            var child = RapidXamlElement.Build("Child");
+            child.AddChild("Grandchild");
+
+            sut.AddChild(child);
+
+            Assert.IsTrue(sut.ContainsDescendant("Grandchild"));
+        }
+
+        [TestMethod]
+        public void ContainsDescendant_OneChild_OneGrandChild_Match_Xmlns_CaseInsensitive()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+            var child = RapidXamlElement.Build("Child");
+            child.AddChild("tst:Grandchild");
+
+            sut.AddChild(child);
+
+            Assert.IsTrue(sut.ContainsDescendant("grandchild"));
+        }
+
+        [TestMethod]
+        public void ContainsDescendant_OneChild_OneGrandChild_OneGreatGrandChild_Match()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+            var child = RapidXamlElement.Build("Child");
+            var grandChild = RapidXamlElement.Build("Grandchild");
+            grandChild.AddChild("Greatgrandchild");
+
+            child.AddChild(grandChild);
+            sut.AddChild(child);
+
+            Assert.IsTrue(sut.ContainsDescendant("Greatgrandchild"));
+        }
+
+        [TestMethod]
+        public void ContainsDescendant_OneChild_OneGrandChild_NotMatch()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+            var child = RapidXamlElement.Build("Child");
+            child.AddChild("Grandchild");
+
+            sut.AddChild(child);
+
+            Assert.IsFalse(sut.ContainsDescendant("Uncle"));
+        }
+
+        [TestMethod]
+        public void ContainsDescendant_OneChild_OneGrandChild_OneGreatGrandChild_NotMatch()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+            var child = RapidXamlElement.Build("Child");
+            var grandChild = RapidXamlElement.Build("Grandchild");
+            grandChild.AddChild("Greatgrandchild");
+
+            child.AddChild(grandChild);
+            sut.AddChild(child);
+
+            Assert.IsFalse(sut.ContainsDescendant("Aunt"));
+        }
+
+        [TestMethod]
+        public void ContainsDescendant_OneChild_OneGrandChild_OneGreatGrandChild_AllXmlns_Match()
+        {
+            var sut = RapidXamlElement.Build("ml:Parent");
+            var child = RapidXamlElement.Build("ml:Child");
+            var grandChild = RapidXamlElement.Build("ml:Grandchild");
+            grandChild.AddChild("ml:Greatgrandchild");
+
+            child.AddChild(grandChild);
+            sut.AddChild(child);
+
+            Assert.IsTrue(sut.ContainsDescendant("ml:Greatgrandchild"));
+        }
     }
 }
