@@ -11,7 +11,7 @@ namespace RapidXaml
         {
             get
             {
-                return string.IsNullOrEmpty(this.StringValue);
+                return !string.IsNullOrEmpty(this.StringValue);
             }
         }
 

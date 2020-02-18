@@ -62,6 +62,13 @@ namespace RapidXaml
             return false;
         }
 
+        // This returns an enumerable because attribute element may have multiple content values
+        public IEnumerable<RapidXamlAttribute> GetAttributes(string attributeName)
+        {
+            // TODO: implement this
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<RapidXamlElement> GetChildren(string childName)
         {
             // TODO: implement this

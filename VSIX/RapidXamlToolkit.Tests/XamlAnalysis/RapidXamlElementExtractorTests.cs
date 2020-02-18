@@ -862,5 +862,94 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void Element_OneAttributeAsElement_NoChildren()
+        {
+            var xaml = @"<Grid><Grid.Content><Label Text=""Hello testers"" /></Grid.Content></Grid>";
+
+            var expected = RapidXamlElement.Build("Grid");
+
+            var attrElement = RapidXamlElement.Build("Label");
+            attrElement.AddAttribute("Text", "Hello testers");
+
+            expected.AddAttribute("Content", attrElement);
+
+            var actual = XamlElementExtractor.GetElement(xaml);
+
+            RapidXamlElementAssert.AreEqual(expected, actual);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue, actual.Attributes[0].ElementValue);
+        }
+
+        [TestMethod]
+        public void Element_OneAttribute_NestedElements()
+        {
+            var xaml = @"<Grid>
+    <Grid.Content1>
+        <InnerGrid Height=""Auto"">
+            <InnerGrid.Content>
+                <Label>First</Label>
+                <Label Text=""Second"" />
+            </InnerGrid.Content>
+        </InnerGrid>
+    </Grid.Content1>
+</Grid>";
+
+            var expected = RapidXamlElement.Build("Grid");
+
+            var innerGrid = RapidXamlElement.Build("InnerGrid");
+            innerGrid.AddAttribute("Height", "Auto");
+            innerGrid.AddAttribute("Content", RapidXamlElement.Build("Label").SetContent("First"));
+            innerGrid.AddAttribute("Content", RapidXamlElement.Build("Label").AddAttribute("Text", "Second"));
+
+            expected.AddAttribute("Content1", innerGrid);
+
+            var actual = XamlElementExtractor.GetElement(xaml);
+
+            RapidXamlElementAssert.AreEqual(expected, actual);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue, actual.Attributes[0].ElementValue);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue.Attributes[1].ElementValue, actual.Attributes[0].ElementValue.Attributes[1].ElementValue);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue.Attributes[2].ElementValue, actual.Attributes[0].ElementValue.Attributes[2].ElementValue);
+        }
+
+        [TestMethod]
+        public void Element_TwoAttributes_NestedElements()
+        {
+            var xaml = @"<Grid>
+    <Grid.Content1>
+        <InnerGrid Height=""Auto"">
+            <InnerGrid.Content>
+                <Label>First</Label>
+                <Label Text=""Second"" />
+            </InnerGrid.Content>
+        </InnerGrid>
+    </Grid.Content1>
+    <Grid.Content2>
+        <Label Text=""Hello testers"" />
+    </Grid.Content2>
+</Grid>";
+
+            var expected = RapidXamlElement.Build("Grid");
+
+            var innerGrid = RapidXamlElement.Build("InnerGrid");
+            innerGrid.AddAttribute("Height", "Auto");
+            innerGrid.AddAttribute("Content", RapidXamlElement.Build("Label").SetContent("First"));
+            innerGrid.AddAttribute("Content", RapidXamlElement.Build("Label").AddAttribute("Text", "Second"));
+
+            expected.AddAttribute("Content1", innerGrid);
+
+            var labelElement = RapidXamlElement.Build("Label");
+            labelElement.AddAttribute("Text", "Hello testers");
+
+            expected.AddAttribute("Content2", labelElement);
+
+            var actual = XamlElementExtractor.GetElement(xaml);
+
+            RapidXamlElementAssert.AreEqual(expected, actual);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue, actual.Attributes[0].ElementValue);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[1].ElementValue, actual.Attributes[1].ElementValue);
+
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue.Attributes[1].ElementValue, actual.Attributes[0].ElementValue.Attributes[1].ElementValue);
+        }
     }
 }

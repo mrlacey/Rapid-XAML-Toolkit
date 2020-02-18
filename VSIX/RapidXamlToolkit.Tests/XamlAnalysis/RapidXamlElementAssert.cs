@@ -63,9 +63,24 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                             {
                                 errorMessage = $"At index {i}, found attribute named '{actAttr.Name}' when expecting '{expAttr.Name}'.";
                             }
-                            else if (expAttr.StringValue != actAttr.StringValue)
+                            else if (expAttr.HasStringValue != actAttr.HasStringValue)
+                            {
+                                if (expAttr.HasStringValue)
+                                {
+                                    errorMessage = $"At index {i}, expected a string value ({expAttr.StringValue}) but found an element value ({actAttr.ElementValue}).";
+                                }
+                                else
+                                {
+                                    errorMessage = $"At index {i}, expected an element value ({expAttr.ElementValue}) but found a string value ({actAttr.StringValue}).";
+                                }
+                            }
+                            else if (expAttr.HasStringValue && expAttr.StringValue != actAttr.StringValue)
                             {
                                 errorMessage = $"At index {i}, found attribute with value '{actAttr.StringValue}' when expecting '{expAttr.StringValue}'.";
+                            }
+                            else if (!expAttr.HasStringValue && expAttr.ElementValue?.ToString() != actAttr.ElementValue?.ToString())
+                            {
+                                errorMessage = $"At index {i}, found element attribute '{actAttr.ElementValue}' when expecting '{expAttr.ElementValue}'. (String comparison only!)";
                             }
                         }
                     }

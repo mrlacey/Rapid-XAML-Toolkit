@@ -215,7 +215,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 var result = RapidXamlElement.Build(elementName);
 
-                var content = elementContent;
+                //var content = elementContent;
+                var content = (docSyntax.Body as IXmlElement).Value;
 
                 foreach (var attr in xdoc.Attributes)
                 {
@@ -229,20 +230,57 @@ namespace RapidXamlToolkit.XamlAnalysis
                         continue;
                     }
 
-                    // Self is counted as a child so skip that (based on start pos)
                     if (child is XmlElementSyntax childElement)
                     {
                         if (childElement.Name.StartsWith($"{elementName}."))
                         {
-                            result.AddAttribute(
-                                childElement.Name.Substring(elementName.Length + 1),
-                                docString.Substring(childElement.Content.FullSpan.Start, childElement.Content.FullSpan.Length));
+                            var fullspan = childElement.Content.FullSpan;
+                            var attrString = docString.Substring(fullspan.Start, fullspan.Length);
 
-                            var childAsString = docString.Substring(childElement.Start, childElement.Width);
-
-                            if (content.StartsWith(childAsString))
+                            if (attrString.TrimStart().StartsWith("<"))
                             {
-                                content = content.Substring(childAsString.Length);
+                                foreach (var innerChild in childElement.ChildNodes)
+                                {
+                                    if (innerChild == null | innerChild is XmlElementStartTagSyntax | innerChild is XmlElementEndTagSyntax)
+                                    {
+                                        continue;
+                                    }
+
+                                    if (innerChild is SyntaxList childList)
+                                    {
+                                        foreach (SyntaxNode listItem in childList.ChildNodes)
+                                        {
+                                            var listItemString = docString.Substring(listItem.SpanStart, listItem.Width);
+                                            var listItemDoc = Parser.ParseText(listItemString);
+
+                                            result.AddAttribute(
+                                                childElement.Name.Substring(elementName.Length + 1),
+                                                GetElement(listItemDoc, (listItemDoc.Body as IXmlElement)?.Value ?? string.Empty, listItemString));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var innerString = docString.TrimStart().Substring(innerChild.SpanStart, innerChild.Width);
+                                        var innerDoc = Parser.ParseText(innerString);
+
+                                        result.AddAttribute(
+                                            childElement.Name.Substring(elementName.Length + 1),
+                                            GetElement(innerDoc, (innerDoc.Body as IXmlElement)?.Value ?? string.Empty, innerString));
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                result.AddAttribute(
+                                    childElement.Name.Substring(elementName.Length + 1),
+                                    attrString);
+                            }
+
+                            var childAsString = docString.TrimStart().Substring(childElement.Start, childElement.Width);
+
+                            if (content.TrimStart().StartsWith(childAsString.TrimStart()))
+                            {
+                                content = content.TrimStart().Substring(childAsString.Length).Trim();
                             }
                         }
                         else
@@ -279,9 +317,22 @@ namespace RapidXamlToolkit.XamlAnalysis
                             {
                                 if (ncElement.Name.StartsWith($"{elementName}."))
                                 {
-                                    result.AddAttribute(
-                                        ncElement.Name.Substring(elementName.Length + 1),
-                                        docString.Substring(ncElement.Content.FullSpan.Start, ncElement.Content.FullSpan.Length));
+                                    var attrString = docString.Substring(ncElement.Content.FullSpan.Start, ncElement.Content.FullSpan.Length);
+
+                                    if (attrString.TrimStart().StartsWith("<"))
+                                    {
+                                        var attrDoc = Parser.ParseText(attrString);
+
+                                        result.AddAttribute(
+                                            ncElement.Name.Substring(elementName.Length + 1),
+                                            GetElement(attrDoc, (attrDoc.Body as IXmlElement)?.Value ?? string.Empty, attrString));
+                                    }
+                                    else
+                                    {
+                                        result.AddAttribute(
+                                            ncElement.Name.Substring(elementName.Length + 1),
+                                            attrString);
+                                    }
 
                                     var childAsString = docString.Substring(ncElement.Start, ncElement.Width);
 

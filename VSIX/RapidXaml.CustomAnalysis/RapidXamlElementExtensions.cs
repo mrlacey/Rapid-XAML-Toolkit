@@ -12,6 +12,13 @@ namespace RapidXaml
             return expected;
         }
 
+        public static RapidXamlElement AddAttribute(this RapidXamlElement expected, string name, RapidXamlElement value)
+        {
+            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, ElementValue = value });
+
+            return expected;
+        }
+
         public static RapidXamlElement AddChild(this RapidXamlElement expected, string name)
         {
             expected.Children.Add(new RapidXamlElement() { Name = name });
