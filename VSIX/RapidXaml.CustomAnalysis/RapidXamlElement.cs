@@ -110,8 +110,34 @@ namespace RapidXaml
 
         public IEnumerable<RapidXamlElement> GetDescendants(string childName)
         {
-            // TODO: implement this
-            throw new NotImplementedException();
+            foreach (var attr in this.Attributes)
+            {
+                if (!attr.HasStringValue)
+                {
+                    if (attr.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        yield return attr.ElementValue;
+                    }
+
+                    foreach (var descendant in attr.ElementValue.GetDescendants(childName))
+                    {
+                        yield return descendant;
+                    }
+                }
+            }
+
+            foreach (var child in this.GetChildren(childName))
+            {
+                yield return child;
+            }
+
+            foreach (var child in this.Children)
+            {
+                foreach (var innerChild in child.GetDescendants(childName))
+                {
+                    yield return innerChild;
+                }
+            }
         }
     }
 }
