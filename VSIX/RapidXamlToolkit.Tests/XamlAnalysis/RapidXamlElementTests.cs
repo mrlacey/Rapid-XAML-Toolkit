@@ -468,5 +468,90 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             Assert.AreEqual(3, actual.Count());
         }
+
+        [TestMethod]
+        public void GetDescendants_None_NoMatches()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+
+            var actual = sut.GetDescendants("Label");
+
+            Assert.AreEqual(0, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetDescendants_Many_NoMatches()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+            sut.AddAttribute("Content1", RapidXamlElement.Build("UserControl"));
+            sut.AddAttribute("Content2", RapidXamlElement.Build("ContentControl"));
+            sut.AddChild("Huey");
+            sut.AddChild("Dewey");
+            sut.AddChild("Louie");
+
+            var actual = sut.GetDescendants("Label");
+
+            Assert.AreEqual(0, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetDescendants_Many_OneMatch_DirectChild()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+            sut.AddAttribute("Content1", RapidXamlElement.Build("UserControl"));
+            sut.AddAttribute("Content2", RapidXamlElement.Build("ContentControl"));
+            sut.AddChild("Huey");
+            sut.AddChild("Dewey");
+            sut.AddChild("Louie");
+
+            var actual = sut.GetDescendants("Huey");
+
+            Assert.AreEqual(1, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetDescendants_Many_OneMatch_DirectAttribute()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+            sut.AddAttribute("Content1", RapidXamlElement.Build("UserControl"));
+            sut.AddAttribute("Content2", RapidXamlElement.Build("ContentControl"));
+            sut.AddChild("Huey");
+            sut.AddChild("Dewey");
+            sut.AddChild("Louie");
+
+            var actual = sut.GetDescendants("UserControl");
+
+            Assert.AreEqual(1, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetDescendants_Many_ManyMatches_NestedChildrenAndAttributes()
+        {
+            Assert.Inconclusive("Needs implementing");
+        }
+
+        [TestMethod]
+        public void Position_DirectAttributeString()
+        {
+            Assert.Inconclusive("Needs implementing");
+        }
+
+        [TestMethod]
+        public void Position_DirectAttributeElement()
+        {
+            Assert.Inconclusive("Needs implementing");
+        }
+
+        [TestMethod]
+        public void Position_DirectChild()
+        {
+            Assert.Inconclusive("Needs implementing");
+        }
+
+        [TestMethod]
+        public void Position_Multiple_DirectAttributesAndChildren()
+        {
+            Assert.Inconclusive("Needs implementing");
+        }
     }
 }

@@ -13,8 +13,8 @@ namespace RapidXaml
 
         public string Content { get; internal set; } = string.Empty;
 
-        // TODO: calculate StartPostions
-        public int StartPostion { get; internal set; }
+        // TODO: calculate Postions
+        public RapidXamlSpan Postion { get; internal set; }
 
         public List<RapidXamlAttribute> Attributes { get; internal set; } = new List<RapidXamlAttribute>();
 
@@ -114,14 +114,17 @@ namespace RapidXaml
             {
                 if (!attr.HasStringValue)
                 {
-                    if (attr.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase))
+                    if (attr.ElementValue.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase))
                     {
                         yield return attr.ElementValue;
                     }
 
-                    foreach (var descendant in attr.ElementValue.GetDescendants(childName))
+                    foreach (var child in attr.ElementValue.Children)
                     {
-                        yield return descendant;
+                        foreach (var innerChild in child.GetDescendants(childName))
+                        {
+                            yield return innerChild;
+                        }
                     }
                 }
             }

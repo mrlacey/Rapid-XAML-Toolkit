@@ -57,6 +57,7 @@
     <Compile Include="RapidXamlElement.cs" />
     <Compile Include="RapidXamlElementExtensions.cs" />
     <Compile Include="RapidXamlErrorType.cs" />
+    <Compile Include="RapidXamlSpan.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
