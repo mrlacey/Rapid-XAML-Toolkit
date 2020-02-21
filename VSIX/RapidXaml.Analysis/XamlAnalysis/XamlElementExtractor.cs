@@ -358,7 +358,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 return result;
             }
 
-            //// TODO: Cache these responses to avoid repeated parsing
+            //// TODO: Cache these responses to avoid unnecessary repeated parsing
             return GetElement(xamlElement);
         }
 

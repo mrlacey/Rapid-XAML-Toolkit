@@ -7,9 +7,6 @@ namespace RapidXaml
     {
         public string Name { get; internal set; }
 
-        // TODO: calculate attribute positions - if needed?
-        public RapidXamlSpan Postion { get; internal set; }
-
         public bool HasStringValue
         {
             get

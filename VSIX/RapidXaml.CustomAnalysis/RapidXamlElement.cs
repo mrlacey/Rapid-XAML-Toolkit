@@ -119,9 +119,9 @@ namespace RapidXaml
                         yield return attr.ElementValue;
                     }
 
-                    foreach (var child in attr.ElementValue.Children)
+                    //foreach (var child in attr.ElementValue.Children)
                     {
-                        foreach (var innerChild in child.GetDescendants(childName))
+                        foreach (var innerChild in attr.ElementValue.GetDescendants(childName))
                         {
                             yield return innerChild;
                         }

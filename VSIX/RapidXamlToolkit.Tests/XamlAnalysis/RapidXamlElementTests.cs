@@ -527,7 +527,31 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         [TestMethod]
         public void GetDescendants_Many_ManyMatches_NestedChildrenAndAttributes()
         {
-            Assert.Inconclusive("Needs implementing");
+            var sut = RapidXamlElement.Build("Parent");
+            sut.AddAttribute(
+                "Attr1",
+                RapidXamlElement.Build("AttrChild")
+                                .AddAttribute("InnerAttrChild", RapidXamlElement.Build("Label")));
+            sut.AddAttribute(
+                "Attr2",
+                RapidXamlElement.Build("AttrChild")
+                                .AddChild(RapidXamlElement.Build("Label")));
+            sut.AddChild(RapidXamlElement.Build("MyChild")
+               .AddAttribute(
+                    "MyChildAttr",
+                    RapidXamlElement.Build("MyChildInnerAttr")
+                                    .AddAttribute(
+                                        "Nested",
+                                        RapidXamlElement.Build("Label"))))
+               .AddChild(
+                    RapidXamlElement.Build("GrandChild")
+                                    .AddChild(
+                                        RapidXamlElement.Build("GreatGrandChild")
+                                                        .AddChild("Label")));
+
+            var actual = sut.GetDescendants("Label");
+
+            Assert.AreEqual(4, actual.Count());
         }
 
         [TestMethod]
