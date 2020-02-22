@@ -23,6 +23,23 @@ namespace RapidXaml
             return result;
         }
 
+        public static AnalysisActions AddInvalidDescendant(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement descendant)
+        {
+            var result = analysisActions;
+
+            result.Actions.Add(new AnalysisAction
+            {
+                Action = ActionType.HighlightWithoutAction,
+                Code = code,
+                Description = description,
+                ErrorType = errorType,
+                ActionText = actionText,
+                Location = descendant.Location,
+            });
+
+            return result;
+        }
+
         public static AnalysisActions Highlight(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText)
         {
             var result = analysisActions;

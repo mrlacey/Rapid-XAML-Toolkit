@@ -45,8 +45,16 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 InsertPos = offset,
                                 Logger = this.Logger,
                                 Snapshot = snapshot,
-                                Span = new Span(offset, xamlElement.Length),
                             };
+
+                            if (action.Location == null)
+                            {
+                                tagDeps.Span = new Span(offset, xamlElement.Length);
+                            }
+                            else
+                            {
+                                tagDeps.Span = action.Location.ToSpan();
+                            }
 
                             tags.TryAdd(
                                 new CustomAnalysisTag(tagDeps),

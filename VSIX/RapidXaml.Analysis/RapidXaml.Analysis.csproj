@@ -98,6 +98,7 @@
     <Compile Include="XamlAnalysis\Attributes.cs" />
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\FooAnalysis.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\NotReallyCustomAnalysis.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\TwoPaneViewAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomProcessorWrapper.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
     <Compile Include="XamlAnalysis\RapidXamlParsingEventArgs.cs" />
     <Compile Include="XamlAnalysis\RapidXamlRunningDocTableEvents.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlSpanExtensions.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagger.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagProvider.cs" />
     <Compile Include="XamlAnalysis\SuggestedActionsSource.cs" />
@@ -274,11 +276,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LICENSE.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\RapidXamlAnalysis.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
   </ItemGroup>

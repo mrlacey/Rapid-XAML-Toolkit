@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 
 namespace RapidXaml
@@ -12,6 +13,14 @@ namespace RapidXaml
             get
             {
                 return AnalysisActions.CreateNone();
+            }
+        }
+
+        public static AnalysisActions EmptyList
+        {
+            get
+            {
+                return AnalysisActions.CreateEmpty();
             }
         }
 
@@ -28,6 +37,15 @@ namespace RapidXaml
             return result;
         }
 
+        public static AnalysisActions AddInvalidDescendant(RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement descendant)
+        {
+            var result = new AnalysisActions();
+
+            result.AddInvalidDescendant(errorType, code, description, actionText, descendant);
+
+            return result;
+        }
+
         public static AnalysisActions Highlight(RapidXamlErrorType errorType, string code, string description, string actionText)
         {
             var result = new AnalysisActions();
@@ -40,6 +58,11 @@ namespace RapidXaml
         private static AnalysisActions CreateNone()
         {
             return new AnalysisActions { IsNone = true };
+        }
+
+        private static AnalysisActions CreateEmpty()
+        {
+            return new AnalysisActions();
         }
     }
 }

@@ -5,8 +5,23 @@ namespace RapidXaml
 {
     public class RapidXamlSpan
     {
-        public int Start { get; set; }
+        public RapidXamlSpan()
+        {
+        }
 
-        public int Length { get; set; }
+        public RapidXamlSpan(int start, int length)
+        {
+            this.Start = start;
+            this.Length = length;
+        }
+
+        public int Start { get; set; } = -1;
+
+        public int Length { get; set; } = -1;
+
+        public override string ToString()
+        {
+            return $"({this.Start}, {this.Length})";
+        }
     }
 }

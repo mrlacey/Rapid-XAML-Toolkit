@@ -553,29 +553,5 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             Assert.AreEqual(4, actual.Count());
         }
-
-        [TestMethod]
-        public void Position_DirectAttributeString()
-        {
-            Assert.Inconclusive("Needs implementing");
-        }
-
-        [TestMethod]
-        public void Position_DirectAttributeElement()
-        {
-            Assert.Inconclusive("Needs implementing");
-        }
-
-        [TestMethod]
-        public void Position_DirectChild()
-        {
-            Assert.Inconclusive("Needs implementing");
-        }
-
-        [TestMethod]
-        public void Position_Multiple_DirectAttributesAndChildren()
-        {
-            Assert.Inconclusive("Needs implementing");
-        }
     }
 }

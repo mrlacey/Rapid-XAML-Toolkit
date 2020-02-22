@@ -13,16 +13,15 @@ namespace RapidXaml
 
         public string Content { get; internal set; } = string.Empty;
 
-        // TODO: calculate Postions
-        public RapidXamlSpan Postion { get; internal set; }
+        public RapidXamlSpan Location { get; internal set; } = new RapidXamlSpan();
 
         public List<RapidXamlAttribute> Attributes { get; internal set; } = new List<RapidXamlAttribute>();
 
         public List<RapidXamlElement> Children { get; internal set; } = new List<RapidXamlElement>();
 
-        public static RapidXamlElement Build(string name)
+        public static RapidXamlElement Build(string name, int start = -1, int length = -1)
         {
-            return new RapidXamlElement { Name = name };
+            return new RapidXamlElement { Name = name, Location = new RapidXamlSpan(start, length) };
         }
 
         public override string ToString()
@@ -119,12 +118,9 @@ namespace RapidXaml
                         yield return attr.ElementValue;
                     }
 
-                    //foreach (var child in attr.ElementValue.Children)
+                    foreach (var innerChild in attr.ElementValue.GetDescendants(childName))
                     {
-                        foreach (var innerChild in attr.ElementValue.GetDescendants(childName))
-                        {
-                            yield return innerChild;
-                        }
+                        yield return innerChild;
                     }
                 }
             }

@@ -10,6 +10,7 @@ using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
+using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
@@ -80,7 +81,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 var type = this.GetType();
                 var name = type.Name;
 
-                if (type.Equals(typeof(CustomAnalysisAction)))
+                if (type.Equals(typeof(NotReallyCustomAnalysis)))
+                {
+                    name = type.Name;
+                }
+                else if (type.Equals(typeof(CustomAnalysisAction)))
                 {
                     name += $" {(this as CustomAnalysisAction).Tag.ErrorCode}";
                 }

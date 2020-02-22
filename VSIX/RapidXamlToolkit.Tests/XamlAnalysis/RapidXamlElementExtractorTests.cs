@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
 using RapidXamlToolkit.XamlAnalysis;
@@ -950,6 +952,355 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             RapidXamlElementAssert.AreEqual(expected.Attributes[1].ElementValue, actual.Attributes[1].ElementValue);
 
             RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue.Attributes[1].ElementValue, actual.Attributes[0].ElementValue.Attributes[1].ElementValue);
+        }
+
+        [TestMethod]
+        public void Position_Root_OneLine()
+        {
+            var xaml = @"<Grid><Label /></Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(0, sut.Location.Start);
+            Assert.AreEqual(22, sut.Location.Length);
+            Assert.AreEqual(xaml, xaml.Substring(sut.Location.Start, sut.Location.Length));
+        }
+
+        [TestMethod]
+        public void Position_Root_MultiLine()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "    <Label />" +
+ Environment.NewLine + "</Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var nlLength = Environment.NewLine.Length;
+
+            Assert.AreEqual(0, sut.Location.Start);
+            Assert.AreEqual(26 + (2 * nlLength), sut.Location.Length);
+            Assert.AreEqual(xaml, xaml.Substring(sut.Location.Start, sut.Location.Length));
+        }
+
+        [TestMethod]
+        public void Position_DirectAttributeElement_OneLine()
+        {
+            var xaml = @"<Grid><Grid.Content><Label /></Grid.Content></Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var actual = sut.GetDescendants("Label").First().Location;
+
+            Assert.AreEqual(20, actual.Start);
+            Assert.AreEqual(9, actual.Length);
+            Assert.AreEqual("<Label />", xaml.Substring(actual.Start, actual.Length));
+        }
+
+        [TestMethod]
+        public void Position_DirectAttributeElement_WithLineBreaks()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "    <Grid.Content>" +
+ Environment.NewLine + "        <Label></Label>" +
+ Environment.NewLine + "    </Grid.Content>" +
+ Environment.NewLine + "</Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var actual = sut.GetDescendants("Label").First().Location;
+
+            var nlLength = Environment.NewLine.Length;
+
+            Assert.AreEqual(32 + (2 * nlLength), actual.Start);
+            Assert.AreEqual(15, actual.Length);
+            Assert.AreEqual("<Label></Label>", xaml.Substring(actual.Start, actual.Length));
+        }
+
+        [TestMethod]
+        public void Position_DirectAttributeElement_SelfClosing_WithLineBreaks()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "    <Grid.Content>" +
+ Environment.NewLine + "        <Label />" +
+ Environment.NewLine + "    </Grid.Content>" +
+ Environment.NewLine + "</Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var actual = sut.GetDescendants("Label").First().Location;
+
+            var nlLength = Environment.NewLine.Length;
+
+            Assert.AreEqual(32 + (2 * nlLength), actual.Start);
+            Assert.AreEqual(9, actual.Length);
+            Assert.AreEqual("<Label />", xaml.Substring(actual.Start, actual.Length));
+        }
+
+        [TestMethod]
+        public void Position_TwoDirectAttributeElements_WithLineBreaks()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "    <Grid.Content>" +
+ Environment.NewLine + "        <Label />" +
+ Environment.NewLine + "        <Image />" +
+ Environment.NewLine + "    </Grid.Content>" +
+ Environment.NewLine + "</Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var lbl = sut.GetDescendants("Label").First().Location;
+            var img = sut.GetDescendants("Image").First().Location;
+
+            var nlLength = Environment.NewLine.Length;
+
+            Assert.AreEqual(32 + (2 * nlLength), lbl.Start);
+            Assert.AreEqual(9, lbl.Length);
+            Assert.AreEqual("<Label />", xaml.Substring(lbl.Start, lbl.Length));
+
+            Assert.AreEqual(49 + (3 * nlLength), img.Start);
+            Assert.AreEqual(9, img.Length);
+            Assert.AreEqual("<Image />", xaml.Substring(img.Start, img.Length));
+        }
+
+        [TestMethod]
+        public void Position_DirectChild_OneLine()
+        {
+            var xaml = "<Grid><TextBlock /></Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var actual = sut.GetDescendants("TextBlock").First().Location;
+
+            Assert.AreEqual(6, actual.Start);
+            Assert.AreEqual(13, actual.Length);
+            Assert.AreEqual("<TextBlock />", xaml.Substring(actual.Start, actual.Length));
+        }
+
+        [TestMethod]
+        public void Position_DirectChild_WithLineBreaks()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "    <TextBlock></TextBlock>" +
+ Environment.NewLine + "</Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var actual = sut.GetDescendants("TextBlock").First().Location;
+
+            var nlLength = Environment.NewLine.Length;
+
+            Assert.AreEqual(10 + (1 * nlLength), actual.Start);
+            Assert.AreEqual(23, actual.Length);
+            Assert.AreEqual("<TextBlock></TextBlock>", xaml.Substring(actual.Start, actual.Length));
+        }
+
+        [TestMethod]
+        public void Position_DirectChild_SelfClosing_WithLineBreaks()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "    <TextBlock />" +
+ Environment.NewLine + "</Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var actual = sut.GetDescendants("TextBlock").First().Location;
+
+            var nlLength = Environment.NewLine.Length;
+
+            Assert.AreEqual(10 + (1 * nlLength), actual.Start);
+            Assert.AreEqual(13, actual.Length);
+            Assert.AreEqual("<TextBlock />", xaml.Substring(actual.Start, actual.Length));
+        }
+
+        [TestMethod]
+        public void Position_TwoDirectChildren_OneLine()
+        {
+            var xaml = "<Grid><TextBlock /><ListView></ListView></Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var txtb = sut.GetDescendants("TextBlock").First().Location;
+
+            Assert.AreEqual(6, txtb.Start);
+            Assert.AreEqual(13, txtb.Length);
+            Assert.AreEqual("<TextBlock />", xaml.Substring(txtb.Start, txtb.Length));
+
+            var lv = sut.GetDescendants("ListView").First().Location;
+
+            Assert.AreEqual(19, lv.Start);
+            Assert.AreEqual(21, lv.Length);
+            Assert.AreEqual("<ListView></ListView>", xaml.Substring(lv.Start, lv.Length));
+        }
+
+        [TestMethod]
+        public void Position_TwoDirectChildren_WithLineBreaks()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "    <TextBlock />" +
+ Environment.NewLine + "    <ListView></ListView>" +
+ Environment.NewLine + "</Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var actual = sut.GetDescendants("TextBlock").First().Location;
+
+            var nlLength = Environment.NewLine.Length;
+
+            Assert.AreEqual(10 + (1 * nlLength), actual.Start);
+            Assert.AreEqual(13, actual.Length);
+            Assert.AreEqual("<TextBlock />", xaml.Substring(actual.Start, actual.Length));
+
+            var lv = sut.GetDescendants("ListView").First().Location;
+
+            Assert.AreEqual(27 + (2 * nlLength), lv.Start);
+            Assert.AreEqual(21, lv.Length);
+            Assert.AreEqual("<ListView></ListView>", xaml.Substring(lv.Start, lv.Length));
+        }
+
+        [TestMethod]
+        public void Position_FourDirectChildren_WithLineBreaks_NoPadding()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "<TextBlock />" +
+ Environment.NewLine + "<ListView></ListView>" +
+ Environment.NewLine + "<Image />" +
+ Environment.NewLine + "<Rectangle Fill=\"Red\"></Rectangle>" +
+ Environment.NewLine + "</Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var actual = sut.GetDescendants("TextBlock").First().Location;
+
+            var nlLength = Environment.NewLine.Length;
+
+            Assert.AreEqual(6 + (1 * nlLength), actual.Start);
+            Assert.AreEqual(13, actual.Length);
+            Assert.AreEqual("<TextBlock />", xaml.Substring(actual.Start, actual.Length));
+
+            var lv = sut.GetDescendants("ListView").First().Location;
+
+            Assert.AreEqual(19 + (2 * nlLength), lv.Start);
+            Assert.AreEqual(21, lv.Length);
+            Assert.AreEqual("<ListView></ListView>", xaml.Substring(lv.Start, lv.Length));
+
+            var image = sut.GetDescendants("Image").First().Location;
+
+            Assert.AreEqual(40 + (3 * nlLength), image.Start);
+            Assert.AreEqual(9, image.Length);
+            Assert.AreEqual("<Image />", xaml.Substring(image.Start, image.Length));
+
+            var rect = sut.GetDescendants("Rectangle").First().Location;
+
+            Assert.AreEqual(49 + (4 * nlLength), rect.Start);
+            Assert.AreEqual(34, rect.Length);
+            Assert.AreEqual("<Rectangle Fill=\"Red\"></Rectangle>", xaml.Substring(rect.Start, rect.Length));
+        }
+
+        [TestMethod]
+        public void Position_Multiple_DirectAttributesAndChildren()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "    <Grid.Content1>" +
+ Environment.NewLine + "        <Label />" +
+ Environment.NewLine + "    </Grid.Content1>" +
+ Environment.NewLine + "    <Grid.Content2>" +
+ Environment.NewLine + "        <Image />" +
+ Environment.NewLine + "    </Grid.Content2>" +
+ Environment.NewLine + "    <ListView></ListView>" +
+ Environment.NewLine + "    <TextBlock />" +
+ Environment.NewLine + "</Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var lbl = sut.GetDescendants("Label").First().Location;
+            var img = sut.GetDescendants("Image").First().Location;
+
+            var nlLength = Environment.NewLine.Length;
+
+            Assert.AreEqual(33 + (2 * nlLength), lbl.Start);
+            Assert.AreEqual(9, lbl.Length);
+            Assert.AreEqual("<Label />", xaml.Substring(lbl.Start, lbl.Length));
+
+            Assert.AreEqual(89 + (5 * nlLength), img.Start);
+            Assert.AreEqual(9, img.Length);
+            Assert.AreEqual("<Image />", xaml.Substring(img.Start, img.Length));
+
+            var lv = sut.GetDescendants("ListView").First().Location;
+
+            Assert.AreEqual(122 + (7 * nlLength), lv.Start);
+            Assert.AreEqual(21, lv.Length);
+            Assert.AreEqual("<ListView></ListView>", xaml.Substring(lv.Start, lv.Length));
+
+            var txtbx = sut.GetDescendants("TextBlock").First().Location;
+
+            Assert.AreEqual(147 + (8 * nlLength), txtbx.Start);
+            Assert.AreEqual(13, txtbx.Length);
+            Assert.AreEqual("<TextBlock />", xaml.Substring(txtbx.Start, txtbx.Length));
+        }
+
+        [TestMethod]
+        public void Position_Multiple_NestedAttributesAndChildren()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "    <Grid.Content1>" +
+ Environment.NewLine + "        <StackPanel>" +
+ Environment.NewLine + "            <Grid>" +
+ Environment.NewLine + "                <MyPanel Attr=\"Awesome\">" +
+ Environment.NewLine + "                    <Label Text=\"One\" />" +
+ Environment.NewLine + "                    <Label>Two</Label>" +
+ Environment.NewLine + "                </MyPanel>" +
+ Environment.NewLine + "            </Grid>" +
+ Environment.NewLine + "        </StackPanel>" +
+ Environment.NewLine + "    </Grid.Content1>" +
+ Environment.NewLine + "    <Grid.Content2>" +
+ Environment.NewLine + "        <StackPanel>" +
+ Environment.NewLine + "            <Grid>" +
+ Environment.NewLine + "                <MyPanel>" +
+ Environment.NewLine + "                    <MyPanel.Content>" +
+ Environment.NewLine + "                        <Label Text=\"Three\" />" +
+ Environment.NewLine + "                    </MyPanel.Content>" +
+ Environment.NewLine + "                </MyPanel>" +
+ Environment.NewLine + "            </Grid>" +
+ Environment.NewLine + "        </StackPanel>" +
+ Environment.NewLine + "    </Grid.Content2>" +
+ Environment.NewLine + "    <ListView>" +
+ Environment.NewLine + "        <Grid>" +
+ Environment.NewLine + "            <Grid.AltContent>" +
+ Environment.NewLine + "                <MyPanel Attr=\"Testy\">" +
+ Environment.NewLine + "                    <Label Text=\"4\" />" +
+ Environment.NewLine + "                </MyPanel>" +
+ Environment.NewLine + "            </Grid.AltContent>" +
+ Environment.NewLine + "            <RelativePanel>" +
+ Environment.NewLine + "                <Label>Five</Label>" +
+ Environment.NewLine + "            </RelativePanel>" +
+ Environment.NewLine + "        </Grid>" +
+ Environment.NewLine + "    </ListView>" +
+ Environment.NewLine + "    <TextBlock />" +
+ Environment.NewLine + "</Grid>";
+
+            var sut = XamlElementExtractor.GetElement(xaml);
+
+            var labels = sut.GetDescendants("Label").ToList();
+
+            var lbl1 = labels[0].Location;
+
+            Assert.AreEqual("<Label Text=\"One\" />", xaml.Substring(lbl1.Start, lbl1.Length));
+
+            var lbl2 = labels[1].Location;
+
+            Assert.AreEqual("<Label>Two</Label>", xaml.Substring(lbl2.Start, lbl2.Length));
+
+            var lbl3 = labels[2].Location;
+
+            Assert.AreEqual("<Label Text=\"Three\" />", xaml.Substring(lbl3.Start, lbl3.Length));
+
+            var lbl4 = labels[3].Location;
+
+            Assert.AreEqual("<Label Text=\"4\" />", xaml.Substring(lbl4.Start, lbl4.Length));
+
+            var lbl5 = labels[4].Location;
+
+            Assert.AreEqual("<Label>Five</Label>", xaml.Substring(lbl5.Start, lbl5.Length));
         }
     }
 }

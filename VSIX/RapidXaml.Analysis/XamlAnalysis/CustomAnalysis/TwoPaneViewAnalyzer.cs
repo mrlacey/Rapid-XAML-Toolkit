@@ -5,7 +5,7 @@ using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class TwoPaneViewAnalyzer : RapidXaml.CustomAnalysis
+    public class TwoPaneViewAnalyzer : NotReallyCustomAnalysis
     {
         public override string TargetType() => "TwoPaneView";
 
@@ -13,11 +13,21 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
         {
             if (element.ContainsDescendant("TwoPaneView"))
             {
-                return AnalysisActions.Highlight(
+                var invalidDescendants = element.GetDescendants("TwoPaneView");
+
+                var result = AnalysisActions.EmptyList;
+
+                foreach (var desc in invalidDescendants)
+                {
+                    result.AddInvalidDescendant(
                     RapidXamlErrorType.Error,
                     code: "WinUI-2PV",
                     description: "Do not put a TwoPaneView inside the pane of another TwoPaneview.",
-                    actionText: "Refactor the code to remove this.");
+                    actionText: "Refactor the code to remove this.",
+                    descendant: desc);
+                }
+
+                return result;
             }
             else
             {
