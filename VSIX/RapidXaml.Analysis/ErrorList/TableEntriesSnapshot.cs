@@ -125,6 +125,8 @@ namespace RapidXamlToolkit.ErrorList
                     return true;
                 case StandardTableKeyNames.ErrorCodeToolTip:
                 case StandardTableKeyNames.HelpLink:
+                    // TODO: Point to MoreInfoUrl if specified
+                    // TODO: only open this link if ErrorCode starts "RXT"
                     content = $"https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/warnings/{error.ErrorCode}.md";
                     return true;
                 default:

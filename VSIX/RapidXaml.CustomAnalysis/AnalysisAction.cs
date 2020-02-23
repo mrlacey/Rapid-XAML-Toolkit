@@ -20,5 +20,7 @@ namespace RapidXaml
         public string Value { get; internal set; }
 
         public RapidXamlSpan Location { get; internal set; }
+
+        public string MoreInfoUrl { get; internal set; }
     }
 }
