@@ -81,6 +81,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 var type = this.GetType();
                 var name = type.Name;
 
+                // TODO: handle NotRellyCustom analysis differently
                 if (type.Equals(typeof(NotReallyCustomAnalysis)))
                 {
                     name = type.Name;
