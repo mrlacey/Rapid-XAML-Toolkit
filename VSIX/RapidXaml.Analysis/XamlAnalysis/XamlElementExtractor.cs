@@ -262,7 +262,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     }
                                     else
                                     {
-                                        var innerString = xaml.TrimStart().Substring(innerChild.SpanStart, innerChild.Width);
+                                        var innerString = xaml.Substring(innerChild.SpanStart, innerChild.Width);
 
                                         result.AddAttribute(
                                             childElement.Name.Substring(elementName.Length + 1),
