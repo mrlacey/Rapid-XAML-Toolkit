@@ -82,12 +82,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 var name = type.Name;
 
                 // TODO: handle NotRellyCustom analysis differently
+                // Treat all analyzers from this extension the same, whether they're built on CustomAnalysis or not
                 if (type.Equals(typeof(NotReallyCustomAnalysis)))
                 {
                     name = type.Name;
                 }
                 else if (type.Equals(typeof(CustomAnalysisAction)))
                 {
+                    // If from another source, Track full type name & error code (as additional info)
                     name += $" {(this as CustomAnalysisAction).Tag.ErrorCode}";
                 }
 
