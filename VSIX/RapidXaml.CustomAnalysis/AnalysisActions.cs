@@ -37,11 +37,11 @@ namespace RapidXaml
             return result;
         }
 
-        public static AnalysisActions AddInvalidDescendant(RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement descendant)
+        public static AnalysisActions AddInvalidDescendant(RapidXamlErrorType errorType, string code, string description, RapidXamlElement descendant)
         {
             var result = new AnalysisActions();
 
-            result.AddInvalidDescendant(errorType, code, description, actionText, descendant);
+            result.AddInvalidDescendant(errorType, code, description, descendant);
 
             return result;
         }

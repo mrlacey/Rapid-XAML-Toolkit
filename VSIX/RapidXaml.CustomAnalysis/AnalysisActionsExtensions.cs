@@ -23,7 +23,7 @@ namespace RapidXaml
             return result;
         }
 
-        public static AnalysisActions AddInvalidDescendant(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement descendant)
+        public static AnalysisActions AddInvalidDescendant(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, RapidXamlElement descendant)
         {
             var result = analysisActions;
 
@@ -33,7 +33,6 @@ namespace RapidXaml
                 Code = code,
                 Description = description,
                 ErrorType = errorType,
-                ActionText = actionText,
                 Location = descendant.Location,
             });
 
