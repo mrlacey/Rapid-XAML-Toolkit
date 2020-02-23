@@ -49,11 +49,11 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             if (action.Location == null)
                             {
-                                tagDeps.Span = new Span(offset, xamlElement.Length);
+                                tagDeps.Span = new Span(offset, tagDeps.ElementName.Length); // Highlight only the opening element name
                             }
                             else
                             {
-                                tagDeps.Span = action.Location.ToSpan();
+                                tagDeps.Span = action.Location.ToSpanPlusStartPos(offset);
                             }
 
                             tags.TryAdd(

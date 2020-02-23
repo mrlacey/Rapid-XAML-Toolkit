@@ -8,9 +8,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class RapidXamlSpanExtensions
     {
-        public static Span ToSpan(this RapidXamlSpan source)
+        public static Span ToSpanPlusStartPos(this RapidXamlSpan source, int fileStartPos)
         {
-            return new Span(source.Start, source.Length);
+            return new Span(fileStartPos + source.Start, source.Length);
         }
     }
 }
