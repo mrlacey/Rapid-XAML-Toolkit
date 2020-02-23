@@ -151,7 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\RapidXamlPackage.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <AdditionalFiles Include="..\todo-warn.config" Condition=" '$(Configuration)' == 'Release' ">
       <Link>todo-warn.config</Link>
