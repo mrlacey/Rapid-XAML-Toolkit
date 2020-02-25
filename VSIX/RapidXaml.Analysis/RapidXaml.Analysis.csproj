@@ -136,6 +136,7 @@
     <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlElementExtractor.cs" />
     <Compile Include="XamlAnalysis\RapidXamlParsingEventArgs.cs" />
     <Compile Include="XamlAnalysis\RapidXamlRunningDocTableEvents.cs" />
     <Compile Include="XamlAnalysis\RapidXamlSpanExtensions.cs" />

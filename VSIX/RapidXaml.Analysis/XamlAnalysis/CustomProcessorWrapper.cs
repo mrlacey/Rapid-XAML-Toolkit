@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
-            var rxElement = XamlElementExtractor.GetElement(xamlElement);
+            var rxElement = RapidXamlElementExtractor.GetElement(xamlElement);
 
             var analysisActions = this.customProcessor.Analyze(rxElement);
 

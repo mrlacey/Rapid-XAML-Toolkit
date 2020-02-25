@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var expected = RapidXamlElement.Build("Grid");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -31,7 +31,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var expected = RapidXamlElement.Build("Grid");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -44,7 +44,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var expected = RapidXamlElement.Build("Grid");
             expected.AddAttribute("Height", "Auto");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var expected = RapidXamlElement.Build("Grid");
             expected.AddAttribute("Height", "Auto");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -71,7 +71,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             expected.AddAttribute("Height", "Auto");
             expected.AddAttribute("Width", "100");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -85,7 +85,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             expected.AddAttribute("Height", "Auto");
             expected.AddAttribute("Width", "100");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -98,7 +98,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var expected = RapidXamlElement.Build("TextBlock");
             expected.SetContent("Hello World");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -111,7 +111,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var expected = RapidXamlElement.Build("Grid");
             expected.AddAttribute("Height", "Auto");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -125,7 +125,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             expected.AddChild("Label");
             expected.SetContent("<Label />");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -143,7 +143,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             expected.AddChild(child);
             expected.SetContent("<Label>Test</Label>");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -158,7 +158,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             expected.AddChild("Label");
             expected.SetContent("<TextBlock /><Label>Test</Label>");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -174,7 +174,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             expected.AddChild("Three");
             expected.SetContent("<TextBlock /><Label>Test</Label><Three />");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -191,7 +191,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             expected.AddChild("Four");
             expected.SetContent("<TextBlock /><Label>Test</Label><Three /><Four />");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -209,7 +209,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             expected.AddChild("Five");
             expected.SetContent("<TextBlock /><Label>Test</Label><Three /><Four /><Five />");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -229,7 +229,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             expected.AddChild(eChild);
             expected.SetContent(@"<Label Height=""50"" Width=""100"">Test</Label>");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -247,7 +247,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             expected.AddChild(eChild);
             expected.SetContent(@"<Label Height=""50"" />");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -270,7 +270,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             expected.AddChild(child2);
             expected.SetContent(@"<TextBlock Text=""Hello"" /><Label Width=""10"">Test</Label>");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -334,7 +334,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         <GrandChild Name=""Dana"" />
     </MyChild>");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -483,7 +483,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         </GrandChild>
     </MyChild>");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -632,7 +632,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         </Child2GrandChild2>
     </Child2>");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -781,7 +781,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         </tst:Child2GrandChild2>
     </tst:Child2>");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -860,7 +860,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         </tst:Child1GrandChild1>
     </tst:Child1>");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
@@ -877,7 +877,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             expected.AddAttribute("Content", attrElement);
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
             RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue, actual.Attributes[0].ElementValue);
@@ -906,7 +906,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             expected.AddAttribute("Content1", innerGrid);
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
             RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue, actual.Attributes[0].ElementValue);
@@ -945,7 +945,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             expected.AddAttribute("Content2", labelElement);
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
             RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue, actual.Attributes[0].ElementValue);
@@ -959,7 +959,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = @"<Grid><Label /></Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             Assert.AreEqual(0, sut.Location.Start);
             Assert.AreEqual(22, sut.Location.Length);
@@ -973,7 +973,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    <Label />" +
  Environment.NewLine + "</Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var nlLength = Environment.NewLine.Length;
 
@@ -987,7 +987,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = @"<Grid><Grid.Content><Label /></Grid.Content></Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var actual = sut.GetDescendants("Label").First().Location;
 
@@ -1005,7 +1005,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    </Grid.Content>" +
  Environment.NewLine + "</Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var actual = sut.GetDescendants("Label").First().Location;
 
@@ -1025,7 +1025,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    </Grid.Content>" +
  Environment.NewLine + "</Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var actual = sut.GetDescendants("Label").First().Location;
 
@@ -1046,7 +1046,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    </Grid.Content>" +
  Environment.NewLine + "</Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var lbl = sut.GetDescendants("Label").First().Location;
             var img = sut.GetDescendants("Image").First().Location;
@@ -1067,7 +1067,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = "<Grid><TextBlock /></Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var actual = sut.GetDescendants("TextBlock").First().Location;
 
@@ -1083,7 +1083,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    <TextBlock></TextBlock>" +
  Environment.NewLine + "</Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var actual = sut.GetDescendants("TextBlock").First().Location;
 
@@ -1101,7 +1101,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    <TextBlock />" +
  Environment.NewLine + "</Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var actual = sut.GetDescendants("TextBlock").First().Location;
 
@@ -1117,7 +1117,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = "<Grid><TextBlock /><ListView></ListView></Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var txtb = sut.GetDescendants("TextBlock").First().Location;
 
@@ -1140,7 +1140,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    <ListView></ListView>" +
  Environment.NewLine + "</Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var actual = sut.GetDescendants("TextBlock").First().Location;
 
@@ -1167,7 +1167,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "<Rectangle Fill=\"Red\"></Rectangle>" +
  Environment.NewLine + "</Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var actual = sut.GetDescendants("TextBlock").First().Location;
 
@@ -1210,7 +1210,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    <TextBlock />" +
  Environment.NewLine + "</Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var lbl = sut.GetDescendants("Label").First().Location;
             var img = sut.GetDescendants("Image").First().Location;
@@ -1278,7 +1278,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    <TextBlock />" +
  Environment.NewLine + "</Grid>";
 
-            var sut = XamlElementExtractor.GetElement(xaml);
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
 
             var labels = sut.GetDescendants("Label").ToList();
 

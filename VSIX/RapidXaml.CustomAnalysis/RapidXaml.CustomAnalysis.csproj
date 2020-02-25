@@ -47,11 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\RapidXaml.Analysis\XamlAnalysis\RapidXamlElementExtractor.cs">
+      <Link>RapidXamlElementExtractor.cs</Link>
+    </Compile>
     <Compile Include="ActionType.cs" />
     <Compile Include="AnalysisAction.cs" />
     <Compile Include="AnalysisActions.cs" />
     <Compile Include="AnalysisActionsExtensions.cs" />
     <Compile Include="CustomAnalysis.cs" />
+    <Compile Include="CustomAnalysisTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlAttribute.cs" />
     <Compile Include="RapidXamlElement.cs" />
@@ -68,6 +72,9 @@
     <None Include="CustomAnalysis.snk" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="GuiLabs.Language.Xml">
+      <Version>1.2.46</Version>
+    </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

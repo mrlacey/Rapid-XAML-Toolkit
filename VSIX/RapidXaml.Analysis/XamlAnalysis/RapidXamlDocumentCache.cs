@@ -115,6 +115,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             TableDataSource.Instance.CleanErrors(file);
         }
 
+        // TODO: be careful when locking this as called from Add
         public static void Update(string file, ITextSnapshot snapshot)
         {
             var snapshotText = snapshot.GetText();

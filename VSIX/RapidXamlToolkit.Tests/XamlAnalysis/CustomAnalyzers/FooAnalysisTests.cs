@@ -16,7 +16,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
         {
             var xaml = @"<Foo />";
 
-            var rxElement = XamlElementExtractor.GetElement(xaml);
+            var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = new FooAnalysis();
 
@@ -31,7 +31,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
         {
             var xaml = "<Foo Bar=\"Enabled\">";
 
-            var rxElement = XamlElementExtractor.GetElement(xaml);
+            var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = new FooAnalysis();
 

@@ -41,6 +41,12 @@
     <NoWarn>,1573,1591,1712,NU1605,NU1608</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>RapidXamlToolkitTestsKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -106,6 +112,7 @@
     <Compile Include="TestFileSystem.cs" />
     <Compile Include="TestProfile.cs" />
     <Compile Include="TestVisualStudioAbstraction.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\CustomAnalysisTestHelperTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\FooAnalysisTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\TwoPaneViewAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
@@ -157,6 +164,7 @@
       <Link>todo-warn.config</Link>
     </AdditionalFiles>
     <None Include="app.config" />
+    <None Include="RapidXamlToolkitTestsKey.snk" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TestLibrary.dll">

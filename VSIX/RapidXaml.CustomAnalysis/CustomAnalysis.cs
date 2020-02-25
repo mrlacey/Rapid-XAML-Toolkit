@@ -3,7 +3,6 @@
 
 namespace RapidXaml
 {
-    // TODO: Need a way to easily test classes based on this.
     public abstract class CustomAnalysis
     {
         public abstract string TargetType();

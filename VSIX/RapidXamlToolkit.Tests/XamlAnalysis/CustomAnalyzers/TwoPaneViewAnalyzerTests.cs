@@ -23,7 +23,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
     </TwoPaneView.Pane2>
 </TwoPaneView>";
 
-            var rxElement = XamlElementExtractor.GetElement(xaml);
+            var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = new TwoPaneViewAnalyzer();
 
@@ -45,7 +45,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
     </TwoPaneView.Pane2>
 </TwoPaneView>";
 
-            var rxElement = XamlElementExtractor.GetElement(xaml);
+            var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = new TwoPaneViewAnalyzer();
 
@@ -67,7 +67,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
     </TwoPaneView.Pane2>
 </TwoPaneView>";
 
-            var rxElement = XamlElementExtractor.GetElement(xaml);
+            var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = new TwoPaneViewAnalyzer();
 
@@ -92,7 +92,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
     </TwoPaneView.Pane2>
 </TwoPaneView>";
 
-            var rxElement = XamlElementExtractor.GetElement(xaml);
+            var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = new TwoPaneViewAnalyzer();
 

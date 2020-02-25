@@ -310,7 +310,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var expected = RapidXamlElement.Build("demo:Foo");
 
-            var actual = XamlElementExtractor.GetElement(xaml);
+            var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
         }
