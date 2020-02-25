@@ -122,9 +122,9 @@ namespace RapidXamlToolkit.XamlAnalysis
             return processors;
         }
 
-        public static List<RapidXaml.CustomAnalysis> GetCustomProcessors()
+        public static List<RapidXaml.CustomAnalyzer> GetCustomProcessors()
         {
-            var result = new List<RapidXaml.CustomAnalysis>();
+            var result = new List<RapidXaml.CustomAnalyzer>();
 
             //// TODO: Do MEF magic to find other custom processors here
 

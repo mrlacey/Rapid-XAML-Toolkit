@@ -5,7 +5,7 @@ using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class FooAnalysis : RapidXaml.CustomAnalysis
+    public class FooAnalysis : RapidXaml.CustomAnalyzer
     {
         public override string TargetType() => "Foo";
 

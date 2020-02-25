@@ -3,7 +3,7 @@
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public abstract class NotReallyCustomAnalysis : RapidXaml.CustomAnalysis
+    public abstract class NotReallyCustomAnalyzer : RapidXaml.CustomAnalyzer
     {
     }
 }

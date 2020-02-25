@@ -5,7 +5,7 @@ using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class TwoPaneViewAnalyzer : NotReallyCustomAnalysis
+    public class TwoPaneViewAnalyzer : NotReallyCustomAnalyzer
     {
         public override string TargetType() => "TwoPaneView";
 
