@@ -200,6 +200,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             return true;
         }
 
+        // TODO: move this into CustomAnalysis library
         public static RapidXamlElement GetElement(string xamlElement)
         {
             RapidXamlElement GetElement(string xaml, int startOffset)
