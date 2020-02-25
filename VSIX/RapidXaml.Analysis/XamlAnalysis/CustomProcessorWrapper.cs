@@ -11,9 +11,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class CustomProcessorWrapper : XamlElementProcessor
     {
-        private readonly RapidXaml.CustomAnalysis customProcessor;
+        private readonly RapidXaml.CustomAnalyzer customProcessor;
 
-        public CustomProcessorWrapper(RapidXaml.CustomAnalysis customProcessor, ProjectType projType, ILogger logger)
+        public CustomProcessorWrapper(RapidXaml.CustomAnalyzer customProcessor, ProjectType projType, ILogger logger)
             : base(ProjectType.Any, logger)
         {
             this.customProcessor = customProcessor;

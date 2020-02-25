@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>CustomAnalysis.snk</AssemblyOriginatorKeyFile>
@@ -47,14 +47,19 @@
     <Compile Include="AnalysisAction.cs" />
     <Compile Include="AnalysisActions.cs" />
     <Compile Include="AnalysisActionsExtensions.cs" />
-    <Compile Include="CustomAnalysis.cs" />
     <Compile Include="CustomAnalysisTestHelper.cs" />
+    <Compile Include="CustomAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlAttribute.cs" />
     <Compile Include="RapidXamlElement.cs" />
     <Compile Include="RapidXamlElementExtensions.cs" />
     <Compile Include="RapidXamlErrorType.cs" />
     <Compile Include="RapidXamlSpan.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
@@ -73,6 +78,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,7 +8,7 @@
     <ApplicationIcon>Resources\RapidXamlAnalysis.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
@@ -98,7 +98,7 @@
     <Compile Include="XamlAnalysis\Attributes.cs" />
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\FooAnalysis.cs" />
-    <Compile Include="XamlAnalysis\CustomAnalysis\NotReallyCustomAnalysis.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\NotReallyCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\TwoPaneViewAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomProcessorWrapper.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />
