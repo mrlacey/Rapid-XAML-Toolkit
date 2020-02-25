@@ -19,5 +19,7 @@ namespace RapidXamlToolkit.ErrorList
         public bool IsInternalError { get; internal set; }
 
         public TagErrorType ErrorType { get; internal set; }
+
+        public string MoreInfoUrl { get; internal set; }
     }
 }

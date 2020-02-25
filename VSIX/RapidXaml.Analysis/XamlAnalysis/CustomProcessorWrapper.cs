@@ -45,6 +45,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 InsertPos = offset,
                                 Logger = this.Logger,
                                 Snapshot = snapshot,
+                                MoreInfoUrl = action.MoreInfoUrl,
                             };
 
                             if (action.Location == null)

@@ -26,5 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public TagErrorType ErrorType { get; set; }
 
         public string ElementName { get; set; }
+
+        public string MoreInfoUrl { get; set; }
     }
 }

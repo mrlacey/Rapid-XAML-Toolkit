@@ -15,7 +15,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             {
                 return AnalysisActions.AddAttribute(
                     RapidXamlErrorType.Warning,
-                    code: "RXT888",
+                    code: "CRXT888",
                     description: "Always specify the 'Bar' attribute",
                     actionText: "Add missing 'Bar' attribute",
                     addAttributeName: "Bar",

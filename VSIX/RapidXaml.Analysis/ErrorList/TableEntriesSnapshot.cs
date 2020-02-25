@@ -119,16 +119,27 @@ namespace RapidXamlToolkit.ErrorList
                     content = error.Span.Start.GetContainingLine().LineNumber;
                     return true;
                 case StandardTableKeyNames.Column:
-                    var position = this.Errors[index].Span.Start;
+                    var position = error.Span.Start;
                     var line = position.GetContainingLine();
                     content = position.Position - line.Start.Position;
                     return true;
                 case StandardTableKeyNames.ErrorCodeToolTip:
                 case StandardTableKeyNames.HelpLink:
-                    // TODO: Point to MoreInfoUrl if specified
-                    // TODO: only open this link if ErrorCode starts "RXT"
-                    content = $"https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/warnings/{error.ErrorCode}.md";
-                    return true;
+                    if (!string.IsNullOrWhiteSpace(error.MoreInfoUrl))
+                    {
+                        content = error.MoreInfoUrl;
+                        return true;
+                    }
+                    else if (error.ErrorCode.StartsWith("RXT"))
+                    {
+                        content = $"https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/warnings/{error.ErrorCode}.md";
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
                 default:
                     content = null;
                     return false;

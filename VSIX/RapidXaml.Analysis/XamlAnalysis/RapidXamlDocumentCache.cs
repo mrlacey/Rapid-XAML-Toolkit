@@ -146,7 +146,18 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             if (Cache.ContainsKey(fileName))
             {
-                result.AddRange(Cache[fileName].Tags.Where(t => (t as RapidXamlDisplayedTag == null) || (t as RapidXamlDisplayedTag).ConfiguredErrorType != TagErrorType.Hidden));
+                try
+                {
+                // TODO: investigate locking around access to the cache collection
+                result.AddRange(
+                    Cache[fileName].Tags.Where(
+                        t => (t as RapidXamlDisplayedTag == null)
+                          || (t as RapidXamlDisplayedTag).ConfiguredErrorType != TagErrorType.Hidden));
+                }
+                catch (Exception exc)
+                {
+                    System.Diagnostics.Debug.WriteLine(exc);
+                }
             }
 
             return result;

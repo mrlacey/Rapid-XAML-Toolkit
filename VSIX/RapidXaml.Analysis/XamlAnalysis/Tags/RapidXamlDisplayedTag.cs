@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     {
         private const string SettingsFileName = "settings.xamlAnalysis";
 
-        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger)
+        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, string moreInfoUrl = null)
             : base(span, snapshot, fileName, logger)
         {
             var line = snapshot.GetLineFromPosition(span.Start);
@@ -28,6 +28,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Line = line.LineNumber;
             this.Column = col;
             this.DefaultErrorType = defaultErrorType;
+            this.MoreInfoUrl = moreInfoUrl;
         }
 
         public string Description { get; set; }
@@ -36,6 +37,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         /// Gets or sets the message shown when the error row is expanded.
         /// </summary>
         public string ExtendedMessage { get; set; }
+
+        public string MoreInfoUrl { get; set; }
 
         public int Line { get; }
 
@@ -190,6 +193,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 ErrorCode = this.ErrorCode,
                 IsInternalError = this.IsInternalError,
                 ErrorType = this.ConfiguredErrorType,
+                MoreInfoUrl = this.MoreInfoUrl,
             };
         }
     }
