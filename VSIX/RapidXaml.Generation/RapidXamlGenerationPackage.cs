@@ -16,6 +16,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit
 {
+    // TODO: Need to find a way to load this as an options provider not that it is strong named.
     [ProvideAutoLoad(UIContextGuids.SolutionHasMultipleProjects, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
