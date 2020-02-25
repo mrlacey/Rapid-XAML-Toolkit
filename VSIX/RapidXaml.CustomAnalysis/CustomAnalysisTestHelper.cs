@@ -15,8 +15,7 @@ namespace RapidXaml
              || !xaml.TrimEnd().EndsWith(">")
              || !IsValidXml(xaml))
             {
-                // TODO: Localize this response
-                throw new ArgumentException("Input must be a valid XAML string.", nameof(xaml));
+                throw new ArgumentException(Resources.InvalidXamlInputMessage, nameof(xaml));
             }
 
             try
