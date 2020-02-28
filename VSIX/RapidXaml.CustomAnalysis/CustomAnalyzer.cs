@@ -3,7 +3,6 @@
 
 namespace RapidXaml
 {
-    // TODO: Need to turn this into a NuGet Package
     public abstract class CustomAnalyzer
     {
         public abstract string TargetType();
