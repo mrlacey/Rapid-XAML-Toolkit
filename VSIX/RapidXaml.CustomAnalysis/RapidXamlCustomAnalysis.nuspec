@@ -1,0 +1,32 @@
+﻿<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>RapidXamlCustomAnalysis</id>
+        <version>0.9.0-pre2</version>
+        <authors>MRLacey</authors>
+        <owners>MRLacey</owners>
+        <license type="expression">MIT</license>
+        <projectUrl>https://rapidxaml.dev</projectUrl>
+        <repository type="git" url="https://github.com/mrlacey/Rapid-XAML-Toolkit" />
+        <icon>images\icon.png</icon>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Create custom XAML analyzers.</description>
+        <summary>Create custom XAML analyzers.</summary>
+        <releaseNotes>Preview release - verifying functionality.</releaseNotes>
+        <copyright>Copyright 2020 Matt Lacey Ltd.</copyright>
+        <tags>XAML UWP WPF Xamarin.Forms MVVM UNO</tags>
+        <dependencies>
+            <group targetFramework=".NETFramework4.7.2">
+                <dependency id="GuiLabs.Language.Xml" version="1.2.46" exclude="Build,Analyzers" />
+            </group>
+        </dependencies>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System.Collections.Immutable" targetFramework="net472" />
+        </frameworkAssemblies>
+    </metadata>
+    <files>
+        <file src=".\icon.png" target="images\" />
+        <file src=".\RapidXaml.CustomAnalysis.dll" target="lib\net472\RapidXaml.CustomAnalysis.dll" />
+        <file src=".\RapidXaml.CustomAnalysis.pdb" target="lib\net472\RapidXaml.CustomAnalysis.pdb" />
+    </files>
+</package>

@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RapidXaml.CustomAnalysis")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Create custom XAML analyzers.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Matt Lacey Ltd.")]
 [assembly: AssemblyProduct("RapidXaml.CustomAnalysis")]
 [assembly: AssemblyCopyright("Copyright © Matt Lacey Ltd. 2020")]
 [assembly: AssemblyTrademark("")]
