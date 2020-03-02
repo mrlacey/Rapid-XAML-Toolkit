@@ -180,7 +180,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public override ITagSpan<IErrorTag> AsErrorTag()
         {
             var span = new SnapshotSpan(this.Snapshot, this.Span);
-            return new TagSpan<IErrorTag>(span, new RapidXamlWarningAdornmentTag(this.ToolTip));
+
+            return new TagSpan<IErrorTag>(
+                span,
+                new RapidXamlWarningAdornmentTag(
+                    this.ToolTip,
+                    this.ConfiguredErrorType.AsVsAdornmentErrorType()));
         }
 
         public ErrorRow AsErrorRow()

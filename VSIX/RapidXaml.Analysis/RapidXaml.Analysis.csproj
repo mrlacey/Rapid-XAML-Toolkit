@@ -176,6 +176,7 @@
     <Compile Include="XamlAnalysis\Tags\SelectedItemBindingModeTag.cs" />
     <Compile Include="XamlAnalysis\Tags\TagErrorType.cs" />
     <Compile Include="XamlAnalysis\Tags\TagErrorTypeCreator.cs" />
+    <Compile Include="XamlAnalysis\Tags\TagErrorTypeExtensions.cs" />
     <Compile Include="XamlAnalysis\Tags\TagErrorTypeParser.cs" />
     <Compile Include="XamlAnalysis\Tags\UidTitleCaseTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
