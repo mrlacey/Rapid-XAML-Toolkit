@@ -3,8 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.VisualStudio.Text;
 using Newtonsoft.Json;
 using RapidXamlToolkit.Logging;
@@ -54,9 +57,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                             vsAbstraction = new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
                         }
 
-                        var projType = vsAbstraction.GetProjectType(ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName));
+                        var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName);
+                        var projType = vsAbstraction.GetProjectType(proj);
+                        var projDir = Path.GetDirectoryName(proj.FileName);
 
-                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, GetAllProcessors(projType), result.Tags, suppressions);
+                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, GetAllProcessors(projType, projDir), result.Tags, suppressions);
                     }
                 }
             }
@@ -74,7 +79,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             return result;
         }
 
-        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, ILogger logger = null)
+        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectPath, ILogger logger = null)
         {
             logger = logger ?? SharedRapidXamlPackage.Logger;
 
@@ -112,7 +117,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(projType, logger)),
                     };
 
-            var customProcessors = GetCustomProcessors();
+            var customProcessors = GetCustomProcessors(Path.Combine(projectPath, "bin"));
 
             foreach (var customProcessor in customProcessors)
             {
@@ -122,16 +127,88 @@ namespace RapidXamlToolkit.XamlAnalysis
             return processors;
         }
 
-        public static List<RapidXaml.CustomAnalyzer> GetCustomProcessors()
+        public static List<RapidXaml.ICustomAnalyzer> GetCustomProcessors(string projectPath)
         {
-            var result = new List<RapidXaml.CustomAnalyzer>();
+            var result = new List<RapidXaml.ICustomAnalyzer>();
 
-            //// TODO: Do MEF magic to find other custom processors here
+            var catalog = new AggregateCatalog();
+
+            // Add specific assemblies only.
+            // Don't add directories as most will fail to load and access parts.
+            foreach (var file in Directory.GetFiles(projectPath, "*.*", SearchOption.AllDirectories)
+                                          .Where(f => !Path.GetFileName(f).StartsWith("Microsoft.")
+                                                   && !Path.GetFileName(f).StartsWith("System.")
+                                                   && !Path.GetFileName(f).Equals("RapidXaml.CustomAnalysis.dll")
+                                                   && (f.EndsWith(".dll") || f.EndsWith(".exe"))))
+            {
+                try
+                {
+                    var ac = new AssemblyCatalog(Assembly.LoadFile(file));
+                    var parts = ac.Parts.ToArray(); // This will also throw if would throw when calling ComposeParts
+
+                    catalog.Catalogs.Add(ac);
+
+                    // TODO: need to tidy-up these references
+                    //ac.Dispose();
+                }
+                catch (Exception exc)
+                {
+                    // TODO: Need to log this exception
+                    System.Diagnostics.Debug.WriteLine(exc.ToString());
+                }
+            }
+
+            try
+            {
+                using (var container = new CompositionContainer(catalog))
+                {
+                    var importer = new AnalyzerImporter();
+
+                    container.ComposeParts(importer);
+
+                    foreach (var importedAnalyzer in importer.CustomAnalyzers)
+                    {
+                        result.Add(importedAnalyzer.Value);
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                // TODO: Need to log this exception
+                System.Diagnostics.Debug.WriteLine(exc.ToString());
+            }
 
             result.Add(new CustomAnalysis.FooAnalysis());
             result.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
 
             return result;
+        }
+
+        private static IEnumerable<string> GetSubDirs(string dir)
+        {
+            string[] subdirectoryEntries = Directory.GetDirectories(dir);
+
+            foreach (string subdirectory in subdirectoryEntries)
+            {
+                yield return subdirectory;
+
+                foreach (var nestedDir in GetSubDirs(subdirectory))
+                {
+                    yield return nestedDir;
+                }
+            }
+        }
+
+        public class AnalyzerImporter
+        {
+            ////[ImportingConstructor]
+            ////public AnalyzerImporter(IEnumerable<RapidXaml.CustomAnalyzer> analyzers)
+            ////{
+            ////    this.CustomAnalyzers = analyzers;
+            ////}
+
+            [ImportMany]
+            public IEnumerable<Lazy<RapidXaml.ICustomAnalyzer>> CustomAnalyzers { get; set; }
         }
 
         public void Clear()

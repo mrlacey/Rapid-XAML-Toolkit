@@ -11,9 +11,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class CustomProcessorWrapper : XamlElementProcessor
     {
-        private readonly RapidXaml.CustomAnalyzer customProcessor;
+        private readonly RapidXaml.ICustomAnalyzer customProcessor;
 
-        public CustomProcessorWrapper(RapidXaml.CustomAnalyzer customProcessor, ProjectType projType, ILogger logger)
+        public CustomProcessorWrapper(RapidXaml.ICustomAnalyzer customProcessor, ProjectType projType, ILogger logger)
             : base(ProjectType.Any, logger)
         {
             this.customProcessor = customProcessor;
@@ -50,7 +50,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             if (action.Location == null)
                             {
-                                tagDeps.Span = new Span(offset, tagDeps.ElementName.Length); // Highlight only the opening element name
+                                // Add one to allow for opening angle bracket
+                                tagDeps.Span = new Span(offset + 1, tagDeps.ElementName.Length); // Highlight only the opening element name
                             }
                             else
                             {

@@ -5,11 +5,11 @@ using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class FooAnalysis : RapidXaml.CustomAnalyzer
+    public class FooAnalysis : RapidXaml.ICustomAnalyzer
     {
-        public override string TargetType() => "Foo";
+        public string TargetType() => "Foo";
 
-        public override AnalysisActions Analyze(RapidXamlElement element)
+        public AnalysisActions Analyze(RapidXamlElement element)
         {
             if (!element.ContainsAttribute("Bar"))
             {
