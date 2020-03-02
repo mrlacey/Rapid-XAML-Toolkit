@@ -133,82 +133,68 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             var catalog = new AggregateCatalog();
 
-            // Add specific assemblies only.
-            // Don't add directories as most will fail to load and access parts.
-            foreach (var file in Directory.GetFiles(projectPath, "*.*", SearchOption.AllDirectories)
-                                          .Where(f => !Path.GetFileName(f).StartsWith("Microsoft.")
-                                                   && !Path.GetFileName(f).StartsWith("System.")
-                                                   && !Path.GetFileName(f).Equals("RapidXaml.CustomAnalysis.dll")
-                                                   && (f.EndsWith(".dll") || f.EndsWith(".exe"))))
-            {
-                try
-                {
-                    var ac = new AssemblyCatalog(Assembly.LoadFile(file));
-                    var parts = ac.Parts.ToArray(); // This will also throw if would throw when calling ComposeParts
-
-                    catalog.Catalogs.Add(ac);
-
-                    // TODO: need to tidy-up these references
-                    //ac.Dispose();
-                }
-                catch (Exception exc)
-                {
-                    // TODO: Need to log this exception
-                    System.Diagnostics.Debug.WriteLine(exc.ToString());
-                }
-            }
+            // Track these references so can dispose them all later.
+            var assCatalogs = new List<AssemblyCatalog>();
 
             try
             {
-                using (var container = new CompositionContainer(catalog))
+                // Add specific assemblies only.
+                // Don't add directories as most will fail to load and access parts.
+                foreach (var file in Directory.GetFiles(projectPath, "*.*", SearchOption.AllDirectories)
+                                              .Where(f => !Path.GetFileName(f).StartsWith("Microsoft.")
+                                                       && !Path.GetFileName(f).StartsWith("System.")
+                                                       && !Path.GetFileName(f).Equals("RapidXaml.CustomAnalysis.dll")
+                                                       && (f.EndsWith(".dll") || f.EndsWith(".exe"))))
                 {
-                    var importer = new AnalyzerImporter();
-
-                    container.ComposeParts(importer);
-
-                    foreach (var importedAnalyzer in importer.CustomAnalyzers)
+                    try
                     {
-                        result.Add(importedAnalyzer.Value);
+                        var ac = new AssemblyCatalog(Assembly.LoadFile(file));
+                        var parts = ac.Parts.ToArray(); // This will also throw if would throw when calling ComposeParts
+
+                        assCatalogs.Add(ac);
+                        catalog.Catalogs.Add(ac);
+                    }
+                    catch (Exception exc)
+                    {
+                        SharedRapidXamlPackage.Logger?.RecordError("Failed to load '{0}' to look for CustomAnalyzers.".WithParams(file));
+                        SharedRapidXamlPackage.Logger?.RecordException(exc);
                     }
                 }
+
+                try
+                {
+                    using (var container = new CompositionContainer(catalog))
+                    {
+                        var importer = new AnalyzerImporter();
+
+                        container.ComposeParts(importer);
+
+                        foreach (var importedAnalyzer in importer.CustomAnalyzers)
+                        {
+                            result.Add(importedAnalyzer.Value);
+                        }
+                    }
+                }
+                catch (Exception exc)
+                {
+                    SharedRapidXamlPackage.Logger?.RecordError("Failed to import CustomAnalyzers.");
+                    SharedRapidXamlPackage.Logger?.RecordException(exc);
+                }
             }
-            catch (Exception exc)
+            finally
             {
-                // TODO: Need to log this exception
-                System.Diagnostics.Debug.WriteLine(exc.ToString());
+                foreach (var ac in assCatalogs)
+                {
+                    ac.Dispose();
+                }
+
+                catalog.Dispose();
             }
 
             result.Add(new CustomAnalysis.FooAnalysis());
             result.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
 
             return result;
-        }
-
-        private static IEnumerable<string> GetSubDirs(string dir)
-        {
-            string[] subdirectoryEntries = Directory.GetDirectories(dir);
-
-            foreach (string subdirectory in subdirectoryEntries)
-            {
-                yield return subdirectory;
-
-                foreach (var nestedDir in GetSubDirs(subdirectory))
-                {
-                    yield return nestedDir;
-                }
-            }
-        }
-
-        public class AnalyzerImporter
-        {
-            ////[ImportingConstructor]
-            ////public AnalyzerImporter(IEnumerable<RapidXaml.CustomAnalyzer> analyzers)
-            ////{
-            ////    this.CustomAnalyzers = analyzers;
-            ////}
-
-            [ImportMany]
-            public IEnumerable<Lazy<RapidXaml.ICustomAnalyzer>> CustomAnalyzers { get; set; }
         }
 
         public void Clear()
