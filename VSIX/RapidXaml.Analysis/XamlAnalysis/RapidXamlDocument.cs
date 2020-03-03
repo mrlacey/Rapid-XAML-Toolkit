@@ -117,11 +117,14 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(projType, logger)),
                     };
 
-            var customProcessors = GetCustomProcessors(Path.Combine(projectPath, "bin"));
-
-            foreach (var customProcessor in customProcessors)
+            if (!string.IsNullOrWhiteSpace(projectPath))
             {
-                processors.Add((customProcessor.TargetType(), new CustomProcessorWrapper(customProcessor, projType, logger)));
+                var customProcessors = GetCustomProcessors(Path.Combine(projectPath, "bin"));
+
+                foreach (var customProcessor in customProcessors)
+                {
+                    processors.Add((customProcessor.TargetType(), new CustomProcessorWrapper(customProcessor, projType, logger)));
+                }
             }
 
             return processors;

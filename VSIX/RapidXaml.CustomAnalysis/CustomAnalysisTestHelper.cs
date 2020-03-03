@@ -3,6 +3,7 @@
 
 using System;
 using Microsoft.Language.Xml;
+using RapidXaml.CustomAnalysis;
 
 namespace RapidXaml
 {
