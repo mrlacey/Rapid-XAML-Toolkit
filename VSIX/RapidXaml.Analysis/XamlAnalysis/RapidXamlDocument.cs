@@ -191,7 +191,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                 catalog.Dispose();
             }
 
+#if DEBUG
             result.Add(new CustomAnalysis.FooAnalysis());
+#endif
             result.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
 
             return result;

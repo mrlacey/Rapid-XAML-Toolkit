@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+#if DEBUG
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
 using RapidXamlToolkit.XamlAnalysis;
@@ -42,3 +43,4 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
         }
     }
 }
+#endif

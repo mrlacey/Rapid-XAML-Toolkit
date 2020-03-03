@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+#if DEBUG
 using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
@@ -28,3 +29,4 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
         }
     }
 }
+#endif
