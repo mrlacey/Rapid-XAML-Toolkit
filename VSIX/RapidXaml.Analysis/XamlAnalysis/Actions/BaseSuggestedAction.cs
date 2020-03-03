@@ -10,7 +10,6 @@ using Microsoft.VisualStudio.Imaging.Interop;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
-using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
 {
