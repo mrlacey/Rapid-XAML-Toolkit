@@ -28,5 +28,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public string ElementName { get; set; }
 
         public string MoreInfoUrl { get; set; }
+
+        public string CustomFeatureUsageValue { get; set; }
     }
 }

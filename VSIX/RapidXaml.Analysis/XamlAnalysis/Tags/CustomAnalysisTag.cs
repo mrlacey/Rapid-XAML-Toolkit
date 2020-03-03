@@ -9,7 +9,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     public class CustomAnalysisTag : RapidXamlDisplayedTag
     {
         public CustomAnalysisTag(CustomAnalysisTagDependencies deps)
-            : base(deps.Span, deps.Snapshot, deps.FileName, deps.ErrorCode, deps.ErrorType, deps.Logger, deps.MoreInfoUrl)
+            : base(deps.Span, deps.Snapshot, deps.FileName, deps.ErrorCode, deps.ErrorType, deps.Logger, deps.MoreInfoUrl, deps.CustomFeatureUsageValue)
         {
             this.SuggestedAction = typeof(CustomAnalysisAction);
 
@@ -21,7 +21,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.ActionText = deps.Action.ActionText;
             this.Name = deps.Action.Name;
             this.Value = deps.Action.Value;
-            this.MoreInfoUrl = deps.MoreInfoUrl;
         }
 
         public ActionType Action { get; }

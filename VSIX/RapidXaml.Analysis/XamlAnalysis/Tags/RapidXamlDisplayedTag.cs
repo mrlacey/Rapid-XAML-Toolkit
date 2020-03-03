@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     {
         private const string SettingsFileName = "settings.xamlAnalysis";
 
-        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, string moreInfoUrl = null)
+        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, string moreInfoUrl = null, string featureUsageOverride = null)
             : base(span, snapshot, fileName, logger)
         {
             var line = snapshot.GetLineFromPosition(span.Start);
@@ -29,6 +29,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Column = col;
             this.DefaultErrorType = defaultErrorType;
             this.MoreInfoUrl = moreInfoUrl;
+            this.CustomFeatureUsageOverride = featureUsageOverride;
         }
 
         public string Description { get; set; }
@@ -39,6 +40,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public string ExtendedMessage { get; set; }
 
         public string MoreInfoUrl { get; set; }
+
+        public string CustomFeatureUsageOverride { get; set; }
 
         public int Line { get; }
 

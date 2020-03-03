@@ -50,6 +50,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             get { return null; }
         }
 
+        public string CustomFeatureUsageOverride { get; protected set; }
+
         internal string File { get; }
 
         protected ITextView View { get; set; }
@@ -78,24 +80,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 undoContext.Open(this.DisplayText);
                 this.Execute(cancellationToken);
 
-                var type = this.GetType();
-                var name = type.Name;
-
-                // TODO: handle NotRellyCustom analysis differently
-                // Treat all analyzers from this extension the same, whether they're built on CustomAnalysis or not.
-                if (type.Equals(typeof(NotReallyCustomAnalyzer)))
+                if (string.IsNullOrWhiteSpace(this.CustomFeatureUsageOverride))
                 {
-                    name = type.Name;
+                    SharedRapidXamlPackage.Logger?.RecordFeatureUsage(this.GetType().Name);
                 }
-                else if (type.Equals(typeof(CustomAnalysisAction)))
+                else
                 {
-                    // If from another source, Track full type name & error code (as additional info)
-                    // Capture full name to try and get an idea for what's popular and how many being used
-                    // Add the error code as analyzers might output multiple actions with different codes.
-                    name = $"{type.FullName} {(this as CustomAnalysisAction).Tag.ErrorCode}";
+                    SharedRapidXamlPackage.Logger?.RecordFeatureUsage(this.CustomFeatureUsageOverride.Trim());
                 }
-
-                SharedRapidXamlPackage.Logger?.RecordFeatureUsage(name);
             }
             catch (Exception exc)
             {

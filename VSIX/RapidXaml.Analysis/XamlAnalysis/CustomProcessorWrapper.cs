@@ -48,6 +48,17 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 MoreInfoUrl = action.MoreInfoUrl,
                             };
 
+                            // Treat `NotReallyCustomAnalyzer` types as any other built-in type.
+                            // Track additional information about custom analyzers.
+                            if (this.customProcessor is CustomAnalysis.NotReallyCustomAnalyzer)
+                            {
+                                tagDeps.CustomFeatureUsageValue = this.customProcessor.GetType().Name;
+                            }
+                            else
+                            {
+                                tagDeps.CustomFeatureUsageValue = $"{this.customProcessor} {action.Code}";
+                            }
+
                             if (action.Location == null)
                             {
                                 // Add one to allow for opening angle bracket

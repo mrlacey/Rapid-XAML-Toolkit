@@ -14,6 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         {
             this.Tag = tag;
             this.DisplayText = tag.ActionText;
+
+            this.CustomFeatureUsageOverride = tag.CustomFeatureUsageOverride;
         }
 
         public CustomAnalysisTag Tag { get; }
