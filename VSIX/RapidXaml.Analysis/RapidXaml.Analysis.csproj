@@ -143,6 +143,7 @@
     <Compile Include="XamlAnalysis\RapidXamlSpanExtensions.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagger.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagProvider.cs" />
+    <Compile Include="XamlAnalysis\SizeLimitedDictionary.cs" />
     <Compile Include="XamlAnalysis\SuggestedActionsSource.cs" />
     <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
     <Compile Include="XamlAnalysis\TagList.cs" />

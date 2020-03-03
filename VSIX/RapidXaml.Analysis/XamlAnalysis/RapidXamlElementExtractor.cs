@@ -9,6 +9,11 @@ namespace RapidXamlToolkit.XamlAnalysis
     // This is internal as also linked into the CustomAnalysis project.
     internal static class RapidXamlElementExtractor
     {
+        // This is quite a simple caching strategy.
+        // Ideally would like to avoid discarding items from the cache that are recently used.
+        private static SizeLimitedDictionary<string, RapidXamlElement> rxElementCache
+            = new SizeLimitedDictionary<string, RapidXamlElement>(200);
+
         // This doesn't have the extra input checking that is in the caller in the TestHelper.
         // Extra checks excluded here as input is already known good based on original doc parsing.
         public static RapidXamlElement GetElement(string xamlElement)
@@ -171,8 +176,18 @@ namespace RapidXamlToolkit.XamlAnalysis
                 return result;
             }
 
-            //// TODO: Cache these responses to avoid unnecessary repeated parsing
-            return GetElement(xamlElement, 0);
+            //// Cache these responses to avoid unnecessary repeated parsing
+            if (rxElementCache.ContainsKey(xamlElement))
+            {
+                return rxElementCache[xamlElement];
+            }
+            else
+            {
+                var rxElement = GetElement(xamlElement, 0);
+                rxElementCache.Add(xamlElement, rxElement);
+
+                return rxElement;
+            }
         }
     }
 }
