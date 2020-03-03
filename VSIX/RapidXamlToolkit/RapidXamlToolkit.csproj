@@ -82,9 +82,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Key.snk" />
     <Content Include="RxtExtensions.vsext">
       <IncludeInVSIX>true</IncludeInVSIX>
