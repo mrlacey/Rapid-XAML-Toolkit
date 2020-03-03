@@ -43,8 +43,28 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                         break;
 
+                    case RapidXaml.ActionType.AddChild:
+                        // TODO: implement AddChild functionality
+                        break;
+
                     case RapidXaml.ActionType.HighlightWithoutAction:
                         // As the name applies, do nothing.
+                        break;
+
+                    case RapidXaml.ActionType.RemoveAttribute:
+                        // TODO: implement RemoveAttribute functionality
+                        break;
+
+                    case RapidXaml.ActionType.RemoveChild:
+                        // TODO: implement RemoveChild functionality
+                        break;
+
+                    case RapidXaml.ActionType.RemoveElement:
+                        // TODO: implement RemoveElement functionality
+                        break;
+
+                    case RapidXaml.ActionType.RenameElement:
+                        // TODO: implement RenameElement functionality
                         break;
                 }
 
