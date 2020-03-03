@@ -21,6 +21,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.ActionText = deps.Action.ActionText;
             this.Name = deps.Action.Name;
             this.Value = deps.Action.Value;
+            this.Content = deps.Action.Content;
+            this.Element = deps.Action.Element;
         }
 
         public ActionType Action { get; }
@@ -34,5 +36,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public string Name { get; }
 
         public string Value { get; }
+
+        public string Content { get; }
+
+        public RapidXamlElement Element { get; }
     }
 }

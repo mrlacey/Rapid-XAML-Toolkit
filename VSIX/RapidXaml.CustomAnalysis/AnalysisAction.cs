@@ -19,9 +19,9 @@ namespace RapidXaml
 
         public string Value { get; internal set; }
 
-        public string Content { get; set; }
+        public string Content { get; internal set; }
 
-        public RapidXamlElement Element { get; set; }
+        public RapidXamlElement Element { get; internal set; }
 
         public RapidXamlSpan Location { get; internal set; }
 
