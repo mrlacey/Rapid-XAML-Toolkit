@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
 using System.Collections.Generic;
 
 namespace RapidXaml
@@ -37,20 +36,74 @@ namespace RapidXaml
             return result;
         }
 
-        public static AnalysisActions AddInvalidDescendant(RapidXamlErrorType errorType, string code, string description, RapidXamlElement descendant, string moreInfoUrl = null)
+        public static AnalysisActions AddChild(RapidXamlErrorType errorType, string code, string description, string actionText, string elementName, List<(string name, string value)> attributes = null)
         {
             var result = new AnalysisActions();
 
-            result.AddInvalidDescendant(errorType, code, description, descendant, moreInfoUrl);
+            result.AddChild(errorType, code, description, actionText, elementName, attributes);
 
             return result;
         }
 
-        public static AnalysisActions Highlight(RapidXamlErrorType errorType, string code, string description, string actionText)
+        public static AnalysisActions AddChildString(RapidXamlErrorType errorType, string code, string description, string actionText, string xaml)
         {
             var result = new AnalysisActions();
 
-            result.Highlight(errorType, code, description, actionText);
+            result.AddChild(errorType, code, description, actionText, xaml);
+
+            return result;
+        }
+
+        public static AnalysisActions AddInvalidDescendant(RapidXamlErrorType errorType, string code, string description, RapidXamlElement descendant, string moreInfoUrl = null)
+        {
+            var result = new AnalysisActions();
+
+            result.IndicateInvalidDescendant(errorType, code, description, descendant, moreInfoUrl);
+
+            return result;
+        }
+
+        public static AnalysisActions RemoveAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlAttribute attribute)
+        {
+            var result = new AnalysisActions();
+
+            result.RemoveAttribute(errorType, code, description, actionText, attribute);
+
+            return result;
+        }
+
+        public static AnalysisActions RemoveAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, string attributeName)
+        {
+            var result = new AnalysisActions();
+
+            result.RemoveAttribute(errorType, code, description, actionText, attributeName);
+
+            return result;
+        }
+
+        public static AnalysisActions RemoveChild(RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement child)
+        {
+            var result = new AnalysisActions();
+
+            result.RemoveChild(errorType, code, description, actionText, child);
+
+            return result;
+        }
+
+        public static AnalysisActions RemoveElement(RapidXamlErrorType errorType, string code, string description, string actionText)
+        {
+            var result = new AnalysisActions();
+
+            result.RemoveElement(errorType, code, description, actionText);
+
+            return result;
+        }
+
+        public static AnalysisActions RenameElement(RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement element, string newName)
+        {
+            var result = new AnalysisActions();
+
+            result.RenameElement(errorType, code, description, actionText, element, newName);
 
             return result;
         }

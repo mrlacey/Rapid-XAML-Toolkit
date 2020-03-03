@@ -35,6 +35,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case RapidXaml.ActionType.AddAttribute:
                         case RapidXaml.ActionType.HighlightWithoutAction:
 
+                        case RapidXaml.ActionType.AddChild:
+                        case RapidXaml.ActionType.RemoveAttribute:
+                        case RapidXaml.ActionType.RemoveChild:
+                        case RapidXaml.ActionType.RemoveElement:
+                        case RapidXaml.ActionType.RenameElement:
+
                             var tagDeps = new CustomAnalysisTagDependencies
                             {
                                 Action = action,
