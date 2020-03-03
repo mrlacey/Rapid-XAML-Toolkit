@@ -151,6 +151,7 @@
     <Compile Include="XamlAnalysis\RapidXamlElementExtractorTests.cs" />
     <Compile Include="XamlAnalysis\RapidXamlElementTests.cs" />
     <Compile Include="XamlAnalysis\RealWorldIssues.cs" />
+    <Compile Include="XamlAnalysis\SizeLimitedDictionaryTests.cs" />
     <Compile Include="XamlAnalysis\TagListSuppressionTests.cs" />
     <Compile Include="XamlAnalysis\TestableXamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractorTests.cs" />

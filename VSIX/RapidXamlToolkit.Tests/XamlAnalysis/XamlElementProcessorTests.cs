@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 
@@ -476,6 +477,34 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var actual = XamlElementProcessor.GetOpeningWithoutChildren(origin);
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void RapidXamlAttribute_FormatStringValue()
+        {
+            var xaml = "<TestElement Myattr=\"Something\" />";
+
+            var element = RapidXamlElementExtractor.GetElement(xaml);
+
+            var sut = element.Attributes[0];
+
+            var actual = sut.ToString();
+
+            Assert.AreEqual("Myattr=\"Something\"", actual);
+        }
+
+        [TestMethod]
+        public void RapidXamlAttribute_FormatElementValue()
+        {
+            var xaml = "<TestElement><TestElement.MyAttr>Something</TestElement.MyAttr></TestElement>";
+
+            var element = RapidXamlElementExtractor.GetElement(xaml);
+
+            var sut = element.Attributes[0];
+
+            var actual = sut.ToString();
+
+            Assert.AreEqual("MyAttr=\"Something\"", actual);
         }
 
         private string GetSubElementAtStar(string outerElement)

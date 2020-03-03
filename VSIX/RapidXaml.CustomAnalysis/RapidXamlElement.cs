@@ -15,9 +15,9 @@ namespace RapidXaml
 
         public RapidXamlSpan Location { get; internal set; } = new RapidXamlSpan();
 
-        public List<RapidXamlAttribute> Attributes { get; internal set; } = new List<RapidXamlAttribute>();
+        public List<RapidXamlAttribute> Attributes { get; } = new List<RapidXamlAttribute>();
 
-        public List<RapidXamlElement> Children { get; internal set; } = new List<RapidXamlElement>();
+        public List<RapidXamlElement> Children { get; } = new List<RapidXamlElement>();
 
         public static RapidXamlElement Build(string name, int start = -1, int length = -1)
         {

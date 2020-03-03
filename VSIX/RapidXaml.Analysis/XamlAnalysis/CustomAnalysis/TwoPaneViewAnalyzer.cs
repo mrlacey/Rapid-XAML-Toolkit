@@ -20,11 +20,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                 foreach (var desc in invalidDescendants)
                 {
                     result.IndicateInvalidDescendant(
-                    RapidXamlErrorType.Error,
-                    code: "WinUI-2PV",
-                    description: "Do not put a TwoPaneView inside the pane of another TwoPaneview.",
-                    descendant: desc,
-                    moreInfoUrl: "https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/two-pane-view#dos-and-donts");
+                        RapidXamlErrorType.Error,
+                        code: "WinUI-2PV",
+                        description: "Do not put a TwoPaneView inside the pane of another TwoPaneview.",
+                        descendant: desc,
+                        moreInfoUrl: "https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/two-pane-view#dos-and-donts");
                 }
 
                 return result;

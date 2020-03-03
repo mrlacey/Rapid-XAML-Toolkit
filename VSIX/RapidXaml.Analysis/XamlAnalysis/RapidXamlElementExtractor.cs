@@ -20,6 +20,11 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             RapidXamlElement GetElement(string xaml, int startOffset)
             {
+                if (string.IsNullOrWhiteSpace(xaml))
+                {
+                    return null;
+                }
+
                 var docSyntax = Parser.ParseText(xaml);
 
                 var xdoc = docSyntax?.RootSyntax;
@@ -177,14 +182,19 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
             //// Cache these responses to avoid unnecessary repeated parsing
-            if (rxElementCache.ContainsKey(xamlElement))
+            if (!string.IsNullOrWhiteSpace(xamlElement)
+                && rxElementCache.ContainsKey(xamlElement))
             {
                 return rxElementCache[xamlElement];
             }
             else
             {
                 var rxElement = GetElement(xamlElement, 0);
-                rxElementCache.Add(xamlElement, rxElement);
+
+                if (rxElement != null)
+                {
+                    rxElementCache.Add(xamlElement, rxElement);
+                }
 
                 return rxElement;
             }

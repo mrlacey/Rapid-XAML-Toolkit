@@ -1302,5 +1302,45 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             Assert.AreEqual("<Label>Five</Label>", xaml.Substring(lbl5.Start, lbl5.Length));
         }
+
+        [TestMethod]
+        public void ReturnsNull_IfNotValidXaml_null()
+        {
+            string xaml = null;
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.IsNull(sut);
+        }
+
+        [TestMethod]
+        public void ReturnsNull_IfNotValidXaml_EmptyString()
+        {
+            var xaml = string.Empty;
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.IsNull(sut);
+        }
+
+        [TestMethod]
+        public void ReturnsNull_IfNotValidXaml_Whitespace()
+        {
+            var xaml = "     ";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.IsNull(sut);
+        }
+
+        [TestMethod]
+        public void ReturnsNull_IfNotValidXaml_Emoji()
+        {
+            var xaml = "👾";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.IsNull(sut);
+        }
     }
 }
