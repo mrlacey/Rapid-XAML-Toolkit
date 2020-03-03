@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Collections.Generic;
+
 namespace RapidXaml
 {
     public class AnalysisAction
@@ -26,5 +28,8 @@ namespace RapidXaml
         public RapidXamlSpan Location { get; internal set; }
 
         public string MoreInfoUrl { get; internal set; }
+
+        // TODO: Need to execute SupplementaryActions
+        public List<AnalysisAction> SupplementaryActions { get; } = new List<AnalysisAction>();
     }
 }

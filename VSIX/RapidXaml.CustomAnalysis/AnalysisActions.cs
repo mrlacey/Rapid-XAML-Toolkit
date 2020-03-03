@@ -54,11 +54,11 @@ namespace RapidXaml
             return result;
         }
 
-        public static AnalysisActions AddInvalidDescendant(RapidXamlErrorType errorType, string code, string description, RapidXamlElement descendant, string moreInfoUrl = null)
+        public static AnalysisActions HighlightWithoutAction(RapidXamlErrorType errorType, string code, string description, RapidXamlElement descendant, string moreInfoUrl = null)
         {
             var result = new AnalysisActions();
 
-            result.IndicateInvalidDescendant(errorType, code, description, descendant, moreInfoUrl);
+            result.HighlightWithoutAction(errorType, code, description, descendant, moreInfoUrl);
 
             return result;
         }
