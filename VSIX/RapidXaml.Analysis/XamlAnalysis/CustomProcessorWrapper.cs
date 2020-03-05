@@ -29,62 +29,44 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 foreach (var action in analysisActions.Actions)
                 {
-                    // May not need this switch statement but keeping it around for now.
-                    switch (action.Action)
+                    var tagDeps = new CustomAnalysisTagDependencies
                     {
-                        case RapidXaml.ActionType.AddAttribute:
-                        case RapidXaml.ActionType.HighlightWithoutAction:
+                        Action = action,
+                        ElementName = GetElementName(xamlElement), // Do this to get any xmlns
+                        ErrorCode = action.Code,
+                        ErrorType = TagErrorTypeCreator.FromCustomAnalysisErrorType(action.ErrorType),
+                        FileName = fileName,
+                        InsertPos = offset,
+                        Logger = this.Logger,
+                        Snapshot = snapshot,
+                        MoreInfoUrl = action.MoreInfoUrl,
+                    };
 
-                        case RapidXaml.ActionType.AddChild:
-                        case RapidXaml.ActionType.RemoveAttribute:
-                        case RapidXaml.ActionType.RemoveChild:
-                        case RapidXaml.ActionType.ReplaceElement:
-                        case RapidXaml.ActionType.RenameElement:
-
-                            var tagDeps = new CustomAnalysisTagDependencies
-                            {
-                                Action = action,
-                                ElementName = GetElementName(xamlElement), // Do this to get any xmlns
-                                ErrorCode = action.Code,
-                                ErrorType = TagErrorTypeCreator.FromCustomAnalysisErrorType(action.ErrorType),
-                                FileName = fileName,
-                                InsertPos = offset,
-                                Logger = this.Logger,
-                                Snapshot = snapshot,
-                                MoreInfoUrl = action.MoreInfoUrl,
-                            };
-
-                            // Treat `NotReallyCustomAnalyzer` types as any other built-in type.
-                            // Track additional information about custom analyzers.
-                            if (this.customProcessor is CustomAnalysis.NotReallyCustomAnalyzer)
-                            {
-                                tagDeps.CustomFeatureUsageValue = this.customProcessor.GetType().Name;
-                            }
-                            else
-                            {
-                                tagDeps.CustomFeatureUsageValue = $"{this.customProcessor} {action.Code}";
-                            }
-
-                            if (action.Location == null)
-                            {
-                                // Add one to allow for opening angle bracket
-                                tagDeps.Span = new Span(offset + 1, tagDeps.ElementName.Length); // Highlight only the opening element name
-                            }
-                            else
-                            {
-                                tagDeps.Span = action.Location.ToSpanPlusStartPos(offset);
-                            }
-
-                            tags.TryAdd(
-                                new CustomAnalysisTag(tagDeps),
-                                xamlElement,
-                                suppressions);
-
-                            break;
-
-                        default:
-                            break;
+                    // Treat `NotReallyCustomAnalyzer` types as any other built-in type.
+                    // Track additional information about custom analyzers.
+                    if (this.customProcessor is CustomAnalysis.NotReallyCustomAnalyzer)
+                    {
+                        tagDeps.CustomFeatureUsageValue = this.customProcessor.GetType().Name;
                     }
+                    else
+                    {
+                        tagDeps.CustomFeatureUsageValue = $"{this.customProcessor} {action.Code}";
+                    }
+
+                    if (action.Location == null)
+                    {
+                        // Add one to allow for opening angle bracket
+                        tagDeps.Span = new Span(offset + 1, tagDeps.ElementName.Length); // Highlight only the opening element name
+                    }
+                    else
+                    {
+                        tagDeps.Span = action.Location.ToSpanPlusStartPos(offset);
+                    }
+
+                    tags.TryAdd(
+                        new CustomAnalysisTag(tagDeps),
+                        xamlElement,
+                        suppressions);
                 }
             }
         }
