@@ -167,18 +167,19 @@ namespace RapidXaml
             return result;
         }
 
-        // No AndRemoveElement option as it wouldn't make sense to modify an element and then remove it.
-        public static AnalysisActions RemoveElement(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText)
+        // No AndReplaceElement option as it wouldn't make sense to modify an element and then remove it.
+        public static AnalysisActions ReplaceElement(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string replacementXaml)
         {
             var result = analysisActions;
 
             result.Actions.Add(new AnalysisAction
             {
-                Action = ActionType.RemoveElement,
+                Action = ActionType.ReplaceElement,
                 Code = code,
                 Description = description,
                 ErrorType = errorType,
                 ActionText = actionText,
+                Content = replacementXaml,
             });
 
             return result;
@@ -191,7 +192,7 @@ namespace RapidXaml
 
             result.Actions.Add(new AnalysisAction
             {
-                Action = ActionType.RemoveElement,
+                Action = ActionType.RenameElement,
                 Code = code,
                 Description = description,
                 ErrorType = errorType,

@@ -59,8 +59,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         // TODO: implement RemoveChild functionality
                         break;
 
-                    case RapidXaml.ActionType.RemoveElement:
-                        // TODO: implement RemoveElement functionality
+                    case RapidXaml.ActionType.ReplaceElement:
+                        // TODO: implement ReplaceElement functionality
                         break;
 
                     case RapidXaml.ActionType.RenameElement:

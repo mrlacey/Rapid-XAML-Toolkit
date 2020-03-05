@@ -31,13 +31,13 @@ namespace RapidXaml
         RemoveChild,
 
         /// <summary>
-        /// Remove the element from the document.
-        /// </summary>
-        RemoveElement,
-
-        /// <summary>
         /// Rename the selected element.
         /// </summary>
         RenameElement,
+
+        /// <summary>
+        /// Replace the entire element.
+        /// </summary>
+        ReplaceElement,
     }
 }

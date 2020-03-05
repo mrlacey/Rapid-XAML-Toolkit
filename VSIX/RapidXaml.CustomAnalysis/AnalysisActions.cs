@@ -90,11 +90,11 @@ namespace RapidXaml
             return result;
         }
 
-        public static AnalysisActions RemoveElement(RapidXamlErrorType errorType, string code, string description, string actionText)
+        public static AnalysisActions ReplaceElement(RapidXamlErrorType errorType, string code, string description, string actionText, string replacementXaml)
         {
             var result = new AnalysisActions();
 
-            result.RemoveElement(errorType, code, description, actionText);
+            result.ReplaceElement(errorType, code, description, actionText, replacementXaml);
 
             return result;
         }
