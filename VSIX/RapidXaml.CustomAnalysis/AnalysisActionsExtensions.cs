@@ -27,29 +27,15 @@ namespace RapidXaml
 
         public static AnalysisActions AndAddAttribute(this AnalysisActions analysisActions, string addAttributeName, string addAttributeValue)
         {
-            var result = analysisActions;
-
-            var actionsCount = result.Actions.Count;
-
-            if (actionsCount > 0)
-            {
-                result.Actions[actionsCount - 1].SupplementaryActions.Add(
-                    new AnalysisAction
-                    {
-                        Action = ActionType.AddAttribute,
-                        Name = addAttributeName,
-                        Value = addAttributeValue,
-                    });
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("No action found to add to.");
-            }
-
-            return result;
+            return analysisActions.AddSupplementaryAction(
+                new AnalysisAction
+                {
+                    Action = ActionType.AddAttribute,
+                    Name = addAttributeName,
+                    Value = addAttributeValue,
+                });
         }
 
-        // TODO: Need to add AndAddChild
         public static AnalysisActions AddChild(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string elementName, List<(string name, string value)> attributes = null)
         {
             var result = analysisActions;
@@ -76,7 +62,25 @@ namespace RapidXaml
             return result;
         }
 
-        // TODO: Need to add AndChildString
+        public static AnalysisActions AndAddChild(this AnalysisActions analysisActions, string elementName, List<(string name, string value)> attributes = null)
+        {
+            var attrs = new System.Text.StringBuilder();
+
+            foreach (var attr in attributes)
+            {
+                attrs.Append($" {attr.name}=\"{attr.value}\"");
+            }
+
+            var content = $"<{elementName}{attrs} />";
+
+            return analysisActions.AddSupplementaryAction(
+                new AnalysisAction
+                {
+                    Action = ActionType.AddChild,
+                    Content = content,
+                });
+        }
+
         public static AnalysisActions AddChildString(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string xaml)
         {
             var result = analysisActions;
@@ -92,6 +96,16 @@ namespace RapidXaml
             });
 
             return result;
+        }
+
+        public static AnalysisActions AndAddChildString(this AnalysisActions analysisActions, string xaml)
+        {
+            return analysisActions.AddSupplementaryAction(
+                new AnalysisAction
+                {
+                    Action = ActionType.AddChild,
+                    Content = xaml,
+                });
         }
 
         // No AndIndicateInvalidDescendant option as it does nothing.
@@ -113,7 +127,6 @@ namespace RapidXaml
             return result;
         }
 
-        // TODO: Need to add AndRemoveAttribute
         public static AnalysisActions RemoveAttribute(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlAttribute attribute)
         {
             var result = analysisActions;
@@ -131,7 +144,16 @@ namespace RapidXaml
             return result;
         }
 
-        // TODO: Need to add AndRemoveAttribute
+        public static AnalysisActions AndRemoveAttribute(this AnalysisActions analysisActions, RapidXamlAttribute attribute)
+        {
+            return analysisActions.AddSupplementaryAction(
+                new AnalysisAction
+                {
+                    Action = ActionType.RemoveAttribute,
+                    Name = attribute.Name,
+                });
+        }
+
         public static AnalysisActions RemoveAttribute(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string attributeName)
         {
             var result = analysisActions;
@@ -149,7 +171,16 @@ namespace RapidXaml
             return result;
         }
 
-        // TODO: Need to add AndRemoveChild
+        public static AnalysisActions AndRemoveAttribute(this AnalysisActions analysisActions, string attributeName)
+        {
+            return analysisActions.AddSupplementaryAction(
+                new AnalysisAction
+                {
+                    Action = ActionType.RemoveAttribute,
+                    Name = attributeName,
+                });
+        }
+
         public static AnalysisActions RemoveChild(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement child)
         {
             var result = analysisActions;
@@ -165,6 +196,16 @@ namespace RapidXaml
             });
 
             return result;
+        }
+
+        public static AnalysisActions AndRemoveChild(this AnalysisActions analysisActions, RapidXamlElement child)
+        {
+            return analysisActions.AddSupplementaryAction(
+                new AnalysisAction
+                {
+                    Action = ActionType.RemoveChild,
+                    Element = child,
+                });
         }
 
         // No AndReplaceElement option as it wouldn't make sense to modify an element and then remove it.
@@ -185,8 +226,7 @@ namespace RapidXaml
             return result;
         }
 
-        // TODO: Need to add AndRenameElement
-        public static AnalysisActions RenameElement(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement element, string newName)
+        public static AnalysisActions RenameElement(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string newName)
         {
             var result = analysisActions;
 
@@ -199,6 +239,34 @@ namespace RapidXaml
                 ActionText = actionText,
                 Name = newName,
             });
+
+            return result;
+        }
+
+        public static AnalysisActions AndRenameElement(this AnalysisActions analysisActions, string newName)
+        {
+            return analysisActions.AddSupplementaryAction(
+                new AnalysisAction
+                {
+                    Action = ActionType.RenameElement,
+                    Name = newName,
+                });
+        }
+
+        private static AnalysisActions AddSupplementaryAction(this AnalysisActions analysisActions, AnalysisAction action)
+        {
+            var result = analysisActions;
+
+            var actionsCount = result.Actions.Count;
+
+            if (actionsCount > 0)
+            {
+                result.Actions[actionsCount - 1].SupplementaryActions.Add(action);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("No action found to add to.");
+            }
 
             return result;
         }

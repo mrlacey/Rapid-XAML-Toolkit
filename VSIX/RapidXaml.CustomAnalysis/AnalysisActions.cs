@@ -99,11 +99,11 @@ namespace RapidXaml
             return result;
         }
 
-        public static AnalysisActions RenameElement(RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement element, string newName)
+        public static AnalysisActions RenameElement(RapidXamlErrorType errorType, string code, string description, string actionText, string newName)
         {
             var result = new AnalysisActions();
 
-            result.RenameElement(errorType, code, description, actionText, element, newName);
+            result.RenameElement(errorType, code, description, actionText, newName);
 
             return result;
         }
