@@ -56,8 +56,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                     {
                         for (int i = 0; i < expected.Attributes.Count; i++)
                         {
-                            var expAttr = expected.Attributes[0];
-                            var actAttr = actual.Attributes[0];
+                            var expAttr = expected.Attributes[i];
+                            var actAttr = actual.Attributes[i];
 
                             if (expAttr.Name != actAttr.Name)
                             {
