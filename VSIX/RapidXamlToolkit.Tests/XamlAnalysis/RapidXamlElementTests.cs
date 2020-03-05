@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void ContainsAttribute_One_NotFound()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("One", "ABC");
+            sut.AddInlineAttribute("One", "ABC");
 
             Assert.IsFalse(sut.ContainsAttribute("Any"));
         }
@@ -31,7 +31,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void ContainsAttribute_One_Found()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("One", "ABC");
+            sut.AddInlineAttribute("One", "ABC");
 
             Assert.IsTrue(sut.ContainsAttribute("One"));
         }
@@ -40,7 +40,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void ContainsAttribute_One_Dotted_Found()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("Grid.Row", "1");
+            sut.AddInlineAttribute("Grid.Row", "1");
 
             Assert.IsTrue(sut.ContainsAttribute("Grid.Row"));
         }
@@ -49,7 +49,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void ContainsAttribute_One_Part1OfDotted_NotFound()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("Grid.Row", "1");
+            sut.AddInlineAttribute("Grid.Row", "1");
 
             Assert.IsFalse(sut.ContainsAttribute("Grid"));
         }
@@ -58,7 +58,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void ContainsAttribute_One_Part2OfDotted_NotFound()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("Grid.Row", "1");
+            sut.AddInlineAttribute("Grid.Row", "1");
 
             Assert.IsFalse(sut.ContainsAttribute("Row"));
         }
@@ -67,8 +67,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void ContainsAttribute_Two_NotFound()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("One", "ABC");
-            sut.AddAttribute("Two", "DEF");
+            sut.AddInlineAttribute("One", "ABC");
+            sut.AddInlineAttribute("Two", "DEF");
 
             Assert.IsFalse(sut.ContainsAttribute("Any"));
         }
@@ -77,8 +77,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void ContainsAttribute_Two_Found()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("One", "ABC");
-            sut.AddAttribute("Two", "DEF");
+            sut.AddInlineAttribute("One", "ABC");
+            sut.AddInlineAttribute("Two", "DEF");
 
             Assert.IsTrue(sut.ContainsAttribute("One"));
         }
@@ -87,8 +87,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void ContainsAttribute_Two_Found_CaseInsensitive()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("One", "ABC");
-            sut.AddAttribute("Two", "DEF");
+            sut.AddInlineAttribute("One", "ABC");
+            sut.AddInlineAttribute("Two", "DEF");
 
             Assert.IsTrue(sut.ContainsAttribute("one"));
         }
@@ -287,7 +287,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var sut = RapidXamlElement.Build("ml:Parent");
             var child = RapidXamlElement.Build("ml:Child");
             var grandChild = RapidXamlElement.Build("ml:Grandchild");
-            grandChild.AddAttribute("Content", RapidXamlElement.Build("tst:Attached.Nested"));
+            grandChild.AddChildAttribute("Content", RapidXamlElement.Build("tst:Attached.Nested"));
             child.AddChild(grandChild);
             sut.AddChild(child);
 
@@ -300,16 +300,16 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var sut = RapidXamlElement.Build("ml:Parent");
             var child = RapidXamlElement.Build("ml:Child");
             var grandChild = RapidXamlElement.Build("ml:Grandchild");
-            grandChild.AddAttribute(
+            grandChild.AddChildAttribute(
                 "Content",
                 RapidXamlElement.Build("Panel")
-                                .AddAttribute(
+                                .AddChildAttribute(
                                     "Content",
                                     RapidXamlElement.Build("StackPanel")
-                                                    .AddAttribute(
+                                                    .AddChildAttribute(
                                                         "Content",
                                                         RapidXamlElement.Build("ListBox")
-                                                                        .AddAttribute(
+                                                                        .AddChildAttribute(
                                                                             "Content",
                                                                             RapidXamlElement.Build("tst:DeepNested")))));
             child.AddChild(grandChild);
@@ -332,7 +332,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void GetAttributes_One_NoMatch()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("Width", "Auto");
+            sut.AddInlineAttribute("Width", "Auto");
 
             var actual = sut.GetAttributes("Height");
 
@@ -343,9 +343,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void GetAttributes_Many_NoMatch()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("Width", "Auto");
-            sut.AddAttribute("Direction", "LTR");
-            sut.AddAttribute("Color", "Red");
+            sut.AddInlineAttribute("Width", "Auto");
+            sut.AddInlineAttribute("Direction", "LTR");
+            sut.AddInlineAttribute("Color", "Red");
 
             var actual = sut.GetAttributes("Height");
 
@@ -356,7 +356,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void GetAttributes_One_Match()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("Width", "Auto");
+            sut.AddInlineAttribute("Width", "Auto");
 
             var actual = sut.GetAttributes("Width");
 
@@ -367,10 +367,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void GetAttributes_Many_OneMatch()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("Width", "Auto");
-            sut.AddAttribute("Direction", "LTR");
-            sut.AddAttribute("Color", "Red");
-            sut.AddAttribute("Height", "Red");
+            sut.AddInlineAttribute("Width", "Auto");
+            sut.AddInlineAttribute("Direction", "LTR");
+            sut.AddInlineAttribute("Color", "Red");
+            sut.AddInlineAttribute("Height", "Red");
 
             var actual = sut.GetAttributes("Height");
 
@@ -381,12 +381,12 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void GetAttributes_Many_ManyMatches()
         {
             var sut = RapidXamlElement.Build("Grid");
-            sut.AddAttribute("Width", "Auto");
-            sut.AddAttribute("Direction", "LTR");
-            sut.AddAttribute("Color", "Red");
-            sut.AddAttribute("Height", "Red");
-            sut.AddAttribute("Content", RapidXamlElement.Build("Label").AddAttribute("Text", "Hello"));
-            sut.AddAttribute("Content", RapidXamlElement.Build("Label").SetContent("World!"));
+            sut.AddInlineAttribute("Width", "Auto");
+            sut.AddInlineAttribute("Direction", "LTR");
+            sut.AddInlineAttribute("Color", "Red");
+            sut.AddInlineAttribute("Height", "Red");
+            sut.AddChildAttribute("Content", RapidXamlElement.Build("Label").AddInlineAttribute("Text", "Hello"));
+            sut.AddChildAttribute("Content", RapidXamlElement.Build("Label").SetContent("World!"));
 
             var actual = sut.GetAttributes("Content");
 
@@ -483,8 +483,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void GetDescendants_Many_NoMatches()
         {
             var sut = RapidXamlElement.Build("Parent");
-            sut.AddAttribute("Content1", RapidXamlElement.Build("UserControl"));
-            sut.AddAttribute("Content2", RapidXamlElement.Build("ContentControl"));
+            sut.AddChildAttribute("Content1", RapidXamlElement.Build("UserControl"));
+            sut.AddChildAttribute("Content2", RapidXamlElement.Build("ContentControl"));
             sut.AddChild("Huey");
             sut.AddChild("Dewey");
             sut.AddChild("Louie");
@@ -498,8 +498,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void GetDescendants_Many_OneMatch_DirectChild()
         {
             var sut = RapidXamlElement.Build("Parent");
-            sut.AddAttribute("Content1", RapidXamlElement.Build("UserControl"));
-            sut.AddAttribute("Content2", RapidXamlElement.Build("ContentControl"));
+            sut.AddChildAttribute("Content1", RapidXamlElement.Build("UserControl"));
+            sut.AddChildAttribute("Content2", RapidXamlElement.Build("ContentControl"));
             sut.AddChild("Huey");
             sut.AddChild("Dewey");
             sut.AddChild("Louie");
@@ -513,8 +513,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void GetDescendants_Many_OneMatch_DirectAttribute()
         {
             var sut = RapidXamlElement.Build("Parent");
-            sut.AddAttribute("Content1", RapidXamlElement.Build("UserControl"));
-            sut.AddAttribute("Content2", RapidXamlElement.Build("ContentControl"));
+            sut.AddChildAttribute("Content1", RapidXamlElement.Build("UserControl"));
+            sut.AddChildAttribute("Content2", RapidXamlElement.Build("ContentControl"));
             sut.AddChild("Huey");
             sut.AddChild("Dewey");
             sut.AddChild("Louie");
@@ -528,19 +528,19 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void GetDescendants_Many_ManyMatches_NestedChildrenAndAttributes()
         {
             var sut = RapidXamlElement.Build("Parent");
-            sut.AddAttribute(
+            sut.AddChildAttribute(
                 "Attr1",
                 RapidXamlElement.Build("AttrChild")
-                                .AddAttribute("InnerAttrChild", RapidXamlElement.Build("Label")));
-            sut.AddAttribute(
+                                .AddChildAttribute("InnerAttrChild", RapidXamlElement.Build("Label")));
+            sut.AddChildAttribute(
                 "Attr2",
                 RapidXamlElement.Build("AttrChild")
                                 .AddChild(RapidXamlElement.Build("Label")));
             sut.AddChild(RapidXamlElement.Build("MyChild")
-               .AddAttribute(
+               .AddChildAttribute(
                     "MyChildAttr",
                     RapidXamlElement.Build("MyChildInnerAttr")
-                                    .AddAttribute(
+                                    .AddChildAttribute(
                                         "Nested",
                                         RapidXamlElement.Build("Label"))))
                .AddChild(

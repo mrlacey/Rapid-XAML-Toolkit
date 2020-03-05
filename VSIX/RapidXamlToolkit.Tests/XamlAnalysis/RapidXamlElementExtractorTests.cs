@@ -42,7 +42,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var xaml = @"<Grid Height=""Auto""></Grid>";
 
             var expected = RapidXamlElement.Build("Grid");
-            expected.AddAttribute("Height", "Auto");
+            expected.AddInlineAttribute("Height", "Auto");
 
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -55,7 +55,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var xaml = @"<Grid Height=""Auto"" />";
 
             var expected = RapidXamlElement.Build("Grid");
-            expected.AddAttribute("Height", "Auto");
+            expected.AddInlineAttribute("Height", "Auto");
 
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -68,8 +68,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var xaml = @"<Grid Height=""Auto"" Width=""100""></Grid>";
 
             var expected = RapidXamlElement.Build("Grid");
-            expected.AddAttribute("Height", "Auto");
-            expected.AddAttribute("Width", "100");
+            expected.AddInlineAttribute("Height", "Auto");
+            expected.AddInlineAttribute("Width", "100");
 
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -82,8 +82,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var xaml = @"<Grid Height=""Auto"" Width=""100"" />";
 
             var expected = RapidXamlElement.Build("Grid");
-            expected.AddAttribute("Height", "Auto");
-            expected.AddAttribute("Width", "100");
+            expected.AddInlineAttribute("Height", "Auto");
+            expected.AddInlineAttribute("Width", "100");
 
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -109,7 +109,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var xaml = @"<Grid><Grid.Height>Auto</Grid.Height></Grid>";
 
             var expected = RapidXamlElement.Build("Grid");
-            expected.AddAttribute("Height", "Auto");
+            expected.AddChildAttribute("Height", "Auto");
 
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -222,8 +222,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var expected = RapidXamlElement.Build("Grid");
 
             var eChild = RapidXamlElement.Build("Label");
-            eChild.AddAttribute("Height", "50");
-            eChild.AddAttribute("Width", "100");
+            eChild.AddInlineAttribute("Height", "50");
+            eChild.AddInlineAttribute("Width", "100");
             eChild.SetContent("Test");
 
             expected.AddChild(eChild);
@@ -242,7 +242,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var expected = RapidXamlElement.Build("Grid");
 
             var eChild = RapidXamlElement.Build("Label");
-            eChild.AddAttribute("Height", "50");
+            eChild.AddInlineAttribute("Height", "50");
 
             expected.AddChild(eChild);
             expected.SetContent(@"<Label Height=""50"" />");
@@ -258,13 +258,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var xaml = @"<Grid Height=""Auto""><TextBlock Text=""Hello"" /><Label Width=""10"">Test</Label></Grid>";
 
             var expected = RapidXamlElement.Build("Grid");
-            expected.AddAttribute("Height", "Auto");
+            expected.AddInlineAttribute("Height", "Auto");
 
             var child1 = RapidXamlElement.Build("TextBlock");
-            child1.AddAttribute("Text", "Hello");
+            child1.AddInlineAttribute("Text", "Hello");
 
             var child2 = RapidXamlElement.Build("Label");
-            child2.AddAttribute("Width", "10");
+            child2.AddInlineAttribute("Width", "10");
 
             expected.AddChild(child1);
             expected.AddChild(child2);
@@ -290,34 +290,34 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 </Grid>";
 
             var expected = RapidXamlElement.Build("Grid");
-            expected.AddAttribute("Height", "Auto");
+            expected.AddInlineAttribute("Height", "Auto");
 
             var child1 = RapidXamlElement.Build("MyChild");
-            child1.AddAttribute("Height", "80");
+            child1.AddInlineAttribute("Height", "80");
             child1.SetContent(@"
         <GrandChild Name=""Andy"" />
         <GrandChild Name=""Becky"" />");
 
             var grandChild1 = RapidXamlElement.Build("GrandChild");
-            grandChild1.AddAttribute("Name", "Andy");
+            grandChild1.AddInlineAttribute("Name", "Andy");
 
             var grandChild2 = RapidXamlElement.Build("GrandChild");
-            grandChild2.AddAttribute("Name", "Becky");
+            grandChild2.AddInlineAttribute("Name", "Becky");
 
             child1.AddChild(grandChild1);
             child1.AddChild(grandChild2);
 
             var child2 = RapidXamlElement.Build("MyChild");
-            child2.AddAttribute("Height", "90");
+            child2.AddInlineAttribute("Height", "90");
             child2.SetContent(@"
         <GrandChild Name=""Charlie"" />
         <GrandChild Name=""Dana"" />");
 
             var grandChild3 = RapidXamlElement.Build("GrandChild");
-            grandChild3.AddAttribute("Name", "Charlie");
+            grandChild3.AddInlineAttribute("Name", "Charlie");
 
             var grandChild4 = RapidXamlElement.Build("GrandChild");
-            grandChild4.AddAttribute("Name", "Dana");
+            grandChild4.AddInlineAttribute("Name", "Dana");
 
             child2.AddChild(grandChild3);
             child2.AddChild(grandChild4);
@@ -366,10 +366,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 </Grid>";
 
             var expected = RapidXamlElement.Build("Grid");
-            expected.AddAttribute("Height", "Auto");
+            expected.AddInlineAttribute("Height", "Auto");
 
             var child1 = RapidXamlElement.Build("MyChild");
-            child1.AddAttribute("Height", "80");
+            child1.AddInlineAttribute("Height", "80");
             child1.SetContent(@"
         <GrandChild Name=""Andy"">
             <GreatGrandChild Age=""1"" />
@@ -381,22 +381,22 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         </GrandChild>");
 
             var grandChild1 = RapidXamlElement.Build("GrandChild");
-            grandChild1.AddAttribute("Name", "Andy");
+            grandChild1.AddInlineAttribute("Name", "Andy");
             grandChild1.SetContent(@"
             <GreatGrandChild Age=""1"" />
             <GreatGrandChild Age=""2"" />");
 
             var greatGC1 = RapidXamlElement.Build("GreatGrandChild");
-            greatGC1.AddAttribute("Age", "1");
+            greatGC1.AddInlineAttribute("Age", "1");
 
             var greatGC2 = RapidXamlElement.Build("GreatGrandChild");
-            greatGC2.AddAttribute("Age", "2");
+            greatGC2.AddInlineAttribute("Age", "2");
 
             grandChild1.AddChild(greatGC1);
             grandChild1.AddChild(greatGC2);
 
             var grandChild2 = RapidXamlElement.Build("GrandChild");
-            grandChild2.AddAttribute("Name", "Becky");
+            grandChild2.AddInlineAttribute("Name", "Becky");
             grandChild2.SetContent(@"
             <GreatGrandChild Age=""3"" />
             <GreatGrandChild Age=""4"" />");
@@ -405,16 +405,16 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             child1.AddChild(grandChild2);
 
             var greatGC3 = RapidXamlElement.Build("GreatGrandChild");
-            greatGC3.AddAttribute("Age", "3");
+            greatGC3.AddInlineAttribute("Age", "3");
 
             var greatGC4 = RapidXamlElement.Build("GreatGrandChild");
-            greatGC4.AddAttribute("Age", "4");
+            greatGC4.AddInlineAttribute("Age", "4");
 
             grandChild2.AddChild(greatGC3);
             grandChild2.AddChild(greatGC4);
 
             var child2 = RapidXamlElement.Build("MyChild");
-            child2.AddAttribute("Height", "90");
+            child2.AddInlineAttribute("Height", "90");
             child2.SetContent(@"
         <GrandChild Name=""Charlie"">
             <GreatGrandChild Age=""5"" />
@@ -426,31 +426,31 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         </GrandChild>");
 
             var grandChild3 = RapidXamlElement.Build("GrandChild");
-            grandChild3.AddAttribute("Name", "Charlie");
+            grandChild3.AddInlineAttribute("Name", "Charlie");
             grandChild3.SetContent(@"
             <GreatGrandChild Age=""5"" />
             <GreatGrandChild Age=""6"" />");
 
             var greatGC5 = RapidXamlElement.Build("GreatGrandChild");
-            greatGC5.AddAttribute("Age", "5");
+            greatGC5.AddInlineAttribute("Age", "5");
 
             var greatGC6 = RapidXamlElement.Build("GreatGrandChild");
-            greatGC6.AddAttribute("Age", "6");
+            greatGC6.AddInlineAttribute("Age", "6");
 
             grandChild3.AddChild(greatGC5);
             grandChild3.AddChild(greatGC6);
 
             var grandChild4 = RapidXamlElement.Build("GrandChild");
-            grandChild4.AddAttribute("Name", "Dana");
+            grandChild4.AddInlineAttribute("Name", "Dana");
             grandChild4.SetContent(@"
             <GreatGrandChild Age=""7"" />
             <GreatGrandChild Age=""8"" />");
 
             var greatGC7 = RapidXamlElement.Build("GreatGrandChild");
-            greatGC7.AddAttribute("Age", "7");
+            greatGC7.AddInlineAttribute("Age", "7");
 
             var greatGC8 = RapidXamlElement.Build("GreatGrandChild");
-            greatGC8.AddAttribute("Age", "8");
+            greatGC8.AddInlineAttribute("Age", "8");
             greatGC8.SetContent("Little Bobby");
 
             grandChild4.AddChild(greatGC7);
@@ -533,11 +533,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             <C1GC1GreatGrandChild2 Age=""2"">Betty</C1GC1GreatGrandChild2>");
 
             var greatGC1 = RapidXamlElement.Build("C1GC1GreatGrandChild1");
-            greatGC1.AddAttribute("Age", "1");
+            greatGC1.AddInlineAttribute("Age", "1");
             greatGC1.SetContent("Albert");
 
             var greatGC2 = RapidXamlElement.Build("C1GC1GreatGrandChild2");
-            greatGC2.AddAttribute("Age", "2");
+            greatGC2.AddInlineAttribute("Age", "2");
             greatGC2.SetContent("Betty");
 
             grandChild1.AddChild(greatGC1);
@@ -549,11 +549,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             <C1GC2GreatGrandChild2 Age=""4"">Denise</C1GC2GreatGrandChild2>");
 
             var greatGC3 = RapidXamlElement.Build("C1GC2GreatGrandChild1");
-            greatGC3.AddAttribute("Age", "3");
+            greatGC3.AddInlineAttribute("Age", "3");
             greatGC3.SetContent("Carl");
 
             var greatGC4 = RapidXamlElement.Build("C1GC2GreatGrandChild2");
-            greatGC4.AddAttribute("Age", "4");
+            greatGC4.AddInlineAttribute("Age", "4");
             greatGC4.SetContent("Denise");
 
             grandChild2.AddChild(greatGC3);
@@ -579,11 +579,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             <C2GC1GreatGrandChild2 Age=""6"">Francine</C2GC1GreatGrandChild2>");
 
             var greatGC5 = RapidXamlElement.Build("C2GC1GreatGrandChild1");
-            greatGC5.AddAttribute("Age", "5");
+            greatGC5.AddInlineAttribute("Age", "5");
             greatGC5.SetContent("Eric");
 
             var greatGC6 = RapidXamlElement.Build("C2GC1GreatGrandChild2");
-            greatGC6.AddAttribute("Age", "6");
+            greatGC6.AddInlineAttribute("Age", "6");
             greatGC6.SetContent("Francine");
 
             grandChild3.AddChild(greatGC5);
@@ -595,11 +595,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             <C2GC2GreatGrandChild2 Age=""8"">Hannah</C2GC2GreatGrandChild2>");
 
             var greatGC7 = RapidXamlElement.Build("C2GC2GreatGrandChild1");
-            greatGC7.AddAttribute("Age", "7");
+            greatGC7.AddInlineAttribute("Age", "7");
             greatGC7.SetContent("Gilbert");
 
             var greatGC8 = RapidXamlElement.Build("C2GC2GreatGrandChild2");
-            greatGC8.AddAttribute("Age", "8");
+            greatGC8.AddInlineAttribute("Age", "8");
             greatGC8.SetContent("Hannah");
 
             grandChild4.AddChild(greatGC7);
@@ -682,11 +682,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             <tst:C1GC1GreatGrandChild2 Age=""2"">Betty</tst:C1GC1GreatGrandChild2>");
 
             var greatGC1 = RapidXamlElement.Build("tst:C1GC1GreatGrandChild1");
-            greatGC1.AddAttribute("Age", "1");
+            greatGC1.AddInlineAttribute("Age", "1");
             greatGC1.SetContent("Albert");
 
             var greatGC2 = RapidXamlElement.Build("tst:C1GC1GreatGrandChild2");
-            greatGC2.AddAttribute("Age", "2");
+            greatGC2.AddInlineAttribute("Age", "2");
             greatGC2.SetContent("Betty");
 
             grandChild1.AddChild(greatGC1);
@@ -698,11 +698,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             <tst:C1GC2GreatGrandChild2 Age=""4"">Denise</tst:C1GC2GreatGrandChild2>");
 
             var greatGC3 = RapidXamlElement.Build("tst:C1GC2GreatGrandChild1");
-            greatGC3.AddAttribute("Age", "3");
+            greatGC3.AddInlineAttribute("Age", "3");
             greatGC3.SetContent("Carl");
 
             var greatGC4 = RapidXamlElement.Build("tst:C1GC2GreatGrandChild2");
-            greatGC4.AddAttribute("Age", "4");
+            greatGC4.AddInlineAttribute("Age", "4");
             greatGC4.SetContent("Denise");
 
             grandChild2.AddChild(greatGC3);
@@ -728,11 +728,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             <tst:C2GC1GreatGrandChild2 Age=""6"">Francine</tst:C2GC1GreatGrandChild2>");
 
             var greatGC5 = RapidXamlElement.Build("tst:C2GC1GreatGrandChild1");
-            greatGC5.AddAttribute("Age", "5");
+            greatGC5.AddInlineAttribute("Age", "5");
             greatGC5.SetContent("Eric");
 
             var greatGC6 = RapidXamlElement.Build("tst:C2GC1GreatGrandChild2");
-            greatGC6.AddAttribute("Age", "6");
+            greatGC6.AddInlineAttribute("Age", "6");
             greatGC6.SetContent("Francine");
 
             grandChild3.AddChild(greatGC5);
@@ -744,11 +744,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             <tst:C2GC2GreatGrandChild2 Age=""8"">Hannah</tst:C2GC2GreatGrandChild2>");
 
             var greatGC7 = RapidXamlElement.Build("tst:C2GC2GreatGrandChild1");
-            greatGC7.AddAttribute("Age", "7");
+            greatGC7.AddInlineAttribute("Age", "7");
             greatGC7.SetContent("Gilbert");
 
             var greatGC8 = RapidXamlElement.Build("tst:C2GC2GreatGrandChild2");
-            greatGC8.AddAttribute("Age", "8");
+            greatGC8.AddInlineAttribute("Age", "8");
             greatGC8.SetContent("Hannah");
 
             grandChild4.AddChild(greatGC7);
@@ -831,13 +831,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             </tst:C1GC1GreatGrandChild2>");
 
             var greatGC1 = RapidXamlElement.Build("tst:C1GC1GreatGrandChild1");
-            greatGC1.AddAttribute("Age", "1");
-            greatGC1.AddAttribute("Gender", "Male");
+            greatGC1.AddInlineAttribute("Age", "1");
+            greatGC1.AddChildAttribute("Gender", "Male");
             greatGC1.SetContent("Albert");
 
             var greatGC2 = RapidXamlElement.Build("tst:C1GC1GreatGrandChild2");
-            greatGC2.AddAttribute("Age", "2");
-            greatGC2.AddAttribute("Gender", "Female");
+            greatGC2.AddInlineAttribute("Age", "2");
+            greatGC2.AddChildAttribute("Gender", "Female");
             greatGC2.SetContent("Betty");
 
             grandChild1.AddChild(greatGC1);
@@ -873,9 +873,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var expected = RapidXamlElement.Build("Grid");
 
             var attrElement = RapidXamlElement.Build("Label");
-            attrElement.AddAttribute("Text", "Hello testers");
+            attrElement.AddInlineAttribute("Text", "Hello testers");
 
-            expected.AddAttribute("Content", attrElement);
+            expected.AddChildAttribute("Content", attrElement);
 
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -900,11 +900,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var expected = RapidXamlElement.Build("Grid");
 
             var innerGrid = RapidXamlElement.Build("InnerGrid");
-            innerGrid.AddAttribute("Height", "Auto");
-            innerGrid.AddAttribute("Content", RapidXamlElement.Build("Label").SetContent("First"));
-            innerGrid.AddAttribute("Content", RapidXamlElement.Build("Label").AddAttribute("Text", "Second"));
+            innerGrid.AddInlineAttribute("Height", "Auto");
+            innerGrid.AddChildAttribute("Content", RapidXamlElement.Build("Label").SetContent("First"));
+            innerGrid.AddChildAttribute("Content", RapidXamlElement.Build("Label").AddInlineAttribute("Text", "Second"));
 
-            expected.AddAttribute("Content1", innerGrid);
+            expected.AddChildAttribute("Content1", innerGrid);
 
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -934,16 +934,16 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var expected = RapidXamlElement.Build("Grid");
 
             var innerGrid = RapidXamlElement.Build("InnerGrid");
-            innerGrid.AddAttribute("Height", "Auto");
-            innerGrid.AddAttribute("Content", RapidXamlElement.Build("Label").SetContent("First"));
-            innerGrid.AddAttribute("Content", RapidXamlElement.Build("Label").AddAttribute("Text", "Second"));
+            innerGrid.AddInlineAttribute("Height", "Auto");
+            innerGrid.AddChildAttribute("Content", RapidXamlElement.Build("Label").SetContent("First"));
+            innerGrid.AddChildAttribute("Content", RapidXamlElement.Build("Label").AddInlineAttribute("Text", "Second"));
 
-            expected.AddAttribute("Content1", innerGrid);
+            expected.AddChildAttribute("Content1", innerGrid);
 
             var labelElement = RapidXamlElement.Build("Label");
-            labelElement.AddAttribute("Text", "Hello testers");
+            labelElement.AddInlineAttribute("Text", "Hello testers");
 
-            expected.AddAttribute("Content2", labelElement);
+            expected.AddChildAttribute("Content2", labelElement);
 
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 

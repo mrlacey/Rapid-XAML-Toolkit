@@ -5,16 +5,23 @@ namespace RapidXaml
 {
     public static class RapidXamlElementExtensions
     {
-        public static RapidXamlElement AddAttribute(this RapidXamlElement expected, string name, string value)
+        public static RapidXamlElement AddChildAttribute(this RapidXamlElement expected, string name, string value)
         {
-            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, StringValue = value });
+            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, StringValue = value, IsInline = false });
 
             return expected;
         }
 
-        public static RapidXamlElement AddAttribute(this RapidXamlElement expected, string name, RapidXamlElement value)
+        public static RapidXamlElement AddInlineAttribute(this RapidXamlElement expected, string name, string value)
         {
-            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, ElementValue = value });
+            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, StringValue = value, IsInline = true });
+
+            return expected;
+        }
+
+        public static RapidXamlElement AddChildAttribute(this RapidXamlElement expected, string name, RapidXamlElement value)
+        {
+            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, ElementValue = value, IsInline = false });
 
             return expected;
         }

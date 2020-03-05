@@ -82,6 +82,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                             {
                                 errorMessage = $"At index {i}, found element attribute '{actAttr.ElementValue}' when expecting '{expAttr.ElementValue}'. (String comparison only!)";
                             }
+                            else if (expAttr.IsInline != actAttr.IsInline)
+                            {
+                                errorMessage = $"At index {i}, found attribute with IsInline '{actAttr.IsInline}' when expecting '{expAttr.IsInline}'.";
+                            }
                         }
                     }
                 }

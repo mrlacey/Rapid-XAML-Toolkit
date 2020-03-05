@@ -7,6 +7,8 @@ namespace RapidXaml
     {
         public string Name { get; internal set; }
 
+        public bool IsInline { get; internal set; } = true;
+
         public bool HasStringValue
         {
             get

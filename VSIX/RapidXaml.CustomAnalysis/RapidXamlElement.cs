@@ -29,6 +29,12 @@ namespace RapidXaml
             return $"{this.Name} ({this.Attributes.Count} attributes, {this.Children.Count} children)";
         }
 
+        public string ToXamlString()
+        {
+            // TODO: implement RapidXamlElement.ToXamlString() - As may be useful for some replacement tasks.
+            return string.Empty;
+        }
+
         // Utility methods to simplify usage
         public bool ContainsAttribute(string attributeName)
         {

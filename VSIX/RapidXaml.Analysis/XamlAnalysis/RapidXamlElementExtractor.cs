@@ -42,7 +42,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 foreach (var attr in xdoc.Attributes)
                 {
-                    result.AddAttribute(attr.Name, attr.Value);
+                    result.AddInlineAttribute(attr.Name, attr.Value);
                 }
 
                 foreach (var child in docSyntax.Body.ChildNodes)
@@ -76,7 +76,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                         {
                                             var listItemString = xaml.Substring(listItem.SpanStart, listItem.Width);
 
-                                            result.AddAttribute(
+                                            result.AddChildAttribute(
                                                 childElement.Name.Substring(elementName.Length + 1),
                                                 GetElement(listItemString, startOffset + startingWhiteSpaceLength + listItem.Start));
                                         }
@@ -85,7 +85,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     {
                                         var innerString = xaml.Substring(innerChild.SpanStart, innerChild.Width);
 
-                                        result.AddAttribute(
+                                        result.AddChildAttribute(
                                             childElement.Name.Substring(elementName.Length + 1),
                                             GetElement(innerString, startOffset + startingWhiteSpaceLength + innerChild.Start));
                                     }
@@ -93,7 +93,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                             }
                             else
                             {
-                                result.AddAttribute(
+                                result.AddChildAttribute(
                                     childElement.Name.Substring(elementName.Length + 1),
                                     attrString);
                             }
@@ -116,7 +116,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         foreach (var attr in selfClosingChild.AttributesNode)
                         {
-                            toAdd.AddAttribute(attr.Name, attr.Value);
+                            toAdd.AddInlineAttribute(attr.Name, attr.Value);
                         }
 
                         result.AddChild(toAdd);
@@ -138,13 +138,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                     if (attrString.StartsWith("<"))
                                     {
-                                        result.AddAttribute(
+                                        result.AddChildAttribute(
                                             ncElement.Name.Substring(elementName.Length + 1),
                                             GetElement(attrString, startOffset + ncElement.Content.Span.Start));
                                     }
                                     else
                                     {
-                                        result.AddAttribute(
+                                        result.AddChildAttribute(
                                             ncElement.Name.Substring(elementName.Length + 1),
                                             attrString);
                                     }
@@ -167,7 +167,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                 foreach (var attr in ncSelfClosing.AttributesNode)
                                 {
-                                    nodeToAdd.AddAttribute(attr.Name, attr.Value);
+                                    nodeToAdd.AddInlineAttribute(attr.Name, attr.Value);
                                 }
 
                                 result.AddChild(nodeToAdd);
