@@ -82,7 +82,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                         foreach (var childAttr in this.Tag.AnalyzedElement.ChildAttributes)
                         {
-                            renameLineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(childAttr.Location.Start + this.Tag.InsertPostion);
+                            renameLineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(childAttr.Location.Start);
                             vs.ReplaceInActiveDocOnLine($"{this.Tag.ElementName}.{childAttr.Name}", $"{this.Tag.Name}.{childAttr.Name}", renameLineNumber);
                         }
 

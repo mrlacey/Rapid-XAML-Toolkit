@@ -6,7 +6,7 @@ using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    // TODO: add an imtem template for creating something like this
+    // TODO: add an item template for creating something like this
     // TODO: add a project template for creating this as a NuGet package
     public class FooAnalysis : RapidXaml.ICustomAnalyzer
     {
