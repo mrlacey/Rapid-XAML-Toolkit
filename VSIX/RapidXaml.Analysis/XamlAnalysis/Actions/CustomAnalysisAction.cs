@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Linq;
 using System.Threading;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -77,13 +78,21 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         }
                         else
                         {
-                            // TODO: implement removing a child attribute
+                            var attrs = this.Tag.AnalyzedElement.GetAttributes(this.Tag.Name).ToList();
+
+                            if (attrs.Count() == 1)
+                            {
+                                var attr = attrs.First();
+                                var toRemove = this.Tag.AnalyzedElement.OriginalString.Substring(attr.Location.Start - this.Tag.InsertPosition, attr.Location.Length);
+
+                                vs.RemoveInActiveDocOnLine(toRemove, this.Tag.GetDesignerLineNumber());
+                            }
                         }
 
                         break;
 
                     case RapidXaml.ActionType.RemoveChild:
-                        // TODO: implement RemoveChild functionality
+                        // TODO: implement RemoveChild functionality - like removing child-attributes
                         break;
 
                     case RapidXaml.ActionType.ReplaceElement:
