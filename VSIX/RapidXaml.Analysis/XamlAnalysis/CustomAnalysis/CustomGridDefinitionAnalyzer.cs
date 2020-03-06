@@ -13,6 +13,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
         public AnalysisActions Analyze(RapidXamlElement element)
         {
+            // TODO: support RowDefinitions too
             var colDefs = element.GetAttributes("ColumnDefinitions");
 
             if (colDefs.Count() == 1)
@@ -39,7 +40,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                         RapidXamlErrorType.Warning,
                         "WINUI673B",
                         description: "Can change to other syntax.",
-                        actionText: "Remove short definition syntax",
+                        actionText: "Use old definition syntax",
                         attribute: colDef).AndAddChildString(newXaml.ToString());
                 }
                 else
@@ -62,7 +63,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                         RapidXamlErrorType.Warning,
                         "WINUI673A",
                         description: "Can change to other syntax.",
-                        actionText: "Remove longer definition syntax",
+                        actionText: "Use shorter definition syntax",
                         attribute: colDef).AndAddAttribute("ColumnDefinitions", newXaml.ToString().TrimEnd(',', ' '));
                 }
             }

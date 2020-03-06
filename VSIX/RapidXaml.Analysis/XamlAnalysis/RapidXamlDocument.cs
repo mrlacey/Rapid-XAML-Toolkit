@@ -195,11 +195,13 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
 #if DEBUG
+            // These types exists for testing only and so are only referenced during Debug
             result.Add(new CustomAnalysis.FooAnalysis());
             result.Add(new CustomAnalysis.CustomGridDefinitionAnalyzer());
             result.Add(new CustomAnalysis.RenameElementTestAnalyzer());
             result.Add(new CustomAnalysis.ReplaceElementTestAnalyzer());
             result.Add(new CustomAnalysis.AddChildTestAnalyzer());
+            result.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
 #endif
             result.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
 

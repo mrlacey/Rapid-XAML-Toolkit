@@ -83,7 +83,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                             if (attrs.Count() == 1)
                             {
                                 var attr = attrs.First();
-                                var toRemove = this.Tag.AnalyzedElement.OriginalString.Substring(attr.Location.Start - this.Tag.InsertPosition, attr.Location.Length);
+                                var toRemove =
+                                    this.Tag.AnalyzedElement.OriginalString.Substring(
+                                        attr.Location.Start - this.Tag.InsertPosition,
+                                        attr.Location.Length);
 
                                 vs.RemoveInActiveDocOnLine(toRemove, this.Tag.GetDesignerLineNumber());
                             }
@@ -92,7 +95,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         break;
 
                     case RapidXaml.ActionType.RemoveChild:
-                        // TODO: implement RemoveChild functionality - like removing child-attributes
+                        vs.RemoveInActiveDocOnLine(this.Tag.Element.OriginalString, this.Tag.GetDesignerLineNumber());
                         break;
 
                     case RapidXaml.ActionType.ReplaceElement:
