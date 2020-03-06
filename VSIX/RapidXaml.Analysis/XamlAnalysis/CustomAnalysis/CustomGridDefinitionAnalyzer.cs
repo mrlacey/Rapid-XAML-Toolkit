@@ -37,23 +37,15 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     // Offer option to use longer (old) syntax.
                     return AnalysisActions.RemoveAttribute(
                         RapidXamlErrorType.Warning,
-                        "GRD002a",
+                        "WINUI673B",
                         description: "Can change to other syntax.",
                         actionText: "Remove short definition syntax",
-                        attribute: colDef).AddChildString(
-                        RapidXamlErrorType.Warning,
-                        code: "GRD002b",
-                        description: "Can change to other syntax.",
-                        actionText: "Add expanded definition syntax",
-                        xaml: newXaml.ToString());
+                        attribute: colDef).AndAddChildString(newXaml.ToString());
                 }
                 else
                 {
                     // Offer option to use shorter (new) syntax.
                     var newXaml = new System.Text.StringBuilder();
-                    newXaml.Append("ColumnDefinitions=\"");
-
-                    var counter = 0;
 
                     foreach (var oldColDef in colDef.ElementValue.GetChildren("ColumnDefinition"))
                     {
@@ -61,30 +53,17 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
                         if (width != null)
                         {
-                            if (counter > 0)
-                            {
-                                newXaml.Append(", ");
-                            }
-
                             newXaml.Append(width);
-
-                            counter += 1;
+                            newXaml.Append(", ");
                         }
                     }
 
-                    newXaml.Append("\"");
-
                     return AnalysisActions.RemoveAttribute(
                         RapidXamlErrorType.Warning,
-                        "GRD001a",
+                        "WINUI673A",
                         description: "Can change to other syntax.",
                         actionText: "Remove longer definition syntax",
-                        attribute: colDef).AddChildString(
-                        RapidXamlErrorType.Warning,
-                        code: "GRD001b",
-                        description: "Can change to other syntax.",
-                        actionText: "Add shorter definition syntax",
-                        xaml: newXaml.ToString());
+                        attribute: colDef).AndAddAttribute("ColumnDefinitions", newXaml.ToString().TrimEnd(',', ' '));
                 }
             }
             else

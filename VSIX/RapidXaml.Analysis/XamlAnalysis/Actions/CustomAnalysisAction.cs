@@ -48,11 +48,20 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         break;
 
                     case RapidXaml.ActionType.HighlightWithoutAction:
-                        // As the name applies, do nothing.
+                        // As the name implies, do nothing.
                         break;
 
                     case RapidXaml.ActionType.RemoveAttribute:
-                        // TODO: implement RemoveAttribute functionality
+                        if (this.Tag.IsInlineAttribute ?? false)
+                        {
+                            var currentAttribute = $"{this.Tag.Name}=\"{this.Tag.Value}\"";
+                            vs.RemoveInActiveDocOnLine(currentAttribute, this.Tag.GetDesignerLineNumber());
+                        }
+                        else
+                        {
+                            // TODO: implement removing a child attribute
+                        }
+
                         break;
 
                     case RapidXaml.ActionType.RemoveChild:
@@ -64,7 +73,16 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         break;
 
                     case RapidXaml.ActionType.RenameElement:
-                        // TODO: implement RenameElement functionality
+                        // Just change opening tags as Visual Studio will change closing tags automatically
+                        var renameLineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPostion);
+                        vs.ReplaceInActiveDocOnLine(this.Tag.ElementName, this.Tag.Name, renameLineNumber);
+
+                        foreach (var childAttr in this.Tag.AnalyzedElement.ChildAttributes)
+                        {
+                            renameLineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(childAttr.Location.Start + this.Tag.InsertPostion);
+                            vs.ReplaceInActiveDocOnLine($"{this.Tag.ElementName}.{childAttr.Name}", $"{this.Tag.Name}.{childAttr.Name}", renameLineNumber);
+                        }
+
                         break;
                 }
 

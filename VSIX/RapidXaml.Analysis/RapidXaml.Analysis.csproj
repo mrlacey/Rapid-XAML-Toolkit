@@ -101,6 +101,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\FooAnalysis.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\NotReallyCustomAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\RenameElementTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\TwoPaneViewAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomProcessorWrapper.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />

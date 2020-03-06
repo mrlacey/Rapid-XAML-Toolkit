@@ -197,6 +197,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 #if DEBUG
             result.Add(new CustomAnalysis.FooAnalysis());
             result.Add(new CustomAnalysis.CustomGridDefinitionAnalyzer());
+            result.Add(new CustomAnalysis.RenameElementTestAnalyzer());
 #endif
             result.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
 
