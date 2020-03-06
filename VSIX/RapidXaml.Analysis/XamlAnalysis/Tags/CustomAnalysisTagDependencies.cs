@@ -27,10 +27,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public string ElementName { get; set; }
 
-        public string MoreInfoUrl { get; set; }
-
-        public bool? IsInlineAttribute { get; set; }
-
         public string CustomFeatureUsageValue { get; set; }
 
         // This is stored for use by actions

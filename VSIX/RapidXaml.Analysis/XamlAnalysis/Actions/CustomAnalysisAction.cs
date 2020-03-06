@@ -69,7 +69,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         break;
 
                     case RapidXaml.ActionType.ReplaceElement:
-                        // TODO: implement ReplaceElement functionality
+                        vs.ReplaceInActiveDocOnLine(
+                            this.Tag.AnalyzedElement.OriginalString,
+                            this.Tag.Content,
+                            this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.AnalyzedElement.Location.Start));
                         break;
 
                     case RapidXaml.ActionType.RenameElement:

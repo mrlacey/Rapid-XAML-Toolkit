@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
-            var rxElement = RapidXamlElementExtractor.GetElement(xamlElement);
+            var rxElement = RapidXamlElementExtractor.GetElement(xamlElement, offset);
 
             var analysisActions = this.customProcessor.Analyze(rxElement);
 
@@ -40,8 +40,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         InsertPos = offset,
                         Logger = this.Logger,
                         Snapshot = snapshot,
-                        MoreInfoUrl = action.MoreInfoUrl,
-                        IsInlineAttribute = action.IsInlineAttribute,
                     };
 
                     // Treat `NotReallyCustomAnalyzer` types as any other built-in type.

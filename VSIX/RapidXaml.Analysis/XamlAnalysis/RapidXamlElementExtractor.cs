@@ -16,9 +16,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         // This doesn't have the extra input checking that is in the caller in the TestHelper.
         // Extra checks excluded here as input is already known good based on original doc parsing.
-        public static RapidXamlElement GetElement(string xamlElement)
+        public static RapidXamlElement GetElement(string xamlElement, int offset = 0)
         {
-            RapidXamlElement GetElement(string xaml, int startOffset)
+            RapidXamlElement GetElementInternal(string xaml, int startOffset)
             {
                 if (string.IsNullOrWhiteSpace(xaml))
                 {
@@ -82,7 +82,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                             result.AddChildAttribute(
                                                 childElement.Name.Substring(elementName.Length + 1),
-                                                GetElement(listItemString, startOffset + startingWhiteSpaceLength + listItem.Start),
+                                                GetElementInternal(listItemString, startOffset + startingWhiteSpaceLength + listItem.Start),
                                                 startOffset + childElement.SpanStart,
                                                 childElement.Width);
                                         }
@@ -93,7 +93,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                         result.AddChildAttribute(
                                             childElement.Name.Substring(elementName.Length + 1),
-                                            GetElement(innerString, startOffset + startingWhiteSpaceLength + innerChild.Start),
+                                            GetElementInternal(innerString, startOffset + startingWhiteSpaceLength + innerChild.Start),
                                             startOffset + childElement.SpanStart,
                                             childElement.Width);
                                     }
@@ -117,7 +117,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         }
                         else
                         {
-                            result.AddChild(GetElement(content, startOffset + child.Start));
+                            result.AddChild(GetElementInternal(content, startOffset + child.Start));
                         }
                     }
                     else if (child is XmlEmptyElementSyntax selfClosingChild)
@@ -155,7 +155,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     {
                                         result.AddChildAttribute(
                                             ncElement.Name.Substring(elementName.Length + 1),
-                                            GetElement(attrString, startOffset + ncElement.Content.Span.Start),
+                                            GetElementInternal(attrString, startOffset + ncElement.Content.Span.Start),
                                             startOffset + ncElement.SpanStart,
                                             ncElement.Width);
                                     }
@@ -177,7 +177,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 }
                                 else
                                 {
-                                    result.AddChild(GetElement(xaml.Substring(nodeChild.SpanStart, nodeChild.Width), startOffset + nodeChild.SpanStart));
+                                    result.AddChild(GetElementInternal(xaml.Substring(nodeChild.SpanStart, nodeChild.Width), startOffset + nodeChild.SpanStart));
                                 }
                             }
                             else if (nodeChild is XmlEmptyElementSyntax ncSelfClosing)
@@ -213,7 +213,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             else
             {
-                var rxElement = GetElement(xamlElement, 0);
+                var rxElement = GetElementInternal(xamlElement, offset);
 
                 if (rxElement != null)
                 {
