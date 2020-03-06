@@ -49,7 +49,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.AddChild(errorType, code, description, actionText, xaml);
+            result.AddChildString(errorType, code, description, actionText, xaml);
 
             return result;
         }

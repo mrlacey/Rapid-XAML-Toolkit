@@ -34,7 +34,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 switch (this.Tag.Action)
                 {
                     case RapidXaml.ActionType.AddAttribute:
-                        var lineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPostion) + 1;
+                        var lineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;
 
                         var before = $"<{this.Tag.ElementName} ";
                         var after = $"<{this.Tag.ElementName} {this.Tag.Name}=\"{this.Tag.Value}\" ";
@@ -44,7 +44,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         break;
 
                     case RapidXaml.ActionType.AddChild:
-                        // TODO: implement AddChild functionality
+                        // TODO: allow for self-closing
+                        // TODO: allow for opening and closing tags on same line
+                        var insertLine = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;
+                        vs.InsertIntoActiveDocOnLineAfterClosingTag(insertLine, this.Tag.Content);
                         break;
 
                     case RapidXaml.ActionType.HighlightWithoutAction:
@@ -77,7 +80,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                     case RapidXaml.ActionType.RenameElement:
                         // Just change opening tags as Visual Studio will change closing tags automatically
-                        var renameLineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPostion);
+                        var renameLineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition);
                         vs.ReplaceInActiveDocOnLine(this.Tag.ElementName, this.Tag.Name, renameLineNumber);
 
                         foreach (var childAttr in this.Tag.AnalyzedElement.ChildAttributes)

@@ -42,9 +42,12 @@ namespace RapidXaml
 
             var attrs = new System.Text.StringBuilder();
 
-            foreach (var attr in attributes)
+            if (attributes != null)
             {
-                attrs.Append($" {attr.name}=\"{attr.value}\"");
+                foreach (var attr in attributes)
+                {
+                    attrs.Append($" {attr.name}=\"{attr.value}\"");
+                }
             }
 
             var content = $"<{elementName}{attrs} />";

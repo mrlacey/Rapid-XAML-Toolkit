@@ -23,6 +23,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         void DeleteFromEndOfLine(int lineNumber, int charsToDelete);
 
+        void InsertIntoActiveDocOnLineAfterClosingTag(int openingAngleBracketLineNumber, string toInsert);
+
         bool StartSingleUndoOperation(string name);
 
         void EndSingleUndoOperation();

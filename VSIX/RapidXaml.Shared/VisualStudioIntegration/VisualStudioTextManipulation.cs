@@ -147,6 +147,21 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
         }
 
+        public void InsertIntoActiveDocOnLineAfterClosingTag(int openingAngleBracketLineNumber, string toInsert)
+        {
+            if (this.Dte.ActiveDocument.Object("TextDocument") is TextDocument txtDoc)
+            {
+                txtDoc.Selection.MoveToLineAndOffset(openingAngleBracketLineNumber, 1);
+
+                // This will allow selection to move to whichever line the startTag ends on.
+                txtDoc.Selection.FindText(">", (int)vsFindOptions.vsFindOptionsMatchCase);
+
+                txtDoc.Selection.EndOfLine();
+                txtDoc.Selection.NewLine();
+                txtDoc.Selection.Insert(toInsert);
+            }
+        }
+
         // Returns false if an UndoContext is already open.
         // Track the return value to know whether to end/close the UndoContext.
         public bool StartSingleUndoOperation(string name)
