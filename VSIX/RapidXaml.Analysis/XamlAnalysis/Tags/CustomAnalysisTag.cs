@@ -23,6 +23,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Value = deps.Action.Value;
             this.Content = deps.Action.Content;
             this.Element = deps.Action.Element;
+            this.IsInlineAttribute = deps.Action.IsInlineAttribute;
+            this.AnalyzedElement = deps.AnalyzedElement;
         }
 
         public ActionType Action { get; }
@@ -40,5 +42,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public string Content { get; }
 
         public RapidXamlElement Element { get; }
+
+        public bool? IsInlineAttribute { get; }
+
+        public RapidXamlElement AnalyzedElement { get; }
     }
 }

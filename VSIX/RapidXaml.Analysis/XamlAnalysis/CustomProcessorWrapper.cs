@@ -31,6 +31,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     var tagDeps = new CustomAnalysisTagDependencies
                     {
+                        AnalyzedElement = rxElement,
                         Action = action,
                         ElementName = GetElementName(xamlElement), // Do this to get any xmlns
                         ErrorCode = action.Code,
@@ -40,6 +41,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         Logger = this.Logger,
                         Snapshot = snapshot,
                         MoreInfoUrl = action.MoreInfoUrl,
+                        IsInlineAttribute = action.IsInlineAttribute,
                     };
 
                     // Treat `NotReallyCustomAnalyzer` types as any other built-in type.

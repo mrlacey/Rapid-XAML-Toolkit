@@ -5,42 +5,42 @@ namespace RapidXaml
 {
     public static class RapidXamlElementExtensions
     {
-        public static RapidXamlElement AddChildAttribute(this RapidXamlElement expected, string name, string value)
+        public static RapidXamlElement AddChildAttribute(this RapidXamlElement element, string name, string value, int startPos = -1, int length = -1)
         {
-            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, StringValue = value, IsInline = false });
+            element.Attributes.Add(new RapidXamlAttribute() { Name = name, StringValue = value, IsInline = false, Location = new RapidXamlSpan(startPos, length) });
 
-            return expected;
+            return element;
         }
 
-        public static RapidXamlElement AddInlineAttribute(this RapidXamlElement expected, string name, string value)
+        public static RapidXamlElement AddInlineAttribute(this RapidXamlElement element, string name, string value, int startPos = -1, int length = -1)
         {
-            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, StringValue = value, IsInline = true });
+            element.Attributes.Add(new RapidXamlAttribute() { Name = name, StringValue = value, IsInline = true, Location = new RapidXamlSpan(startPos, length) });
 
-            return expected;
+            return element;
         }
 
-        public static RapidXamlElement AddChildAttribute(this RapidXamlElement expected, string name, RapidXamlElement value)
+        public static RapidXamlElement AddChildAttribute(this RapidXamlElement element, string name, RapidXamlElement value, int startPos = -1, int length = -1)
         {
-            expected.Attributes.Add(new RapidXamlAttribute() { Name = name, ElementValue = value, IsInline = false });
+            element.Attributes.Add(new RapidXamlAttribute() { Name = name, ElementValue = value, IsInline = false, Location = new RapidXamlSpan(startPos, length) });
 
-            return expected;
+            return element;
         }
 
-        public static RapidXamlElement AddChild(this RapidXamlElement expected, string name)
+        public static RapidXamlElement AddChild(this RapidXamlElement element, string name)
         {
-            expected.Children.Add(new RapidXamlElement() { Name = name });
+            element.Children.Add(new RapidXamlElement() { Name = name });
 
-            return expected;
+            return element;
         }
 
-        public static RapidXamlElement AddChild(this RapidXamlElement expected, RapidXamlElement child)
+        public static RapidXamlElement AddChild(this RapidXamlElement element, RapidXamlElement child)
         {
             if (child != null)
             {
-                expected.Children.Add(child);
+                element.Children.Add(child);
             }
 
-            return expected;
+            return element;
         }
 
         public static RapidXamlElement SetContent(this RapidXamlElement expected, string content)

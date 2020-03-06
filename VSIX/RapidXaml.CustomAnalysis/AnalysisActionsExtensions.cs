@@ -139,6 +139,8 @@ namespace RapidXaml
                 ErrorType = errorType,
                 ActionText = actionText,
                 Name = attribute.Name,
+                IsInlineAttribute = attribute.IsInline,
+                Value = attribute.StringValue,
             });
 
             return result;

@@ -37,10 +37,13 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordException(Exception exception)
         {
-            ThreadHelper.JoinableTaskFactory.Run(async () => await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync());
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            this.Logger.RecordException(exception);
-            this.Telem.TrackException(exception);
+                this.Logger.RecordException(exception);
+                this.Telem.TrackException(exception);
+            });
         }
 
         public void RecordFeatureUsage(string feature)

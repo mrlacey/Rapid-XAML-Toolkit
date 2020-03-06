@@ -19,6 +19,20 @@ namespace RapidXaml
 
         public List<RapidXamlElement> Children { get; } = new List<RapidXamlElement>();
 
+        public IEnumerable<RapidXamlAttribute> ChildAttributes
+        {
+            get
+            {
+                foreach (var attr in this.Attributes)
+                {
+                    if (!attr.HasStringValue)
+                    {
+                        yield return attr;
+                    }
+                }
+            }
+        }
+
         public static RapidXamlElement Build(string name, int start = -1, int length = -1)
         {
             return new RapidXamlElement { Name = name, Location = new RapidXamlSpan(start, length) };

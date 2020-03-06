@@ -11,7 +11,7 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         // This is quite a simple caching strategy.
         // Ideally would like to avoid discarding items from the cache that are recently used.
-        private static SizeLimitedDictionary<string, RapidXamlElement> rxElementCache
+        private static readonly SizeLimitedDictionary<string, RapidXamlElement> RxElementCache
             = new SizeLimitedDictionary<string, RapidXamlElement>(200);
 
         // This doesn't have the extra input checking that is in the caller in the TestHelper.
@@ -42,7 +42,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 foreach (var attr in xdoc.Attributes)
                 {
-                    result.AddInlineAttribute(attr.Name, attr.Value);
+                    result.AddInlineAttribute(attr.Name, attr.Value, startOffset + attr.SpanStart, attr.Width);
                 }
 
                 foreach (var child in docSyntax.Body.ChildNodes)
@@ -78,7 +78,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                             result.AddChildAttribute(
                                                 childElement.Name.Substring(elementName.Length + 1),
-                                                GetElement(listItemString, startOffset + startingWhiteSpaceLength + listItem.Start));
+                                                GetElement(listItemString, startOffset + startingWhiteSpaceLength + listItem.Start),
+                                                startOffset + childElement.SpanStart,
+                                                childElement.Width);
                                         }
                                     }
                                     else
@@ -87,7 +89,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                         result.AddChildAttribute(
                                             childElement.Name.Substring(elementName.Length + 1),
-                                            GetElement(innerString, startOffset + startingWhiteSpaceLength + innerChild.Start));
+                                            GetElement(innerString, startOffset + startingWhiteSpaceLength + innerChild.Start),
+                                            startOffset + childElement.SpanStart,
+                                            childElement.Width);
                                     }
                                 }
                             }
@@ -95,7 +99,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                             {
                                 result.AddChildAttribute(
                                     childElement.Name.Substring(elementName.Length + 1),
-                                    attrString);
+                                    attrString,
+                                    startOffset + childElement.SpanStart,
+                                    childElement.Width);
                             }
 
                             var childAsString = xaml.TrimStart().Substring(childElement.Start, childElement.Width);
@@ -116,7 +122,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         foreach (var attr in selfClosingChild.AttributesNode)
                         {
-                            toAdd.AddInlineAttribute(attr.Name, attr.Value);
+                            toAdd.AddInlineAttribute(attr.Name, attr.Value, startOffset + attr.SpanStart, attr.Width);
                         }
 
                         result.AddChild(toAdd);
@@ -140,13 +146,17 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     {
                                         result.AddChildAttribute(
                                             ncElement.Name.Substring(elementName.Length + 1),
-                                            GetElement(attrString, startOffset + ncElement.Content.Span.Start));
+                                            GetElement(attrString, startOffset + ncElement.Content.Span.Start),
+                                            startOffset + ncElement.SpanStart,
+                                            ncElement.Width);
                                     }
                                     else
                                     {
                                         result.AddChildAttribute(
                                             ncElement.Name.Substring(elementName.Length + 1),
-                                            attrString);
+                                            attrString,
+                                            startOffset + ncElement.SpanStart,
+                                            ncElement.Width);
                                     }
 
                                     var childAsString = xaml.Substring(ncElement.Start, ncElement.Width);
@@ -167,7 +177,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                 foreach (var attr in ncSelfClosing.AttributesNode)
                                 {
-                                    nodeToAdd.AddInlineAttribute(attr.Name, attr.Value);
+                                    nodeToAdd.AddInlineAttribute(attr.Name, attr.Value, startOffset + attr.SpanStart, attr.Width);
                                 }
 
                                 result.AddChild(nodeToAdd);
@@ -183,9 +193,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             //// Cache these responses to avoid unnecessary repeated parsing
             if (!string.IsNullOrWhiteSpace(xamlElement)
-                && rxElementCache.ContainsKey(xamlElement))
+                && RxElementCache.ContainsKey(xamlElement))
             {
-                return rxElementCache[xamlElement];
+                return RxElementCache[xamlElement];
             }
             else
             {
@@ -193,7 +203,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 if (rxElement != null)
                 {
-                    rxElementCache.Add(xamlElement, rxElement);
+                    RxElementCache.Add(xamlElement, rxElement);
                 }
 
                 return rxElement;

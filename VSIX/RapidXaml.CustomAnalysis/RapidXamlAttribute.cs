@@ -21,6 +21,8 @@ namespace RapidXaml
 
         public RapidXamlElement ElementValue { get; internal set; }
 
+        public RapidXamlSpan Location { get; internal set; } = new RapidXamlSpan();
+
         public override string ToString()
         {
             return $"{this.Name}=\"{(this.HasStringValue ? this.StringValue : this.ElementValue.ToString())}\"";

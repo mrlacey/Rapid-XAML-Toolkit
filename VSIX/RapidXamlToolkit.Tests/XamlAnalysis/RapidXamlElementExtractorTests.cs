@@ -1342,5 +1342,273 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             Assert.IsNull(sut);
         }
+
+        [TestMethod]
+        public void Position_Attributes_Direct_SingleLine()
+        {
+            var xaml = "<Person Age=\"21\" Name=\"Bob\" />";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            var ageAttr = sut.GetAttributes("Age").First();
+
+            Assert.AreEqual("Age=\"21\"", xaml.Substring(ageAttr.Location.Start, ageAttr.Location.Length));
+
+            var nameAttr = sut.GetAttributes("Name").First();
+
+            Assert.AreEqual("Name=\"Bob\"", xaml.Substring(nameAttr.Location.Start, nameAttr.Location.Length));
+        }
+
+        [TestMethod]
+        public void Position_Attributes_Child_SingleLine()
+        {
+            var xaml = "<Person><Child Age=\"21\" Name=\"Bob\" /></Person>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            var child = sut.GetChildren("Child").First();
+
+            var ageAttr = child.GetAttributes("Age").First();
+
+            Assert.AreEqual("Age=\"21\"", xaml.Substring(ageAttr.Location.Start, ageAttr.Location.Length));
+
+            var nameAttr = child.GetAttributes("Name").First();
+
+            Assert.AreEqual("Name=\"Bob\"", xaml.Substring(nameAttr.Location.Start, nameAttr.Location.Length));
+        }
+
+        [TestMethod]
+        public void Position_Attributes_Direct_MultiLine()
+        {
+            var xaml = "<Person" +
+ Environment.NewLine + " Age=\"21\"" +
+ Environment.NewLine + " Name=\"Bob\" />";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            var ageAttr = sut.GetAttributes("Age").First();
+
+            Assert.AreEqual("Age=\"21\"", xaml.Substring(ageAttr.Location.Start, ageAttr.Location.Length));
+
+            var nameAttr = sut.GetAttributes("Name").First();
+
+            Assert.AreEqual("Name=\"Bob\"", xaml.Substring(nameAttr.Location.Start, nameAttr.Location.Length));
+        }
+
+        [TestMethod]
+        public void Position_Attributes_Child_MultiLine()
+        {
+            var xaml = "<Person>" +
+ Environment.NewLine + "    <Child" +
+ Environment.NewLine + "        Age=\"21\"" +
+ Environment.NewLine + "        Name=\"Bob\" />" +
+ Environment.NewLine + "</Person>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            var child = sut.GetChildren("Child").First();
+
+            var ageAttr = child.GetAttributes("Age").First();
+
+            Assert.AreEqual("Age=\"21\"", xaml.Substring(ageAttr.Location.Start, ageAttr.Location.Length));
+
+            var nameAttr = child.GetAttributes("Name").First();
+
+            Assert.AreEqual("Name=\"Bob\"", xaml.Substring(nameAttr.Location.Start, nameAttr.Location.Length));
+        }
+
+        [TestMethod]
+        public void Position_ChildAttributes_Direct()
+        {
+            var xaml = "<Person>" +
+ Environment.NewLine + "    <Person.Age>21</Person.Age>" +
+ Environment.NewLine + "    <Person.Name>Carla</Person.Name>" +
+ Environment.NewLine + "</Person>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            var ageAttr = sut.GetAttributes("Age").First();
+
+            Assert.AreEqual("<Person.Age>21</Person.Age>", xaml.Substring(ageAttr.Location.Start, ageAttr.Location.Length));
+
+            var nameAttr = sut.GetAttributes("Name").First();
+
+            Assert.AreEqual("<Person.Name>Carla</Person.Name>", xaml.Substring(nameAttr.Location.Start, nameAttr.Location.Length));
+        }
+
+        [TestMethod]
+        public void Position_ChildAttributes_ChildElement()
+        {
+            var xaml = "<Person>" +
+ Environment.NewLine + "    <Child>" +
+ Environment.NewLine + "        <Child.Age>21</Child.Age>" +
+ Environment.NewLine + "        <Child.Name>Carla</Child.Name>" +
+ Environment.NewLine + "    </Child>" +
+ Environment.NewLine + "</Person>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            var child = sut.GetChildren("Child").First();
+
+            var ageAttr = child.GetAttributes("Age").First();
+
+            Assert.AreEqual("<Child.Age>21</Child.Age>", xaml.Substring(ageAttr.Location.Start, ageAttr.Location.Length));
+
+            var nameAttr = child.GetAttributes("Name").First();
+
+            Assert.AreEqual("<Child.Name>Carla</Child.Name>", xaml.Substring(nameAttr.Location.Start, nameAttr.Location.Length));
+        }
+
+        [TestMethod]
+        public void Position_ChildElementAttributes_Direct()
+        {
+            var xaml = "<Person>" +
+ Environment.NewLine + "    <Person.Age><int>21</int></Person.Age>" +
+ Environment.NewLine + "    <Person.Name><string>Carla</string></Person.Name>" +
+ Environment.NewLine + "</Person>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            var ageAttr = sut.GetAttributes("Age").First();
+
+            Assert.AreEqual("<Person.Age><int>21</int></Person.Age>", xaml.Substring(ageAttr.Location.Start, ageAttr.Location.Length));
+
+            var nameAttr = sut.GetAttributes("Name").First();
+
+            Assert.AreEqual("<Person.Name><string>Carla</string></Person.Name>", xaml.Substring(nameAttr.Location.Start, nameAttr.Location.Length));
+        }
+
+        [TestMethod]
+        public void Position_ChildElementAttributes_Child()
+        {
+            var xaml = "<Person>" +
+ Environment.NewLine + "    <Child>" +
+ Environment.NewLine + "        <Child.Age><int>21</int></Child.Age>" +
+ Environment.NewLine + "        <Child.Name><string>Carla</string></Child.Name>" +
+ Environment.NewLine + "    </Child>" +
+ Environment.NewLine + "</Person>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            var child = sut.GetChildren("Child").First();
+
+            var ageAttr = child.GetAttributes("Age").First();
+
+            Assert.AreEqual("<Child.Age><int>21</int></Child.Age>", xaml.Substring(ageAttr.Location.Start, ageAttr.Location.Length));
+
+            var nameAttr = child.GetAttributes("Name").First();
+
+            Assert.AreEqual("<Child.Name><string>Carla</string></Child.Name>", xaml.Substring(nameAttr.Location.Start, nameAttr.Location.Length));
+        }
+
+        [TestMethod]
+        public void Position_AllAttributeTypes()
+        {
+            var xaml = "<Person Moniker=\"Monica\">" +
+ Environment.NewLine + "    <Child ParentName=\"Monica\">" +
+ Environment.NewLine + "        <Child.Age>14</Child.Age>" +
+ Environment.NewLine + "        <Child.Name><string>Carla</string></Child.Name>" +
+ Environment.NewLine + "        <Child.Pet><Hamster /></Child.Pet>" +
+ Environment.NewLine + "        <GrandChild><GrandChild.Nom><Identifier Id=\"Bobby\" /><GrandChild.Nom></GrandChild>" +
+ Environment.NewLine + "    </Child>" +
+ Environment.NewLine + "    <Sibling>" +
+ Environment.NewLine + "        <ParentMoniker Value=\"Monica\" />" +
+ Environment.NewLine + "    </Sibling>" +
+ Environment.NewLine + "    <OtherSibling>" +
+ Environment.NewLine + "        <MotherName Value=\"Mary\" />" +
+ Environment.NewLine + "        <FatherName Value=\"Peter\" />" +
+ Environment.NewLine + "    </OtherSibling>" +
+ Environment.NewLine + "    <Brother><Brother.Height>Tall</Brother.Height></Brother>" +
+ Environment.NewLine + "    <FinalSibling>" +
+ Environment.NewLine + "       <FinalSibling.Content>" +
+ Environment.NewLine + "           <InnerGrid Height=\"Auto\">" +
+ Environment.NewLine + "               <InnerGrid.Content>" +
+ Environment.NewLine + "                   <Label>First</Label>" +
+ Environment.NewLine + "                   <Label Text=\"Second\" />" +
+ Environment.NewLine + "               </InnerGrid.Content>" +
+ Environment.NewLine + "           </InnerGrid>" +
+ Environment.NewLine + "       </FinalSibling.Content>" +
+ Environment.NewLine + "    </FinalSibling>" +
+ Environment.NewLine + "</Person>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            var monikerAttr = sut.GetAttributes("Moniker").First();
+
+            Assert.AreEqual("Moniker=\"Monica\"", xaml.Substring(monikerAttr.Location.Start, monikerAttr.Location.Length));
+
+            var child = sut.GetChildren("Child").First();
+
+            var parentNameAttr = child.GetAttributes("ParentName").First();
+
+            Assert.AreEqual("ParentName=\"Monica\"", xaml.Substring(parentNameAttr.Location.Start, parentNameAttr.Location.Length));
+
+            var ageAttr = child.GetAttributes("Age").First();
+
+            Assert.AreEqual("<Child.Age>14</Child.Age>", xaml.Substring(ageAttr.Location.Start, ageAttr.Location.Length));
+
+            var nameAttr = child.GetAttributes("Name").First();
+
+            Assert.AreEqual("<Child.Name><string>Carla</string></Child.Name>", xaml.Substring(nameAttr.Location.Start, nameAttr.Location.Length));
+
+            var petAttr = child.GetAttributes("Pet").First();
+
+            Assert.AreEqual("<Child.Pet><Hamster /></Child.Pet>", xaml.Substring(petAttr.Location.Start, petAttr.Location.Length));
+
+            var grandchild = child.GetChildren("GrandChild").First();
+
+            var nomAttr = grandchild.GetAttributes("Nom").First();
+
+            Assert.AreEqual("<GrandChild.Nom><Identifier Id=\"Bobby\" /><GrandChild.Nom>", xaml.Substring(nomAttr.Location.Start, nomAttr.Location.Length));
+
+            var identifier = nomAttr.ElementValue;
+
+            var idAttr = identifier.GetAttributes("Id").First();
+
+            Assert.AreEqual("Id=\"Bobby\"", xaml.Substring(idAttr.Location.Start, idAttr.Location.Length));
+
+            var sibling = sut.GetChildren("Sibling").First();
+
+            var parentMoniker = sibling.GetChildren("ParentMoniker").First();
+
+            var valueAttr = parentMoniker.GetAttributes("Value").First();
+
+            Assert.AreEqual("Value=\"Monica\"", xaml.Substring(valueAttr.Location.Start, valueAttr.Location.Length));
+
+            var otherSibling = sut.GetChildren("OtherSibling").First();
+
+            var motherName = otherSibling.GetChildren("MotherName").First();
+
+            var motherNameValueAttr = motherName.GetAttributes("Value").First();
+
+            Assert.AreEqual("Value=\"Mary\"", xaml.Substring(motherNameValueAttr.Location.Start, motherNameValueAttr.Location.Length));
+
+            var fatherName = otherSibling.GetChildren("FatherName").First();
+
+            var fatherNameValueAttr = fatherName.GetAttributes("Value").First();
+
+            Assert.AreEqual("Value=\"Peter\"", xaml.Substring(fatherNameValueAttr.Location.Start, fatherNameValueAttr.Location.Length));
+
+            var brother = sut.GetChildren("Brother").First();
+
+            var brotherHeight = brother.GetAttributes("Height").First();
+
+            Assert.AreEqual("<Brother.Height>Tall</Brother.Height>", xaml.Substring(brotherHeight.Location.Start, brotherHeight.Location.Length));
+
+            var finalSibling = sut.GetChildren("FinalSibling").First();
+
+            var fsContent = finalSibling.GetAttributes("Content").First();
+
+            var expectedFsContent = "<FinalSibling.Content>" +
+ Environment.NewLine + "           <InnerGrid Height=\"Auto\">" +
+ Environment.NewLine + "               <InnerGrid.Content>" +
+ Environment.NewLine + "                   <Label>First</Label>" +
+ Environment.NewLine + "                   <Label Text=\"Second\" />" +
+ Environment.NewLine + "               </InnerGrid.Content>" +
+ Environment.NewLine + "           </InnerGrid>" +
+ Environment.NewLine + "       </FinalSibling.Content>";
+
+            Assert.AreEqual(expectedFsContent, xaml.Substring(fsContent.Location.Start, fsContent.Location.Length));
+        }
     }
 }

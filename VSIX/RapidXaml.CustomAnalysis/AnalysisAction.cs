@@ -29,6 +29,8 @@ namespace RapidXaml
 
         public string MoreInfoUrl { get; internal set; }
 
+        public bool? IsInlineAttribute { get; internal set; }
+
         // TODO: Need to execute SupplementaryActions
         public List<AnalysisAction> SupplementaryActions { get; } = new List<AnalysisAction>();
     }
