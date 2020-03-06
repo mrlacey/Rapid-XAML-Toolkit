@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Threading;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -44,10 +45,24 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         break;
 
                     case RapidXaml.ActionType.AddChild:
-                        // TODO: allow for self-closing
-                        // TODO: allow for opening and closing tags on same line
-                        var insertLine = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;
-                        vs.InsertIntoActiveDocOnLineAfterClosingTag(insertLine, this.Tag.Content);
+
+                        var origXaml = this.Tag.AnalyzedElement.OriginalString;
+
+                        // Allow for self-closing elements
+                        if (origXaml.EndsWith("/>"))
+                        {
+                            var replacementXaml = $">{Environment.NewLine}{this.Tag.Content}{Environment.NewLine}</{this.Tag.ElementName}>";
+
+                            var insertLine = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;
+                            vs.ReplaceInActiveDocOnLine("/>", replacementXaml, insertLine);
+                        }
+                        else
+                        {
+                            // Allows for opening and closing tags on same or different lines
+                            var insertLine = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;
+                            vs.InsertIntoActiveDocOnLineAfterClosingTag(insertLine, this.Tag.Content);
+                        }
+
                         break;
 
                     case RapidXaml.ActionType.HighlightWithoutAction:

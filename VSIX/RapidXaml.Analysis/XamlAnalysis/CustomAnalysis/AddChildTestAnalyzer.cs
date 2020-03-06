@@ -2,8 +2,8 @@
 // Licensed under the MIT license.
 
 #if DEBUG
-using RapidXaml;
 using System.Collections.Generic;
+using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     "Add more children.",
                     "Add child element",
                     "Child",
-                    new List<(string name, string value)>(new[] { ("Name", "Junior"), ("Age", $"{element.Children.Count}") }));
+                    new List<(string name, string value)>(new[] { ("Name", $"Junior-{element.Children.Count}") }));
             }
         }
     }

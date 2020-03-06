@@ -156,9 +156,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 // This will allow selection to move to whichever line the startTag ends on.
                 txtDoc.Selection.FindText(">", (int)vsFindOptions.vsFindOptionsMatchCase);
 
-                txtDoc.Selection.EndOfLine();
-                txtDoc.Selection.NewLine();
-                txtDoc.Selection.Insert(toInsert);
+                txtDoc.Selection.Insert($">{Environment.NewLine}{toInsert}");
             }
         }
 
