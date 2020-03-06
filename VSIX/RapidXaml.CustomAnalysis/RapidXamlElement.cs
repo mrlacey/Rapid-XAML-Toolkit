@@ -13,6 +13,8 @@ namespace RapidXaml
 
         public string Content { get; internal set; } = string.Empty;
 
+        public string OriginalString { get; protected set; } = string.Empty;
+
         public RapidXamlSpan Location { get; internal set; } = new RapidXamlSpan();
 
         public List<RapidXamlAttribute> Attributes { get; } = new List<RapidXamlAttribute>();
@@ -33,9 +35,9 @@ namespace RapidXaml
             }
         }
 
-        public static RapidXamlElement Build(string name, int start = -1, int length = -1)
+        public static RapidXamlElement Build(string name, int start = -1, int length = -1, string originalXaml = "")
         {
-            return new RapidXamlElement { Name = name, Location = new RapidXamlSpan(start, length) };
+            return new RapidXamlElement { Name = name, Location = new RapidXamlSpan(start, length), OriginalString = originalXaml };
         }
 
         public override string ToString()

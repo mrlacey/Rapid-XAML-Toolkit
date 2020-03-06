@@ -36,7 +36,11 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 var elementName = xdoc.Name;
 
-                var result = RapidXamlElement.Build(elementName, startOffset + docSyntax.SpanStart, docSyntax.Width);
+                var result = RapidXamlElement.Build(
+                    elementName,
+                    startOffset + docSyntax.SpanStart,
+                    docSyntax.Width,
+                    xaml);
 
                 var content = (docSyntax.Body as IXmlElement).Value;
 
@@ -118,7 +122,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                     }
                     else if (child is XmlEmptyElementSyntax selfClosingChild)
                     {
-                        var toAdd = RapidXamlElement.Build(selfClosingChild.Name, startOffset + child.SpanStart, child.Width);
+                        var toAdd =
+                            RapidXamlElement.Build(
+                                selfClosingChild.Name,
+                                startOffset + child.SpanStart,
+                                child.Width,
+                                xaml.Substring(child.SpanStart, child.Width));
 
                         foreach (var attr in selfClosingChild.AttributesNode)
                         {
@@ -173,7 +182,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                             }
                             else if (nodeChild is XmlEmptyElementSyntax ncSelfClosing)
                             {
-                                var nodeToAdd = RapidXamlElement.Build(ncSelfClosing.Name, startOffset + nodeChild.SpanStart, nodeChild.Width);
+                                var nodeToAdd =
+                                    RapidXamlElement.Build(
+                                        ncSelfClosing.Name,
+                                        startOffset + nodeChild.SpanStart,
+                                        nodeChild.Width,
+                                        xaml.Substring(nodeChild.SpanStart, nodeChild.Width));
 
                                 foreach (var attr in ncSelfClosing.AttributesNode)
                                 {

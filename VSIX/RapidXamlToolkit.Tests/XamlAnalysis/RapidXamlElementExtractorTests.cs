@@ -1610,5 +1610,111 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             Assert.AreEqual(expectedFsContent, xaml.Substring(fsContent.Location.Start, fsContent.Location.Length));
         }
+
+        [TestMethod]
+        public void Element_OriginalString_SelfClosing()
+        {
+            var xaml = "<Element />";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(xaml, sut.OriginalString);
+        }
+
+        [TestMethod]
+        public void Element_OriginalString_SmpleNoChildren()
+        {
+            var xaml = "<Element></Element>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(xaml, sut.OriginalString);
+        }
+
+        [TestMethod]
+        public void Element_OriginalString_OneChild()
+        {
+            var xaml = @"<Element>
+    <Child />
+</Element>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(xaml, sut.OriginalString);
+        }
+
+        [TestMethod]
+        public void Element_OriginalString_OneChild_AndGetChild()
+        {
+            var xaml = @"<Element>
+    <Child />
+</Element>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(xaml, sut.OriginalString);
+
+            var child = sut.GetChildren("Child").First();
+
+            Assert.AreEqual("<Child />", child.OriginalString);
+        }
+
+        [TestMethod]
+        public void Element_OriginalString_ManyChildren()
+        {
+            var xaml = @"<Element>
+    <Child />
+    <Child />
+    <Child></Child>
+    <Child />
+</Element>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(xaml, sut.OriginalString);
+        }
+
+        [TestMethod]
+        public void Element_OriginalString_ManyChildren_AndEachChild()
+        {
+            var xaml = @"<Element>
+    <Child />
+    <Child Name=""Betty"" />
+    <Child></Child>
+    <Child>
+        Danny
+    </Child>
+</Element>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(xaml, sut.OriginalString);
+
+            var children = sut.GetChildren("Child").ToList();
+
+            var dannyXaml = @"<Child>
+        Danny
+    </Child>";
+
+            Assert.AreEqual("<Child />", children[0].OriginalString);
+            Assert.AreEqual("<Child Name=\"Betty\" />", children[1].OriginalString);
+            Assert.AreEqual("<Child></Child>", children[2].OriginalString);
+            Assert.AreEqual(dannyXaml, children[3].OriginalString);
+        }
+
+        [TestMethod]
+        public void Element_OriginalString_ElimentAttribute()
+        {
+            var xaml = @"<Element>
+    <Element.Attr><ActuallyAChild /></Element.Attr>
+</Element>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(xaml, sut.OriginalString);
+
+            var attr = sut.GetAttributes("Attr").First();
+            Assert.AreEqual("<ActuallyAChild />", attr.ElementValue.OriginalString);
+        }
     }
 }
