@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Collections.Generic;
 using Microsoft.Language.Xml;
 using RapidXaml;
 
@@ -18,6 +19,12 @@ namespace RapidXamlToolkit.XamlAnalysis
         // Extra checks excluded here as input is already known good based on original doc parsing.
         public static RapidXamlElement GetElement(string xamlElement, int offset = 0)
         {
+            // Call this when may be adding multiple
+            ////IEnumerable<RapidXamlElement> GetElementsInternal(string xaml, int startOffset)
+            ////{
+
+            ////}
+
             RapidXamlElement GetElementInternal(string xaml, int startOffset)
             {
                 if (string.IsNullOrWhiteSpace(xaml))

@@ -15,6 +15,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
         {
             // TODO: support RowDefinitions too
             var colDefs = element.GetAttributes("ColumnDefinitions");
+            var rowDefs = element.GetAttributes("RowDefinitions");
 
             if (colDefs.Count() == 1)
             {
@@ -41,14 +42,16 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                         "WINUI673B",
                         description: "Can change to other syntax.",
                         actionText: "Use old definition syntax",
-                        attribute: colDef).AndAddChildString(newXaml.ToString());
+                        attribute: colDef,
+                        moreInfoUrl: "https://github.com/microsoft/microsoft-ui-xaml/issues/673")
+                        .AndAddChildString(newXaml.ToString());
                 }
                 else
                 {
                     // Offer option to use shorter (new) syntax.
                     var newXaml = new System.Text.StringBuilder();
 
-                    foreach (var oldColDef in colDef.ElementValue.GetChildren("ColumnDefinition"))
+                    foreach (var oldColDef in colDef.Children.Where(c => c.Name == "ColumnDefinition"))
                     {
                         var width = oldColDef.GetAttributes("Width")?.First()?.StringValue;
 
@@ -64,7 +67,9 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                         "WINUI673A",
                         description: "Can change to other syntax.",
                         actionText: "Use shorter definition syntax",
-                        attribute: colDef).AndAddAttribute("ColumnDefinitions", newXaml.ToString().TrimEnd(',', ' '));
+                        attribute: colDef,
+                        moreInfoUrl: "https://github.com/microsoft/microsoft-ui-xaml/issues/673")
+                        .AndAddAttribute("ColumnDefinitions", newXaml.ToString().TrimEnd(',', ' '));
                 }
             }
             else

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
 using RapidXamlToolkit.XamlAnalysis;
@@ -313,6 +314,32 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Grid_RowDefinitions()
+        {
+            var xaml = @"<Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=""*"" />
+            <ColumnDefinition Width=""50"" />
+            <ColumnDefinition Width=""*"" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text=""Some content"" />
+    </Grid>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(1, sut.Attributes.Count);
+            Assert.AreEqual(1, sut.Children.Count);
+
+            var attr = sut.Attributes.First();
+
+            Assert.AreEqual("ColumnDefinitions", attr.Name);
+            Assert.IsFalse(attr.HasStringValue);
+
+            Assert.AreEqual(3, attr.Children.Count);
         }
     }
 }

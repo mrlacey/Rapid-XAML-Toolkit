@@ -59,6 +59,7 @@ namespace RapidXaml
                   || c.Name.EndsWith($":{childName}", StringComparison.InvariantCultureIgnoreCase));
         }
 
+        // TODO: add more tests for this
         public bool ContainsChildOrAttribute(string childName)
         {
             return this.Children.Any(
@@ -66,8 +67,7 @@ namespace RapidXaml
                   || c.Name.EndsWith($":{childName}", StringComparison.InvariantCultureIgnoreCase))
                 || this.Attributes.Any(
                     a => !a.HasStringValue
-                      && (a.ElementValue.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase)
-                       || a.ElementValue.Name.EndsWith($":{childName}", StringComparison.InvariantCultureIgnoreCase)));
+                      && a.Children.Any(c => c.ContainsDescendant(childName)));
         }
 
         public bool ContainsDescendant(string childName)
@@ -81,16 +81,23 @@ namespace RapidXaml
             {
                 if (!attr.HasStringValue)
                 {
-                    if (attr.ElementValue.ContainsDescendant(childName))
+                    foreach (var child in attr.Children)
                     {
-                        return true;
+                        if (child.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase)
+                         || child.Name.EndsWith($":{childName}", StringComparison.InvariantCultureIgnoreCase)
+                         || child.ContainsDescendant(childName))
+                        {
+                            return true;
+                        }
                     }
                 }
             }
 
             foreach (var child in this.Children)
             {
-                if (child.ContainsDescendant(childName))
+                if (child.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase)
+                 || child.Name.EndsWith($":{childName}", StringComparison.InvariantCultureIgnoreCase)
+                 || child.ContainsDescendant(childName))
                 {
                     return true;
                 }
@@ -129,12 +136,12 @@ namespace RapidXaml
             {
                 if (!attr.HasStringValue)
                 {
-                    if (attr.ElementValue.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase))
+                    if (attr.Child.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        yield return attr.ElementValue;
+                        yield return attr.Child;
                     }
 
-                    foreach (var innerChild in attr.ElementValue.GetDescendants(childName))
+                    foreach (var innerChild in attr.Child.GetDescendants(childName))
                     {
                         yield return innerChild;
                     }

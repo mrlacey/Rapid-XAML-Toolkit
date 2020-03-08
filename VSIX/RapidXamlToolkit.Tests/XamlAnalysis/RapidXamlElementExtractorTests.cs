@@ -880,7 +880,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
-            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue, actual.Attributes[0].ElementValue);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].Child, actual.Attributes[0].Child);
         }
 
         [TestMethod]
@@ -909,9 +909,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
-            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue, actual.Attributes[0].ElementValue);
-            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue.Attributes[1].ElementValue, actual.Attributes[0].ElementValue.Attributes[1].ElementValue);
-            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue.Attributes[2].ElementValue, actual.Attributes[0].ElementValue.Attributes[2].ElementValue);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].Child, actual.Attributes[0].Child);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].Child.Attributes[1].Child, actual.Attributes[0].Child.Attributes[1].Child);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].Child.Attributes[2].Child, actual.Attributes[0].Child.Attributes[2].Child);
         }
 
         [TestMethod]
@@ -948,10 +948,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var actual = RapidXamlElementExtractor.GetElement(xaml);
 
             RapidXamlElementAssert.AreEqual(expected, actual);
-            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue, actual.Attributes[0].ElementValue);
-            RapidXamlElementAssert.AreEqual(expected.Attributes[1].ElementValue, actual.Attributes[1].ElementValue);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].Child, actual.Attributes[0].Child);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[1].Child, actual.Attributes[1].Child);
 
-            RapidXamlElementAssert.AreEqual(expected.Attributes[0].ElementValue.Attributes[1].ElementValue, actual.Attributes[0].ElementValue.Attributes[1].ElementValue);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].Child.Attributes[1].Child, actual.Attributes[0].Child.Attributes[1].Child);
         }
 
         [TestMethod]
@@ -1561,7 +1561,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             Assert.AreEqual("<GrandChild.Nom><Identifier Id=\"Bobby\" /><GrandChild.Nom>", xaml.Substring(nomAttr.Location.Start, nomAttr.Location.Length));
 
-            var identifier = nomAttr.ElementValue;
+            var identifier = nomAttr.Child;
 
             var idAttr = identifier.GetAttributes("Id").First();
 
@@ -1714,7 +1714,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(xaml, sut.OriginalString);
 
             var attr = sut.GetAttributes("Attr").First();
-            Assert.AreEqual("<ActuallyAChild />", attr.ElementValue.OriginalString);
+            Assert.AreEqual("<ActuallyAChild />", attr.Child.OriginalString);
         }
     }
 }

@@ -67,24 +67,34 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                             {
                                 if (expAttr.HasStringValue)
                                 {
-                                    errorMessage = $"At index {i}, expected a string value ({expAttr.StringValue}) but found an element value ({actAttr.ElementValue}).";
+                                    errorMessage = $"At index {i}, expected a string value ({expAttr.StringValue}) but found {actAttr.Children.Count} child elements.";
                                 }
                                 else
                                 {
-                                    errorMessage = $"At index {i}, expected an element value ({expAttr.ElementValue}) but found a string value ({actAttr.StringValue}).";
+                                    errorMessage = $"At index {i}, expected children but found a string value ({actAttr.StringValue}).";
                                 }
                             }
                             else if (expAttr.HasStringValue && expAttr.StringValue != actAttr.StringValue)
                             {
                                 errorMessage = $"At index {i}, found attribute with value '{actAttr.StringValue}' when expecting '{expAttr.StringValue}'.";
                             }
-                            else if (!expAttr.HasStringValue && expAttr.ElementValue?.ToString() != actAttr.ElementValue?.ToString())
-                            {
-                                errorMessage = $"At index {i}, found element attribute '{actAttr.ElementValue}' when expecting '{expAttr.ElementValue}'. (String comparison only!)";
-                            }
                             else if (expAttr.IsInline != actAttr.IsInline)
                             {
                                 errorMessage = $"At index {i}, found attribute with IsInline '{actAttr.IsInline}' when expecting '{expAttr.IsInline}'.";
+                            }
+                            else if (expAttr.Children.Count != actAttr.Children.Count)
+                            {
+                                errorMessage = $"At index {i}, found attribute with '{actAttr.Children.Count}' children when expecting '{expAttr.Children.Count}'.";
+                            }
+                            else
+                            {
+                                for (int j = 0; j < expAttr.Children.Count; j++)
+                                {
+                                    if (actAttr.Children[j].Name != expAttr.Children[j].Name)
+                                    {
+                                        errorMessage = $"At index {i}, found element attribute with child '{actAttr.Children[j].Name}' when expecting '{expAttr.Children[j].Name}'. (Name comparison only!)";
+                                    }
+                                }
                             }
                         }
                     }

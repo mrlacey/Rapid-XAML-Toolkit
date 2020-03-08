@@ -19,9 +19,10 @@ namespace RapidXaml
             return element;
         }
 
+        // TODO: need to test adding mulitple children to an attribute
         public static RapidXamlElement AddChildAttribute(this RapidXamlElement element, string name, RapidXamlElement value, int startPos = -1, int length = -1)
         {
-            element.Attributes.Add(new RapidXamlAttribute() { Name = name, ElementValue = value, IsInline = false, Location = new RapidXamlSpan(startPos, length) });
+            element.Attributes.Add(new RapidXamlAttribute(value) { Name = name, IsInline = false, Location = new RapidXamlSpan(startPos, length) });
 
             return element;
         }
