@@ -27,29 +27,29 @@ namespace RapidXaml
 
         public List<AnalysisAction> Actions { get; private set; } = new List<AnalysisAction>();
 
-        public static AnalysisActions AddAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, string addAttributeName, string addAttributeValue)
+        public static AnalysisActions AddAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, string addAttributeName, string addAttributeValue, string moreInfoUrl = null)
         {
             var result = new AnalysisActions();
 
-            result.AddAttribute(errorType, code, description, actionText, addAttributeName, addAttributeValue);
+            result.AddAttribute(errorType, code, description, actionText, addAttributeName, addAttributeValue, moreInfoUrl);
 
             return result;
         }
 
-        public static AnalysisActions AddChild(RapidXamlErrorType errorType, string code, string description, string actionText, string elementName, List<(string name, string value)> attributes = null)
+        public static AnalysisActions AddChild(RapidXamlErrorType errorType, string code, string description, string actionText, string elementName, List<(string name, string value)> attributes = null, string moreInfoUrl = null)
         {
             var result = new AnalysisActions();
 
-            result.AddChild(errorType, code, description, actionText, elementName, attributes);
+            result.AddChild(errorType, code, description, actionText, elementName, attributes, moreInfoUrl);
 
             return result;
         }
 
-        public static AnalysisActions AddChildString(RapidXamlErrorType errorType, string code, string description, string actionText, string xaml)
+        public static AnalysisActions AddChildString(RapidXamlErrorType errorType, string code, string description, string actionText, string xaml, string moreInfoUrl = null)
         {
             var result = new AnalysisActions();
 
-            result.AddChildString(errorType, code, description, actionText, xaml);
+            result.AddChildString(errorType, code, description, actionText, xaml, moreInfoUrl);
 
             return result;
         }
@@ -63,47 +63,47 @@ namespace RapidXaml
             return result;
         }
 
-        public static AnalysisActions RemoveAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlAttribute attribute)
+        public static AnalysisActions RemoveAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlAttribute attribute, string moreInfoUrl = null)
         {
             var result = new AnalysisActions();
 
-            result.RemoveAttribute(errorType, code, description, actionText, attribute);
+            result.RemoveAttribute(errorType, code, description, actionText, attribute, moreInfoUrl);
 
             return result;
         }
 
-        public static AnalysisActions RemoveAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, string attributeName)
+        public static AnalysisActions RemoveAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, string attributeName, string moreInfoUrl = null)
         {
             var result = new AnalysisActions();
 
-            result.RemoveAttribute(errorType, code, description, actionText, attributeName);
+            result.RemoveAttribute(errorType, code, description, actionText, attributeName, moreInfoUrl);
 
             return result;
         }
 
-        public static AnalysisActions RemoveChild(RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement child)
+        public static AnalysisActions RemoveChild(RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement child, string moreInfoUrl = null)
         {
             var result = new AnalysisActions();
 
-            result.RemoveChild(errorType, code, description, actionText, child);
+            result.RemoveChild(errorType, code, description, actionText, child, moreInfoUrl);
 
             return result;
         }
 
-        public static AnalysisActions ReplaceElement(RapidXamlErrorType errorType, string code, string description, string actionText, string replacementXaml)
+        public static AnalysisActions ReplaceElement(RapidXamlErrorType errorType, string code, string description, string actionText, string replacementXaml, string moreInfoUrl = null)
         {
             var result = new AnalysisActions();
 
-            result.ReplaceElement(errorType, code, description, actionText, replacementXaml);
+            result.ReplaceElement(errorType, code, description, actionText, replacementXaml, moreInfoUrl);
 
             return result;
         }
 
-        public static AnalysisActions RenameElement(RapidXamlErrorType errorType, string code, string description, string actionText, string newName)
+        public static AnalysisActions RenameElement(RapidXamlErrorType errorType, string code, string description, string actionText, string newName, string moreInfoUrl = null)
         {
             var result = new AnalysisActions();
 
-            result.RenameElement(errorType, code, description, actionText, newName);
+            result.RenameElement(errorType, code, description, actionText, newName, moreInfoUrl);
 
             return result;
         }
