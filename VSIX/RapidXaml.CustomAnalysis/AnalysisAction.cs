@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 
 namespace RapidXaml
@@ -31,7 +32,6 @@ namespace RapidXaml
 
         public bool? IsInlineAttribute { get; internal set; }
 
-        // TODO: Need to execute SupplementaryActions
         public List<AnalysisAction> SupplementaryActions { get; } = new List<AnalysisAction>();
     }
 }

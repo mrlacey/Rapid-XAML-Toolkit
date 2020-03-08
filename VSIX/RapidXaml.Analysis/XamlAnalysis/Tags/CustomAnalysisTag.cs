@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Collections.Generic;
 using RapidXaml;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
@@ -25,6 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Element = deps.Action.Element;
             this.IsInlineAttribute = deps.Action.IsInlineAttribute;
             this.AnalyzedElement = deps.AnalyzedElement;
+            this.SupplementaryActions = deps.Action.SupplementaryActions;
         }
 
         public ActionType Action { get; }
@@ -46,5 +48,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public bool? IsInlineAttribute { get; }
 
         public RapidXamlElement AnalyzedElement { get; }
+
+        public List<AnalysisAction> SupplementaryActions { get; }
     }
 }

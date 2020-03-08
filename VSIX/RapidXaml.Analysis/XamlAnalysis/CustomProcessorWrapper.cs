@@ -43,7 +43,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     };
 
                     // Treat `NotReallyCustomAnalyzer` types as any other built-in type.
-                    // Track additional information about custom analyzers.
+                    // Track additional information about 3rd party custom analyzers.
                     if (this.customProcessor is CustomAnalysis.NotReallyCustomAnalyzer)
                     {
                         tagDeps.CustomFeatureUsageValue = this.customProcessor.GetType().Name;

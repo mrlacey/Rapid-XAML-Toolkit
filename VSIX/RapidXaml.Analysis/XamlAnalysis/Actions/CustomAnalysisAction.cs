@@ -4,6 +4,8 @@
 using System;
 using System.Linq;
 using System.Threading;
+using Microsoft.VisualStudio.Text;
+using RapidXaml;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -33,90 +35,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             vs.StartSingleUndoOperation(this.DisplayText);
             try
             {
-                switch (this.Tag.Action)
+                this.InnerExecute(vs, this.Tag, cancellationToken);
+
+                foreach (var suppAction in this.Tag.SupplementaryActions)
                 {
-                    case RapidXaml.ActionType.AddAttribute:
-                        var lineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;
-
-                        var before = $"<{this.Tag.ElementName} ";
-                        var after = $"<{this.Tag.ElementName} {this.Tag.Name}=\"{this.Tag.Value}\" ";
-
-                        vs.ReplaceInActiveDocOnLine(before, after, lineNumber);
-
-                        break;
-
-                    case RapidXaml.ActionType.AddChild:
-
-                        var origXaml = this.Tag.AnalyzedElement.OriginalString;
-
-                        // Allow for self-closing elements
-                        if (origXaml.EndsWith("/>"))
-                        {
-                            var replacementXaml = $">{Environment.NewLine}{this.Tag.Content}{Environment.NewLine}</{this.Tag.ElementName}>";
-
-                            var insertLine = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;
-                            vs.ReplaceInActiveDocOnLine("/>", replacementXaml, insertLine);
-                        }
-                        else
-                        {
-                            // Allows for opening and closing tags on same or different lines
-                            var insertLine = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition) + 1;
-                            vs.InsertIntoActiveDocOnLineAfterClosingTag(insertLine, this.Tag.Content);
-                        }
-
-                        break;
-
-                    case RapidXaml.ActionType.HighlightWithoutAction:
-                        // As the name implies, do nothing.
-                        break;
-
-                    case RapidXaml.ActionType.RemoveAttribute:
-                        if (this.Tag.IsInlineAttribute ?? false)
-                        {
-                            var currentAttribute = $"{this.Tag.Name}=\"{this.Tag.Value}\"";
-                            vs.RemoveInActiveDocOnLine(currentAttribute, this.Tag.GetDesignerLineNumber());
-                        }
-                        else
-                        {
-                            var attrs = this.Tag.AnalyzedElement.GetAttributes(this.Tag.Name).ToList();
-
-                            if (attrs.Count() == 1)
-                            {
-                                var attr = attrs.First();
-                                var toRemove =
-                                    this.Tag.AnalyzedElement.OriginalString.Substring(
-                                        attr.Location.Start - this.Tag.InsertPosition,
-                                        attr.Location.Length);
-
-                                vs.RemoveInActiveDocOnLine(toRemove, this.Tag.GetDesignerLineNumber());
-                            }
-                        }
-
-                        break;
-
-                    case RapidXaml.ActionType.RemoveChild:
-                        vs.RemoveInActiveDocOnLine(this.Tag.Element.OriginalString, this.Tag.GetDesignerLineNumber());
-                        break;
-
-                    case RapidXaml.ActionType.ReplaceElement:
-                        vs.ReplaceInActiveDocOnLine(
-                            this.Tag.AnalyzedElement.OriginalString,
-                            this.Tag.Content,
-                            this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.AnalyzedElement.Location.Start));
-                        break;
-
-                    case RapidXaml.ActionType.RenameElement:
-                        // Just change opening tags as Visual Studio will change closing tags automatically
-                        var renameLineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition);
-                        vs.ReplaceInActiveDocOnLine(this.Tag.ElementName, this.Tag.Name, renameLineNumber);
-
-                        foreach (var childAttr in this.Tag.AnalyzedElement.ChildAttributes)
-                        {
-                            renameLineNumber = this.Tag.Snapshot.GetLineNumberFromPosition(childAttr.Location.Start);
-                            vs.ReplaceInActiveDocOnLine($"{this.Tag.ElementName}.{childAttr.Name}", $"{this.Tag.Name}.{childAttr.Name}", renameLineNumber);
-                        }
-
-                        break;
+                    var sat = this.RepurposeTagForSupplementaryAction(this.Tag, suppAction);
+                    this.InnerExecute(vs, sat, cancellationToken);
                 }
 
                 RapidXamlDocumentCache.TryUpdate(this.File);
@@ -124,6 +48,120 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             finally
             {
                 vs.EndSingleUndoOperation();
+            }
+        }
+
+        private CustomAnalysisTag RepurposeTagForSupplementaryAction(CustomAnalysisTag tag, AnalysisAction suppAction)
+        {
+            var catd = new CustomAnalysisTagDependencies
+            {
+                AnalyzedElement = tag.AnalyzedElement,
+                Action = suppAction,
+                ElementName = tag.ElementName,
+                FileName = tag.FileName,
+                InsertPos = tag.InsertPosition,
+                Logger = tag.Logger,
+                Snapshot = tag.Snapshot,
+            };
+
+            if (suppAction.Location == null)
+            {
+                catd.Span = tag.Span;
+            }
+            else
+            {
+                catd.Span = suppAction.Location.ToSpanPlusStartPos(tag.InsertPosition);
+            }
+
+            return new CustomAnalysisTag(catd);
+        }
+
+        private void InnerExecute(VisualStudioTextManipulation vs, CustomAnalysisTag tag, CancellationToken cancellationToken)
+        {
+            switch (tag.Action)
+            {
+                case RapidXaml.ActionType.AddAttribute:
+                    var lineNumber = tag.Snapshot.GetLineNumberFromPosition(tag.InsertPosition) + 1;
+
+                    var before = $"<{tag.ElementName}";
+                    var after = $"<{tag.ElementName} {tag.Name}=\"{tag.Value}\"";
+
+                    vs.ReplaceInActiveDocOnLine(before, after, lineNumber);
+
+                    break;
+
+                case RapidXaml.ActionType.AddChild:
+
+                    var origXaml = tag.AnalyzedElement.OriginalString;
+
+                    // Allow for self-closing elements
+                    if (origXaml.EndsWith("/>"))
+                    {
+                        var replacementXaml = $">{Environment.NewLine}{tag.Content}{Environment.NewLine}</{tag.ElementName}>";
+
+                        var insertLine = tag.Snapshot.GetLineNumberFromPosition(tag.InsertPosition) + 1;
+                        vs.ReplaceInActiveDocOnLine("/>", replacementXaml, insertLine);
+                    }
+                    else
+                    {
+                        // Allows for opening and closing tags on same or different lines
+                        var insertLine = tag.Snapshot.GetLineNumberFromPosition(tag.InsertPosition) + 1;
+                        vs.InsertIntoActiveDocOnLineAfterClosingTag(insertLine, tag.Content);
+                    }
+
+                    break;
+
+                case RapidXaml.ActionType.HighlightWithoutAction:
+                    // As the name implies, do nothing.
+                    break;
+
+                case RapidXaml.ActionType.RemoveAttribute:
+                    if (tag.IsInlineAttribute ?? false)
+                    {
+                        var currentAttribute = $"{tag.Name}=\"{tag.Value}\"";
+                        vs.RemoveInActiveDocOnLine(currentAttribute, tag.GetDesignerLineNumber());
+                    }
+                    else
+                    {
+                        var attrs = tag.AnalyzedElement.GetAttributes(tag.Name).ToList();
+
+                        if (attrs.Count() == 1)
+                        {
+                            var attr = attrs.First();
+                            var toRemove =
+                                tag.AnalyzedElement.OriginalString.Substring(
+                                    attr.Location.Start - tag.InsertPosition,
+                                    attr.Location.Length);
+
+                            vs.RemoveInActiveDocOnLine(toRemove, tag.GetDesignerLineNumber());
+                        }
+                    }
+
+                    break;
+
+                case RapidXaml.ActionType.RemoveChild:
+                    vs.RemoveInActiveDocOnLine(tag.Element.OriginalString, tag.GetDesignerLineNumber());
+                    break;
+
+                case RapidXaml.ActionType.ReplaceElement:
+                    vs.ReplaceInActiveDocOnLine(
+                        tag.AnalyzedElement.OriginalString,
+                        tag.Content,
+                        tag.Snapshot.GetLineNumberFromPosition(tag.AnalyzedElement.Location.Start));
+                    break;
+
+                case RapidXaml.ActionType.RenameElement:
+                    // Just change opening tags as Visual Studio will change closing tags automatically
+                    var renameLineNumber = tag.Snapshot.GetLineNumberFromPosition(tag.InsertPosition);
+                    vs.ReplaceInActiveDocOnLine(tag.ElementName, tag.Name, renameLineNumber);
+
+                    foreach (var childAttr in tag.AnalyzedElement.ChildAttributes)
+                    {
+                        renameLineNumber = tag.Snapshot.GetLineNumberFromPosition(childAttr.Location.Start);
+                        vs.ReplaceInActiveDocOnLine($"{tag.ElementName}.{childAttr.Name}", $"{tag.Name}.{childAttr.Name}", renameLineNumber);
+                    }
+
+                    break;
             }
         }
     }
