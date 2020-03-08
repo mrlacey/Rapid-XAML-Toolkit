@@ -901,8 +901,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var innerGrid = RapidXamlElement.Build("InnerGrid");
             innerGrid.AddInlineAttribute("Height", "Auto");
-            innerGrid.AddChildAttribute("Content", RapidXamlElement.Build("Label").SetContent("First"));
-            innerGrid.AddChildAttribute("Content", RapidXamlElement.Build("Label").AddInlineAttribute("Text", "Second"));
+            innerGrid.AddChildrenAttribute("Content", new[] { RapidXamlElement.Build("Label").SetContent("First"), RapidXamlElement.Build("Label").AddInlineAttribute("Text", "Second") });
 
             expected.AddChildAttribute("Content1", innerGrid);
 
@@ -911,7 +910,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             RapidXamlElementAssert.AreEqual(expected, actual);
             RapidXamlElementAssert.AreEqual(expected.Attributes[0].Child, actual.Attributes[0].Child);
             RapidXamlElementAssert.AreEqual(expected.Attributes[0].Child.Attributes[1].Child, actual.Attributes[0].Child.Attributes[1].Child);
-            RapidXamlElementAssert.AreEqual(expected.Attributes[0].Child.Attributes[2].Child, actual.Attributes[0].Child.Attributes[2].Child);
+            RapidXamlElementAssert.AreEqual(expected.Attributes[0].Child.Attributes[1].Children[1], actual.Attributes[0].Child.Attributes[1].Children[1]);
         }
 
         [TestMethod]
@@ -935,8 +934,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var innerGrid = RapidXamlElement.Build("InnerGrid");
             innerGrid.AddInlineAttribute("Height", "Auto");
-            innerGrid.AddChildAttribute("Content", RapidXamlElement.Build("Label").SetContent("First"));
-            innerGrid.AddChildAttribute("Content", RapidXamlElement.Build("Label").AddInlineAttribute("Text", "Second"));
+            innerGrid.AddChildrenAttribute("Content", new[] { RapidXamlElement.Build("Label").SetContent("First"), RapidXamlElement.Build("Label").AddInlineAttribute("Text", "Second") });
 
             expected.AddChildAttribute("Content1", innerGrid);
 
@@ -970,8 +968,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_Root_MultiLine()
         {
             var xaml = "<Grid>" +
- Environment.NewLine + "    <Label />" +
- Environment.NewLine + "</Grid>";
+    Environment.NewLine + "    <Label />" +
+    Environment.NewLine + "</Grid>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1000,10 +998,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_DirectAttributeElement_WithLineBreaks()
         {
             var xaml = "<Grid>" +
- Environment.NewLine + "    <Grid.Content>" +
- Environment.NewLine + "        <Label></Label>" +
- Environment.NewLine + "    </Grid.Content>" +
- Environment.NewLine + "</Grid>";
+    Environment.NewLine + "    <Grid.Content>" +
+    Environment.NewLine + "        <Label></Label>" +
+    Environment.NewLine + "    </Grid.Content>" +
+    Environment.NewLine + "</Grid>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1020,10 +1018,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_DirectAttributeElement_SelfClosing_WithLineBreaks()
         {
             var xaml = "<Grid>" +
- Environment.NewLine + "    <Grid.Content>" +
- Environment.NewLine + "        <Label />" +
- Environment.NewLine + "    </Grid.Content>" +
- Environment.NewLine + "</Grid>";
+    Environment.NewLine + "    <Grid.Content>" +
+    Environment.NewLine + "        <Label />" +
+    Environment.NewLine + "    </Grid.Content>" +
+    Environment.NewLine + "</Grid>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1040,11 +1038,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_TwoDirectAttributeElements_WithLineBreaks()
         {
             var xaml = "<Grid>" +
- Environment.NewLine + "    <Grid.Content>" +
- Environment.NewLine + "        <Label />" +
- Environment.NewLine + "        <Image />" +
- Environment.NewLine + "    </Grid.Content>" +
- Environment.NewLine + "</Grid>";
+    Environment.NewLine + "    <Grid.Content>" +
+    Environment.NewLine + "        <Label />" +
+    Environment.NewLine + "        <Image />" +
+    Environment.NewLine + "    </Grid.Content>" +
+    Environment.NewLine + "</Grid>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1080,8 +1078,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_DirectChild_WithLineBreaks()
         {
             var xaml = "<Grid>" +
- Environment.NewLine + "    <TextBlock></TextBlock>" +
- Environment.NewLine + "</Grid>";
+    Environment.NewLine + "    <TextBlock></TextBlock>" +
+    Environment.NewLine + "</Grid>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1098,8 +1096,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_DirectChild_SelfClosing_WithLineBreaks()
         {
             var xaml = "<Grid>" +
- Environment.NewLine + "    <TextBlock />" +
- Environment.NewLine + "</Grid>";
+    Environment.NewLine + "    <TextBlock />" +
+    Environment.NewLine + "</Grid>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1136,9 +1134,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_TwoDirectChildren_WithLineBreaks()
         {
             var xaml = "<Grid>" +
- Environment.NewLine + "    <TextBlock />" +
- Environment.NewLine + "    <ListView></ListView>" +
- Environment.NewLine + "</Grid>";
+    Environment.NewLine + "    <TextBlock />" +
+    Environment.NewLine + "    <ListView></ListView>" +
+    Environment.NewLine + "</Grid>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1161,11 +1159,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_FourDirectChildren_WithLineBreaks_NoPadding()
         {
             var xaml = "<Grid>" +
- Environment.NewLine + "<TextBlock />" +
- Environment.NewLine + "<ListView></ListView>" +
- Environment.NewLine + "<Image />" +
- Environment.NewLine + "<Rectangle Fill=\"Red\"></Rectangle>" +
- Environment.NewLine + "</Grid>";
+    Environment.NewLine + "<TextBlock />" +
+    Environment.NewLine + "<ListView></ListView>" +
+    Environment.NewLine + "<Image />" +
+    Environment.NewLine + "<Rectangle Fill=\"Red\"></Rectangle>" +
+    Environment.NewLine + "</Grid>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1200,15 +1198,15 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_Multiple_DirectAttributesAndChildren()
         {
             var xaml = "<Grid>" +
- Environment.NewLine + "    <Grid.Content1>" +
- Environment.NewLine + "        <Label />" +
- Environment.NewLine + "    </Grid.Content1>" +
- Environment.NewLine + "    <Grid.Content2>" +
- Environment.NewLine + "        <Image />" +
- Environment.NewLine + "    </Grid.Content2>" +
- Environment.NewLine + "    <ListView></ListView>" +
- Environment.NewLine + "    <TextBlock />" +
- Environment.NewLine + "</Grid>";
+    Environment.NewLine + "    <Grid.Content1>" +
+    Environment.NewLine + "        <Label />" +
+    Environment.NewLine + "    </Grid.Content1>" +
+    Environment.NewLine + "    <Grid.Content2>" +
+    Environment.NewLine + "        <Image />" +
+    Environment.NewLine + "    </Grid.Content2>" +
+    Environment.NewLine + "    <ListView></ListView>" +
+    Environment.NewLine + "    <TextBlock />" +
+    Environment.NewLine + "</Grid>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1242,41 +1240,41 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_Multiple_NestedAttributesAndChildren()
         {
             var xaml = "<Grid>" +
- Environment.NewLine + "    <Grid.Content1>" +
- Environment.NewLine + "        <StackPanel>" +
- Environment.NewLine + "            <Grid>" +
- Environment.NewLine + "                <MyPanel Attr=\"Awesome\">" +
- Environment.NewLine + "                    <Label Text=\"One\" />" +
- Environment.NewLine + "                    <Label>Two</Label>" +
- Environment.NewLine + "                </MyPanel>" +
- Environment.NewLine + "            </Grid>" +
- Environment.NewLine + "        </StackPanel>" +
- Environment.NewLine + "    </Grid.Content1>" +
- Environment.NewLine + "    <Grid.Content2>" +
- Environment.NewLine + "        <StackPanel>" +
- Environment.NewLine + "            <Grid>" +
- Environment.NewLine + "                <MyPanel>" +
- Environment.NewLine + "                    <MyPanel.Content>" +
- Environment.NewLine + "                        <Label Text=\"Three\" />" +
- Environment.NewLine + "                    </MyPanel.Content>" +
- Environment.NewLine + "                </MyPanel>" +
- Environment.NewLine + "            </Grid>" +
- Environment.NewLine + "        </StackPanel>" +
- Environment.NewLine + "    </Grid.Content2>" +
- Environment.NewLine + "    <ListView>" +
- Environment.NewLine + "        <Grid>" +
- Environment.NewLine + "            <Grid.AltContent>" +
- Environment.NewLine + "                <MyPanel Attr=\"Testy\">" +
- Environment.NewLine + "                    <Label Text=\"4\" />" +
- Environment.NewLine + "                </MyPanel>" +
- Environment.NewLine + "            </Grid.AltContent>" +
- Environment.NewLine + "            <RelativePanel>" +
- Environment.NewLine + "                <Label>Five</Label>" +
- Environment.NewLine + "            </RelativePanel>" +
- Environment.NewLine + "        </Grid>" +
- Environment.NewLine + "    </ListView>" +
- Environment.NewLine + "    <TextBlock />" +
- Environment.NewLine + "</Grid>";
+    Environment.NewLine + "    <Grid.Content1>" +
+    Environment.NewLine + "        <StackPanel>" +
+    Environment.NewLine + "            <Grid>" +
+    Environment.NewLine + "                <MyPanel Attr=\"Awesome\">" +
+    Environment.NewLine + "                    <Label Text=\"One\" />" +
+    Environment.NewLine + "                    <Label>Two</Label>" +
+    Environment.NewLine + "                </MyPanel>" +
+    Environment.NewLine + "            </Grid>" +
+    Environment.NewLine + "        </StackPanel>" +
+    Environment.NewLine + "    </Grid.Content1>" +
+    Environment.NewLine + "    <Grid.Content2>" +
+    Environment.NewLine + "        <StackPanel>" +
+    Environment.NewLine + "            <Grid>" +
+    Environment.NewLine + "                <MyPanel>" +
+    Environment.NewLine + "                    <MyPanel.Content>" +
+    Environment.NewLine + "                        <Label Text=\"Three\" />" +
+    Environment.NewLine + "                    </MyPanel.Content>" +
+    Environment.NewLine + "                </MyPanel>" +
+    Environment.NewLine + "            </Grid>" +
+    Environment.NewLine + "        </StackPanel>" +
+    Environment.NewLine + "    </Grid.Content2>" +
+    Environment.NewLine + "    <ListView>" +
+    Environment.NewLine + "        <Grid>" +
+    Environment.NewLine + "            <Grid.AltContent>" +
+    Environment.NewLine + "                <MyPanel Attr=\"Testy\">" +
+    Environment.NewLine + "                    <Label Text=\"4\" />" +
+    Environment.NewLine + "                </MyPanel>" +
+    Environment.NewLine + "            </Grid.AltContent>" +
+    Environment.NewLine + "            <RelativePanel>" +
+    Environment.NewLine + "                <Label>Five</Label>" +
+    Environment.NewLine + "            </RelativePanel>" +
+    Environment.NewLine + "        </Grid>" +
+    Environment.NewLine + "    </ListView>" +
+    Environment.NewLine + "    <TextBlock />" +
+    Environment.NewLine + "</Grid>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1381,8 +1379,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_Attributes_Direct_MultiLine()
         {
             var xaml = "<Person" +
- Environment.NewLine + " Age=\"21\"" +
- Environment.NewLine + " Name=\"Bob\" />";
+    Environment.NewLine + " Age=\"21\"" +
+    Environment.NewLine + " Name=\"Bob\" />";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1399,10 +1397,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_Attributes_Child_MultiLine()
         {
             var xaml = "<Person>" +
- Environment.NewLine + "    <Child" +
- Environment.NewLine + "        Age=\"21\"" +
- Environment.NewLine + "        Name=\"Bob\" />" +
- Environment.NewLine + "</Person>";
+    Environment.NewLine + "    <Child" +
+    Environment.NewLine + "        Age=\"21\"" +
+    Environment.NewLine + "        Name=\"Bob\" />" +
+    Environment.NewLine + "</Person>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1421,9 +1419,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_ChildAttributes_Direct()
         {
             var xaml = "<Person>" +
- Environment.NewLine + "    <Person.Age>21</Person.Age>" +
- Environment.NewLine + "    <Person.Name>Carla</Person.Name>" +
- Environment.NewLine + "</Person>";
+    Environment.NewLine + "    <Person.Age>21</Person.Age>" +
+    Environment.NewLine + "    <Person.Name>Carla</Person.Name>" +
+    Environment.NewLine + "</Person>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1440,11 +1438,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_ChildAttributes_ChildElement()
         {
             var xaml = "<Person>" +
- Environment.NewLine + "    <Child>" +
- Environment.NewLine + "        <Child.Age>21</Child.Age>" +
- Environment.NewLine + "        <Child.Name>Carla</Child.Name>" +
- Environment.NewLine + "    </Child>" +
- Environment.NewLine + "</Person>";
+    Environment.NewLine + "    <Child>" +
+    Environment.NewLine + "        <Child.Age>21</Child.Age>" +
+    Environment.NewLine + "        <Child.Name>Carla</Child.Name>" +
+    Environment.NewLine + "    </Child>" +
+    Environment.NewLine + "</Person>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1463,9 +1461,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_ChildElementAttributes_Direct()
         {
             var xaml = "<Person>" +
- Environment.NewLine + "    <Person.Age><int>21</int></Person.Age>" +
- Environment.NewLine + "    <Person.Name><string>Carla</string></Person.Name>" +
- Environment.NewLine + "</Person>";
+    Environment.NewLine + "    <Person.Age><int>21</int></Person.Age>" +
+    Environment.NewLine + "    <Person.Name><string>Carla</string></Person.Name>" +
+    Environment.NewLine + "</Person>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1482,11 +1480,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_ChildElementAttributes_Child()
         {
             var xaml = "<Person>" +
- Environment.NewLine + "    <Child>" +
- Environment.NewLine + "        <Child.Age><int>21</int></Child.Age>" +
- Environment.NewLine + "        <Child.Name><string>Carla</string></Child.Name>" +
- Environment.NewLine + "    </Child>" +
- Environment.NewLine + "</Person>";
+    Environment.NewLine + "    <Child>" +
+    Environment.NewLine + "        <Child.Age><int>21</int></Child.Age>" +
+    Environment.NewLine + "        <Child.Name><string>Carla</string></Child.Name>" +
+    Environment.NewLine + "    </Child>" +
+    Environment.NewLine + "</Person>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1505,31 +1503,31 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         public void Position_AllAttributeTypes()
         {
             var xaml = "<Person Moniker=\"Monica\">" +
- Environment.NewLine + "    <Child ParentName=\"Monica\">" +
- Environment.NewLine + "        <Child.Age>14</Child.Age>" +
- Environment.NewLine + "        <Child.Name><string>Carla</string></Child.Name>" +
- Environment.NewLine + "        <Child.Pet><Hamster /></Child.Pet>" +
- Environment.NewLine + "        <GrandChild><GrandChild.Nom><Identifier Id=\"Bobby\" /><GrandChild.Nom></GrandChild>" +
- Environment.NewLine + "    </Child>" +
- Environment.NewLine + "    <Sibling>" +
- Environment.NewLine + "        <ParentMoniker Value=\"Monica\" />" +
- Environment.NewLine + "    </Sibling>" +
- Environment.NewLine + "    <OtherSibling>" +
- Environment.NewLine + "        <MotherName Value=\"Mary\" />" +
- Environment.NewLine + "        <FatherName Value=\"Peter\" />" +
- Environment.NewLine + "    </OtherSibling>" +
- Environment.NewLine + "    <Brother><Brother.Height>Tall</Brother.Height></Brother>" +
- Environment.NewLine + "    <FinalSibling>" +
- Environment.NewLine + "       <FinalSibling.Content>" +
- Environment.NewLine + "           <InnerGrid Height=\"Auto\">" +
- Environment.NewLine + "               <InnerGrid.Content>" +
- Environment.NewLine + "                   <Label>First</Label>" +
- Environment.NewLine + "                   <Label Text=\"Second\" />" +
- Environment.NewLine + "               </InnerGrid.Content>" +
- Environment.NewLine + "           </InnerGrid>" +
- Environment.NewLine + "       </FinalSibling.Content>" +
- Environment.NewLine + "    </FinalSibling>" +
- Environment.NewLine + "</Person>";
+    Environment.NewLine + "    <Child ParentName=\"Monica\">" +
+    Environment.NewLine + "        <Child.Age>14</Child.Age>" +
+    Environment.NewLine + "        <Child.Name><string>Carla</string></Child.Name>" +
+    Environment.NewLine + "        <Child.Pet><Hamster /></Child.Pet>" +
+    Environment.NewLine + "        <GrandChild><GrandChild.Nom><Identifier Id=\"Bobby\" /><GrandChild.Nom></GrandChild>" +
+    Environment.NewLine + "    </Child>" +
+    Environment.NewLine + "    <Sibling>" +
+    Environment.NewLine + "        <ParentMoniker Value=\"Monica\" />" +
+    Environment.NewLine + "    </Sibling>" +
+    Environment.NewLine + "    <OtherSibling>" +
+    Environment.NewLine + "        <MotherName Value=\"Mary\" />" +
+    Environment.NewLine + "        <FatherName Value=\"Peter\" />" +
+    Environment.NewLine + "    </OtherSibling>" +
+    Environment.NewLine + "    <Brother><Brother.Height>Tall</Brother.Height></Brother>" +
+    Environment.NewLine + "    <FinalSibling>" +
+    Environment.NewLine + "       <FinalSibling.Content>" +
+    Environment.NewLine + "           <InnerGrid Height=\"Auto\">" +
+    Environment.NewLine + "               <InnerGrid.Content>" +
+    Environment.NewLine + "                   <Label>First</Label>" +
+    Environment.NewLine + "                   <Label Text=\"Second\" />" +
+    Environment.NewLine + "               </InnerGrid.Content>" +
+    Environment.NewLine + "           </InnerGrid>" +
+    Environment.NewLine + "       </FinalSibling.Content>" +
+    Environment.NewLine + "    </FinalSibling>" +
+    Environment.NewLine + "</Person>";
 
             var sut = RapidXamlElementExtractor.GetElement(xaml);
 
@@ -1600,13 +1598,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var fsContent = finalSibling.GetAttributes("Content").First();
 
             var expectedFsContent = "<FinalSibling.Content>" +
- Environment.NewLine + "           <InnerGrid Height=\"Auto\">" +
- Environment.NewLine + "               <InnerGrid.Content>" +
- Environment.NewLine + "                   <Label>First</Label>" +
- Environment.NewLine + "                   <Label Text=\"Second\" />" +
- Environment.NewLine + "               </InnerGrid.Content>" +
- Environment.NewLine + "           </InnerGrid>" +
- Environment.NewLine + "       </FinalSibling.Content>";
+    Environment.NewLine + "           <InnerGrid Height=\"Auto\">" +
+    Environment.NewLine + "               <InnerGrid.Content>" +
+    Environment.NewLine + "                   <Label>First</Label>" +
+    Environment.NewLine + "                   <Label Text=\"Second\" />" +
+    Environment.NewLine + "               </InnerGrid.Content>" +
+    Environment.NewLine + "           </InnerGrid>" +
+    Environment.NewLine + "       </FinalSibling.Content>";
 
             Assert.AreEqual(expectedFsContent, xaml.Substring(fsContent.Location.Start, fsContent.Location.Length));
         }
@@ -1715,6 +1713,36 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var attr = sut.GetAttributes("Attr").First();
             Assert.AreEqual("<ActuallyAChild />", attr.Child.OriginalString);
+        }
+
+        [TestMethod]
+        public void Attribute_MultipleChildren()
+        {
+            var xaml = "<Grid>" +
+    Environment.NewLine + "    <Grid.ColumnDefinitions> " +
+    Environment.NewLine + "        <ColumnDefinition Width=\"1*\" />" +
+    Environment.NewLine + "        <ColumnDefinition Width=\"50\"></ColumnDefinition>" +
+    Environment.NewLine + "        <ColumnDefinition Width=\"Auto\" />" +
+    Environment.NewLine + "        <ColumnDefinition Width=\"2*\" />" +
+    Environment.NewLine + "    </Grid.ColumnDefinitions>" +
+    Environment.NewLine + "" +
+    Environment.NewLine + "</Grid>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(1, sut.Attributes.Count);
+
+            var attr = sut.Attributes.First();
+
+            Assert.AreEqual("ColumnDefinitions", attr.Name);
+            Assert.IsFalse(attr.HasStringValue);
+
+            Assert.AreEqual(4, attr.Children.Count);
+
+            Assert.AreEqual("<ColumnDefinition Width=\"1*\" />", xaml.Substring(attr.Children[0].Location.Start, attr.Children[0].Location.Length));
+            Assert.AreEqual("<ColumnDefinition Width=\"50\"></ColumnDefinition>", xaml.Substring(attr.Children[1].Location.Start, attr.Children[1].Location.Length));
+            Assert.AreEqual("<ColumnDefinition Width=\"Auto\" />", xaml.Substring(attr.Children[2].Location.Start, attr.Children[2].Location.Length));
+            Assert.AreEqual("<ColumnDefinition Width=\"2*\" />", xaml.Substring(attr.Children[3].Location.Start, attr.Children[3].Location.Length));
         }
     }
 }

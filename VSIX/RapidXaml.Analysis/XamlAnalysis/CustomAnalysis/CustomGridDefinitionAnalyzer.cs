@@ -53,7 +53,8 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
                     foreach (var oldColDef in colDef.Children.Where(c => c.Name == "ColumnDefinition"))
                     {
-                        var width = oldColDef.GetAttributes("Width")?.First()?.StringValue;
+                        // Allow for width being optional and defaulting to Star
+                        var width = oldColDef.GetAttributes("Width")?.First()?.StringValue ?? "*";
 
                         if (width != null)
                         {

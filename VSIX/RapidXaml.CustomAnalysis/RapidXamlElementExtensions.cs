@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Collections.Generic;
+
 namespace RapidXaml
 {
     public static class RapidXamlElementExtensions
@@ -19,10 +21,20 @@ namespace RapidXaml
             return element;
         }
 
-        // TODO: need to test adding mulitple children to an attribute
         public static RapidXamlElement AddChildAttribute(this RapidXamlElement element, string name, RapidXamlElement value, int startPos = -1, int length = -1)
         {
             element.Attributes.Add(new RapidXamlAttribute(value) { Name = name, IsInline = false, Location = new RapidXamlSpan(startPos, length) });
+
+            return element;
+        }
+
+        public static RapidXamlElement AddChildrenAttribute(this RapidXamlElement element, string name, IEnumerable<RapidXamlElement> children, int startPos = -1, int length = -1)
+        {
+            var newAttr = new RapidXamlAttribute() { Name = name, IsInline = false, Location = new RapidXamlSpan(startPos, length) };
+
+            newAttr.Children.AddRange(children);
+
+            element.Attributes.Add(newAttr);
 
             return element;
         }

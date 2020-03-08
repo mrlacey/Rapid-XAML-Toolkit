@@ -106,7 +106,7 @@ namespace RapidXaml
             return false;
         }
 
-        // This returns an enumerable because attribute element may have multiple content values
+        // This returns an enumerable because attribute element may have been set multiple times. It shouldn't be valid but may happen
         public IEnumerable<RapidXamlAttribute> GetAttributes(string attributeName)
         {
             foreach (var attr in this.Attributes)
@@ -136,9 +136,12 @@ namespace RapidXaml
             {
                 if (!attr.HasStringValue)
                 {
-                    if (attr.Child.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase))
+                    foreach (var attrChild in attr.Children)
                     {
-                        yield return attr.Child;
+                        if (attrChild.Name.Equals(childName, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            yield return attrChild;
+                        }
                     }
 
                     foreach (var innerChild in attr.Child.GetDescendants(childName))

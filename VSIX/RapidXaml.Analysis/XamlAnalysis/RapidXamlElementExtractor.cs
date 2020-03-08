@@ -83,16 +83,21 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                     if (innerChild is SyntaxList childList)
                                     {
+                                        var attributeChildren = new List<RapidXamlElement>();
+
                                         foreach (SyntaxNode listItem in childList.ChildNodes)
                                         {
-                                            var listItemString = xaml.Substring(listItem.SpanStart, listItem.Width);
-
-                                            result.AddChildAttribute(
-                                                childElement.Name.Substring(elementName.Length + 1),
-                                                GetElementInternal(listItemString, startOffset + startingWhiteSpaceLength + listItem.Start),
-                                                startOffset + childElement.SpanStart,
-                                                childElement.Width);
+                                            attributeChildren.Add(
+                                                GetElementInternal(
+                                                    xaml.Substring(listItem.SpanStart, listItem.Width),
+                                                    startOffset + listItem.SpanStart));
                                         }
+
+                                        result.AddChildrenAttribute(
+                                            childElement.Name.Substring(elementName.Length + 1),
+                                            attributeChildren,
+                                            startOffset + childElement.SpanStart,
+                                            childElement.Width);
                                     }
                                     else
                                     {
@@ -160,11 +165,35 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                     if (attrString.StartsWith("<"))
                                     {
-                                        result.AddChildAttribute(
-                                            ncElement.Name.Substring(elementName.Length + 1),
-                                            GetElementInternal(attrString, startOffset + ncElement.Content.Span.Start),
-                                            startOffset + ncElement.SpanStart,
-                                            ncElement.Width);
+                                        foreach (var attrChild in ncElement.ChildNodes)
+                                        {
+                                            if (attrChild is XmlElementSyntax || attrChild is XmlEmptyElementSyntax)
+                                            {
+                                                result.AddChildAttribute(
+                                                    ncElement.Name.Substring(elementName.Length + 1),
+                                                    GetElementInternal(attrString, startOffset + ncElement.Content.Span.Start),
+                                                    startOffset + ncElement.SpanStart,
+                                                    ncElement.Width);
+                                            }
+                                            else if (attrChild is SyntaxList acList)
+                                            {
+                                                var children = new List<RapidXamlElement>();
+
+                                                foreach (var acListChild in acList.ChildNodes)
+                                                {
+                                                    children.Add(
+                                                        GetElementInternal(
+                                                            xaml.Substring(acList.SpanStart, acList.Width),
+                                                            startOffset + acList.SpanStart));
+                                                }
+
+                                                result.AddChildrenAttribute(
+                                                    ncElement.Name.Substring(elementName.Length + 1),
+                                                    children,
+                                                    startOffset + ncElement.SpanStart,
+                                                    ncElement.Width);
+                                            }
+                                        }
                                     }
                                     else
                                     {
