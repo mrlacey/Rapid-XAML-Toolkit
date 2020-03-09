@@ -183,8 +183,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                                                 {
                                                     children.Add(
                                                         GetElementInternal(
-                                                            xaml.Substring(acList.SpanStart, acList.Width),
-                                                            startOffset + acList.SpanStart));
+                                                            xaml.Substring(acListChild.SpanStart, acListChild.Width),
+                                                            startOffset + acListChild.SpanStart));
                                                 }
 
                                                 result.AddChildrenAttribute(

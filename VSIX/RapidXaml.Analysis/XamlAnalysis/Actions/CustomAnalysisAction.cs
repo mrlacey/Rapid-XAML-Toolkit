@@ -4,7 +4,6 @@
 using System;
 using System.Linq;
 using System.Threading;
-using Microsoft.VisualStudio.Text;
 using RapidXaml;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -118,7 +117,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 case RapidXaml.ActionType.RemoveAttribute:
                     if (tag.IsInlineAttribute ?? false)
                     {
-                        var currentAttribute = $"{tag.Name}=\"{tag.Value}\"";
+                        var currentAttribute = $" {tag.Name}=\"{tag.Value}\"";
                         vs.RemoveInActiveDocOnLine(currentAttribute, tag.GetDesignerLineNumber());
                     }
                     else
