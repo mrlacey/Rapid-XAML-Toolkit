@@ -180,7 +180,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 }
                 catch (Exception exc)
                 {
-                    SharedRapidXamlPackage.Logger?.RecordError("Failed to import CustomAnalyzers.");
+                    SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToImportCustomAnalyzers);
                     SharedRapidXamlPackage.Logger?.RecordException(exc);
                 }
             }
@@ -251,7 +251,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordError("Failed to load 'suppressions.xamlAnalysis' file.");
+                SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToLoadSuppressionsAnalysisFile);
                 SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
 

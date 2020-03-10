@@ -79,6 +79,87 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exception.
+        /// </summary>
+        public static string Error_ExceptionHeader {
+            get {
+                return ResourceManager.GetString("Error_ExceptionHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to =========.
+        /// </summary>
+        public static string Error_ExceptionHeaderUnderline {
+            get {
+                return ResourceManager.GetString("Error_ExceptionHeaderUnderline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get DTE in GetXamlFromCodeWindowBaseCommand.GetXamlAsync.
+        /// </summary>
+        public static string Error_FailedToGetDteInGetXamlAsync {
+            get {
+                return ResourceManager.GetString("Error_FailedToGetDteInGetXamlAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get DTE in GetXamlFromCodeWindowBaseCommand.ShowStatusBarMessageAsync.
+        /// </summary>
+        public static string Error_FailedToGetDteInShowStatusBarMessageAsync {
+            get {
+                return ResourceManager.GetString("Error_FailedToGetDteInShowStatusBarMessageAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get IComponentModel in BaseCommand.GetEditorAdaptersFactoryServiceAsync.
+        /// </summary>
+        public static string Error_FailedToGetIComponentModel {
+            get {
+                return ResourceManager.GetString("Error_FailedToGetIComponentModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get IVsTextManager4 in BaseCommand.GetXamlIndentAsync.
+        /// </summary>
+        public static string Error_FailedToGetIVsTextManager4 {
+            get {
+                return ResourceManager.GetString("Error_FailedToGetIVsTextManager4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get IVsTextManager4 in VisualStudioAbstraction.GetXamlIndentAsync.
+        /// </summary>
+        public static string Error_FailedToGetIVsTextManager4InVisualStudioAbstraction_GetXamlIndentAsync {
+            get {
+                return ResourceManager.GetString("Error_FailedToGetIVsTextManager4InVisualStudioAbstraction.GetXamlIndentAsync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to import CustomAnalyzers..
+        /// </summary>
+        public static string Error_FailedToImportCustomAnalyzers {
+            get {
+                return ResourceManager.GetString("Error_FailedToImportCustomAnalyzers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to load &apos;suppressions.xamlAnalysis&apos; file..
+        /// </summary>
+        public static string Error_FailedToLoadSuppressionsAnalysisFile {
+            get {
+                return ResourceManager.GetString("Error_FailedToLoadSuppressionsAnalysisFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md.
         /// </summary>
         public static string Error_OutdatedConfigurationDetected2 {

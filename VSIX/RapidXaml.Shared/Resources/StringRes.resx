@@ -769,4 +769,31 @@
   <data name="Info_UnableToFindProjectContainingFile" xml:space="preserve">
     <value>Unable to find project containing file '{0}'.</value>
   </data>
+  <data name="Error_ExceptionHeader" xml:space="preserve">
+    <value>Exception</value>
+  </data>
+  <data name="Error_ExceptionHeaderUnderline" xml:space="preserve">
+    <value>=========</value>
+  </data>
+  <data name="Error_FailedToGetIComponentModel" xml:space="preserve">
+    <value>Failed to get IComponentModel in BaseCommand.GetEditorAdaptersFactoryServiceAsync</value>
+  </data>
+  <data name="Error_FailedToGetIVsTextManager4" xml:space="preserve">
+    <value>Failed to get IVsTextManager4 in BaseCommand.GetXamlIndentAsync</value>
+  </data>
+  <data name="Error_FailedToGetIVsTextManager4InVisualStudioAbstraction.GetXamlIndentAsync" xml:space="preserve">
+    <value>Failed to get IVsTextManager4 in VisualStudioAbstraction.GetXamlIndentAsync</value>
+  </data>
+  <data name="Error_FailedToImportCustomAnalyzers" xml:space="preserve">
+    <value>Failed to import CustomAnalyzers.</value>
+  </data>
+  <data name="Error_FailedToLoadSuppressionsAnalysisFile" xml:space="preserve">
+    <value>Failed to load 'suppressions.xamlAnalysis' file.</value>
+  </data>
+  <data name="Error_FailedToGetDteInGetXamlAsync" xml:space="preserve">
+    <value>Failed to get DTE in GetXamlFromCodeWindowBaseCommand.GetXamlAsync</value>
+  </data>
+  <data name="Error_FailedToGetDteInShowStatusBarMessageAsync" xml:space="preserve">
+    <value>Failed to get DTE in GetXamlFromCodeWindowBaseCommand.ShowStatusBarMessageAsync</value>
+  </data>
 </root>
