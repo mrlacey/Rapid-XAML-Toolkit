@@ -79,6 +79,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error in Custom Analyzer &apos;{0}&apos;..
+        /// </summary>
+        public static string Error_ErrorInCustomAnalyzer {
+            get {
+                return ResourceManager.GetString("Error_ErrorInCustomAnalyzer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exception.
         /// </summary>
         public static string Error_ExceptionHeader {
@@ -147,6 +156,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Error_FailedToImportCustomAnalyzers {
             get {
                 return ResourceManager.GetString("Error_FailedToImportCustomAnalyzers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;Failed to load &apos;{0}&apos; to look for CustomAnalyzers.&quot;.
+        /// </summary>
+        public static string Error_FailedToLoadAssemblyMEF {
+            get {
+                return ResourceManager.GetString("Error_FailedToLoadAssemblyMEF", resourceCulture);
             }
         }
         

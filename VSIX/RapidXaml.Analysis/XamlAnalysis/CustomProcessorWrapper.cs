@@ -19,6 +19,14 @@ namespace RapidXamlToolkit.XamlAnalysis
             this.customProcessor = customProcessor;
         }
 
+        internal RapidXaml.ICustomAnalyzer CustomAnalyzer
+        {
+            get
+            {
+                return this.customProcessor;
+            }
+        }
+
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             var rxElement = RapidXamlElementExtractor.GetElement(xamlElement, offset);

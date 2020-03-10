@@ -796,4 +796,10 @@
   <data name="Error_FailedToGetDteInShowStatusBarMessageAsync" xml:space="preserve">
     <value>Failed to get DTE in GetXamlFromCodeWindowBaseCommand.ShowStatusBarMessageAsync</value>
   </data>
+  <data name="Error_ErrorInCustomAnalyzer" xml:space="preserve">
+    <value>Error in Custom Analyzer '{0}'.</value>
+  </data>
+  <data name="Error_FailedToLoadAssemblyMEF" xml:space="preserve">
+    <value>"Failed to load '{0}' to look for CustomAnalyzers."</value>
+  </data>
 </root>

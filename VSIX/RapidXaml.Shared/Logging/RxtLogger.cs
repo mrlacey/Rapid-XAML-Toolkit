@@ -37,7 +37,7 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordGeneralError(string message)
         {
-            GeneralOutputPane.Instance.Write($"[{StringRes.RapidXamlToolkit}]  {message}{Environment.NewLine}{Environment.NewLine}");
+            GeneralOutputPane.Instance.Write($"[{StringRes.RapidXamlToolkit}]  {message}");
             GeneralOutputPane.Instance.Activate();
         }
 

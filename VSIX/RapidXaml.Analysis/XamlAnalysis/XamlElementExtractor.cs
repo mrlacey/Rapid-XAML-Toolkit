@@ -7,6 +7,8 @@ using System.Text;
 using Microsoft.Language.Xml;
 using Microsoft.VisualStudio.Text;
 using RapidXaml;
+using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 
 namespace RapidXamlToolkit.XamlAnalysis
@@ -167,7 +169,32 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     if (element == toProcess.ElementName
                                      || element == toProcess.ElementNameWithoutNamespace)
                                     {
-                                        processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                        try
+                                        {
+                                            processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                        }
+                                        catch (System.Exception exc)
+                                        {
+                                            var bubbleUpError = true;
+
+                                            if (processor is CustomProcessorWrapper)
+                                            {
+                                                var customAnalyzer = ((CustomProcessorWrapper)processor).CustomAnalyzer;
+
+                                                if (!(customAnalyzer is NotReallyCustomAnalyzer))
+                                                {
+                                                    SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_ErrorInCustomAnalyzer.WithParams(customAnalyzer.GetType().FullName), force: true);
+                                                    SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_ErrorInCustomAnalyzer.WithParams(customAnalyzer.GetType().FullName));
+                                                    SharedRapidXamlPackage.Logger?.RecordException(exc);
+                                                    bubbleUpError = false;
+                                                }
+                                            }
+
+                                            if (bubbleUpError)
+                                            {
+                                                throw;
+                                            }
+                                        }
                                     }
                                 }
 

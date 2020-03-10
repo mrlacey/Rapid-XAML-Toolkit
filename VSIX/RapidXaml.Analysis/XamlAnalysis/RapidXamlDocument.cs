@@ -159,7 +159,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     }
                     catch (Exception exc)
                     {
-                        SharedRapidXamlPackage.Logger?.RecordError("Failed to load '{0}' to look for CustomAnalyzers.".WithParams(file));
+                        SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToLoadAssemblyMEF.WithParams(file));
                         SharedRapidXamlPackage.Logger?.RecordException(exc);
                     }
                 }
@@ -197,6 +197,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 #if DEBUG
             // These types exists for testing only and so are only referenced during Debug
             result.Add(new CustomAnalysis.FooAnalysis());
+            result.Add(new CustomAnalysis.BadCustomAnalyzer());
+            result.Add(new CustomAnalysis.InternalBadCustomAnalyzer());
             result.Add(new CustomAnalysis.CustomGridDefinitionAnalyzer());
             result.Add(new CustomAnalysis.RenameElementTestAnalyzer());
             result.Add(new CustomAnalysis.ReplaceElementTestAnalyzer());

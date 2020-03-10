@@ -96,11 +96,15 @@ namespace RapidXaml.InternalAnalyzers
             {
                 var arg = invocationExpression.ArgumentList.Arguments.FirstOrDefault();
 
-                if (arg != null && arg.Expression is LiteralExpressionSyntax)
+                if (arg != null)
                 {
-                    var diagnostic = Diagnostic.Create(rule, arg.GetLocation(), checkArgs);
+                    if (arg.Expression is LiteralExpressionSyntax
+                     || arg.Expression.ToString().StartsWith("\""))
+                    {
+                        var diagnostic = Diagnostic.Create(rule, arg.GetLocation(), checkArgs);
 
-                    context.ReportDiagnostic(diagnostic);
+                        context.ReportDiagnostic(diagnostic);
+                    }
                 }
             }
         }
