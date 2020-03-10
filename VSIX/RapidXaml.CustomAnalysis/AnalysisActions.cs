@@ -27,7 +27,14 @@ namespace RapidXaml
 
         public List<AnalysisAction> Actions { get; private set; } = new List<AnalysisAction>();
 
-        public static AnalysisActions AddAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, string addAttributeName, string addAttributeValue, string moreInfoUrl = null)
+        // This was the original definition of `AddAttribute`.
+        // Need to keep this signature when added version with extra param so can still load Analyzers that use this version.
+        public static AnalysisActions AddAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, string addAttributeName, string addAttributeValue)
+        {
+            return AddAttribute(errorType, code, description, actionText, addAttributeName, addAttributeValue, string.Empty);
+        }
+
+        public static AnalysisActions AddAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, string addAttributeName, string addAttributeValue, string moreInfoUrl)
         {
             var result = new AnalysisActions();
 
