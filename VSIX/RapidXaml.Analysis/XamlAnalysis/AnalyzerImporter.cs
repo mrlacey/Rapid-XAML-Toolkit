@@ -4,12 +4,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
     public class AnalyzerImporter
     {
-        [ImportMany]
-        public IEnumerable<Lazy<RapidXaml.ICustomAnalyzer>> CustomAnalyzers { get; set; }
+        [ImportMany(typeof(ICustomAnalyzer), AllowRecomposition =true, RequiredCreationPolicy = CreationPolicy.NonShared)]
+        public IEnumerable<Lazy<ICustomAnalyzer>> CustomAnalyzers { get; set; }
     }
 }

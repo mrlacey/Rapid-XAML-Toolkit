@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="RapidXamlCustomAnalysis" Version="0.9.3-pre1" />
+        <PackageReference Include="System.ComponentModel.Composition" Version="4.7.0" />
+    </ItemGroup>
+
+</Project>
