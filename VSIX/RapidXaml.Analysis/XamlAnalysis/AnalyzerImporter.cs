@@ -11,6 +11,6 @@ namespace RapidXamlToolkit.XamlAnalysis
     public class AnalyzerImporter
     {
         [ImportMany(typeof(ICustomAnalyzer), AllowRecomposition =true, RequiredCreationPolicy = CreationPolicy.NonShared)]
-        public IEnumerable<Lazy<ICustomAnalyzer>> CustomAnalyzers { get; set; }
+        public IEnumerable<ICustomAnalyzer> CustomAnalyzers { get; set; }
     }
 }

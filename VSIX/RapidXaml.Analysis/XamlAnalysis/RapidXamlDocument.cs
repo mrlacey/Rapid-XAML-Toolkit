@@ -210,6 +210,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 CachePath = Path.Combine(projectPath, "rxt-cache"),
                 ShadowCopyFiles = "true",
                 ShadowCopyDirectories = Path.Combine(projectPath, "bin"),
+                LoaderOptimization = LoaderOptimization.MultiDomain,
             };
 
             domain = AppDomain.CreateDomain("Host_AppDomain", AppDomain.CurrentDomain.Evidence, setup);
@@ -223,9 +224,35 @@ namespace RapidXamlToolkit.XamlAnalysis
                     typeof(CustomAnalyzerDomainLoader).FullName);
 
                 // TODO: have this return individual items as List<T> isn't serialized
-                result = loader.GetCustomAnalyzers(setup.ShadowCopyDirectories);
+                //result = loader.GetCustomAnalyzers(setup.ShadowCopyDirectories);
 
-                System.Diagnostics.Debug.WriteLine(result.Count);
+                //   var oneAnalyzer = loader.GetOneAnalyzer(setup.ShadowCopyDirectories);
+
+
+                //     oneAnalyzer = domain.GetData("one") as ICustomAnalyzer;
+
+                //    result.Add(oneAnalyzer);
+
+                //    System.Diagnostics.Debug.WriteLine(result.Count);
+                //     object x = domain.GetData("one");
+
+
+                //oneAnalyzer.Analyze(RapidXaml.RapidXamlElement.Build("TestElement"));
+
+                //var list = new CustomAnalyzerList();
+
+                //loader.LoadOneAnalyzer(setup.ShadowCopyDirectories, list);
+
+                //result.Add(list.First);
+
+                var hndl = loader.GetHandleForOneAnalyzer(setup.ShadowCopyDirectories);
+
+                var item = hndl.Unwrap() as ICustomAnalyzer;
+
+                result.Add(item);
+
+                System.Diagnostics.Debug.WriteLine(result);
+
             }
             finally
             {
@@ -286,12 +313,41 @@ namespace RapidXamlToolkit.XamlAnalysis
         }
     }
 
+    public class CustomAnalyzerList : MarshalByRefObject
+    {
+        public ICustomAnalyzer First { get; set; }
+    }
+
     public class CustomAnalyzerDomainLoader : MarshalByRefObject
     {
         private AggregateCatalog aggCatalog = new AggregateCatalog();
         private List<AssemblyCatalog> assCatalogs = new List<AssemblyCatalog>();
         private CompositionContainer container;
         private AnalyzerImporter importer = new AnalyzerImporter();
+
+
+        public void LoadOneAnalyzer(string dllPath, CustomAnalyzerList list)
+        {
+            var one = GetOneAnalyzer(dllPath);
+
+            list.First = one;
+        }
+
+        public System.Runtime.Remoting.ObjectHandle GetHandleForOneAnalyzer(string dllPath)
+        {
+            var ca = GetCustomAnalyzers(dllPath).First();
+
+            return new System.Runtime.Remoting.ObjectHandle(ca);
+        }
+
+        public ICustomAnalyzer GetOneAnalyzer(string dllPath)
+        {
+            var ca = GetCustomAnalyzers(dllPath).First();
+
+            AppDomain.CurrentDomain.SetData("one", ca);
+
+            return ca;
+        }
 
         public List<ICustomAnalyzer> GetCustomAnalyzers(string dllPath)
         {
@@ -331,7 +387,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 foreach (var importedAnalyzer in this.importer.CustomAnalyzers)
                 {
-                    result.Add(importedAnalyzer.Value);
+                    result.Add(importedAnalyzer);
                 }
             }
             catch (Exception exc)
