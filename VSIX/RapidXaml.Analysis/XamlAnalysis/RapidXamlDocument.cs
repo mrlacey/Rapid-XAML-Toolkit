@@ -3,8 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -21,9 +19,6 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class RapidXamlDocument
     {
-        // Track these references so can dispose them all later.
-        private static AppDomain domain;
-
         public RapidXamlDocument()
         {
             this.Tags = new TagList();
@@ -86,48 +81,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                 });
 
                 SharedRapidXamlPackage.Logger?.RecordException(e);
-            }
-            finally
-            {
-                //// processors?.Clear();
-
-                //// var batch = new CompositionBatch();
-
-                //// foreach (var customAnalyzer in importer.CustomAnalyzers)
-                //// {
-                ////     batch.AddPart(customAnalyzer.Value);
-                ////     container.ReleaseExport<ICustomAnalyzer>(customAnalyzer);
-                //// }
-
-                //// container.Compose(batch);
-
-                //// container.ReleaseExports<ICustomAnalyzer>(importer.CustomAnalyzers);
-
-                ////// importer.CustomAnalyzers.Clear();
-
-                //// ////importer.CustomAnalyzers = new ICustomAnalyzer[] { };
-
-                //// ////for (int i = importer.CustomAnalyzers.Count(); i >= 0; i--)
-                //// ////{
-                //// ////    importer.CustomAnalyzers[i] = null;
-                //// ////}
-
-                //// importer = null;
-
-                //// foreach (var ac in assCatalogs)
-                //// {
-                ////     ac.Dispose();
-                //// }
-
-                //// foreach (var cat in aggCatalog.Catalogs)
-                //// {
-                ////     cat.Dispose();
-                //// }
-
-                //// aggCatalog.Dispose();
-                //// container.Dispose();
-
-                //// AppDomain.Unload(domain);
             }
 
             return result;
@@ -199,64 +152,59 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static List<ICustomAnalyzer> GetCustomProcessors(string projectPath)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var codeBase = assembly.Location;
-            var codeBaseDirectory = Path.GetDirectoryName(codeBase);
-            var setup = new AppDomainSetup
-            {
-                ApplicationName = "RapidXaml.Analysis",
-                ApplicationBase = codeBaseDirectory,
-                DynamicBase = codeBaseDirectory,
-                CachePath = Path.Combine(projectPath, "rxt-cache"),
-                ShadowCopyFiles = "true",
-                ShadowCopyDirectories = Path.Combine(projectPath, "bin"),
-                LoaderOptimization = LoaderOptimization.MultiDomain,
-            };
-
-            domain = AppDomain.CreateDomain("Host_AppDomain", AppDomain.CurrentDomain.Evidence, setup);
-
-            List<ICustomAnalyzer> result = new List<ICustomAnalyzer>();
-
             try
             {
-                var loader = (CustomAnalyzerDomainLoader)domain.CreateInstanceAndUnwrap(
-                    typeof(CustomAnalyzerDomainLoader).Assembly.FullName,
-                    typeof(CustomAnalyzerDomainLoader).FullName);
+                var pathToSearch = Path.Combine(projectPath, "bin");
 
-                // TODO: have this return individual items as List<T> isn't serialized
-                //result = loader.GetCustomAnalyzers(setup.ShadowCopyDirectories);
-
-                //   var oneAnalyzer = loader.GetOneAnalyzer(setup.ShadowCopyDirectories);
-
-
-                //     oneAnalyzer = domain.GetData("one") as ICustomAnalyzer;
-
-                //    result.Add(oneAnalyzer);
-
-                //    System.Diagnostics.Debug.WriteLine(result.Count);
-                //     object x = domain.GetData("one");
-
-
-                //oneAnalyzer.Analyze(RapidXaml.RapidXamlElement.Build("TestElement"));
-
-                //var list = new CustomAnalyzerList();
-
-                //loader.LoadOneAnalyzer(setup.ShadowCopyDirectories, list);
-
-                //result.Add(list.First);
-
-                var hndl = loader.GetHandleForOneAnalyzer(setup.ShadowCopyDirectories);
-
-                var item = hndl.Unwrap() as ICustomAnalyzer;
-
-                result.Add(item);
-
-                System.Diagnostics.Debug.WriteLine(result);
-
+                return GetCustomAnalyzers(pathToSearch);
             }
-            finally
+            catch (Exception exc)
             {
-                AppDomain.Unload(domain);
+                SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToImportCustomAnalyzers);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
+
+                return new List<ICustomAnalyzer>();
+            }
+        }
+
+        // TODO: cache this response so don't need to look up again if files haven't changed.
+        public static List<ICustomAnalyzer> GetCustomAnalyzers(string dllPath)
+        {
+            var result = new List<ICustomAnalyzer>();
+
+            // Add specific assemblies only.
+            foreach (var file in Directory.GetFiles(dllPath, "*.dll", SearchOption.AllDirectories)
+                                          .Where(f => !Path.GetFileName(f).StartsWith("Microsoft.")
+                                                   && !Path.GetFileName(f).StartsWith("System.")
+                                                   && !Path.GetFileName(f).Equals("RapidXaml.CustomAnalysis.dll")))
+            {
+                try
+                {
+                    // Make an in-memory copy of the file to avoid locking, or needing multiple AppDomains.
+                    byte[] assemblyBytes = File.ReadAllBytes(file);
+                    var asmbly = Assembly.Load(assemblyBytes);
+
+                    var analyzerInterface = typeof(ICustomAnalyzer);
+
+                    var customAnalyzers = asmbly.GetTypes()
+                                                .Where(t => analyzerInterface.IsAssignableFrom(t)
+                                                         && t.IsClass
+                                                         && t.IsPublic);
+
+                    foreach (var ca in customAnalyzers)
+                    {
+                        result.Add((ICustomAnalyzer)Activator.CreateInstance(ca));
+                    }
+                }
+                catch (Exception exc)
+                {
+                    // As these may happen a lot (i.e. if trying to load a file but can't) treat as info only.
+                    SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Error_FailedToLoadAssemblyMEF.WithParams(file));
+                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.Source);
+                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.ToString());
+                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.Message);
+                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.StackTrace);
+                }
             }
 
             return result;
@@ -306,93 +254,6 @@ namespace RapidXamlToolkit.XamlAnalysis
             catch (Exception exc)
             {
                 SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToLoadSuppressionsAnalysisFile);
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
-            }
-
-            return result;
-        }
-    }
-
-    public class CustomAnalyzerList : MarshalByRefObject
-    {
-        public ICustomAnalyzer First { get; set; }
-    }
-
-    public class CustomAnalyzerDomainLoader : MarshalByRefObject
-    {
-        private AggregateCatalog aggCatalog = new AggregateCatalog();
-        private List<AssemblyCatalog> assCatalogs = new List<AssemblyCatalog>();
-        private CompositionContainer container;
-        private AnalyzerImporter importer = new AnalyzerImporter();
-
-
-        public void LoadOneAnalyzer(string dllPath, CustomAnalyzerList list)
-        {
-            var one = GetOneAnalyzer(dllPath);
-
-            list.First = one;
-        }
-
-        public System.Runtime.Remoting.ObjectHandle GetHandleForOneAnalyzer(string dllPath)
-        {
-            var ca = GetCustomAnalyzers(dllPath).First();
-
-            return new System.Runtime.Remoting.ObjectHandle(ca);
-        }
-
-        public ICustomAnalyzer GetOneAnalyzer(string dllPath)
-        {
-            var ca = GetCustomAnalyzers(dllPath).First();
-
-            AppDomain.CurrentDomain.SetData("one", ca);
-
-            return ca;
-        }
-
-        public List<ICustomAnalyzer> GetCustomAnalyzers(string dllPath)
-        {
-            var result = new List<ICustomAnalyzer>();
-
-            // Add specific assemblies only.
-            // Don't add directories as most will fail to load and access parts.
-            // Don't include '*.exe.' files as can't load from generated apps.
-            // While using MEF for loading, the analyzers need to be in a separate library.
-            foreach (var file in Directory.GetFiles(dllPath, "*.*", SearchOption.AllDirectories)
-                                          .Where(f => !Path.GetFileName(f).StartsWith("Microsoft.")
-                                                   && !Path.GetFileName(f).StartsWith("System.")
-                                                   && !Path.GetFileName(f).Equals("RapidXaml.CustomAnalysis.dll")
-                                                   && f.EndsWith(".dll")))
-            {
-                try
-                {
-                    var ac = new AssemblyCatalog(Assembly.LoadFile(file));
-                    var parts = ac.Parts.ToArray(); // This will also throw if would throw when calling ComposeParts
-
-                    this.assCatalogs.Add(ac);
-                    this.aggCatalog.Catalogs.Add(ac);
-                }
-                catch (Exception exc)
-                {
-                    // TODO: only want this in the RXT pane when extended logging is enabled
-                    SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToLoadAssemblyMEF.WithParams(file));
-                    SharedRapidXamlPackage.Logger?.RecordException(exc);
-                }
-            }
-
-            try
-            {
-                this.container = new CompositionContainer(this.aggCatalog);
-
-                this.container.ComposeParts(this.importer);
-
-                foreach (var importedAnalyzer in this.importer.CustomAnalyzers)
-                {
-                    result.Add(importedAnalyzer);
-                }
-            }
-            catch (Exception exc)
-            {
-                SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToImportCustomAnalyzers);
                 SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
 
