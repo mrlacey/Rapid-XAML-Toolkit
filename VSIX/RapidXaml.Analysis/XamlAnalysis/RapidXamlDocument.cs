@@ -200,8 +200,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     // As these may happen a lot (i.e. if trying to load a file but can't) treat as info only.
                     SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Error_FailedToLoadAssemblyMEF.WithParams(file));
-                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.Source);
                     SharedRapidXamlPackage.Logger?.RecordInfo(exc.ToString());
+                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.Source);
                     SharedRapidXamlPackage.Logger?.RecordInfo(exc.Message);
                     SharedRapidXamlPackage.Logger?.RecordInfo(exc.StackTrace);
                 }

@@ -54,6 +54,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_ClearlyEditable()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\ClearlyEditable");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_codestories()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\code-stories");
@@ -303,6 +309,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         public void TestXamlFilesIn_RandomXAMLFiles()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Random XAML Files");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_RapidXamlDemos()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\RapidXaml-Demos");
         }
 
         [TestMethod]
@@ -609,7 +621,7 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
 
                     var logger = DefaultTestLogger.Create();
 
-                    var processors = RapidXamlDocument.GetAllProcessors(ProjectType.Any, logger);
+                    var processors = RapidXamlDocument.GetAllProcessors(ProjectType.Any, string.Empty, logger);
 
                     var customProcessor = new CustomProcessorWrapper(new StubCustomAnalysisProcessor(), ProjectType.Any, logger);
 

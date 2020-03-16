@@ -3,7 +3,6 @@
 
 namespace RapidXaml
 {
-    // TODO: look at using [InheritedExport(ICustomAnalyzer)]
     public interface ICustomAnalyzer
     {
         string TargetType();

@@ -2,7 +2,7 @@
 <package >
     <metadata>
         <id>RapidXamlCustomAnalysis</id>
-        <version>0.9.3-pre1</version>
+        <version>0.9.4-pre2</version>
         <authors>Matt Lacey</authors>
         <owners>MRLacey</owners>
         <license type="expression">MIT</license>

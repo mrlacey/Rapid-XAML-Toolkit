@@ -5,9 +5,9 @@ using RapidXaml;
 
 namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
 {
-    public class StubCustomAnalysisProcessor : CustomAnalysis
+    public class StubCustomAnalysisProcessor : ICustomAnalyzer
     {
-        public override AnalysisActions Analyze(RapidXamlElement element)
+        public AnalysisActions Analyze(RapidXamlElement element)
         {
             // Don't do anything.
             // Knowing this is called is enough as this exists only to know
@@ -15,7 +15,7 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
             return AnalysisActions.None;
         }
 
-        public override string TargetType()
+        public string TargetType()
         {
             throw new System.NotImplementedException();
         }

@@ -64,7 +64,7 @@ foreach (var subFolder in Directory.GetDirectories(rootFolder))
 
                     var logger = DefaultTestLogger.Create();
 
-                    var processors = RapidXamlDocument.GetAllProcessors(ProjectType.Any, logger);
+                    var processors = RapidXamlDocument.GetAllProcessors(ProjectType.Any, string.Empty, logger);
 
                     var customProcessor = new CustomProcessorWrapper(new StubCustomAnalysisProcessor(), ProjectType.Any, logger);
 
