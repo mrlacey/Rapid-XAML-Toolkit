@@ -2,8 +2,8 @@
 <VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
   <TemplateData>
     <Name>XAML Analyzer</Name>
-    <Description>Create a XAML analyzer for use with Rapid XAML Analysis</Description>
-    <Icon>CustomAnalysisItemTemplate.ico</Icon>
+    <Description>Create a XAML analyzer for use with Rapid XAML Analysis.</Description>
+      <Icon>__TemplateIcon.png</Icon>
     <TemplateID>4cac469c-38ac-4c2b-a446-57775d6caac3</TemplateID>
     <ProjectType>CSharp</ProjectType>
     <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
