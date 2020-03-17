@@ -1,8 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>$projectname$</PackageId>
+        <PackageVersion>1.0.0.0</PackageVersion>
+        <Authors>$username$</Authors>
+        <PackageLicenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</PackageLicenseUrl>
+        <PackageProjectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</PackageProjectUrl>
+        <PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>
+        <RepositoryUrl>http://REPOSITORY_URL_HERE_OR_DELETE_THIS_LINE</RepositoryUrl>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <Description>$projectname$</Description>
+        <PackageReleaseNotes>Summary of changes made in this release of the package.</PackageReleaseNotes>
+        <Copyright>Copyright $year$ $username$ </Copyright>
+        <PackageTags>RapidXaml, XamlAnalyzer</PackageTags>
+        <NoPackageAnalysis>true</NoPackageAnalysis>
+    </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="RapidXamlCustomAnalysis" Version="0.9.4-pre2" />
