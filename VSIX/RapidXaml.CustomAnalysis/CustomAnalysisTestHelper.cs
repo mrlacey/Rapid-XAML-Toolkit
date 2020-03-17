@@ -7,8 +7,16 @@ using RapidXaml.CustomAnalysis;
 
 namespace RapidXaml
 {
+    /// <summary>
+    /// Helper class for testing custom analyzers.
+    /// </summary>
     public static class CustomAnalysisTestHelper
     {
+        /// <summary>
+        /// Convert a string containing a single XAML object into a RapidXamlElement.
+        /// </summary>
+        /// <param name="xaml">The XAML to convert into a RapidXamlElement.</param>
+        /// <returns>An element representing the XAML string.</returns>
         public static RapidXamlElement StringToElement(string xaml)
         {
             if (string.IsNullOrWhiteSpace(xaml)

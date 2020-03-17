@@ -6,7 +6,7 @@ namespace RapidXaml
     public enum RapidXamlErrorType
     {
         /// <summary>
-        /// Report as a 'Message' on the ErrorList and be underlined with only a hint.
+        /// Report as a 'Message' on the ErrorList but not underlined in the editor.
         /// </summary>
         Suggestion,
 
