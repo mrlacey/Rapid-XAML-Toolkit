@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CustomAnalysisProjectTemplate")]
+[assembly: AssemblyTitle("CustomAnalysisItemTemplate")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CustomAnalysisProjectTemplate")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCompany("Matt Lacey")]
+[assembly: AssemblyProduct("CustomAnalysisItemTemplate")]
+[assembly: AssemblyCopyright("Copyright © Matt Lacey 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -18,6 +18,9 @@ using System.Runtime.InteropServices;
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
+
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+[assembly: Guid("29f159fa-5ae7-4006-a8f8-7a52e6d02399")]
 
 // Version information for an assembly consists of the following four values:
 //

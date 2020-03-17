@@ -1,9 +1,9 @@
 ﻿using System;
 using RapidXaml;
 
-namespace $ext_safeprojectname$
+namespace $rootnamespace$
 {
-    public class MyElementAnalyzer : ICustomAnalyzer
+    public class  $safeitemrootname$ : ICustomAnalyzer
     {
         // TODO: set the name of the element/type this analyzer will analyze.
         public string TargetType() => "MyElement";

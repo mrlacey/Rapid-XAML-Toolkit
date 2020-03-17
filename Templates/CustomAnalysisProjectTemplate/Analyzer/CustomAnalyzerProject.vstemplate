@@ -1,0 +1,20 @@
+﻿<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+    <TemplateData>
+        <Name>Custom Rapid XAML Analyzer</Name>
+        <Description>Create your own XAML Analyzer based on Rapid XAML Analysis</Description>
+        <ProjectType>CSharp</ProjectType>
+        <SortOrder>500</SortOrder>
+        <CreateNewFolder>true</CreateNewFolder>
+        <DefaultName>MyElementAnalyzer</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+        <LocationField>Enabled</LocationField>
+        <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+        <CreateInPlace>true</CreateInPlace>
+        <Hidden>true</Hidden>
+    </TemplateData>
+    <TemplateContent>
+        <Project TargetFileName="$ext_safeprojectname$.csproj" File="CustomAnalyzerProject.csproj" ReplaceParameters="true">
+            <ProjectItem ReplaceParameters="true" OpenInEditor="true">MyElementAnalyzer.cs</ProjectItem>
+        </Project>
+    </TemplateContent>
+</VSTemplate>
