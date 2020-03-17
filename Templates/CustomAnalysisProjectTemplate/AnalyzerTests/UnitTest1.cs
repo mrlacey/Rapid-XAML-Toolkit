@@ -11,7 +11,7 @@ namespace $ext_safeprojectname$.Tests
         {
             var analyzer = new MyElementAnalyzer();
 
-            var testElement = RapidXamlElement.Build("MyElement");
+            var testElement = CustomAnalysisTestHelper.StringToElement("<MyElement />");
 
             var analysisResult = analyzer.Analyze(testElement);
 
@@ -25,8 +25,7 @@ namespace $ext_safeprojectname$.Tests
         {
             var analyzer = new MyElementAnalyzer();
 
-            var testElement = RapidXamlElement.Build("MyElement")
-                                              .AddInlineAttribute("IsEnabled", "False");
+            var testElement = CustomAnalysisTestHelper.StringToElement("<MyElement IsEnabled=\"False\" />");
 
             var analysisResult = analyzer.Analyze(testElement);
 
