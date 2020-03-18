@@ -6,7 +6,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace RapidXaml.Templates
 {
-    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.9.4", IconResourceID = 400)] // Info on this package for Help/About
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(RapidXamlTemplatesPackage.PackageGuidString)]
     public sealed class RapidXamlTemplatesPackage : AsyncPackage
