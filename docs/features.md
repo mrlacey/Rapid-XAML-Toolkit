@@ -1,6 +1,6 @@
 # Features
 
-Make working with XAML files faster and easier with these great features. Whether you're starting with just the ViewModel and an empty view, or already have XAML written, there are features here to help all developers.
+Make working with XAML files faster and easier with these great features. Whether you're starting with a ViewModel and an empty view, or already have XAML written, there are features here to help all developers.
 
 ## XAML Generation
 

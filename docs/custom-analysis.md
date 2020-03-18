@@ -5,7 +5,7 @@ The Rapid XAML Toolkit includes an extensible model for defining your own XAML a
 ## Creating your own analyzer
 
 We've tried to make creating your own analyzer as simple as possible.  
-There are just a few simple steps.
+There are only a few simple steps.
 
 1. Create a new .NET Standard 2.0 library.
 1. Reference the `RapidXamlCustomAnalysis` NuGet pacakge.

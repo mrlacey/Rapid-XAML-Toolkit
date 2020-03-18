@@ -1,11 +1,11 @@
 # Getting Started
 
-Whether you just want to use the extension or help make it even better--this is the place to start.
+Whether you want to use the extension or help make it even better--this is the place to start.
 
 ## Using the extension
 
 Before you can do anything, you need to install the extension.
-While it's being installed you might learn how to configure it to meet your needs. Or just try it out and then adjust the configuration to your preferred way of working.
+While it's being installed you might learn how to configure it to meet your needs. Or try the defaults and then adjust the configuration to your preferred way of working.
 
 ### Installing the extension
 
@@ -39,7 +39,7 @@ The solution contains five projects:
 - `Tools/LocalizationHelper` is a console app that contains helper functionality related to localizing content in the extension.
 - `Tools/OptionsEmulator` is a WPF app that allows viewing the UI that is displayed in the Options dialogs without having to start an instance of Visual Studio.
 
-There is another solution (`RapidXamlToolkit.PRBuild.sln`) which only contains the main extension project and the automated tests project. This solution is used by the PR and CI pipelines. Depending on what you do with the source, you _may_ be able to get by just with using this solution.
+There is another solution (`RapidXamlToolkit.PRBuild.sln`) which only contains the main extension project and the automated tests project. This solution is used by the PR and CI pipelines. Depending on what you do with the source, you _may_ be able to get by with using this solution.
 
 Please note that **only Visual Studio 2019** is supported for opening the solution and running the extension. This is due to the tight levels of integration needed with Visual Studio by the code in this extension.
 
