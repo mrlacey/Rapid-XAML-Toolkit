@@ -18,6 +18,8 @@ Here's a quick guide to (hopefully) all you might want to know.
 
 [Configuring XAML Analysis](./configuring-analysis.md) - see issues reported the way you want.
 
+[Create your own XAML Analyzers](./custom-analysis.md) - analyze your own and 3rd party controls.
+
 ## Useful to know
 
 [Assumptions](./assumptions.md) - what is expected of the projects/solutions that the toolkit will work with.

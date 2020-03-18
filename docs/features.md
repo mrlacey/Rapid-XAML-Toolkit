@@ -34,3 +34,15 @@ Additionaly, it's also possible to:
 
 - Right-click anywhere in a XAML source file and select 'Rapid XAML > Move all hard-coded string to Resource file' to move all hard-coded strings to a resource file.
 - Right-click on an opening `Grid` tag and easily add Row and Column definitions.
+
+### Custom XAML Analyzers
+
+Extend the built-in XAML Analysis by easily [adding your own analyzers](./custom-analysis.md).
+
+## Roslyn Analyzers
+
+Miscellaneous utility analyzers and code fixes to make it easier to work with C# and VB.Net code in your XAML and MVVM apps.
+
+## Project and Item Templates
+
+Additional templates providing extra options to make creating XAML apps easier and faster.
