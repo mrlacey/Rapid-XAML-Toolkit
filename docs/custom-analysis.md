@@ -72,7 +72,7 @@ return AnalysisActions.RemoveAttribute( ... )
                       .RemoveChild( ... );
 ```
 
-![](#)
+![Multiple quick actions displayed in the editor](#)
 
 4. Reference the project containing the analyzer in all projects containing XAML you wish to analyze.  
 You can reference the project directly, the compiled DLL, or package the library in a NuGet package and reference it that way.
