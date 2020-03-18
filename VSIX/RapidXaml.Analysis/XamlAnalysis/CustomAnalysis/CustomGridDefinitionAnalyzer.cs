@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
         public string TargetType() => "Grid";
 
         // Note. Not handled: Col & Row defs of different formats
-        // Also, should not return an option to switch to the shorter format if using Min/Max Wpdth/Height properties.
+        // Also, should not return an option to switch to the shorter format if using Min/Max Width/Height properties.
         public AnalysisActions Analyze(RapidXamlElement element)
         {
             var colDef = element.GetAttributes("ColumnDefinitions")?.FirstOrDefault();
