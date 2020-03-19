@@ -167,7 +167,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
         }
 
-        // TODO: cache this response so don't need to look up again if files haven't changed.
+        // TODO: test this with WPF & Xamarin.Forms apps
+        // TODO: ISSUE#331 cache this response so don't need to look up again if files haven't changed.
         public static List<ICustomAnalyzer> GetCustomAnalyzers(string dllPath)
         {
             var result = new List<ICustomAnalyzer>();
