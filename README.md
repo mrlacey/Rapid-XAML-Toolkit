@@ -63,9 +63,7 @@ to this
 
 in a couple of clicks.
 
-## Features
-
-The toolkit currently includes the following features
+There are three ways to turn your ViewModel code into XAML
 
 - Create XAML by dragging a ViewModel file onto the designer.
 - Copy a property, selection of properties, or the whole class (from the ViewModel) into the clipboard and paste into the View as XAML.

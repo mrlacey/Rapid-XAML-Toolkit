@@ -9,15 +9,11 @@ While it's being installed you might learn how to configure it to meet your need
 
 ### Installing the extension
 
-There are two versions of the extension. We recommend using the release version unless you want to test something that is only in the beta version. While it is possible to have both versions installed at once, some functionality may not work correctly if both are enabled (Extensions > Manage Extensions) at the same time.
+The latest version is available from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit) or by searching inside Visual Studio (Extensions > Manage Extensions).
 
-#### Release version
+![Manage Extensions search dialog showing the Rapid XAML Toolkit listing](./Assets/extension-search-dialog.png)
 
-Coming soon.
-
-### Beta version
-
-Please see the [installation guide](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/installation.md#nightly-dev-builds).
+Please see the [installation guide](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/installation.md) for more details.
 
 ### Configuration
 
@@ -31,17 +27,23 @@ Here's what you need to know if you want to [contribute](../CONTRIBUTING.md) or 
 ### Inside Visual Studio
 
 Open `RapidXamlToolkit.sln` in the 'VSIX' folder.
-The solution contains five projects:
+The solution contains these projects:
 
-- `RapidXamlToolkit`is the code for the extension. Run/debug this project and an experimental instance of VS will be launched that has the extension already installed.
+- `RapidXaml.Analysis` is a shipping VSIX package that contains the XAML Analysis functionality.
+- `RapidXaml.Common` is a shipping VSIX package that contains Visual Studio context menus that are shared by other extensions.
+- `RapidXaml.CustomAnalysis` is the NuGet package that contains the shared logic for custom XAML Analysis.
+- `RapidXaml.Generation` is a shipping VSIX package that contains the functionality for generating XAML from C# and VB.NET code.
+- `RapidXaml.RoslynAnalyzers` is a shipping VSIX package that contains Roslyn Analyzers and code fixes.
+- `RapidXaml.Shared` is a library containing code shared between other projects.
+- `RapidXamlToolkit` contains the extension pack for bundling all separate tools through a single extension.
 - `RapidXamlToolkit.Tests` is a test project containing the automated tests.
 - `RapidXamlToolkit.Tests.Manual` is a test project containing tests that require additional configuration or manual verification. You will need to make changes to the code to run these tests. Look for comments in the code for details of what to change/specify.
-- `Tools/LocalizationHelper` is a console app that contains helper functionality related to localizing content in the extension.
 - `Tools/OptionsEmulator` is a WPF app that allows viewing the UI that is displayed in the Options dialogs without having to start an instance of Visual Studio.
+- `Tools/RapidXaml.InternalAnalyzers` contains Roslyn code anlayzers for enforcing code patterns and requirements within the solution.
 
-There is another solution (`RapidXamlToolkit.PRBuild.sln`) which only contains the main extension project and the automated tests project. This solution is used by the PR and CI pipelines. Depending on what you do with the source, you _may_ be able to get by with using this solution.
+There is another solution (`RapidXamlToolkit.PRBuild.sln`) in the 'VSIX' folder which only contains the main extension projects and the automated tests project. This solution is used by the PR and CI pipelines. Depending on what you do with the source, you _may_ be able to get by with using this solution.
 
-Please note that **only Visual Studio 2019** is supported for opening the solution and running the extension. This is due to the tight levels of integration needed with Visual Studio by the code in this extension.
+The `Templates` folder includes `RapidXaml.Templates.sln` which contains the project and item templates packaged in a VSIX package.
 
 All warnings are treated as errors for the release build.  
 'TODO' comments that do not reference an issue number will create warnings.
