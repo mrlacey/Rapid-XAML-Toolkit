@@ -204,6 +204,15 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
+        public void ContainsDescendant_OneChild_Xmlns_Match()
+        {
+            var sut = RapidXamlElement.Build("Parent");
+            sut.AddChild("tst:Child");
+
+            Assert.IsTrue(sut.ContainsDescendant("Child"));
+        }
+
+        [TestMethod]
         public void ContainsDescendant_OneChild_OneGrandChild_Match()
         {
             var sut = RapidXamlElement.Build("Parent");

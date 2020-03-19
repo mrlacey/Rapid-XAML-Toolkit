@@ -218,7 +218,6 @@ namespace RapidXaml
             }
         }
 
-        // TODO: add more tests for this
         private bool ContainsChildOrAttribute(string name)
         {
             return this.Children.Any(
