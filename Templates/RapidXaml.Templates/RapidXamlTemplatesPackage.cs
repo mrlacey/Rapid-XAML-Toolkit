@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
+// Licensed under the MIT license.
+
+using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
@@ -6,7 +9,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace RapidXaml.Templates
 {
-    [InstalledProductRegistration("#110", "#112", "0.9.4", IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.9.5", IconResourceID = 400)] // Info on this package for Help/About
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(RapidXamlTemplatesPackage.PackageGuidString)]
     public sealed class RapidXamlTemplatesPackage : AsyncPackage
