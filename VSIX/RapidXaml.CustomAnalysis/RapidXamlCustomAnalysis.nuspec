@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0"?>
-<package >
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>RapidXamlCustomAnalysis</id>
         <version>0.9.4-pre2</version>

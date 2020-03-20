@@ -15,6 +15,7 @@
     <TemplateContent>
         <Project TargetFileName="$ext_safeprojectname$.csproj" File="CustomAnalyzerProject.csproj" ReplaceParameters="true">
             <ProjectItem ReplaceParameters="true" OpenInEditor="true">MyElementAnalyzer.cs</ProjectItem>
+            <ProjectItem TargetFileName="$ext_safeprojectname$.nuspec" ReplaceParameters="true" OpenInEditor="true">CustomAnalyzerProject.nuspec</ProjectItem>
         </Project>
     </TemplateContent>
 </VSTemplate>
