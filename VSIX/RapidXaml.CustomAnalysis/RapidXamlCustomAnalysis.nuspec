@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>RapidXamlCustomAnalysis</id>
-        <version>0.9.4-pre2</version>
+        <version>0.9.5</version>
         <authors>Matt Lacey</authors>
         <owners>MRLacey</owners>
         <license type="expression">MIT</license>
