@@ -1,18 +1,22 @@
 {
   "description": "Rapid XAML Toolkit - All available functionality",
   "version": "1.0.0.0",
-  "extensions": [
-    {
-      "vsixId": "RapidXaml.Analysis.09349b25-a606-429c-ac92-8d4acf027e25",
-      "name": "Rapid XAML Analysis"
-    },
-    {
-      "vsixId": "RapidXaml.Generation.bd250c2a-3aa1-4838-9d3d-c36e956cd8d0",
-      "name": "Rapid XAML Generation"
-    },
-    {
-      "vsixId": "RapidXaml.RoslynAnalyzers.c58ca4bd-0d58-46cd-afc3-c47a1e1b8c7f",
-      "name": "Rapid XAML RoslynAnalyzers"
-    }
-  ]
+    "extensions": [
+        {
+            "vsixId": "RapidXaml.Analysis.09349b25-a606-429c-ac92-8d4acf027e25",
+            "name": "Rapid XAML Analysis"
+        },
+        {
+            "vsixId": "RapidXaml.Generation.bd250c2a-3aa1-4838-9d3d-c36e956cd8d0",
+            "name": "Rapid XAML Generation"
+        },
+        {
+            "vsixId": "RapidXaml.RoslynAnalyzers.c58ca4bd-0d58-46cd-afc3-c47a1e1b8c7f",
+            "name": "Rapid XAML RoslynAnalyzers"
+        },
+        {
+            "vsixId": "RapidXaml.Templates.bde4c7e5-6e5b-40e7-9335-9c3454b1eb11",
+            "name": "Rapid XAML Templates"
+        }
+    ]
 }

@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.TextManager.Interop;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.Commands
 {
@@ -55,7 +56,7 @@ namespace RapidXamlToolkit.Commands
             }
             else
             {
-                SharedRapidXamlPackage.Logger?.RecordGeneralError("Failed to get IComponentModel in BaseCommand.GetEditorAdaptersFactoryServiceAsync");
+                SharedRapidXamlPackage.Logger?.RecordGeneralError(StringRes.Error_FailedToGetIComponentModel);
 
                 return null;
             }
@@ -78,7 +79,7 @@ namespace RapidXamlToolkit.Commands
                 }
                 else
                 {
-                    SharedRapidXamlPackage.Logger?.RecordGeneralError("Failed to get IVsTextManager4 in BaseCommand.GetXamlIndentAsync");
+                    SharedRapidXamlPackage.Logger?.RecordGeneralError(StringRes.Error_FailedToGetIVsTextManager4);
                 }
             }
             catch (Exception exc)

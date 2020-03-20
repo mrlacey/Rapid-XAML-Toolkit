@@ -15,6 +15,11 @@ namespace RapidXamlToolkit.Logging
 
         void RecordFeatureUsage(string feature);
 
+        /// <summary>
+        /// Record an error.
+        /// </summary>
+        /// <param name="message">Description of the error.</param>
+        /// <param name="force">Try and make this error visible in VS UI.</param>
         void RecordError(string message, bool force = false);
 
         void RecordGeneralError(string message);

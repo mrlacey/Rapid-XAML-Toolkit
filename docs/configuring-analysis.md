@@ -45,7 +45,7 @@ Each object is made up of:
 - **FileName** [required] Matching is case sensitive and done from the end of a full file path. No wildcards are supported but you can specify the FileName as '.xaml' for it to be applied to all XAML files.
 - **TagErrorCode** [optional] The warnign to suppress. If not specified the suppression will apply to all tags in the file.
 - **ElementIdentifier** [optional] Used in a `Contains()` match on the full text of the element, and only those that match are suppressed. If not specified (or left blank) then all tags with the errorcode in the specified file will be suppressed.
-- **Reason** [optional] Nothing is done with this, it's just a place to justify why the suppression has been added and allows developers to tell their future selves, or others working on the project, why they did this.
+- **Reason** [optional] Nothing is done with this, it's simply a place to justify why the suppression has been added and allows developers to tell their future selves, or others working on the project, why they did this.
 
 A valid file looks like this:
 

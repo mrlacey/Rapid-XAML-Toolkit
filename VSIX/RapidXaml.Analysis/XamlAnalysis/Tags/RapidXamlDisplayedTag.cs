@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     {
         private const string SettingsFileName = "settings.xamlAnalysis";
 
-        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger)
+        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, string moreInfoUrl = null, string featureUsageOverride = null)
             : base(span, snapshot, fileName, logger)
         {
             var line = snapshot.GetLineFromPosition(span.Start);
@@ -28,6 +28,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Line = line.LineNumber;
             this.Column = col;
             this.DefaultErrorType = defaultErrorType;
+            this.MoreInfoUrl = moreInfoUrl;
+            this.CustomFeatureUsageOverride = featureUsageOverride;
         }
 
         public string Description { get; set; }
@@ -36,6 +38,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         /// Gets or sets the message shown when the error row is expanded.
         /// </summary>
         public string ExtendedMessage { get; set; }
+
+        public string MoreInfoUrl { get; set; }
+
+        public string CustomFeatureUsageOverride { get; set; }
 
         public int Line { get; }
 
@@ -177,7 +183,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public override ITagSpan<IErrorTag> AsErrorTag()
         {
             var span = new SnapshotSpan(this.Snapshot, this.Span);
-            return new TagSpan<IErrorTag>(span, new RapidXamlWarningAdornmentTag(this.ToolTip));
+
+            return new TagSpan<IErrorTag>(
+                span,
+                new RapidXamlWarningAdornmentTag(
+                    this.ToolTip,
+                    this.ConfiguredErrorType.AsVsAdornmentErrorType()));
         }
 
         public ErrorRow AsErrorRow()
@@ -190,6 +201,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 ErrorCode = this.ErrorCode,
                 IsInternalError = this.IsInternalError,
                 ErrorType = this.ConfiguredErrorType,
+                MoreInfoUrl = this.MoreInfoUrl,
             };
         }
     }

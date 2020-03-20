@@ -1,0 +1,26 @@
+﻿<VSTemplate Version="3.0.0" Type="ProjectGroup" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+    <TemplateData>
+        <Name>Custom Rapid XAML Analyzer</Name>
+        <Description>Create your own XAML Analyzer based on Rapid XAML Analysis.</Description>
+        <ProjectType>CSharp</ProjectType>
+        <Icon>__TemplateIcon.png</Icon>
+        <CreateNewFolder>true</CreateNewFolder>
+        <DefaultName>MyXamlAnalyzers</DefaultName>
+        <ProvideDefaultName>true</ProvideDefaultName>
+        <LocationField>Enabled</LocationField>
+        <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+        <CreateInPlace>true</CreateInPlace>
+        <LanguageTag>csharp</LanguageTag>
+        <PlatformTag>Windows</PlatformTag>
+        <ProjectTypeTag>mobile</ProjectTypeTag>
+        <ProjectTypeTag>UWP</ProjectTypeTag>
+        <ProjectTypeTag>WPF</ProjectTypeTag>
+        <ProjectTypeTag>XAML</ProjectTypeTag>
+    </TemplateData>
+    <TemplateContent>
+        <ProjectCollection>
+            <ProjectTemplateLink ProjectName="$projectname$" CopyParameters="true">Analyzer\CustomAnalyzerProject.vstemplate</ProjectTemplateLink>
+            <ProjectTemplateLink ProjectName="$projectname$.Tests" CopyParameters="true">AnalyzerTests\CustomAnalyzerProjectTests.vstemplate</ProjectTemplateLink>
+        </ProjectCollection>
+    </TemplateContent>
+</VSTemplate>

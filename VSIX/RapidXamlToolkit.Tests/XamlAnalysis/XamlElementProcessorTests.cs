@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 
@@ -476,6 +478,92 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var actual = XamlElementProcessor.GetOpeningWithoutChildren(origin);
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void RapidXamlAttribute_FormatStringValue()
+        {
+            var xaml = "<TestElement Myattr=\"Something\" />";
+
+            var element = RapidXamlElementExtractor.GetElement(xaml);
+
+            var sut = element.Attributes[0];
+
+            var actual = sut.ToString();
+
+            Assert.AreEqual("Myattr=\"Something\"", actual);
+        }
+
+        [TestMethod]
+        public void RapidXamlAttribute_FormatElementValue()
+        {
+            var xaml = "<TestElement><TestElement.MyAttr>Something</TestElement.MyAttr></TestElement>";
+
+            var element = RapidXamlElementExtractor.GetElement(xaml);
+
+            var sut = element.Attributes[0];
+
+            var actual = sut.ToString();
+
+            Assert.AreEqual("MyAttr=\"Something\"", actual);
+        }
+
+        [TestMethod]
+        public void RapidXamlAttribute_FormatSingleChildElement()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "    <Grid.ColumnDefinitions> " +
+ Environment.NewLine + "        <ColumnDefinition Width=\"Auto\" />" +
+ Environment.NewLine + "    </Grid.ColumnDefinitions>" +
+ Environment.NewLine + "</Grid>";
+
+            var element = RapidXamlElementExtractor.GetElement(xaml);
+
+            var sut = element.Attributes[0];
+
+            var actual = sut.ToString();
+
+            Assert.AreEqual("ColumnDefinitions=\"1 child element\"", actual);
+        }
+
+        [TestMethod]
+        public void RapidXamlAttribute_FormatMultipleChildElements()
+        {
+            var xaml = "<Grid>" +
+ Environment.NewLine + "    <Grid.ColumnDefinitions> " +
+ Environment.NewLine + "        <ColumnDefinition Width=\"1*\" />" +
+ Environment.NewLine + "        <ColumnDefinition Width=\"50\"></ColumnDefinition>" +
+ Environment.NewLine + "        <ColumnDefinition Width=\"Auto\" />" +
+ Environment.NewLine + "        <ColumnDefinition Width=\"2*\" />" +
+ Environment.NewLine + "    </Grid.ColumnDefinitions>" +
+ Environment.NewLine + "</Grid>";
+
+            var element = RapidXamlElementExtractor.GetElement(xaml);
+
+            var sut = element.Attributes[0];
+
+            var actual = sut.ToString();
+
+            Assert.AreEqual("ColumnDefinitions=\"4 child elements\"", actual);
+        }
+
+        [TestMethod]
+        public void RapidXamlElement_ToStringOverride()
+        {
+            var xaml = "<Grid Height=\"100\" Width=\"200\">" +
+ Environment.NewLine + "    <TextBlock Text=\"hello\" />" +
+ Environment.NewLine + "    <TextBlock Text=\"world\" />" +
+ Environment.NewLine + "    <StackPanel>" +
+ Environment.NewLine + "        <TextBlock Text=\"hello again\" />" +
+ Environment.NewLine + "        <Image />" +
+ Environment.NewLine + "    </StackPanel>" +
+ Environment.NewLine + "</Grid>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            var actual = sut.ToString();
+
+            Assert.AreEqual("Grid (2 attributes, 3 children)", actual);
         }
 
         private string GetSubElementAtStar(string outerElement)

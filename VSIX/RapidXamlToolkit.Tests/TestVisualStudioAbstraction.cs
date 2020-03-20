@@ -145,5 +145,10 @@ namespace RapidXamlToolkit.Tests
         {
             return ProjectType.Unknown;
         }
+
+        public void InsertIntoActiveDocOnLineAfterClosingTag(int openingAngleBracketLineNumber, string toInsert)
+        {
+            // NOOP
+        }
     }
 }

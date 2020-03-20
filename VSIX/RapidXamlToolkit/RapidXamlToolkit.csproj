@@ -12,7 +12,7 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
@@ -82,9 +82,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Key.snk" />
     <Content Include="RxtExtensions.vsext">
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -140,12 +137,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
-      <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
-      <Name>RapidXaml.Shared</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="VSPackage.resx">
