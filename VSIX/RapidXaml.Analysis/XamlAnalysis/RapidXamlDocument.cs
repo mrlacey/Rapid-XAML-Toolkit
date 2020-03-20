@@ -154,7 +154,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             try
             {
-                var pathToSearch = Path.Combine(projectPath, "bin");
+                // Start searching one directory higher to allow for multi-project solutions.
+                var pathToSearch = Path.GetDirectoryName(projectPath);
 
                 return GetCustomAnalyzers(pathToSearch);
             }
@@ -167,7 +168,6 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
         }
 
-        // TODO: test this with WPF & Xamarin.Forms apps
         // TODO: ISSUE#331 cache this response so don't need to look up again if files haven't changed.
         public static List<ICustomAnalyzer> GetCustomAnalyzers(string dllPath)
         {
@@ -177,6 +177,11 @@ namespace RapidXamlToolkit.XamlAnalysis
             foreach (var file in Directory.GetFiles(dllPath, "*.dll", SearchOption.AllDirectories)
                                           .Where(f => !Path.GetFileName(f).StartsWith("Microsoft.")
                                                    && !Path.GetFileName(f).StartsWith("System.")
+                                                   && !Path.GetFileName(f).StartsWith("Xamarin.")
+                                                   && !Path.GetFileName(f).Equals("clrcompression.dll")
+                                                   && !Path.GetFileName(f).Equals("mscorlib.dll")
+                                                   && !Path.GetFileName(f).Equals("netstandard.dll")
+                                                   && !Path.GetFileName(f).Equals("WindowsBase.dll")
                                                    && !Path.GetFileName(f).Equals("RapidXaml.CustomAnalysis.dll")))
             {
                 try
