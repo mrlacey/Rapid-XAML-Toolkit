@@ -18,11 +18,11 @@ The Toolkit includes a 'Rapid XAML Templates' extension which has Project and It
 
 1. From the **New Project** menu, select 'Custom Rapid XAML Analyzer' and name your project.
 
-![Analyzer option shown in New > Project dialog](#)
+![Analyzer option shown in New > Project dialog](./Assets/new-project-custom-analyzer.png)
 
 2. In the generated analyzer you will first need to specify the name of the Control/Element that the Analyzer will analyze. If you include an XML Namespace Alias your analyzer will only be used for elements that use the exact same xmlns. If you omit the alias, your analyzer will be called regardless of the alias used in the XAML.
 
-![Example of the TargetType property in the generated code](#)
+![Example of the TargetType property in the generated code](./Assets/specify-target-type.png)
 
 3. Next you must implement the logic of the analyzer. This is done in the `Analyze()` method.
 
@@ -50,7 +50,7 @@ You can indicate a single issue with a simple fix.
 return AnalysisActions.AddAttribute( ... );
 ```
 
-![A simple fix in action](#)
+![A simple fix in action](./Assets/#)
 
 You can indicate a single issue with a multi-part fix.
 
@@ -62,7 +62,7 @@ return AnalysisActions.RenameElement( ... )
 
 Note the methods starting `And...` which add multiple parts to the quick action fix without adding extra error entries.
 
-![A multi-part fix in action](#)
+![A multi-part fix in action](./Assets/#)
 
 You can indicate multiple issues with simple, or multi-part fixes.
 
@@ -72,7 +72,7 @@ return AnalysisActions.RemoveAttribute( ... )
                       .RemoveChild( ... );
 ```
 
-![Multiple quick actions displayed in the editor](#)
+![Multiple quick actions displayed in the editor](./Assets/#)
 
 4. Reference the project containing the analyzer in all projects containing XAML you wish to analyze.  
 You can reference the project directly, the compiled DLL, or package the library in a NuGet package and reference it that way.
