@@ -35,10 +35,6 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var result = new RapidXamlDocument();
 
-            ////aggCatalog = new AggregateCatalog();
-            ////assCatalogs = new List<AssemblyCatalog>();
-            ////importer = new AnalyzerImporter();
-
             List<(string, XamlElementProcessor)> processors = null;
 
             try
@@ -173,9 +169,17 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var result = new List<ICustomAnalyzer>();
 
-            // Add specific assemblies only.
+            // Keep track of what's been loaded so don't load duplicates.
+            // Duplicates are likely if the custom analyzer project is in a parallel project in the same solution.
+            var loadedAssemblies = new List<string>();
+
+            // Skip anything (esp. comon files) that definitely won't contain custom analyzers
             foreach (var file in Directory.GetFiles(dllPath, "*.dll", SearchOption.AllDirectories)
-                                          .Where(f => !Path.GetFileName(f).StartsWith("Microsoft.")
+                                          .Where(f => !f.Contains("/obj/")
+                                                   && !f.Contains("\\obj\\")
+                                                   && !f.Contains(".resources")
+                                                   && !f.Contains(".Tests")
+                                                   && !Path.GetFileName(f).StartsWith("Microsoft.")
                                                    && !Path.GetFileName(f).StartsWith("System.")
                                                    && !Path.GetFileName(f).StartsWith("Xamarin.")
                                                    && !Path.GetFileName(f).Equals("clrcompression.dll")
@@ -186,6 +190,21 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 try
                 {
+                    // Only load assemblies that are in the same folder as the library containing the interface
+                    // This library is distributed with custom analyzers so it's a goog indication of assemblies that def don't contain analyzers.
+                    // This is also necessary for assembly resolution.
+                    if (!File.Exists(Path.Combine(Path.GetDirectoryName(file), "RapidXaml.CustomAnalysis.dll")))
+                    {
+                        continue;
+                    }
+
+                    var fileName = Path.GetFileName(file);
+
+                    if (loadedAssemblies.Contains(fileName))
+                    {
+                        continue;
+                    }
+
                     // Make an in-memory copy of the file to avoid locking, or needing multiple AppDomains.
                     byte[] assemblyBytes = File.ReadAllBytes(file);
                     var asmbly = Assembly.Load(assemblyBytes);
@@ -201,6 +220,35 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         result.Add((ICustomAnalyzer)Activator.CreateInstance(ca));
                     }
+
+                    loadedAssemblies.Add(fileName);
+                }
+                catch (ReflectionTypeLoadException ex)
+                {
+                    var sb = new System.Text.StringBuilder();
+
+                    foreach (Exception exSub in ex.LoaderExceptions)
+                    {
+                        sb.AppendLine(exSub.Message);
+
+                        if (exSub is FileNotFoundException exFileNotFound)
+                        {
+                            if (!string.IsNullOrEmpty(exFileNotFound.FusionLog))
+                            {
+                                sb.AppendLine("Fusion Log:");
+                                sb.AppendLine(exFileNotFound.FusionLog);
+                            }
+                        }
+
+                        sb.AppendLine();
+                    }
+
+                    SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Error_FailedToLoadAssemblyMEF.WithParams(file));
+                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.ToString());
+                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.Source);
+                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.Message);
+                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.StackTrace);
+                    SharedRapidXamlPackage.Logger?.RecordInfo(sb.ToString());
                 }
                 catch (Exception exc)
                 {
