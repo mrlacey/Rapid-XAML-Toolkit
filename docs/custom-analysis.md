@@ -50,7 +50,7 @@ You can indicate a single issue with a simple fix.
 return AnalysisActions.AddAttribute( ... );
 ```
 
-![A simple fix in action](./Assets/#)
+![A simple fix in action](./Assets/custom-analyzer-single-fix.png)
 
 You can indicate a single issue with a multi-part fix.
 
@@ -60,7 +60,7 @@ return AnalysisActions.RenameElement( ... )
                       .AndAddAttribute( ... );
 ```
 
-Note the methods starting `And...` which add multiple parts to the quick action fix without adding extra error entries.
+Note the methods starting `And...` which add multiple parts to the quick action fix without adding extra error entries or suggested actions.
 
 ![A multi-part fix in action](./Assets/#)
 
