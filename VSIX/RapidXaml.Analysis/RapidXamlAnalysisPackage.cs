@@ -2,6 +2,9 @@
 // Licensed under the MIT license.
 
 using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
@@ -53,6 +56,50 @@ namespace RapidXamlToolkit
                 RapidXamlDocumentCache.Initialize(this, SharedRapidXamlPackage.Logger);
 
                 Microsoft.VisualStudio.Shell.Events.SolutionEvents.OnAfterCloseSolution += this.HandleCloseSolution;
+
+                // Handle the ability to reolve assemblies when loading custom analyzers.
+                // Hat-tip: https://weblog.west-wind.com/posts/2016/dec/12/loading-net-assemblies-out-of-seperate-folders
+                AppDomain.CurrentDomain.AssemblyResolve += (object sender, ResolveEventArgs args) =>
+                {
+                    // Ignore missing resources
+                    if (args.Name.Contains(".resources"))
+                    {
+                        return null;
+                    }
+
+                    if (args.RequestingAssembly == null)
+                    {
+                        return null;
+                    }
+
+                    // check for assemblies already loaded
+                    var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.FullName == args.Name);
+                    if (assembly != null)
+                    {
+                        return assembly;
+                    }
+
+                    // Try to load by filename - split out the filename of the full assembly name
+                    // and append the base path of the original assembly (ie. look in the same dir)
+                    string filename = args.Name.Split(',')[0] + ".dll".ToLower();
+
+                    var asmFile = Path.Combine(Path.GetDirectoryName(args.RequestingAssembly.CodeBase), filename);
+
+                    if (asmFile.StartsWith("file:\\"))
+                    {
+                        asmFile = asmFile.Substring(6);
+                    }
+
+                    try
+                    {
+                        return Assembly.LoadFrom(asmFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex);
+                        return null;
+                    }
+                };
             }
             catch (Exception exc)
             {
