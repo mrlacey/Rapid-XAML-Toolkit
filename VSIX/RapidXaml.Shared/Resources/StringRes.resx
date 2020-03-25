@@ -802,4 +802,7 @@
   <data name="Error_FailedToLoadAssemblyMEF" xml:space="preserve">
     <value>"Failed to load '{0}' to look for CustomAnalyzers."</value>
   </data>
+  <data name="UI_AnalyzerFixBindablePropertyTitle" xml:space="preserve">
+    <value>To bindable property</value>
+  </data>
 </root>
