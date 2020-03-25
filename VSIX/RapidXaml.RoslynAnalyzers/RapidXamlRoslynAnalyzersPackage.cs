@@ -16,7 +16,7 @@ namespace RapidXamlToolkit
     [ProvideAutoLoad(UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UIContextGuids80.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.9.0", IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.9.1", IconResourceID = 400)] // Info on this package for Help/About
     [Guid(RapidXamlRoslynAnalyzersPackage.PackageGuidString)]
     public sealed class RapidXamlRoslynAnalyzersPackage : AsyncPackage
     {
