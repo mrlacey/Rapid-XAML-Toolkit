@@ -1233,6 +1233,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To bindable property.
+        /// </summary>
+        public static string UI_AnalyzerFixBindablePropertyTitle {
+            get {
+                return ResourceManager.GetString("UI_AnalyzerFixBindablePropertyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To dependency property.
         /// </summary>
         public static string UI_AnalyzerFixDependencyPropertyTitle {
