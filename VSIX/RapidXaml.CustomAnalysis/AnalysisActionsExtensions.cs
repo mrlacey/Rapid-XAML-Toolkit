@@ -221,8 +221,8 @@ namespace RapidXaml
                 Description = description,
                 ErrorType = errorType,
                 ActionText = actionText,
-                Name = attribute.Name,
-                IsInlineAttribute = attribute.IsInline,
+                Name = attribute?.Name,
+                IsInlineAttribute = attribute?.IsInline ?? true,
                 Value = attribute.StringValue,
                 MoreInfoUrl = moreInfoUrl,
             });

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using RapidXaml;
 using RapidXamlToolkit.VisualStudioIntegration;
+using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
@@ -82,10 +83,21 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 case RapidXaml.ActionType.AddAttribute:
                     var lineNumber = tag.Snapshot.GetLineNumberFromPosition(tag.InsertPosition) + 1;
 
-                    var before = $"<{tag.ElementName}";
-                    var after = $"<{tag.ElementName} {tag.Name}=\"{tag.Value}\"";
+                    // Can't rely on the original element name as this may be supplemental after it's been renamed
+                    if (XamlElementProcessor.IsSelfClosing(tag.AnalyzedElement.OriginalString))
+                    {
+                        var before = $"/>";
+                        var after = $"{tag.Name}=\"{tag.Value}\" />";
 
-                    vs.ReplaceInActiveDocOnLine(before, after, lineNumber);
+                        vs.ReplaceInActiveDocOnLine(before, after, lineNumber);
+                    }
+                    else
+                    {
+                        var before = $">";
+                        var after = $"{tag.Name}=\"{tag.Value}\" /";
+
+                        vs.ReplaceInActiveDocOnLine(before, after, lineNumber);
+                    }
 
                     break;
 
