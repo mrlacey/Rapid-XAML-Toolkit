@@ -20,6 +20,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
         public const string SetDiagnosticId = "RXRA002";
         public const string SetPropertyDiagnosticId = "RXRA003";
         public const string DependencyPropertyDiagnosticId = "RXRA004";
+        public const string BindablePropertyDiagnosticId = "RXRA005";
 
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(StringRes.UI_ExpandAutoPropertyAnalyzerTitle), StringRes.ResourceManager, typeof(StringRes));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(StringRes.UI_ExpandAutoPropertyAnalyzerMessage), StringRes.ResourceManager, typeof(StringRes));
@@ -32,11 +33,13 @@ namespace RapidXamlToolkit.RoslynAnalyzers
 
         private static readonly DiagnosticDescriptor DependencyPropertyRule = new DiagnosticDescriptor(DependencyPropertyDiagnosticId, Title, MessageFormat, StringRes.RapidXamlToolkit, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
+        private static readonly DiagnosticDescriptor BindablePropertyRule = new DiagnosticDescriptor(BindablePropertyDiagnosticId, Title, MessageFormat, StringRes.RapidXamlToolkit, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
+
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
             get
             {
-                return ImmutableArray.Create(OnPropertyRule, SetRule, SetPropertyRule, DependencyPropertyRule);
+                return ImmutableArray.Create(OnPropertyRule, SetRule, SetPropertyRule, DependencyPropertyRule, BindablePropertyRule);
             }
         }
 
@@ -69,6 +72,13 @@ namespace RapidXamlToolkit.RoslynAnalyzers
                             var depPropertyDiagnostic = Diagnostic.Create(DependencyPropertyRule, context.ContainingSymbol.Locations[0], pds.Identifier);
 
                             context.ReportDiagnostic(depPropertyDiagnostic);
+                            break;  // Don't bother looking any deeper in the inheritance hierarchy if found what looking for.
+                        }
+                        else if (baseType.Name == "BindableObject")
+                        {
+                            var bindPropertyDiagnostic = Diagnostic.Create(BindablePropertyRule, context.ContainingSymbol.Locations[0], pds.Identifier);
+
+                            context.ReportDiagnostic(bindPropertyDiagnostic);
                             break;  // Don't bother looking any deeper in the inheritance hierarchy if found what looking for.
                         }
                     }

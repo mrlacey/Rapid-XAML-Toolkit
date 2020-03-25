@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlRoslynAnalyzersPackage.cs" />
+    <Compile Include="RoslynAnalyzers\CsBindablePropertyCodeFixProvider.cs" />
     <Compile Include="RoslynAnalyzers\CsDependencyPropertyCodeFixProvider.cs" />
     <Compile Include="RoslynAnalyzers\CsExpandAutoPropertiesAnalyzer.cs" />
     <Compile Include="RoslynAnalyzers\CsFullPropertyWithOnPropertyChangedCodeFixProvider.cs" />
