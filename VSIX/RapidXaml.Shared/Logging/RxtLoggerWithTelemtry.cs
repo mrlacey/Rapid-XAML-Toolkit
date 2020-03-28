@@ -23,16 +23,21 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordError(string message, bool force = false)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            this.Logger.RecordError(message);
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                this.Logger.RecordError(message);
+            });
         }
 
         public void RecordGeneralError(string message)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            this.Logger.RecordGeneralError(message);
+                this.Logger.RecordGeneralError(message);
+            });
         }
 
         public void RecordException(Exception exception)
@@ -48,24 +53,33 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordFeatureUsage(string feature)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            this.Logger.RecordFeatureUsage(feature);
-            this.Telem.TrackEvent(feature);
+                this.Logger.RecordFeatureUsage(feature);
+                this.Telem.TrackEvent(feature);
+            });
         }
 
         public void RecordNotice(string message)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            this.Logger.RecordNotice(message);
+                this.Logger.RecordNotice(message);
+            });
         }
 
         public void RecordInfo(string message)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            this.Logger.RecordInfo(message);
+                this.Logger.RecordInfo(message);
+            });
         }
     }
 }
