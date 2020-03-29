@@ -62,7 +62,7 @@ return AnalysisActions.RenameElement( ... )
 
 Note the methods starting `And...` which add multiple parts to the quick action fix without adding extra error entries or suggested actions.
 
-![A multi-part fix in action](./Assets/#)
+![A multi-part fix in action](./Assets/multi-part-fix.png)
 
 You can indicate multiple issues with simple, or multi-part fixes.
 
