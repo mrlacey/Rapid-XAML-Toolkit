@@ -153,7 +153,16 @@ namespace RapidXamlToolkit.XamlAnalysis
                 // Start searching one directory higher to allow for multi-project solutions.
                 var pathToSearch = Path.GetDirectoryName(projectPath);
 
-                return GetCustomAnalyzers(pathToSearch);
+                // Only load custom analyzers when VS has finished starting up.
+                // We may get here before the package is loaded if a XAML doc is opened with the solution.
+                if (RapidXamlAnalysisPackage.IsLoaded)
+                {
+                    return GetCustomAnalyzers(pathToSearch);
+                }
+                else
+                {
+                    return new List<ICustomAnalyzer>();
+                }
             }
             catch (Exception exc)
             {
@@ -169,24 +178,38 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var result = new List<ICustomAnalyzer>();
 
+            bool FileFilter(string fileName)
+            {
+                var filterResult = !fileName.Contains("/obj/")
+                                && !fileName.Contains("\\obj\\")
+                                && !fileName.Contains(".resources")
+                                && !fileName.Contains(".Tests")
+                                && !Path.GetFileName(fileName).StartsWith("Microsoft.")
+                                && !Path.GetFileName(fileName).StartsWith("System.")
+                                && !Path.GetFileName(fileName).StartsWith("Xamarin.")
+                                && !Path.GetFileName(fileName).Equals("clrcompression.dll")
+                                && !Path.GetFileName(fileName).Equals("mscorlib.dll")
+                                && !Path.GetFileName(fileName).Equals("ucrtbased.dll")
+                                && !Path.GetFileName(fileName).Equals("netstandard.dll")
+                                && !Path.GetFileName(fileName).Equals("WindowsBase.dll")
+                                && !Path.GetFileName(fileName).Equals("RapidXaml.CustomAnalysis.dll");
+
+#if DEBUG
+                // Avoid trying to load self while debugging
+                filterResult = filterResult
+                            && !Path.GetFileName(fileName).Equals("RapidXaml.Analysis.dll");
+#endif
+
+                return filterResult;
+            }
+
             // Keep track of what's been loaded so don't load duplicates.
             // Duplicates are likely if the custom analyzer project is in a parallel project in the same solution.
             var loadedAssemblies = new List<string>();
 
             // Skip anything (esp. comon files) that definitely won't contain custom analyzers
             foreach (var file in Directory.GetFiles(dllPath, "*.dll", SearchOption.AllDirectories)
-                                          .Where(f => !f.Contains("/obj/")
-                                                   && !f.Contains("\\obj\\")
-                                                   && !f.Contains(".resources")
-                                                   && !f.Contains(".Tests")
-                                                   && !Path.GetFileName(f).StartsWith("Microsoft.")
-                                                   && !Path.GetFileName(f).StartsWith("System.")
-                                                   && !Path.GetFileName(f).StartsWith("Xamarin.")
-                                                   && !Path.GetFileName(f).Equals("clrcompression.dll")
-                                                   && !Path.GetFileName(f).Equals("mscorlib.dll")
-                                                   && !Path.GetFileName(f).Equals("netstandard.dll")
-                                                   && !Path.GetFileName(f).Equals("WindowsBase.dll")
-                                                   && !Path.GetFileName(f).Equals("RapidXaml.CustomAnalysis.dll")))
+                                          .Where(f => FileFilter(f)))
             {
                 try
                 {

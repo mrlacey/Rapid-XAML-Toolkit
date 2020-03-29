@@ -34,6 +34,8 @@ namespace RapidXamlToolkit
         {
         }
 
+        public static bool IsLoaded { get; private set; }
+
 #pragma warning disable CS0628 // New protected member declared in sealed class
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 #pragma warning restore CS0628 // New protected member declared in sealed class
@@ -100,6 +102,9 @@ namespace RapidXamlToolkit
                         return null;
                     }
                 };
+
+                // Track this so don't try and load CustomAnalyzers while VS is still starting up.
+                RapidXamlAnalysisPackage.IsLoaded = true;
             }
             catch (Exception exc)
             {
