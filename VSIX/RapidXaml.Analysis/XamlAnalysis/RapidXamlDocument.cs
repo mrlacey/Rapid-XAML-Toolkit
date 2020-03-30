@@ -158,20 +158,20 @@ namespace RapidXamlToolkit.XamlAnalysis
                 // We may get here before the package is loaded if a XAML doc is opened with the solution.
                 if (RapidXamlAnalysisPackage.IsLoaded)
                 {
-                    return GetCustomAnalyzers(pathToSearch);
-                }
-                else
-                {
-                    return new List<ICustomAnalyzer>();
+                    if (RapidXamlAnalysisPackage.Options.EnableCustomAnalysis)
+                    {
+                        return GetCustomAnalyzers(pathToSearch);
+                    }
                 }
             }
             catch (Exception exc)
             {
                 SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToImportCustomAnalyzers);
                 SharedRapidXamlPackage.Logger?.RecordException(exc);
-
-                return new List<ICustomAnalyzer>();
             }
+
+            // If package not loaded, setting not enabled, or error.
+            return new List<ICustomAnalyzer>();
         }
 
         // TODO: ISSUE#331 cache this response so don't need to look up again if files haven't changed.

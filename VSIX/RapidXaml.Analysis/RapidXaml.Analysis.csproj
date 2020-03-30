@@ -62,6 +62,9 @@
     <Compile Include="..\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
+    <Compile Include="AnalysisOptionsGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Commands\FeedbackCommand.cs" />
     <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
     <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />

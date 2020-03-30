@@ -24,6 +24,7 @@ namespace RapidXamlToolkit
     [InstalledProductRegistration("#110", "#112", "0.9.1", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(RapidXamlAnalysisPackage.PackageGuidString)]
+    [ProvideOptionPage(typeof(AnalysisOptionsGrid), "Rapid XAML", "Analysis", 106, 107, true)]
     public sealed class RapidXamlAnalysisPackage : AsyncPackage
     {
         public const string PackageGuidString = "fd0b0440-83be-4d1b-a449-9ca75d53007c";
@@ -35,6 +36,8 @@ namespace RapidXamlToolkit
         }
 
         public static bool IsLoaded { get; private set; }
+
+        public static AnalysisOptionsGrid Options { get; internal set; }
 
 #pragma warning disable CS0628 // New protected member declared in sealed class
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
@@ -105,6 +108,8 @@ namespace RapidXamlToolkit
 
                 // Track this so don't try and load CustomAnalyzers while VS is still starting up.
                 RapidXamlAnalysisPackage.IsLoaded = true;
+
+                RapidXamlAnalysisPackage.Options = (AnalysisOptionsGrid)this.GetDialogPage(typeof(AnalysisOptionsGrid));
             }
             catch (Exception exc)
             {
