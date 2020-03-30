@@ -64,6 +64,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         processors = GetAllProcessors(projType, projDir);
 
+                        // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
                         XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, suppressions);
                     }
                 }
