@@ -46,8 +46,8 @@
     </None>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="$(SolutionDir)nuget.exe pack .\RapidXamlCustomAnalysis.nuspec" />
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release' ">
+    <Exec Command="$(SolutionDir)nuget.exe pack .\RapidXamlCustomAnalysis.nuspec -Verbosity detailed" />
   </Target>
 
 </Project>
