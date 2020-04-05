@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -297,13 +296,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return false;
         }
 
-        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions)
+        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
         {
             if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
-                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, elementName, attributeName, this.Logger)
+                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, elementName, attributeName, this.Logger, projType)
                     {
                         AttributeType = foundAttributeType,
                         Value = value,

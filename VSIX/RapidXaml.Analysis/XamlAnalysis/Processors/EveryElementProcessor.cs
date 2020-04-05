@@ -72,7 +72,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     uid,
                     Guid.Empty,
                     tags,
-                    suppressions);
+                    suppressions,
+                    this.ProjectType);
             }
         }
     }

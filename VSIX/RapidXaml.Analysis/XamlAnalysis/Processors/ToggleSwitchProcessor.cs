@@ -40,7 +40,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uid,
                 elementGuid,
                 tags,
-                suppressions);
+                suppressions,
+                this.ProjectType);
 
             this.CheckForHardCodedAttribute(
                 fileName,
@@ -55,7 +56,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uid,
                 elementGuid,
                 tags,
-                suppressions);
+                suppressions,
+                this.ProjectType);
 
             this.CheckForHardCodedAttribute(
                 fileName,
@@ -70,7 +72,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uid,
                 elementGuid,
                 tags,
-                suppressions);
+                suppressions,
+                this.ProjectType);
         }
     }
 }
