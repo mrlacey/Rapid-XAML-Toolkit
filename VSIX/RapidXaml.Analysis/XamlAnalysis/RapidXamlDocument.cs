@@ -19,6 +19,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class RapidXamlDocument
     {
+        private static readonly Dictionary<string, (DateTime timestamp, List<ICustomAnalyzer> analyzer)> AnalyzerCache = new Dictionary<string, (DateTime timestamp, List<ICustomAnalyzer> analyzer)>();
+
         public RapidXamlDocument()
         {
             this.Tags = new TagList();
@@ -152,7 +154,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             try
             {
                 // Start searching one directory higher to allow for multi-project solutions.
-                var pathToSearch = Path.GetDirectoryName(projectPath);
+                var dirToSearch = Path.GetDirectoryName(projectPath);
 
                 // Only load custom analyzers when VS has finished starting up.
                 // We may get here before the package is loaded if a XAML doc is opened with the solution.
@@ -160,7 +162,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     if (RapidXamlAnalysisPackage.Options.EnableCustomAnalysis)
                     {
-                        return GetCustomAnalyzers(pathToSearch);
+                        return GetCustomAnalyzers(dirToSearch);
                     }
                 }
             }
@@ -175,7 +177,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         }
 
         // TODO: ISSUE#331 cache this response so don't need to look up again if files haven't changed.
-        public static List<ICustomAnalyzer> GetCustomAnalyzers(string dllPath)
+        public static List<ICustomAnalyzer> GetCustomAnalyzers(string folderToSearch)
         {
             var result = new List<ICustomAnalyzer>();
 
@@ -209,13 +211,13 @@ namespace RapidXamlToolkit.XamlAnalysis
             var loadedAssemblies = new List<string>();
 
             // Skip anything (esp. comon files) that definitely won't contain custom analyzers
-            foreach (var file in Directory.GetFiles(dllPath, "*.dll", SearchOption.AllDirectories)
+            foreach (var file in Directory.GetFiles(folderToSearch, "*.dll", SearchOption.AllDirectories)
                                           .Where(f => FileFilter(f)))
             {
                 try
                 {
                     // Only load assemblies that are in the same folder as the library containing the interface
-                    // This library is distributed with custom analyzers so it's a goog indication of assemblies that def don't contain analyzers.
+                    // This library is distributed with custom analyzers so it's a good indication of assemblies that def don't contain analyzers.
                     // This is also necessary for assembly resolution.
                     if (!File.Exists(Path.Combine(Path.GetDirectoryName(file), "RapidXaml.CustomAnalysis.dll")))
                     {
@@ -229,6 +231,27 @@ namespace RapidXamlToolkit.XamlAnalysis
                         continue;
                     }
 
+                    var fileTimestamp = File.GetCreationTimeUtc(file);
+
+                    if (AnalyzerCache.ContainsKey(file))
+                    {
+                        var (cacheTimestamp, cachedAnalyzers) = AnalyzerCache[file];
+
+                        if (cacheTimestamp == fileTimestamp)
+                        {
+                            if (cachedAnalyzers != null)
+                            {
+                                result.AddRange(cachedAnalyzers);
+                            }
+
+                            continue;
+                        }
+                        else
+                        {
+                            AnalyzerCache.Remove(file);
+                        }
+                    }
+
                     // Make an in-memory copy of the file to avoid locking, or needing multiple AppDomains.
                     byte[] assemblyBytes = File.ReadAllBytes(file);
                     var asmbly = Assembly.Load(assemblyBytes);
@@ -238,11 +261,25 @@ namespace RapidXamlToolkit.XamlAnalysis
                     var customAnalyzers = asmbly.GetTypes()
                                                 .Where(t => analyzerInterface.IsAssignableFrom(t)
                                                          && t.IsClass
-                                                         && t.IsPublic);
+                                                         && t.IsPublic)
+                                                .ToList();
 
-                    foreach (var ca in customAnalyzers)
+                    if (customAnalyzers.Any())
                     {
-                        result.Add((ICustomAnalyzer)Activator.CreateInstance(ca));
+                        var cacheList = new List<ICustomAnalyzer>();
+
+                        foreach (var ca in customAnalyzers)
+                        {
+                            var ica = (ICustomAnalyzer)Activator.CreateInstance(ca);
+                            cacheList.Add(ica);
+                            result.Add(ica);
+                        }
+
+                        AnalyzerCache.Add(file, (fileTimestamp, cacheList));
+                    }
+                    else
+                    {
+                        AnalyzerCache.Add(file, (fileTimestamp, null));
                     }
 
                     loadedAssemblies.Add(fileName);
