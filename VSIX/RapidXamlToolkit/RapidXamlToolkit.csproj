@@ -78,10 +78,6 @@
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
-    <Content Include="appsettings.json">
-      <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Key.snk" />
     <Content Include="RxtExtensions.vsext">
       <IncludeInVSIX>true</IncludeInVSIX>
