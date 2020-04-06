@@ -143,9 +143,6 @@
     <AdditionalFiles Include="..\todo-warn.config" Condition=" '$(Configuration)' == 'Release' ">
       <Link>todo-warn.config</Link>
     </AdditionalFiles>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Key.snk" />
     <None Include="RapidXamlCommonMenus.vsct">
       <LastGenOutput>RapidXamlCommonMenus.cs</LastGenOutput>

@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
@@ -36,6 +37,10 @@ namespace RapidXamlToolkit
 
                 SharedRapidXamlPackage.Logger?.RecordNotice(StringRes.Info_LaunchVersionRoslynAnalyzers.WithParams(CoreDetails.GetVersion()));
                 SharedRapidXamlPackage.Logger?.RecordNotice(string.Empty);
+
+                var ass = Assembly.GetExecutingAssembly().GetName();
+
+                SharedRapidXamlPackage.Logger.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version));
             }
             catch (Exception exc)
             {

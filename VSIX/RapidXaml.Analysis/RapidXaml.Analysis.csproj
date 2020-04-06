@@ -207,9 +207,6 @@
     <Content Include="RapidXamlAnalysisExtensions.vsext">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="RapidXamlCommonMenus.vsct">
       <LastGenOutput>RapidXamlCommonMenus.cs</LastGenOutput>
     </None>

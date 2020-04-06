@@ -62,7 +62,7 @@ namespace RapidXamlToolkit
 
                 Microsoft.VisualStudio.Shell.Events.SolutionEvents.OnAfterCloseSolution += this.HandleCloseSolution;
 
-                // Handle the ability to reolve assemblies when loading custom analyzers.
+                // Handle the ability to resolve assemblies when loading custom analyzers.
                 // Hat-tip: https://weblog.west-wind.com/posts/2016/dec/12/loading-net-assemblies-out-of-seperate-folders
                 AppDomain.CurrentDomain.AssemblyResolve += (object sender, ResolveEventArgs args) =>
                 {
@@ -110,6 +110,10 @@ namespace RapidXamlToolkit
                 RapidXamlAnalysisPackage.IsLoaded = true;
 
                 RapidXamlAnalysisPackage.Options = (AnalysisOptionsGrid)this.GetDialogPage(typeof(AnalysisOptionsGrid));
+
+                var ass = Assembly.GetExecutingAssembly().GetName();
+
+                SharedRapidXamlPackage.Logger.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version));
             }
             catch (Exception exc)
             {
