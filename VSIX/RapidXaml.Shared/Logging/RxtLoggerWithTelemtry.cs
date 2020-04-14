@@ -51,13 +51,13 @@ namespace RapidXamlToolkit.Logging
             });
         }
 
-        public void RecordFeatureUsage(string feature)
+        public void RecordFeatureUsage(string feature, bool quiet = false)
         {
             ThreadHelper.JoinableTaskFactory.Run(async () =>
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                this.Logger.RecordFeatureUsage(feature);
+                this.Logger.RecordFeatureUsage(feature, quiet);
                 this.Telem.TrackEvent(feature);
             });
         }

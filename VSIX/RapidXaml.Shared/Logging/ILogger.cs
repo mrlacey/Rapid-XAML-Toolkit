@@ -13,7 +13,7 @@ namespace RapidXamlToolkit.Logging
 
         void RecordInfo(string message);
 
-        void RecordFeatureUsage(string feature);
+        void RecordFeatureUsage(string feature, bool quiet = false);
 
         /// <summary>
         /// Record an error.
