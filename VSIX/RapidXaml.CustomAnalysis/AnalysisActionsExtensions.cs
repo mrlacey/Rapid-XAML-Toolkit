@@ -223,7 +223,7 @@ namespace RapidXaml
                 ActionText = actionText,
                 Name = attribute?.Name,
                 IsInlineAttribute = attribute?.IsInline ?? true,
-                Value = attribute.StringValue,
+                Value = attribute?.StringValue,
                 MoreInfoUrl = moreInfoUrl,
             });
 
