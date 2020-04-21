@@ -75,58 +75,65 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public bool TryGetConfiguredErrorType(string errorCode, out TagErrorType tagErrorType)
         {
-            if (string.IsNullOrWhiteSpace(this.FileName))
+            try
             {
-                tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
-                return false;
-            }
-
-            var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
-
-            if (proj == null)
-            {
-                tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
-                return false;
-            }
-
-            var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
-
-            if (File.Exists(settingsFile))
-            {
-                Dictionary<string, string> settings = null;
-                var fileTime = File.GetLastWriteTimeUtc(settingsFile);
-
-                if (SettingsCache.ContainsKey(settingsFile))
+                if (string.IsNullOrWhiteSpace(this.FileName))
                 {
-                    if (SettingsCache[settingsFile].timeStamp == fileTime)
+                    tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
+                    return false;
+                }
+
+                var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
+
+                if (proj == null)
+                {
+                    tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
+                    return false;
+                }
+
+                var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
+
+                if (File.Exists(settingsFile))
+                {
+                    Dictionary<string, string> settings = null;
+                    var fileTime = File.GetLastWriteTimeUtc(settingsFile);
+
+                    if (SettingsCache.ContainsKey(settingsFile))
                     {
-                        settings = SettingsCache[settingsFile].settings;
+                        if (SettingsCache[settingsFile].timeStamp == fileTime)
+                        {
+                            settings = SettingsCache[settingsFile].settings;
+                        }
+                    }
+
+                    if (settings == null)
+                    {
+                        var json = File.ReadAllText(settingsFile);
+                        settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+                    }
+
+                    SettingsCache[settingsFile] = (fileTime, settings);
+
+                    if (settings.ContainsKey(errorCode))
+                    {
+                        if (TagErrorTypeParser.TryParse(settings[errorCode], out tagErrorType))
+                        {
+                            return true;
+                        }
                     }
                 }
-
-                if (settings == null)
+                else
                 {
-                    var json = File.ReadAllText(settingsFile);
-                    settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-                }
-
-                SettingsCache[settingsFile] = (fileTime, settings);
-
-                if (settings.ContainsKey(errorCode))
-                {
-                    if (TagErrorTypeParser.TryParse(settings[errorCode], out tagErrorType))
+                    // If settings file is removed need to remove any cached reference to it.
+                    if (SettingsCache.ContainsKey(settingsFile))
                     {
-                        return true;
+                        SettingsCache.Remove(settingsFile);
                     }
                 }
             }
-            else
+            catch (Exception exc)
             {
-                // If settings file is removed need to remove any cached reference to it.
-                if (SettingsCache.ContainsKey(settingsFile))
-                {
-                    SettingsCache.Remove(settingsFile);
-                }
+                this?.Logger?.RecordException(exc);
             }
 
             // Set to default if no override in file

@@ -214,79 +214,86 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
         {
-            if (attributeTypesToCheck.HasFlag(AttributeType.Inline))
+            try
             {
-                var searchText = $"{attributeName}=\"";
-
-                if (string.IsNullOrWhiteSpace(xaml))
+                if (attributeTypesToCheck.HasFlag(AttributeType.Inline))
                 {
-                    System.Diagnostics.Debugger.Break();
-                    this.Logger.RecordError($"xaml not passed to `TryGetAttribute({xaml}, {attributeName}, {attributeTypesToCheck})`");
+                    var searchText = $"{attributeName}=\"";
 
-                    attributeType = AttributeType.None;
-                    index = -1;
-                    length = 0;
-                    value = string.Empty;
-                    return false;
-                }
-
-                var tbIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
-
-                if (tbIndex >= 0 && char.IsWhiteSpace(xaml[tbIndex - 1]))
-                {
-                    var tbEnd = xaml.IndexOf("\"", tbIndex + searchText.Length, StringComparison.Ordinal);
-
-                    attributeType = AttributeType.Inline;
-                    index = tbIndex;
-                    length = tbEnd - tbIndex + 1;
-                    value = xaml.Substring(tbIndex + searchText.Length, tbEnd - tbIndex - searchText.Length);
-                    return true;
-                }
-            }
-
-            var elementName = GetElementName(xaml);
-
-            if (attributeTypesToCheck.HasFlag(AttributeType.Element))
-            {
-                var searchText = $"<{elementName}.{attributeName}>";
-
-                var startIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
-
-                if (startIndex > -1)
-                {
-                    var closingElement = $"</{elementName}.{attributeName}>";
-                    var endPos = xaml.IndexOf(closingElement, startIndex, StringComparison.Ordinal);
-
-                    if (endPos > -1)
+                    if (string.IsNullOrWhiteSpace(xaml))
                     {
-                        attributeType = AttributeType.Element;
-                        index = startIndex;
-                        length = endPos - startIndex + closingElement.Length;
-                        value = xaml.Substring(startIndex + searchText.Length, endPos - startIndex - searchText.Length);
+                        System.Diagnostics.Debugger.Break();
+                        this.Logger.RecordError($"xaml not passed to `TryGetAttribute({xaml}, {attributeName}, {attributeTypesToCheck})`");
+
+                        attributeType = AttributeType.None;
+                        index = -1;
+                        length = 0;
+                        value = string.Empty;
+                        return false;
+                    }
+
+                    var tbIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
+
+                    if (tbIndex >= 0 && char.IsWhiteSpace(xaml[tbIndex - 1]))
+                    {
+                        var tbEnd = xaml.IndexOf("\"", tbIndex + searchText.Length, StringComparison.Ordinal);
+
+                        attributeType = AttributeType.Inline;
+                        index = tbIndex;
+                        length = tbEnd - tbIndex + 1;
+                        value = xaml.Substring(tbIndex + searchText.Length, tbEnd - tbIndex - searchText.Length);
                         return true;
                     }
                 }
-            }
 
-            if (attributeTypesToCheck.HasFlag(AttributeType.DefaultValue))
-            {
-                var endOfOpening = xaml.IndexOf(">");
-                var closingTag = $"</{elementName}>";
-                var startOfClosing = xaml.IndexOf(closingTag, StringComparison.Ordinal);
+                var elementName = GetElementName(xaml);
 
-                if (startOfClosing > 0 && startOfClosing > endOfOpening)
+                if (attributeTypesToCheck.HasFlag(AttributeType.Element))
                 {
-                    var defaultValue = xaml.Substring(endOfOpening + 1, startOfClosing - endOfOpening - 1);
+                    var searchText = $"<{elementName}.{attributeName}>";
 
-                    if (!string.IsNullOrWhiteSpace(defaultValue) && !defaultValue.TrimStart().StartsWith("<"))
+                    var startIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
+
+                    if (startIndex > -1)
                     {
-                        attributeType = AttributeType.DefaultValue;
-                        index = 0;
-                        length = xaml.Length;
-                        value = defaultValue;
-                        return true;
+                        var closingElement = $"</{elementName}.{attributeName}>";
+                        var endPos = xaml.IndexOf(closingElement, startIndex, StringComparison.Ordinal);
+
+                        if (endPos > -1)
+                        {
+                            attributeType = AttributeType.Element;
+                            index = startIndex;
+                            length = endPos - startIndex + closingElement.Length;
+                            value = xaml.Substring(startIndex + searchText.Length, endPos - startIndex - searchText.Length);
+                            return true;
+                        }
                     }
                 }
+
+                if (attributeTypesToCheck.HasFlag(AttributeType.DefaultValue))
+                {
+                    var endOfOpening = xaml.IndexOf(">");
+                    var closingTag = $"</{elementName}>";
+                    var startOfClosing = xaml.IndexOf(closingTag, StringComparison.Ordinal);
+
+                    if (startOfClosing > 0 && startOfClosing > endOfOpening)
+                    {
+                        var defaultValue = xaml.Substring(endOfOpening + 1, startOfClosing - endOfOpening - 1);
+
+                        if (!string.IsNullOrWhiteSpace(defaultValue) && !defaultValue.TrimStart().StartsWith("<"))
+                        {
+                            attributeType = AttributeType.DefaultValue;
+                            index = 0;
+                            length = xaml.Length;
+                            value = defaultValue;
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                this?.Logger?.RecordException(exc);
             }
 
             attributeType = AttributeType.None;

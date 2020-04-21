@@ -33,116 +33,126 @@ namespace RapidXamlToolkit.ErrorList
 
         public override bool TryGetValue(int index, string columnName, out object content)
         {
-            content = null;
-
-            if (index < 0 || index >= this.Errors.Count)
+            try
             {
-                return false;
-            }
+                content = null;
 
-            var error = this.Errors[index];
+                if (index < 0 || index >= this.Errors.Count)
+                {
+                    return false;
+                }
 
-            switch (columnName)
-            {
-                case StandardTableKeyNames.ErrorCategory:
-                    content = vsTaskCategories.vsTaskCategoryMisc;
-                    return true;
-                case StandardTableKeyNames.BuildTool:
-                    content = "RXT";
-                    return true;
-                case StandardTableKeyNames.Text:
-                    content = error.Message;
-                    return true;
-                case StandardTableKeyNames.PriorityImage:
-                case StandardTableKeyNames.ErrorSeverityImage:
+                var error = this.Errors[index];
 
-                    if (error.IsInternalError)
-                    {
-                        content = KnownMonikers.ProcessError;
-                    }
-                    else
-                    {
+                switch (columnName)
+                {
+                    case StandardTableKeyNames.ErrorCategory:
+                        content = vsTaskCategories.vsTaskCategoryMisc;
+                        return true;
+                    case StandardTableKeyNames.BuildTool:
+                        content = "RXT";
+                        return true;
+                    case StandardTableKeyNames.Text:
+                        content = error.Message;
+                        return true;
+                    case StandardTableKeyNames.PriorityImage:
+                    case StandardTableKeyNames.ErrorSeverityImage:
+
+                        if (error.IsInternalError)
+                        {
+                            content = KnownMonikers.ProcessError;
+                        }
+                        else
+                        {
+                            switch (error.ErrorType)
+                            {
+                                case TagErrorType.Error:
+                                    content = KnownMonikers.StatusErrorOutline;
+                                    break;
+                                case TagErrorType.Warning:
+                                    content = KnownMonikers.StatusWarningOutline;
+                                    break;
+                                case TagErrorType.Suggestion:
+                                    content = KnownMonikers.StatusInformationOutline;
+                                    break;
+                                case TagErrorType.Hidden:
+                                default:
+                                    content = null;
+                                    break;
+                            }
+                        }
+
+                        return true;
+                    case StandardTableKeyNames.ErrorSeverity:
                         switch (error.ErrorType)
                         {
                             case TagErrorType.Error:
-                                content = KnownMonikers.StatusErrorOutline;
+                                content = __VSERRORCATEGORY.EC_ERROR;
                                 break;
                             case TagErrorType.Warning:
-                                content = KnownMonikers.StatusWarningOutline;
+                                content = __VSERRORCATEGORY.EC_WARNING;
                                 break;
                             case TagErrorType.Suggestion:
-                                content = KnownMonikers.StatusInformationOutline;
+                                content = __VSERRORCATEGORY.EC_MESSAGE;
                                 break;
                             case TagErrorType.Hidden:
                             default:
-                                content = null;
+                                content = -1;
                                 break;
                         }
-                    }
 
-                    return true;
-                case StandardTableKeyNames.ErrorSeverity:
-                    switch (error.ErrorType)
-                    {
-                        case TagErrorType.Error:
-                            content = __VSERRORCATEGORY.EC_ERROR;
-                            break;
-                        case TagErrorType.Warning:
-                            content = __VSERRORCATEGORY.EC_WARNING;
-                            break;
-                        case TagErrorType.Suggestion:
-                            content = __VSERRORCATEGORY.EC_MESSAGE;
-                            break;
-                        case TagErrorType.Hidden:
-                        default:
-                            content = -1;
-                            break;
-                    }
+                        return true;
+                    case StandardTableKeyNames.Priority:
+                        content = vsTaskPriority.vsTaskPriorityMedium;
+                        return true;
+                    case StandardTableKeyNames.ErrorSource:
+                        content = ErrorSource.Other;
+                        return true;
+                    case StandardTableKeyNames.ErrorCode:
+                        content = error.ErrorCode;
+                        return true;
+                    case StandardTableKeyNames.ProjectName:
+                        content = this.projectName;
+                        return true;
+                    case StandardTableKeyNames.DocumentName:
+                        content = this.FilePath;
+                        return true;
+                    case StandardTableKeyNames.Line:
+                        content = error.Span.Start.GetContainingLine().LineNumber;
+                        return true;
+                    case StandardTableKeyNames.Column:
+                        var position = error.Span.Start;
+                        var line = position.GetContainingLine();
+                        content = position.Position - line.Start.Position;
+                        return true;
+                    case StandardTableKeyNames.ErrorCodeToolTip:
+                    case StandardTableKeyNames.HelpLink:
+                        if (!string.IsNullOrWhiteSpace(error.MoreInfoUrl))
+                        {
+                            content = error.MoreInfoUrl;
+                            return true;
+                        }
+                        else if (error.ErrorCode.StartsWith("RXT"))
+                        {
+                            content = $"https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/warnings/{error.ErrorCode}.md";
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
 
-                    return true;
-                case StandardTableKeyNames.Priority:
-                    content = vsTaskPriority.vsTaskPriorityMedium;
-                    return true;
-                case StandardTableKeyNames.ErrorSource:
-                    content = ErrorSource.Other;
-                    return true;
-                case StandardTableKeyNames.ErrorCode:
-                    content = error.ErrorCode;
-                    return true;
-                case StandardTableKeyNames.ProjectName:
-                    content = this.projectName;
-                    return true;
-                case StandardTableKeyNames.DocumentName:
-                    content = this.FilePath;
-                    return true;
-                case StandardTableKeyNames.Line:
-                    content = error.Span.Start.GetContainingLine().LineNumber;
-                    return true;
-                case StandardTableKeyNames.Column:
-                    var position = error.Span.Start;
-                    var line = position.GetContainingLine();
-                    content = position.Position - line.Start.Position;
-                    return true;
-                case StandardTableKeyNames.ErrorCodeToolTip:
-                case StandardTableKeyNames.HelpLink:
-                    if (!string.IsNullOrWhiteSpace(error.MoreInfoUrl))
-                    {
-                        content = error.MoreInfoUrl;
-                        return true;
-                    }
-                    else if (error.ErrorCode.StartsWith("RXT"))
-                    {
-                        content = $"https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/warnings/{error.ErrorCode}.md";
-                        return true;
-                    }
-                    else
-                    {
+                    default:
+                        content = null;
                         return false;
-                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
 
-                default:
-                    content = null;
-                    return false;
+                content = null;
+                return false;
             }
         }
 
@@ -153,9 +163,19 @@ namespace RapidXamlToolkit.ErrorList
 
         public override bool TryCreateDetailsStringContent(int index, out string content)
         {
-            var error = this.Errors[index];
-            content = error.ExtendedMessage;
-            return true;
+            try
+            {
+                var error = this.Errors[index];
+                content = error.ExtendedMessage;
+                return true;
+            }
+            catch (Exception exc)
+            {
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
+
+                content = null;
+                return false;
+            }
         }
     }
 }
