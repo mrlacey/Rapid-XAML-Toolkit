@@ -117,4 +117,5 @@
     <Delete Files=".\ProjectTemplates\CustomAnalysisProjectTemplate.zip" />
     <ZipDirectory SourceDirectory="..\CustomAnalysisProjectTemplate" DestinationFile=".\ProjectTemplates\CustomAnalysisProjectTemplate.zip" />
   </Target>
+  <Import Project="..\..\VSIX\signvsix.targets"/>
 </Project>
