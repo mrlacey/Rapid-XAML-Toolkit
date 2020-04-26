@@ -862,6 +862,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loading{0}{1}.
+        /// </summary>
+        public static string Info_PackageLoad {
+            get {
+                return ResourceManager.GetString("Info_PackageLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you have problems with this extension, or suggestions for improvement, report them at https://github.com/mrlacey/Rapid-XAML-Toolkit/issues/new/choose .
         /// </summary>
         public static string Info_ProblemsInstructionsAndLink {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VsixSignTool>$(NuGetPackageRoot)Microsoft.VSSDK.Vsixsigntool\16.2.29116.78\tools\vssdk\vsixsigntool.exe</VsixSignTool>
+    <VsixSignCommand Condition="Exists('$(VsixSignTool)')">$(VsixSignTool) sign /f $(SIGN_CERTIFICATE) /p $(SIGN_PASSWORD) /sha1 $(SIGN_CERT_HASH) /fd sha256</VsixSignCommand>
+  </PropertyGroup>
+  <Target Name="AfterBuild" DependsOnTargets="CoreCompile" Condition="Exists('$(SIGN_CERTIFICATE)')">
+    <Message Text="Signing $(TargetVsixContainer)" Condition="'$(Configuration)' == 'Release'" />
+    <Exec Command="$(VsixSignCommand) $(MSBuildProjectDirectory)\$(TargetVsixContainer)" Condition="'$(Configuration)' == 'Release'" />
+  </Target>
+</Project>

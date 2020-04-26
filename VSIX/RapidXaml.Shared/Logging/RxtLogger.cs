@@ -71,9 +71,14 @@ namespace RapidXamlToolkit.Logging
             this.WriteToActivityLog($"{exception.Message}{Environment.NewLine}{exception.Source}{Environment.NewLine}{exception.StackTrace}");
         }
 
-        public void RecordFeatureUsage(string feature)
+        public void RecordFeatureUsage(string feature, bool quiet = false)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
+            if (quiet)
+            {
+                return;
+            }
 
             // this logger doesn't need to do anything special with feature usage messages
             this.RecordInfo(StringRes.Info_FeatureUsage.WithParams(feature));

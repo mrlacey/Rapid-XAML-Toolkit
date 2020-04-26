@@ -21,7 +21,7 @@ namespace RapidXamlToolkit
     [ProvideAutoLoad(UIContextGuids.SolutionHasMultipleProjects, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.9.1", IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.9.3", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(RapidXamlAnalysisPackage.PackageGuidString)]
     [ProvideOptionPage(typeof(AnalysisOptionsGrid), "Rapid XAML", "Analysis", 106, 107, true)]
@@ -62,7 +62,7 @@ namespace RapidXamlToolkit
 
                 Microsoft.VisualStudio.Shell.Events.SolutionEvents.OnAfterCloseSolution += this.HandleCloseSolution;
 
-                // Handle the ability to reolve assemblies when loading custom analyzers.
+                // Handle the ability to resolve assemblies when loading custom analyzers.
                 // Hat-tip: https://weblog.west-wind.com/posts/2016/dec/12/loading-net-assemblies-out-of-seperate-folders
                 AppDomain.CurrentDomain.AssemblyResolve += (object sender, ResolveEventArgs args) =>
                 {
@@ -110,6 +110,10 @@ namespace RapidXamlToolkit
                 RapidXamlAnalysisPackage.IsLoaded = true;
 
                 RapidXamlAnalysisPackage.Options = (AnalysisOptionsGrid)this.GetDialogPage(typeof(AnalysisOptionsGrid));
+
+                var ass = Assembly.GetExecutingAssembly().GetName();
+
+                SharedRapidXamlPackage.Logger.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version), quiet: true);
             }
             catch (Exception exc)
             {

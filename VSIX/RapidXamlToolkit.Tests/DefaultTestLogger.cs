@@ -27,7 +27,7 @@ namespace RapidXamlToolkit.Tests
         {
         }
 
-        public void RecordFeatureUsage(string feature)
+        public void RecordFeatureUsage(string feature, bool quiet = false)
         {
         }
 

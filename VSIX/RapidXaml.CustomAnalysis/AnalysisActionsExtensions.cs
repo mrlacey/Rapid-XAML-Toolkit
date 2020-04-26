@@ -76,9 +76,9 @@ namespace RapidXaml
 
             if (attributes != null)
             {
-                foreach (var attr in attributes)
+                foreach (var (name, value) in attributes)
                 {
-                    attrs.Append($" {attr.name}=\"{attr.value}\"");
+                    attrs.Append($" {name}=\"{value}\"");
                 }
             }
 
@@ -109,9 +109,9 @@ namespace RapidXaml
         {
             var attrs = new System.Text.StringBuilder();
 
-            foreach (var attr in attributes)
+            foreach (var (name, value) in attributes)
             {
-                attrs.Append($" {attr.name}=\"{attr.value}\"");
+                attrs.Append($" {name}=\"{value}\"");
             }
 
             var content = $"<{elementName}{attrs} />";
@@ -223,7 +223,7 @@ namespace RapidXaml
                 ActionText = actionText,
                 Name = attribute?.Name,
                 IsInlineAttribute = attribute?.IsInline ?? true,
-                Value = attribute.StringValue,
+                Value = attribute?.StringValue,
                 MoreInfoUrl = moreInfoUrl,
             });
 

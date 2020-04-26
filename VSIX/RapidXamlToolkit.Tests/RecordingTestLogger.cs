@@ -33,7 +33,7 @@ namespace RapidXamlToolkit.Tests
             this.Exceptions.Add(exception);
         }
 
-        public void RecordFeatureUsage(string feature)
+        public void RecordFeatureUsage(string feature, bool quiet = false)
         {
             this.UsedFeatures.Add(feature);
         }

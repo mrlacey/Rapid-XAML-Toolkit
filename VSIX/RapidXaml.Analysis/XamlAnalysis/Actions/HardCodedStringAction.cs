@@ -48,41 +48,73 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             try
             {
-                // If the resource file is open with unsaved changes VS will prompt about data being lost.
-                this.AddResource(resPath, $"{this.Tag.UidValue}.{this.Tag.AttributeName}", this.Tag.Value);
-
-                if (this.Tag.AttributeType == AttributeType.Inline)
+                if (this.Tag.ProjType == ProjectType.Uwp)
                 {
-                    var currentAttribute = $"{this.Tag.AttributeName}=\"{this.Tag.Value}\"";
+                    // If the resource file is open with unsaved changes VS will prompt about data being lost.
+                    this.AddResource(resPath, $"{this.Tag.UidValue}.{this.Tag.AttributeName}", this.Tag.Value);
 
-                    if (this.Tag.UidExists)
+                    if (this.Tag.AttributeType == AttributeType.Inline)
                     {
+                        var currentAttribute = $"{this.Tag.AttributeName}=\"{this.Tag.Value}\"";
+
+                        if (this.Tag.UidExists)
+                        {
+                            vs.RemoveInActiveDocOnLine(currentAttribute, this.Tag.GetDesignerLineNumber());
+                        }
+                        else
+                        {
+                            var uidTag = $"x:Uid=\"{this.Tag.UidValue}\"";
+                            vs.ReplaceInActiveDocOnLine(currentAttribute, uidTag, this.Tag.GetDesignerLineNumber());
+                        }
+                    }
+                    else if (this.Tag.AttributeType == AttributeType.Element)
+                    {
+                        var currentAttribute = $"<{this.Tag.ElementName}.{this.Tag.AttributeName}>{this.Tag.Value}</{this.Tag.ElementName}.{this.Tag.AttributeName}>";
+
                         vs.RemoveInActiveDocOnLine(currentAttribute, this.Tag.GetDesignerLineNumber());
+
+                        if (!this.Tag.UidExists)
+                        {
+                            var uidTag = $"<{this.Tag.ElementName} x:Uid=\"{this.Tag.UidValue}\"";
+                            vs.ReplaceInActiveDocOnLineOrAbove($"<{this.Tag.ElementName}", uidTag, this.Tag.GetDesignerLineNumber());
+                        }
                     }
-                    else
+                    else if (this.Tag.AttributeType == AttributeType.DefaultValue)
                     {
-                        var uidTag = $"x:Uid=\"{this.Tag.UidValue}\"";
-                        vs.ReplaceInActiveDocOnLine(currentAttribute, uidTag, this.Tag.GetDesignerLineNumber());
+                        var current = $">{this.Tag.Value}</{this.Tag.ElementName}>";
+                        var replaceWith = this.Tag.UidExists ? " />" : $" x:Uid=\"{this.Tag.UidValue}\" />";
+
+                        vs.ReplaceInActiveDocOnLine(current, replaceWith, this.Tag.GetDesignerLineNumber());
                     }
                 }
-                else if (this.Tag.AttributeType == AttributeType.Element)
+                else if (this.Tag.ProjType == ProjectType.Wpf)
                 {
-                    var currentAttribute = $"<{this.Tag.ElementName}.{this.Tag.AttributeName}>{this.Tag.Value}</{this.Tag.ElementName}.{this.Tag.AttributeName}>";
+                    // TODO: ISSUE#163 Implement WPF resource creation
+                    var resourceName = "NEED TO GENERATE THIS";
+                    this.AddResource(resPath, resourceName, this.Tag.Value);
 
-                    vs.RemoveInActiveDocOnLine(currentAttribute, this.Tag.GetDesignerLineNumber());
-
-                    if (!this.Tag.UidExists)
+                    switch (this.Tag.AttributeType)
                     {
-                        var uidTag = $"<{this.Tag.ElementName} x:Uid=\"{this.Tag.UidValue}\"";
-                        vs.ReplaceInActiveDocOnLineOrAbove($"<{this.Tag.ElementName}", uidTag, this.Tag.GetDesignerLineNumber());
+                        case AttributeType.Inline:
+                            break;
+                        case AttributeType.Element:
+                            break;
+                        case AttributeType.DefaultValue:
+                            break;
                     }
                 }
-                else if (this.Tag.AttributeType == AttributeType.DefaultValue)
+                else if (this.Tag.ProjType == ProjectType.XamarinForms)
                 {
-                    var current = $">{this.Tag.Value}</{this.Tag.ElementName}>";
-                    var replaceWith = this.Tag.UidExists ? " />" : $" x:Uid=\"{this.Tag.UidValue}\" />";
-
-                    vs.ReplaceInActiveDocOnLine(current, replaceWith, this.Tag.GetDesignerLineNumber());
+                    // TODO: ISSUE#163 Implement Xamarin.Forms resource creation
+                    switch (this.Tag.AttributeType)
+                    {
+                        case AttributeType.Inline:
+                            break;
+                        case AttributeType.Element:
+                            break;
+                        case AttributeType.DefaultValue:
+                            break;
+                    }
                 }
 
                 RapidXamlDocumentCache.TryUpdate(this.File);
@@ -125,10 +157,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             }
         }
 
-        // TODO: ISSUE#163 support .resx too - will need to know which to use if project includes both
         private string GetResourceFilePath()
         {
-            var reswFiles = new List<string>();
+            var resFiles = new List<string>();
 
             // See also https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.shell.interop.ivssolution.getprojectenum?view=visualstudiosdk-2017#Microsoft_VisualStudio_Shell_Interop_IVsSolution_GetProjectEnum_System_UInt32_System_Guid__Microsoft_VisualStudio_Shell_Interop_IEnumHierarchies__
             void IterateProjItems(EnvDTE.ProjectItem projectItem)
@@ -143,9 +174,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         {
                             IterateProjItems(projItem);
                         }
-                        else if (projItem.Name.EndsWith(".resw"))
+                        else if (projItem.Name.EndsWith(".resw")
+                              || projItem.Name.EndsWith(".resx"))
                         {
-                            reswFiles.Add(projItem.FileNames[0]);
+                            // Get either type of res file. Don't have a reason for a project to contain both.
+                            resFiles.Add(projItem.FileNames[0]);
                         }
                     }
                 }
@@ -169,14 +202,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             // For very large projects this can be very inefficient. When an issue, consider caching or querying the file system directly.
             IterateProject(proj);
 
-            if (reswFiles.Count == 0)
+            if (resFiles.Count == 0)
             {
                 SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_NoResourceFileFound);
                 return null;
             }
-            else if (reswFiles.Count == 1)
+            else if (resFiles.Count == 1)
             {
-                return reswFiles.First();
+                return resFiles.First();
             }
             else
             {
@@ -204,13 +237,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                 if (!string.IsNullOrWhiteSpace(langOfInterest))
                 {
-                    return reswFiles.FirstOrDefault(f => f.IndexOf(langOfInterest, StringComparison.OrdinalIgnoreCase) > 0);
+                    return resFiles.FirstOrDefault(f => f.IndexOf(langOfInterest, StringComparison.OrdinalIgnoreCase) > 0);
                 }
                 else
                 {
                     // Find neutral language file to return
                     // RegEx to match if lang identifier in path or file name
-                    return reswFiles.FirstOrDefault(f => Regex.Matches(f, "([\\.][a-zA-Z]{2}-[a-zA-Z]{2}[\\.])").Count == 0);
+                    return resFiles.FirstOrDefault(f => Regex.Matches(f, "([\\.][a-zA-Z]{2}-[a-zA-Z]{2}[\\.])").Count == 0);
                 }
             }
         }

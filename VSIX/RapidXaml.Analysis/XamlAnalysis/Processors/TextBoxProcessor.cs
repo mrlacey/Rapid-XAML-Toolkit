@@ -41,7 +41,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uid,
                 elementGuid,
                 tags,
-                suppressions);
+                suppressions,
+                this.ProjectType);
 
             this.CheckForHardCodedAttribute(
                 fileName,
@@ -56,7 +57,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 uid,
                 elementGuid,
                 tags,
-                suppressions);
+                suppressions,
+                this.ProjectType);
 
             if (!this.TryGetAttribute(xamlElement, Attributes.InputScope, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
