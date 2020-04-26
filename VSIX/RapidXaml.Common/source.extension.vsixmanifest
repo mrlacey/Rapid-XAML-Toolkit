@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="RapidXaml.Common.3cb31872-64f7-49f8-91a7-31393173c5ce" Version="0.9.2" Language="en-US" Publisher="Matt Lacey" />
+        <Identity Id="RapidXaml.Common.3cb31872-64f7-49f8-91a7-31393173c5ce" Version="0.9.3" Language="en-US" Publisher="Matt Lacey" />
         <DisplayName>Rapid XAML Common Functionality</DisplayName>
         <Description xml:space="preserve">Common infrastructure used by other extensions that are part of the Rapid XAML Toolkit.</Description>
         <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
