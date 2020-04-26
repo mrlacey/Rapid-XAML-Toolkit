@@ -142,7 +142,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             lock (CacheLock)
             {
-                alreadyCached = Cache[file].RawText == snapshotText;
+                alreadyCached = Cache.ContainsKey(file) && Cache[file].RawText == snapshotText;
             }
 
             if (!alreadyCached)
