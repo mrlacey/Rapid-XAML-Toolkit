@@ -175,6 +175,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         snapshot,
                                         fileName,
                                         this.Logger,
+                                        this.VSAbstraction,
                                         this.ProjectFile)
                                     {
                                         AssignedInt = assignedInt,
@@ -208,6 +209,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         snapshot,
                                         fileName,
                                         this.Logger,
+                                        this.VSAbstraction,
                                         this.ProjectFile)
                                     {
                                         AssignedInt = assignedInt,
@@ -276,6 +278,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         snapshot,
                                         fileName,
                                         this.Logger,
+                                        this.VSAbstraction,
                                         this.ProjectFile)
                                     {
                                         TotalDefsRequired = assignedInt + row - 1,
@@ -314,6 +317,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                     snapshot,
                                     fileName,
                                     this.Logger,
+                                    this.VSAbstraction,
                                     this.ProjectFile)
                                 {
                                     TotalDefsRequired = assignedInt - 1 + gridCol,

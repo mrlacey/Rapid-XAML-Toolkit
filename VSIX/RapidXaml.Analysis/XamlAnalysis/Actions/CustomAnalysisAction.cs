@@ -62,7 +62,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 InsertPos = tag.InsertPosition,
                 Logger = tag.Logger,
                 Snapshot = tag.Snapshot,
-                // TODO: Set VsAbstraction too ?? unless can find a good need not to.
+                //// TODO: Set VsAbstraction too ?? unless can find a good need not to.
             };
 
             if (suppAction.Location == null)
