@@ -8,6 +8,7 @@ using Microsoft.Language.Xml;
 using Microsoft.VisualStudio.Text;
 using RapidXaml;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 
@@ -15,13 +16,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions = null, string projectFilePath = null)
+        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions = null, string projectFilePath = null)
         {
             var elementsOfInterest = processors.Select(p => p.element).ToList();
 
             var elementsBeingTracked = new List<TrackingElement>();
 
-            var everyElementProcessor = new EveryElementProcessor(new ProcessorEssentials(projectType, SharedRapidXamlPackage.Logger, projectFilePath));
+            var everyElementProcessor = new EveryElementProcessor(new ProcessorEssentials(projectType, SharedRapidXamlPackage.Logger, projectFilePath, vsAbstraction));
 
             bool isIdentifyingElement = false;
             bool isClosingElement = false;

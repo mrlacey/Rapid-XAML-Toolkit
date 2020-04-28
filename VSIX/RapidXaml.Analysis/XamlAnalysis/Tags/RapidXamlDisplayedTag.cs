@@ -17,8 +17,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     public abstract class RapidXamlDisplayedTag : RapidXamlAdornmentTag, IRapidXamlErrorListTag
     {
         private const string SettingsFileName = "settings.xamlAnalysis";
+        private readonly IVisualStudioAbstraction vsa;
 
-        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, string projectPath, string moreInfoUrl = null, string featureUsageOverride = null)
+        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, IVisualStudioAbstraction vsa, string projectPath, string moreInfoUrl = null, string featureUsageOverride = null)
             : base(span, snapshot, fileName, logger)
         {
             var line = snapshot.GetLineFromPosition(span.Start);
@@ -28,6 +29,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Line = line.LineNumber;
             this.Column = col;
             this.DefaultErrorType = defaultErrorType;
+            this.vsa = vsa;
             this.ProjectPath = projectPath;
             this.MoreInfoUrl = moreInfoUrl;
             this.CustomFeatureUsageOverride = featureUsageOverride;
@@ -86,7 +88,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                     return false;
                 }
 
-                var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
+                var proj = this.vsa.GetProjectContainingFile(this.FileName);
 
                 if (proj == null)
                 {

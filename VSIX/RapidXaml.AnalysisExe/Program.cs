@@ -18,6 +18,11 @@ namespace RapidXaml.AnalysisExe
 {
     public class Program
     {
+#pragma warning disable SA1310 // Field names should not contain underscore
+        private const int ERRORCODE_FILE_DOES_NOT_EXIST = 2;
+        private const int ERRORCODE_NOT_A_PROJECT_FILE = 3;
+#pragma warning restore SA1310 // Field names should not contain underscore
+
         public static void Main(string[] args)
         {
             Console.WriteLine("Hello World!  25");
@@ -33,7 +38,7 @@ namespace RapidXaml.AnalysisExe
                 if (!File.Exists(projectPath))
                 {
                     // TODO: log file not exists
-                    Environment.ExitCode = 2;
+                    Environment.ExitCode = ERRORCODE_FILE_DOES_NOT_EXIST;
                     return;
                 }
 
@@ -42,8 +47,8 @@ namespace RapidXaml.AnalysisExe
                 if (!fileExt.ToLowerInvariant().Equals(".csproj")
                   & !fileExt.ToLowerInvariant().Equals(".vbproj"))
                 {
-                    // TODO: check file is a project file
-                    Environment.ExitCode = 3;
+                    // TODO: log this
+                    Environment.ExitCode = ERRORCODE_NOT_A_PROJECT_FILE;
                     return;
                 }
 
@@ -101,6 +106,7 @@ namespace RapidXaml.AnalysisExe
                                             break;
                                         case TagErrorType.Suggestion:
                                             // TODO: work out what should set messageType to here
+                                            messageType = "message";
                                             break;
                                         case TagErrorType.Hidden:
                                             break;

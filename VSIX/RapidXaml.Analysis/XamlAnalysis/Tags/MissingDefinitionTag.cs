@@ -3,13 +3,14 @@
 
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class MissingDefinitionTag : RapidXamlDisplayedTag
     {
-        protected MissingDefinitionTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, string projectPath)
-            : base(span, snapshot, fileName, errorCode, defaultErrorType, logger, projectPath)
+        protected MissingDefinitionTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, IVisualStudioAbstraction vsa, string projectPath)
+            : base(span, snapshot, fileName, errorCode, defaultErrorType, logger, vsa, projectPath)
         {
         }
 

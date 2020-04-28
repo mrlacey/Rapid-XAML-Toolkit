@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -262,7 +261,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                             if (int.TryParse(assignedStr, out int assignedInt))
                             {
-                                var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger, this.ProjectFile);
+                                var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger, this.ProjectFile, this.VSAbstraction);
 
                                 var row = 0;
                                 if (this.TryGetAttribute(element, "Grid.Row", AttributeType.InlineOrElement, out _, out _, out _, out string rowStr))
@@ -300,7 +299,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                         if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger, this.ProjectFile);
+                            var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger, this.ProjectFile, this.VSAbstraction);
 
                             var gridCol = 0;
                             if (this.TryGetAttribute(element, "Grid.Column", AttributeType.InlineOrElement, out _, out _, out _, out string colStr))

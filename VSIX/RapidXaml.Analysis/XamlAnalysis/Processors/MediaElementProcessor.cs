@@ -23,7 +23,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
 
             tags.TryAdd(
-                new UseMediaPlayerElementTag(new Span(offset, xamlElement.Length), snapshot, fileName, this.Logger, this.ProjectFile)
+                new UseMediaPlayerElementTag(new Span(offset, xamlElement.Length), snapshot, fileName, this.Logger, this.VSAbstraction, this.ProjectFile)
                 {
                     InsertPosition = offset,
                 },

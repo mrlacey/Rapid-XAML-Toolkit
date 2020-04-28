@@ -19,15 +19,13 @@ namespace RapidXaml.BuildAnalysis
 
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Console.WriteLine($"Arguments: {args[0]}");
         }
 
         public override bool Execute()
         {
             this.Log.LogMessage(MessageImportance.High, $"In {this.ToolName} tool : {this.Command}");
             this.Log.LogWarning($"Command : {this.Command}");
-            this.Log.LogWarning($"{this.ToolName} 37");
+            this.Log.LogWarning($"{this.ToolName} 38");
 
             return base.Execute();
         }

@@ -4,14 +4,15 @@
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class NameTitleCaseTag : RapidXamlDisplayedTag
     {
-        public NameTitleCaseTag(Span span, ITextSnapshot snapshot, string fileName, string value, ILogger logger, string projectPath)
-            : base(span, snapshot, fileName, "RXT452",  TagErrorType.Suggestion, logger, projectPath)
+        public NameTitleCaseTag(Span span, ITextSnapshot snapshot, string fileName, string value, ILogger logger, IVisualStudioAbstraction vsa, string projectPath)
+            : base(span, snapshot, fileName, "RXT452",  TagErrorType.Suggestion, logger, vsa, projectPath)
         {
             this.SuggestedAction = typeof(MakeNameStartWithCapitalAction);
             this.ToolTip = StringRes.UI_XamlAnalysisNameTitleCaseToolTip;

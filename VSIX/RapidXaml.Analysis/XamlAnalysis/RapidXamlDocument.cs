@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.Text;
 using Newtonsoft.Json;
 using RapidXaml;
@@ -30,7 +31,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public TagList Tags { get; set; }
 
-        public VisualStudioAbstraction VsAbstraction { get; set; }
+        public IVisualStudioAbstraction VsAbstraction { get; set; }
 
         private static Dictionary<string, (DateTime timeStamp, List<TagSuppression> suppressions)> SuppressionsCache { get; }
             = new Dictionary<string, (DateTime, List<TagSuppression>)>();
@@ -40,6 +41,14 @@ namespace RapidXamlToolkit.XamlAnalysis
             var result = new RapidXamlDocument();
 
             List<(string, XamlElementProcessor)> processors = null;
+
+            var vsAbstraction = vsa;
+
+            // This will happen if open a project with open XAML files before the package is initialized.
+            if (vsAbstraction == null)
+            {
+                vsAbstraction = new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
+            }
 
             try
             {
@@ -54,28 +63,20 @@ namespace RapidXamlToolkit.XamlAnalysis
                     // If suppressing all tags in file, don't bother parsing the file
                     if (suppressions == null || suppressions?.Any(s => string.IsNullOrWhiteSpace(s.TagErrorCode)) == false)
                     {
-                        var vsAbstraction = vsa;
-
-                        // This will happen if open a project with open XAML files before the package is initialized.
-                        if (vsAbstraction == null)
-                        {
-                            vsAbstraction = new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
-                        }
-
                         var proj = vsAbstraction.GetProjectContainingFile(fileName);
                         var projType = vsAbstraction.GetProjectType(proj);
                         var projDir = Path.GetDirectoryName(proj.FileName);
 
-                        processors = GetAllProcessors(projType, projDir);
+                        processors = GetAllProcessors(projType, projDir, vsAbstraction);
 
                         // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
-                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, suppressions);
+                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, vsAbstraction, suppressions);
                     }
                 }
             }
             catch (Exception e)
             {
-                result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot, fileName, SharedRapidXamlPackage.Logger)
+                result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot, fileName, SharedRapidXamlPackage.Logger, vsAbstraction)
                 {
                     Description = StringRes.Error_XamlAnalysisDescription,
                     ExtendedMessage = StringRes.Error_XamlAnalysisExtendedMessage.WithParams(e),
@@ -87,7 +88,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             return result;
         }
 
-        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectPath, ILogger logger = null)
+        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectPath, IVisualStudioAbstraction vsAbstraction, ILogger logger = null)
         {
             logger = logger ?? SharedRapidXamlPackage.Logger;
 
@@ -153,7 +154,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     processors.Add(
                         (customProcessor.TargetType(),
-                         new CustomProcessorWrapper(customProcessor, projType, projectPath, logger)));
+                         new CustomProcessorWrapper(customProcessor, projType, projectPath, logger, vsAbstraction)));
                 }
             }
 

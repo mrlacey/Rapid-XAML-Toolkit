@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
 
                     tags.TryAdd(
-                        new SelectedItemBindingModeTag(new Span(offset + index, length), snapshot, fileName, this.Logger, this.ProjectFile)
+                        new SelectedItemBindingModeTag(new Span(offset + index, length), snapshot, fileName, this.Logger, this.VSAbstraction, this.ProjectFile)
                         {
                             InsertPosition = offset + index,
                             ExistingBindingMode = existingMode,

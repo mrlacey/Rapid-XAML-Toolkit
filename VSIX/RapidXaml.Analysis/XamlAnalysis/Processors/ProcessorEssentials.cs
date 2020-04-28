@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
@@ -11,11 +12,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
         }
 
-        public ProcessorEssentials(ProjectType projectType, ILogger logger, string projectFilePath)
+        public ProcessorEssentials(ProjectType projectType, ILogger logger, string projectFilePath, IVisualStudioAbstraction vsa)
         {
             this.ProjectType = projectType;
             this.Logger = logger;
             this.ProjectFilePath = projectFilePath;
+            this.Vsa = vsa;
         }
 
         public ProjectType ProjectType { get; set; }
@@ -23,5 +25,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         public ILogger Logger { get; set; }
 
         public string ProjectFilePath { get; set; }
+
+        public IVisualStudioAbstraction Vsa { get; set; }
     }
 }

@@ -4,14 +4,15 @@
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class AddTextBoxInputScopeTag : RapidXamlDisplayedTag
     {
-        public AddTextBoxInputScopeTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger, string projectPath)
-            : base(span, snapshot, fileName, "RXT150", TagErrorType.Suggestion, logger, projectPath)
+        public AddTextBoxInputScopeTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger, IVisualStudioAbstraction vsa, string projectPath)
+            : base(span, snapshot, fileName, "RXT150", TagErrorType.Suggestion, logger, vsa, projectPath)
         {
             this.SuggestedAction = typeof(AddTextBoxInputScopeAction);
             this.Description = StringRes.UI_XamlAnalysisTextBoxWithoutInputScopeDescription;

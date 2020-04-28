@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -13,8 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         private readonly RapidXaml.ICustomAnalyzer customProcessor;
 
-        public CustomProcessorWrapper(RapidXaml.ICustomAnalyzer customProcessor, ProjectType projType, string projectPath, ILogger logger)
-            : base(new ProcessorEssentials(projType, logger, projectPath))
+        public CustomProcessorWrapper(RapidXaml.ICustomAnalyzer customProcessor, ProjectType projType, string projectPath, ILogger logger, IVisualStudioAbstraction vsa)
+            : base(new ProcessorEssentials(projType, logger, projectPath, vsa))
         {
             this.customProcessor = customProcessor;
         }
@@ -48,6 +49,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         InsertPos = offset,
                         Logger = this.Logger,
                         Snapshot = snapshot,
+                        VsAbstraction = this.VSAbstraction,
                     };
 
                     // Treat `NotReallyCustomAnalyzer` types as any other built-in type.

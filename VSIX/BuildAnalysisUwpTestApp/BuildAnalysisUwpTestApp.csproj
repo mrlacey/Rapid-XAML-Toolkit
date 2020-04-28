@@ -151,10 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.9</Version>
+      <Version>6.2.10</Version>
     </PackageReference>
     <PackageReference Include="RapidXaml.BuildAnalysis">
-      <Version>0.1.37</Version>
+      <Version>0.1.38</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup>

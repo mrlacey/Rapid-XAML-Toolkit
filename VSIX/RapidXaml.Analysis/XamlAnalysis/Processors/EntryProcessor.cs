@@ -25,7 +25,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             if (!this.TryGetAttribute(xamlElement, Attributes.Keyboard, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
                 tags.TryAdd(
-                    new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, fileName, xamlElement, this.Logger, this.ProjectFile)
+                    new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, fileName, xamlElement, this.Logger, this.VSAbstraction, this.ProjectFile)
                     {
                         InsertPosition = offset,
                     },

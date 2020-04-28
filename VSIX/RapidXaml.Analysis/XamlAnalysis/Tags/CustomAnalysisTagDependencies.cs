@@ -4,6 +4,7 @@
 using Microsoft.VisualStudio.Text;
 using RapidXaml;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -31,5 +32,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         // This is stored for use by actions
         public RapidXamlElement AnalyzedElement { get; set; }
+
+        public IVisualStudioAbstraction VsAbstraction { get; set; }
     }
 }
