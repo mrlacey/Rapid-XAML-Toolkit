@@ -5,6 +5,14 @@
       <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;ANALYSISEXE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;ANALYSISEXE</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\RapidXaml.Analysis\ErrorList\**" />
     <Compile Include="..\RapidXaml.Analysis\XamlAnalysis\**" />
@@ -19,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj" />
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj" />
   </ItemGroup>
 

@@ -13,8 +13,8 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         private readonly RapidXaml.ICustomAnalyzer customProcessor;
 
-        public CustomProcessorWrapper(RapidXaml.ICustomAnalyzer customProcessor, ProjectType projType, ILogger logger)
-            : base(ProjectType.Any, logger)
+        public CustomProcessorWrapper(RapidXaml.ICustomAnalyzer customProcessor, ProjectType projType, string projectPath, ILogger logger)
+            : base(new ProcessorEssentials(projType, logger, projectPath))
         {
             this.customProcessor = customProcessor;
         }

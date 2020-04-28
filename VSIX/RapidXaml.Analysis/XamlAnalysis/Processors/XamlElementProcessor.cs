@@ -312,7 +312,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
-                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, elementName, attributeName, this.Logger, projType)
+                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, elementName, attributeName, this.Logger, projType, this.ProjectFile)
                     {
                         AttributeType = foundAttributeType,
                         Value = value,

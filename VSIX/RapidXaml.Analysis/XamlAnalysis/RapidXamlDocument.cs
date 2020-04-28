@@ -95,7 +95,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 ProjectType = projType,
                 Logger = logger,
-                ProjectFilePath = projectFile,
+                ProjectFilePath = projectPath,
             };
 
             var processors = new List<(string, XamlElementProcessor)>
@@ -151,7 +151,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 foreach (var customProcessor in customProcessors)
                 {
-                    processors.Add((customProcessor.TargetType(), new CustomProcessorWrapper(customProcessor, projType, logger)));
+                    processors.Add(
+                        (customProcessor.TargetType(),
+                         new CustomProcessorWrapper(customProcessor, projType, projectPath, logger)));
                 }
             }
 
@@ -165,14 +167,27 @@ namespace RapidXamlToolkit.XamlAnalysis
                 // Start searching one directory higher to allow for multi-project solutions.
                 var dirToSearch = Path.GetDirectoryName(projectPath);
 
+                var loadCustomAnalyzers = false;
+
+#if VSIXNOTEXE
                 // Only load custom analyzers when VS has finished starting up.
                 // We may get here before the package is loaded if a XAML doc is opened with the solution.
                 if (RapidXamlAnalysisPackage.IsLoaded)
                 {
                     if (RapidXamlAnalysisPackage.Options.EnableCustomAnalysis)
                     {
-                        return GetCustomAnalyzers(dirToSearch);
+                        loadCustomAnalyzers = true;
                     }
+                }
+#endif
+
+#if ANALYSISEXE
+                loadCustomAnalyzers = true;
+#endif
+
+                if (loadCustomAnalyzers)
+                {
+                    return GetCustomAnalyzers(dirToSearch);
                 }
             }
             catch (Exception exc)

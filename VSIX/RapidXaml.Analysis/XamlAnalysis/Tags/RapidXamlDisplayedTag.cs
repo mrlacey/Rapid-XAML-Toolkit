@@ -101,8 +101,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
                 var settingsFile = Path.Combine(Path.GetDirectoryName(this.ProjectPath), SettingsFileName);
 
-                var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
-
                 if (File.Exists(settingsFile))
                 {
                     Dictionary<string, string> settings = null;

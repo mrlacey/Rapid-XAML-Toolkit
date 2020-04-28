@@ -93,6 +93,11 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
+        public void InsertIntoActiveDocOnLineAfterClosingTag(int openingAngleBracketLineNumber, string toInsert)
+        {
+            throw new NotImplementedException();
+        }
+
         public void InsertIntoActiveDocumentOnNextLine(string text, int pos)
         {
             throw new NotImplementedException();
