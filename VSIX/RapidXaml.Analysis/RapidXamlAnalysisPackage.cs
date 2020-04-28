@@ -2,6 +2,9 @@
 // Licensed under the MIT license.
 
 using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
@@ -18,9 +21,10 @@ namespace RapidXamlToolkit
     [ProvideAutoLoad(UIContextGuids.SolutionHasMultipleProjects, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.8.3", IconResourceID = 400)] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.9.3", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(RapidXamlAnalysisPackage.PackageGuidString)]
+    [ProvideOptionPage(typeof(AnalysisOptionsGrid), "Rapid XAML", "Analysis", 106, 107, true)]
     public sealed class RapidXamlAnalysisPackage : AsyncPackage
     {
         public const string PackageGuidString = "fd0b0440-83be-4d1b-a449-9ca75d53007c";
@@ -30,6 +34,10 @@ namespace RapidXamlToolkit
         public RapidXamlAnalysisPackage()
         {
         }
+
+        public static bool IsLoaded { get; private set; }
+
+        public static AnalysisOptionsGrid Options { get; internal set; }
 
 #pragma warning disable CS0628 // New protected member declared in sealed class
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
@@ -53,6 +61,59 @@ namespace RapidXamlToolkit
                 RapidXamlDocumentCache.Initialize(this, SharedRapidXamlPackage.Logger);
 
                 Microsoft.VisualStudio.Shell.Events.SolutionEvents.OnAfterCloseSolution += this.HandleCloseSolution;
+
+                // Handle the ability to resolve assemblies when loading custom analyzers.
+                // Hat-tip: https://weblog.west-wind.com/posts/2016/dec/12/loading-net-assemblies-out-of-seperate-folders
+                AppDomain.CurrentDomain.AssemblyResolve += (object sender, ResolveEventArgs args) =>
+                {
+                    // Ignore missing resources
+                    if (args.Name.Contains(".resources"))
+                    {
+                        return null;
+                    }
+
+                    if (args.RequestingAssembly == null)
+                    {
+                        return null;
+                    }
+
+                    // check for assemblies already loaded
+                    var assembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.FullName == args.Name);
+                    if (assembly != null)
+                    {
+                        return assembly;
+                    }
+
+                    // Try to load by filename - split out the filename of the full assembly name
+                    // and append the base path of the original assembly (ie. look in the same dir)
+                    string filename = args.Name.Split(',')[0] + ".dll".ToLower();
+
+                    var asmFile = Path.Combine(Path.GetDirectoryName(args.RequestingAssembly.CodeBase), filename);
+
+                    if (asmFile.StartsWith("file:\\"))
+                    {
+                        asmFile = asmFile.Substring(6);
+                    }
+
+                    try
+                    {
+                        return Assembly.LoadFrom(asmFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex);
+                        return null;
+                    }
+                };
+
+                // Track this so don't try and load CustomAnalyzers while VS is still starting up.
+                RapidXamlAnalysisPackage.IsLoaded = true;
+
+                RapidXamlAnalysisPackage.Options = (AnalysisOptionsGrid)this.GetDialogPage(typeof(AnalysisOptionsGrid));
+
+                var ass = Assembly.GetExecutingAssembly().GetName();
+
+                SharedRapidXamlPackage.Logger.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version), quiet: true);
             }
             catch (Exception exc)
             {

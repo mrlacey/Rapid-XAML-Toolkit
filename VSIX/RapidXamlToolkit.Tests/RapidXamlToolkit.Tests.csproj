@@ -41,6 +41,12 @@
     <NoWarn>,1573,1591,1712,NU1605,NU1608</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>RapidXamlToolkitTestsKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -107,6 +113,9 @@
     <Compile Include="TestFileSystem.cs" />
     <Compile Include="TestProfile.cs" />
     <Compile Include="TestVisualStudioAbstraction.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\CustomAnalysisTestHelperTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\FooAnalysisTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\TwoPaneViewAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessorTests.cs" />
@@ -139,7 +148,11 @@
     <Compile Include="XamlAnalysis\Processors\TimePickerProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessorTests.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlElementAssert.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlElementExtractorTests.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlElementTests.cs" />
     <Compile Include="XamlAnalysis\RealWorldIssues.cs" />
+    <Compile Include="XamlAnalysis\SizeLimitedDictionaryTests.cs" />
     <Compile Include="XamlAnalysis\TagListSuppressionTests.cs" />
     <Compile Include="XamlAnalysis\TestableXamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractorTests.cs" />
@@ -153,6 +166,7 @@
       <Link>todo-warn.config</Link>
     </AdditionalFiles>
     <None Include="app.config" />
+    <None Include="RapidXamlToolkitTestsKey.snk" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TestLibrary.dll">
@@ -220,6 +234,10 @@
     <ProjectReference Include="..\RapidXaml.Analysis\RapidXaml.Analysis.csproj">
       <Project>{fc81b148-4683-4557-bea1-69ad39241576}</Project>
       <Name>RapidXaml.Analysis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
+      <Project>{93ba7914-1204-49f8-977a-091d30e4718b}</Project>
+      <Name>RapidXaml.CustomAnalysis</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Generation\RapidXaml.Generation.csproj">
       <Project>{f3e12d01-04d9-49d0-bb5b-f4fd62cff54a}</Project>

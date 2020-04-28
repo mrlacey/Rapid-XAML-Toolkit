@@ -1,23 +1,16 @@
 # Installation
 
-There are multiple installation options available if you don't want to build from source.
-We do not recommend having more than one version of the extension installed in a version of Visual Studio.
+There are two versions of the extension. We recommend using the release version unless you want to test something that is only in the beta version. While it is possible to have both versions installed at once, some functionality may not work correctly if both are enabled (Extensions > Manage Extensions) at the same time.
 
-## Preview Release
+## Official Release
 
-You can now [get an early preview release from the marketplace](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlPreview).
+Get the toolkit from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit) or by searching inside Visual Studio.
 
-![Manage Extensions dialog showing preview version in the Search Results](./Assets/install-preview.png)
+_If you had it, the preview version should be uninstalled first._
 
-Please note that the [preview release](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlPreview) will be removed once the official release is available.
+## Beta builds
 
-## Official Releases
-
-Details will be added here once available.
-
-## Canary builds
-
-Automated builds with the [latest version](http://vsixgallery.com/extension/RapidXamlToolkit.0dc8e86a-836b-47e5-aa3f-f5e71c15e37a/) of all functionality are available from the [VSIX Gallery](http://vsixgallery.com/guide/feed/). These are produced every time PRs are merged that contain code changes.
+Automated builds with the [latest development version](http://vsixgallery.com/extension/RapidXamlToolkit.0dc8e86a-836b-47e5-aa3f-f5e71c15e37a/) of all functionality are available from the [VSIX Gallery](http://vsixgallery.com/guide/feed/). These are produced every time PRs are merged that contain code changes.
 
 _A version distributed via MyGet is no longer available._
 

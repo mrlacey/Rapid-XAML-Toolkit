@@ -11,7 +11,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class HardCodedStringTag : RapidXamlDisplayedTag
     {
-        public HardCodedStringTag(Span span, ITextSnapshot snapshot, string fileName, string elementName, string attributeName, ILogger logger, string projectPath)
+        public HardCodedStringTag(Span span, ITextSnapshot snapshot, string fileName, string elementName, string attributeName, ILogger logger, ProjectType projType, string projectPath)
             : base(span, snapshot, fileName, "RXT200", TagErrorType.Warning, logger, projectPath)
         {
             this.SuggestedAction = typeof(HardCodedStringAction);
@@ -19,6 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.ExtendedMessage = StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage;
             this.ElementName = elementName;
             this.AttributeName = attributeName;
+            this.ProjType = projType;
         }
 
         public AttributeType AttributeType { get; set; }
@@ -34,5 +35,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public string AttributeName { get; }
 
         public Guid ElementGuid { get; set; }
+
+        public ProjectType ProjType { get; set; }
     }
 }

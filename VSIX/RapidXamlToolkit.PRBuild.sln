@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.Generation", "Rap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.Analysis", "RapidXaml.Analysis\RapidXaml.Analysis.csproj", "{FC81B148-4683-4557-BEA1-69AD39241576}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.CustomAnalysis", "RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj", "{2B44AA40-1E48-4366-BEF7-127AF7B96D09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{D3674FA0-29D7-4DBE-9909-FF2F3F2C76AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.InternalAnalyzers", "RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers.csproj", "{0686FC40-79F6-47F3-9A2E-0397448A19AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,9 +51,20 @@ Global
 		{FC81B148-4683-4557-BEA1-69AD39241576}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC81B148-4683-4557-BEA1-69AD39241576}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC81B148-4683-4557-BEA1-69AD39241576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B44AA40-1E48-4366-BEF7-127AF7B96D09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B44AA40-1E48-4366-BEF7-127AF7B96D09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B44AA40-1E48-4366-BEF7-127AF7B96D09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B44AA40-1E48-4366-BEF7-127AF7B96D09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0686FC40-79F6-47F3-9A2E-0397448A19AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0686FC40-79F6-47F3-9A2E-0397448A19AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0686FC40-79F6-47F3-9A2E-0397448A19AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0686FC40-79F6-47F3-9A2E-0397448A19AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0686FC40-79F6-47F3-9A2E-0397448A19AE} = {D3674FA0-29D7-4DBE-9909-FF2F3F2C76AD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {75DA1BA4-192B-4D71-94BC-19DE1FA2C0C6}

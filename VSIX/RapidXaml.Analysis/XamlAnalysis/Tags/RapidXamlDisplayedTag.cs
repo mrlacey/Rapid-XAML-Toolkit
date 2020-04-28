@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     {
         private const string SettingsFileName = "settings.xamlAnalysis";
 
-        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, string projectPath)
+        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, string projectPath, string moreInfoUrl = null, string featureUsageOverride = null)
             : base(span, snapshot, fileName, logger)
         {
             var line = snapshot.GetLineFromPosition(span.Start);
@@ -29,6 +29,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Column = col;
             this.DefaultErrorType = defaultErrorType;
             this.ProjectPath = projectPath;
+            this.MoreInfoUrl = moreInfoUrl;
+            this.CustomFeatureUsageOverride = featureUsageOverride;
         }
 
         public string Description { get; set; }
@@ -37,6 +39,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         /// Gets or sets the message shown when the error row is expanded.
         /// </summary>
         public string ExtendedMessage { get; set; }
+
+        public string MoreInfoUrl { get; set; }
+
+        public string CustomFeatureUsageOverride { get; set; }
 
         public int Line { get; }
 
@@ -72,14 +78,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public bool TryGetConfiguredErrorType(string errorCode, out TagErrorType tagErrorType)
         {
-            if (string.IsNullOrWhiteSpace(this.FileName))
+            try
             {
-                tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
-                return false;
-            }
+                if (string.IsNullOrWhiteSpace(this.FileName))
+                {
+                    tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
+                    return false;
+                }
 
-            if (string.IsNullOrWhiteSpace(this.ProjectPath))
-            {
                 var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
 
                 if (proj == null)
@@ -88,47 +94,56 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                     return false;
                 }
 
-                this.ProjectPath = proj.FullName;
-            }
-
-            var settingsFile = Path.Combine(Path.GetDirectoryName(this.ProjectPath), SettingsFileName);
-
-            if (File.Exists(settingsFile))
-            {
-                Dictionary<string, string> settings = null;
-                var fileTime = File.GetLastWriteTimeUtc(settingsFile);
-
-                if (SettingsCache.ContainsKey(settingsFile))
+                if (string.IsNullOrWhiteSpace(this.ProjectPath))
                 {
-                    if (SettingsCache[settingsFile].timeStamp == fileTime)
+                    this.ProjectPath = proj.FullName;
+                }
+
+                var settingsFile = Path.Combine(Path.GetDirectoryName(this.ProjectPath), SettingsFileName);
+
+                var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
+
+                if (File.Exists(settingsFile))
+                {
+                    Dictionary<string, string> settings = null;
+                    var fileTime = File.GetLastWriteTimeUtc(settingsFile);
+
+                    if (SettingsCache.ContainsKey(settingsFile))
                     {
-                        settings = SettingsCache[settingsFile].settings;
+                        if (SettingsCache[settingsFile].timeStamp == fileTime)
+                        {
+                            settings = SettingsCache[settingsFile].settings;
+                        }
+                    }
+
+                    if (settings == null)
+                    {
+                        var json = File.ReadAllText(settingsFile);
+                        settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+                    }
+
+                    SettingsCache[settingsFile] = (fileTime, settings);
+
+                    if (settings.ContainsKey(errorCode))
+                    {
+                        if (TagErrorTypeParser.TryParse(settings[errorCode], out tagErrorType))
+                        {
+                            return true;
+                        }
                     }
                 }
-
-                if (settings == null)
+                else
                 {
-                    var json = File.ReadAllText(settingsFile);
-                    settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-                }
-
-                SettingsCache[settingsFile] = (fileTime, settings);
-
-                if (settings.ContainsKey(errorCode))
-                {
-                    if (TagErrorTypeParser.TryParse(settings[errorCode], out tagErrorType))
+                    // If settings file is removed need to remove any cached reference to it.
+                    if (SettingsCache.ContainsKey(settingsFile))
                     {
-                        return true;
+                        SettingsCache.Remove(settingsFile);
                     }
                 }
             }
-            else
+            catch (Exception exc)
             {
-                // If settings file is removed need to remove any cached reference to it.
-                if (SettingsCache.ContainsKey(settingsFile))
-                {
-                    SettingsCache.Remove(settingsFile);
-                }
+                this?.Logger?.RecordException(exc);
             }
 
             // Set to default if no override in file
@@ -185,7 +200,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public override ITagSpan<IErrorTag> AsErrorTag()
         {
             var span = new SnapshotSpan(this.Snapshot, this.Span);
-            return new TagSpan<IErrorTag>(span, new RapidXamlWarningAdornmentTag(this.ToolTip));
+
+            return new TagSpan<IErrorTag>(
+                span,
+                new RapidXamlWarningAdornmentTag(
+                    this.ToolTip,
+                    this.ConfiguredErrorType.AsVsAdornmentErrorType()));
         }
 
         public ErrorRow AsErrorRow()
@@ -198,6 +218,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 ErrorCode = this.ErrorCode,
                 IsInternalError = this.IsInternalError,
                 ErrorType = this.ConfiguredErrorType,
+                MoreInfoUrl = this.MoreInfoUrl,
             };
         }
     }

@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		RapidXamlToolkit\GlobalSuppressions.cs = RapidXamlToolkit\GlobalSuppressions.cs
 		nuget.config = nuget.config
+		nuget.exe = nuget.exe
 		UseSecretsForBuild.ps1 = UseSecretsForBuild.ps1
 	EndProjectSection
 EndProject
@@ -36,6 +37,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.AnalysisExe", "RapidXaml.AnalysisExe\RapidXaml.AnalysisExe.csproj", "{C95A2161-FA48-403C-B836-F4E19555CB21}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.Common", "RapidXaml.Common\RapidXaml.Common.csproj", "{BD7D2207-DD5A-48FC-A84A-4B3307A689B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.CustomAnalysis", "RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj", "{93BA7914-1204-49F8-977A-091D30E4718B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.InternalAnalyzers", "RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers.csproj", "{FDBE6D55-075C-478B-879C-90114FE0EE0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -289,12 +294,21 @@ Global
 		{BD7D2207-DD5A-48FC-A84A-4B3307A689B7}.Release|x64.Build.0 = Release|Any CPU
 		{BD7D2207-DD5A-48FC-A84A-4B3307A689B7}.Release|x86.ActiveCfg = Release|Any CPU
 		{BD7D2207-DD5A-48FC-A84A-4B3307A689B7}.Release|x86.Build.0 = Release|Any CPU
+		{93BA7914-1204-49F8-977A-091D30E4718B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93BA7914-1204-49F8-977A-091D30E4718B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93BA7914-1204-49F8-977A-091D30E4718B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93BA7914-1204-49F8-977A-091D30E4718B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDBE6D55-075C-478B-879C-90114FE0EE0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDBE6D55-075C-478B-879C-90114FE0EE0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDBE6D55-075C-478B-879C-90114FE0EE0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDBE6D55-075C-478B-879C-90114FE0EE0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BD294028-590A-403E-B48C-43B76C840321} = {5EDF5A5A-465F-42F9-9F63-4CADDA8D1B3E}
+		{FDBE6D55-075C-478B-879C-90114FE0EE0A} = {5EDF5A5A-465F-42F9-9F63-4CADDA8D1B3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {75DA1BA4-192B-4D71-94BC-19DE1FA2C0C6}

@@ -20,6 +20,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class RapidXamlDocumentCache
     {
+        private static readonly object CacheLock = new object();
         private static readonly Dictionary<string, RapidXamlDocument> Cache = new Dictionary<string, RapidXamlDocument>();
         private static readonly List<string> CurrentlyProcessing = new List<string>();
         private static AsyncPackage package;
@@ -35,14 +36,25 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static void Add(string file, ITextSnapshot snapshot)
         {
-            if (Cache.ContainsKey(file))
+            var fileInCache = false;
+
+            lock (CacheLock)
+            {
+                fileInCache = Cache.ContainsKey(file);
+            }
+
+            if (fileInCache)
             {
                 Update(file, snapshot);
             }
             else
             {
                 var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
-                Cache.Add(file, doc);
+
+                lock (CacheLock)
+                {
+                    Cache.Add(file, doc);
+                }
 
                 Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Add));
             }
@@ -100,18 +112,25 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static void RemoveTags(string file, string errorCode)
         {
-            for (int i = Cache[file].Tags.Count - 1; i >= 0; i--)
+            lock (CacheLock)
             {
-                if (Cache[file].Tags[i] is RapidXamlDisplayedTag rxdt && rxdt.ErrorCode == errorCode)
+                for (int i = Cache[file].Tags.Count - 1; i >= 0; i--)
                 {
-                    Cache[file].Tags.RemoveAt(i);
+                    if (Cache[file].Tags[i] is RapidXamlDisplayedTag rxdt && rxdt.ErrorCode == errorCode)
+                    {
+                        Cache[file].Tags.RemoveAt(i);
+                    }
                 }
             }
         }
 
         public static void Invalidate(string file)
         {
-            Cache[file].Clear();
+            lock (CacheLock)
+            {
+                Cache[file].Clear();
+            }
+
             TableDataSource.Instance.CleanErrors(file);
         }
 
@@ -119,7 +138,14 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var snapshotText = snapshot.GetText();
 
-            if (Cache[file].RawText != snapshotText)
+            bool alreadyCached = false;
+
+            lock (CacheLock)
+            {
+                alreadyCached = Cache.ContainsKey(file) && Cache[file].RawText == snapshotText;
+            }
+
+            if (!alreadyCached)
             {
                 if (!CurrentlyProcessing.Contains(snapshotText))
                 {
@@ -128,7 +154,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                         CurrentlyProcessing.Add(snapshotText);
 
                         var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
-                        Cache[file] = doc;
+
+                        lock (CacheLock)
+                        {
+                            Cache[file] = doc;
+                        }
 
                         Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Update));
                     }
@@ -144,9 +174,22 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var result = new List<IRapidXamlAdornmentTag>();
 
-            if (Cache.ContainsKey(fileName))
+            lock (CacheLock)
             {
-                result.AddRange(Cache[fileName].Tags.Where(t => (t as RapidXamlDisplayedTag == null) || (t as RapidXamlDisplayedTag).ConfiguredErrorType != TagErrorType.Hidden));
+                if (Cache.ContainsKey(fileName))
+                {
+                    try
+                    {
+                        result.AddRange(
+                            Cache[fileName].Tags.Where(
+                                t => (t as RapidXamlDisplayedTag == null)
+                                  || (t as RapidXamlDisplayedTag).ConfiguredErrorType != TagErrorType.Hidden));
+                    }
+                    catch (Exception exc)
+                    {
+                        System.Diagnostics.Debug.WriteLine(exc);
+                    }
+                }
             }
 
             return result;
@@ -156,9 +199,12 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var result = new List<IRapidXamlErrorListTag>();
 
-            if (Cache.ContainsKey(fileName))
+            lock (CacheLock)
             {
-                result.AddRange(Cache[fileName].Tags.OfType<IRapidXamlErrorListTag>());
+                if (Cache.ContainsKey(fileName))
+                {
+                    result.AddRange(Cache[fileName].Tags.OfType<IRapidXamlErrorListTag>());
+                }
             }
 
             return result;

@@ -123,6 +123,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(SelectedItemBindingModeAction):
                             list.AddRange(this.CreateActionSet(rxTag, SelectedItemBindingModeAction.Create((SelectedItemBindingModeTag)rxTag, this.file)));
                             break;
+                        case nameof(CustomAnalysisAction):
+                            list.AddRange(this.CreateActionSet(rxTag, CustomAnalysisAction.Create((CustomAnalysisTag)rxTag, this.file)));
+                            break;
                     }
                 }
             }
@@ -152,12 +155,16 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 foreach (var action in actions)
                 {
-                    result.Add(new SuggestedActionSet(
-                        PredefinedSuggestedActionCategoryNames.Any,
-                        actions: new[] { SuppressWarningAction.Create(rxdt, action.File, this) },
-                        title: StringRes.UI_SuggestedActionSetTitle,
-                        priority: SuggestedActionSetPriority.None,
-                        applicableToSpan: tag.Span));
+                    // Don't show a suppression action if there is no ErrorCode
+                    if (!string.IsNullOrWhiteSpace(rxdt.ErrorCode))
+                    {
+                        result.Add(new SuggestedActionSet(
+                            PredefinedSuggestedActionCategoryNames.Any,
+                            actions: new[] { SuppressWarningAction.Create(rxdt, action.File, this) },
+                            title: StringRes.UI_SuggestedActionSetTitle,
+                            priority: SuggestedActionSetPriority.None,
+                            applicableToSpan: tag.Span));
+                    }
                 }
             }
 

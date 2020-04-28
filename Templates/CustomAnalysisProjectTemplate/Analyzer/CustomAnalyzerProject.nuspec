@@ -1,0 +1,23 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>$projectname$</id>
+        <version>1.0.0.0</version>
+        <authors>$username$</authors>
+        <license type="expression"></license>
+        <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+        <repository url="http://REPOSITORY_URL_HERE_OR_DELETE_THIS_LINE" />
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>ADD A DESCRIPTION OF YOUR PACKAGE HERE</description>
+        <copyright>Copyright $year$ $username$</copyright>
+        <tags>RapidXaml, XamlAnalyzer</tags>
+        <dependencies>
+            <group targetFramework="netstandard2.0">
+                <dependency id="RapidXamlCustomAnalysis" version="0.9.6" exclude="Build,Analyzers" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src=".\bin\release\netstandard2.0\$projectname$.dll" target="lib\netstandard2.0\$projectname$.dll" />
+    </files>
+</package>

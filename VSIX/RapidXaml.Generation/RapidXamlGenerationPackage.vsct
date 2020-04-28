@@ -17,7 +17,7 @@
       <Button guid="guidRapidXamlGenerationPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100" type="Button">
         <Icon guid="guidGenerationImages" id="bmpCopyAsXaml" />
         <Strings>
-          <ButtonText>Copy to Clipboard</ButtonText>
+          <ButtonText>Copy as XAML</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlGenerationPackageCmdSet" id="SendToToolboxCommandId" priority="0x0100" type="Button">

@@ -1,10 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System.Linq;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.RoslynAnalyzers;
@@ -71,6 +68,16 @@ namespace RapidXamlToolkit.Tests.RoslynAnalyzers
             var expected4 = this.CreateDiagnosticResult("RXRA004");
 
             this.VerifyCSharpDiagnostic(this.ClassInheritsFromDependencyObject(test), expected4);
+        }
+
+        [TestMethod]
+        public void ClassInheritsFromBindableObject_Identified()
+        {
+            var test = @"public string Property1 { get; set; }";
+
+            var expected4 = this.CreateDiagnosticResult("RXRA005");
+
+            this.VerifyCSharpDiagnostic(this.ClassInheritsFromBindableObject(test), expected4);
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
@@ -154,6 +161,14 @@ namespace RapidXamlToolkit.Tests.RoslynAnalyzers
         private string ClassInheritsFromDependencyObject(string property)
         {
             return $"public class MyClass : DependencyObject\n" +
+                $"{{\n" +
+                $"    {property}\n" +
+                $"}}";
+        }
+
+        private string ClassInheritsFromBindableObject(string property)
+        {
+            return $"public class MyClass : BindableObject\n" +
                 $"{{\n" +
                 $"    {property}\n" +
                 $"}}";

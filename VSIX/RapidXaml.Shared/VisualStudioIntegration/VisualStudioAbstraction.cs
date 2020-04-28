@@ -16,6 +16,7 @@ using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 using IAsyncServiceProvider = Microsoft.VisualStudio.Shell.IAsyncServiceProvider;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
@@ -360,7 +361,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
                 if (!(await this.serviceProvider.GetServiceAsync(typeof(SVsTextManager)) is IVsTextManager4 textManager))
                 {
-                    SharedRapidXamlPackage.Logger?.RecordGeneralError("Failed to get IVsTextManager4 in VisualStudioAbstraction.GetXamlIndentAsync");
+                    SharedRapidXamlPackage.Logger?.RecordGeneralError(StringRes.Error_FailedToGetIVsTextManager4InVisualStudioAbstraction_GetXamlIndentAsync);
                 }
                 else
                 {

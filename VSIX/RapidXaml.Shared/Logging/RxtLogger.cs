@@ -37,7 +37,7 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordGeneralError(string message)
         {
-            GeneralOutputPane.Instance.Write($"[{StringRes.RapidXamlToolkit}]  {message}{Environment.NewLine}{Environment.NewLine}");
+            GeneralOutputPane.Instance.Write($"[{StringRes.RapidXamlToolkit}]  {message}");
             GeneralOutputPane.Instance.Activate();
         }
 
@@ -62,8 +62,8 @@ namespace RapidXamlToolkit.Logging
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            this.RecordError("Exception");
-            this.RecordError("=========");
+            this.RecordError(StringRes.Error_ExceptionHeader);
+            this.RecordError(StringRes.Error_ExceptionHeaderUnderline);
             this.RecordError(exception.Message);
             this.RecordError(exception.Source);
             this.RecordError(exception.StackTrace);
@@ -71,9 +71,14 @@ namespace RapidXamlToolkit.Logging
             this.WriteToActivityLog($"{exception.Message}{Environment.NewLine}{exception.Source}{Environment.NewLine}{exception.StackTrace}");
         }
 
-        public void RecordFeatureUsage(string feature)
+        public void RecordFeatureUsage(string feature, bool quiet = false)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+
+            if (quiet)
+            {
+                return;
+            }
 
             // this logger doesn't need to do anything special with feature usage messages
             this.RecordInfo(StringRes.Info_FeatureUsage.WithParams(feature));

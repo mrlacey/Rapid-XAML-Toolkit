@@ -6,16 +6,14 @@
 ![Works with Visual Studio 2019](https://img.shields.io/static/v1.svg?label=VS&message=2019&color=5F2E96)
 ![AppVeyor tests](https://img.shields.io/appveyor/tests/mrlacey/rapid-xaml-toolkit)
 
-This is a collection of tools for making it easier for developers to work with XAML (**UWP**, **WPF**, and **Xamarin.Forms**). These tools fall into two categories
+This is a collection of tools for making it easier for developers to work with XAML (**UWP**, **WPF**, and **Xamarin.Forms**). These tools include
 
 - **XAML Generation** (making it easier to create a UI with XAML)
 - **XAML Analysis** (helping you find and fix issues with XAML)
+- **Roslyn Analyzers** (to help with code related to MVVM and XAML)
+- **Project & Item Templates** (to create new apps faster)
 
-:heavy_exclamation_mark: **BETA** :heavy_exclamation_mark:
-
-Consider this project as in a beta stage. There's still lots to do before it is ready for a full release and there's more functionality we want to add but we're keen to get feedback as soon as possible and focus on the features people want.
-
-Get the preview from the [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlPreview)
+Get it from the [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit)
 
 ## XAML Generation
 
@@ -65,9 +63,7 @@ to this
 
 in a couple of clicks.
 
-## Features
-
-The toolkit currently includes the following features
+There are three ways to turn your ViewModel code into XAML
 
 - Create XAML by dragging a ViewModel file onto the designer.
 - Copy a property, selection of properties, or the whole class (from the ViewModel) into the clipboard and paste into the View as XAML.

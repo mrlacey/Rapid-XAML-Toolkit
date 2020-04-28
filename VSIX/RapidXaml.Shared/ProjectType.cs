@@ -20,6 +20,8 @@ namespace RapidXamlToolkit
         [Description("Xamarin.Forms")]
         XamarinForms = 8,
 
+        UwpOrWpf = Uwp | Wpf,
+
         Any = Uwp | Wpf | XamarinForms,
     }
 }

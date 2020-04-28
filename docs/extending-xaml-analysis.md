@@ -29,7 +29,7 @@ To show how new functionality may be added, let's walk-through adding a new anal
 <Foo Bar="something" />   <!-- valid -->
 ```
 
-_Note. This may seem long but every step is currently necessary. Ideally this can be made simpler in the future_
+_Note. This may seem long but every step is currently necessary. This can be made simpler in the future._
 
 1. Create a class that will handle the processing of the `bar` element. This must inherit from `XamlElementProcessor`. (If you're adding functionality for an element that already has a processor you may be able to skip this step.)
 
@@ -61,19 +61,13 @@ public class FooProcessor : XamlElementProcessor
 
 |  Name  |  Value  |
 |--------|---------|
-| Info_XamlAnalysisFooElementRequiresBarAttributeToolTip | Always specify the 'bar' attribute. |
-| Info_XamlAnalysisFooElementRequiresBarAttributeDescription | Always specify the 'bar' attribute.
+| UI_XamlAnalysisFooElementRequiresBarAttributeToolTip | Always specify the 'bar' attribute. |
+| UI_XamlAnalysisFooElementRequiresBarAttributeDescription | Always specify the 'bar' attribute.
 | UI_AddMissingBarAttribute | Add missing 'bar' attribute. |
 
 The `UI_` prefix is used for text directly displayed in the user interface. The entry specified here will be used in the Suggested Action menu and in the Undo stack.
 
-The `Info_` prefix is used for more general information and may be displayed in various places.
-
-3. Run LocalizationHelper.exe and select option 2.
-
-Learn more about [how this project handles localization](./localization.md).
-
-4. Create the Suggested Action to address the issue. (The interesting bit is in the `Execute` method. All other functionality is very similar in all classes that inherit from `BaseSuggestedAction`)
+3. Create the Suggested Action to address the issue. (The interesting bit is in the `Execute` method. All other functionality is very similar in all classes that inherit from `BaseSuggestedAction`)
 
 ```csharp
 public class FooElementRequiresBarAttributeAction : BaseSuggestedAction
@@ -116,11 +110,11 @@ public class FooElementRequiresBarAttributeAction : BaseSuggestedAction
 }
 ```
 
-5. Decide the error code to use.
+4. Decide the error code to use.
 
 For this sample we'll use `RXT888`. (The value for use in an actual tag will be dependent upon what it does and which platforms to which it applies. Please ask for help with deciding.)
 
-6. Create a new Tag that will be used to draw the squiggly line under the affected code and create the entry in the Error List. (This is as simple as tags get. Note that the defined error code is specific here along with the ErrorType.)
+5. Create a new Tag that will be used to draw the squiggly line under the affected code and create the entry in the Error List. (This is as simple as tags get. Note that the defined error code is specific here along with the ErrorType.)
 
 ```csharp
 public class FooElementRequiresBarAttributeTag : RapidXamlDisplayedTag
@@ -135,7 +129,7 @@ public class FooElementRequiresBarAttributeTag : RapidXamlDisplayedTag
 }
 ```
 
-7. Add a reference for the attribute name in `Attributes.cs`. (This is to limit the number of magic strings in use.)
+6. Add a reference for the attribute name in `Attributes.cs`. (This is to limit the number of magic strings in use.)
 
 ```csharp
 public class Attributes
@@ -147,7 +141,7 @@ public class Attributes
     // ...
 ```
 
-8. Add the logic for checking for the required attribute in the `Process` method. (The base class contains a number of helper methods for processing content, including the one we can use here: `TryGetAttribute`.)
+7. Add the logic for checking for the required attribute in the `Process` method. (The base class contains a number of helper methods for processing content, including the one we can use here: `TryGetAttribute`.)
 
 ```csharp
     public override void Process(
@@ -174,7 +168,7 @@ public class Attributes
     }
 ```
 
-9. Add a reference for the element name in `Elements.cs`. (This is to limit the number of magic strings in use.)
+8. Add a reference for the element name in `Elements.cs`. (This is to limit the number of magic strings in use.)
 
 ```csharp
 public class Elements
@@ -186,13 +180,13 @@ public class Elements
     // ...
 ```
 
-10. Register this new processor in `RapidXamlDocument.GetAllProcessors`. (This ensures that the processor is called to process the appropriate elements within a XAML document.)
+9. Register this new processor in `RapidXamlDocument.GetAllProcessors`. (This ensures that the processor is called to process the appropriate elements within a XAML document.)
 
 ```csharp
     (Elements.Foo, new FooProcessor(projType, RapidXamlPackage.Logger)),
 ```
 
-11. Add the suggested action in the switch statement in `SuggestedActionSource.GetSuggestedActions`.
+10. Add the suggested action in the switch statement in `SuggestedActionSource.GetSuggestedActions`.
 
 ```csharp
     case nameof(FooElementRequiresBarAttributeAction):
@@ -202,7 +196,7 @@ public class Elements
         break;
 ```
 
-12. Run the extension and check everything works as it should.
+11. Run the extension and check everything works as it should.
 
 - Create a XAML page with the issue and check it is reported. (xml namespace aliases are ignored.)
 
@@ -220,22 +214,22 @@ public class Elements
 
 ![Element underlined and Error List entry added](./Assets/xademo-issue-fixed.png)
 
-13. Create the document to accompany the error code.
+12. Create the document to accompany the error code.
 
 Copy `/docs/warnings/_template.md` and rename it to match the name of the code assigned above. Complete the relevant sections in the document. (See other, similar, files for reference.)
 
-14. Update the master list of all error codes with the new entry.
+13. Update the master list of all error codes with the new entry.
 
 Add an appropriate entry in `/docs/warnings/readme.md`.
 
-15. Create appropriate tests to accompany the change.
+14. Create appropriate tests to accompany the change.
 
 The should be in the `RapidXamlToolkit.Tests` project, in the `XamlAnalysis/Processors` folder. (See other test files for examples of what to test--and how.)
 
-16. Raise a PR with the change.
+15. Raise a PR with the change.
 
 So everyone can benefit from your contribution.
 
-17. Feel happy knowing you're helping other people find and fix possible issues in their XAML files too.
+16. Feel happy knowing you're helping other people find and fix possible issues in their XAML files too.
 
 :)

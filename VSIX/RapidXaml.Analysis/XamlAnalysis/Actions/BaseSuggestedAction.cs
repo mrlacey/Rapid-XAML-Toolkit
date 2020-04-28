@@ -49,6 +49,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             get { return null; }
         }
 
+        public string CustomFeatureUsageOverride { get; protected set; }
+
         internal string File { get; }
 
         protected ITextView View { get; set; }
@@ -77,7 +79,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 undoContext.Open(this.DisplayText);
                 this.Execute(cancellationToken);
 
-                SharedRapidXamlPackage.Logger?.RecordFeatureUsage(this.GetType().Name);
+                if (string.IsNullOrWhiteSpace(this.CustomFeatureUsageOverride))
+                {
+                    SharedRapidXamlPackage.Logger?.RecordFeatureUsage(this.GetType().Name);
+                }
+                else
+                {
+                    SharedRapidXamlPackage.Logger?.RecordFeatureUsage(this.CustomFeatureUsageOverride.Trim());
+                }
             }
             catch (Exception exc)
             {

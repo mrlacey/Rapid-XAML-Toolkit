@@ -38,7 +38,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                         uid,
                         Guid.Empty,
                         tags,
-                        suppressions);
+                        suppressions,
+                        this.ProjectType);
                 }
 
                 // If using one event, the recommendation is to use both

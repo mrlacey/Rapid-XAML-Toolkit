@@ -5,8 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Microsoft.VisualStudio.Text;
 using Newtonsoft.Json;
+using RapidXaml;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
@@ -17,6 +19,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class RapidXamlDocument
     {
+        private static readonly Dictionary<string, (DateTime timestamp, List<ICustomAnalyzer> analyzer)> AnalyzerCache = new Dictionary<string, (DateTime timestamp, List<ICustomAnalyzer> analyzer)>();
+
         public RapidXamlDocument()
         {
             this.Tags = new TagList();
@@ -34,6 +38,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static RapidXamlDocument Create(ITextSnapshot snapshot, string fileName, IVisualStudioAbstraction vsa, string projectFile)
         {
             var result = new RapidXamlDocument();
+
+            List<(string, XamlElementProcessor)> processors = null;
 
             try
             {
@@ -56,9 +62,14 @@ namespace RapidXamlToolkit.XamlAnalysis
                             vsAbstraction = new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
                         }
 
-                        var projType = vsAbstraction.GetProjectType(vsa.GetProjectContainingFile(fileName));
+                        var proj = vsAbstraction.GetProjectContainingFile(fileName);
+                        var projType = vsAbstraction.GetProjectType(proj);
+                        var projDir = Path.GetDirectoryName(proj.FileName);
 
-                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, GetAllProcessors(projType, projectFile), result.Tags, suppressions, projectFile);
+                        processors = GetAllProcessors(projType, projDir);
+
+                        // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
+                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, suppressions);
                     }
                 }
             }
@@ -76,9 +87,9 @@ namespace RapidXamlToolkit.XamlAnalysis
             return result;
         }
 
-        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectFile)
+        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectPath, ILogger logger = null)
         {
-            var logger = SharedRapidXamlPackage.Logger;
+            logger = logger ?? SharedRapidXamlPackage.Logger;
 
             var processorEssentials = new ProcessorEssentials
             {
@@ -87,7 +98,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 ProjectFilePath = projectFile,
             };
 
-            return new List<(string, XamlElementProcessor)>
+            var processors = new List<(string, XamlElementProcessor)>
                     {
                         (Elements.Grid, new GridProcessor(processorEssentials)),
                         (Elements.TextBlock, new TextBlockProcessor(processorEssentials)),
@@ -120,6 +131,207 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.ListView, new SelectedItemAttributeProcessor(processorEssentials)),
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(processorEssentials)),
                     };
+
+            if (!string.IsNullOrWhiteSpace(projectPath))
+            {
+                var customProcessors = GetCustomProcessors(projectPath);
+
+#if DEBUG
+                // These types exists for testing only and so are only referenced during Debug
+                customProcessors.Add(new CustomAnalysis.FooAnalysis());
+                customProcessors.Add(new CustomAnalysis.BadCustomAnalyzer());
+                customProcessors.Add(new CustomAnalysis.InternalBadCustomAnalyzer());
+                customProcessors.Add(new CustomAnalysis.CustomGridDefinitionAnalyzer());
+                customProcessors.Add(new CustomAnalysis.RenameElementTestAnalyzer());
+                customProcessors.Add(new CustomAnalysis.ReplaceElementTestAnalyzer());
+                customProcessors.Add(new CustomAnalysis.AddChildTestAnalyzer());
+                customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
+#endif
+                customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
+
+                foreach (var customProcessor in customProcessors)
+                {
+                    processors.Add((customProcessor.TargetType(), new CustomProcessorWrapper(customProcessor, projType, logger)));
+                }
+            }
+
+            return processors;
+        }
+
+        public static List<ICustomAnalyzer> GetCustomProcessors(string projectPath)
+        {
+            try
+            {
+                // Start searching one directory higher to allow for multi-project solutions.
+                var dirToSearch = Path.GetDirectoryName(projectPath);
+
+                // Only load custom analyzers when VS has finished starting up.
+                // We may get here before the package is loaded if a XAML doc is opened with the solution.
+                if (RapidXamlAnalysisPackage.IsLoaded)
+                {
+                    if (RapidXamlAnalysisPackage.Options.EnableCustomAnalysis)
+                    {
+                        return GetCustomAnalyzers(dirToSearch);
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToImportCustomAnalyzers);
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
+            }
+
+            // If package not loaded, setting not enabled, or error.
+            return new List<ICustomAnalyzer>();
+        }
+
+        // TODO: ISSUE#331 cache this response so don't need to look up again if files haven't changed.
+        public static List<ICustomAnalyzer> GetCustomAnalyzers(string folderToSearch)
+        {
+            var result = new List<ICustomAnalyzer>();
+
+            bool FileFilter(string fileName)
+            {
+                var filterResult = !fileName.Contains("/obj/")
+                                && !fileName.Contains("\\obj\\")
+                                && !fileName.Contains(".resources")
+                                && !fileName.Contains(".Tests")
+                                && !Path.GetFileName(fileName).StartsWith("Microsoft.")
+                                && !Path.GetFileName(fileName).StartsWith("System.")
+                                && !Path.GetFileName(fileName).StartsWith("Xamarin.")
+                                && !Path.GetFileName(fileName).Equals("clrcompression.dll")
+                                && !Path.GetFileName(fileName).Equals("mscorlib.dll")
+                                && !Path.GetFileName(fileName).Equals("ucrtbased.dll")
+                                && !Path.GetFileName(fileName).Equals("netstandard.dll")
+                                && !Path.GetFileName(fileName).Equals("WindowsBase.dll")
+                                && !Path.GetFileName(fileName).Equals("RapidXaml.CustomAnalysis.dll");
+
+#if DEBUG
+                // Avoid trying to load self while debugging
+                filterResult = filterResult
+                            && !Path.GetFileName(fileName).Equals("RapidXaml.Analysis.dll");
+#endif
+
+                return filterResult;
+            }
+
+            // Keep track of what's been loaded so don't load duplicates.
+            // Duplicates are likely if the custom analyzer project is in a parallel project in the same solution.
+            var loadedAssemblies = new List<string>();
+
+            // Skip anything (esp. comon files) that definitely won't contain custom analyzers
+            foreach (var file in Directory.GetFiles(folderToSearch, "*.dll", SearchOption.AllDirectories)
+                                          .Where(f => FileFilter(f)))
+            {
+                try
+                {
+                    // Only load assemblies that are in the same folder as the library containing the interface
+                    // This library is distributed with custom analyzers so it's a good indication of assemblies that def don't contain analyzers.
+                    // This is also necessary for assembly resolution.
+                    if (!File.Exists(Path.Combine(Path.GetDirectoryName(file), "RapidXaml.CustomAnalysis.dll")))
+                    {
+                        continue;
+                    }
+
+                    var fileName = Path.GetFileName(file);
+
+                    if (loadedAssemblies.Contains(fileName))
+                    {
+                        continue;
+                    }
+
+                    var fileTimestamp = File.GetCreationTimeUtc(file);
+
+                    if (AnalyzerCache.ContainsKey(file))
+                    {
+                        var (cacheTimestamp, cachedAnalyzers) = AnalyzerCache[file];
+
+                        if (cacheTimestamp == fileTimestamp)
+                        {
+                            if (cachedAnalyzers != null)
+                            {
+                                result.AddRange(cachedAnalyzers);
+                            }
+
+                            continue;
+                        }
+                        else
+                        {
+                            AnalyzerCache.Remove(file);
+                        }
+                    }
+
+                    // Make an in-memory copy of the file to avoid locking, or needing multiple AppDomains.
+                    byte[] assemblyBytes = File.ReadAllBytes(file);
+                    var asmbly = Assembly.Load(assemblyBytes);
+
+                    var analyzerInterface = typeof(ICustomAnalyzer);
+
+                    var customAnalyzers = asmbly.GetTypes()
+                                                .Where(t => analyzerInterface.IsAssignableFrom(t)
+                                                         && t.IsClass
+                                                         && t.IsPublic)
+                                                .ToList();
+
+                    if (customAnalyzers.Any())
+                    {
+                        var cacheList = new List<ICustomAnalyzer>();
+
+                        foreach (var ca in customAnalyzers)
+                        {
+                            var ica = (ICustomAnalyzer)Activator.CreateInstance(ca);
+                            cacheList.Add(ica);
+                            result.Add(ica);
+                        }
+
+                        AnalyzerCache.Add(file, (fileTimestamp, cacheList));
+                    }
+                    else
+                    {
+                        AnalyzerCache.Add(file, (fileTimestamp, null));
+                    }
+
+                    loadedAssemblies.Add(fileName);
+                }
+                catch (ReflectionTypeLoadException ex)
+                {
+                    var sb = new System.Text.StringBuilder();
+
+                    foreach (Exception exSub in ex.LoaderExceptions)
+                    {
+                        sb.AppendLine(exSub.Message);
+
+                        if (exSub is FileNotFoundException exFileNotFound)
+                        {
+                            if (!string.IsNullOrEmpty(exFileNotFound.FusionLog))
+                            {
+                                sb.AppendLine("Fusion Log:");
+                                sb.AppendLine(exFileNotFound.FusionLog);
+                            }
+                        }
+
+                        sb.AppendLine();
+                    }
+
+                    SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Error_FailedToLoadAssemblyMEF.WithParams(file));
+                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.ToString());
+                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.Source);
+                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.Message);
+                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.StackTrace);
+                    SharedRapidXamlPackage.Logger?.RecordInfo(sb.ToString());
+                }
+                catch (Exception exc)
+                {
+                    // As these may happen a lot (i.e. if trying to load a file but can't) treat as info only.
+                    SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Error_FailedToLoadAssemblyMEF.WithParams(file));
+                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.ToString());
+                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.Source);
+                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.Message);
+                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.StackTrace);
+                }
+            }
+
+            return result;
         }
 
         public void Clear()
@@ -169,7 +381,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordError("Failed to load 'suppressions.xamlAnalysis' file.");
+                SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToLoadSuppressionsAnalysisFile);
                 SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
 

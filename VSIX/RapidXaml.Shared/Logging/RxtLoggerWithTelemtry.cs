@@ -23,46 +23,63 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordError(string message, bool force = false)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            this.Logger.RecordError(message);
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+                this.Logger.RecordError(message);
+            });
         }
 
         public void RecordGeneralError(string message)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            this.Logger.RecordGeneralError(message);
+                this.Logger.RecordGeneralError(message);
+            });
         }
 
         public void RecordException(Exception exception)
         {
-            ThreadHelper.JoinableTaskFactory.Run(async () => await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync());
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            this.Logger.RecordException(exception);
-            this.Telem.TrackException(exception);
+                this.Logger.RecordException(exception);
+                this.Telem.TrackException(exception);
+            });
         }
 
-        public void RecordFeatureUsage(string feature)
+        public void RecordFeatureUsage(string feature, bool quiet = false)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            this.Logger.RecordFeatureUsage(feature);
-            this.Telem.TrackEvent(feature);
+                this.Logger.RecordFeatureUsage(feature, quiet);
+                this.Telem.TrackEvent(feature);
+            });
         }
 
         public void RecordNotice(string message)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            this.Logger.RecordNotice(message);
+                this.Logger.RecordNotice(message);
+            });
         }
 
         public void RecordInfo(string message)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+            ThreadHelper.JoinableTaskFactory.Run(async () =>
+            {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            this.Logger.RecordInfo(message);
+                this.Logger.RecordInfo(message);
+            });
         }
     }
 }

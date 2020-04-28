@@ -54,6 +54,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_ClearlyEditable()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\ClearlyEditable");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_codestories()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\code-stories");
@@ -204,6 +210,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_michaelhawkerXmlSyntaxVisualizerUWP()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\michael-hawker-XmlSyntaxVisualizerUWP");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_microsoftuixaml()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\microsoft-ui-xaml");
@@ -297,6 +309,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         public void TestXamlFilesIn_RandomXAMLFiles()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Random XAML Files");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_RapidXamlDemos()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\RapidXaml-Demos");
         }
 
         [TestMethod]
@@ -601,7 +619,30 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
 
                     var snapshot = new FakeTextSnapshot();
 
-                    XamlElementExtractor.Parse(ProjectType.Any, filePath, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Any, string.Empty), result.Tags);
+                    var logger = DefaultTestLogger.Create();
+
+                    var processors = RapidXamlDocument.GetAllProcessors(ProjectType.Any, string.Empty, logger);
+
+                    var customProcessor = new CustomProcessorWrapper(new StubCustomAnalysisProcessor(), ProjectType.Any, logger);
+
+                    processors.Add(("Application", customProcessor));
+                    processors.Add(("Page", customProcessor));
+                    processors.Add(("DrawingGroup", customProcessor));
+                    processors.Add(("ResourceDictionary", customProcessor));
+                    processors.Add(("UserControl", customProcessor));
+                    processors.Add(("Canvas", customProcessor));
+                    processors.Add(("Viewbox", customProcessor));
+                    processors.Add(("PhoneApplicationPage", customProcessor));
+                    processors.Add(("Window", customProcessor));
+                    processors.Add(("ContentPage", customProcessor));
+                    processors.Add(("MasterDetailPage", customProcessor));
+                    processors.Add(("NavigationPage", customProcessor));
+                    processors.Add(("TabbedPage", customProcessor));
+                    processors.Add(("CarouselPage", customProcessor));
+                    processors.Add(("TemplatedPage", customProcessor));
+                    processors.Add(("Shell", customProcessor));
+
+                    XamlElementExtractor.Parse(ProjectType.Any, filePath, snapshot, text, processors, result.Tags);
 
                     Debug.WriteLine($"Found {result.Tags.Count} taggable issues in '{filePath}'.");
 

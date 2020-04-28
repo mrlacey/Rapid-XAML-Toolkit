@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>XAML Analyzer</Name>
+    <Description>Create a XAML analyzer for use with Rapid XAML Analysis.</Description>
+      <Icon>__TemplateIcon.png</Icon>
+    <TemplateID>4cac469c-38ac-4c2b-a446-57775d6caac3</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>MyElementAnalyzer.cs</DefaultName>
+    <PromptForSaveOnCreation>true</PromptForSaveOnCreation>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectItem ReplaceParameters="true">MyElementAnalyzer.cs</ProjectItem>
+  </TemplateContent>
+    <WizardExtension>
+        <Assembly>NuGet.VisualStudio.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Assembly>
+        <FullClassName>NuGet.VisualStudio.TemplateWizard</FullClassName>
+    </WizardExtension>
+    <WizardData>
+        <packages>
+            <package id="RapidXamlCustomAnalysis" version="0.9.6" />
+        </packages>
+    </WizardData>
+</VSTemplate>
