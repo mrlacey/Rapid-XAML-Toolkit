@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Language.Xml;
 using Microsoft.VisualStudio.Text;
-using RapidXaml;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;

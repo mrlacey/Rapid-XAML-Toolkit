@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using RapidXamlToolkit.ErrorList;

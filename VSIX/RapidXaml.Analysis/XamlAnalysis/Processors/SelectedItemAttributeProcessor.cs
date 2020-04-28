@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
@@ -35,8 +34,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                         existingMode = oneWay;
                     }
 
+                    var tagDeps = this.CreateBaseTagDependencies(
+                        new Span(offset + index, length),
+                        snapshot,
+                        fileName);
+
                     tags.TryAdd(
-                        new SelectedItemBindingModeTag(new Span(offset + index, length), snapshot, fileName, this.Logger, this.VSAbstraction, this.ProjectFile)
+                        new SelectedItemBindingModeTag(tagDeps)
                         {
                             InsertPosition = offset + index,
                             ExistingBindingMode = existingMode,

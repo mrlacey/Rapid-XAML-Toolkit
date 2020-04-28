@@ -799,7 +799,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 tags = new TagList();
             }
 
-            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", null, xaml, processors, tags);
+            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", null, xaml, processors, tags, new TestVisualStudioAbstraction());
         }
 
         private void TestParsingWithFakeSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags = null)
@@ -811,7 +811,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var snapshot = new FakeTextSnapshot();
 
-            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", snapshot, xaml, processors, tags);
+            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", snapshot, xaml, processors, tags, new TestVisualStudioAbstraction());
         }
     }
 }

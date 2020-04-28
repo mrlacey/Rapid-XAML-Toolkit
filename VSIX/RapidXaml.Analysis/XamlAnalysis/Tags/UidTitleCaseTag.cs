@@ -1,18 +1,15 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class UidTitleCaseTag : RapidXamlDisplayedTag
     {
-        public UidTitleCaseTag(Span span, ITextSnapshot snapshot, string fileName, string value, ILogger logger, IVisualStudioAbstraction vsa, string projectPath)
-            : base(span, snapshot, fileName, "RXT451", TagErrorType.Suggestion, logger, vsa, projectPath)
+        public UidTitleCaseTag(TagDependencies tagDeps, string value)
+            : base(tagDeps, "RXT451", TagErrorType.Suggestion)
         {
             this.SuggestedAction = typeof(MakeUidStartWithCapitalAction);
             this.ToolTip = StringRes.UI_XamlAnalysisUidTitleCaseToolTip;

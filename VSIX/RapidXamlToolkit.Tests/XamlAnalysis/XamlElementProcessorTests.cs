@@ -569,7 +569,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         private string GetSubElementAtStar(string outerElement)
         {
             var offset = outerElement.IndexOf('☆');
-            return XamlElementProcessor.GetSubElementAtPosition(ProjectType.Any, "testFile.xaml", new FakeTextSnapshot(), outerElement.Replace("☆", string.Empty), offset, new DefaultTestLogger(), string.Empty);
+            return XamlElementProcessor.GetSubElementAtPosition(ProjectType.Any, "testFile.xaml", new FakeTextSnapshot(), outerElement.Replace("☆", string.Empty), offset, new DefaultTestLogger(), string.Empty, new TestVisualStudioAbstraction());
         }
 
         private bool HasDefaultValue(string xaml)

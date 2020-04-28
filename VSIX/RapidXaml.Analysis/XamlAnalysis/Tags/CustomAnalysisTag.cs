@@ -10,7 +10,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     public class CustomAnalysisTag : RapidXamlDisplayedTag
     {
         public CustomAnalysisTag(CustomAnalysisTagDependencies deps)
-            : base(deps.Span, deps.Snapshot, deps.FileName, deps.ErrorCode, deps.ErrorType, deps.Logger, deps.VsAbstraction, deps.Action.MoreInfoUrl, deps.CustomFeatureUsageValue)
+            : base(deps.ToTagDependencies(), deps.ErrorCode, deps.ErrorType)
         {
             this.SuggestedAction = typeof(CustomAnalysisAction);
 

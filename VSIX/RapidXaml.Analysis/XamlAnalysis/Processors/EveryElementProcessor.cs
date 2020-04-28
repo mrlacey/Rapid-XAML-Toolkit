@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -26,14 +25,24 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger, this.VSAbstraction, this.ProjectFile), xamlElement, suppressions);
+                    var tagDeps = this.CreateBaseTagDependencies(
+                        new Span(offset + index, length),
+                        snapshot,
+                        fileName);
+
+                    tags.TryAdd(new UidTitleCaseTag(tagDeps, value), xamlElement, suppressions);
                 }
             }
             else if (this.TryGetAttribute(xamlElement, Attributes.X_Uid, AttributeType.InlineOrElement, out _, out index, out length, out value))
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new UidTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger, this.VSAbstraction, this.ProjectFile), xamlElement, suppressions);
+                    var tagDeps = this.CreateBaseTagDependencies(
+                        new Span(offset + index, length),
+                        snapshot,
+                        fileName);
+
+                    tags.TryAdd(new UidTitleCaseTag(tagDeps, value), xamlElement, suppressions);
                 }
             }
 
@@ -41,14 +50,24 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger, this.VSAbstraction, this.ProjectFile), xamlElement, suppressions);
+                    var tagDeps = this.CreateBaseTagDependencies(
+                        new Span(offset + index, length),
+                        snapshot,
+                        fileName);
+
+                    tags.TryAdd(new NameTitleCaseTag(tagDeps, value), xamlElement, suppressions);
                 }
             }
             else if (this.TryGetAttribute(xamlElement, Attributes.X_Name, AttributeType.InlineOrElement, out _, out index, out length, out value))
             {
                 if (!char.IsUpper(value[0]))
                 {
-                    tags.TryAdd(new NameTitleCaseTag(new Span(offset + index, length), snapshot, fileName, value, this.Logger, this.VSAbstraction, this.ProjectFile), xamlElement, suppressions);
+                    var tagDeps = this.CreateBaseTagDependencies(
+                        new Span(offset + index, length),
+                        snapshot,
+                        fileName);
+
+                    tags.TryAdd(new NameTitleCaseTag(tagDeps, value), xamlElement, suppressions);
                 }
             }
 

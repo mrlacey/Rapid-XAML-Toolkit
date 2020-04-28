@@ -168,6 +168,7 @@
     <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
     <Compile Include="XamlAnalysis\Tags\CustomAnalysisTag.cs" />
     <Compile Include="XamlAnalysis\Tags\CustomAnalysisTagDependencies.cs" />
+    <Compile Include="XamlAnalysis\Tags\TagDependencies.cs" />
     <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertRowDefinitionTag.cs" />

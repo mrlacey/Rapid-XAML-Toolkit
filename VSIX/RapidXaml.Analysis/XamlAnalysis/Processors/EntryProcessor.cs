@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
@@ -24,8 +23,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (!this.TryGetAttribute(xamlElement, Attributes.Keyboard, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
+                var tagDeps = this.CreateBaseTagDependencies(
+                    new Span(offset, xamlElement.Length),
+                    snapshot,
+                    fileName);
+
                 tags.TryAdd(
-                    new AddEntryKeyboardTag(new Span(offset, xamlElement.Length), snapshot, fileName, xamlElement, this.Logger, this.VSAbstraction, this.ProjectFile)
+                    new AddEntryKeyboardTag(tagDeps, xamlElement)
                     {
                         InsertPosition = offset,
                     },

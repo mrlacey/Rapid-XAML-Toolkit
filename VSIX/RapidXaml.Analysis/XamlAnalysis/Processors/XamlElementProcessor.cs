@@ -316,7 +316,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
-                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, elementName, attributeName, this.Logger, this.VSAbstraction, projType, this.ProjectFile)
+                    var tagDeps = this.CreateBaseTagDependencies(
+                        new Span(offset + tbIndex, length),
+                        snapshot,
+                        fileName);
+
+                    var tag = new HardCodedStringTag(tagDeps, elementName, attributeName, projType)
                     {
                         AttributeType = foundAttributeType,
                         Value = value,
@@ -363,6 +368,19 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
 
             return (uidExists, uid);
+        }
+
+        protected TagDependencies CreateBaseTagDependencies(Span span, ITextSnapshot snapshot, string fileName)
+        {
+            return new TagDependencies
+            {
+                Logger = this.Logger,
+                VsAbstraction = this.VSAbstraction,
+                ProjectPath = this.ProjectFile,
+                Span = span,
+                Snapshot = snapshot,
+                FileName = fileName,
+            };
         }
 
         public class SubElementProcessor : XamlElementProcessor

@@ -34,5 +34,20 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public RapidXamlElement AnalyzedElement { get; set; }
 
         public IVisualStudioAbstraction VsAbstraction { get; set; }
+
+        internal TagDependencies ToTagDependencies()
+        {
+            return new TagDependencies
+            {
+                FeatureUsageOverride = this.CustomFeatureUsageValue,
+                FileName = this.FileName,
+                Logger = this.Logger,
+                MoreInfoUrl = this.Action.MoreInfoUrl,
+                ProjectPath = string.Empty, // TODO: check this.
+                Span = this.Span,
+                Snapshot = this.Snapshot,
+                VsAbstraction = this.VsAbstraction,
+            };
+        }
     }
 }

@@ -170,13 +170,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                             {
                                 if (assignedInt > 0 && assignedInt >= rowDefsCount)
                                 {
-                                    undefinedTags.Add(new MissingRowDefinitionTag(
+                                    var tagDeps = this.CreateBaseTagDependencies(
                                         new Span(offset + defUseOffset, closePos - defUseOffset + 1),
                                         snapshot,
-                                        fileName,
-                                        this.Logger,
-                                        this.VSAbstraction,
-                                        this.ProjectFile)
+                                        fileName);
+
+                                    undefinedTags.Add(new MissingRowDefinitionTag(tagDeps)
                                     {
                                         AssignedInt = assignedInt,
                                         Description = StringRes.UI_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
@@ -204,13 +203,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                             {
                                 if (assignedInt > 0 && assignedInt >= colDefsCount)
                                 {
-                                    undefinedTags.Add(new MissingColumnDefinitionTag(
+                                    var tagDeps = this.CreateBaseTagDependencies(
                                         new Span(offset + defUseOffset, closePos - defUseOffset + 1),
                                         snapshot,
-                                        fileName,
-                                        this.Logger,
-                                        this.VSAbstraction,
-                                        this.ProjectFile)
+                                        fileName);
+
+                                    undefinedTags.Add(new MissingColumnDefinitionTag(tagDeps)
                                     {
                                         AssignedInt = assignedInt,
                                         Description = StringRes.UI_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
@@ -273,13 +271,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                                 if (assignedInt > 1 && assignedInt - 1 + row >= rowDefsCount)
                                 {
-                                    var rowTag = new RowSpanOverflowTag(
+                                    var tagDeps = this.CreateBaseTagDependencies(
                                         new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
                                         snapshot,
-                                        fileName,
-                                        this.Logger,
-                                        this.VSAbstraction,
-                                        this.ProjectFile)
+                                        fileName);
+
+                                    var rowTag = new RowSpanOverflowTag(tagDeps)
                                     {
                                         TotalDefsRequired = assignedInt + row - 1,
                                         Description = StringRes.UI_XamlAnalysisRowSpanOverflowDescription,
@@ -311,26 +308,25 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                             }
 
                             if (assignedInt > 1 && assignedInt - 1 + gridCol >= colDefsCount)
-                            {
-                                var colTag = new ColumnSpanOverflowTag(
-                                    new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
-                                    snapshot,
-                                    fileName,
-                                    this.Logger,
-                                    this.VSAbstraction,
-                                    this.ProjectFile)
                                 {
-                                    TotalDefsRequired = assignedInt - 1 + gridCol,
-                                    Description = StringRes.UI_XamlAnalysisColumnSpanOverflowDescription,
-                                    ExistingDefsCount = colDefsCount,
-                                    HasSomeDefinitions = hasColDef,
-                                    InsertPosition = offset + colDefsClosingPos,
-                                    LeftPad = leftPad,
-                                };
+                                    var tagDeps = this.CreateBaseTagDependencies(
+                                        new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
+                                        snapshot,
+                                        fileName);
 
-                                tags.TryAdd(colTag, xamlElement, suppressions);
+                                    var colTag = new ColumnSpanOverflowTag(tagDeps)
+                                    {
+                                        TotalDefsRequired = assignedInt - 1 + gridCol,
+                                        Description = StringRes.UI_XamlAnalysisColumnSpanOverflowDescription,
+                                        ExistingDefsCount = colDefsCount,
+                                        HasSomeDefinitions = hasColDef,
+                                        InsertPosition = offset + colDefsClosingPos,
+                                        LeftPad = leftPad,
+                                    };
+
+                                    tags.TryAdd(colTag, xamlElement, suppressions);
+                                }
                             }
-                        }
                         }
                     }
                 }

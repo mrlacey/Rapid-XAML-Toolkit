@@ -1,16 +1,12 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Logging;
-using RapidXamlToolkit.VisualStudioIntegration;
-
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class MissingDefinitionTag : RapidXamlDisplayedTag
     {
-        protected MissingDefinitionTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, IVisualStudioAbstraction vsa, string projectPath)
-            : base(span, snapshot, fileName, errorCode, defaultErrorType, logger, vsa, projectPath)
+        protected MissingDefinitionTag(TagDependencies tagDeps, string errorCode, TagErrorType defaultErrorType)
+            : base(tagDeps, errorCode, defaultErrorType)
         {
         }
 

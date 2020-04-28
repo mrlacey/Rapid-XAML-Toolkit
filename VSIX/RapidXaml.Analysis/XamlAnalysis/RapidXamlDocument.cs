@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.Text;
 using Newtonsoft.Json;
 using RapidXaml;
@@ -76,7 +75,17 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception e)
             {
-                result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot, fileName, SharedRapidXamlPackage.Logger, vsAbstraction)
+                var tagDeps = new TagDependencies
+                {
+                    Span = new Span(0, 0),
+                    Snapshot = snapshot,
+                    FileName = fileName,
+                    Logger = SharedRapidXamlPackage.Logger,
+                    VsAbstraction = vsAbstraction,
+                    ProjectPath = string.Empty,
+                };
+
+                result.Tags.Add(new UnexpectedErrorTag(tagDeps)
                 {
                     Description = StringRes.Error_XamlAnalysisDescription,
                     ExtendedMessage = StringRes.Error_XamlAnalysisExtendedMessage.WithParams(e),
