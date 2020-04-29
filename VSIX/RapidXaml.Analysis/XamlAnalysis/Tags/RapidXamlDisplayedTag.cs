@@ -88,16 +88,16 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                     return false;
                 }
 
-                var proj = this.VsAbstraction.GetProjectContainingFile(this.FileName);
-
-                if (proj == null)
-                {
-                    tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
-                    return false;
-                }
-
                 if (string.IsNullOrWhiteSpace(this.ProjectPath))
                 {
+                    var proj = this.VsAbstraction?.GetProjectContainingFile(this.FileName);
+
+                    if (proj == null)
+                    {
+                        tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
+                        return false;
+                    }
+
                     this.ProjectPath = proj.FullName;
                 }
 

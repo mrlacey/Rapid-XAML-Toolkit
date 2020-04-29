@@ -61,6 +61,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 FileName = tag.FileName,
                 InsertPos = tag.InsertPosition,
                 Logger = tag.Logger,
+                ProjectPath = tag.ProjectPath,
                 Snapshot = tag.Snapshot,
                 //// Don't need to set VsAbstraction as tags only need it for referencing settings but supplementary actions don't need to know about settings.
             };

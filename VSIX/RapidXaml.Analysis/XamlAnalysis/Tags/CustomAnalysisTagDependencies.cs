@@ -16,6 +16,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public string FileName { get; set; }
 
+        public string ProjectPath { get; set; }
+
         public int InsertPos { get; set; }
 
         public AnalysisAction Action { get; set; }
@@ -43,7 +45,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 FileName = this.FileName,
                 Logger = this.Logger,
                 MoreInfoUrl = this.Action.MoreInfoUrl,
-                ProjectPath = string.Empty, // TODO: Need to pass this so Tag can look up custom settings
+                ProjectPath = this.ProjectPath,
                 Span = this.Span,
                 Snapshot = this.Snapshot,
                 VsAbstraction = this.VsAbstraction,
