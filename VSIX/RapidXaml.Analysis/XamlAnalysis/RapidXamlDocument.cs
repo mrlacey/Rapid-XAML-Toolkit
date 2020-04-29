@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     result.RawText = text;
 
-                    var suppressions = GetSuppressions(fileName, vsa, projectFile);
+                    var suppressions = GetSuppressions(fileName, vsAbstraction, projectFile);
 
                     // If suppressing all tags in file, don't bother parsing the file
                     if (suppressions == null || suppressions?.Any(s => string.IsNullOrWhiteSpace(s.TagErrorCode)) == false)
@@ -244,7 +244,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             // Duplicates are likely if the custom analyzer project is in a parallel project in the same solution.
             var loadedAssemblies = new List<string>();
 
-            // Skip anything (esp. comon files) that definitely won't contain custom analyzers
+            // Skip anything (esp. common files) that definitely won't contain custom analyzers
             foreach (var file in Directory.GetFiles(folderToSearch, "*.dll", SearchOption.AllDirectories)
                                           .Where(f => FileFilter(f)))
             {
