@@ -58,7 +58,8 @@ namespace RapidXaml.AnalysisExe
 
                 //// Console.WriteLine($"Warning: {projDir}");
 
-                var bavsa = new BuildAnalysisVisualStudioAbstraction();
+                // TODO: get actual project type here
+                var bavsa = new BuildAnalysisVisualStudioAbstraction(projectPath, ProjectType.Any);
 
                 foreach (var line in projFileLines)
                 {

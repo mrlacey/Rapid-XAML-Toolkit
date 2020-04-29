@@ -25,7 +25,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         ProjectType GetProjectType(EnvDTE.Project project);
 
-        EnvDTE.Project GetProjectContainingFile(string fileName);
+        (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName);
 
         bool ActiveDocumentIsCSharp();
 

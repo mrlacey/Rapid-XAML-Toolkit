@@ -62,13 +62,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                     // If suppressing all tags in file, don't bother parsing the file
                     if (suppressions == null || suppressions?.Any(s => string.IsNullOrWhiteSpace(s.TagErrorCode)) == false)
                     {
-                        var proj = vsAbstraction.GetProjectContainingFile(fileName);
-                        var projType = vsAbstraction.GetProjectType(proj);
+                        var (projFileName, projType) = vsAbstraction.GetNameAndTypeOfProjectContainingFile(fileName);
 
-                        processors = GetAllProcessors(projType, proj.FileName, vsAbstraction);
+                        processors = GetAllProcessors(projType, projFileName, vsAbstraction);
 
                         // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
-                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, vsAbstraction, suppressions, projectFilePath: proj.FileName);
+                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, vsAbstraction, suppressions, projectFilePath: projFileName);
                     }
                 }
             }
@@ -223,6 +222,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 && !Path.GetFileName(fileName).StartsWith("Microsoft.")
                                 && !Path.GetFileName(fileName).StartsWith("System.")
                                 && !Path.GetFileName(fileName).StartsWith("Xamarin.")
+                                && !Path.GetFileName(fileName).StartsWith("EnvDTE")
+                                && !Path.GetFileName(fileName).StartsWith("VSLangProj")
                                 && !Path.GetFileName(fileName).Equals("clrcompression.dll")
                                 && !Path.GetFileName(fileName).Equals("mscorlib.dll")
                                 && !Path.GetFileName(fileName).Equals("ucrtbased.dll")
@@ -373,8 +374,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 if (string.IsNullOrWhiteSpace(projectFileName))
                 {
-                    var proj = vsa.GetProjectContainingFile(fileName);
-                    projectFileName = proj.FullName;
+                    var (projFileName, _) = vsa.GetNameAndTypeOfProjectContainingFile(fileName);
+                    projectFileName = projFileName;
                 }
 
                 var suppressionsFile = Path.Combine(Path.GetDirectoryName(projectFileName), "suppressions.xamlAnalysis");

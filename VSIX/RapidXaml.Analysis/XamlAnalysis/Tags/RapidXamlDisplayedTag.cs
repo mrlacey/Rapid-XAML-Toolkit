@@ -90,15 +90,15 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
                 if (string.IsNullOrWhiteSpace(this.ProjectFilePath))
                 {
-                    var proj = this.VsAbstraction?.GetProjectContainingFile(this.FileName);
+                    var (projFileName, _) = this.VsAbstraction.GetNameAndTypeOfProjectContainingFile(this.FileName);
 
-                    if (proj == null)
+                    if (string.IsNullOrWhiteSpace(projFileName))
                     {
                         tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
                         return false;
                     }
 
-                    this.ProjectFilePath = proj.FullName;
+                    this.ProjectFilePath = projFileName;
                 }
 
                 var settingsFile = Path.Combine(Path.GetDirectoryName(this.ProjectFilePath), SettingsFileName);

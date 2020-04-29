@@ -18,6 +18,15 @@ namespace RapidXaml.AnalysisExe
 {
     public class BuildAnalysisVisualStudioAbstraction : IVisualStudioAbstraction
     {
+        private readonly string projFile;
+        private readonly ProjectType projectType;
+
+        public BuildAnalysisVisualStudioAbstraction(string projFile, ProjectType projectType)
+        {
+            this.projFile = projFile;
+            this.projectType = projectType;
+        }
+
         public bool ActiveDocumentIsCSharp()
         {
             throw new NotImplementedException();
@@ -73,9 +82,9 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
-        public EnvDTE.Project GetProjectContainingFile(string fileName)
+        public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
         {
-            return null;
+            return (this.projFile, this.projectType);
         }
 
         public ProjectType GetProjectType(EnvDTE.Project project)

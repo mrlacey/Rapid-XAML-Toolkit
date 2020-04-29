@@ -146,7 +146,7 @@ namespace RapidXamlToolkit.Tests
             return ProjectType.Unknown;
         }
 
-        public EnvDTE.Project GetProjectContainingFile(string fileName)
+        public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
         {
             throw new System.NotImplementedException();
         }
