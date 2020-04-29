@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public IVisualStudioAbstraction VsAbstraction { get; set; }
 
-        public string ProjectPath { get; set; }
+        public string ProjectFilePath { get; set; }
 
         public string MoreInfoUrl { get; set; }
 

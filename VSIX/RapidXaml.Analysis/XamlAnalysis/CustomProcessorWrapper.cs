@@ -48,7 +48,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         FileName = fileName,
                         InsertPos = offset,
                         Logger = this.Logger,
-                        ProjectPath = this.ProjectFile,
+                        ProjectFilePath = this.ProjectFilePath,
                         Snapshot = snapshot,
                         VsAbstraction = this.VSAbstraction,
                     };

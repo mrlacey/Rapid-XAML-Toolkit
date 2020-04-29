@@ -28,7 +28,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Column = col;
             this.DefaultErrorType = defaultErrorType;
             this.VsAbstraction = deps.VsAbstraction;
-            this.ProjectPath = deps.ProjectPath;
+            this.ProjectFilePath = deps.ProjectFilePath;
             this.MoreInfoUrl = deps.MoreInfoUrl;
             this.CustomFeatureUsageOverride = deps.FeatureUsageOverride;
         }
@@ -50,7 +50,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public TagErrorType DefaultErrorType { get; }
 
-        public string ProjectPath { get; private set; }
+        public string ProjectFilePath { get; private set; }
 
         public IVisualStudioAbstraction VsAbstraction { get; }
 
@@ -88,7 +88,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                     return false;
                 }
 
-                if (string.IsNullOrWhiteSpace(this.ProjectPath))
+                if (string.IsNullOrWhiteSpace(this.ProjectFilePath))
                 {
                     var proj = this.VsAbstraction?.GetProjectContainingFile(this.FileName);
 
@@ -98,10 +98,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                         return false;
                     }
 
-                    this.ProjectPath = proj.FullName;
+                    this.ProjectFilePath = proj.FullName;
                 }
 
-                var settingsFile = Path.Combine(Path.GetDirectoryName(this.ProjectPath), SettingsFileName);
+                var settingsFile = Path.Combine(Path.GetDirectoryName(this.ProjectFilePath), SettingsFileName);
 
                 if (File.Exists(settingsFile))
                 {

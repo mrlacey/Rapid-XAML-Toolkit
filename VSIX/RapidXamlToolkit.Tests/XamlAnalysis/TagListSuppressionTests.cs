@@ -24,7 +24,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 FileName = TestFileName,
                 Logger = DefaultTestLogger.Create(),
                 VsAbstraction = new TestVisualStudioAbstraction(),
-                ProjectPath = string.Empty,
+                ProjectFilePath = string.Empty,
             },
             Elements.MenuFlyoutItem,
             Attributes.Text,

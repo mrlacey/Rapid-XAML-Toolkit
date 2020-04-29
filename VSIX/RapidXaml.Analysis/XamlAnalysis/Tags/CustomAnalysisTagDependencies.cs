@@ -16,7 +16,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public string FileName { get; set; }
 
-        public string ProjectPath { get; set; }
+        public string ProjectFilePath { get; set; }
 
         public int InsertPos { get; set; }
 
@@ -45,7 +45,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 FileName = this.FileName,
                 Logger = this.Logger,
                 MoreInfoUrl = this.Action.MoreInfoUrl,
-                ProjectPath = this.ProjectPath,
+                ProjectFilePath = this.ProjectFilePath,
                 Span = this.Span,
                 Snapshot = this.Snapshot,
                 VsAbstraction = this.VsAbstraction,

@@ -64,12 +64,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         var proj = vsAbstraction.GetProjectContainingFile(fileName);
                         var projType = vsAbstraction.GetProjectType(proj);
-                        var projDir = Path.GetDirectoryName(proj.FileName);
 
-                        processors = GetAllProcessors(projType, projDir, vsAbstraction);
+                        processors = GetAllProcessors(projType, proj.FileName, vsAbstraction);
 
                         // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
-                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, vsAbstraction, suppressions);
+                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, vsAbstraction, suppressions, projectFilePath: proj.FileName);
                     }
                 }
             }
@@ -82,7 +81,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     FileName = fileName,
                     Logger = SharedRapidXamlPackage.Logger,
                     VsAbstraction = vsAbstraction,
-                    ProjectPath = string.Empty,
+                    ProjectFilePath = string.Empty,
                 };
 
                 result.Tags.Add(new UnexpectedErrorTag(tagDeps)
@@ -97,7 +96,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             return result;
         }
 
-        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectPath, IVisualStudioAbstraction vsAbstraction, ILogger logger = null)
+        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectFilePath, IVisualStudioAbstraction vsAbstraction, ILogger logger = null)
         {
             logger = logger ?? SharedRapidXamlPackage.Logger;
 
@@ -105,7 +104,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 ProjectType = projType,
                 Logger = logger,
-                ProjectFilePath = projectPath,
+                ProjectFilePath = projectFilePath,
             };
 
             var processors = new List<(string, XamlElementProcessor)>
@@ -142,9 +141,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(processorEssentials)),
                     };
 
-            if (!string.IsNullOrWhiteSpace(projectPath))
+            if (!string.IsNullOrWhiteSpace(projectFilePath))
             {
-                var customProcessors = GetCustomProcessors(projectPath);
+                var customProcessors = GetCustomProcessors(Path.GetDirectoryName(projectFilePath));
 
 #if DEBUG
                 // These types exists for testing only and so are only referenced during Debug
@@ -163,19 +162,19 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     processors.Add(
                         (customProcessor.TargetType(),
-                         new CustomProcessorWrapper(customProcessor, projType, projectPath, logger, vsAbstraction)));
+                         new CustomProcessorWrapper(customProcessor, projType, projectFilePath, logger, vsAbstraction)));
                 }
             }
 
             return processors;
         }
 
-        public static List<ICustomAnalyzer> GetCustomProcessors(string projectPath)
+        public static List<ICustomAnalyzer> GetCustomProcessors(string projectFileDirectory)
         {
             try
             {
                 // Start searching one directory higher to allow for multi-project solutions.
-                var dirToSearch = Path.GetDirectoryName(projectPath);
+                var dirToSearch = Path.GetDirectoryName(projectFileDirectory);
 
                 var loadCustomAnalyzers = false;
 
@@ -366,19 +365,19 @@ namespace RapidXamlToolkit.XamlAnalysis
             SuppressionsCache.Clear();
         }
 
-        private static List<TagSuppression> GetSuppressions(string fileName, IVisualStudioAbstraction vsa, string projectFile)
+        private static List<TagSuppression> GetSuppressions(string fileName, IVisualStudioAbstraction vsa, string projectFileName)
         {
             List<TagSuppression> result = null;
 
             try
             {
-                if (string.IsNullOrWhiteSpace(projectFile))
+                if (string.IsNullOrWhiteSpace(projectFileName))
                 {
                     var proj = vsa.GetProjectContainingFile(fileName);
-                    projectFile = proj.FullName;
+                    projectFileName = proj.FullName;
                 }
 
-                var suppressionsFile = Path.Combine(Path.GetDirectoryName(projectFile), "suppressions.xamlAnalysis");
+                var suppressionsFile = Path.Combine(Path.GetDirectoryName(projectFileName), "suppressions.xamlAnalysis");
 
                 if (File.Exists(suppressionsFile))
                 {

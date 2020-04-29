@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
             this.ProjectType = pe.ProjectType;
             this.Logger = pe.Logger;
-            this.ProjectFile = pe.ProjectFilePath;
+            this.ProjectFilePath = pe.ProjectFilePath;
             this.VSAbstraction = pe.Vsa;
         }
 
@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         internal ILogger Logger { get; }
 
-        internal string ProjectFile { get; }
+        internal string ProjectFilePath { get; }
 
         internal IVisualStudioAbstraction VSAbstraction { get; }
 
@@ -376,7 +376,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 Logger = this.Logger,
                 VsAbstraction = this.VSAbstraction,
-                ProjectPath = this.ProjectFile,
+                ProjectFilePath = this.ProjectFilePath,
                 Span = span,
                 Snapshot = snapshot,
                 FileName = fileName,
