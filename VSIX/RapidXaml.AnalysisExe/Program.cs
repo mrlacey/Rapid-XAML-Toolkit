@@ -37,7 +37,7 @@ namespace RapidXaml.AnalysisExe
 
                 if (!File.Exists(projectPath))
                 {
-                    // TODO: log file not exists
+                    // TODO: log file not exists?
                     Environment.ExitCode = ERRORCODE_FILE_DOES_NOT_EXIST;
                     return;
                 }
@@ -47,7 +47,7 @@ namespace RapidXaml.AnalysisExe
                 if (!fileExt.ToLowerInvariant().Equals(".csproj")
                   & !fileExt.ToLowerInvariant().Equals(".vbproj"))
                 {
-                    // TODO: log this
+                    // TODO: log this?
                     Environment.ExitCode = ERRORCODE_NOT_A_PROJECT_FILE;
                     return;
                 }

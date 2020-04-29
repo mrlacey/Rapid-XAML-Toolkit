@@ -43,7 +43,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 FileName = this.FileName,
                 Logger = this.Logger,
                 MoreInfoUrl = this.Action.MoreInfoUrl,
-                ProjectPath = string.Empty, // TODO: check this.
+                ProjectPath = string.Empty, // TODO: Need to pass this so Tag can look up custom settings
                 Span = this.Span,
                 Snapshot = this.Snapshot,
                 VsAbstraction = this.VsAbstraction,
