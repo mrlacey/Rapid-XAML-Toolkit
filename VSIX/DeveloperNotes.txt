@@ -1,0 +1,25 @@
+What Developers REALLY NEED to know about this code
+===================================================
+
+I know. There's a lot going on here. It's complicated.
+
+These notes are to try and make it a little be easier to understand.
+
+Build Time Analysis
+-------------------
+
+This is done by RapidXaml.AnalysisExe, which is a command line app.
+This app takes a single parameter that is the absolute path to a project file.
+You can test (and debug) this exe by passing a project file path as debug application arguments.
+
+AnalysisExe is distributed in a NuGet pacakge created by RapidXaml.BuildAnalysis.
+You can test this by creating a custom NuGet PackageSource that points to the debug output of BuildAnalysis. Have BuildAnalysisUwpTestApp install "RapidXaml.BuildAnalysis" from the debug location. When you build BuildAnalysisUwpTestApp it will include XAML analysis results in the output.
+To test changes, you need to override all the different caching that VS & NuGet do to be sure you see the changes. The best way to do this is the increase the version number in the nuspec file, then rebuild the package. In the consuming project (BuildAnalysisUwpTestApp) uninstall the extension and then (re)install the the new version.
+
+
+Testing Custom Analyzers
+------------------------
+
+If a custom anlayzer project is changed, the project that references it may need to do a Clean AND a rebuild to pick up those changes.
+
+
