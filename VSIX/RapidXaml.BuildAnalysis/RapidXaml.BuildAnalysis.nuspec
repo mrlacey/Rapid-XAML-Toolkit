@@ -4,12 +4,14 @@
     <id>RapidXaml.BuildAnalysis</id>
     <version>0.1.55</version>
     <authors>Matt Lacey</authors>
-    <owners>Matt Lacey</owners>
-    <copyright>Copyright © Matt Lacey</copyright>
+    <owners>MRLacey</owners>
+    <copyright>Copyright © 2020 Matt Lacey Ltd.</copyright>
+    <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>XAML, UWP, WPF, Xamarin.Forms, Uno</tags>
-    <description>Custom build tool packaged with Nuget</description>
-    <releaseNotes>details to go here</releaseNotes>
+    <description>Run Rapid XAML Analysis checks on all *.xaml files when building a project.</description>
+    <releaseNotes>Early release for wider testing.</releaseNotes>
+    <projectUrl>https://rapidxaml.dev</projectUrl>
     <repository type="git" url="https://github.com/mrlacey/rapid-xaml-toolkit" />
   </metadata>
   <files>
