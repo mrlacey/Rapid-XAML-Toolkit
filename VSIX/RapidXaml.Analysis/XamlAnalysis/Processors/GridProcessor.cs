@@ -43,7 +43,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             var leftPad = linePadding.Contains("\t") ? linePadding + "\t" : linePadding + "    ";
 
+            // Set to make it clear what the default is.
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
             var rowDefsClosingPos = -1;
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
 
             if (!hasRowDef)
             {
@@ -62,7 +65,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 rowDefsClosingPos = xamlElement.IndexOf("</Grid.RowDefinitions", StringComparison.Ordinal);
             }
 
+            // Set to make it clear what the default is.
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
             var colDefsClosingPos = -1;
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
 
             if (!hasColDef)
             {

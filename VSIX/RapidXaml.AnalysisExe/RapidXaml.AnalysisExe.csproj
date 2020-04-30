@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-      <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
+      <Version>0.10.55</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

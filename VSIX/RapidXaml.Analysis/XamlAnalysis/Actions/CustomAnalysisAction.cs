@@ -78,7 +78,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             return new CustomAnalysisTag(catd);
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter - cancellationToken
         private void InnerExecute(VisualStudioTextManipulation vs, CustomAnalysisTag tag, CancellationToken cancellationToken)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             switch (tag.Action)
             {

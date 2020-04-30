@@ -14,7 +14,7 @@ You can test (and debug) this exe by passing a project file path as debug applic
 
 AnalysisExe is distributed in a NuGet pacakge created by RapidXaml.BuildAnalysis.
 You can test this by creating a custom NuGet PackageSource that points to the debug output of BuildAnalysis. Have BuildAnalysisUwpTestApp install "RapidXaml.BuildAnalysis" from the debug location. When you build BuildAnalysisUwpTestApp it will include XAML analysis results in the output.
-To test changes, you need to override all the different caching that VS & NuGet do to be sure you see the changes. The best way to do this is the increase the version number in the nuspec file, then rebuild the package. In the consuming project (BuildAnalysisUwpTestApp) uninstall the extension and then (re)install the the new version.
+To test changes, you need to override all the different caching that VS & NuGet do to be sure you see the changes. The best way to do this is the increase the version number in the nuspec file, then rebuild the package. In the consuming project (BuildAnalysisUwpTestApp) uninstall the extension, restart Visual Studio, and then install the the new version of the package.
 
 
 Testing Custom Analyzers

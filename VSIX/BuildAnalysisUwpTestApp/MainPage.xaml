@@ -9,6 +9,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock x:Name="lowercase" Text="Hard-coded test" />
+        <!--  There is a setting to report the hard-coded text (RXT200) as an error.  -->
+        <!--<TextBlock x:Name="lowercase" Text="Hard-coded test" /> -->
     </Grid>
 </Page>

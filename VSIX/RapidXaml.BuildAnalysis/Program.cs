@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
 using System.IO;
+using System.Reflection;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -17,23 +17,22 @@ namespace RapidXaml.BuildAnalysis
 
         protected override string ToolName => "RapidXaml.AnalysisExe.exe";
 
+#pragma warning disable IDE0060 // Remove unused parameter
         public static void Main(string[] args)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
         }
 
         public override bool Execute()
         {
-            this.Log.LogMessage(MessageImportance.High, $"In {this.ToolName} tool : {this.Command}");
-            this.Log.LogWarning($"Command : {this.Command}");
-            this.Log.LogWarning($"{this.ToolName} 38");
+            this.Log.LogMessage(MessageImportance.Normal, $"Executing {this.ToolName} {this.Command}");
 
             return base.Execute();
         }
 
         protected override string GenerateFullPathToTool()
         {
-            // TODO: need to remove the need to hardcode this path with the version number
-            return Path.Combine(this.NuGetPath, "rapidxaml.buildanalysis", "0.1.37", "tools", "net472", this.ToolExe);
+            return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), this.ToolExe);
         }
 
         protected override string GenerateCommandLineCommands()
@@ -48,8 +47,6 @@ namespace RapidXaml.BuildAnalysis
 
         protected override int ExecuteTool(string pathToTool, string responseFileCommands, string commandLineCommands)
         {
-            this.Log.LogWarning($"ExecuteTool>pathToTool: {pathToTool} ");
-            this.Log.LogMessage(MessageImportance.High, $"In ExecuteTool : {this.GenerateFullPathToTool()}");
             return base.ExecuteTool(pathToTool, responseFileCommands, commandLineCommands);
         }
     }
