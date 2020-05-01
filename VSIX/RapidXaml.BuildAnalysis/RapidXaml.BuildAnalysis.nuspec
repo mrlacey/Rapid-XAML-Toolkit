@@ -8,6 +8,7 @@
     <copyright>Copyright © 2020 Matt Lacey Ltd.</copyright>
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <icon>images\icon.png</icon>
     <tags>XAML, UWP, WPF, Xamarin.Forms, Uno</tags>
     <description>Run Rapid XAML Analysis checks on all *.xaml files when building a project.</description>
     <releaseNotes>Early release for wider testing.</releaseNotes>
@@ -18,6 +19,8 @@
     <!-- Make this work with "pretty much" anything -->
     <file src="_._" target="lib/netstandard1.0/" />
     <file src="_._" target="lib/net40/" />
+
+    <file src=".\icon.png" target="images\" />
 
     <file src="$output$net472/RapidXaml.BuildAnalysis.dll" target="tools/net472/" />
     <file src="$output$net472/RapidXaml.BuildAnalysis.pdb" target="tools/net472/" />
