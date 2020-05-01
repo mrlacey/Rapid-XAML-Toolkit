@@ -32,6 +32,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.RoslynAnalyzers", "RapidXaml.RoslynAnalyzers\RapidXaml.RoslynAnalyzers.csproj", "{333FEEC8-4973-4471-9F0C-A90072383FA8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.BuildAnalysis", "RapidXaml.BuildAnalysis\RapidXaml.BuildAnalysis.csproj", "{CA5DCE89-5AC5-47C0-9F70-44778A26A723}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C95A2161-FA48-403C-B836-F4E19555CB21} = {C95A2161-FA48-403C-B836-F4E19555CB21}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildAnalysisUwpTestApp", "BuildAnalysisUwpTestApp\BuildAnalysisUwpTestApp.csproj", "{6614632F-E9B6-4893-9E65-265620D5ED2B}"
 EndProject
