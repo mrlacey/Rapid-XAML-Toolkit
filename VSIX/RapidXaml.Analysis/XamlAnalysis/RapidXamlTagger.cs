@@ -98,7 +98,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             try
             {
-                return ProjectHelpers.Dte2.Solution.FindProjectItem(fileName).ContainingProject.Name;
+                return ProjectHelpers.Dte2.Solution.FindProjectItem(fileName)?.ContainingProject?.Name ?? string.Empty;
             }
             catch (Exception e)
             {
