@@ -8,11 +8,11 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class RadioButtonAnalyzer : ICustomAnalyzer
+    public class RadioButtonAnalyzer : NotReallyCustomAnalyzer
     {
-        public string TargetType() => "RadioButton";
+        public override string TargetType() => "RadioButton";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element)
         {
             // Note. UWP & WPF set "Content" for RadioButtons
             var txtAttr = element.GetAttributes("Text").FirstOrDefault();

@@ -9,11 +9,11 @@ using RapidXamlToolkit.Resources;
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     // TODO: Cmobine with the logic of EntryProcessor
-    public class EntryAnalyzer : ICustomAnalyzer
+    public class EntryAnalyzer : NotReallyCustomAnalyzer
     {
-        public string TargetType() => "Entry";
+        public override string TargetType() => "Entry";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element)
         {
             AnalysisActions result = AnalysisActions.None;
 

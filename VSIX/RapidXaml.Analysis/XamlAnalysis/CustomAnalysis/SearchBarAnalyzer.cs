@@ -8,11 +8,11 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class SearchBarAnalyzer : ICustomAnalyzer
+    public class SearchBarAnalyzer : NotReallyCustomAnalyzer
     {
-        public string TargetType() => "SearchBar";
+        public override string TargetType() => "SearchBar";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element)
         {
             var phAttr = element.GetAttributes("Placeholder").FirstOrDefault();
 

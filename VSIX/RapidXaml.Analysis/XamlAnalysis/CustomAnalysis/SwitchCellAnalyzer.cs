@@ -8,11 +8,11 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class SwitchCellAnalyzer : ICustomAnalyzer
+    public class SwitchCellAnalyzer : NotReallyCustomAnalyzer
     {
-        public string TargetType() => "SwitchCell";
+        public override string TargetType() => "SwitchCell";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element)
         {
             var txtAttr = element.GetAttributes("Text").FirstOrDefault();
 

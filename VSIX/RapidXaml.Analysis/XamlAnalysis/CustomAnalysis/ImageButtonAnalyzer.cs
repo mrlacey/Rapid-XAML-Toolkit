@@ -8,11 +8,11 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class ImageButtonAnalyzer : ICustomAnalyzer
+    public class ImageButtonAnalyzer : NotReallyCustomAnalyzer
     {
-        public string TargetType() => "ImageButton";
+        public override string TargetType() => "ImageButton";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element)
         {
             // TODO: ISSUE#137 add check for accessible property describing the image
             return AnalysisActions.None;

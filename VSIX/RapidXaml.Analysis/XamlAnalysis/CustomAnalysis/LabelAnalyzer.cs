@@ -8,11 +8,11 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class LabelAnalyzer : ICustomAnalyzer
+    public class LabelAnalyzer : NotReallyCustomAnalyzer
     {
-        public string TargetType() => "Label";
+        public override string TargetType() => "Label";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element)
         {
             var txtAttr = element.GetAttributes("Text").FirstOrDefault();
 

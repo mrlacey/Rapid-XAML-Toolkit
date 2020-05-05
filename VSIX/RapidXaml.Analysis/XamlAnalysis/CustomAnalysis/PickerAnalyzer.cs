@@ -8,11 +8,11 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class PickerAnalyzer : ICustomAnalyzer
+    public class PickerAnalyzer : NotReallyCustomAnalyzer
     {
-        public string TargetType() => "Picker";
+        public override string TargetType() => "Picker";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element)
         {
             var ttlAttr = element.GetAttributes("Title").FirstOrDefault();
 

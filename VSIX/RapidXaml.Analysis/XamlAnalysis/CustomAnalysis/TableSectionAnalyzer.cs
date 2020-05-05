@@ -8,11 +8,11 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class TableSectionAnalyzer : ICustomAnalyzer
+    public class TableSectionAnalyzer : NotReallyCustomAnalyzer
     {
-        public string TargetType() => "TableSection";
+        public override string TargetType() => "TableSection";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element)
         {
             var ttlAttr = element.GetAttributes("Title").FirstOrDefault();
 

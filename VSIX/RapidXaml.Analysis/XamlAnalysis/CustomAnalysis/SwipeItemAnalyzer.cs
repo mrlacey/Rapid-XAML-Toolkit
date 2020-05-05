@@ -8,11 +8,11 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class SwipeItemAnalyzer : ICustomAnalyzer
+    public class SwipeItemAnalyzer : NotReallyCustomAnalyzer
     {
-        public string TargetType() => "SwipeItem";
+        public override string TargetType() => "SwipeItem";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element)
         {
             var hdrAttr = element.GetAttributes("Text").FirstOrDefault();
 
