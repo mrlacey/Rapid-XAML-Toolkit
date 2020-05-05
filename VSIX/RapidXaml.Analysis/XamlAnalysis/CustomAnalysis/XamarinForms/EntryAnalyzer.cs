@@ -8,7 +8,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    // TODO: Cmobine with the logic of EntryProcessor
+    // TODO: Combine with the logic of EntryProcessor
     public class EntryAnalyzer : NotReallyCustomAnalyzer
     {
         public override string TargetType() => "Entry";
