@@ -104,8 +104,18 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\AddChildTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BadCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\EntryCellAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\FooAnalysis.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\InternalBadCustomAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\ImageButtonAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\EntryAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\SwitchCellAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\TableSectionAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\PickerAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\SwipeItemAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\SearchBarAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\RadioButtonAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\LabelAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\NotReallyCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\RemoveFirstChildAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\RenameElementTestAnalyzer.cs" />
@@ -128,7 +138,6 @@
     <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\LabelProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MediaElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
@@ -317,5 +326,5 @@
   <PropertyGroup>
     <PostBuildEvent>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)UseSecretsForBuild.ps1 -mode POSTBUILD -rootDir $(ProjectDir)</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\signvsix.targets"/>
+  <Import Project="..\signvsix.targets" />
 </Project>

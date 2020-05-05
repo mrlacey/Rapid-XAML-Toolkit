@@ -116,7 +116,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.RichEditBox, new RichEditBoxProcessor(projType, logger)),
                         (Elements.ToggleSwitch, new ToggleSwitchProcessor(projType, logger)),
                         (Elements.Slider, new SliderProcessor(projType, logger)),
-                        (Elements.Label, new LabelProcessor(projType, logger)),
                         (Elements.PasswordBox, new PasswordBoxProcessor(projType, logger)),
                         (Elements.MediaElement, new MediaElementProcessor(projType, logger)),
                         (Elements.ListView, new SelectedItemAttributeProcessor(projType, logger)),
@@ -139,6 +138,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
 #endif
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
+                customProcessors.Add(new CustomAnalysis.LabelAnalyzer());
+                customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer());
+                customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer());
+                customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer());
+                customProcessors.Add(new CustomAnalysis.EntryAnalyzer());
+                customProcessors.Add(new CustomAnalysis.PickerAnalyzer());
 
                 foreach (var customProcessor in customProcessors)
                 {
