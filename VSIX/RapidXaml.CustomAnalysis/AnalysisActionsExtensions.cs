@@ -196,6 +196,33 @@ namespace RapidXaml
             return result;
         }
 
+        /// <summary>
+        /// Indicate an issue with the element but don't provide a quick action to fix it.
+        /// </summary>
+        /// <param name="analysisActions">The object to add this action to.</param>
+        /// <param name="errorType">How the response should be indicated.</param>
+        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
+        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
+        /// <param name="attribute">The element to highlight.</param>
+        /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions HighlightWithoutAction(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, RapidXamlAttribute attribute, string moreInfoUrl = null)
+        {
+            var result = analysisActions;
+
+            result.Actions.Add(new AnalysisAction
+            {
+                Action = ActionType.HighlightWithoutAction,
+                Code = code,
+                Description = description,
+                ErrorType = errorType,
+                Location = attribute.Location,
+                MoreInfoUrl = moreInfoUrl,
+            });
+
+            return result;
+        }
+
         // No AndHighlightWithoutAction option as it does nothing.
         // If combined with Supplementary Actions they won't get executed.
 

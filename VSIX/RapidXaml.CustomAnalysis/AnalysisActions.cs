@@ -150,6 +150,60 @@ namespace RapidXaml
         }
 
         /// <summary>
+        /// Indicate an issue with the element but don't provide a quick action to fix it.
+        /// </summary>
+        /// <param name="errorType">How the response should be indicated.</param>
+        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
+        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
+        /// <param name="attribute">The attribute to highlight.</param>
+        /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions HighlightWithoutAction(RapidXamlErrorType errorType, string code, string description, RapidXamlAttribute attribute, string moreInfoUrl = null)
+        {
+            var result = new AnalysisActions();
+
+            result.HighlightWithoutAction(errorType, code, description, attribute, moreInfoUrl);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Indicate an issue with the element but don't provide a quick action to fix it.
+        /// </summary>
+        /// <param name="errorType">How the response should be indicated.</param>
+        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
+        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
+        /// <param name="attribute">The attribute to highlight.</param>
+        /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions HighlightWithoutAction(RapidXamlErrorType errorType, string code, string description, RapidXamlAttribute attribute, string moreInfoUrl = null)
+        {
+            var result = new AnalysisActions();
+
+            result.HighlightWithoutAction(errorType, code, description, attribute, moreInfoUrl);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Indicate an issue with the element but don't provide a quick action to fix it.
+        /// </summary>
+        /// <param name="errorType">How the response should be indicated.</param>
+        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
+        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
+        /// <param name="attribute">The attribute to highlight.</param>
+        /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions HighlightWithoutAction(RapidXamlErrorType errorType, string code, string description, RapidXamlAttribute attribute, string moreInfoUrl = null)
+        {
+            var result = new AnalysisActions();
+
+            result.HighlightWithoutAction(errorType, code, description, attribute, moreInfoUrl);
+
+            return result;
+        }
+
+        /// <summary>
         /// A specific attribute of the element should be removed.
         /// </summary>
         /// <param name="errorType">How the response should be indicated.</param>
