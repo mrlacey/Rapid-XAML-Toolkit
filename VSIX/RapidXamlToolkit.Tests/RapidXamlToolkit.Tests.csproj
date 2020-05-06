@@ -131,7 +131,7 @@
     <Compile Include="XamlAnalysis\Processors\HubProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessorTests.cs" />
-    <Compile Include="XamlAnalysis\CustomAnalyzers\LabelAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\LabelAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\Processors\MediaElementProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessorTests.cs" />

@@ -62,12 +62,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     if (!element.ContainsAttribute("MaxLength"))
                     {
                         // TODO: create all error type documentation for this
-                        // TODO: create better description
-                        // TODO: Allow custom anlayzers to specify additional detail text
                         result.AddAttribute(
                             errorType: RapidXamlErrorType.Suggestion,
                             code: "RXT301",
-                            description: "It is a general recommendation to include a max length for password capture. Overflowing values can be a security weakness.",
+                            description: "It is a general recommendation to include a maximum length for password capture.",
+                            extendedMessage: "While short passwords are not recommended, allowing entry of infinite length can lead to a bad user experience, and has been known to be a security attack vector when the password is checked or passed to another system for validation.",
                             actionText: "Add MaxLength property",
                             addAttributeName: "MaxLength",
                             addAttributeValue: "100");
