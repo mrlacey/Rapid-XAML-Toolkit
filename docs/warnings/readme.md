@@ -12,6 +12,7 @@ The following may be shown in the Error List.
 | [RXT160](./RXT160.md) | `SelectedItem` binding should probably be `TwoWay`. |
 | [RXT200](./RXT200.md) | Hard-coded string value that should be a resource. |
 | [RXT300](./RXT300.md) | `Entry` does not have a `Keyboard` specified. |
+| [RXT300](./RXT301.md) | Password `Entry` does not have a `MaxLength` specified. |
 | [RXT401](./RXT401.md) | Handle both `Checked` and `Unchecked` events for a `CheckBox`. |
 | [RXT402](./RXT402.md) | Use `MediaPlayerElement` in place of `MediaElement`. |
 | [RXT451](./RXT451.md) | `x:Uid` should begin with an upper case character. |
