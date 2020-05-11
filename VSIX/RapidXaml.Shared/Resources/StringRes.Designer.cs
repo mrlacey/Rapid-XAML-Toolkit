@@ -1494,6 +1494,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add automation description..
+        /// </summary>
+        public static string UI_UndoContextAddAutomationDescription {
+            get {
+                return ResourceManager.GetString("UI_UndoContextAddAutomationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add ColumnDefinitions.
         /// </summary>
         public static string UI_UndoContextAddColumnDefinitions {
@@ -1967,6 +1976,15 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage {
             get {
                 return ResourceManager.GetString("UI_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a description to help anyone who can&apos;t see or understand the image..
+        /// </summary>
+        public static string UI_XamlAnalysisImageButtonAccessibilityDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisImageButtonAccessibilityDescription", resourceCulture);
             }
         }
         

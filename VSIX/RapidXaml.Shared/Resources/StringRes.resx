@@ -820,4 +820,10 @@
   <data name="UI_XamlAnalysisPasswordWithoutMaxLengthExtendedMessage" xml:space="preserve">
     <value>While short passwords are not recommended, allowing entry of infinite length can lead to a bad user experience, and has been known to be a security attack vector when the password is checked or passed to another system for validation.</value>
   </data>
+  <data name="UI_UndoContextAddAutomationDescription" xml:space="preserve">
+    <value>Add automation description.</value>
+  </data>
+  <data name="UI_XamlAnalysisImageButtonAccessibilityDescription" xml:space="preserve">
+    <value>Add a description to help anyone who can't see or understand the image.</value>
+  </data>
 </root>

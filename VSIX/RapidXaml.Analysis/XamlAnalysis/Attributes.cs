@@ -5,6 +5,14 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class Attributes
     {
+        public static string AutomationId => "AutomationId";
+
+        public static string APName => "AutomationProperties.Name";
+
+        public static string APHelpText => "AutomationProperties.HelpText";
+
+        public static string APLabeledBy => "AutomationProperties.LabeledBy";
+
         public static string CheckedEvent => "Checked";
 
         public static string Content => "Content";
@@ -34,6 +42,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string PlaceholderText => "PlaceholderText";
 
         public static string SelectedItem => "SelectedItem";
+
+        public static string Source => "Source";
 
         public static string Text => "Text";
 

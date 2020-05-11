@@ -11,13 +11,66 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
     public class ImageButtonAnalyzerTests : AnalyzerTestsBase
     {
         [TestMethod]
-        public void TestSomething()
+        public void NoWarningIfNoSource()
         {
             var xaml = @"<ImageButton />";
 
             var actions = this.GetActions<ImageButtonAnalyzer>(xaml, ProjectType.XamarinForms);
 
-            // TODO: Add a test once the analyzer does something
+            Assert.IsTrue(actions.IsNone);
+        }
+
+        [TestMethod]
+        public void WarningIfJustSource()
+        {
+            var xaml = @"<ImageButton Source=""filename.ext"" />";
+
+            var actions = this.GetActions<ImageButtonAnalyzer>(xaml, ProjectType.XamarinForms);
+
+            Assert.IsFalse(actions.IsNone);
+            Assert.AreEqual(1, actions.Actions.Count);
+            Assert.AreEqual(ActionType.AddAttribute, actions.Actions[0].Action);
+            Assert.AreEqual("RXT351", actions.Actions[0].Code);
+        }
+
+        [TestMethod]
+        public void NoWarningIfAutomationId()
+        {
+            var xaml = @"<ImageButton Source=""filename.ext"" AutomationId=""MyImageButton"" />";
+
+            var actions = this.GetActions<ImageButtonAnalyzer>(xaml, ProjectType.XamarinForms);
+
+            Assert.IsTrue(actions.IsNone);
+        }
+
+        [TestMethod]
+        public void NoWarningIfAutomationPropertiesName()
+        {
+            var xaml = @"<ImageButton Source=""filename.ext"" AutomationProperties.Name=""MyImageButton"" />";
+
+            var actions = this.GetActions<ImageButtonAnalyzer>(xaml, ProjectType.XamarinForms);
+
+            Assert.IsTrue(actions.IsNone);
+        }
+
+        [TestMethod]
+        public void NoWarningIfAutomationPropertiesHelpText()
+        {
+            var xaml = @"<ImageButton Source=""filename.ext"" AutomationProperties.HelpText=""MyImageButton"" />";
+
+            var actions = this.GetActions<ImageButtonAnalyzer>(xaml, ProjectType.XamarinForms);
+
+            Assert.IsTrue(actions.IsNone);
+        }
+
+        [TestMethod]
+        public void NoWarningIfAutomationPropertiesLabeledBy()
+        {
+            var xaml = @"<ImageButton Source=""filename.ext"" AutomationProperties.LabeledBy=""MyImageButton"" />";
+
+            var actions = this.GetActions<ImageButtonAnalyzer>(xaml, ProjectType.XamarinForms);
+
+            Assert.IsTrue(actions.IsNone);
         }
     }
 }
