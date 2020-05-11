@@ -8,7 +8,6 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    // TODO: Combine with the logic of EntryProcessor
     public class EntryAnalyzer : NotReallyCustomAnalyzer
     {
         public override string TargetType() => "Entry";
@@ -16,6 +15,41 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
             AnalysisActions result = AnalysisActions.None;
+
+            if (!element.HasAttribute(Attributes.Keyboard))
+            {
+                string nonDefaultSuggestion = null;
+                var xaml = element.OriginalString.ToLowerInvariant();
+                if (xaml.Contains("email"))
+                {
+                    nonDefaultSuggestion = "Email";
+                }
+                else if (xaml.Contains("phone") || xaml.Contains("cell") || xaml.Contains("mobile"))
+                {
+                    nonDefaultSuggestion = "Telephone";
+                }
+                else if (xaml.Contains("url"))
+                {
+                    nonDefaultSuggestion = "Url";
+                }
+
+                result.AddAttribute(
+                    RapidXamlErrorType.Suggestion,
+                    "RXT300",
+                    description: StringRes.UI_XamlAnalysisEntryWithoutKeyboardDescription,
+                    actionText: StringRes.UI_UndoContextAddEntryKeyboard,
+                    addAttributeName: Attributes.Keyboard,
+                    addAttributeValue: "Default",
+                    extendedMessage: StringRes.UI_XamlAnalysisEntryWithoutKeyboardExtendedMessage);
+
+                if (!string.IsNullOrEmpty(nonDefaultSuggestion))
+                {
+                    result.OrAddAttribute(
+                        actionText: StringRes.UI_AddEntryKeyboard.WithParams(nonDefaultSuggestion),
+                        addAttributeName: Attributes.Keyboard,
+                        addAttributeValue: nonDefaultSuggestion);
+                }
+            }
 
             var txtAttr = element.GetAttributes("Text").FirstOrDefault();
 

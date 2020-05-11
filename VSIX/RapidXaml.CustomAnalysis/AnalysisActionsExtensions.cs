@@ -58,6 +58,18 @@ namespace RapidXaml
                 });
         }
 
+        public static AnalysisActions OrAddAttribute(this AnalysisActions analysisActions, string actionText, string addAttributeName, string addAttributeValue)
+        {
+            return analysisActions.AddAlternativeSuggestion(
+                new AnalysisAction
+                {
+                    Action = ActionType.AddAttribute,
+                    ActionText = actionText,
+                    Name = addAttributeName,
+                    Value = addAttributeValue,
+                });
+        }
+
         /// <summary>
         /// A required child element is missing from the analyzed element.
         /// </summary>
@@ -469,6 +481,24 @@ namespace RapidXaml
             if (actionsCount > 0)
             {
                 result.Actions[actionsCount - 1].SupplementaryActions.Add(action);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("No action found to add to.");
+            }
+
+            return result;
+        }
+
+        private static AnalysisActions AddAlternativeSuggestion(this AnalysisActions analysisActions, AnalysisAction action)
+        {
+            var result = analysisActions;
+
+            var actionsCount = result.Actions.Count;
+
+            if (actionsCount > 0)
+            {
+                result.Actions[actionsCount - 1].AlternativeActions.Add(action);
             }
             else
             {

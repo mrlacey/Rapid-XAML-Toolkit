@@ -125,7 +125,7 @@
     <Compile Include="XamlAnalysis\Processors\CheckBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessorTests.cs" />
-    <Compile Include="XamlAnalysis\Processors\EntryProcessorTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\EntryAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\Processors\EveryElementProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\GridProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\HubProcessorTests.cs" />

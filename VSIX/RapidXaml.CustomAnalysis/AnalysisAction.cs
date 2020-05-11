@@ -34,5 +34,7 @@ namespace RapidXaml
         public bool? IsInlineAttribute { get; internal set; }
 
         public List<AnalysisAction> SupplementaryActions { get; } = new List<AnalysisAction>();
+
+        public List<AnalysisAction> AlternativeActions { get; } = new List<AnalysisAction>();
     }
 }
