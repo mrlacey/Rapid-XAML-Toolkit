@@ -10,11 +10,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class TableSectionAnalyzer : NotReallyCustomAnalyzer
     {
-        public override string TargetType() => "TableSection";
+        public override string TargetType() => Elements.TableSection;
 
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
-            var ttlAttr = element.GetAttributes("Title").FirstOrDefault();
+            var ttlAttr = element.GetAttributes(Attributes.Title).FirstOrDefault();
 
             if (ttlAttr != null && ttlAttr.HasStringValue)
             {
@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     return AnalysisActions.HighlightWithoutAction(
                     errorType: RapidXamlErrorType.Warning,
                     code: "RXT201",
-                    description: "TableSection contains hard-coded Title value '{0}'.".WithParams(value),
+                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.TableSection, Attributes.Title, value),
                     attribute: ttlAttr);
                 }
             }

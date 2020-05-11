@@ -10,11 +10,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class PickerAnalyzer : NotReallyCustomAnalyzer
     {
-        public override string TargetType() => "Picker";
+        public override string TargetType() => Elements.Picker;
 
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
-            var ttlAttr = element.GetAttributes("Title").FirstOrDefault();
+            var ttlAttr = element.GetAttributes(Attributes.Title).FirstOrDefault();
 
             if (ttlAttr != null && ttlAttr.HasStringValue)
             {
@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     return AnalysisActions.HighlightWithoutAction(
                     errorType: RapidXamlErrorType.Warning,
                     code: "RXT201",
-                    description: "Picker contains hard-coded Title value '{0}'.".WithParams(value),
+                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.Picker, Attributes.Title, value),
                     attribute: ttlAttr);
                 }
             }

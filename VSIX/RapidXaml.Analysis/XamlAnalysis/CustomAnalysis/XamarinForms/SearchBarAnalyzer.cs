@@ -10,11 +10,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class SearchBarAnalyzer : NotReallyCustomAnalyzer
     {
-        public override string TargetType() => "SearchBar";
+        public override string TargetType() => Elements.SearchBar;
 
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
-            var phAttr = element.GetAttributes("Placeholder").FirstOrDefault();
+            var phAttr = element.GetAttributes(Attributes.Placeholder).FirstOrDefault();
 
             if (phAttr != null && phAttr.HasStringValue)
             {
@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     return AnalysisActions.HighlightWithoutAction(
                     errorType: RapidXamlErrorType.Warning,
                     code: "RXT201",
-                    description: "SearchBar contains hard-coded Placeholder value '{0}'.".WithParams(value),
+                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.SearchBar, Attributes.Placeholder, value),
                     attribute: phAttr);
                 }
             }

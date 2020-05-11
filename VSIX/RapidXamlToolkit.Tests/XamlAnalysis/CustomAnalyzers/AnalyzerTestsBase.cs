@@ -7,7 +7,6 @@ using RapidXamlToolkit.XamlAnalysis;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 {
-    // TODO: add tests for new XF related CustomAnalyzers
     public class AnalyzerTestsBase
     {
         internal AnalysisActions GetActions<T>(string xaml, ProjectType projectType = ProjectType.Any)

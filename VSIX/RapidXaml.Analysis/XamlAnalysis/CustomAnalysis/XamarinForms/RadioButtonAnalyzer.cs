@@ -10,12 +10,12 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class RadioButtonAnalyzer : NotReallyCustomAnalyzer
     {
-        public override string TargetType() => "RadioButton";
+        public override string TargetType() => Elements.RadioButton;
 
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
             // Note. UWP & WPF set "Content" for RadioButtons
-            var txtAttr = element.GetAttributes("Text").FirstOrDefault();
+            var txtAttr = element.GetAttributes(Attributes.Text).FirstOrDefault();
 
             if (txtAttr != null && txtAttr.HasStringValue)
             {
@@ -27,7 +27,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     return AnalysisActions.HighlightWithoutAction(
                     errorType: RapidXamlErrorType.Warning,
                     code: "RXT201",
-                    description: "RadioButton contains hard-coded Text value '{0}'.".WithParams(value),
+                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.RadioButton, Attributes.Text, value),
                     attribute: txtAttr);
                 }
             }

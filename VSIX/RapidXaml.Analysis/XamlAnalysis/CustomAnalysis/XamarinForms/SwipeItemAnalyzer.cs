@@ -10,11 +10,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class SwipeItemAnalyzer : NotReallyCustomAnalyzer
     {
-        public override string TargetType() => "SwipeItem";
+        public override string TargetType() => Elements.SwipeItem;
 
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
-            var hdrAttr = element.GetAttributes("Text").FirstOrDefault();
+            var hdrAttr = element.GetAttributes(Attributes.Text).FirstOrDefault();
 
             if (hdrAttr != null && hdrAttr.HasStringValue)
             {
@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     return AnalysisActions.HighlightWithoutAction(
                     errorType: RapidXamlErrorType.Warning,
                     code: "RXT201",
-                    description: "SwipeItem contains hard-coded Text value '{0}'.".WithParams(value),
+                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.SwipeItem, Attributes.Text, value),
                     attribute: hdrAttr);
                 }
             }

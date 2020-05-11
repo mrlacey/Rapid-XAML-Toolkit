@@ -116,6 +116,14 @@
     <Compile Include="XamlAnalysis\CustomAnalyzers\CustomAnalysisTestHelperTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\FooAnalysisTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\TwoPaneViewAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\EntryCellAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\ImageButtonAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\SwitchCellAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\TableSectionAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\SwipeItemAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\SearchBarAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\RadioButtonAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\PickerAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessorTests.cs" />

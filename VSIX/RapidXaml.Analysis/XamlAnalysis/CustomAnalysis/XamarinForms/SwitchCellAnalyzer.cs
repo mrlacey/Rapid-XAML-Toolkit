@@ -10,11 +10,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class SwitchCellAnalyzer : NotReallyCustomAnalyzer
     {
-        public override string TargetType() => "SwitchCell";
+        public override string TargetType() => Elements.SwitchCell;
 
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
-            var txtAttr = element.GetAttributes("Text").FirstOrDefault();
+            var txtAttr = element.GetAttributes(Attributes.Text).FirstOrDefault();
 
             if (txtAttr != null && txtAttr.HasStringValue)
             {
@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     return AnalysisActions.HighlightWithoutAction(
                     errorType: RapidXamlErrorType.Warning,
                     code: "RXT201",
-                    description: "SwitchCell contains hard-coded Text value '{0}'.".WithParams(value),
+                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.SwitchCell, Attributes.Text, value),
                     attribute: txtAttr);
                 }
             }

@@ -10,13 +10,13 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class EntryCellAnalyzer : NotReallyCustomAnalyzer
     {
-        public override string TargetType() => "EntryCell";
+        public override string TargetType() => Elements.EntryCell;
 
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
             AnalysisActions result = AnalysisActions.None;
 
-            var txtAttr = element.GetAttributes("Text").FirstOrDefault();
+            var txtAttr = element.GetAttributes(Attributes.Text).FirstOrDefault();
 
             if (txtAttr != null && txtAttr.HasStringValue)
             {
@@ -28,7 +28,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     result.HighlightWithoutAction(
                     errorType: RapidXamlErrorType.Warning,
                     code: "RXT201",
-                    description: "EntryCell contains hard-coded Text value '{0}'.".WithParams(value),
+                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.EntryCell, Attributes.Text, value),
                     attribute: txtAttr);
                 }
             }

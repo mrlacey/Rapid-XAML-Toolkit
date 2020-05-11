@@ -10,7 +10,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class ImageButtonAnalyzer : NotReallyCustomAnalyzer
     {
-        public override string TargetType() => "ImageButton";
+        public override string TargetType() => Elements.ImageButton;
 
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
