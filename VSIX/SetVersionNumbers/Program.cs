@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Xml;
 
 namespace SetVersionNumbers
@@ -107,7 +108,8 @@ namespace SetVersionNumbers
 
                 identity[0].Attributes["Version"].Value = versionNo;
 
-                xmlDoc.Save(manifestFile);
+                using var sw = new StreamWriter(manifestFile, false, Encoding.UTF8);
+                xmlDoc.Save(sw);
             }
         }
 
@@ -121,7 +123,8 @@ namespace SetVersionNumbers
 
                 version[0].InnerText = versionNo;
 
-                xmlDoc.Save(nuspecFile);
+                using var sw = new StreamWriter(nuspecFile, false, Encoding.UTF8);
+                xmlDoc.Save(sw);
             }
         }
 
@@ -143,7 +146,7 @@ namespace SetVersionNumbers
                 }
             }
 
-            File.WriteAllLines(inFile, newLineContents);
+            File.WriteAllLines(inFile, newLineContents, Encoding.UTF8);
         }
     }
 }
