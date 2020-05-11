@@ -10,7 +10,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class EntryAnalyzer : NotReallyCustomAnalyzer
     {
-        public override string TargetType() => "Entry";
+        public override string TargetType() => Elements.Entry;
 
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
@@ -51,7 +51,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                 }
             }
 
-            var txtAttr = element.GetAttributes("Text").FirstOrDefault();
+            var txtAttr = element.GetAttributes(Attributes.Text).FirstOrDefault();
 
             if (txtAttr != null && txtAttr.HasStringValue)
             {
@@ -63,12 +63,12 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     result.HighlightWithoutAction(
                     errorType: RapidXamlErrorType.Warning,
                     code: "RXT201",
-                    description: "Entry contains hard-coded Text value '{0}'.".WithParams(value),
+                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.Entry, Attributes.Text, value),
                     attribute: txtAttr);
                 }
             }
 
-            var phAttr = element.GetAttributes("Placeholder").FirstOrDefault();
+            var phAttr = element.GetAttributes(Attributes.Placeholder).FirstOrDefault();
 
             if (phAttr != null && phAttr.HasStringValue)
             {
@@ -80,12 +80,12 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     result.HighlightWithoutAction(
                     errorType: RapidXamlErrorType.Warning,
                     code: "RXT201",
-                    description: "Entry contains hard-coded Placeholder value '{0}'.".WithParams(value),
+                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.Entry, Attributes.Placeholder, value),
                     attribute: phAttr);
                 }
             }
 
-            var isPwdAttr = element.GetAttributes("IsPassword").FirstOrDefault();
+            var isPwdAttr = element.GetAttributes(Attributes.IsPassword).FirstOrDefault();
 
             if (isPwdAttr != null && isPwdAttr.HasStringValue)
             {
@@ -93,16 +93,15 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
                 if (value.Equals("true", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    if (!element.ContainsAttribute("MaxLength"))
+                    if (!element.ContainsAttribute(Attributes.MaxLength))
                     {
-                        // TODO: create all error type documentation for this
                         result.AddAttribute(
                             errorType: RapidXamlErrorType.Suggestion,
                             code: "RXT301",
-                            description: "It is a general recommendation to include a maximum length for password capture.",
-                            extendedMessage: "While short passwords are not recommended, allowing entry of infinite length can lead to a bad user experience, and has been known to be a security attack vector when the password is checked or passed to another system for validation.",
-                            actionText: "Add MaxLength property",
-                            addAttributeName: "MaxLength",
+                            description: StringRes.UI_XamlAnalysisPasswordWithoutMaxLengthDescription,
+                            extendedMessage: StringRes.UI_XamlAnalysisPasswordWithoutMaxLengthExtendedMessage,
+                            actionText: StringRes.UI_UndoContextAddMaxLangthProperty,
+                            addAttributeName: Attributes.MaxLength,
                             addAttributeValue: "100");
                     }
                 }

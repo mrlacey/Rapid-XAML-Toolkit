@@ -15,15 +15,21 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string InputScope => "InputScope";
 
+        public static string IsPassword => "IsPassword";
+
         public static string Keyboard => "Keyboard";
 
         public static string Label => "Label";
+
+        public static string MaxLength => "MaxLength";
 
         public static string Name => "Name";
 
         public static string OnContent => "OnContent";
 
         public static string OffContent => "OffContent";
+
+        public static string Placeholder => "Placeholder";
 
         public static string PlaceholderText => "PlaceholderText";
 

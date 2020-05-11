@@ -1512,6 +1512,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add MaxLength property..
+        /// </summary>
+        public static string UI_UndoContextAddMaxLangthProperty {
+            get {
+                return ResourceManager.GetString("UI_UndoContextAddMaxLangthProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add missing column definitions.
         /// </summary>
         public static string UI_UndoContextAddMissingColumnDefinitions {
@@ -1643,6 +1652,15 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_XamlAnalysisEntryWithoutKeyboardExtendedMessage {
             get {
                 return ResourceManager.GetString("UI_XamlAnalysisEntryWithoutKeyboardExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} contains hard-coded {1} value &apos;{2}&apos;..
+        /// </summary>
+        public static string UI_XamlAnalysisGenericHardCodedStringDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisGenericHardCodedStringDescription", resourceCulture);
             }
         }
         
@@ -2021,6 +2039,24 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_XamlAnalysisNameTitleCaseToolTip {
             get {
                 return ResourceManager.GetString("UI_XamlAnalysisNameTitleCaseToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is a general recommendation to include a maximum length for password capture..
+        /// </summary>
+        public static string UI_XamlAnalysisPasswordWithoutMaxLengthDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisPasswordWithoutMaxLengthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to While short passwords are not recommended, allowing entry of infinite length can lead to a bad user experience, and has been known to be a security attack vector when the password is checked or passed to another system for validation..
+        /// </summary>
+        public static string UI_XamlAnalysisPasswordWithoutMaxLengthExtendedMessage {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisPasswordWithoutMaxLengthExtendedMessage", resourceCulture);
             }
         }
         
