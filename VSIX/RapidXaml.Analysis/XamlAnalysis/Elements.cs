@@ -25,6 +25,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Entry => "Entry";
 
+        public static string EntryCell => "EntryCell";
+
         public static string Grid => "Grid";
 
         public static string Hub => "Hub";
@@ -32,6 +34,10 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string HubSection => "HubSection";
 
         public static string HyperlinkButton => "HyperlinkButton";
+
+        public static string Image => "Image";
+
+        public static string ImageButton => "ImageButton";
 
         public static string Label => "Label";
 
@@ -45,15 +51,27 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string PasswordBox => "PasswordBox";
 
+        public static string Picker => "Picker";
+
         public static string Pivot => "Pivot";
 
         public static string PivotItem => "PivotItem";
+
+        public static string RadioButton => "RadioButton";
 
         public static string RepeatButton => "RepeatButton";
 
         public static string RichEditBox => "RichEditBox";
 
+        public static string SearchBar => "SearchBar";
+
         public static string Slider => "Slider";
+
+        public static string SwipeItem => "SwipeItem";
+
+        public static string SwitchCell => "SwitchCell";
+
+        public static string TableSection => "TableSection";
 
         public static string TimePicker => "TimePicker";
 

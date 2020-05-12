@@ -66,7 +66,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         processors = GetAllProcessors(projType, projDir);
 
-                        // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
+                        // May need to tidy-up/release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
                         XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, suppressions);
                     }
                 }
@@ -95,7 +95,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.TextBlock, new TextBlockProcessor(projType, logger)),
                         (Elements.TextBox, new TextBoxProcessor(projType, logger)),
                         (Elements.Button, new ButtonProcessor(projType, logger)),
-                        (Elements.Entry, new EntryProcessor(projType, logger)),
                         (Elements.AppBarButton, new AppBarButtonProcessor(projType, logger)),
                         (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(projType, logger)),
                         (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(projType, logger)),
@@ -116,7 +115,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.RichEditBox, new RichEditBoxProcessor(projType, logger)),
                         (Elements.ToggleSwitch, new ToggleSwitchProcessor(projType, logger)),
                         (Elements.Slider, new SliderProcessor(projType, logger)),
-                        (Elements.Label, new LabelProcessor(projType, logger)),
                         (Elements.PasswordBox, new PasswordBoxProcessor(projType, logger)),
                         (Elements.MediaElement, new MediaElementProcessor(projType, logger)),
                         (Elements.ListView, new SelectedItemAttributeProcessor(projType, logger)),
@@ -139,6 +137,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
 #endif
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
+                customProcessors.Add(new CustomAnalysis.LabelAnalyzer());
+                customProcessors.Add(new CustomAnalysis.XfImageAnalyzer());
+                customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer());
+                customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer());
+                customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer());
+                customProcessors.Add(new CustomAnalysis.EntryAnalyzer());
+                customProcessors.Add(new CustomAnalysis.PickerAnalyzer());
 
                 foreach (var customProcessor in customProcessors)
                 {

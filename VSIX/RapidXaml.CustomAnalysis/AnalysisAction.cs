@@ -27,10 +27,14 @@ namespace RapidXaml
 
         public RapidXamlSpan Location { get; internal set; }
 
+        public string ExtendedMessage { get; internal set; }
+
         public string MoreInfoUrl { get; internal set; }
 
         public bool? IsInlineAttribute { get; internal set; }
 
         public List<AnalysisAction> SupplementaryActions { get; } = new List<AnalysisAction>();
+
+        public List<AnalysisAction> AlternativeActions { get; } = new List<AnalysisAction>();
     }
 }

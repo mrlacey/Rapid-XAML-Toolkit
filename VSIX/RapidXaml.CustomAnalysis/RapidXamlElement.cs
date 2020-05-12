@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace RapidXaml
@@ -10,6 +11,7 @@ namespace RapidXaml
     /// <summary>
     /// A representation of a XAML element.
     /// </summary>
+    [DebuggerDisplay("{OriginalString}")]
     public class RapidXamlElement
     {
         /// <summary>
@@ -159,6 +161,11 @@ namespace RapidXaml
                     yield return attr;
                 }
             }
+        }
+
+        public bool HasAttribute(string attributeName)
+        {
+            return this.Attributes.Any(a => a.Name == attributeName);
         }
 
         /// <summary>

@@ -17,9 +17,10 @@ namespace RapidXaml
         /// <param name="actionText">The text displayed in the quick action.</param>
         /// <param name="addAttributeName">The name for the attribute to be added by the quick action.</param>
         /// <param name="addAttributeValue">The value for the attribute to be added by the quick action.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions AddAttribute(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string addAttributeName, string addAttributeValue, string moreInfoUrl = null)
+        public static AnalysisActions AddAttribute(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string addAttributeName, string addAttributeValue, string extendedMessage = null, string moreInfoUrl = null)
         {
             var result = analysisActions;
 
@@ -32,6 +33,7 @@ namespace RapidXaml
                 ActionText = actionText,
                 Name = addAttributeName,
                 Value = addAttributeValue,
+                ExtendedMessage = extendedMessage,
                 MoreInfoUrl = moreInfoUrl,
             });
 
@@ -56,6 +58,18 @@ namespace RapidXaml
                 });
         }
 
+        public static AnalysisActions OrAddAttribute(this AnalysisActions analysisActions, string actionText, string addAttributeName, string addAttributeValue)
+        {
+            return analysisActions.AddAlternativeSuggestion(
+                new AnalysisAction
+                {
+                    Action = ActionType.AddAttribute,
+                    ActionText = actionText,
+                    Name = addAttributeName,
+                    Value = addAttributeValue,
+                });
+        }
+
         /// <summary>
         /// A required child element is missing from the analyzed element.
         /// </summary>
@@ -66,9 +80,10 @@ namespace RapidXaml
         /// <param name="actionText">The text displayed in the quick action.</param>
         /// <param name="elementName">The name of the child element to add.</param>
         /// <param name="attributes">(Optional) a collection of names and values specifying attributes for the added element.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions AddChild(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string elementName, List<(string name, string value)> attributes = null, string moreInfoUrl = null)
+        public static AnalysisActions AddChild(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string elementName, List<(string name, string value)> attributes = null, string extendedMessage = null, string moreInfoUrl = null)
         {
             var result = analysisActions;
 
@@ -92,6 +107,7 @@ namespace RapidXaml
                 ErrorType = errorType,
                 ActionText = actionText,
                 Content = content,
+                ExtendedMessage = extendedMessage,
                 MoreInfoUrl = moreInfoUrl,
             });
 
@@ -133,9 +149,10 @@ namespace RapidXaml
         /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
         /// <param name="actionText">The text displayed in the quick action.</param>
         /// <param name="xaml">A string to add as a child of the element.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions AddChildString(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string xaml, string moreInfoUrl = null)
+        public static AnalysisActions AddChildString(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string xaml, string extendedMessage = null, string moreInfoUrl = null)
         {
             var result = analysisActions;
 
@@ -147,6 +164,7 @@ namespace RapidXaml
                 ErrorType = errorType,
                 ActionText = actionText,
                 Content = xaml,
+                ExtendedMessage = extendedMessage,
                 MoreInfoUrl = moreInfoUrl,
             });
 
@@ -177,9 +195,10 @@ namespace RapidXaml
         /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
         /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
         /// <param name="descendant">The element to highlight.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions HighlightWithoutAction(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, RapidXamlElement descendant, string moreInfoUrl = null)
+        public static AnalysisActions HighlightWithoutAction(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, RapidXamlElement descendant, string extendedMessage = null, string moreInfoUrl = null)
         {
             var result = analysisActions;
 
@@ -190,6 +209,36 @@ namespace RapidXaml
                 Description = description,
                 ErrorType = errorType,
                 Location = descendant.Location,
+                ExtendedMessage = extendedMessage,
+                MoreInfoUrl = moreInfoUrl,
+            });
+
+            return result;
+        }
+
+        /// <summary>
+        /// Indicate an issue with the element but don't provide a quick action to fix it.
+        /// </summary>
+        /// <param name="analysisActions">The object to add this action to.</param>
+        /// <param name="errorType">How the response should be indicated.</param>
+        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
+        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
+        /// <param name="attribute">The element to highlight.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
+        /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions HighlightWithoutAction(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, RapidXamlAttribute attribute, string extendedMessage = null, string moreInfoUrl = null)
+        {
+            var result = analysisActions;
+
+            result.Actions.Add(new AnalysisAction
+            {
+                Action = ActionType.HighlightWithoutAction,
+                Code = code,
+                Description = description,
+                ErrorType = errorType,
+                Location = attribute.Location,
+                ExtendedMessage = extendedMessage,
                 MoreInfoUrl = moreInfoUrl,
             });
 
@@ -208,9 +257,10 @@ namespace RapidXaml
         /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
         /// <param name="actionText">The text displayed in the quick action.</param>
         /// <param name="attribute">The attribute the quick action will remove.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions RemoveAttribute(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlAttribute attribute, string moreInfoUrl = null)
+        public static AnalysisActions RemoveAttribute(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlAttribute attribute, string extendedMessage = null, string moreInfoUrl = null)
         {
             var result = analysisActions;
 
@@ -224,6 +274,7 @@ namespace RapidXaml
                 Name = attribute?.Name,
                 IsInlineAttribute = attribute?.IsInline ?? true,
                 Value = attribute?.StringValue,
+                ExtendedMessage = extendedMessage,
                 MoreInfoUrl = moreInfoUrl,
             });
 
@@ -255,9 +306,10 @@ namespace RapidXaml
         /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
         /// <param name="actionText">The text displayed in the quick action.</param>
         /// <param name="attributeName">The name of the attribute the quick action will remove.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions RemoveAttribute(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string attributeName, string moreInfoUrl = null)
+        public static AnalysisActions RemoveAttribute(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string attributeName, string extendedMessage = null, string moreInfoUrl = null)
         {
             var result = analysisActions;
 
@@ -269,6 +321,7 @@ namespace RapidXaml
                 ErrorType = errorType,
                 ActionText = actionText,
                 Name = attributeName,
+                ExtendedMessage = extendedMessage,
                 MoreInfoUrl = moreInfoUrl,
             });
 
@@ -300,9 +353,10 @@ namespace RapidXaml
         /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
         /// <param name="actionText">The text displayed in the quick action.</param>
         /// <param name="child">The element the quick action will remove.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions RemoveChild(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement child, string moreInfoUrl = null)
+        public static AnalysisActions RemoveChild(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, RapidXamlElement child, string extendedMessage = null, string moreInfoUrl = null)
         {
             var result = analysisActions;
 
@@ -314,6 +368,7 @@ namespace RapidXaml
                 ErrorType = errorType,
                 ActionText = actionText,
                 Element = child,
+                ExtendedMessage = extendedMessage,
                 MoreInfoUrl = moreInfoUrl,
             });
 
@@ -345,9 +400,10 @@ namespace RapidXaml
         /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
         /// <param name="actionText">The text displayed in the quick action.</param>
         /// <param name="replacementXaml">The XAML that the quick action should use to replace the existing element.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions ReplaceElement(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string replacementXaml, string moreInfoUrl = null)
+        public static AnalysisActions ReplaceElement(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string replacementXaml, string extendedMessage = null, string moreInfoUrl = null)
         {
             var result = analysisActions;
 
@@ -359,6 +415,7 @@ namespace RapidXaml
                 ErrorType = errorType,
                 ActionText = actionText,
                 Content = replacementXaml,
+                ExtendedMessage = extendedMessage,
                 MoreInfoUrl = moreInfoUrl,
             });
 
@@ -377,9 +434,10 @@ namespace RapidXaml
         /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
         /// <param name="actionText">The text displayed in the quick action.</param>
         /// <param name="newName">The name to be applied by the quick action.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions RenameElement(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string newName, string moreInfoUrl = null)
+        public static AnalysisActions RenameElement(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string newName, string extendedMessage = null, string moreInfoUrl = null)
         {
             var result = analysisActions;
 
@@ -391,6 +449,7 @@ namespace RapidXaml
                 ErrorType = errorType,
                 ActionText = actionText,
                 Name = newName,
+                ExtendedMessage = extendedMessage,
                 MoreInfoUrl = moreInfoUrl,
             });
 
@@ -422,6 +481,24 @@ namespace RapidXaml
             if (actionsCount > 0)
             {
                 result.Actions[actionsCount - 1].SupplementaryActions.Add(action);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("No action found to add to.");
+            }
+
+            return result;
+        }
+
+        private static AnalysisActions AddAlternativeSuggestion(this AnalysisActions analysisActions, AnalysisAction action)
+        {
+            var result = analysisActions;
+
+            var actionsCount = result.Actions.Count;
+
+            if (actionsCount > 0)
+            {
+                result.Actions[actionsCount - 1].AlternativeActions.Add(action);
             }
             else
             {

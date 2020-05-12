@@ -77,7 +77,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlAnalysisPackage.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\AddEntryKeyboardAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddRowAndColumnDefinitionsAction.cs" />
@@ -104,13 +103,24 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\AddChildTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BadCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\EntryCellAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\FooAnalysis.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\InternalBadCustomAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\ImageButtonAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\EntryAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\SwitchCellAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\TableSectionAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\PickerAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\SwipeItemAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\SearchBarAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\RadioButtonAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\LabelAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\NotReallyCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\RemoveFirstChildAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\RenameElementTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\ReplaceElementTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\TwoPaneViewAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfImageAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomProcessorWrapper.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />
     <Compile Include="XamlAnalysis\ParsedAction.cs" />
@@ -122,13 +132,11 @@
     <Compile Include="XamlAnalysis\Processors\CheckBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\EntryProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\EveryElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\GridProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\LabelProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MediaElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
@@ -159,7 +167,6 @@
     <Compile Include="XamlAnalysis\TagList.cs" />
     <Compile Include="XamlAnalysis\TagSuppression.cs" />
     <Compile Include="XamlAnalysis\Tags\AddColumnDefinitionsTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\AddEntryKeyboardTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddRowDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
@@ -317,5 +324,5 @@
   <PropertyGroup>
     <PostBuildEvent>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)UseSecretsForBuild.ps1 -mode POSTBUILD -rootDir $(ProjectDir)</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="..\signvsix.targets"/>
+  <Import Project="..\signvsix.targets" />
 </Project>
