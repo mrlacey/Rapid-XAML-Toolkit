@@ -16,7 +16,11 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var element = RapidXamlElementExtractor.GetElement(xaml);
 
-            var result = sut.Analyze(element);
+            var details = new ExtraAnalysisDetails(
+                "test.xaml",
+                ProjectFrameworkHelper.FromType(projectType));
+
+            var result = sut.Analyze(element, details);
 
             return result;
         }

@@ -7,6 +7,6 @@ namespace RapidXaml
     {
         string TargetType();
 
-        AnalysisActions Analyze(RapidXamlElement element);
+        AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails);
     }
 }

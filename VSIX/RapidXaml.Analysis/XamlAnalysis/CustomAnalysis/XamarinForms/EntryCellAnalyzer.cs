@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     {
         public override string TargetType() => Elements.EntryCell;
 
-        public override AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             AnalysisActions result = AnalysisActions.None;
 

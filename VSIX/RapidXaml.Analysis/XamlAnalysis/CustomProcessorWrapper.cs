@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
+using RapidXaml;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -31,7 +32,9 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var rxElement = RapidXamlElementExtractor.GetElement(xamlElement, offset);
 
-            var analysisActions = this.customProcessor.Analyze(rxElement);
+            var details = new ExtraAnalysisDetails(fileName, ProjectFrameworkHelper.FromType(this.ProjectType));
+
+            var analysisActions = this.customProcessor.Analyze(rxElement, details);
 
             if (!analysisActions.IsNone)
             {

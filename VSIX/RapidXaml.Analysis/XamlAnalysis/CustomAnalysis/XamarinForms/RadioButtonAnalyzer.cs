@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     {
         public override string TargetType() => Elements.RadioButton;
 
-        public override AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             // Note. UWP & WPF set "Content" for RadioButtons
             var txtAttr = element.GetAttributes(Attributes.Text).FirstOrDefault();

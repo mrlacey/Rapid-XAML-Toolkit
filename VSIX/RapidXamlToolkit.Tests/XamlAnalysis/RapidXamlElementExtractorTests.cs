@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
+using RapidXaml.TestHelpers;
 using RapidXamlToolkit.XamlAnalysis;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis

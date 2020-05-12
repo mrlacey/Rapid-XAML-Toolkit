@@ -10,7 +10,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     {
         public override string TargetType() => Elements.ImageButton;
 
-        public override AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             // Don't report anything if the source hasn't been set.
             // Allow for multiple possible values that could be used by accesibility tools.

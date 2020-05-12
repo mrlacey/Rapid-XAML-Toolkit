@@ -153,6 +153,7 @@
     <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\ProjectFrameworkHelper.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
     <Compile Include="XamlAnalysis\RapidXamlElementExtractor.cs" />
