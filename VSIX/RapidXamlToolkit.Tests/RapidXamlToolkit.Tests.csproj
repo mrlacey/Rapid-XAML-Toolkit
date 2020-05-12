@@ -117,6 +117,7 @@
     <Compile Include="XamlAnalysis\CustomAnalyzers\FooAnalysisTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\TwoPaneViewAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\EntryCellAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\XfImageAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\ImageButtonAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\SwitchCellAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\TableSectionAnalyzerTests.cs" />
