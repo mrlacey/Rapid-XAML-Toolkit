@@ -27,9 +27,8 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
              && !element.HasAttribute(Attributes.APHelpText)
              && !element.HasAttribute(Attributes.APLabeledBy))
             {
-                var inTree = element.GetAttributes(Attributes.APIsInAccessibleTree).FirstOrDefault();
-
-                if (inTree == null || (inTree.HasStringValue && inTree.StringValue.Equals("true", System.StringComparison.InvariantCultureIgnoreCase)))
+                if (!element.TryGetAttributeStringValue(Attributes.APIsInAccessibleTree, out string inTree)
+                 || inTree.Equals("true", System.StringComparison.InvariantCultureIgnoreCase))
                 {
                     return AnalysisActions.AddAttribute(
                         RapidXamlErrorType.Warning,
