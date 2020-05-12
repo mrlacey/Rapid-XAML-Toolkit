@@ -106,6 +106,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\EntryCellAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\FooAnalysis.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\InternalBadCustomAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\ImageAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\ImageButtonAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\EntryAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\SwitchCellAnalyzer.cs" />

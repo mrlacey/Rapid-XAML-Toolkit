@@ -1575,6 +1575,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exclude from accessible view..
+        /// </summary>
+        public static string UI_UndoContextExcludeFromAutomation {
+            get {
+                return ResourceManager.GetString("UI_UndoContextExcludeFromAutomation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert RowDefinition.
         /// </summary>
         public static string UI_UndoContextInsertRowDef {
@@ -1976,6 +1985,24 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage {
             get {
                 return ResourceManager.GetString("UI_XamlAnalysisHardcodedStringTooltipServiceToolTipMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image lacks accessibility consideration.
+        /// </summary>
+        public static string UI_XamlAnalysisImageAccessibilityDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisImageAccessibilityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the image contains content that is useful to the user a description should be made available to accessibility tools. If the image does not contain useful content it should be excluded from the accessible view..
+        /// </summary>
+        public static string UI_XamlAnalysisImageAccessibilityExtendedMessage {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisImageAccessibilityExtendedMessage", resourceCulture);
             }
         }
         

@@ -823,6 +823,15 @@
   <data name="UI_UndoContextAddAutomationDescription" xml:space="preserve">
     <value>Add automation description.</value>
   </data>
+  <data name="UI_UndoContextExcludeFromAutomation" xml:space="preserve">
+    <value>Exclude from accessible view.</value>
+  </data>
+  <data name="UI_XamlAnalysisImageAccessibilityDescription" xml:space="preserve">
+    <value>Image lacks accessibility consideration</value>
+  </data>
+  <data name="UI_XamlAnalysisImageAccessibilityExtendedMessage" xml:space="preserve">
+    <value>If the image contains content that is useful to the user a description should be made available to accessibility tools. If the image does not contain useful content it should be excluded from the accessible view.</value>
+  </data>
   <data name="UI_XamlAnalysisImageButtonAccessibilityDescription" xml:space="preserve">
     <value>Add a description to help anyone who can't see or understand the image.</value>
   </data>

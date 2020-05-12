@@ -7,11 +7,13 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         public static string AutomationId => "AutomationId";
 
-        public static string APName => "AutomationProperties.Name";
+        public static string APIsInAccessibleTree => "AutomationProperties.IsInAccessibleTree";
 
         public static string APHelpText => "AutomationProperties.HelpText";
 
         public static string APLabeledBy => "AutomationProperties.LabeledBy";
+
+        public static string APName => "AutomationProperties.Name";
 
         public static string CheckedEvent => "Checked";
 

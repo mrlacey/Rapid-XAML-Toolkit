@@ -35,6 +35,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string HyperlinkButton => "HyperlinkButton";
 
+        public static string Image => "Image";
+
         public static string ImageButton => "ImageButton";
 
         public static string Label => "Label";
