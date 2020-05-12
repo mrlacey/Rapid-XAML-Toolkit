@@ -13,7 +13,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
         public override AnalysisActions Analyze(RapidXamlElement element)
         {
-            // TODO: restrict this to XF projects only
+            // TODO: ISSUE#163 restrict this to XF projects only (will need to work with build tasks)
 
             // Don't report anything if the source hasn't been set.
             // Allow for multiple possible values that could be used by accesibility tools.
