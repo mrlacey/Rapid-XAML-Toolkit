@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     {
         public override string TargetType() => Elements.SwitchCell;
 
-        public override AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             var txtAttr = element.GetAttributes(Attributes.Text).FirstOrDefault();
 

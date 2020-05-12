@@ -114,6 +114,7 @@
     <Compile Include="TestVisualStudioAbstraction.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\AnalyzerTestsBase.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\CustomAnalysisTestHelperTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\FakeExtraAnalysisDetails.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\FooAnalysisTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\TwoPaneViewAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\EntryCellAnalyzerTests.cs" />

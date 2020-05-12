@@ -11,9 +11,13 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     {
         public override string TargetType() => Elements.Image;
 
-        public override AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            // TODO: ISSUE#163 restrict this to XF projects only (will need to work with build tasks)
+            if (!extraDetails.TryGet("framework", out ProjectFramework framework)
+             || framework != ProjectFramework.XamarinForms)
+            {
+                return AnalysisActions.None;
+            }
 
             // Don't report anything if the source hasn't been set.
             // Allow for multiple possible values that could be used by accesibility tools.
@@ -23,10 +27,9 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
              && !element.HasAttribute(Attributes.APHelpText)
              && !element.HasAttribute(Attributes.APLabeledBy))
             {
-                var inTree = element.GetAttributes(Attributes.APIsInAccessibleTree).FirstOrDefault();
-
-                if (inTree == null || (inTree.HasStringValue && inTree.StringValue.Equals("true", System.StringComparison.InvariantCultureIgnoreCase)))
-{
+                if (!element.TryGetAttributeStringValue(Attributes.APIsInAccessibleTree, out string inTree)
+                 || inTree.Equals("true", System.StringComparison.InvariantCultureIgnoreCase))
+                {
                     return AnalysisActions.AddAttribute(
                         RapidXamlErrorType.Warning,
                         code: "RXT350",

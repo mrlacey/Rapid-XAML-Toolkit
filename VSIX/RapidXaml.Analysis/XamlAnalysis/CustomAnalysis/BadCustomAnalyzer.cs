@@ -11,7 +11,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     {
         public string TargetType() => "Bad";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             // Just need any error here for testing.
             throw new System.NotImplementedException();

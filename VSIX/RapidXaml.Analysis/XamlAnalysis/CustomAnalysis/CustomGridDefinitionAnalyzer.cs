@@ -13,7 +13,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
         // Note. Not handled: Col & Row defs of different formats
         // Also, should not return an option to switch to the shorter format if using Min/Max Width/Height properties.
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             var colDef = element.GetAttributes("ColumnDefinitions")?.FirstOrDefault();
             var rowDef = element.GetAttributes("RowDefinitions")?.FirstOrDefault();

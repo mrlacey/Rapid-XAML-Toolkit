@@ -108,6 +108,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\InternalBadCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\ImageButtonAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\EntryAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfListViewAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\SwitchCellAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\TableSectionAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\PickerAnalyzer.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />
+    <Compile Include="XamlAnalysis\ProjectFrameworkHelper.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
     <Compile Include="XamlAnalysis\RapidXamlElementExtractor.cs" />

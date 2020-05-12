@@ -163,6 +163,31 @@ namespace RapidXaml
             }
         }
 
+        /// <summary>
+        /// Tries to get the string value of the specified attribtue.
+        /// </summary>
+        /// <param name="attributeName">The name of the desired attribute.</param>
+        /// <param name="value">The string value (if found.)</param>
+        /// <returns>True if there was an attribute with the specified name and it has a srting value.</returns>
+        public bool TryGetAttributeStringValue(string attributeName, out string value)
+        {
+            var attr = this.GetAttributes(attributeName).FirstOrDefault();
+
+            if (attr != null && attr.HasStringValue)
+            {
+                value = attr.StringValue;
+                return true;
+            }
+
+            value = null;
+            return false;
+        }
+
+        /// <summary>
+        /// Gets a value indicating if the element has an attribute with the specified name.
+        /// </summary>
+        /// <param name="attributeName">The name of the desired attribute.</param>
+        /// <returns>True if the element has an attribute with that name.</returns>
         public bool HasAttribute(string attributeName)
         {
             return this.Attributes.Any(a => a.Name == attributeName);

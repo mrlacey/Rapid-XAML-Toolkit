@@ -11,7 +11,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     {
         public string TargetType() => "Parent";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             if (element.Children.Count % 2 == 1)
             {

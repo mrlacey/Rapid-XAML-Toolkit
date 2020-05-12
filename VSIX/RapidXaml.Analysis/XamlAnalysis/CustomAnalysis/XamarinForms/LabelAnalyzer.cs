@@ -10,11 +10,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class LabelAnalyzer : NotReallyCustomAnalyzer
     {
-        public override string TargetType() => "Label";
+        public override string TargetType() => Elements.Label;
 
-        public override AnalysisActions Analyze(RapidXamlElement element)
+        public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            var txtAttr = element.GetAttributes("Text").FirstOrDefault();
+            var txtAttr = element.GetAttributes(Attributes.Text).FirstOrDefault();
 
             if (txtAttr != null && txtAttr.HasStringValue)
             {
@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     return AnalysisActions.HighlightWithoutAction(
                     errorType: RapidXamlErrorType.Warning,
                     code: "RXT201",
-                    description: "Label contains hard-coded Text value '{0}'.".WithParams(value),
+                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.Label, Attributes.Text, value),
                     attribute: txtAttr);
                 }
             }

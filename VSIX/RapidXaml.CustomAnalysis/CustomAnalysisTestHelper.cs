@@ -5,7 +5,7 @@ using System;
 using Microsoft.Language.Xml;
 using RapidXaml.CustomAnalysis;
 
-namespace RapidXaml
+namespace RapidXaml.TestHelpers
 {
     /// <summary>
     /// Helper class for testing custom analyzers.

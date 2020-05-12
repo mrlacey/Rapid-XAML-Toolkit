@@ -10,7 +10,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     {
         public string TargetType() => "NewName";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             return AnalysisActions.ReplaceElement(
                 RapidXamlErrorType.Suggestion,

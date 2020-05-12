@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using Microsoft.Language.Xml;
 using RapidXaml;
+using RapidXaml.TestHelpers;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {

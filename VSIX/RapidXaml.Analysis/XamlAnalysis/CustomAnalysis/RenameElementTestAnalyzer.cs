@@ -10,7 +10,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     {
         public string TargetType() => "OldName";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             // If a namespace alias is defined use the same one for the replacement element name.
             var replacementName = element.Name.Contains(":")

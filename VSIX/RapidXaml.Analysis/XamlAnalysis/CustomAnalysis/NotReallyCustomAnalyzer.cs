@@ -7,7 +7,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public abstract class NotReallyCustomAnalyzer : RapidXaml.ICustomAnalyzer
     {
-        public abstract AnalysisActions Analyze(RapidXamlElement element);
+        public abstract AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails);
 
         public abstract string TargetType();
     }
