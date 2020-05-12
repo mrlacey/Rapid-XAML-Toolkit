@@ -11,7 +11,7 @@ namespace SetVersionNumbers
 {
     class Program
     {
-        private static List<string> AssemblyInfoFiles = new List<string>
+        private static readonly List<string> AssemblyInfoFiles = new List<string>
         {
             "../../../../RapidXaml.Analysis/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.Common/Properties/AssemblyInfo.cs",
@@ -22,7 +22,7 @@ namespace SetVersionNumbers
             "../../../../RapidXamlToolkit/Properties/AssemblyInfo.cs",
         };
 
-        private static List<string> PackageFiles = new List<string>
+        private static readonly List<string> PackageFiles = new List<string>
         {
             "../../../../RapidXaml.Analysis/RapidXamlAnalysisPackage.cs",
             "../../../../RapidXaml.Generation/RapidXamlGenerationPackage.cs",
@@ -30,7 +30,7 @@ namespace SetVersionNumbers
             "../../../../RapidXamlToolkit/RapidXamlPackage.cs",
         };
 
-        private static List<string> VsixManifestFiles = new List<string>
+        private static readonly List<string> VsixManifestFiles = new List<string>
         {
             "../../../../RapidXaml.Analysis/source.extension.vsixmanifest",
             "../../../../RapidXaml.Common/source.extension.vsixmanifest",
@@ -39,7 +39,7 @@ namespace SetVersionNumbers
             "../../../../RapidXamlToolkit/source.extension.vsixmanifest",
         };
 
-        private static List<string> NuSpecFiles = new List<string>
+        private static readonly List<string> NuSpecFiles = new List<string>
         {
             "../../../../RapidXaml.CustomAnalysis/RapidXamlCustomAnalysis.nuspec",
         };
