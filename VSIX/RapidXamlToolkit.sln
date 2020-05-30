@@ -46,7 +46,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.CustomAnalysis", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.InternalAnalyzers", "RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers.csproj", "{FDBE6D55-075C-478B-879C-90114FE0EE0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetVersionNumbers", "SetVersionNumbers\SetVersionNumbers.csproj", "{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SetVersionNumbers", "SetVersionNumbers\SetVersionNumbers.csproj", "{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -342,8 +342,24 @@ Global
 		{FDBE6D55-075C-478B-879C-90114FE0EE0A}.Release|x86.Build.0 = Release|Any CPU
 		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Debug|ARM.Build.0 = Debug|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Debug|x64.Build.0 = Debug|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Debug|x86.Build.0 = Debug|Any CPU
 		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Release|ARM.Build.0 = Release|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Release|ARM64.Build.0 = Release|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Release|x64.ActiveCfg = Release|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Release|x64.Build.0 = Release|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Release|x86.ActiveCfg = Release|Any CPU
+		{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

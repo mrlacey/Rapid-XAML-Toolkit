@@ -105,10 +105,17 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 }
                 else if (this.Tag.ProjType == ProjectType.XamarinForms)
                 {
+                    var resourceName = "NEED TO GENERATE THIS";
+                    this.AddResource(resPath, resourceName, this.Tag.Value);
+
                     // TODO: ISSUE#163 Implement Xamarin.Forms resource creation
                     switch (this.Tag.AttributeType)
                     {
                         case AttributeType.Inline:
+                            var currentAttribute = $"{this.Tag.AttributeName}=\"{this.Tag.Value}\"";
+                            var localizedAttribute = $"{this.Tag.AttributeName}=\"{{x:Static resources:{System.IO.Path.GetFileNameWithoutExtension(resPath)}.{resourceName}}}\"";
+
+                            vs.ReplaceInActiveDocOnLine(currentAttribute, localizedAttribute, this.Tag.GetDesignerLineNumber());
                             break;
                         case AttributeType.Element:
                             break;
