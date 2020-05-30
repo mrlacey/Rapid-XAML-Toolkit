@@ -13,6 +13,11 @@ namespace RapidXamlToolkit.Logging
 
         void RecordInfo(string message);
 
+        /// <summary>
+        /// Record that a feature was used.
+        /// </summary>
+        /// <param name="feature">Name of the feature.</param>
+        /// <param name="quiet">If true, this won't be shown to the user.</param>
         void RecordFeatureUsage(string feature, bool quiet = false);
 
         /// <summary>

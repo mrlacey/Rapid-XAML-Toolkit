@@ -835,4 +835,7 @@
   <data name="UI_XamlAnalysisImageButtonAccessibilityDescription" xml:space="preserve">
     <value>Add a description to help anyone who can't see or understand the image.</value>
   </data>
+  <data name="Info_UsedFeatureParseDocument" xml:space="preserve">
+    <value>DocumentParsed_TagsFound{0}</value>
+  </data>
 </root>
