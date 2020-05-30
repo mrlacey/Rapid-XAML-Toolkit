@@ -1051,6 +1051,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DocumentParsed_TagsFound{0}.
+        /// </summary>
+        public static string Info_UsedFeatureParseDocument {
+            get {
+                return ResourceManager.GetString("Info_UsedFeatureParseDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Using class grouping of &apos;{0}&apos;..
         /// </summary>
         public static string Info_UsingClassGrouping {
