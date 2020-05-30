@@ -102,9 +102,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         case nameof(ColumnSpanOverflowAction):
                             list.AddRange(this.CreateActionSet(rxTag, ColumnSpanOverflowAction.Create((ColumnSpanOverflowTag)rxTag, this.file)));
                             break;
-                        case nameof(AddEntryKeyboardAction):
-                            list.AddRange(this.CreateActionSet(rxTag, AddEntryKeyboardAction.Create((AddEntryKeyboardTag)rxTag, this.file)));
-                            break;
                         case nameof(AddTextBoxInputScopeAction):
                             list.AddRange(this.CreateActionSet(rxTag, AddTextBoxInputScopeAction.Create((AddTextBoxInputScopeTag)rxTag, this.file)));
                             break;

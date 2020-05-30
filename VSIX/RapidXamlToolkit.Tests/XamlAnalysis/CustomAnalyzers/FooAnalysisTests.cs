@@ -4,7 +4,7 @@
 #if DEBUG
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
-using RapidXamlToolkit.XamlAnalysis;
+using RapidXaml.TestHelpers;
 using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var sut = new FooAnalysis();
 
-            var actual = sut.Analyze(rxElement);
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create());
 
             Assert.AreEqual(1, actual.Actions.Count);
             Assert.AreEqual(ActionType.AddAttribute, actual.Actions[0].Action);
@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var sut = new FooAnalysis();
 
-            var actual = sut.Analyze(rxElement);
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create());
 
             Assert.AreEqual(0, actual.Actions.Count);
             Assert.IsTrue(actual.IsNone);

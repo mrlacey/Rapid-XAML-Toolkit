@@ -4,6 +4,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
+using RapidXaml.TestHelpers;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis
 {

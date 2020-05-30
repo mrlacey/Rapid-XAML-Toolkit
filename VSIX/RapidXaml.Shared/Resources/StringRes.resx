@@ -808,4 +808,34 @@
   <data name="Info_PackageLoad" xml:space="preserve">
     <value>Loading{0}{1}</value>
   </data>
+  <data name="UI_UndoContextAddMaxLangthProperty" xml:space="preserve">
+    <value>Add MaxLength property.</value>
+  </data>
+  <data name="UI_XamlAnalysisGenericHardCodedStringDescription" xml:space="preserve">
+    <value>{0} contains hard-coded {1} value '{2}'.</value>
+  </data>
+  <data name="UI_XamlAnalysisPasswordWithoutMaxLengthDescription" xml:space="preserve">
+    <value>It is a general recommendation to include a maximum length for password capture.</value>
+  </data>
+  <data name="UI_XamlAnalysisPasswordWithoutMaxLengthExtendedMessage" xml:space="preserve">
+    <value>While short passwords are not recommended, allowing entry of infinite length can lead to a bad user experience, and has been known to be a security attack vector when the password is checked or passed to another system for validation.</value>
+  </data>
+  <data name="UI_UndoContextAddAutomationDescription" xml:space="preserve">
+    <value>Add automation description.</value>
+  </data>
+  <data name="UI_UndoContextExcludeFromAutomation" xml:space="preserve">
+    <value>Exclude from accessible view.</value>
+  </data>
+  <data name="UI_XamlAnalysisImageAccessibilityDescription" xml:space="preserve">
+    <value>Image lacks accessibility consideration</value>
+  </data>
+  <data name="UI_XamlAnalysisImageAccessibilityExtendedMessage" xml:space="preserve">
+    <value>If the image contains content that is useful to the user a description should be made available to accessibility tools. If the image does not contain useful content it should be excluded from the accessible view.</value>
+  </data>
+  <data name="UI_XamlAnalysisImageButtonAccessibilityDescription" xml:space="preserve">
+    <value>Add a description to help anyone who can't see or understand the image.</value>
+  </data>
+  <data name="Info_UsedFeatureParseDocument" xml:space="preserve">
+    <value>DocumentParsed_TagsFound{0}</value>
+  </data>
 </root>

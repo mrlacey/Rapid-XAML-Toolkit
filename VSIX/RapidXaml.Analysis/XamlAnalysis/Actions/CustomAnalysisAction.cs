@@ -2,8 +2,10 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Windows.Documents;
 using RapidXaml;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Processors;
@@ -24,9 +26,19 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public CustomAnalysisTag Tag { get; }
 
-        public static CustomAnalysisAction Create(CustomAnalysisTag tag, string file)
+        public static CustomAnalysisAction[] Create(CustomAnalysisTag tag, string file)
         {
-            return new CustomAnalysisAction(file, tag);
+            var result = new List<CustomAnalysisAction>
+            {
+                new CustomAnalysisAction(file, tag),
+            };
+
+            foreach (var altAction in tag.AlternativeActions)
+            {
+                result.Add(new CustomAnalysisAction(file, tag.RecreateForAlternativeAction(altAction)));
+            }
+
+            return result.ToArray();
         }
 
         public override void Execute(CancellationToken cancellationToken)

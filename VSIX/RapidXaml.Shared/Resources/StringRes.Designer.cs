@@ -1051,6 +1051,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DocumentParsed_TagsFound{0}.
+        /// </summary>
+        public static string Info_UsedFeatureParseDocument {
+            get {
+                return ResourceManager.GetString("Info_UsedFeatureParseDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Using class grouping of &apos;{0}&apos;..
         /// </summary>
         public static string Info_UsingClassGrouping {
@@ -1494,6 +1503,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add automation description..
+        /// </summary>
+        public static string UI_UndoContextAddAutomationDescription {
+            get {
+                return ResourceManager.GetString("UI_UndoContextAddAutomationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add ColumnDefinitions.
         /// </summary>
         public static string UI_UndoContextAddColumnDefinitions {
@@ -1508,6 +1526,15 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_UndoContextAddEntryKeyboard {
             get {
                 return ResourceManager.GetString("UI_UndoContextAddEntryKeyboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add MaxLength property..
+        /// </summary>
+        public static string UI_UndoContextAddMaxLangthProperty {
+            get {
+                return ResourceManager.GetString("UI_UndoContextAddMaxLangthProperty", resourceCulture);
             }
         }
         
@@ -1553,6 +1580,15 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_UndoContextAddTextBoxInputScope {
             get {
                 return ResourceManager.GetString("UI_UndoContextAddTextBoxInputScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude from accessible view..
+        /// </summary>
+        public static string UI_UndoContextExcludeFromAutomation {
+            get {
+                return ResourceManager.GetString("UI_UndoContextExcludeFromAutomation", resourceCulture);
             }
         }
         
@@ -1643,6 +1679,15 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_XamlAnalysisEntryWithoutKeyboardExtendedMessage {
             get {
                 return ResourceManager.GetString("UI_XamlAnalysisEntryWithoutKeyboardExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} contains hard-coded {1} value &apos;{2}&apos;..
+        /// </summary>
+        public static string UI_XamlAnalysisGenericHardCodedStringDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisGenericHardCodedStringDescription", resourceCulture);
             }
         }
         
@@ -1953,6 +1998,33 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image lacks accessibility consideration.
+        /// </summary>
+        public static string UI_XamlAnalysisImageAccessibilityDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisImageAccessibilityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the image contains content that is useful to the user a description should be made available to accessibility tools. If the image does not contain useful content it should be excluded from the accessible view..
+        /// </summary>
+        public static string UI_XamlAnalysisImageAccessibilityExtendedMessage {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisImageAccessibilityExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a description to help anyone who can&apos;t see or understand the image..
+        /// </summary>
+        public static string UI_XamlAnalysisImageButtonAccessibilityDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisImageButtonAccessibilityDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use of undefined Column &apos;{0}&apos;..
         /// </summary>
         public static string UI_XamlAnalysisMissingColumnDefinitionDescription {
@@ -2021,6 +2093,24 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_XamlAnalysisNameTitleCaseToolTip {
             get {
                 return ResourceManager.GetString("UI_XamlAnalysisNameTitleCaseToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is a general recommendation to include a maximum length for password capture..
+        /// </summary>
+        public static string UI_XamlAnalysisPasswordWithoutMaxLengthDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisPasswordWithoutMaxLengthDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to While short passwords are not recommended, allowing entry of infinite length can lead to a bad user experience, and has been known to be a security attack vector when the password is checked or passed to another system for validation..
+        /// </summary>
+        public static string UI_XamlAnalysisPasswordWithoutMaxLengthExtendedMessage {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisPasswordWithoutMaxLengthExtendedMessage", resourceCulture);
             }
         }
         

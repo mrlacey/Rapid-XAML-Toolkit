@@ -68,6 +68,10 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
                         XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, vsAbstraction, suppressions, projectFilePath: projFileName);
+
+                        var tagsFound = result.Tags.OfType<RapidXamlDisplayedTag>().Count();
+
+                        SharedRapidXamlPackage.Logger.RecordFeatureUsage(StringRes.Info_UsedFeatureParseDocument.WithParams(tagsFound), quiet: true);
                     }
                 }
             }
@@ -156,6 +160,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
 #endif
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
+                customProcessors.Add(new CustomAnalysis.LabelAnalyzer());
+                customProcessors.Add(new CustomAnalysis.XfImageAnalyzer());
+                customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer());
+                customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer());
+                customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer());
+                customProcessors.Add(new CustomAnalysis.EntryAnalyzer());
+                customProcessors.Add(new CustomAnalysis.PickerAnalyzer());
 
                 foreach (var customProcessor in customProcessors)
                 {

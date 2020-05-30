@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace RapidXaml
+namespace RapidXaml.TestHelpers
 {
     public static class RapidXamlElementExtensions
     {

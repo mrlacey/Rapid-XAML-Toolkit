@@ -14,9 +14,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         {
             this.SuggestedAction = typeof(CustomAnalysisAction);
 
+            this.Dependencies = deps;
+
             this.Action = deps.Action.Action;
             this.ElementName = deps.ElementName;
             this.Description = deps.Action.Description;
+            this.ExtendedMessage = deps.Action.ExtendedMessage;
             this.InsertPosition = deps.InsertPos;
             this.ToolTip = deps.Action.ActionText ?? deps.Action.Description;
             this.ActionText = deps.Action.ActionText;
@@ -27,6 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.IsInlineAttribute = deps.Action.IsInlineAttribute;
             this.AnalyzedElement = deps.AnalyzedElement;
             this.SupplementaryActions = deps.Action.SupplementaryActions;
+            this.AlternativeActions = deps.Action.AlternativeActions;
         }
 
         public ActionType Action { get; }
@@ -50,5 +54,18 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public RapidXamlElement AnalyzedElement { get; }
 
         public List<AnalysisAction> SupplementaryActions { get; }
+
+        public List<AnalysisAction> AlternativeActions { get; }
+
+        private CustomAnalysisTagDependencies Dependencies { get; }
+
+        internal CustomAnalysisTag RecreateForAlternativeAction(AnalysisAction altAction)
+        {
+            var deps = this.Dependencies;
+
+            deps.Action = altAction;
+
+            return new CustomAnalysisTag(deps);
+        }
     }
 }
