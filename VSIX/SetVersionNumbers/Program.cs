@@ -41,7 +41,7 @@ namespace SetVersionNumbers
 
         private static readonly List<string> NuSpecFiles = new List<string>
         {
-            "../../../../RapidXaml.CustomAnalysis/RapidXamlCustomAnalysis.nuspec",
+            "../../../../RapidXaml.CustomAnalysis/RapidXaml.CustomAnalysis.nuspec",
         };
 
         static void Main(string[] args)
