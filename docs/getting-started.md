@@ -13,7 +13,7 @@ The latest version is available from the [Visual Studio Marketplace](https://mar
 
 ![Manage Extensions search dialog showing the Rapid XAML Toolkit listing](./Assets/extension-search-dialog.png)
 
-Please see the [installation guide](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/installation.md) for more details.
+Please see the [installation guide](installation.md) for more details.
 
 ### Configuration
 
