@@ -19,9 +19,9 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.2
      
     - name: Restore NuGet Packages
-      run: nuget restore RapidXamlToolkit.PRBuild.sln
+      run: nuget restore VSIX/RapidXamlToolkit.PRBuild.sln
     - name: Build Solution
-      run: msbuild RapidXamlToolkit.PRBuild.sln /p:Configuration=Debug
+      run: msbuild VSIX/RapidXamlToolkit.PRBuild.sln /p:Configuration=Debug
  
     - name: Train Intellicode Model
       uses: microsoft/vs-intellicode@v1 
