@@ -13,7 +13,7 @@ The latest version is available from the [Visual Studio Marketplace](https://mar
 
 ![Manage Extensions search dialog showing the Rapid XAML Toolkit listing](./Assets/extension-search-dialog.png)
 
-Please see the [installation guide](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/installation.md) for more details.
+Please see the [installation guide](installation.md) for more details.
 
 ### Configuration
 
@@ -47,6 +47,11 @@ The `Templates` folder includes `RapidXaml.Templates.sln` which contains the pro
 
 All warnings are treated as errors for the release build.  
 'TODO' comments that do not reference an issue number will create warnings.
+
+### Using Intellicode model
+
+An intellicode model for the code-base is automatically maintained and available if you enable automatic acquisition by going to Tools > Options > IntelliCode > Acquire team models for completion.  
+![options setting for enabling intellicode model](./Assets/enable-intellicode.png)
 
 ### Extending XAML Analysis
 
