@@ -48,6 +48,11 @@ The `Templates` folder includes `RapidXaml.Templates.sln` which contains the pro
 All warnings are treated as errors for the release build.  
 'TODO' comments that do not reference an issue number will create warnings.
 
+### Using Intellicode model
+
+An intellicode model for the code-base is automatically maintained and available if you enable automatic acquisition by going to Tools > Options > IntelliCode > Acquire team models for completion.  
+![options setting for enabling intellicode model](./assets/enable-intellicode.png)
+
 ### Extending XAML Analysis
 
 The area where contributions are most expected (and appreciated) is in creating more functionality for XAML Analysis. To help with this, there is a [guide to extending XAML Analysis](./extending-xaml-analysis.md) which contributors are encouraged to read.

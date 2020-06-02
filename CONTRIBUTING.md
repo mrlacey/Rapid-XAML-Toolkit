@@ -4,4 +4,4 @@ This project welcomes contributions and suggestions. The best place to start if 
 
 Before submitting a PR, please confirm that you have the legal permission to make the contribution. (i.e. It's not going to cause a problem with your employer.)
 
-To get started making contributions, please read the [guide to working with the source](./docs/gettings-started#working-with-source).
+To get started making contributions, please read the [guide to working with the source](docs/getting-started.md#working-with-source).
