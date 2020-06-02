@@ -51,7 +51,7 @@ All warnings are treated as errors for the release build.
 ### Using Intellicode model
 
 An intellicode model for the code-base is automatically maintained and available if you enable automatic acquisition by going to Tools > Options > IntelliCode > Acquire team models for completion.  
-![options setting for enabling intellicode model](./assets/enable-intellicode.png)
+![options setting for enabling intellicode model](./Assets/enable-intellicode.png)
 
 ### Extending XAML Analysis
 
