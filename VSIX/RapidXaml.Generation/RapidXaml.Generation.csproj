@@ -5,7 +5,8 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\RapidXamlGeneration.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -143,6 +144,10 @@
     <AdditionalFiles Include="..\todo-warn.config" Condition=" '$(Configuration)' == 'Release' ">
       <Link>todo-warn.config</Link>
     </AdditionalFiles>
+    <Content Include="Resources\RapidXamlGenerationLogo.png">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Key.snk" />
     <None Include="RapidXamlCommonMenus.vsct">
       <LastGenOutput>RapidXamlCommonMenus.cs</LastGenOutput>
@@ -228,10 +233,6 @@
     <VSCTCompile Include="RapidXamlGenerationPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
-    <Content Include="Resources\RapidXamlGeneration.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ImageResources.en-us.resx">
@@ -287,5 +288,5 @@
     <PreBuildEvent>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)UseSecretsForBuild.ps1 -mode PREBUILD -rootDir $(ProjectDir)
 </PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\signvsix.targets"/>
+  <Import Project="..\signvsix.targets" />
 </Project>

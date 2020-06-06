@@ -7,7 +7,7 @@
         <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
         <License>LICENSE.txt</License>
         <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/master/docs/custom-analysis.md</GettingStartedGuide>
-        <Icon>Resources\RapidXamlTemplates.ico</Icon>
+        <Icon>Resources\RapidXamlTemplatesLogo.png</Icon>
         <Tags>XAML</Tags>
         <Preview>true</Preview>
     </Metadata>

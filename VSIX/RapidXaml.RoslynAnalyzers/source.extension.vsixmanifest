@@ -6,7 +6,7 @@
         <Description xml:space="preserve">Roslyn analyzers to help with XAML app development.</Description>
         <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
         <License>LICENSE.txt</License>
-        <Icon>Resources\RapidXamlRoslynAnalyzers.ico</Icon>
+        <Icon>Resources\RapidXamlRoslynAnalyzersLogo.png</Icon>
         <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, MVVM</Tags>
         <Preview>true</Preview>
     </Metadata>

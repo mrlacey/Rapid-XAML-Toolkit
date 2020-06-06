@@ -8,7 +8,7 @@
         <License>LICENSE.txt</License>
         <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/master/docs</GettingStartedGuide>
         <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/releases</ReleaseNotes>
-        <Icon>Resources\RapidXamlCommon.ico</Icon>
+        <Icon>Resources\RapidXamlCommonLogo.png</Icon>
         <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, MVVM</Tags>
         <Preview>true</Preview>
     </Metadata>
