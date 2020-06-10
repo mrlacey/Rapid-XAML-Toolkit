@@ -82,7 +82,7 @@
     <None Include="Key.snk" />
     <Content Include="Resources\RapidXamlToolkitLogo.png">
       <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="RxtExtensions.vsext">
       <IncludeInVSIX>true</IncludeInVSIX>

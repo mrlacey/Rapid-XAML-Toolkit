@@ -215,7 +215,7 @@
     </AdditionalFiles>
     <Content Include="Resources\RapidXamlAnalysisLogo.png">
       <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <VSCTCompile Include="RapidXamlAnalysisPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>

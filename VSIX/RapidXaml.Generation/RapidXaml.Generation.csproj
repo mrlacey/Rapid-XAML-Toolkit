@@ -146,7 +146,7 @@
     </AdditionalFiles>
     <Content Include="Resources\RapidXamlGenerationLogo.png">
       <IncludeInVSIX>true</IncludeInVSIX>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Key.snk" />
     <None Include="RapidXamlCommonMenus.vsct">
