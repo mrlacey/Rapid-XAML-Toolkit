@@ -20,6 +20,7 @@ namespace SetVersionNumbers
             "../../../../RapidXaml.RoslynAnalyzers/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.Shared/Properties/AssemblyInfo.cs",
             "../../../../RapidXamlToolkit/Properties/AssemblyInfo.cs",
+            "../../../../../Templates/RapidXaml.Templates/Properties/AssemblyInfo.cs",
         };
 
         private static readonly List<string> PackageFiles = new List<string>
@@ -28,6 +29,7 @@ namespace SetVersionNumbers
             "../../../../RapidXaml.Generation/RapidXamlGenerationPackage.cs",
             "../../../../RapidXaml.RoslynAnalyzers/RapidXamlRoslynAnalyzersPackage.cs",
             "../../../../RapidXamlToolkit/RapidXamlPackage.cs",
+            "../../../../../Templates/RapidXaml.Templates/RapidXamlTemplatesPackage.cs",
         };
 
         private static readonly List<string> VsixManifestFiles = new List<string>
@@ -37,11 +39,13 @@ namespace SetVersionNumbers
             "../../../../RapidXaml.Generation/source.extension.vsixmanifest",
             "../../../../RapidXaml.RoslynAnalyzers/source.extension.vsixmanifest",
             "../../../../RapidXamlToolkit/source.extension.vsixmanifest",
+            "../../../../../Templates/RapidXaml.Templates/source.extension.vsixmanifest",
         };
 
         private static readonly List<string> NuSpecFiles = new List<string>
         {
             "../../../../RapidXaml.CustomAnalysis/RapidXaml.CustomAnalysis.nuspec",
+            "../../../../RapidXaml.BuildAnalysis/RapidXaml.BuildAnalysis.nuspec",
         };
 
         static void Main(string[] args)
