@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		RapidXamlToolkit\GlobalSuppressions.cs = RapidXamlToolkit\GlobalSuppressions.cs
 		nuget.config = nuget.config
 		nuget.exe = nuget.exe
+		packandsignnupkg.targets = packandsignnupkg.targets
+		signvsix.targets = signvsix.targets
 		UseSecretsForBuild.ps1 = UseSecretsForBuild.ps1
 	EndProjectSection
 EndProject
