@@ -48,6 +48,14 @@ namespace SetVersionNumbers
             "../../../../RapidXaml.BuildAnalysis/RapidXaml.BuildAnalysis.nuspec",
         };
 
+        private static readonly List<string> DependencyFiles = new List<string>
+        {
+            "../../../../../Templates/CustomAnalysisItemTemplate/CustomAnalysisItemTemplate.vstemplate",
+            "../../../../../Templates/CustomAnalysisProjectTemplate/Analyzer/CustomAnalyzerProject.csproj",
+            "../../../../../Templates/CustomAnalysisProjectTemplate/Analyzer/CustomAnalyzerProject.nuspec",
+            "../../../../../Templates/CustomAnalysisProjectTemplate/AnalyzerTests/CustomAnalyzerProjectTests.csproj",
+        };
+
         static void Main(string[] args)
         {
             if (args.Length != 1)
@@ -69,6 +77,37 @@ namespace SetVersionNumbers
             SetPackageProductIds(versionNo);
             SetVsixManifestVersions(versionNo);
             SetNuSpecVersions(versionNo);
+            SetDependencyVersions(versionNo);
+        }
+
+        private static void SetDependencyVersions(string versionNo)
+        {
+            foreach (var file in DependencyFiles)
+            {
+                var lines = File.ReadAllLines(file);
+                var output = new List<string>();
+                foreach (var line in lines)
+                {
+                    if (line.Trim().StartsWith("<package id=\"RapidXaml.CustomAnalysis\""))
+                    {
+                        output.Add($"            <package id=\"RapidXaml.CustomAnalysis\" version=\"{versionNo}\" />");
+                    }
+                    else if (line.Trim().StartsWith("<PackageReference Include=\"RapidXaml.CustomAnalysis\" "))
+                    {
+                        output.Add($"        <PackageReference Include=\"RapidXaml.CustomAnalysis\" Version=\"{versionNo}\" />");
+                    }
+                    else if (line.Trim().StartsWith("<dependency id=\"RapidXaml.CustomAnalysis\" "))
+                    {
+                        output.Add($"                <dependency id=\"RapidXaml.CustomAnalysis\" version=\"{versionNo}\" exclude=\"Build,Analyzers\" />");
+                    }
+                    else
+                    {
+                        output.Add(line);
+                    }
+                }
+
+                File.WriteAllLines(file, output.ToArray());
+            }
         }
 
         private static void SetAssemblyInfoNumbers(string versionNo)
