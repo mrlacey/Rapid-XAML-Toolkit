@@ -71,7 +71,7 @@ Only the **$element$**, **$elementwithspace$** and **$enumname$** placeholders a
 Profile settings and mappings can include placeholders. A placeholder is something that will be replaced in the generated code. The following placeholders are defined.
 
 - **$name$** Property name.
-- **$safename** Property name formatted for use as an `x:Name` within XAML.
+- **$safename$** Property name formatted for use as an `x:Name` within XAML.
 - **$namewithspaces$** Property name with spaces inserted between words if the name is camelCase or PascalCase.
 - **$type$** Property type. If a generic type this will be the inner type.
 - **$incint$** Incrementing integer. A number (starting at zero) that will increase with each property that is matched in a class.
