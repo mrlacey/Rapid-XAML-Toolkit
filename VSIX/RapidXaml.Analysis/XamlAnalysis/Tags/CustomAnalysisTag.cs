@@ -8,7 +8,7 @@ using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
-    [DebuggerDisplay("{ErrorCode - ActionText}")]
+    [DebuggerDisplay("{ErrorCode} - {ActionText}")]
     public class CustomAnalysisTag : RapidXamlDisplayedTag
     {
         public CustomAnalysisTag(CustomAnalysisTagDependencies deps)
