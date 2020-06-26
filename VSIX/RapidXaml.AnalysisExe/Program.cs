@@ -54,7 +54,7 @@ namespace RapidXaml.AnalysisExe
             var projFileLines = File.ReadAllLines(projectPath);
             var projDir = Path.GetDirectoryName(projectPath);
 
-            // Treat project type as unknown as unabel to resolve referenced projects and installed NuGet packages.
+            // Treat project type as unknown as unable to resolve referenced projects and installed NuGet packages.
             var bavsa = new BuildAnalysisVisualStudioAbstraction(projectPath, ProjectType.Unknown);
 
             foreach (var line in projFileLines)
