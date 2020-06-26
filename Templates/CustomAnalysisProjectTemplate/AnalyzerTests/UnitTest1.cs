@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
+using RapidXaml.TestHelpers;
 
 namespace $ext_safeprojectname$.Tests
 {
@@ -13,7 +14,7 @@ namespace $ext_safeprojectname$.Tests
 
             var testElement = CustomAnalysisTestHelper.StringToElement("<MyElement />");
 
-            var analysisResult = analyzer.Analyze(testElement);
+            var analysisResult = analyzer.Analyze(testElement, new ExtraAnalysisDetails());
 
             Assert.AreEqual(1, analysisResult.Actions.Count);
             Assert.AreEqual(ActionType.AddAttribute, analysisResult.Actions[0].Action);
@@ -27,7 +28,7 @@ namespace $ext_safeprojectname$.Tests
 
             var testElement = CustomAnalysisTestHelper.StringToElement("<MyElement IsEnabled=\"False\" />");
 
-            var analysisResult = analyzer.Analyze(testElement);
+            var analysisResult = analyzer.Analyze(testElement, new ExtraAnalysisDetails());
 
             Assert.IsTrue(analysisResult.IsNone);
         }

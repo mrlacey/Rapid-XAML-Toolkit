@@ -20,7 +20,7 @@ namespace RapidXamlToolkit
     [ProvideAutoLoad(UIContextGuids.SolutionHasMultipleProjects, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.9.3")] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.9.7")] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(RapidXamlGenerationPackage.PackageGuidString)]
     [ProvideOptionPage(typeof(SettingsConfigPage), "Rapid XAML", "Profiles", 106, 107, true)]
