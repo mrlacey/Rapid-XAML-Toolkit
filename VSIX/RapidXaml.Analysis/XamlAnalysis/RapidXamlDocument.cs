@@ -71,7 +71,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         var tagsFound = result.Tags.OfType<RapidXamlDisplayedTag>().Count();
 
-                        SharedRapidXamlPackage.Logger.RecordFeatureUsage(StringRes.Info_UsedFeatureParseDocument.WithParams(tagsFound), quiet: true);
+                        SharedRapidXamlPackage.Logger?.RecordFeatureUsage(StringRes.Info_UsedFeatureParseDocument.WithParams(tagsFound), quiet: true);
                     }
                 }
             }
