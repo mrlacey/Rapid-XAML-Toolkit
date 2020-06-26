@@ -46,14 +46,16 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         if (span.Snapshot.TextBuffer != viewTag.Snapshot.TextBuffer)
                         {
-                            SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_TextBufferChanged.WithParams(this.file));
+                            //// SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_TextBufferChanged.WithParams(this.file));
+                            System.Diagnostics.Debug.WriteLine(StringRes.Info_TextBufferChanged.WithParams(this.file));
                             RapidXamlDocumentCache.Invalidate(this.file);
                             break;
                         }
 
                         if (span.Snapshot.Version.VersionNumber != viewTag.Snapshot.Version.VersionNumber)
                         {
-                            SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_SnapshotVersionChanged.WithParams(this.file));
+                            //// SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_SnapshotVersionChanged.WithParams(this.file));
+                            System.Diagnostics.Debug.WriteLine(StringRes.Info_SnapshotVersionChanged.WithParams(this.file));
                             RapidXamlDocumentCache.Invalidate(this.file);
                             break;
                         }
