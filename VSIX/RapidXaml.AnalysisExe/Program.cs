@@ -71,10 +71,10 @@ namespace RapidXaml.AnalysisExe
                         var snapshot = new BuildAnalysisTextSnapshot(xamlFilePath);
                         var rxdoc = RapidXamlDocument.Create(snapshot, xamlFilePath, bavsa, projectPath);
 
+                        Debug.WriteLine($"Found {rxdoc.Tags.Count} taggable issues in '{xamlFilePath}'.");
+
                         if (rxdoc.Tags.Count > 0)
                         {
-                            Debug.WriteLine($"Found {rxdoc.Tags.Count} taggable issues in '{xamlFilePath}'.");
-
                             var tagsOfInterest = rxdoc.Tags
                                                       .Where(t => t is RapidXamlDisplayedTag)
                                                       .Select(t => t as RapidXamlDisplayedTag)
