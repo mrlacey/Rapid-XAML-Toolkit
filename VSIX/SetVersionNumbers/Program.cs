@@ -184,7 +184,7 @@ namespace SetVersionNumbers
             {
                 var xmlDoc = new XmlDocument();
                 xmlDoc.Load(nuspecFile);
-                var version = xmlDoc.GetElementsByTagName("version");
+                var version = xmlDoc.GetElementsByTagName("Version");
 
                 version[0].InnerText = versionNo;
 
