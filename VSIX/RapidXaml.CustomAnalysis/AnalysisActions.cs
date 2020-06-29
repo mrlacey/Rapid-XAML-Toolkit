@@ -145,11 +145,29 @@ namespace RapidXaml
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions HighlightWithoutAction(RapidXamlErrorType errorType, string code, string description, RapidXamlElement descendant, string moreInfoUrl = null, string extendedMessage = null)
+        public static AnalysisActions HighlightDescendantWithoutAction(RapidXamlErrorType errorType, string code, string description, RapidXamlElement descendant, string moreInfoUrl = null, string extendedMessage = null)
         {
             var result = new AnalysisActions();
 
-            result.HighlightWithoutAction(errorType, code, description, descendant, extendedMessage, moreInfoUrl);
+            result.HighlightDescendantWithoutAction(errorType, code, description, descendant, extendedMessage, moreInfoUrl);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Indicate an issue with the element but don't provide a quick action to fix it.
+        /// </summary>
+        /// <param name="errorType">How the response should be indicated.</param>
+        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
+        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
+        /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions HighlightWithoutAction(RapidXamlErrorType errorType, string code, string description, string moreInfoUrl = null, string extendedMessage = null)
+        {
+            var result = new AnalysisActions();
+
+            result.HighlightWithoutAction(errorType, code, description, extendedMessage, moreInfoUrl);
 
             return result;
         }
@@ -164,11 +182,11 @@ namespace RapidXaml
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions HighlightWithoutAction(RapidXamlErrorType errorType, string code, string description, RapidXamlAttribute attribute, string moreInfoUrl = null, string extendedMessage = null)
+        public static AnalysisActions HighlightAttributeWithoutAction(RapidXamlErrorType errorType, string code, string description, RapidXamlAttribute attribute, string moreInfoUrl = null, string extendedMessage = null)
         {
             var result = new AnalysisActions();
 
-            result.HighlightWithoutAction(errorType, code, description, attribute, extendedMessage, moreInfoUrl);
+            result.HighlightAttributeWithoutAction(errorType, code, description, attribute, extendedMessage, moreInfoUrl);
 
             return result;
         }

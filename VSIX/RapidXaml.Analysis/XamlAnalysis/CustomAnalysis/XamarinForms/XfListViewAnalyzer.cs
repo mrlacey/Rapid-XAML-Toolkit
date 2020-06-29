@@ -20,7 +20,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                 return AnalysisActions.None;
             }
 
-            return AnalysisActions.HighlightWithoutAction(
+            return AnalysisActions.HighlightDescendantWithoutAction(
             errorType: RapidXamlErrorType.Suggestion,
             code: "RXT330",
             description: "CollectionView is a more flexible, and performant alternative to ListView. Consider changing it.",

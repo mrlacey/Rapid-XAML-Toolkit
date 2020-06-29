@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
                 foreach (var desc in invalidDescendants)
                 {
-                    result.HighlightWithoutAction(
+                    result.HighlightDescendantWithoutAction(
                         RapidXamlErrorType.Error,
                         code: "WinUI-2PV",
                         description: "Do not put a TwoPaneView inside the pane of another TwoPaneview.",
