@@ -165,5 +165,6 @@
     <file src=".\bin\release\net472\VSLangProj90.dll" target="tools/net472/" />
     <file src="targets\" target="build/" />
     <file src="buildMultiTargeting\" target="buildMultiTargeting/" />
+    <file src="dist\" target="dist/" />
   </files>
 </package>
