@@ -18,7 +18,8 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\RapidXamlPackage.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
@@ -79,6 +80,10 @@
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <None Include="Key.snk" />
+    <Content Include="Resources\RapidXamlToolkitLogo.png">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="RxtExtensions.vsext">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -100,10 +105,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LICENSE.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Resources\RapidXamlPackage.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -159,11 +160,5 @@
   <PropertyGroup>
     <PostBuildEvent>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File $(SolutionDir)UseSecretsForBuild.ps1 -mode POSTBUILD -rootDir $(ProjectDir)</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <Import Project="..\signvsix.targets" />
 </Project>

@@ -49,7 +49,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             else
             {
-                var doc = RapidXamlDocument.Create(snapshot, file, vsa);
+                var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
 
                 lock (CacheLock)
                 {
@@ -153,7 +153,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         CurrentlyProcessing.Add(snapshotText);
 
-                        var doc = RapidXamlDocument.Create(snapshot, file, vsa);
+                        var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
 
                         lock (CacheLock)
                         {

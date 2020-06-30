@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class PivotProcessor : XamlElementProcessor
     {
-        public PivotProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public PivotProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

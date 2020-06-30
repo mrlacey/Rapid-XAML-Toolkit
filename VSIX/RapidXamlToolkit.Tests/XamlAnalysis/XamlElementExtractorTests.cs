@@ -766,7 +766,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var processors = new List<(string, XamlElementProcessor)>
             {
-                ("Grid", new GridProcessor(ProjectType.Any, new DefaultTestLogger())),
+                ("Grid", new GridProcessor(new ProcessorEssentialsForSimpleTests())),
             };
 
             this.TestParsingWithoutSnapshot(xaml, processors);
@@ -781,7 +781,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var processors = new List<(string, XamlElementProcessor)>
             {
-                ("TextBox", new TextBoxProcessor(ProjectType.Any, new DefaultTestLogger())),
+                ("TextBox", new TextBoxProcessor(new ProcessorEssentialsForSimpleTests())),
             };
 
             var tags = new TagList();
@@ -799,7 +799,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 tags = new TagList();
             }
 
-            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", null, xaml, processors, tags);
+            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", null, xaml, processors, tags, new TestVisualStudioAbstraction());
         }
 
         private void TestParsingWithFakeSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags = null)
@@ -811,7 +811,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var snapshot = new FakeTextSnapshot();
 
-            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", snapshot, xaml, processors, tags);
+            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", snapshot, xaml, processors, tags, new TestVisualStudioAbstraction());
         }
     }
 }

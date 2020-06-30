@@ -4,6 +4,7 @@
 using Microsoft.VisualStudio.Text;
 using RapidXaml;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -14,6 +15,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public ITextSnapshot Snapshot { get; set; }
 
         public string FileName { get; set; }
+
+        public string ProjectFilePath { get; set; }
 
         public int InsertPos { get; set; }
 
@@ -31,5 +34,22 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         // This is stored for use by actions
         public RapidXamlElement AnalyzedElement { get; set; }
+
+        public IVisualStudioAbstraction VsAbstraction { get; set; }
+
+        internal TagDependencies ToTagDependencies()
+        {
+            return new TagDependencies
+            {
+                FeatureUsageOverride = this.CustomFeatureUsageValue,
+                FileName = this.FileName,
+                Logger = this.Logger,
+                MoreInfoUrl = this.Action.MoreInfoUrl,
+                ProjectFilePath = this.ProjectFilePath,
+                Span = this.Span,
+                Snapshot = this.Snapshot,
+                VsAbstraction = this.VsAbstraction,
+            };
+        }
     }
 }

@@ -1,0 +1,15 @@
+﻿<Page
+    x:Class="BuildAnalysisUwpTestApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:BuildAnalysisUwpTestApp"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid>
+        <!--  There is a setting to report the hard-coded text (RXT200) as an error.  -->
+        <!--<TextBlock x:Name="lowercase" Text="Hard-coded test" /> -->
+    </Grid>
+</Page>

@@ -63,6 +63,7 @@
     <Compile Include="Grid\GridProcessTests.cs" />
     <Compile Include="Grid\GridReplacementTests.cs" />
     <Compile Include="Grid\MissingDefinitionsTests.cs" />
+    <Compile Include="ProcessorEssentialsForSimpleTests.cs" />
     <Compile Include="Misc\MiscRealWorldTests.cs" />
     <Compile Include="Parsers\CSharpTestsBase.cs" />
     <Compile Include="Parsers\GetCSharpAttributesTests.cs" />

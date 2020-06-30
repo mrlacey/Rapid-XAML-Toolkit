@@ -8,7 +8,6 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using Newtonsoft.Json;
 using RapidXamlToolkit.ErrorList;
-using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 
@@ -18,18 +17,20 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     {
         private const string SettingsFileName = "settings.xamlAnalysis";
 
-        protected RapidXamlDisplayedTag(Span span, ITextSnapshot snapshot, string fileName, string errorCode, TagErrorType defaultErrorType, ILogger logger, string moreInfoUrl = null, string featureUsageOverride = null)
-            : base(span, snapshot, fileName, logger)
+        protected RapidXamlDisplayedTag(TagDependencies deps, string errorCode, TagErrorType defaultErrorType)
+            : base(deps.Span, deps.Snapshot, deps.FileName, deps.Logger)
         {
-            var line = snapshot.GetLineFromPosition(span.Start);
-            var col = span.Start - line.Start.Position;
+            var line = deps.Snapshot.GetLineFromPosition(deps.Span.Start);
+            var col = deps.Span.Start - line.Start.Position;
 
             this.ErrorCode = errorCode;
             this.Line = line.LineNumber;
             this.Column = col;
             this.DefaultErrorType = defaultErrorType;
-            this.MoreInfoUrl = moreInfoUrl;
-            this.CustomFeatureUsageOverride = featureUsageOverride;
+            this.VsAbstraction = deps.VsAbstraction;
+            this.ProjectFilePath = deps.ProjectFilePath;
+            this.MoreInfoUrl = deps.MoreInfoUrl;
+            this.CustomFeatureUsageOverride = deps.FeatureUsageOverride;
         }
 
         public string Description { get; set; }
@@ -48,6 +49,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public int Column { get; }
 
         public TagErrorType DefaultErrorType { get; }
+
+        public string ProjectFilePath { get; private set; }
+
+        public IVisualStudioAbstraction VsAbstraction { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the tag is for something that should show in the Errors tab of the error list.
@@ -83,15 +88,20 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                     return false;
                 }
 
-                var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
-
-                if (proj == null)
+                if (string.IsNullOrWhiteSpace(this.ProjectFilePath))
                 {
-                    tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
-                    return false;
+                    var (projFileName, _) = this.VsAbstraction.GetNameAndTypeOfProjectContainingFile(this.FileName);
+
+                    if (string.IsNullOrWhiteSpace(projFileName))
+                    {
+                        tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
+                        return false;
+                    }
+
+                    this.ProjectFilePath = projFileName;
                 }
 
-                var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
+                var settingsFile = Path.Combine(Path.GetDirectoryName(this.ProjectFilePath), SettingsFileName);
 
                 if (File.Exists(settingsFile))
                 {

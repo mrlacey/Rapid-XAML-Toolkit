@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -12,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class TextBoxProcessor : XamlElementProcessor
     {
-        public TextBoxProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public TextBoxProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 
@@ -62,8 +61,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (!this.TryGetAttribute(xamlElement, Attributes.InputScope, AttributeType.Inline | AttributeType.Element, out _, out _, out _, out _))
             {
+                var tagDeps = this.CreateBaseTagDependencies(
+                    new Span(offset, xamlElement.Length),
+                    snapshot,
+                    fileName);
+
                 tags.TryAdd(
-                    new AddTextBoxInputScopeTag(new Span(offset, xamlElement.Length), snapshot, fileName, this.Logger)
+                    new AddTextBoxInputScopeTag(tagDeps)
                     {
                         InsertPosition = offset,
                     },

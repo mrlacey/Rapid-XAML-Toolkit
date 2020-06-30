@@ -30,14 +30,24 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public TagList Tags { get; set; }
 
+        public IVisualStudioAbstraction VsAbstraction { get; set; }
+
         private static Dictionary<string, (DateTime timeStamp, List<TagSuppression> suppressions)> SuppressionsCache { get; }
             = new Dictionary<string, (DateTime, List<TagSuppression>)>();
 
-        public static RapidXamlDocument Create(ITextSnapshot snapshot, string fileName, IVisualStudioAbstraction vsa)
+        public static RapidXamlDocument Create(ITextSnapshot snapshot, string fileName, IVisualStudioAbstraction vsa, string projectFile)
         {
             var result = new RapidXamlDocument();
 
             List<(string, XamlElementProcessor)> processors = null;
+
+            var vsAbstraction = vsa;
+
+            // This will happen if open a project with open XAML files before the package is initialized.
+            if (vsAbstraction == null)
+            {
+                vsAbstraction = new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
+            }
 
             try
             {
@@ -47,37 +57,37 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     result.RawText = text;
 
-                    var suppressions = GetSuppressions(fileName);
+                    var suppressions = GetSuppressions(fileName, vsAbstraction, projectFile);
 
                     // If suppressing all tags in file, don't bother parsing the file
                     if (suppressions == null || suppressions?.Any(s => string.IsNullOrWhiteSpace(s.TagErrorCode)) == false)
                     {
-                        var vsAbstraction = vsa;
+                        var (projFileName, projType) = vsAbstraction.GetNameAndTypeOfProjectContainingFile(fileName);
 
-                        // This will happen if open a project with open XAML files before the package is initialized.
-                        if (vsAbstraction == null)
-                        {
-                            vsAbstraction = new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
-                        }
+                        processors = GetAllProcessors(projType, projFileName, vsAbstraction);
 
-                        var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName);
-                        var projType = vsAbstraction.GetProjectType(proj);
-                        var projDir = Path.GetDirectoryName(proj.FileName);
-
-                        processors = GetAllProcessors(projType, projDir);
-
-                        // May need to tidy-up/release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
-                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, suppressions);
+                        // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
+                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, vsAbstraction, suppressions, projectFilePath: projFileName);
 
                         var tagsFound = result.Tags.OfType<RapidXamlDisplayedTag>().Count();
 
-                        SharedRapidXamlPackage.Logger.RecordFeatureUsage(StringRes.Info_UsedFeatureParseDocument.WithParams(tagsFound), quiet: true);
+                        SharedRapidXamlPackage.Logger?.RecordFeatureUsage(StringRes.Info_UsedFeatureParseDocument.WithParams(tagsFound), quiet: true);
                     }
                 }
             }
             catch (Exception e)
             {
-                result.Tags.Add(new UnexpectedErrorTag(new Span(0, 0), snapshot, fileName, SharedRapidXamlPackage.Logger)
+                var tagDeps = new TagDependencies
+                {
+                    Span = new Span(0, 0),
+                    Snapshot = snapshot,
+                    FileName = fileName,
+                    Logger = SharedRapidXamlPackage.Logger,
+                    VsAbstraction = vsAbstraction,
+                    ProjectFilePath = string.Empty,
+                };
+
+                result.Tags.Add(new UnexpectedErrorTag(tagDeps)
                 {
                     Description = StringRes.Error_XamlAnalysisDescription,
                     ExtendedMessage = StringRes.Error_XamlAnalysisExtendedMessage.WithParams(e),
@@ -89,45 +99,52 @@ namespace RapidXamlToolkit.XamlAnalysis
             return result;
         }
 
-        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectPath, ILogger logger = null)
+        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectFilePath, IVisualStudioAbstraction vsAbstraction, ILogger logger = null)
         {
             logger = logger ?? SharedRapidXamlPackage.Logger;
 
+            var processorEssentials = new ProcessorEssentials
+            {
+                ProjectType = projType,
+                Logger = logger,
+                ProjectFilePath = projectFilePath,
+            };
+
             var processors = new List<(string, XamlElementProcessor)>
                     {
-                        (Elements.Grid, new GridProcessor(projType, logger)),
-                        (Elements.TextBlock, new TextBlockProcessor(projType, logger)),
-                        (Elements.TextBox, new TextBoxProcessor(projType, logger)),
-                        (Elements.Button, new ButtonProcessor(projType, logger)),
-                        (Elements.AppBarButton, new AppBarButtonProcessor(projType, logger)),
-                        (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(projType, logger)),
-                        (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(projType, logger)),
-                        (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(projType, logger)),
-                        (Elements.CheckBox, new CheckBoxProcessor(projType, logger)),
-                        (Elements.ComboBox, new ComboBoxProcessor(projType, logger)),
-                        (Elements.DatePicker, new DatePickerProcessor(projType, logger)),
-                        (Elements.TimePicker, new TimePickerProcessor(projType, logger)),
-                        (Elements.Hub, new HubProcessor(projType, logger)),
-                        (Elements.HubSection, new HubSectionProcessor(projType, logger)),
-                        (Elements.HyperlinkButton, new HyperlinkButtonProcessor(projType, logger)),
-                        (Elements.RepeatButton, new RepeatButtonProcessor(projType, logger)),
-                        (Elements.Pivot, new PivotProcessor(projType, logger)),
-                        (Elements.PivotItem, new PivotItemProcessor(projType, logger)),
-                        (Elements.MenuFlyoutItem, new MenuFlyoutItemProcessor(projType, logger)),
-                        (Elements.MenuFlyoutSubItem, new MenuFlyoutSubItemProcessor(projType, logger)),
-                        (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(projType, logger)),
-                        (Elements.RichEditBox, new RichEditBoxProcessor(projType, logger)),
-                        (Elements.ToggleSwitch, new ToggleSwitchProcessor(projType, logger)),
-                        (Elements.Slider, new SliderProcessor(projType, logger)),
-                        (Elements.PasswordBox, new PasswordBoxProcessor(projType, logger)),
-                        (Elements.MediaElement, new MediaElementProcessor(projType, logger)),
-                        (Elements.ListView, new SelectedItemAttributeProcessor(projType, logger)),
-                        (Elements.DataGrid, new SelectedItemAttributeProcessor(projType, logger)),
+                        (Elements.Grid, new GridProcessor(processorEssentials)),
+                        (Elements.TextBlock, new TextBlockProcessor(processorEssentials)),
+                        (Elements.TextBox, new TextBoxProcessor(processorEssentials)),
+                        (Elements.Button, new ButtonProcessor(processorEssentials)),
+                        (Elements.AppBarButton, new AppBarButtonProcessor(processorEssentials)),
+                        (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(processorEssentials)),
+                        (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(processorEssentials)),
+                        (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(processorEssentials)),
+                        (Elements.CheckBox, new CheckBoxProcessor(processorEssentials)),
+                        (Elements.ComboBox, new ComboBoxProcessor(processorEssentials)),
+                        (Elements.DatePicker, new DatePickerProcessor(processorEssentials)),
+                        (Elements.TimePicker, new TimePickerProcessor(processorEssentials)),
+                        (Elements.Hub, new HubProcessor(processorEssentials)),
+                        (Elements.HubSection, new HubSectionProcessor(processorEssentials)),
+                        (Elements.HyperlinkButton, new HyperlinkButtonProcessor(processorEssentials)),
+                        (Elements.RepeatButton, new RepeatButtonProcessor(processorEssentials)),
+                        (Elements.Pivot, new PivotProcessor(processorEssentials)),
+                        (Elements.PivotItem, new PivotItemProcessor(processorEssentials)),
+                        (Elements.MenuFlyoutItem, new MenuFlyoutItemProcessor(processorEssentials)),
+                        (Elements.MenuFlyoutSubItem, new MenuFlyoutSubItemProcessor(processorEssentials)),
+                        (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(processorEssentials)),
+                        (Elements.RichEditBox, new RichEditBoxProcessor(processorEssentials)),
+                        (Elements.ToggleSwitch, new ToggleSwitchProcessor(processorEssentials)),
+                        (Elements.Slider, new SliderProcessor(processorEssentials)),
+                        (Elements.PasswordBox, new PasswordBoxProcessor(processorEssentials)),
+                        (Elements.MediaElement, new MediaElementProcessor(processorEssentials)),
+                        (Elements.ListView, new SelectedItemAttributeProcessor(processorEssentials)),
+                        (Elements.DataGrid, new SelectedItemAttributeProcessor(processorEssentials)),
                     };
 
-            if (!string.IsNullOrWhiteSpace(projectPath))
+            if (!string.IsNullOrWhiteSpace(projectFilePath))
             {
-                var customProcessors = GetCustomProcessors(projectPath);
+                var customProcessors = GetCustomProcessors(Path.GetDirectoryName(projectFilePath));
 
 #if DEBUG
                 // These types exists for testing only and so are only referenced during Debug
@@ -151,28 +168,43 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 foreach (var customProcessor in customProcessors)
                 {
-                    processors.Add((customProcessor.TargetType(), new CustomProcessorWrapper(customProcessor, projType, logger)));
+                    processors.Add(
+                        (customProcessor.TargetType(),
+                         new CustomProcessorWrapper(customProcessor, projType, projectFilePath, logger, vsAbstraction)));
                 }
             }
 
             return processors;
         }
 
-        public static List<ICustomAnalyzer> GetCustomProcessors(string projectPath)
+        public static List<ICustomAnalyzer> GetCustomProcessors(string projectFileDirectory)
         {
             try
             {
                 // Start searching one directory higher to allow for multi-project solutions.
-                var dirToSearch = Path.GetDirectoryName(projectPath);
+                var dirToSearch = Path.GetDirectoryName(projectFileDirectory);
 
+                var loadCustomAnalyzers = false;
+
+#if VSIXNOTEXE
                 // Only load custom analyzers when VS has finished starting up.
                 // We may get here before the package is loaded if a XAML doc is opened with the solution.
                 if (RapidXamlAnalysisPackage.IsLoaded)
                 {
                     if (RapidXamlAnalysisPackage.Options.EnableCustomAnalysis)
                     {
-                        return GetCustomAnalyzers(dirToSearch);
+                        loadCustomAnalyzers = true;
                     }
+                }
+#endif
+
+#if ANALYSISEXE
+                loadCustomAnalyzers = true;
+#endif
+
+                if (loadCustomAnalyzers)
+                {
+                    return GetCustomAnalyzers(dirToSearch);
                 }
             }
             catch (Exception exc)
@@ -199,6 +231,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 && !Path.GetFileName(fileName).StartsWith("Microsoft.")
                                 && !Path.GetFileName(fileName).StartsWith("System.")
                                 && !Path.GetFileName(fileName).StartsWith("Xamarin.")
+                                && !Path.GetFileName(fileName).StartsWith("EnvDTE")
+                                && !Path.GetFileName(fileName).StartsWith("VSLangProj")
                                 && !Path.GetFileName(fileName).Equals("clrcompression.dll")
                                 && !Path.GetFileName(fileName).Equals("mscorlib.dll")
                                 && !Path.GetFileName(fileName).Equals("ucrtbased.dll")
@@ -219,19 +253,20 @@ namespace RapidXamlToolkit.XamlAnalysis
             // Duplicates are likely if the custom analyzer project is in a parallel project in the same solution.
             var loadedAssemblies = new List<string>();
 
-            // Skip anything (esp. comon files) that definitely won't contain custom analyzers
+            // Skip anything (esp. common files) that definitely won't contain custom analyzers
             foreach (var file in Directory.GetFiles(folderToSearch, "*.dll", SearchOption.AllDirectories)
                                           .Where(f => FileFilter(f)))
             {
                 try
                 {
-                    // Only load assemblies that are in the same folder as the library containing the interface
-                    // This library is distributed with custom analyzers so it's a good indication of assemblies that def don't contain analyzers.
-                    // This is also necessary for assembly resolution.
-                    if (!File.Exists(Path.Combine(Path.GetDirectoryName(file), "RapidXaml.CustomAnalysis.dll")))
-                    {
-                        continue;
-                    }
+                    // It is not always the case that VS/MSBuild will copy the RX.CA assembly :(
+                    ////// Only load assemblies that are in the same folder as the library containing the interface
+                    ////// This library is distributed with custom analyzers so it's a good indication of assemblies that def don't contain analyzers.
+                    ////// This is also necessary for assembly resolution.
+                    ////if (!File.Exists(Path.Combine(Path.GetDirectoryName(file), "RapidXaml.CustomAnalysis.dll")))
+                    ////{
+                    ////    continue;
+                    ////}
 
                     var fileName = Path.GetFileName(file);
 
@@ -341,15 +376,19 @@ namespace RapidXamlToolkit.XamlAnalysis
             SuppressionsCache.Clear();
         }
 
-        private static List<TagSuppression> GetSuppressions(string fileName)
+        private static List<TagSuppression> GetSuppressions(string fileName, IVisualStudioAbstraction vsa, string projectFileName)
         {
             List<TagSuppression> result = null;
 
             try
             {
-                var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName);
+                if (string.IsNullOrWhiteSpace(projectFileName))
+                {
+                    var (projFileName, _) = vsa.GetNameAndTypeOfProjectContainingFile(fileName);
+                    projectFileName = projFileName;
+                }
 
-                var suppressionsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), "suppressions.xamlAnalysis");
+                var suppressionsFile = Path.Combine(Path.GetDirectoryName(projectFileName), "suppressions.xamlAnalysis");
 
                 if (File.Exists(suppressionsFile))
                 {

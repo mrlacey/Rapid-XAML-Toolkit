@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class SliderProcessor : XamlElementProcessor
     {
-        public SliderProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public SliderProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

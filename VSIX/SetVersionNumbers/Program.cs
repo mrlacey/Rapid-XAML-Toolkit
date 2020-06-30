@@ -20,6 +20,7 @@ namespace SetVersionNumbers
             "../../../../RapidXaml.RoslynAnalyzers/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.Shared/Properties/AssemblyInfo.cs",
             "../../../../RapidXamlToolkit/Properties/AssemblyInfo.cs",
+            "../../../../../Templates/RapidXaml.Templates/Properties/AssemblyInfo.cs",
         };
 
         private static readonly List<string> PackageFiles = new List<string>
@@ -28,6 +29,7 @@ namespace SetVersionNumbers
             "../../../../RapidXaml.Generation/RapidXamlGenerationPackage.cs",
             "../../../../RapidXaml.RoslynAnalyzers/RapidXamlRoslynAnalyzersPackage.cs",
             "../../../../RapidXamlToolkit/RapidXamlPackage.cs",
+            "../../../../../Templates/RapidXaml.Templates/RapidXamlTemplatesPackage.cs",
         };
 
         private static readonly List<string> VsixManifestFiles = new List<string>
@@ -37,11 +39,32 @@ namespace SetVersionNumbers
             "../../../../RapidXaml.Generation/source.extension.vsixmanifest",
             "../../../../RapidXaml.RoslynAnalyzers/source.extension.vsixmanifest",
             "../../../../RapidXamlToolkit/source.extension.vsixmanifest",
+            "../../../../../Templates/RapidXaml.Templates/source.extension.vsixmanifest",
         };
 
         private static readonly List<string> NuSpecFiles = new List<string>
         {
-            "../../../../RapidXaml.CustomAnalysis/RapidXamlCustomAnalysis.nuspec",
+            "../../../../RapidXaml.CustomAnalysis/RapidXaml.CustomAnalysis.nuspec",
+            "../../../../RapidXaml.BuildAnalysis/RapidXaml.BuildAnalysis.nuspec",
+        };
+
+        private static readonly List<string> NugetProjectFiles = new List<string>
+        {
+            "../../../../RapidXaml.CustomAnalysis/RapidXaml.CustomAnalysis.csproj",
+            "../../../../RapidXaml.BuildAnalysis/RapidXaml.BuildAnalysis.csproj",
+        };
+
+        private static readonly List<string> DependencyFiles = new List<string>
+        {
+            "../../../../../Templates/CustomAnalysisItemTemplate/CustomAnalysisItemTemplate.vstemplate",
+            "../../../../../Templates/CustomAnalysisProjectTemplate/Analyzer/CustomAnalyzerProject.csproj",
+            "../../../../../Templates/CustomAnalysisProjectTemplate/Analyzer/CustomAnalyzerProject.nuspec",
+            "../../../../../Templates/CustomAnalysisProjectTemplate/AnalyzerTests/CustomAnalyzerProjectTests.csproj",
+        };
+
+        private static readonly List<string> ProjectFilesContainingVersionNumbers = new List<string>
+        {
+            "../../../../RapidXaml.AnalysisExe/RapidXaml.AnalysisExe.csproj",
         };
 
         static void Main(string[] args)
@@ -64,7 +87,62 @@ namespace SetVersionNumbers
             SetAssemblyInfoNumbers(versionNo);
             SetPackageProductIds(versionNo);
             SetVsixManifestVersions(versionNo);
+            SetNugetProjectVersions(versionNo);
             SetNuSpecVersions(versionNo);
+            SetDependencyVersions(versionNo);
+            SetVersionNumbersInProjectFiles(versionNo);
+        }
+
+        private static void SetVersionNumbersInProjectFiles(string versionNo)
+        {
+            foreach (var file in ProjectFilesContainingVersionNumbers)
+            {
+                var lines = File.ReadAllLines(file);
+                var output = new List<string>();
+                foreach (var line in lines)
+                {
+                    if (line.StartsWith("    <Version>"))
+                    {
+                        output.Add($"    <Version>{versionNo}</Version>");
+                    }
+                    else
+                    {
+                        output.Add(line);
+                    }
+                }
+
+                File.WriteAllLines(file, output.ToArray());
+            }
+        }
+
+        private static void SetDependencyVersions(string versionNo)
+        {
+            foreach (var file in DependencyFiles)
+            {
+                var lines = File.ReadAllLines(file);
+                var output = new List<string>();
+                foreach (var line in lines)
+                {
+                    if (line.Trim().StartsWith("<package id=\"RapidXaml.CustomAnalysis\""))
+                    {
+                        output.Add($"            <package id=\"RapidXaml.CustomAnalysis\" version=\"{versionNo}\" />");
+                    }
+                    else if (line.Trim().StartsWith("<PackageReference Include=\"RapidXaml.CustomAnalysis\" "))
+                    {
+                        output.Add($"        <PackageReference Include=\"RapidXaml.CustomAnalysis\" Version=\"{versionNo}\" />");
+                    }
+                    else if (line.Trim().StartsWith("<dependency id=\"RapidXaml.CustomAnalysis\" "))
+                    {
+                        output.Add($"                <dependency id=\"RapidXaml.CustomAnalysis\" version=\"{versionNo}\" exclude=\"Build,Analyzers\" />");
+                    }
+                    else
+                    {
+                        output.Add(line);
+                    }
+                }
+
+                File.WriteAllLines(file, output.ToArray());
+            }
         }
 
         private static void SetAssemblyInfoNumbers(string versionNo)
@@ -120,6 +198,21 @@ namespace SetVersionNumbers
                 var xmlDoc = new XmlDocument();
                 xmlDoc.Load(nuspecFile);
                 var version = xmlDoc.GetElementsByTagName("version");
+
+                version[0].InnerText = versionNo;
+
+                using var sw = new StreamWriter(nuspecFile, false, Encoding.UTF8);
+                xmlDoc.Save(sw);
+            }
+        }
+
+        private static void SetNugetProjectVersions(string versionNo)
+        {
+            foreach (var nuspecFile in NugetProjectFiles)
+            {
+                var xmlDoc = new XmlDocument();
+                xmlDoc.Load(nuspecFile);
+                var version = xmlDoc.GetElementsByTagName("Version");
 
                 version[0].InnerText = versionNo;
 

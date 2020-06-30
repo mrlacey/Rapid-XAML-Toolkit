@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class ToggleMenuFlyoutItemProcessor : XamlElementProcessor
     {
-        public ToggleMenuFlyoutItemProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public ToggleMenuFlyoutItemProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

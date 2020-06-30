@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class TextBlockProcessor : XamlElementProcessor
     {
-        public TextBlockProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public TextBlockProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

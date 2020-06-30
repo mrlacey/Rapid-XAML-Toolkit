@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class CalendarDatePickerProcessor : XamlElementProcessor
     {
-        public CalendarDatePickerProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public CalendarDatePickerProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

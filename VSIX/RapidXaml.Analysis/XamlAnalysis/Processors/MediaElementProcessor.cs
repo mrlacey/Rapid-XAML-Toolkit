@@ -3,15 +3,14 @@
 
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class MediaElementProcessor : XamlElementProcessor
     {
-        public MediaElementProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public MediaElementProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 
@@ -22,8 +21,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 return;
             }
 
+            var tagDeps = this.CreateBaseTagDependencies(
+                new Span(offset, xamlElement.Length),
+                snapshot,
+                fileName);
+
             tags.TryAdd(
-                new UseMediaPlayerElementTag(new Span(offset, xamlElement.Length), snapshot, fileName, this.Logger)
+                new UseMediaPlayerElementTag(tagDeps)
                 {
                     InsertPosition = offset,
                 },

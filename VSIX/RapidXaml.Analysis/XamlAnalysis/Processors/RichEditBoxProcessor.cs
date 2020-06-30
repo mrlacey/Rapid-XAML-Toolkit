@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class RichEditBoxProcessor : XamlElementProcessor
     {
-        public RichEditBoxProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public RichEditBoxProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Language.Intellisense;
@@ -34,26 +33,10 @@ namespace RapidXamlToolkit.XamlAnalysis
             this.view = view;
             this.file = file;
 
-            // Don't want every change event as that is a lot during editing. Wait for a second of inactivity before reparsing.
-            this.WhenViewLayoutChanged.Throttle(TimeSpan.FromSeconds(1)).Subscribe(e => this.OnViewLayoutChanged(this, e));
-
             RapidXamlDocumentCache.Add(this.file, textBuffer.CurrentSnapshot);
         }
 
         public event EventHandler<EventArgs> SuggestedActionsChanged;
-
-        // Observable event wrapper
-        public IObservable<TextViewLayoutChangedEventArgs> WhenViewLayoutChanged
-        {
-            get
-            {
-                return Observable
-                    .FromEventPattern<EventHandler<TextViewLayoutChangedEventArgs>, TextViewLayoutChangedEventArgs>(
-                        h => this.view.LayoutChanged += h,
-                        h => this.view.LayoutChanged -= h)
-                    .Select(x => x.EventArgs);
-            }
-        }
 
         public void Refresh()
         {

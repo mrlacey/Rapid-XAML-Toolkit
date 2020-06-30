@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using RapidXamlToolkit.ErrorList;
@@ -47,14 +46,16 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         if (span.Snapshot.TextBuffer != viewTag.Snapshot.TextBuffer)
                         {
-                            SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_TextBufferChanged.WithParams(this.file));
+                            //// SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_TextBufferChanged.WithParams(this.file));
+                            System.Diagnostics.Debug.WriteLine(StringRes.Info_TextBufferChanged.WithParams(this.file));
                             RapidXamlDocumentCache.Invalidate(this.file);
                             break;
                         }
 
                         if (span.Snapshot.Version.VersionNumber != viewTag.Snapshot.Version.VersionNumber)
                         {
-                            SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_SnapshotVersionChanged.WithParams(this.file));
+                            //// SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_SnapshotVersionChanged.WithParams(this.file));
+                            System.Diagnostics.Debug.WriteLine(StringRes.Info_SnapshotVersionChanged.WithParams(this.file));
                             RapidXamlDocumentCache.Invalidate(this.file);
                             break;
                         }
@@ -99,7 +100,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             try
             {
-                return ProjectHelpers.Dte2.Solution.FindProjectItem(fileName).ContainingProject.Name;
+                return ProjectHelpers.Dte2.Solution.FindProjectItem(fileName)?.ContainingProject?.Name ?? string.Empty;
             }
             catch (Exception e)
             {

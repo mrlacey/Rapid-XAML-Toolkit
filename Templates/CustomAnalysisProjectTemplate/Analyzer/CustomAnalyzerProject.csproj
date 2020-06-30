@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="RapidXamlCustomAnalysis" Version="0.9.6" />
+        <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.10.0" />
     </ItemGroup>
 
 </Project>

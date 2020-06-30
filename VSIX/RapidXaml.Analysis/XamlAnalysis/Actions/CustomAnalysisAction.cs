@@ -73,7 +73,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 FileName = tag.FileName,
                 InsertPos = tag.InsertPosition,
                 Logger = tag.Logger,
+                ProjectFilePath = tag.ProjectFilePath,
                 Snapshot = tag.Snapshot,
+                //// Don't need to set VsAbstraction as tags only need it for referencing settings but supplementary actions don't need to know about settings.
             };
 
             if (suppAction.Location == null)
@@ -88,7 +90,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             return new CustomAnalysisTag(catd);
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter - cancellationToken
         private void InnerExecute(VisualStudioTextManipulation vs, CustomAnalysisTag tag, CancellationToken cancellationToken)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             switch (tag.Action)
             {

@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class MenuFlyoutSubItemProcessor : XamlElementProcessor
     {
-        public MenuFlyoutSubItemProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public MenuFlyoutSubItemProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 

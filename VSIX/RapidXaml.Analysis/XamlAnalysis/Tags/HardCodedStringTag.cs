@@ -2,8 +2,6 @@
 // Licensed under the MIT license.
 
 using System;
-using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
@@ -11,8 +9,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class HardCodedStringTag : RapidXamlDisplayedTag
     {
-        public HardCodedStringTag(Span span, ITextSnapshot snapshot, string fileName, string elementName, string attributeName, ILogger logger, ProjectType projType)
-            : base(span, snapshot, fileName, "RXT200", TagErrorType.Warning, logger)
+        public HardCodedStringTag(TagDependencies tagDeps, string elementName, string attributeName, ProjectType projType)
+            : base(tagDeps, "RXT200", TagErrorType.Warning)
         {
             this.SuggestedAction = typeof(HardCodedStringAction);
             this.ToolTip = StringRes.UI_XamlAnalysisHardcodedStringTooltip;

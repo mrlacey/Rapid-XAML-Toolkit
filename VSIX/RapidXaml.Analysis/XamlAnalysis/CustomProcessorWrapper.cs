@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using RapidXaml;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -14,8 +15,8 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         private readonly RapidXaml.ICustomAnalyzer customProcessor;
 
-        public CustomProcessorWrapper(RapidXaml.ICustomAnalyzer customProcessor, ProjectType projType, ILogger logger)
-            : base(projType, logger)
+        public CustomProcessorWrapper(RapidXaml.ICustomAnalyzer customProcessor, ProjectType projType, string projectPath, ILogger logger, IVisualStudioAbstraction vsa)
+            : base(new ProcessorEssentials(projType, logger, projectPath, vsa))
         {
             this.customProcessor = customProcessor;
         }
@@ -50,7 +51,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                         FileName = fileName,
                         InsertPos = offset,
                         Logger = this.Logger,
+                        ProjectFilePath = this.ProjectFilePath,
                         Snapshot = snapshot,
+                        VsAbstraction = this.VSAbstraction,
                     };
 
                     // Treat `NotReallyCustomAnalyzer` types as any other built-in type.
@@ -71,7 +74,15 @@ namespace RapidXamlToolkit.XamlAnalysis
                     }
                     else
                     {
-                        tagDeps.Span = action.Location.ToSpanPlusStartPos(offset);
+                        // Allow for action location considering the offset or not
+                        if (action.Location.Start > offset)
+                        {
+                            tagDeps.Span = action.Location.ToSpan();
+                        }
+                        else
+                        {
+                            tagDeps.Span = action.Location.ToSpanPlusStartPos(offset);
+                        }
                     }
 
                     tags.TryAdd(

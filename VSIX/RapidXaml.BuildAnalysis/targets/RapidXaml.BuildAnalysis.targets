@@ -1,0 +1,13 @@
+﻿<Project>
+  <PropertyGroup>
+    <BuildDependsOn>
+      $(BuildDependsOn);
+      AfterBuild;
+      RapidXamlBuildAnalysis
+    </BuildDependsOn>
+  </PropertyGroup>
+
+  <Target Name="RapidXamlBuildAnalysis">
+    <Program Command="$(ProjectPath)" NuGetPath="$(NuGetPackageRoot)" />
+  </Target>
+</Project>

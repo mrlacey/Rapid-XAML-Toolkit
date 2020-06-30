@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
@@ -10,8 +8,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class NameTitleCaseTag : RapidXamlDisplayedTag
     {
-        public NameTitleCaseTag(Span span, ITextSnapshot snapshot, string fileName, string value, ILogger logger)
-            : base(span, snapshot, fileName, "RXT452",  TagErrorType.Suggestion, logger)
+        public NameTitleCaseTag(TagDependencies tagDeps, string value)
+            : base(tagDeps, "RXT452",  TagErrorType.Suggestion)
         {
             this.SuggestedAction = typeof(MakeNameStartWithCapitalAction);
             this.ToolTip = StringRes.UI_XamlAnalysisNameTitleCaseToolTip;

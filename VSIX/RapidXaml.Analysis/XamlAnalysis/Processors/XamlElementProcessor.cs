@@ -7,21 +7,28 @@ using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public abstract class XamlElementProcessor
     {
-        public XamlElementProcessor(ProjectType projectType, ILogger logger)
+        public XamlElementProcessor(ProcessorEssentials pe)
         {
-            this.ProjectType = projectType;
-            this.Logger = logger;
+            this.ProjectType = pe.ProjectType;
+            this.Logger = pe.Logger;
+            this.ProjectFilePath = pe.ProjectFilePath;
+            this.VSAbstraction = pe.Vsa;
         }
 
         internal ProjectType ProjectType { get; }
 
         internal ILogger Logger { get; }
+
+        internal string ProjectFilePath { get; }
+
+        internal IVisualStudioAbstraction VSAbstraction { get; }
 
         public static bool IsSelfClosing(string xaml, int startPoint = 0)
         {
@@ -113,7 +120,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
-        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger)
+        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger, string projectFile, IVisualStudioAbstraction vsAbstraction)
         {
             var startPos = xaml.Substring(0, position).LastIndexOf('<');
 
@@ -121,10 +128,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             string result = null;
 
-            var processor = new SubElementProcessor(projectType, logger);
+            var processor = new SubElementProcessor(new ProcessorEssentials(projectType, logger, projectFile, vsAbstraction));
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
-            XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList());
+            XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList(), vsAbstraction);
 
 #if DEBUG
             if (result == null)
@@ -309,7 +316,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
-                    var tag = new HardCodedStringTag(new Span(offset + tbIndex, length), snapshot, fileName, elementName, attributeName, this.Logger, projType)
+                    var tagDeps = this.CreateBaseTagDependencies(
+                        new Span(offset + tbIndex, length),
+                        snapshot,
+                        fileName);
+
+                    var tag = new HardCodedStringTag(tagDeps, elementName, attributeName, projType)
                     {
                         AttributeType = foundAttributeType,
                         Value = value,
@@ -358,10 +370,23 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return (uidExists, uid);
         }
 
+        protected TagDependencies CreateBaseTagDependencies(Span span, ITextSnapshot snapshot, string fileName)
+        {
+            return new TagDependencies
+            {
+                Logger = this.Logger,
+                VsAbstraction = this.VSAbstraction,
+                ProjectFilePath = this.ProjectFilePath,
+                Span = span,
+                Snapshot = snapshot,
+                FileName = fileName,
+            };
+        }
+
         public class SubElementProcessor : XamlElementProcessor
         {
-            public SubElementProcessor(ProjectType projectType, ILogger logger)
-                : base(projectType, logger)
+            public SubElementProcessor(ProcessorEssentials essentials)
+                : base(essentials)
             {
             }
 

@@ -8,7 +8,7 @@ namespace $ext_safeprojectname$
         // TODO: set the name of the element/type this analyzer will analyze.
         public string TargetType() => "MyElement";
 
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             // TODO: Implement this analyzer as per your needs.
             // More details at https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/master/docs/custom-analysis.md

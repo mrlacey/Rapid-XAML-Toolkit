@@ -151,7 +151,10 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 }
             }
 
+            // Set default to make it clear what the default is.
+#pragma warning disable IDE0059 // Unnecessary assignment of a value
             var result = ProjectType.Unknown;
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
 
             // Check with `Contains` as there may be multiple GUIDs specified (e.g. for programming language too)
             if (guids.IndexOf(WpfGuid, StringComparison.InvariantCultureIgnoreCase) >= 0)
@@ -378,6 +381,12 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             var indent = new IndentSize();
 
             return indent.Default;
+        }
+
+        public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
+        {
+            var proj = this.Dte.Solution.GetProjectContainingFile(fileName);
+            return (proj.FileName, this.GetProjectType(proj));
         }
 
         private NuGet.VisualStudio.IVsPackageInstallerServices GetNuGetService(EnvDTE.Project proj)

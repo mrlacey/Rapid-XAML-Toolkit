@@ -2,15 +2,17 @@
 // Licensed under the MIT license.
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using RapidXaml;
 using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
+    [DebuggerDisplay("{ErrorCode} - {ActionText}")]
     public class CustomAnalysisTag : RapidXamlDisplayedTag
     {
         public CustomAnalysisTag(CustomAnalysisTagDependencies deps)
-            : base(deps.Span, deps.Snapshot, deps.FileName, deps.ErrorCode, deps.ErrorType, deps.Logger, deps.Action.MoreInfoUrl, deps.CustomFeatureUsageValue)
+            : base(deps.ToTagDependencies(), deps.ErrorCode, deps.ErrorType)
         {
             this.SuggestedAction = typeof(CustomAnalysisAction);
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>$projectname$</id>
@@ -13,7 +13,7 @@
         <tags>RapidXaml, XamlAnalyzer</tags>
         <dependencies>
             <group targetFramework="netstandard2.0">
-                <dependency id="RapidXamlCustomAnalysis" version="0.9.6" exclude="Build,Analyzers" />
+                <dependency id="RapidXaml.CustomAnalysis" version="0.10.0" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>

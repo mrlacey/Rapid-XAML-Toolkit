@@ -11,8 +11,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public class ComboBoxProcessor : XamlElementProcessor
     {
-        public ComboBoxProcessor(ProjectType projectType, ILogger logger)
-            : base(projectType, logger)
+        public ComboBoxProcessor(ProcessorEssentials essentials)
+            : base(essentials)
         {
         }
 
