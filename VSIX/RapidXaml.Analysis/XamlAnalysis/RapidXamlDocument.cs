@@ -259,13 +259,14 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 try
                 {
-                    // Only load assemblies that are in the same folder as the library containing the interface
-                    // This library is distributed with custom analyzers so it's a good indication of assemblies that def don't contain analyzers.
-                    // This is also necessary for assembly resolution.
-                    if (!File.Exists(Path.Combine(Path.GetDirectoryName(file), "RapidXaml.CustomAnalysis.dll")))
-                    {
-                        continue;
-                    }
+                    // It is not always the case that VS/MSBuild will copy the RX.CA assembly :(
+                    ////// Only load assemblies that are in the same folder as the library containing the interface
+                    ////// This library is distributed with custom analyzers so it's a good indication of assemblies that def don't contain analyzers.
+                    ////// This is also necessary for assembly resolution.
+                    ////if (!File.Exists(Path.Combine(Path.GetDirectoryName(file), "RapidXaml.CustomAnalysis.dll")))
+                    ////{
+                    ////    continue;
+                    ////}
 
                     var fileName = Path.GetFileName(file);
 
