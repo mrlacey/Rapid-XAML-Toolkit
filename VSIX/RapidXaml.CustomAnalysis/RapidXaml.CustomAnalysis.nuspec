@@ -10,9 +10,9 @@
     <repository type="git" url="https://github.com/mrlacey/Rapid-XAML-Toolkit" />
     <icon>images\icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Create custom XAML analyzers.</description>
+    <description>Create custom XAML analyzers for use with the Rapid XAML toolkit.</description>
     <summary>Create custom XAML analyzers.</summary>
-    <releaseNotes>Early release - verifying functionality.</releaseNotes>
+    <releaseNotes>Expose additional information to analyzers.</releaseNotes>
     <copyright>Copyright 2020 Matt Lacey Ltd.</copyright>
     <tags>XAML, UWP, WPF, Xamarin.Forms, MVVM, UNO</tags>
     <dependencies>
