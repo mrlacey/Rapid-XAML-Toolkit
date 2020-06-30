@@ -62,6 +62,11 @@ namespace SetVersionNumbers
             "../../../../../Templates/CustomAnalysisProjectTemplate/AnalyzerTests/CustomAnalyzerProjectTests.csproj",
         };
 
+        private static readonly List<string> ProjectFilesContainingVersionNumbers = new List<string>
+        {
+            "../../../../RapidXaml.AnalysisExe/RapidXaml.AnalysisExe.csproj",
+        };
+
         static void Main(string[] args)
         {
             if (args.Length != 1)
@@ -85,6 +90,29 @@ namespace SetVersionNumbers
             SetNugetProjectVersions(versionNo);
             SetNuSpecVersions(versionNo);
             SetDependencyVersions(versionNo);
+            SetVersionNumbersInProjectFiles(versionNo);
+        }
+
+        private static void SetVersionNumbersInProjectFiles(string versionNo)
+        {
+            foreach (var file in ProjectFilesContainingVersionNumbers)
+            {
+                var lines = File.ReadAllLines(file);
+                var output = new List<string>();
+                foreach (var line in lines)
+                {
+                    if (line.StartsWith("    <Version>"))
+                    {
+                        output.Add($"    <Version>{versionNo}</Version>");
+                    }
+                    else
+                    {
+                        output.Add(line);
+                    }
+                }
+
+                File.WriteAllLines(file, output.ToArray());
+            }
         }
 
         private static void SetDependencyVersions(string versionNo)

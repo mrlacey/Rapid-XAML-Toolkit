@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>RapidXaml.BuildAnalysis</id>
-    <version>0.9.8</version>
+    <version>0.9.21</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <copyright>Copyright © 2020 Matt Lacey Ltd.</copyright>
@@ -21,13 +21,17 @@
     <file src="_._" target="lib/net40/" />
     <file src=".\icon.png" target="images\" />
     <!-- Specify release versions explicitly so NuGet doesn't get confused by $outpath$ -->
-    <file src=".\bin\release\net472\RapidXaml.BuildAnalysis.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.BuildAnalysis.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.AnalysisExe.exe" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.AnalysisExe.exe.config" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.AnalysisExe.pdb" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.BuildAnalysis.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.BuildAnalysis.pdb" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.dll.config" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Shared.pdb" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Shared.xml" target="tools/net472/" />
     <!-- Would love to do this with wildcards but for some reason it's not working -->
     <file src=".\bin\release\net472\ApiAnalysis.SimpleJsonAnalyzer.vsixuse.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\EnvDTE.dll" target="tools/net472/" />
@@ -165,5 +169,6 @@
     <file src=".\bin\release\net472\VSLangProj90.dll" target="tools/net472/" />
     <file src="targets\" target="build/" />
     <file src="buildMultiTargeting\" target="buildMultiTargeting/" />
+    <file src="dist\" target="dist/" />
   </files>
 </package>

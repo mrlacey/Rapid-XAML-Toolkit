@@ -21,96 +21,110 @@ namespace RapidXaml.AnalysisExe
 
         public static void Main(string[] args)
         {
-            Console.WriteLine($"{System.Reflection.Assembly.GetExecutingAssembly().FullName}");
-
-            if (args.Length < 1)
+            try
             {
-                Console.WriteLine($"ERROR. Expecting project file path as command line argument.");
-                Environment.ExitCode = ERRORCODE_FILE_PATH_NOT_SPECIFIED;
-                return;
-            }
+                // Output name and version for help in debugging any issues.
+                Console.WriteLine($"{System.Reflection.Assembly.GetExecutingAssembly().FullName}");
 
-            var projectPath = args[0];
-
-            Console.WriteLine($"Analyzing {projectPath}");
-
-            if (!File.Exists(projectPath))
-            {
-                Console.WriteLine($"ERROR. File does not exist.");
-                Environment.ExitCode = ERRORCODE_FILE_DOES_NOT_EXIST;
-                return;
-            }
-
-            var fileExt = Path.GetExtension(projectPath);
-
-            if (!fileExt.ToLowerInvariant().Equals(".csproj")
-              & !fileExt.ToLowerInvariant().Equals(".vbproj"))
-            {
-                Console.WriteLine($"ERROR. Not a supported project file.");
-                Environment.ExitCode = ERRORCODE_NOT_A_PROJECT_FILE;
-                return;
-            }
-
-            var projFileLines = File.ReadAllLines(projectPath);
-            var projDir = Path.GetDirectoryName(projectPath);
-
-            // Treat project type as unknown as unable to resolve referenced projects and installed NuGet packages.
-            var bavsa = new BuildAnalysisVisualStudioAbstraction(projectPath, ProjectType.Unknown);
-
-            foreach (var line in projFileLines)
-            {
-                var endPos = line.IndexOf(".xaml\"");
-                if (endPos > 1)
+                if (args.Length < 1)
                 {
-                    var startPos = line.IndexOf("Include");
+                    Console.WriteLine($"ERROR. Expecting project file path as command line argument.");
+                    Environment.ExitCode = ERRORCODE_FILE_PATH_NOT_SPECIFIED;
+                    return;
+                }
 
-                    if (startPos > 1)
+                var projectPath = args[0];
+
+                Console.WriteLine($"Analyzing {projectPath}");
+
+                if (!File.Exists(projectPath))
+                {
+                    Console.WriteLine($"ERROR. File does not exist.");
+                    Environment.ExitCode = ERRORCODE_FILE_DOES_NOT_EXIST;
+                    return;
+                }
+
+                var fileExt = Path.GetExtension(projectPath);
+
+                if (!fileExt.ToLowerInvariant().Equals(".csproj")
+                  & !fileExt.ToLowerInvariant().Equals(".vbproj"))
+                {
+                    Console.WriteLine($"ERROR. Not a supported project file.");
+                    Environment.ExitCode = ERRORCODE_NOT_A_PROJECT_FILE;
+                    return;
+                }
+
+                var projFileLines = File.ReadAllLines(projectPath);
+                var projDir = Path.GetDirectoryName(projectPath);
+
+                // TODO: ISSUE#359 Add more information to output
+                ////SharedRapidXamlPackage.Logger = new AnalysisExeLogger();
+
+                // Treat project type as unknown as unable to resolve referenced projects and installed NuGet packages.
+                var bavsa = new BuildAnalysisVisualStudioAbstraction(projectPath, ProjectType.Unknown);
+
+                foreach (var line in projFileLines)
+                {
+                    var endPos = line.IndexOf(".xaml\"");
+                    if (endPos > 1)
                     {
-                        var relativeFilePath = line.Substring(startPos + 9, endPos + 5 - startPos - 9);
-                        var xamlFilePath = Path.Combine(projDir, relativeFilePath);
-                        var snapshot = new BuildAnalysisTextSnapshot(xamlFilePath);
-                        var rxdoc = RapidXamlDocument.Create(snapshot, xamlFilePath, bavsa, projectPath);
+                        var startPos = line.IndexOf("Include");
 
-                        Debug.WriteLine($"Found {rxdoc.Tags.Count} taggable issues in '{xamlFilePath}'.");
-
-                        if (rxdoc.Tags.Count > 0)
+                        if (startPos > 1)
                         {
-                            var tagsOfInterest = rxdoc.Tags
-                                                      .Where(t => t is RapidXamlDisplayedTag)
-                                                      .Select(t => t as RapidXamlDisplayedTag)
-                                                      .ToList();
+                            var relativeFilePath = line.Substring(startPos + 9, endPos + 5 - startPos - 9);
+                            var xamlFilePath = Path.Combine(projDir, relativeFilePath);
 
-                            Debug.WriteLine($"Found {tagsOfInterest.Count} issues to report in '{xamlFilePath}'.");
+                            Console.WriteLine($"- Analyzing: '{xamlFilePath}'");
 
-                            foreach (var issue in tagsOfInterest)
+                            var snapshot = new BuildAnalysisTextSnapshot(xamlFilePath);
+                            var rxdoc = RapidXamlDocument.Create(snapshot, xamlFilePath, bavsa, projectPath);
+
+                            Debug.WriteLine($"Found {rxdoc.Tags.Count} taggable issues in '{xamlFilePath}'.");
+
+                            if (rxdoc.Tags.Count > 0)
                             {
-                                string messageType = string.Empty;
-                                switch (issue.ConfiguredErrorType)
-                                {
-                                    case TagErrorType.Error:
-                                        messageType = "error";
-                                        break;
-                                    case TagErrorType.Warning:
-                                        messageType = "warning";
-                                        break;
-                                    case TagErrorType.Suggestion:
-                                        // Not supported in the build process
-                                        break;
-                                    case TagErrorType.Hidden:
-                                        break;
-                                }
+                                var tagsOfInterest = rxdoc.Tags
+                                                          .Where(t => t is RapidXamlDisplayedTag)
+                                                          .Select(t => t as RapidXamlDisplayedTag)
+                                                          .ToList();
 
-                                if (!string.IsNullOrEmpty(messageType))
+                                Debug.WriteLine($"Found {tagsOfInterest.Count} issues to report in '{xamlFilePath}'.");
+
+                                foreach (var issue in tagsOfInterest)
                                 {
-                                    // Add 1 to line number to allow for VS counting with
-                                    // Error code is repeated with the description because it doesn't show in the Visual Studio Error List
-                                    // For format see https://github.com/Microsoft/msbuild/blob/master/src/Shared/CanonicalError.cs
-                                    Console.WriteLine($"{xamlFilePath}({issue.Line + 1},{issue.Column}): {messageType} {issue.ErrorCode}: {issue.Description} ({issue.ErrorCode})");
+                                    string messageType = string.Empty;
+                                    switch (issue.ConfiguredErrorType)
+                                    {
+                                        case TagErrorType.Error:
+                                            messageType = "error";
+                                            break;
+                                        case TagErrorType.Warning:
+                                            messageType = "warning";
+                                            break;
+                                        case TagErrorType.Suggestion:
+                                            // Not supported in the build process
+                                            break;
+                                        case TagErrorType.Hidden:
+                                            break;
+                                    }
+
+                                    if (!string.IsNullOrEmpty(messageType))
+                                    {
+                                        // Add 1 to line number to allow for VS counting without zero index
+                                        // Error code is repeated with the description because it doesn't show in the Visual Studio Error List
+                                        // For format see https://github.com/Microsoft/msbuild/blob/master/src/Shared/CanonicalError.cs
+                                        Console.WriteLine($"{xamlFilePath}({issue.Line + 1},{issue.Column}): {messageType} {issue.ErrorCode}: {issue.Description} ({issue.ErrorCode})");
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine($"ERROR. {exc}");
             }
         }
     }

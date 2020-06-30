@@ -1,8 +1,9 @@
 ﻿<Project>
   <PropertyGroup>
     <BuildDependsOn>
-      RapidXamlBuildAnalysis;
-      $(BuildDependsOn)
+      $(BuildDependsOn);
+      AfterBuild;
+      RapidXamlBuildAnalysis
     </BuildDependsOn>
   </PropertyGroup>
 
