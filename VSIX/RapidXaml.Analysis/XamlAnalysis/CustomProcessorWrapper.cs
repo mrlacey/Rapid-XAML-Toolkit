@@ -74,7 +74,15 @@ namespace RapidXamlToolkit.XamlAnalysis
                     }
                     else
                     {
-                        tagDeps.Span = action.Location.ToSpanPlusStartPos(offset);
+                        // Allow for action location considering the offset or not
+                        if (action.Location.Start > offset)
+                        {
+                            tagDeps.Span = action.Location.ToSpan();
+                        }
+                        else
+                        {
+                            tagDeps.Span = action.Location.ToSpanPlusStartPos(offset);
+                        }
                     }
 
                     tags.TryAdd(

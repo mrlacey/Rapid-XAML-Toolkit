@@ -12,5 +12,10 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             return new Span(fileStartPos + source.Start, source.Length);
         }
+
+        public static Span ToSpan(this RapidXamlSpan source)
+        {
+            return new Span(source.Start, source.Length);
+        }
     }
 }
