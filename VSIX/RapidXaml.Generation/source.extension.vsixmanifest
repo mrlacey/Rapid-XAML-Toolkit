@@ -6,7 +6,7 @@
     <Description xml:space="preserve">Tools to accelerate XAML app development by generating XAML.</Description>
     <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
     <License>LICENSE.txt</License>
-    <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/master/docs</GettingStartedGuide>
+    <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
     <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/releases</ReleaseNotes>
     <Icon>Resources\RapidXamlGenerationLogo.png</Icon>
     <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, Forms, MVVM, generation</Tags>

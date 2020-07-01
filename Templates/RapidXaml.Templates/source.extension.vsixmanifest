@@ -6,7 +6,7 @@
     <Description xml:space="preserve">Project and item templates to help with XAML development.</Description>
     <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
     <License>LICENSE.txt</License>
-    <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/master/docs/custom-analysis.md</GettingStartedGuide>
+    <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/docs/custom-analysis.md</GettingStartedGuide>
     <Icon>Resources\RapidXamlTemplatesLogo.png</Icon>
     <Tags>XAML</Tags>
     <Preview>true</Preview>

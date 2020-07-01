@@ -11,7 +11,7 @@ namespace $ext_safeprojectname$
         public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             // TODO: Implement this analyzer as per your needs.
-            // More details at https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/master/docs/custom-analysis.md
+            // More details at https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/docs/custom-analysis.md
             if (element.ContainsAttribute("IsEnabled"))
             {
                 return AnalysisActions.None;
