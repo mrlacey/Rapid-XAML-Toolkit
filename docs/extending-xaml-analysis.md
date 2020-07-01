@@ -218,7 +218,7 @@ public class Elements
 
 Copy `/docs/warnings/_template.md` and rename it to match the name of the code assigned above. Complete the relevant sections in the document. (See other, similar, files for reference.)
 
-13. Update the master list of all error codes with the new entry.
+13. Update the list of all error codes with the new entry.
 
 Add an appropriate entry in `/docs/warnings/readme.md`.
 

@@ -6,7 +6,7 @@
     <Description xml:space="preserve">Common infrastructure used by other extensions that are part of the Rapid XAML Toolkit.</Description>
     <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
     <License>LICENSE.txt</License>
-    <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/master/docs</GettingStartedGuide>
+    <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
     <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/releases</ReleaseNotes>
     <Icon>Resources\RapidXamlCommonLogo.png</Icon>
     <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, MVVM</Tags>
