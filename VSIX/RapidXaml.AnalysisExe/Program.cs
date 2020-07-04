@@ -57,8 +57,8 @@ namespace RapidXaml.AnalysisExe
                 var projFileLines = File.ReadAllLines(projectPath);
                 var projDir = Path.GetDirectoryName(projectPath);
 
-                // TODO: ISSUE#359 Add more information to output
-                ////SharedRapidXamlPackage.Logger = new AnalysisExeLogger();
+                // Ensure any errors are output - otherwise debugging problems is really hard
+                SharedRapidXamlPackage.Logger = new AnalysisExeLogger();
 
                 // Treat project type as unknown as unable to resolve referenced projects and installed NuGet packages.
                 var bavsa = new BuildAnalysisVisualStudioAbstraction(projectPath, ProjectType.Unknown);

@@ -17,7 +17,7 @@ namespace RapidXamlToolkit
     {
         public const string TelemetryGuid = "c735dfc3-c416-4501-bc33-558e2aaad8c5";
 
-        public static ILogger Logger { get; private set; }
+        public static ILogger Logger { get; set; }
 
         public static async Task InitializeAsync(CancellationToken cancellationToken, AsyncPackage package)
         {
