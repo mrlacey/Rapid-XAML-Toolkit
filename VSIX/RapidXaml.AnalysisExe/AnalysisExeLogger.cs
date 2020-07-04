@@ -12,12 +12,12 @@ namespace RapidXaml.AnalysisExe
 
         public void RecordError(string message, bool force = false)
         {
-            Console.WriteLine($"-Error: {message}");
+            Console.WriteLine($"AEL-Error: {message}");
         }
 
         public void RecordException(Exception exception)
         {
-            Console.WriteLine($"-Exception: {exception.Message}");
+            Console.WriteLine($"AEL-Exception: {exception.Message}");
         }
 
         public void RecordFeatureUsage(string feature, bool quiet = false)
@@ -26,7 +26,7 @@ namespace RapidXaml.AnalysisExe
 
         public void RecordGeneralError(string message)
         {
-            Console.WriteLine($"-GeneralError: {message}");
+            Console.WriteLine($"AEL-GeneralError: {message}");
         }
 
         public void RecordInfo(string message)
