@@ -12,32 +12,29 @@ namespace RapidXaml.AnalysisExe
 
         public void RecordError(string message, bool force = false)
         {
-            Console.WriteLine($"Logger-Error: {message}");
+            Console.WriteLine($"-Error: {message}");
         }
 
         public void RecordException(Exception exception)
         {
-            Console.WriteLine($"Logger-Exception: {exception.Message}");
+            Console.WriteLine($"-Exception: {exception.Message}");
         }
 
         public void RecordFeatureUsage(string feature, bool quiet = false)
         {
-            Console.WriteLine($"Logger-RecordFeatureUsage: {feature}");
         }
 
         public void RecordGeneralError(string message)
         {
-            Console.WriteLine($"Logger-GeneralError: {message}");
+            Console.WriteLine($"-GeneralError: {message}");
         }
 
         public void RecordInfo(string message)
         {
-            Console.WriteLine($"Logger-Info: {message}");
         }
 
         public void RecordNotice(string message)
         {
-            Console.WriteLine($"Logger-Notice: {message}");
         }
     }
 }
