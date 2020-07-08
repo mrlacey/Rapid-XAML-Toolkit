@@ -168,9 +168,23 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 foreach (var customProcessor in customProcessors)
                 {
-                    processors.Add(
-                        (customProcessor.TargetType(),
-                         new CustomProcessorWrapper(customProcessor, projType, projectFilePath, logger, vsAbstraction)));
+                    var targetType = customProcessor.TargetType();
+
+                    var wrapper = new CustomProcessorWrapper(customProcessor, projType, projectFilePath, logger, vsAbstraction);
+
+                    if (targetType.StartsWith("ANYOF:", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        var types = targetType.Substring(6).Split(new[] { ' ', ',', ':', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        foreach (var type in types)
+                        {
+                            processors.Add((type, wrapper));
+                        }
+                    }
+                    else
+                    {
+                        processors.Add((targetType, wrapper));
+                    }
                 }
             }
 
