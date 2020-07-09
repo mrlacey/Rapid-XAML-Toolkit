@@ -177,9 +177,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                                         {
                                             var bubbleUpError = true;
 
-                                            if (processor is CustomProcessorWrapper)
+                                            if (processor is CustomProcessorWrapper wrapper)
                                             {
-                                                var customAnalyzer = ((CustomProcessorWrapper)processor).CustomAnalyzer;
+                                                var customAnalyzer = wrapper.CustomAnalyzer;
 
                                                 if (!(customAnalyzer is NotReallyCustomAnalyzer))
                                                 {
