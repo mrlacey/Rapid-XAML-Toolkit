@@ -166,29 +166,34 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.EntryAnalyzer());
                 customProcessors.Add(new CustomAnalysis.PickerAnalyzer());
 
-                foreach (var customProcessor in customProcessors)
-                {
-                    var targetType = customProcessor.TargetType();
-
-                    var wrapper = new CustomProcessorWrapper(customProcessor, projType, projectFilePath, logger, vsAbstraction);
-
-                    if (targetType.StartsWith("ANYOF:", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        var types = targetType.Substring(6).Split(new[] { ' ', ',', ':', ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-                        foreach (var type in types)
-                        {
-                            processors.Add((type, wrapper));
-                        }
-                    }
-                    else
-                    {
-                        processors.Add((targetType, wrapper));
-                    }
-                }
+                processors.AddRange(WrapCustomProcessors(customProcessors, projType, projectFilePath, logger, vsAbstraction));
             }
 
             return processors;
+        }
+
+        public static IEnumerable<(string, XamlElementProcessor)> WrapCustomProcessors(List<ICustomAnalyzer> customProcessors, ProjectType projType, string projectFilePath, ILogger logger, IVisualStudioAbstraction vsAbstraction)
+        {
+            foreach (var customProcessor in customProcessors)
+            {
+                var targetType = customProcessor.TargetType();
+
+                var wrapper = new CustomProcessorWrapper(customProcessor, projType, projectFilePath, logger, vsAbstraction);
+
+                if (targetType.StartsWith("ANYOF:", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var types = targetType.Substring(6).Split(new[] { ' ', ',', ':', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var type in types)
+                    {
+                        yield return (type, wrapper);
+                    }
+                }
+                else
+                {
+                    yield return (targetType, wrapper);
+                }
+            }
         }
 
         public static List<ICustomAnalyzer> GetCustomProcessors(string projectFileDirectory)
