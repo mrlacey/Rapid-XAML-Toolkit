@@ -46,6 +46,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return this.Dte.ActiveDocument.FullName;
         }
 
+        // TODO ISSUE#369 Cache this lookup based on project.FileName
         public ProjectType GetProjectType(EnvDTE.Project project)
         {
             const string WpfGuid = "{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548}";
