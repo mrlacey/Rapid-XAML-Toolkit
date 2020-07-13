@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System.Threading;
+using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -36,8 +37,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         public override void Execute(CancellationToken cancellationToken)
         {
             this.Tag.SetAsHiddenInSettingsFile();
-            RapidXamlDocumentCache.RemoveTags(this.Tag.FileName, this.ErrorCode);
             this.Source.Refresh();
+            RapidXamlDocumentCache.RemoveTags(this.Tag.FileName, this.ErrorCode);
+            RapidXamlDocumentCache.Invalidate(this.Tag.FileName);
+            RapidXamlDocumentCache.TryUpdate(this.Tag.FileName);
+            TableDataSource.Instance.CleanErrors(this.Tag.FileName);
         }
     }
 }

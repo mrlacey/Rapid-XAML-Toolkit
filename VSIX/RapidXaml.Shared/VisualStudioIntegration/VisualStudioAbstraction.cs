@@ -54,6 +54,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             const string XamAndroidGuid = "{EFBA0AD7-5A72-4C68-AF49-83D382785DCF}";
             const string XamIosGuid = "{6BC8ED88-2882-458C-8E55-DFD12B67127B}";
 
+            if (string.IsNullOrWhiteSpace(project?.FileName) || project?.DTE == null)
+            {
+                return ProjectType.Unknown;
+            }
+
             bool ReferencesXamarin(EnvDTE.Project proj)
             {
                 return ReferencesNuGetPackageWithNameContaining(proj, "xamarin");

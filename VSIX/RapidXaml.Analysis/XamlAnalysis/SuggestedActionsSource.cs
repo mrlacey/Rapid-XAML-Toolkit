@@ -136,13 +136,11 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public IEnumerable<SuggestedActionSet> CreateActionSet(IRapidXamlTag tag, params BaseSuggestedAction[] actions)
         {
-            var enabledActions = actions.Where(action => action.IsEnabled);
-
             var result = new List<SuggestedActionSet>()
             {
                 new SuggestedActionSet(
                     PredefinedSuggestedActionCategoryNames.Refactoring,
-                    actions: enabledActions,
+                    actions: actions,
                     title: StringRes.UI_SuggestedActionSetTitle,
                     priority: SuggestedActionSetPriority.None,
                     applicableToSpan: tag.Span),

@@ -1683,6 +1683,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sorry, an automated fix for this issue is not currently available..
+        /// </summary>
+        public static string UI_XamlAnalysisFixUnavailable {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisFixUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} contains hard-coded {1} value &apos;{2}&apos;..
         /// </summary>
         public static string UI_XamlAnalysisGenericHardCodedStringDescription {

@@ -75,7 +75,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     return VsShellUtilities.IsDocumentOpen(
                         package,
                         path,
-                        VSConstants.LOGVIEWID_TextView,
+                        logicalView,
                         out var dummyHierarchy2,
                         out var dummyItemId2,
                         out windowFrame);
@@ -88,8 +88,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
             var docIsOpenInTextView =
-                DocIsOpenInLogicalView(file, VSConstants.LOGVIEWID_Code, out var windowFrameForTextView) ||
-                DocIsOpenInLogicalView(file, VSConstants.LOGVIEWID_TextView, out windowFrameForTextView);
+                DocIsOpenInLogicalView(file, VSConstants.LOGVIEWID_TextView, out var windowFrameForTextView) ||
+                DocIsOpenInLogicalView(file, VSConstants.LOGVIEWID_Code, out windowFrameForTextView);
 
             if (docIsOpenInTextView && windowFrameForTextView != null)
             {
@@ -128,7 +128,10 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             lock (CacheLock)
             {
-                Cache[file].Clear();
+                if (Cache.ContainsKey(file))
+                {
+                    Cache[file].Clear();
+                }
             }
 
             TableDataSource.Instance.CleanErrors(file);
