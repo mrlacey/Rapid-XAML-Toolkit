@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Language.Xml;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
@@ -15,10 +14,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
+        // TODO: need to distinguish processors that need to do a contains check
         public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions = null, string projectFilePath = null)
         {
-            // TODO: need to distinguish processors that need to do a contains check
-
             var elementsBeingTracked = new List<TrackingElement>();
 
             var everyElementProcessor = new EveryElementProcessor(new ProcessorEssentials(projectType, SharedRapidXamlPackage.Logger, projectFilePath, vsAbstraction));
@@ -38,11 +36,6 @@ namespace RapidXamlToolkit.XamlAnalysis
             for (int i = 0; i < xaml.Length; i++)
             {
                 currentElementBody.Append(xaml[i]);
-
-                for (var j = 0; j < elementsBeingTracked.Count; j++)
-                {
-                    elementsBeingTracked[j].ElementBody.Append(xaml[i]);
-                }
 
                 if (xaml[i] == '<')
                 {
@@ -89,7 +82,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                             {
                                 StartPos = currentElementStartPos,
                                 ElementName = currentElementName.ToString(),
-                                ElementBody = new StringBuilder(currentElementBody.ToString()),
                             });
                     }
 
@@ -124,7 +116,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 {
                                     StartPos = currentElementStartPos,
                                     ElementName = currentElementName.ToString(),
-                                    ElementBody = new StringBuilder(currentElementBody.ToString()),
                                 });
 
                             isIdentifyingElement = false;
@@ -151,14 +142,15 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                             {
-                                var elementBody = toProcess.ElementBody.ToString();
+                                var elementBody = xaml.Substring(toProcess.StartPos, i - toProcess.StartPos + 1);
 
-                                // TODO: test that self closing elements are processed here.
-
-                                // Do this here with values already calculated
-                                everyElementProcessor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                if (elementBody.StartsWith("</"))
+                                {
+                                    System.Diagnostics.Debug.WriteLine("DEBUG!!!!!!");
+                                }
 
                                 // TODO: Is this also the place to check for processors based on contains?
+                                everyElementProcessor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
 
                                 foreach (var (element, processor) in processors)
                                 {
@@ -200,8 +192,14 @@ namespace RapidXamlToolkit.XamlAnalysis
                             {
                                 if (!inComment)
                                 {
-                                    // Do this in the else so don't always have to calculate the substring.
-                                    everyElementProcessor.Process(fileName, currentElementStartPos, xaml.Substring(currentElementStartPos, i - currentElementStartPos + 1), lineIndent.ToString(), snapshot, tags, suppressions);
+                                    var elementBody = xaml.Substring(currentElementStartPos, i - currentElementStartPos + 1);
+
+                                    // Don't process closing blocks
+                                    if (!elementBody.StartsWith("</"))
+                                    {
+                                        // Do this in the else so don't always have to calculate the substring.
+                                        everyElementProcessor.Process(fileName, currentElementStartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                    }
                                 }
                             }
 
@@ -233,11 +231,9 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 get
                 {
-                    return this.ElementName.PartAfter(":");
+                    return this.ElementName?.PartAfter(":") ?? string.Empty;
                 }
             }
-
-            public StringBuilder ElementBody { get; set; }
         }
     }
 }
