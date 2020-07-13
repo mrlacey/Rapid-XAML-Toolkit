@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public string DisplayText { get; protected set; }
 
-        public virtual bool IsEnabled { get; } = true;
+        public virtual bool IsEnabled { get; protected set; } = true;
 
         public virtual bool HasActionSets
         {
@@ -72,6 +72,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public void Invoke(CancellationToken cancellationToken)
         {
+            if (!this.IsEnabled)
+            {
+                return;
+            }
+
             var undoContext = ProjectHelpers.Dte2.UndoContext;
 
             try
