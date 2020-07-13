@@ -838,4 +838,7 @@
   <data name="Info_UsedFeatureParseDocument" xml:space="preserve">
     <value>DocumentParsed_TagsFound{0}</value>
   </data>
+  <data name="UI_XamlAnalysisFixUnavailable" xml:space="preserve">
+    <value>Sorry, an automated fix for this issue is not currently available.</value>
+  </data>
 </root>

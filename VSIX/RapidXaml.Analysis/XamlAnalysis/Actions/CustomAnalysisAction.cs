@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Windows.Documents;
 using RapidXaml;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Processors;
@@ -19,7 +18,16 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             : base(file)
         {
             this.Tag = tag;
-            this.DisplayText = tag.ActionText;
+
+            if (string.IsNullOrWhiteSpace(tag.ActionText))
+            {
+                this.DisplayText = Resources.StringRes.UI_XamlAnalysisFixUnavailable;
+                this.IsEnabled = false;
+            }
+            else
+            {
+                this.DisplayText = tag.ActionText;
+            }
 
             this.CustomFeatureUsageOverride = tag.CustomFeatureUsageOverride;
         }
