@@ -128,7 +128,10 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             lock (CacheLock)
             {
-                Cache[file].Clear();
+                if (Cache.ContainsKey(file))
+                {
+                    Cache[file].Clear();
+                }
             }
 
             TableDataSource.Instance.CleanErrors(file);
