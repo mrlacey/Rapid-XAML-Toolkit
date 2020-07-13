@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions = null, string projectFilePath = null)
         {
-            var elementsOfInterest = processors.Select(p => p.element).ToList();
+            // TODO: need to distinguish processors that need to do a contains check
 
             var elementsBeingTracked = new List<TrackingElement>();
 
@@ -84,17 +84,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     if (isIdentifyingElement)
                     {
-                        if (elementsOfInterest.Contains(currentElementName.ToString())
-                         || elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
-                        {
-                            elementsBeingTracked.Add(
-                                new TrackingElement
-                                {
-                                    StartPos = currentElementStartPos,
-                                    ElementName = currentElementName.ToString(),
-                                    ElementBody = new StringBuilder(currentElementBody.ToString()),
-                                });
-                        }
+                        elementsBeingTracked.Add(
+                            new TrackingElement
+                            {
+                                StartPos = currentElementStartPos,
+                                ElementName = currentElementName.ToString(),
+                                ElementBody = new StringBuilder(currentElementBody.ToString()),
+                            });
                     }
 
                     if (inLineOpeningWhitespace)
@@ -123,17 +119,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         if (isIdentifyingElement)
                         {
-                            if (elementsOfInterest.Contains(currentElementName.ToString())
-                             || elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
-                            {
-                                elementsBeingTracked.Add(
-                                    new TrackingElement
-                                    {
-                                        StartPos = currentElementStartPos,
-                                        ElementName = currentElementName.ToString(),
-                                        ElementBody = new StringBuilder(currentElementBody.ToString()),
-                                    });
-                            }
+                            elementsBeingTracked.Add(
+                                new TrackingElement
+                                {
+                                    StartPos = currentElementStartPos,
+                                    ElementName = currentElementName.ToString(),
+                                    ElementBody = new StringBuilder(currentElementBody.ToString()),
+                                });
 
                             isIdentifyingElement = false;
                         }
@@ -161,8 +153,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                             {
                                 var elementBody = toProcess.ElementBody.ToString();
 
+                                // TODO: test that self closing elements are processed here.
+
                                 // Do this here with values already calculated
                                 everyElementProcessor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+
+                                // TODO: Is this also the place to check for processors based on contains?
 
                                 foreach (var (element, processor) in processors)
                                 {
