@@ -103,6 +103,7 @@
     <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\AddChildTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BadCustomAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\BindingToXBindAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\EntryCellAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\FooAnalysis.cs" />

@@ -165,6 +165,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer());
                 customProcessors.Add(new CustomAnalysis.EntryAnalyzer());
                 customProcessors.Add(new CustomAnalysis.PickerAnalyzer());
+                customProcessors.Add(new CustomAnalysis.BindingToXBindAnalyzer());
 
                 processors.AddRange(WrapCustomProcessors(customProcessors, projType, projectFilePath, logger, vsAbstraction));
             }
