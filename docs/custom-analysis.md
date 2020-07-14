@@ -8,7 +8,7 @@ We've tried to make creating your own analyzer as simple as possible.
 There are only a few simple steps.
 
 1. Create a new .NET Standard 2.0 library.
-1. Reference the `RapidXamlCustomAnalysis` NuGet pacakge.
+1. Reference the `RapidXamlCustomAnalysis` NuGet package.
 1. Create a class that implements `ICustomAnalysis`.
 1. Specify the name of the control/element the analyzer relates to.
 1. Implement the `Analyze()` method with rules appropriate to your scenario.
