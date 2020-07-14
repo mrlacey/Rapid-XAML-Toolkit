@@ -184,6 +184,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                                             }
                                         }
                                     }
+                                    else if (element.StartsWith("ANYCONTAINING:", System.StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        if (elementBody.Contains(element.Substring("ANYCONTAINING:".Length)))
+                                        {
+                                            processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                        }
+                                    }
                                 }
 
                                 elementsBeingTracked.Remove(toProcess);
