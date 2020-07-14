@@ -300,6 +300,7 @@ namespace RapidXaml
                 ErrorType = errorType,
                 ActionText = actionText,
                 Name = attribute?.Name,
+                Location = attribute.Location,
                 IsInlineAttribute = attribute?.IsInline ?? true,
                 Value = attribute?.StringValue,
                 ExtendedMessage = extendedMessage,
