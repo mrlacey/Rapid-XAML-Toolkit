@@ -16,15 +16,34 @@ There are only a few simple steps.
 
 The Toolkit includes a 'Rapid XAML Templates' extension which has Project and Item templates that make it even easier.
 
-1. From the **New Project** menu, select 'Custom Rapid XAML Analyzer' and name your project.
+### Step 1. Create the analyzer
+
+From the **New Project** menu, select 'Custom Rapid XAML Analyzer' and name your project.
 
 ![Analyzer option shown in New > Project dialog](./Assets/new-project-custom-analyzer.png)
 
-2. In the generated analyzer you will first need to specify the name of the Control/Element that the Analyzer will analyze. If you include an XML Namespace Alias your analyzer will only be used for elements that use the exact same xmlns. If you omit the alias, your analyzer will be called regardless of the alias used in the XAML.
+### Step 2. Specify what to analyze
+
+In the generated analyzer you will first need to specify the name of the Control/Element that the Analyzer will analyze. If you include an XML Namespace Alias your analyzer will only be used for elements that use the exact same xmlns. If you omit the alias, your analyzer will be called regardless of the alias used in the XAML.
 
 ![Example of the TargetType property in the generated code](./Assets/specify-target-type.png)
 
-3. Next you must implement the logic of the analyzer. This is done in the `Analyze()` method.
+#### Specifying multiple types at once
+
+If you want your analyzer to work with multiple types you can do this by prefixing the names with `ANYOF:` and then specify the different element names separated with commas.
+
+e.g.: `ANYOF:MyElement1,MyElement2`
+
+#### Analysis not based on the element type
+
+It's also possible to have an analyzer run on any element based on the contents of the specified XAML. You can do this by specify the TargetType as starting with `ANYCONTAINING:` followed by the string to search for.
+
+For example, to analyze any element that binds a property to a DynamicResource, specify  
+`TargetType() => "ANYCONTAINING:=\"{DynamicResource";`
+
+### Step 3. Implement the analyzer logic
+
+ Next you must implement the logic of the analyzer. This is done in the `Analyze()` method.
 
 The `Analyze()` method is passed an `element` representing the XAML object. By querying this `element` you can check that the XAML is as you want without having to parse the text yourself.  
 In addition to `Attributes` and `Children` collection properties, the `element` includes the following helper methods to make your life simpler.
@@ -74,7 +93,9 @@ return AnalysisActions.RemoveAttribute( ... )
 
 ![Multiple quick actions displayed in the editor](./Assets/multiple-quick-actions.png)
 
-4. Reference the project containing the analyzer in all projects containing XAML you wish to analyze.  
+### Step 4. Reference the analyzer in your project
+
+Reference the project containing the analyzer in all projects containing XAML you wish to analyze.  
 You can reference the project directly, the compiled DLL, or package the library in a NuGet package and reference it that way.
 
 The generated project also includes example tests to help you verify your analyzers work correctly. They show how you can confirm the analyzer returns the expected response given different XAML strings as input.
