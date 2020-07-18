@@ -66,6 +66,7 @@
     <Compile Include="AnalysisOptionsGrid.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Commands\AnalyzeCurrentDocumentCommand.cs" />
     <Compile Include="Commands\FeedbackCommand.cs" />
     <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
     <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
