@@ -70,6 +70,7 @@
     <Compile Include="Commands\FeedbackCommand.cs" />
     <Compile Include="Commands\InsertGridRowDefinitionCommandLogic.cs" />
     <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
+    <Compile Include="Commands\OpenOptionsCommand.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
     <Compile Include="ErrorList\ErrorRow.cs" />
     <Compile Include="ErrorList\FileErrorCollection.cs" />

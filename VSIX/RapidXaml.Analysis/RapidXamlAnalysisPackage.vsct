@@ -29,6 +29,12 @@
                 <ButtonText>Analyze file</ButtonText>
             </Strings>
         </Button>
+        <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="OpenOptionsCommandId" priority="0x0900" type="Button">
+            <Icon guid="guidAnalysisImages" id="bmpOptions" />
+            <Strings>
+                <ButtonText>Analysis options</ButtonText>
+            </Strings>
+        </Button>
     </Buttons>
 
     <Bitmaps>
@@ -59,6 +65,9 @@
     <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900">
       <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" />
     </CommandPlacement>
+      <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
+          <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" />
+      </CommandPlacement>
   </CommandPlacements>
 
   <Symbols>
@@ -75,6 +84,7 @@
         <IDSymbol name="MoveAllHardCodedStringsToResourceFileCommandId" value="4134" />
       <IDSymbol name="FeedbackCommandId" value="4135" />
         <IDSymbol name="AnalyzeCurrentDocCommandId" value="4136" />
+        <IDSymbol name="OpenOptionsCommandId" value="4137" />
     </GuidSymbol>
 
     <GuidSymbol name="guidAnalysisImages" value="{65bebd64-018e-442f-937f-c435cf70f9b8}">

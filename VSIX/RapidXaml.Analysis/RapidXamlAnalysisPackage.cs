@@ -57,6 +57,7 @@ namespace RapidXamlToolkit
                 await FeedbackCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
                 await MoveAllHardCodedStringsToResourceFileCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
                 await AnalyzeCurrentDocumentCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+                await OpenAnalysisOptionsCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
 
                 await this.SetUpRunningDocumentTableEventsAsync(cancellationToken);
                 RapidXamlDocumentCache.Initialize(this, SharedRapidXamlPackage.Logger);
