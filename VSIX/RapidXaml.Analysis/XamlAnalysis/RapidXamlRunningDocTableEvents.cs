@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System.IO;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.ErrorList;
+using System.IO;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
@@ -36,7 +36,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             var documentPath = documentInfo.Moniker;
 
-            if (Path.GetExtension(documentPath) == ".xaml")
+            if (Path.GetExtension(documentPath) == ".xaml"
+             && RapidXamlAnalysisPackage.IsLoaded
+             && RapidXamlAnalysisPackage.Options.AnalyzeWhenDocumentSaved)
             {
                 RapidXamlDocumentCache.TryUpdate(documentPath);
             }
