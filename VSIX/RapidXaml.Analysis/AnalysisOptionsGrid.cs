@@ -9,7 +9,7 @@ namespace RapidXamlToolkit
 {
     public class AnalysisOptionsGrid : DialogPage
     {
-        [DisplayName("Analyze On Saved")]
+        [DisplayName("Analyze On Save")]
         [Description("(Re)Ananlyze the XAML document every time it is saved.")]
         public bool AnalyzeWhenDocumentSaved { get; set; } = true;
 
