@@ -18,12 +18,23 @@
           <ButtonText>Move all hard-coded strings to Resource file</ButtonText>
         </Strings>
       </Button>
-      <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900" type="Button">
-        <Icon guid="guidAnalysisImages" id="bmpFeedback" />
-        <Strings>
-          <ButtonText>Give Feedback</ButtonText>
-        </Strings>
-      </Button>
+        <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900" type="Button">
+            <Icon guid="guidAnalysisImages" id="bmpFeedback" />
+            <Strings>
+                <ButtonText>Give Feedback</ButtonText>
+            </Strings>
+        </Button>
+        <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalyzeCurrentDocCommandId" priority="0x0050" type="Button">
+            <Strings>
+                <ButtonText>Analyze file</ButtonText>
+            </Strings>
+        </Button>
+        <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="OpenOptionsCommandId" priority="0x0900" type="Button">
+            <Icon guid="guidAnalysisImages" id="bmpOptions" />
+            <Strings>
+                <ButtonText>Analysis options</ButtonText>
+            </Strings>
+        </Button>
     </Buttons>
 
     <Bitmaps>
@@ -45,12 +56,18 @@
     <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0800">
       <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0200">
-      <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" />
-    </CommandPlacement>
+      <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalyzeCurrentDocCommandId" priority="0x0100">
+          <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" />
+      </CommandPlacement>
+      <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0200">
+          <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" />
+      </CommandPlacement>
     <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900">
       <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" />
     </CommandPlacement>
+      <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
+          <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" />
+      </CommandPlacement>
   </CommandPlacements>
 
   <Symbols>
@@ -64,8 +81,10 @@
       <IDSymbol value="0x2300" name="XamlContextMenuGroup" />
       <IDSymbol value="0x2400" name="XamlContextMenuSecondaryGroup" />
 
-      <IDSymbol name="MoveAllHardCodedStringsToResourceFileCommandId" value="4134" />
+        <IDSymbol name="MoveAllHardCodedStringsToResourceFileCommandId" value="4134" />
       <IDSymbol name="FeedbackCommandId" value="4135" />
+        <IDSymbol name="AnalyzeCurrentDocCommandId" value="4136" />
+        <IDSymbol name="OpenOptionsCommandId" value="4137" />
     </GuidSymbol>
 
     <GuidSymbol name="guidAnalysisImages" value="{65bebd64-018e-442f-937f-c435cf70f9b8}">

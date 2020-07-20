@@ -29,7 +29,7 @@
       <Button guid="guidRapidXamlGenerationPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100" type="Button">
         <Icon guid="guidGenerationImages" id="bmpOptions" />
         <Strings>
-          <ButtonText>Profiles</ButtonText>
+          <ButtonText>Generation Profiles</ButtonText>
         </Strings>
       </Button>
     </Buttons>

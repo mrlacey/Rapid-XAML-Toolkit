@@ -36,7 +36,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             var documentPath = documentInfo.Moniker;
 
-            if (Path.GetExtension(documentPath) == ".xaml")
+            if (Path.GetExtension(documentPath) == ".xaml"
+             && RapidXamlAnalysisPackage.IsLoaded
+             && RapidXamlAnalysisPackage.Options.AnalyzeWhenDocumentSaved)
             {
                 RapidXamlDocumentCache.TryUpdate(documentPath);
             }

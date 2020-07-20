@@ -9,7 +9,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace RapidXaml.Templates
 {
-    [InstalledProductRegistration("#110", "#112", "0.10.2")] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.10.3")] // Info on this package for Help/About
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(RapidXamlTemplatesPackage.PackageGuidString)]
     public sealed class RapidXamlTemplatesPackage : AsyncPackage
