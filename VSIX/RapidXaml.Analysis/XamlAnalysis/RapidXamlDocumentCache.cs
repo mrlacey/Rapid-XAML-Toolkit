@@ -182,10 +182,15 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             Debug.WriteLine($"Document anlaysis took:  {elapsed}");
 
+                            var analyzeOnSave = true;
+#if VSIXNOTEXE
+                            analyzeOnSave = RapidXamlAnalysisPackage.Options?.AnalyzeWhenDocumentSaved ?? false;
+#endif
+
                             // Don't prompt about a single execution time greater than the threshold
                             if (elapsed > threshold
                              && lastAnalysisTime > threshold
-                             && RapidXamlAnalysisPackage.Options?.AnalyzeWhenDocumentSaved == true
+                             && analyzeOnSave == true
                              && !havePromptedForSaveAnalysisPerformance)
                             {
                                 SharedRapidXamlPackage.Logger.RecordFeatureUsage(MiscellaneousFeatures.PromptToDisableAnalysisOnSave, quiet: true);

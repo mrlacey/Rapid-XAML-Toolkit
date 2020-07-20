@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 {
     public class VisualStudioAbstraction : VisualStudioTextManipulation, IVisualStudioAbstraction
     {
+        private static Dictionary<string, ProjectType> projectTypeCache = new Dictionary<string, ProjectType>();
+
         private readonly ILogger logger;
         private readonly IAsyncServiceProvider serviceProvider;
         private IComponentModel componentModel;
@@ -56,6 +59,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             if (string.IsNullOrWhiteSpace(project?.FileName) || project?.DTE == null)
             {
                 return ProjectType.Unknown;
+            }
+
+            if (projectTypeCache.ContainsKey(project.FileName))
+            {
+                return projectTypeCache[project.FileName];
             }
 
             bool ReferencesXamarin(EnvDTE.Project proj)
@@ -152,6 +160,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             {
                 if (this.ProjectUsesWpf(project))
                 {
+                    projectTypeCache.Add(project.FileName, ProjectType.Wpf);
                     return ProjectType.Wpf;
                 }
             }
@@ -205,6 +214,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 }
             }
 
+            projectTypeCache.Add(project.FileName, result);
             return result;
         }
 
