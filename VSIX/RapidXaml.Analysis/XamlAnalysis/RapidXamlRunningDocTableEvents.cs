@@ -32,6 +32,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public int OnAfterSave(uint docCookie)
         {
+#if VSIXNOTEXE
             var documentInfo = this.runningDocumentTable.GetDocumentInfo(docCookie);
 
             var documentPath = documentInfo.Moniker;
@@ -42,7 +43,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 RapidXamlDocumentCache.TryUpdate(documentPath);
             }
-
+#endif
             return VSConstants.S_OK;
         }
 
