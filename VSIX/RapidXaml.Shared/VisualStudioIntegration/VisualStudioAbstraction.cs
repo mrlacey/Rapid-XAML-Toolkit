@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -27,6 +28,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         private readonly IAsyncServiceProvider serviceProvider;
         private IComponentModel componentModel;
         private NuGet.VisualStudio.IVsPackageInstallerServices nugetService;
+
+        public static Dictionary<string, ProjectType> ProjectTypeCache = new Dictionary<string, ProjectType>();
 
         // Pass in the DTE even though could get it from the ServiceProvider because it's needed in constructors but usage is async
         public VisualStudioAbstraction(ILogger logger, IAsyncServiceProvider serviceProvider, DTE dte)
@@ -56,6 +59,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             if (string.IsNullOrWhiteSpace(project?.FileName) || project?.DTE == null)
             {
                 return ProjectType.Unknown;
+            }
+
+            if (ProjectTypeCache.ContainsKey(project.FileName))
+            {
+                return ProjectTypeCache[project.FileName];
             }
 
             bool ReferencesXamarin(EnvDTE.Project proj)
@@ -152,6 +160,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             {
                 if (this.ProjectUsesWpf(project))
                 {
+                    ProjectTypeCache.Add(project.FileName, ProjectType.Wpf);
                     return ProjectType.Wpf;
                 }
             }
@@ -205,6 +214,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 }
             }
 
+            ProjectTypeCache.Add(project.FileName, result);
             return result;
         }
 
