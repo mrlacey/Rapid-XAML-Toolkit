@@ -32,19 +32,11 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             var lastElementName = string.Empty;
             var currentElementName = new StringBuilder();
-            var currentElementBody = new StringBuilder();
             var closingElementName = new StringBuilder();
             var lineIndent = new StringBuilder();
 
             for (int i = 0; i < xaml.Length; i++)
             {
-                currentElementBody.Append(xaml[i]);
-
-                for (var j = 0; j < elementsBeingTracked.Count; j++)
-                {
-                    elementsBeingTracked[j].ElementBody.Append(xaml[i]);
-                }
-
                 if (xaml[i] == '<')
                 {
                     if (!inComment)
@@ -54,7 +46,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         currentElementStartPos = i;
                         lastElementName = currentElementName.ToString();
                         currentElementName.Clear();
-                        currentElementBody = new StringBuilder("<");
                     }
                 }
                 else if (char.IsLetterOrDigit(xaml[i]) || xaml[i] == ':' || xaml[i] == '_')
@@ -93,7 +84,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 {
                                     StartPos = currentElementStartPos,
                                     ElementName = currentElementName.ToString(),
-                                    ElementBody = new StringBuilder(currentElementBody.ToString()),
                                 });
                         }
                     }
@@ -132,7 +122,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     {
                                         StartPos = currentElementStartPos,
                                         ElementName = currentElementName.ToString(),
-                                        ElementBody = new StringBuilder(currentElementBody.ToString()),
                                     });
                             }
 
@@ -160,7 +149,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                             {
-                                var elementBody = toProcess.ElementBody.ToString();
+                                var elementBody = xaml.Substring(toProcess.StartPos, i - toProcess.StartPos + 1);
 
                                 // Do this here with values already calculated
                                 everyElementProcessor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
@@ -241,8 +230,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                     return this.ElementName.AsSpan().PartAfter(':');
                 }
             }
-
-            public StringBuilder ElementBody { get; set; }
         }
     }
 }
