@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -85,7 +86,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     if (isIdentifyingElement)
                     {
                         if (elementsOfInterest.Contains(currentElementName.ToString())
-                         || elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
+                         || elementsOfInterest.Contains(currentElementName.ToString().AsSpan().PartAfter(':')))
                         {
                             elementsBeingTracked.Add(
                                 new TrackingElement
@@ -124,7 +125,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         if (isIdentifyingElement)
                         {
                             if (elementsOfInterest.Contains(currentElementName.ToString())
-                             || elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
+                             || elementsOfInterest.Contains(currentElementName.ToString().AsSpan().PartAfter(':')))
                             {
                                 elementsBeingTracked.Add(
                                     new TrackingElement
@@ -237,7 +238,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 get
                 {
-                    return this.ElementName.PartAfter(":");
+                    return this.ElementName.AsSpan().PartAfter(':');
                 }
             }
 

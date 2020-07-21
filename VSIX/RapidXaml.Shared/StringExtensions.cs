@@ -481,15 +481,16 @@ namespace RapidXamlToolkit
             }
         }
 
-        public static string PartAfter(this string source, string identifier)
+        public static string PartAfter(this ReadOnlySpan<char> source, char identifier)
         {
-            if (source.Contains(identifier))
+            var identifierIndex = source.IndexOf(identifier);
+            if (identifierIndex > -1)
             {
-                return source.Substring(source.IndexOf(identifier) + identifier.Length);
+                return source.Slice(identifierIndex + 1).ToString();
             }
             else
             {
-                return source;
+                return source.ToString();
             }
         }
 

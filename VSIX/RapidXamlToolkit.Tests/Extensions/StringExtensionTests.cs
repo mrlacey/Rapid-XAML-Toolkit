@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Windows.Markup;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RapidXamlToolkit.Tests.Extensions
@@ -701,6 +702,46 @@ namespace RapidXamlToolkit.Tests.Extensions
             var actual = original.AsSpan().GetBetween("[", "]");
 
             Assert.AreEqual("key", actual);
+        }
+
+        [TestMethod]
+        public void PartAfter_Basic()
+        {
+            var original = "before:after";
+
+            var actual = original.AsSpan().PartAfter(':');
+
+            Assert.AreEqual("after", actual);
+        }
+
+        [TestMethod]
+        public void PartAfter_Start()
+        {
+            var original = ":after";
+
+            var actual = original.AsSpan().PartAfter(':');
+
+            Assert.AreEqual("after", actual);
+        }
+
+        [TestMethod]
+        public void PartAfter_End()
+        {
+            var original = "before:";
+
+            var actual = original.AsSpan().PartAfter(':');
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
+        public void PartAfter_Without()
+        {
+            var original = "own";
+
+            var actual = original.AsSpan().PartAfter(':');
+
+            Assert.AreEqual("own", actual);
         }
 
         private void StarIsNotInComment(string xaml)
