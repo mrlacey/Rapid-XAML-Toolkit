@@ -733,7 +733,7 @@ namespace RapidXamlToolkit.Parsers
                 {
                     var replace = match.Groups["Replace"].Value;
 
-                    var substitute = replace.GetBetween("[", "]");
+                    var substitute = replace.AsSpan().GetBetween("[", "]");
 
                     var attributeOfInterest = attributes.First(a => a.Name == attrib || $"{a.Name}Attribute" == attrib || a.Name == $"{attrib}Attribute");
 

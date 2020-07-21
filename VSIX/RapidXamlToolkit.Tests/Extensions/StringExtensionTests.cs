@@ -693,6 +693,16 @@ namespace RapidXamlToolkit.Tests.Extensions
             Assert.AreEqual("MyAttribute|Bar|Foo", "[MyAttribute]int|[Bar]string[]|[Foo]double[]|bool[]|float".GetAttributes());
         }
 
+        [TestMethod]
+        public void GetBetween_Basic()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween("[", "]");
+
+            Assert.AreEqual("key", actual);
+        }
+
         private void StarIsNotInComment(string xaml)
         {
             var offset = xaml.IndexOf("☆");
