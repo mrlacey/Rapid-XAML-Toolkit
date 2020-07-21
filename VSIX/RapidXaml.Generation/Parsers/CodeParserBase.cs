@@ -504,7 +504,7 @@ namespace RapidXamlToolkit.Parsers
 
             result = result.Replace(Placeholder.PropertyName, name)
                            .Replace(Placeholder.PropertyNameWithSpaces, name.AddSpacesToCamelCase())
-                           .Replace(Placeholder.SafePropertyName, name.MakeNameSafe());
+                           .Replace(Placeholder.SafePropertyName, name.AsSpan().MakeNameSafe());
 
             if (!string.IsNullOrWhiteSpace(xname))
             {
@@ -535,7 +535,7 @@ namespace RapidXamlToolkit.Parsers
             {
                 // xname is a combination of propertyname and the type of the UIElement. e.g. IdTextBlock, FirstNameTextBox
                 // Save this for possible future reuse in subsequent properties
-                xname = $"{name}{rawOutput.GetXamlElement()}";
+                xname = $"{name}{rawOutput.AsSpan().GetXamlElement()}";
 
                 result = result.Replace(Placeholder.XName, xname);
             }

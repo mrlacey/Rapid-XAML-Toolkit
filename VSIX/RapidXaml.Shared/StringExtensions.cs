@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace RapidXamlToolkit
 {
@@ -290,17 +289,17 @@ namespace RapidXamlToolkit
             return System.Text.RegularExpressions.Regex.Replace(source, "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))", "$1 ");
         }
 
-        public static string MakeNameSafe(this string source)
+        public static string MakeNameSafe(this ReadOnlySpan<char> source)
         {
             var dotIndex = source.LastIndexOf('.');
 
             if (dotIndex > -1)
             {
-                return source.Substring(dotIndex + 1);
+                return source.Slice(dotIndex + 1).ToString();
             }
             else
             {
-                return source;
+                return source.ToString();
             }
         }
 
@@ -432,15 +431,15 @@ namespace RapidXamlToolkit
             return result;
         }
 
-        public static string GetXamlElement(this string source)
+        public static string GetXamlElement(this ReadOnlySpan<char> source)
         {
             var result = string.Empty;
 
-            if (source.TrimStart().StartsWith("<")
+            if (source.TrimStart()[0] == '<'
              && source.TrimStart().Length > 3
              && source.TrimStart().IndexOf(' ') > 0)
             {
-                result = source.TrimStart().Substring(1, source.TrimStart().IndexOf(' ') - 1);
+                result = source.TrimStart().Slice(1, source.TrimStart().IndexOf(' ') - 1).ToString();
             }
 
             return result;
@@ -494,12 +493,12 @@ namespace RapidXamlToolkit
             }
         }
 
-        public static bool InComment(this string source, int offset)
+        public static bool InComment(this ReadOnlySpan<char> source, int offset)
         {
-            var substring = source.Substring(0, offset);
+            var substring = source.Slice(0, offset);
 
-            var lastCommentOpening = substring.LastIndexOf("<!--");
-            var lastCommentClosing = substring.LastIndexOf("-->");
+            var lastCommentOpening = substring.LastIndexOf("<!--".AsSpan());
+            var lastCommentClosing = substring.LastIndexOf("-->".AsSpan());
 
             return lastCommentOpening > lastCommentClosing;
         }

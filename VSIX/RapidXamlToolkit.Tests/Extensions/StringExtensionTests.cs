@@ -423,19 +423,19 @@ namespace RapidXamlToolkit.Tests.Extensions
         [TestMethod]
         public void MakeNameSafe_NoDot()
         {
-            Assert.AreEqual("something", "something".MakeNameSafe());
+            Assert.AreEqual("something", "something".AsSpan().MakeNameSafe());
         }
 
         [TestMethod]
         public void MakeNameSafe_OneDot()
         {
-            Assert.AreEqual("child", "parent.child".MakeNameSafe());
+            Assert.AreEqual("child", "parent.child".AsSpan().MakeNameSafe());
         }
 
         [TestMethod]
         public void MakeNameSafe_TwoDots()
         {
-            Assert.AreEqual("child", "grandparent.parent.child".MakeNameSafe());
+            Assert.AreEqual("child", "grandparent.parent.child".AsSpan().MakeNameSafe());
         }
 
         [TestMethod]
@@ -699,7 +699,7 @@ namespace RapidXamlToolkit.Tests.Extensions
 
             var xamlToProcess = xaml.Replace("☆", string.Empty);
 
-            Assert.IsFalse(xamlToProcess.InComment(offset));
+            Assert.IsFalse(xamlToProcess.AsSpan().InComment(offset));
         }
 
         private void StarIsInComment(string xaml)
@@ -708,7 +708,7 @@ namespace RapidXamlToolkit.Tests.Extensions
 
             var xamlToProcess = xaml.Replace("☆", string.Empty);
 
-            Assert.IsTrue(xamlToProcess.InComment(offset));
+            Assert.IsTrue(xamlToProcess.AsSpan().InComment(offset));
         }
     }
 }

@@ -162,7 +162,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (nextDefUseIndex > endOfOpening)
                 {
-                    if (!xamlElement.InComment(defUseOffset))
+                    if (!xamlElement.AsSpan().InComment(defUseOffset))
                     {
                         // Get assigned value
                         if (xamlElement.Substring(defUseOffset).StartsWith(rowDefUse))
@@ -256,7 +256,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (nextSpanUseIndex > endOfOpening)
                 {
-                    if (!xamlElement.InComment(spanUseOffset))
+                    if (!xamlElement.AsSpan().InComment(spanUseOffset))
                     {
                         if (xamlElement.Substring(spanUseOffset).StartsWith(rowSpanUse))
                         {
