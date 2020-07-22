@@ -33,7 +33,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             var lastElementName = string.Empty;
             var currentElementName = new StringBuilder();
             var closingElementName = new StringBuilder();
-            var lineIndent = new StringBuilder();
+            var lineIndent = new StringBuilder();  // Use this rather than counting characters as may be a combination of tabs and spaces
 
             for (int i = 0; i < xaml.Length; i++)
             {
