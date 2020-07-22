@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         internal IVisualStudioAbstraction VSAbstraction { get; }
 
-        public static bool IsSelfClosing(string xaml, int startPoint = 0)
+        public static bool IsSelfClosing(ReadOnlySpan<char> xaml, int startPoint = 0)
         {
             var foundSelfCloser = false;
 
@@ -89,7 +89,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 else
                 {
                     // ignore self closing tags as nothing to exclude
-                    if (!XamlElementProcessor.IsSelfClosing(xaml, tagOfInterestPos))
+                    if (!XamlElementProcessor.IsSelfClosing(xaml.AsSpan(), tagOfInterestPos))
                     {
                         // opening tag s
                         if (openings <= 0)
@@ -225,8 +225,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 if (attributeTypesToCheck.HasFlag(AttributeType.Inline))
                 {
-                    var searchText = $"{attributeName}=\"";
-
                     if (string.IsNullOrWhiteSpace(xaml))
                     {
                         System.Diagnostics.Debugger.Break();
@@ -238,6 +236,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                         value = string.Empty;
                         return false;
                     }
+
+                    var searchText = $"{attributeName}=\"";
 
                     var tbIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
 

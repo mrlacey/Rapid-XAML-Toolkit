@@ -15,13 +15,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         [TestMethod]
         public void IsSelfClosing()
         {
-            Assert.IsTrue(XamlElementProcessor.IsSelfClosing("<Element />"));
+            Assert.IsTrue(XamlElementProcessor.IsSelfClosing("<Element />".AsSpan()));
         }
 
         [TestMethod]
         public void IsNotSelfClosing()
         {
-            Assert.IsFalse(XamlElementProcessor.IsSelfClosing("<Element></Element>"));
+            Assert.IsFalse(XamlElementProcessor.IsSelfClosing("<Element></Element>".AsSpan()));
         }
 
         [TestMethod]
@@ -29,7 +29,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = @"<Element
 />";
-            Assert.IsTrue(XamlElementProcessor.IsSelfClosing(xaml));
+            Assert.IsTrue(XamlElementProcessor.IsSelfClosing(xaml.AsSpan()));
         }
 
         [TestMethod]
@@ -37,13 +37,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = @"<Element>
 </Element>";
-            Assert.IsFalse(XamlElementProcessor.IsSelfClosing(xaml));
+            Assert.IsFalse(XamlElementProcessor.IsSelfClosing(xaml.AsSpan()));
         }
 
         [TestMethod]
         public void IsNotSelfClosing_WithNestedSelfClosing()
         {
-            Assert.IsFalse(XamlElementProcessor.IsSelfClosing("<Element><OtherElement /></Element>"));
+            Assert.IsFalse(XamlElementProcessor.IsSelfClosing("<Element><OtherElement /></Element>".AsSpan()));
         }
 
         [TestMethod]
@@ -53,13 +53,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
     <OtherElement />
 </Element>";
 
-            Assert.IsFalse(XamlElementProcessor.IsSelfClosing(xaml));
+            Assert.IsFalse(XamlElementProcessor.IsSelfClosing(xaml.AsSpan()));
         }
 
         [TestMethod]
         public void ClosingTag_IsSelfClosing()
         {
-            Assert.IsTrue(XamlElementProcessor.IsSelfClosing("</Element>"));
+            Assert.IsTrue(XamlElementProcessor.IsSelfClosing("</Element>".AsSpan()));
         }
 
         [TestMethod]

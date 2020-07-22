@@ -27,7 +27,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var rowDefPos = xamlElement.IndexOf("<Grid.RowDefinitions", StringComparison.Ordinal);
             var colDefPos = xamlElement.IndexOf("<Grid.ColumnDefinitions", StringComparison.Ordinal);
 
-            var gridIsSelfClosing = XamlElementProcessor.IsSelfClosing(xamlElement);
+            var gridIsSelfClosing = XamlElementProcessor.IsSelfClosing(xamlElement.AsSpan());
 
             var hasRowDef = false;
             if (rowDefPos > 0)
