@@ -571,7 +571,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = "<Foo></Foo>";
 
-            var actual = XamlElementProcessor.GetElementName(xaml);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
 
             Assert.AreEqual("Foo", actual);
         }
@@ -581,7 +581,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = "<Foo>Bar</Foo>";
 
-            var actual = XamlElementProcessor.GetElementName(xaml);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
 
             Assert.AreEqual("Foo", actual);
         }
@@ -591,7 +591,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = "<Foo Bar=\"True\"></Foo>";
 
-            var actual = XamlElementProcessor.GetElementName(xaml);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
 
             Assert.AreEqual("Foo", actual);
         }
@@ -601,7 +601,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = "<Foo/>";
 
-            var actual = XamlElementProcessor.GetElementName(xaml);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
 
             Assert.AreEqual("Foo", actual);
         }
@@ -611,7 +611,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = "<Foo />";
 
-            var actual = XamlElementProcessor.GetElementName(xaml);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
 
             Assert.AreEqual("Foo", actual);
         }
@@ -623,7 +623,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 ar=""True""
 />";
 
-            var actual = XamlElementProcessor.GetElementName(xaml);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
 
             Assert.AreEqual("Foo", actual);
         }
@@ -633,7 +633,7 @@ ar=""True""
         {
             var xaml = "<Ex><Foo></Foo>";
 
-            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
 
             Assert.AreEqual("Foo", actual);
         }
@@ -643,7 +643,7 @@ ar=""True""
         {
             var xaml = "<Ex><Foo>Bar</Foo>";
 
-            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
 
             Assert.AreEqual("Foo", actual);
         }
@@ -653,7 +653,7 @@ ar=""True""
         {
             var xaml = "<Ex><Foo Bar=\"True\"></Foo>";
 
-            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
 
             Assert.AreEqual("Foo", actual);
         }
@@ -663,7 +663,7 @@ ar=""True""
         {
             var xaml = "<Ex><Foo/>";
 
-            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
 
             Assert.AreEqual("Foo", actual);
         }
@@ -673,7 +673,7 @@ ar=""True""
         {
             var xaml = "<Ex><Foo />";
 
-            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
 
             Assert.AreEqual("Foo", actual);
         }
@@ -685,7 +685,7 @@ ar=""True""
 ar=""True""
 />";
 
-            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
 
             Assert.AreEqual("Foo", actual);
         }

@@ -124,7 +124,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
             var startPos = xaml.Substring(0, position).LastIndexOf('<');
 
-            var elementName = GetElementName(xaml, startPos);
+            var elementName = GetElementName(xaml.AsSpan(), startPos);
 
             string result = null;
 
@@ -145,9 +145,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return result;
         }
 
-        public static string GetElementName(string xamlElement, int offset = 0)
+        public static string GetElementName(ReadOnlySpan<char> xamlElement, int offset = 0)
         {
-            return xamlElement.Substring(offset + 1, xamlElement.IndexOfAny(new[] { ' ', '>', '/', '\r', '\n' }, offset) - offset - 1);
+            return xamlElement.Slice(offset + 1, xamlElement.Slice(offset).IndexOfAny<char>(new[] { ' ', '>', '/', '\r', '\n' }) - 1).ToString();
         }
 
         public static string GetOpeningWithoutChildren(string xamlElementThatMayHaveChildren)
@@ -253,7 +253,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
                 }
 
-                var elementName = GetElementName(xaml);
+                var elementName = GetElementName(xaml.AsSpan());
 
                 if (attributeTypesToCheck.HasFlag(AttributeType.Element))
                 {
@@ -351,7 +351,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 {
                     this.TryGetAttribute(xamlElement, attributeName, AttributeType.InlineOrElement, out _, out _, out _, out string value);
 
-                    var elementName = GetElementName(xamlElement);
+                    var elementName = GetElementName(xamlElement.AsSpan());
 
                     if (!string.IsNullOrWhiteSpace(value))
                     {

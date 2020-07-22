@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
 using RapidXaml;
@@ -45,7 +46,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         AnalyzedElement = rxElement,
                         Action = action,
-                        ElementName = GetElementName(xamlElement), // Do this to get any xmlns
+                        ElementName = GetElementName(xamlElement.AsSpan()), // Do this to get any xmlns
                         ErrorCode = action.Code,
                         ErrorType = TagErrorTypeCreator.FromCustomAnalysisErrorType(action.ErrorType),
                         FileName = fileName,
