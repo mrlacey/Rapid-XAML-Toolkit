@@ -147,7 +147,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public static string GetElementName(string xamlElement, int offset = 0)
         {
-            return xamlElement.Substring(offset + 1, xamlElement.IndexOfAny(new[] { ' ', '>', '\r', '\n' }, offset) - offset - 1);
+            return xamlElement.Substring(offset + 1, xamlElement.IndexOfAny(new[] { ' ', '>', '/', '\r', '\n' }, offset) - offset - 1);
         }
 
         public static string GetOpeningWithoutChildren(string xamlElementThatMayHaveChildren)

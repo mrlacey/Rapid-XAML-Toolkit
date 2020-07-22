@@ -566,6 +566,130 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual("Grid (2 attributes, 3 children)", actual);
         }
 
+        [TestMethod]
+        public void GetElementName_Empty_NoOffset()
+        {
+            var xaml = "<Foo></Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_NotEmpty_NoOffset()
+        {
+            var xaml = "<Foo>Bar</Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_Attribute_NoOffset()
+        {
+            var xaml = "<Foo Bar=\"True\"></Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_SelfClosing_NoOffset()
+        {
+            var xaml = "<Foo/>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_SpaceSelfClosing_NoOffset()
+        {
+            var xaml = "<Foo />";
+
+            var actual = XamlElementProcessor.GetElementName(xaml);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_MultiLineSelfClosing_NoOffset()
+        {
+            var xaml = @"<Foo
+ar=""True""
+/>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_Empty_WithOffset()
+        {
+            var xaml = "<Ex><Foo></Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_NotEmpty_WithOffset()
+        {
+            var xaml = "<Ex><Foo>Bar</Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_Attribute_WithOffset()
+        {
+            var xaml = "<Ex><Foo Bar=\"True\"></Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_SelfClosing_WithOffset()
+        {
+            var xaml = "<Ex><Foo/>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_SpaceSelfClosing_WithOffset()
+        {
+            var xaml = "<Ex><Foo />";
+
+            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_MultiLineSelfClosing_WithOffset()
+        {
+            var xaml = @"<Ex><Foo
+ar=""True""
+/>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml, 4);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
         private string GetSubElementAtStar(string outerElement)
         {
             var offset = outerElement.IndexOf('☆');
