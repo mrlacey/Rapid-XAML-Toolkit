@@ -12,7 +12,7 @@ on:
 jobs:
   analyse:
     name: Analyse
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
@@ -50,8 +50,6 @@ jobs:
     #   make bootstrap
     #   make release
       
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.0
     - run: |
         nuget restore
         msbuild .\VSIX\RapidXamlToolkit.PRBuild.sln /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
