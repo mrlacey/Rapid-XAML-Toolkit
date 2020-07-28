@@ -51,7 +51,7 @@ jobs:
     #   make release
     - run: |
         echo “::add-path::C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin”
-        nuget restore
+        nuget restore .\VSIX\RapidXamlToolkit.PRBuild.sln
         msbuild .\VSIX\RapidXamlToolkit.PRBuild.sln /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
     - name: Perform CodeQL Analysis
