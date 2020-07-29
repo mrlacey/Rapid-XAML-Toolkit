@@ -53,6 +53,7 @@ jobs:
         set MSBUILD="C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\MSBuild.exe"
         nuget restore .\VSIX\RapidXamlToolkit.PRBuild.sln
         %MSBUILD% .\VSIX\RapidXamlToolkit.PRBuild.sln /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m 
+      shell: cmd
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
