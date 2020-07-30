@@ -3,6 +3,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Windows.Markup;
 
 namespace RapidXamlToolkit.Tests.Extensions
 {
@@ -704,6 +705,56 @@ namespace RapidXamlToolkit.Tests.Extensions
         }
 
         [TestMethod]
+        public void GetBetween_NothingToFind()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween("$", "*");
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
+        public void GetBetween_Null_Start()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween(null, "]");
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
+        public void GetBetween_Empty_Start()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween(string.Empty, "]");
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
+        public void GetBetween_Null_End()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween("[", null);
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
+        public void GetBetween_Empty_End()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween("[", string.Empty);
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
         public void PartAfter_Basic()
         {
             var original = "before:after";
@@ -741,6 +792,78 @@ namespace RapidXamlToolkit.Tests.Extensions
             var actual = original.AsSpan().PartAfter(':');
 
             Assert.AreEqual("own", actual);
+        }
+
+        [TestMethod]
+        public void RemoveFromEndIfExists_With()
+        {
+            var actual = "startend".RemoveFromEndIfExists("end");
+
+            Assert.AreEqual("start", actual);
+        }
+
+        [TestMethod]
+        public void RemoveFromEndIfExists_Without()
+        {
+            var actual = "start".RemoveFromEndIfExists("end");
+
+            Assert.AreEqual("start", actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void RemoveFromEndIfExists_NullSource()
+        {
+            string original = null;
+
+            var _ = original.RemoveFromEndIfExists("end");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void RemoveFromEndIfExists_Null_ToRemove()
+        {
+            var _ = "start".RemoveFromEndIfExists(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void MatchesAnyOfInCSharpFormat_Null_Value()
+        {
+            string original = null;
+
+            var _ = original.MatchesAnyOfInCSharpFormat("end");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void MatchesAnyOfInCSharpFormat_Null_Options()
+        {
+            var _ = "something".MatchesAnyOfInCSharpFormat(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Append_Null_source()
+        {
+            string original = null;
+
+            var _ = original.Append("newending");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Append_Null_ToAdd()
+        {
+            var _ = "something".Append(null);
+        }
+
+        [TestMethod]
+        public void Append_Basic()
+        {
+            var actual = "start".Append("end");
+
+            Assert.AreEqual("startend", actual);
         }
 
         private void StarIsNotInComment(string xaml)
