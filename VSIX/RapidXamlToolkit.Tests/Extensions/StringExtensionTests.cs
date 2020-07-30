@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
-using System.Windows.Markup;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace RapidXamlToolkit.Tests.Extensions
 {
