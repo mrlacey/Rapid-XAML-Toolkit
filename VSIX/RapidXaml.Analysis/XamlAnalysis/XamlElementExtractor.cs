@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls.Primitives;
 using Microsoft.Language.Xml;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
@@ -142,10 +143,23 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 nameOfInterest = lastElementName;
                             }
 
-                            var toProcess = elementsBeingTracked.Where(g => g.ElementName == nameOfInterest)
-                                                                .OrderByDescending(f => f.StartPos)
-                                                                .Select(e => e)
-                                                                .FirstOrDefault();
+                            ////var toProcess = elementsBeingTracked.Where(g => g.ElementName == nameOfInterest)
+                            ////                                    .OrderByDescending(f => f.StartPos)
+                            ////                                    .Select(e => e)
+                            ////                                    .FirstOrDefault();
+
+                            var toProcess = TrackingElement.Default;
+
+                            for (int j = 0; j < elementsBeingTracked.Count; j++)
+                            {
+                                if (elementsBeingTracked[j].ElementName == nameOfInterest)
+                                {
+                                    if (elementsBeingTracked[j].StartPos < toProcess.StartPos)
+                                    {
+                                        toProcess = elementsBeingTracked[j];
+                                    }
+                                }
+                            }
 
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                             {
@@ -219,6 +233,18 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         private struct TrackingElement
         {
+            public static TrackingElement Default
+            {
+                get
+                {
+                    return new TrackingElement
+                    {
+                        StartPos = int.MaxValue,
+                        ElementName = string.Empty,
+                    };
+                }
+            }
+
             public int StartPos { get; set; }
 
             public string ElementName { get; set; }
