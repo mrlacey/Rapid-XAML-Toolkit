@@ -143,11 +143,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 nameOfInterest = lastElementName;
                             }
 
-                            ////var toProcess = elementsBeingTracked.Where(g => g.ElementName == nameOfInterest)
-                            ////                                    .OrderByDescending(f => f.StartPos)
-                            ////                                    .Select(e => e)
-                            ////                                    .FirstOrDefault();
-
                             var toProcess = TrackingElement.Default;
 
                             for (int j = 0; j < elementsBeingTracked.Count; j++)
