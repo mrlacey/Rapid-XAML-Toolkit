@@ -154,20 +154,20 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 // Do this here with values already calculated
                                 everyElementProcessor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
 
-                                foreach (var (element, processor) in processors)
+                                for (int j = 0; j < processors.Count; j++)
                                 {
-                                    if (element == toProcess.ElementName
-                                     || element == toProcess.ElementNameWithoutNamespace)
+                                    if (processors[j].element == toProcess.ElementName
+                                     || processors[j].element == toProcess.ElementNameWithoutNamespace)
                                     {
                                         try
                                         {
-                                            processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
                                         }
-                                        catch (System.Exception exc)
+                                        catch (Exception exc)
                                         {
                                             var bubbleUpError = true;
 
-                                            if (processor is CustomProcessorWrapper wrapper)
+                                            if (processors[j].processor is CustomProcessorWrapper wrapper)
                                             {
                                                 var customAnalyzer = wrapper.CustomAnalyzer;
 
