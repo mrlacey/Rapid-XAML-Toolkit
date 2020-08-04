@@ -19,7 +19,12 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions = null, string projectFilePath = null)
         {
-            var elementsOfInterest = processors.Select(p => p.element).ToList();
+            var elementsOfInterest = new List<string>();
+
+            for (int i = 0; i < processors.Count; i++)
+            {
+                elementsOfInterest.Add(processors[i].element);
+            }
 
             var elementsBeingTracked = new List<TrackingElement>();
 
