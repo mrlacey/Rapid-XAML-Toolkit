@@ -147,14 +147,12 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             var toProcess = TrackingElement.Default;
 
-                            for (int j = 0; j < elementsBeingTracked.Count; j++)
+                            for (int j = elementsBeingTracked.Count - 1; j >= 0; j--)
                             {
                                 if (elementsBeingTracked[j].ElementName == nameOfInterest)
                                 {
-                                    if (elementsBeingTracked[j].StartPos < toProcess.StartPos)
-                                    {
-                                        toProcess = elementsBeingTracked[j];
-                                    }
+                                    toProcess = elementsBeingTracked[j];
+                                    break;
                                 }
                             }
 
