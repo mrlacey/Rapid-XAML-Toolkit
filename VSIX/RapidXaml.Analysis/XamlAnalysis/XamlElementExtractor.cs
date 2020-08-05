@@ -3,10 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Windows.Controls.Primitives;
-using Microsoft.Language.Xml;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
