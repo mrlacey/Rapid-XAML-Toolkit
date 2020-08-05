@@ -313,11 +313,13 @@ namespace RapidXamlToolkit
             }
         }
 
+        // Candidate for perf optimization
         public static int OccurrenceCount(this string source, string substring)
         {
             return source.Split(new[] { substring }, StringSplitOptions.None).Length - 1;
         }
 
+        // Candidate for perf optimization
         public static int FirstIndexOf(this string source, params string[] values)
         {
             var valuePostions = new Dictionary<string, int>();

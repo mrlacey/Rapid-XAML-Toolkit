@@ -120,6 +120,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
+        // Candidate for perf optimization
         public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger, string projectFile, IVisualStudioAbstraction vsAbstraction)
         {
             var startPos = xaml.Substring(0, position).LastIndexOf('<');
@@ -150,6 +151,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return xamlElement.Slice(offset + 1, xamlElement.Slice(offset).IndexOfAny<char>(new[] { ' ', '>', '/', '\r', '\n' }) - 1).ToString();
         }
 
+        // Candidate for perf optimization
         public static string GetOpeningWithoutChildren(string xamlElementThatMayHaveChildren)
         {
             // Following logic assumes no whitespace at front
@@ -219,6 +221,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         /// <param name="suppressions">A list of user defined suppressions to override default behavior.</param>
         public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null);
 
+        // Candidate for perf optimization
         public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
         {
             try
@@ -336,6 +339,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
         }
 
+        // Candidate for perf optimization
         protected (bool uidExists, string uidValue) GetOrGenerateUid(string xamlElement, string attributeName)
         {
             var uidExists = this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
@@ -349,11 +353,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 }
                 else
                 {
-                    this.TryGetAttribute(xamlElement, attributeName, AttributeType.InlineOrElement, out _, out _, out _, out string value);
-
                     var elementName = GetElementName(xamlElement.AsSpan());
 
-                    if (!string.IsNullOrWhiteSpace(value))
+                    if (this.TryGetAttribute(xamlElement, attributeName, AttributeType.InlineOrElement, out _, out _, out _, out string value))
                     {
                         uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value)}{elementName}";
 
