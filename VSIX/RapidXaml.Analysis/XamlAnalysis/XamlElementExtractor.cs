@@ -14,7 +14,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions = null, string projectFilePath = null)
+        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions = null, string projectFilePath = null, bool skipEveryElementProcessor = false)
         {
             var elementsOfInterest = new List<string>();
 
@@ -25,7 +25,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             var elementsBeingTracked = new List<TrackingElement>();
 
-            var everyElementProcessor = new EveryElementProcessor(new ProcessorEssentials(projectType, SharedRapidXamlPackage.Logger, projectFilePath, vsAbstraction));
+            var everyElementProcessor = skipEveryElementProcessor ? null : new EveryElementProcessor(new ProcessorEssentials(projectType, SharedRapidXamlPackage.Logger, projectFilePath, vsAbstraction));
 
             bool isIdentifyingElement = false;
             bool isClosingElement = false;
@@ -161,7 +161,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 var elementBody = xaml.Substring(toProcess.StartPos, i - toProcess.StartPos + 1);
 
                                 // Do this here with values already calculated
-                                everyElementProcessor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                everyElementProcessor?.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
 
                                 for (int j = 0; j < processors.Count; j++)
                                 {
@@ -204,7 +204,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 if (!inComment)
                                 {
                                     // Do this in the else so don't always have to calculate the substring.
-                                    everyElementProcessor.Process(fileName, currentElementStartPos, xaml.Substring(currentElementStartPos, i - currentElementStartPos + 1), lineIndent.ToString(), snapshot, tags, suppressions);
+                                    everyElementProcessor?.Process(fileName, currentElementStartPos, xaml.Substring(currentElementStartPos, i - currentElementStartPos + 1), lineIndent.ToString(), snapshot, tags, suppressions);
                                 }
                             }
 
