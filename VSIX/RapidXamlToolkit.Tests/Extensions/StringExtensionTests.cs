@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Windows.Markup;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RapidXamlToolkit.Tests.Extensions
 {
@@ -864,6 +863,48 @@ namespace RapidXamlToolkit.Tests.Extensions
             var actual = "start".Append("end");
 
             Assert.AreEqual("startend", actual);
+        }
+
+        [TestMethod]
+        public void FirstIndexOf_FindFirst()
+        {
+            var fileContents = "public class TestViewModel"
+       + Environment.NewLine + "{"
+       + Environment.NewLine + "    public string FirstProperty { get; set; }"
+       + Environment.NewLine + "    public string SecondProperty { get; set; }"
+       + Environment.NewLine + "}";
+
+            var cursorPos = fileContents.AsSpan().FirstIndexOf2(" class ", " Class ");
+
+            Assert.AreEqual(6, cursorPos);
+        }
+
+        [TestMethod]
+        public void FirstIndexOf_FindLast()
+        {
+            var fileContents = "public class TestViewModel"
+       + Environment.NewLine + "{"
+       + Environment.NewLine + "    public string FirstProperty { get; set; }"
+       + Environment.NewLine + "    public string SecondProperty { get; set; }"
+       + Environment.NewLine + "}";
+
+            var cursorPos = fileContents.AsSpan().FirstIndexOf2(" Class ", " class ");
+
+            Assert.AreEqual(6, cursorPos);
+        }
+
+        [TestMethod]
+        public void FirstIndexOf_FindNone()
+        {
+            var fileContents = "public class TestViewModel"
+       + Environment.NewLine + "{"
+       + Environment.NewLine + "    public string FirstProperty { get; set; }"
+       + Environment.NewLine + "    public string SecondProperty { get; set; }"
+       + Environment.NewLine + "}";
+
+            var cursorPos = fileContents.AsSpan().FirstIndexOf2("artichoke", "banana", "kumquat", "lemon", "apple");
+
+            Assert.AreEqual(-1, cursorPos);
         }
 
         private void StarIsNotInComment(string xaml)
