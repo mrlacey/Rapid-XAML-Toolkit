@@ -874,7 +874,7 @@ namespace RapidXamlToolkit.Tests.Extensions
        + Environment.NewLine + "    public string SecondProperty { get; set; }"
        + Environment.NewLine + "}";
 
-            var cursorPos = fileContents.AsSpan().FirstIndexOf2(" class ", " Class ");
+            var cursorPos = fileContents.AsSpan().FirstIndexOf(" class ", " Class ");
 
             Assert.AreEqual(6, cursorPos);
         }
@@ -888,7 +888,7 @@ namespace RapidXamlToolkit.Tests.Extensions
        + Environment.NewLine + "    public string SecondProperty { get; set; }"
        + Environment.NewLine + "}";
 
-            var cursorPos = fileContents.AsSpan().FirstIndexOf2(" Class ", " class ");
+            var cursorPos = fileContents.AsSpan().FirstIndexOf(" Class ", " class ");
 
             Assert.AreEqual(6, cursorPos);
         }
@@ -902,7 +902,7 @@ namespace RapidXamlToolkit.Tests.Extensions
        + Environment.NewLine + "    public string SecondProperty { get; set; }"
        + Environment.NewLine + "}";
 
-            var cursorPos = fileContents.AsSpan().FirstIndexOf2("artichoke", "banana", "kumquat", "lemon", "apple");
+            var cursorPos = fileContents.AsSpan().FirstIndexOf("artichoke", "banana", "kumquat", "lemon", "apple");
 
             Assert.AreEqual(-1, cursorPos);
         }

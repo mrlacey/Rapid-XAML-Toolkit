@@ -318,24 +318,21 @@ namespace RapidXamlToolkit
             return source.Split(new[] { substring }, StringSplitOptions.None).Length - 1;
         }
 
-        // Candidate for perf optimization
-        public static int FirstIndexOf(this string source, params string[] values)
+        public static int FirstIndexOf(this ReadOnlySpan<char> source, params string[] values)
         {
-            var valuePostions = new Dictionary<string, int>();
+            var result = int.MaxValue;
 
             foreach (var value in values)
             {
-                valuePostions.Add(value, source.IndexOf(value));
+                var pos = source.Slice(0, Math.Min(result, source.Length)).IndexOf(value.AsSpan(), StringComparison.InvariantCultureIgnoreCase);
+
+                if (pos > -1 && pos < result)
+                {
+                    result = pos;
+                }
             }
 
-            if (valuePostions.Any(v => v.Value > -1))
-            {
-                var result = valuePostions.Select(v => v.Value).Where(v => v > -1).OrderBy(v => v).FirstOrDefault();
-
-                return result;
-            }
-
-            return -1;
+            return result < int.MaxValue ? result : -1;
         }
 
         public static int LastIndexOf(this string source, params string[] values)

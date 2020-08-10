@@ -62,7 +62,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var exclusions = new Dictionary<int, int>();
 
             // This is the opening position of the next opening (here) or closing (when set subsequently) tag
-            var tagOfInterestPos = xaml.Substring(elementOpen.Length).FirstIndexOf(elementOpenComplete, elementOpenSpace) + elementOpen.Length;
+            var tagOfInterestPos = xaml.Substring(elementOpen.Length).AsSpan().FirstIndexOf(elementOpenComplete, elementOpenSpace) + elementOpen.Length;
 
             // track the number of open tags seen so know when get to the corresponding closing one.
             var openings = 0;
@@ -105,7 +105,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 }
 
                 // Find next opening or closing tag
-                var nextOpening = xaml.Substring(tagOfInterestPos + elementOpen.Length).FirstIndexOf(elementOpenComplete, elementOpenSpace);
+                var nextOpening = xaml.Substring(tagOfInterestPos + elementOpen.Length).AsSpan().FirstIndexOf(elementOpenComplete, elementOpenSpace);
 
                 if (nextOpening > -1)
                 {
@@ -132,6 +132,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var processor = new SubElementProcessor(new ProcessorEssentials(projectType, logger, projectFile, vsAbstraction));
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
+            // There's no need to run everyelementprocessor in this instance
             XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList(), vsAbstraction);
 
 #if DEBUG
@@ -170,7 +171,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 return xamlElementThatMayHaveChildren.Substring(0, xamlElementThatMayHaveChildren.IndexOf('>') + 1).Trim();
             }
 
-            var endOfElementName = xamlElementThatMayHaveChildren.FirstIndexOf(" ", "\r", "\n", ">");
+            var endOfElementName = xamlElementThatMayHaveChildren.AsSpan().FirstIndexOf(" ", "\r", "\n", ">");
 
             var elementName = xamlElementThatMayHaveChildren.Substring(1, endOfElementName - 1);
 

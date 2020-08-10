@@ -111,7 +111,7 @@ namespace RapidXamlToolkit.Commands
 
                 var exclusions = new Dictionary<int, int>();
 
-                var nextOpening = activeDocText.Substring(cursorIndex).FirstIndexOf(gridOpenComplete, gridOpenSpace);
+                var nextOpening = activeDocText.Substring(cursorIndex).AsSpan().FirstIndexOf(gridOpenComplete, gridOpenSpace);
 
                 if (nextOpening > -1)
                 {
@@ -128,7 +128,7 @@ namespace RapidXamlToolkit.Commands
 
                     searchFrom = nextOpening + 1;
 
-                    nextOpening = activeDocText.Substring(searchFrom).FirstIndexOf(gridOpenComplete, gridOpenSpace);
+                    nextOpening = activeDocText.Substring(searchFrom).AsSpan().FirstIndexOf(gridOpenComplete, gridOpenSpace);
 
                     if (nextOpening > -1)
                     {
