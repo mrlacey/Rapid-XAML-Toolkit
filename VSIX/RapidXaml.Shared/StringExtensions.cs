@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace RapidXamlToolkit
 {
@@ -217,7 +216,17 @@ namespace RapidXamlToolkit
 
         public static string RemoveAllWhitespace(this string source)
         {
-            return System.Text.RegularExpressions.Regex.Replace(source, @"\s+", string.Empty);
+            var result = new StringBuilder();
+
+            for (int i = 0; i < source.Length; i++)
+            {
+                if (!char.IsWhiteSpace(source[i]))
+                {
+                    result.Append(source[i]);
+                }
+            }
+
+            return result.ToString();
         }
 
         public static string RemoveNonAlphaNumerics(this string source)
@@ -290,17 +299,17 @@ namespace RapidXamlToolkit
             return System.Text.RegularExpressions.Regex.Replace(source, "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))", "$1 ");
         }
 
-        public static string MakeNameSafe(this string source)
+        public static string MakeNameSafe(this ReadOnlySpan<char> source)
         {
             var dotIndex = source.LastIndexOf('.');
 
             if (dotIndex > -1)
             {
-                return source.Substring(dotIndex + 1);
+                return source.Slice(dotIndex + 1).ToString();
             }
             else
             {
-                return source;
+                return source.ToString();
             }
         }
 
@@ -309,23 +318,21 @@ namespace RapidXamlToolkit
             return source.Split(new[] { substring }, StringSplitOptions.None).Length - 1;
         }
 
-        public static int FirstIndexOf(this string source, params string[] values)
+        public static int FirstIndexOf(this ReadOnlySpan<char> source, params string[] values)
         {
-            var valuePostions = new Dictionary<string, int>();
+            var result = int.MaxValue;
 
             foreach (var value in values)
             {
-                valuePostions.Add(value, source.IndexOf(value));
+                var pos = source.Slice(0, Math.Min(result, source.Length)).IndexOf(value.AsSpan(), StringComparison.InvariantCultureIgnoreCase);
+
+                if (pos > -1 && pos < result)
+                {
+                    result = pos;
+                }
             }
 
-            if (valuePostions.Any(v => v.Value > -1))
-            {
-                var result = valuePostions.Select(v => v.Value).Where(v => v > -1).OrderBy(v => v).FirstOrDefault();
-
-                return result;
-            }
-
-            return -1;
+            return result < int.MaxValue ? result : -1;
         }
 
         public static int LastIndexOf(this string source, params string[] values)
@@ -432,15 +439,15 @@ namespace RapidXamlToolkit
             return result;
         }
 
-        public static string GetXamlElement(this string source)
+        public static string GetXamlElement(this ReadOnlySpan<char> source)
         {
             var result = string.Empty;
 
-            if (source.TrimStart().StartsWith("<")
+            if (source.TrimStart()[0] == '<'
              && source.TrimStart().Length > 3
              && source.TrimStart().IndexOf(' ') > 0)
             {
-                result = source.TrimStart().Substring(1, source.TrimStart().IndexOf(' ') - 1);
+                result = source.TrimStart().Slice(1, source.TrimStart().IndexOf(' ') - 1).ToString();
             }
 
             return result;
@@ -462,19 +469,19 @@ namespace RapidXamlToolkit
             return result;
         }
 
-        public static string GetBetween(this string source, string start, string end)
+        public static string GetBetween(this ReadOnlySpan<char> source, string start, string end)
         {
             if (string.IsNullOrEmpty(start) || string.IsNullOrEmpty(end))
             {
                 return string.Empty;
             }
 
-            var startPos = source.IndexOf(start);
-            var endPos = source.IndexOf(end, startPos + start.Length);
+            var startPos = source.IndexOf(start.AsSpan());
+            var len = source.Slice(startPos + start.Length).IndexOf(end.AsSpan());
 
-            if (startPos > -1 && endPos > -1 && endPos > startPos)
+            if (startPos > -1 && len > -1)
             {
-                return source.Substring(startPos + start.Length, endPos - startPos - start.Length);
+                return source.Slice(startPos + start.Length, len).ToString();
             }
             else
             {
@@ -482,24 +489,25 @@ namespace RapidXamlToolkit
             }
         }
 
-        public static string PartAfter(this string source, string identifier)
+        public static string PartAfter(this ReadOnlySpan<char> source, char identifier)
         {
-            if (source.Contains(identifier))
+            var identifierIndex = source.IndexOf(identifier);
+            if (identifierIndex > -1)
             {
-                return source.Substring(source.IndexOf(identifier) + identifier.Length);
+                return source.Slice(identifierIndex + 1).ToString();
             }
             else
             {
-                return source;
+                return source.ToString();
             }
         }
 
-        public static bool InComment(this string source, int offset)
+        public static bool InComment(this ReadOnlySpan<char> source, int offset)
         {
-            var substring = source.Substring(0, offset);
+            var substring = source.Slice(0, offset);
 
-            var lastCommentOpening = substring.LastIndexOf("<!--");
-            var lastCommentClosing = substring.LastIndexOf("-->");
+            var lastCommentOpening = substring.LastIndexOf("<!--".AsSpan());
+            var lastCommentClosing = substring.LastIndexOf("-->".AsSpan());
 
             return lastCommentOpening > lastCommentClosing;
         }

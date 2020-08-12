@@ -22,12 +22,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             const string gridOpenComplete = "<Grid>";
 
             var endOfOpening = xamlElement.IndexOf(">", StringComparison.Ordinal) + 1;
-            var firstNestedGrid = xamlElement.FirstIndexOf(gridOpenSpace, gridOpenComplete);
+            var firstNestedGrid = xamlElement.AsSpan().FirstIndexOf(gridOpenSpace, gridOpenComplete);
 
             var rowDefPos = xamlElement.IndexOf("<Grid.RowDefinitions", StringComparison.Ordinal);
             var colDefPos = xamlElement.IndexOf("<Grid.ColumnDefinitions", StringComparison.Ordinal);
 
-            var gridIsSelfClosing = XamlElementProcessor.IsSelfClosing(xamlElement);
+            var gridIsSelfClosing = XamlElementProcessor.IsSelfClosing(xamlElement.AsSpan());
 
             var hasRowDef = false;
             if (rowDefPos > 0)
@@ -153,7 +153,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             var undefinedTags = new List<MissingDefinitionTag>();
 
-            var nextDefUseIndex = xamlElement.FirstIndexOf(rowDefUse, colDefUse);
+            var nextDefUseIndex = xamlElement.AsSpan().FirstIndexOf(rowDefUse, colDefUse);
             var defUseOffset = 0;
 
             while (nextDefUseIndex > 0)
@@ -162,7 +162,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (nextDefUseIndex > endOfOpening)
                 {
-                    if (!xamlElement.InComment(defUseOffset))
+                    if (!xamlElement.AsSpan().InComment(defUseOffset))
                     {
                         // Get assigned value
                         if (xamlElement.Substring(defUseOffset).StartsWith(rowDefUse))
@@ -234,7 +234,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
                 }
 
-                nextDefUseIndex = xamlElement.Substring(defUseOffset + 1).FirstIndexOf(colDefUse, rowDefUse) + 1;
+                nextDefUseIndex = xamlElement.Substring(defUseOffset + 1).AsSpan().FirstIndexOf(colDefUse, rowDefUse) + 1;
             }
 
             foreach (var undefinedTag in undefinedTags)
@@ -247,7 +247,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             const string rowSpanUse = "Grid.RowSpan=\"";
             const string colSpanUse = "Grid.ColumnSpan=\"";
 
-            var nextSpanUseIndex = xamlElement.FirstIndexOf(rowSpanUse, colSpanUse);
+            var nextSpanUseIndex = xamlElement.AsSpan().FirstIndexOf(rowSpanUse, colSpanUse);
             var spanUseOffset = 0;
 
             while (nextSpanUseIndex > 0)
@@ -256,7 +256,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (nextSpanUseIndex > endOfOpening)
                 {
-                    if (!xamlElement.InComment(spanUseOffset))
+                    if (!xamlElement.AsSpan().InComment(spanUseOffset))
                     {
                         if (xamlElement.Substring(spanUseOffset).StartsWith(rowSpanUse))
                         {
@@ -337,7 +337,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
                 }
 
-                nextSpanUseIndex = xamlElement.Substring(spanUseOffset + 1).FirstIndexOf(colSpanUse, rowSpanUse) + 1;
+                nextSpanUseIndex = xamlElement.Substring(spanUseOffset + 1).AsSpan().FirstIndexOf(colSpanUse, rowSpanUse) + 1;
             }
         }
     }

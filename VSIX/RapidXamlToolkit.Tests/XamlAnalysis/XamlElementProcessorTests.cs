@@ -15,13 +15,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         [TestMethod]
         public void IsSelfClosing()
         {
-            Assert.IsTrue(XamlElementProcessor.IsSelfClosing("<Element />"));
+            Assert.IsTrue(XamlElementProcessor.IsSelfClosing("<Element />".AsSpan()));
         }
 
         [TestMethod]
         public void IsNotSelfClosing()
         {
-            Assert.IsFalse(XamlElementProcessor.IsSelfClosing("<Element></Element>"));
+            Assert.IsFalse(XamlElementProcessor.IsSelfClosing("<Element></Element>".AsSpan()));
         }
 
         [TestMethod]
@@ -29,7 +29,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = @"<Element
 />";
-            Assert.IsTrue(XamlElementProcessor.IsSelfClosing(xaml));
+            Assert.IsTrue(XamlElementProcessor.IsSelfClosing(xaml.AsSpan()));
         }
 
         [TestMethod]
@@ -37,13 +37,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = @"<Element>
 </Element>";
-            Assert.IsFalse(XamlElementProcessor.IsSelfClosing(xaml));
+            Assert.IsFalse(XamlElementProcessor.IsSelfClosing(xaml.AsSpan()));
         }
 
         [TestMethod]
         public void IsNotSelfClosing_WithNestedSelfClosing()
         {
-            Assert.IsFalse(XamlElementProcessor.IsSelfClosing("<Element><OtherElement /></Element>"));
+            Assert.IsFalse(XamlElementProcessor.IsSelfClosing("<Element><OtherElement /></Element>".AsSpan()));
         }
 
         [TestMethod]
@@ -53,13 +53,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
     <OtherElement />
 </Element>";
 
-            Assert.IsFalse(XamlElementProcessor.IsSelfClosing(xaml));
+            Assert.IsFalse(XamlElementProcessor.IsSelfClosing(xaml.AsSpan()));
         }
 
         [TestMethod]
         public void ClosingTag_IsSelfClosing()
         {
-            Assert.IsTrue(XamlElementProcessor.IsSelfClosing("</Element>"));
+            Assert.IsTrue(XamlElementProcessor.IsSelfClosing("</Element>".AsSpan()));
         }
 
         [TestMethod]
@@ -564,6 +564,130 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var actual = sut.ToString();
 
             Assert.AreEqual("Grid (2 attributes, 3 children)", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_Empty_NoOffset()
+        {
+            var xaml = "<Foo></Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_NotEmpty_NoOffset()
+        {
+            var xaml = "<Foo>Bar</Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_Attribute_NoOffset()
+        {
+            var xaml = "<Foo Bar=\"True\"></Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_SelfClosing_NoOffset()
+        {
+            var xaml = "<Foo/>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_SpaceSelfClosing_NoOffset()
+        {
+            var xaml = "<Foo />";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_MultiLineSelfClosing_NoOffset()
+        {
+            var xaml = @"<Foo
+ar=""True""
+/>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan());
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_Empty_WithOffset()
+        {
+            var xaml = "<Ex><Foo></Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_NotEmpty_WithOffset()
+        {
+            var xaml = "<Ex><Foo>Bar</Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_Attribute_WithOffset()
+        {
+            var xaml = "<Ex><Foo Bar=\"True\"></Foo>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_SelfClosing_WithOffset()
+        {
+            var xaml = "<Ex><Foo/>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_SpaceSelfClosing_WithOffset()
+        {
+            var xaml = "<Ex><Foo />";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
+
+            Assert.AreEqual("Foo", actual);
+        }
+
+        [TestMethod]
+        public void GetElementName_MultiLineSelfClosing_WithOffset()
+        {
+            var xaml = @"<Ex><Foo
+ar=""True""
+/>";
+
+            var actual = XamlElementProcessor.GetElementName(xaml.AsSpan(), 4);
+
+            Assert.AreEqual("Foo", actual);
         }
 
         private string GetSubElementAtStar(string outerElement)

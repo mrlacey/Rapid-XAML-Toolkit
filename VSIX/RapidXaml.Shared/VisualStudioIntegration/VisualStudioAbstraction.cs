@@ -24,7 +24,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 {
     public class VisualStudioAbstraction : VisualStudioTextManipulation, IVisualStudioAbstraction
     {
-        private static Dictionary<string, ProjectType> projectTypeCache = new Dictionary<string, ProjectType>();
+        private static readonly Dictionary<string, ProjectType> ProjectTypeCache = new Dictionary<string, ProjectType>();
 
         private readonly ILogger logger;
         private readonly IAsyncServiceProvider serviceProvider;
@@ -61,9 +61,9 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 return ProjectType.Unknown;
             }
 
-            if (projectTypeCache.ContainsKey(project.FileName))
+            if (ProjectTypeCache.ContainsKey(project.FileName))
             {
-                return projectTypeCache[project.FileName];
+                return ProjectTypeCache[project.FileName];
             }
 
             bool ReferencesXamarin(EnvDTE.Project proj)
@@ -160,7 +160,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             {
                 if (this.ProjectUsesWpf(project))
                 {
-                    projectTypeCache.Add(project.FileName, ProjectType.Wpf);
+                    ProjectTypeCache.Add(project.FileName, ProjectType.Wpf);
                     return ProjectType.Wpf;
                 }
             }
@@ -214,7 +214,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 }
             }
 
-            projectTypeCache.Add(project.FileName, result);
+            ProjectTypeCache.Add(project.FileName, result);
             return result;
         }
 

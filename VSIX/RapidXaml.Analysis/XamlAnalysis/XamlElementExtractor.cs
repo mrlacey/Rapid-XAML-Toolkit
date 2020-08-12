@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using Microsoft.Language.Xml;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
@@ -15,13 +14,18 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions = null, string projectFilePath = null)
+        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions = null, string projectFilePath = null, bool skipEveryElementProcessor = false)
         {
-            var elementsOfInterest = processors.Select(p => p.element).ToList();
+            var elementsOfInterest = new List<string>();
+
+            for (int i = 0; i < processors.Count; i++)
+            {
+                elementsOfInterest.Add(processors[i].element);
+            }
 
             var elementsBeingTracked = new List<TrackingElement>();
 
-            var everyElementProcessor = new EveryElementProcessor(new ProcessorEssentials(projectType, SharedRapidXamlPackage.Logger, projectFilePath, vsAbstraction));
+            var everyElementProcessor = skipEveryElementProcessor ? null : new EveryElementProcessor(new ProcessorEssentials(projectType, SharedRapidXamlPackage.Logger, projectFilePath, vsAbstraction));
 
             bool isIdentifyingElement = false;
             bool isClosingElement = false;
@@ -31,19 +35,11 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             var lastElementName = string.Empty;
             var currentElementName = new StringBuilder();
-            var currentElementBody = new StringBuilder();
             var closingElementName = new StringBuilder();
-            var lineIndent = new StringBuilder();
+            var lineIndent = new StringBuilder();  // Use this rather than counting characters as may be a combination of tabs and spaces
 
             for (int i = 0; i < xaml.Length; i++)
             {
-                currentElementBody.Append(xaml[i]);
-
-                for (var j = 0; j < elementsBeingTracked.Count; j++)
-                {
-                    elementsBeingTracked[j].ElementBody.Append(xaml[i]);
-                }
-
                 if (xaml[i] == '<')
                 {
                     if (!inComment)
@@ -53,7 +49,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         currentElementStartPos = i;
                         lastElementName = currentElementName.ToString();
                         currentElementName.Clear();
-                        currentElementBody = new StringBuilder("<");
                     }
                 }
                 else if (char.IsLetterOrDigit(xaml[i]) || xaml[i] == ':' || xaml[i] == '_')
@@ -85,14 +80,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                     if (isIdentifyingElement)
                     {
                         if (elementsOfInterest.Contains(currentElementName.ToString())
-                         || elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
+                         || elementsOfInterest.Contains(currentElementName.ToString().AsSpan().PartAfter(':')))
                         {
                             elementsBeingTracked.Add(
                                 new TrackingElement
                                 {
                                     StartPos = currentElementStartPos,
                                     ElementName = currentElementName.ToString(),
-                                    ElementBody = new StringBuilder(currentElementBody.ToString()),
                                 });
                         }
                     }
@@ -124,14 +118,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                         if (isIdentifyingElement)
                         {
                             if (elementsOfInterest.Contains(currentElementName.ToString())
-                             || elementsOfInterest.Contains(currentElementName.ToString().PartAfter(":")))
+                             || elementsOfInterest.Contains(currentElementName.ToString().AsSpan().PartAfter(':')))
                             {
                                 elementsBeingTracked.Add(
                                     new TrackingElement
                                     {
                                         StartPos = currentElementStartPos,
                                         ElementName = currentElementName.ToString(),
-                                        ElementBody = new StringBuilder(currentElementBody.ToString()),
                                     });
                             }
 
@@ -152,34 +145,40 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 nameOfInterest = lastElementName;
                             }
 
-                            var toProcess = elementsBeingTracked.Where(g => g.ElementName == nameOfInterest)
-                                                                .OrderByDescending(f => f.StartPos)
-                                                                .Select(e => e)
-                                                                .FirstOrDefault();
+                            var toProcess = TrackingElement.Default;
+
+                            for (int j = elementsBeingTracked.Count - 1; j >= 0; j--)
+                            {
+                                if (elementsBeingTracked[j].ElementName == nameOfInterest)
+                                {
+                                    toProcess = elementsBeingTracked[j];
+                                    break;
+                                }
+                            }
 
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                             {
-                                var elementBody = toProcess.ElementBody.ToString();
+                                var elementBody = xaml.Substring(toProcess.StartPos, i - toProcess.StartPos + 1);
 
                                 // Do this here with values already calculated
-                                everyElementProcessor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                everyElementProcessor?.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
 
-                                foreach (var (element, processor) in processors)
+                                for (int j = 0; j < processors.Count; j++)
                                 {
-                                    if (element == toProcess.ElementName
-                                     || element == toProcess.ElementNameWithoutNamespace)
+                                    if (processors[j].element == toProcess.ElementName
+                                     || processors[j].element == toProcess.ElementNameWithoutNamespace)
                                     {
                                         try
                                         {
-                                            processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
                                         }
-                                        catch (System.Exception exc)
+                                        catch (Exception exc)
                                         {
                                             var bubbleUpError = true;
 
-                                            if (processor is CustomProcessorWrapper)
+                                            if (processors[j].processor is CustomProcessorWrapper wrapper)
                                             {
-                                                var customAnalyzer = ((CustomProcessorWrapper)processor).CustomAnalyzer;
+                                                var customAnalyzer = wrapper.CustomAnalyzer;
 
                                                 if (!(customAnalyzer is NotReallyCustomAnalyzer))
                                                 {
@@ -205,7 +204,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 if (!inComment)
                                 {
                                     // Do this in the else so don't always have to calculate the substring.
-                                    everyElementProcessor.Process(fileName, currentElementStartPos, xaml.Substring(currentElementStartPos, i - currentElementStartPos + 1), lineIndent.ToString(), snapshot, tags, suppressions);
+                                    everyElementProcessor?.Process(fileName, currentElementStartPos, xaml.Substring(currentElementStartPos, i - currentElementStartPos + 1), lineIndent.ToString(), snapshot, tags, suppressions);
                                 }
                             }
 
@@ -229,6 +228,18 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         private struct TrackingElement
         {
+            public static TrackingElement Default
+            {
+                get
+                {
+                    return new TrackingElement
+                    {
+                        StartPos = int.MaxValue,
+                        ElementName = string.Empty,
+                    };
+                }
+            }
+
             public int StartPos { get; set; }
 
             public string ElementName { get; set; }
@@ -237,11 +248,9 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 get
                 {
-                    return this.ElementName.PartAfter(":");
+                    return this.ElementName.AsSpan().PartAfter(':');
                 }
             }
-
-            public StringBuilder ElementBody { get; set; }
         }
     }
 }

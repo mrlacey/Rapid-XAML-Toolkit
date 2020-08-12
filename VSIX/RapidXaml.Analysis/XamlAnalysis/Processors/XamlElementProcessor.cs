@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         internal IVisualStudioAbstraction VSAbstraction { get; }
 
-        public static bool IsSelfClosing(string xaml, int startPoint = 0)
+        public static bool IsSelfClosing(ReadOnlySpan<char> xaml, int startPoint = 0)
         {
             var foundSelfCloser = false;
 
@@ -62,7 +62,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var exclusions = new Dictionary<int, int>();
 
             // This is the opening position of the next opening (here) or closing (when set subsequently) tag
-            var tagOfInterestPos = xaml.Substring(elementOpen.Length).FirstIndexOf(elementOpenComplete, elementOpenSpace) + elementOpen.Length;
+            var tagOfInterestPos = xaml.Substring(elementOpen.Length).AsSpan().FirstIndexOf(elementOpenComplete, elementOpenSpace) + elementOpen.Length;
 
             // track the number of open tags seen so know when get to the corresponding closing one.
             var openings = 0;
@@ -89,7 +89,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 else
                 {
                     // ignore self closing tags as nothing to exclude
-                    if (!XamlElementProcessor.IsSelfClosing(xaml, tagOfInterestPos))
+                    if (!XamlElementProcessor.IsSelfClosing(xaml.AsSpan(), tagOfInterestPos))
                     {
                         // opening tag s
                         if (openings <= 0)
@@ -105,7 +105,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 }
 
                 // Find next opening or closing tag
-                var nextOpening = xaml.Substring(tagOfInterestPos + elementOpen.Length).FirstIndexOf(elementOpenComplete, elementOpenSpace);
+                var nextOpening = xaml.Substring(tagOfInterestPos + elementOpen.Length).AsSpan().FirstIndexOf(elementOpenComplete, elementOpenSpace);
 
                 if (nextOpening > -1)
                 {
@@ -122,16 +122,16 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger, string projectFile, IVisualStudioAbstraction vsAbstraction)
         {
-            var startPos = xaml.Substring(0, position).LastIndexOf('<');
+            var startPos = xaml.LastIndexOf('<', position, position);
 
-            var elementName = GetElementName(xaml, startPos);
+            var elementName = GetElementName(xaml.AsSpan(), startPos);
 
             string result = null;
 
             var processor = new SubElementProcessor(new ProcessorEssentials(projectType, logger, projectFile, vsAbstraction));
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
-            XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList(), vsAbstraction);
+            XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList(), vsAbstraction, skipEveryElementProcessor: true);
 
 #if DEBUG
             if (result == null)
@@ -145,9 +145,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return result;
         }
 
-        public static string GetElementName(string xamlElement, int offset = 0)
+        public static string GetElementName(ReadOnlySpan<char> xamlElement, int offset = 0)
         {
-            return xamlElement.Substring(offset + 1, xamlElement.IndexOfAny(new[] { ' ', '>', '\r', '\n' }, offset) - offset - 1);
+            return xamlElement.Slice(offset + 1, xamlElement.Slice(offset).IndexOfAny<char>(new[] { ' ', '>', '/', '\r', '\n' }) - 1).ToString();
         }
 
         public static string GetOpeningWithoutChildren(string xamlElementThatMayHaveChildren)
@@ -168,7 +168,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 return xamlElementThatMayHaveChildren.Substring(0, xamlElementThatMayHaveChildren.IndexOf('>') + 1).Trim();
             }
 
-            var endOfElementName = xamlElementThatMayHaveChildren.FirstIndexOf(" ", "\r", "\n", ">");
+            var endOfElementName = xamlElementThatMayHaveChildren.AsSpan().FirstIndexOf(" ", "\r", "\n", ">");
 
             var elementName = xamlElementThatMayHaveChildren.Substring(1, endOfElementName - 1);
 
@@ -223,10 +223,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
             try
             {
+                var xamlSpan = xaml.AsSpan();
+
                 if (attributeTypesToCheck.HasFlag(AttributeType.Inline))
                 {
-                    var searchText = $"{attributeName}=\"";
-
                     if (string.IsNullOrWhiteSpace(xaml))
                     {
                         System.Diagnostics.Debugger.Break();
@@ -238,6 +238,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                         value = string.Empty;
                         return false;
                     }
+
+                    var searchText = $"{attributeName}=\"";
 
                     var tbIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
 
@@ -253,13 +255,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
                 }
 
-                var elementName = GetElementName(xaml);
+                var elementName = GetElementName(xamlSpan);
 
                 if (attributeTypesToCheck.HasFlag(AttributeType.Element))
                 {
                     var searchText = $"<{elementName}.{attributeName}>";
 
-                    var startIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
+                    var startIndex = xamlSpan.IndexOf(searchText.AsSpan(), StringComparison.Ordinal);
 
                     if (startIndex > -1)
                     {
@@ -279,9 +281,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (attributeTypesToCheck.HasFlag(AttributeType.DefaultValue))
                 {
-                    var endOfOpening = xaml.IndexOf(">");
-                    var closingTag = $"</{elementName}>";
-                    var startOfClosing = xaml.IndexOf(closingTag, StringComparison.Ordinal);
+                    var endOfOpening = xamlSpan.IndexOf(">".AsSpan(), StringComparison.Ordinal);
+                    var startOfClosing = xamlSpan.IndexOf($"</{elementName}>".AsSpan(), StringComparison.Ordinal);
 
                     if (startOfClosing > 0 && startOfClosing > endOfOpening)
                     {
@@ -336,6 +337,34 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
         }
 
+        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, string guidFallbackAttributeName, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
+        {
+            if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
+            {
+                if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
+                {
+                    var tagDeps = this.CreateBaseTagDependencies(
+                        new Span(offset + tbIndex, length),
+                        snapshot,
+                        fileName);
+
+                    var (uidExists, uidValue) = this.GetOrGenerateUid(xamlElement, guidFallbackAttributeName);
+
+                    var tag = new HardCodedStringTag(tagDeps, elementName, attributeName, projType)
+                    {
+                        AttributeType = foundAttributeType,
+                        Value = value,
+                        Description = descriptionFormat.WithParams(value),
+                        UidExists = uidExists,
+                        UidValue = uidValue,
+                        ElementGuid = elementIdentifier,
+                    };
+
+                    tags.TryAdd(tag, xamlElement, suppressions);
+                }
+            }
+        }
+
         protected (bool uidExists, string uidValue) GetOrGenerateUid(string xamlElement, string attributeName)
         {
             var uidExists = this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
@@ -349,11 +378,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 }
                 else
                 {
-                    this.TryGetAttribute(xamlElement, attributeName, AttributeType.InlineOrElement, out _, out _, out _, out string value);
+                    var elementName = GetElementName(xamlElement.AsSpan());
 
-                    var elementName = GetElementName(xamlElement);
-
-                    if (!string.IsNullOrWhiteSpace(value))
+                    if (this.TryGetAttribute(xamlElement, attributeName, AttributeType.InlineOrElement, out _, out _, out _, out string value))
                     {
                         uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value)}{elementName}";
 

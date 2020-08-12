@@ -166,8 +166,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.EntryAnalyzer());
                 customProcessors.Add(new CustomAnalysis.PickerAnalyzer());
 
-                foreach (var customProcessor in customProcessors)
+                for (int i = 0; i < customProcessors.Count; i++)
                 {
+                    ICustomAnalyzer customProcessor = customProcessors[i];
                     processors.Add(
                         (customProcessor.TargetType(),
                          new CustomProcessorWrapper(customProcessor, projType, projectFilePath, logger, vsAbstraction)));
