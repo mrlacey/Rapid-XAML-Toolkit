@@ -120,10 +120,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
-        // Candidate for perf optimization
         public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger, string projectFile, IVisualStudioAbstraction vsAbstraction)
         {
-            var startPos = xaml.Substring(0, position).LastIndexOf('<');
+            var startPos = xaml.LastIndexOf('<', position, position);
 
             var elementName = GetElementName(xaml.AsSpan(), startPos);
 
