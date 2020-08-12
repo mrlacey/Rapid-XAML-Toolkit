@@ -150,7 +150,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return xamlElement.Slice(offset + 1, xamlElement.Slice(offset).IndexOfAny<char>(new[] { ' ', '>', '/', '\r', '\n' }) - 1).ToString();
         }
 
-        // Candidate for perf optimization
         public static string GetOpeningWithoutChildren(string xamlElementThatMayHaveChildren)
         {
             // Following logic assumes no whitespace at front
@@ -338,7 +337,34 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
         }
 
-        // Candidate for perf optimization
+        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, string guidFallbackAttributeName, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
+        {
+            if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
+            {
+                if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
+                {
+                    var tagDeps = this.CreateBaseTagDependencies(
+                        new Span(offset + tbIndex, length),
+                        snapshot,
+                        fileName);
+
+                    var (uidExists, uidValue) = this.GetOrGenerateUid(xamlElement, guidFallbackAttributeName);
+
+                    var tag = new HardCodedStringTag(tagDeps, elementName, attributeName, projType)
+                    {
+                        AttributeType = foundAttributeType,
+                        Value = value,
+                        Description = descriptionFormat.WithParams(value),
+                        UidExists = uidExists,
+                        UidValue = uidValue,
+                        ElementGuid = elementIdentifier,
+                    };
+
+                    tags.TryAdd(tag, xamlElement, suppressions);
+                }
+            }
+        }
+
         protected (bool uidExists, string uidValue) GetOrGenerateUid(string xamlElement, string attributeName)
         {
             var uidExists = this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
