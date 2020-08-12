@@ -2,7 +2,7 @@ pull_requests:
   do_not_increment_build_number: true
 branches:
   only:
-  - master
+  - main
 skip_tags: true
 configuration: Release
 image: Visual Studio 2019
