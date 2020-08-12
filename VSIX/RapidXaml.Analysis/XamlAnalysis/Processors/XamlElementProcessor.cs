@@ -221,11 +221,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         /// <param name="suppressions">A list of user defined suppressions to override default behavior.</param>
         public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null);
 
-        // Candidate for perf optimization
         public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
         {
             try
             {
+                var xamlSpan = xaml.AsSpan();
+
                 if (attributeTypesToCheck.HasFlag(AttributeType.Inline))
                 {
                     if (string.IsNullOrWhiteSpace(xaml))
@@ -256,13 +257,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
                 }
 
-                var elementName = GetElementName(xaml.AsSpan());
+                var elementName = GetElementName(xamlSpan);
 
                 if (attributeTypesToCheck.HasFlag(AttributeType.Element))
                 {
                     var searchText = $"<{elementName}.{attributeName}>";
 
-                    var startIndex = xaml.IndexOf(searchText, StringComparison.Ordinal);
+                    var startIndex = xamlSpan.IndexOf(searchText.AsSpan(), StringComparison.Ordinal);
 
                     if (startIndex > -1)
                     {
@@ -282,9 +283,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
                 if (attributeTypesToCheck.HasFlag(AttributeType.DefaultValue))
                 {
-                    var endOfOpening = xaml.IndexOf(">");
-                    var closingTag = $"</{elementName}>";
-                    var startOfClosing = xaml.IndexOf(closingTag, StringComparison.Ordinal);
+                    var endOfOpening = xamlSpan.IndexOf(">".AsSpan(), StringComparison.Ordinal);
+                    var startOfClosing = xamlSpan.IndexOf($"</{elementName}>".AsSpan(), StringComparison.Ordinal);
 
                     if (startOfClosing > 0 && startOfClosing > endOfOpening)
                     {
