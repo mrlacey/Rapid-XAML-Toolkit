@@ -4,7 +4,12 @@ This PR relates to Issue #
 <!-- Please provide a brief description of what's being committed. -->
 
 
+**Confirm**
+- [ ] Docs updated
+- [ ] Release notes updated
 
 **Important points of note**  
 <!-- Please identify anything that needs special attention or that the reviewer needs to be aware of. -->
+
+
 
