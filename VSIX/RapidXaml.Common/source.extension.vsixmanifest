@@ -1,27 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-  <Metadata>
-    <Identity Id="RapidXaml.Common.3cb31872-64f7-49f8-91a7-31393173c5ce" Version="0.10.4" Language="en-US" Publisher="Matt Lacey" />
-    <DisplayName>Rapid XAML Common Functionality</DisplayName>
-    <Description xml:space="preserve">Common infrastructure used by other extensions that are part of the Rapid XAML Toolkit.</Description>
-    <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
-    <License>LICENSE.txt</License>
-    <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
-    <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/releases</ReleaseNotes>
-    <Icon>Resources\RapidXamlCommonLogo.png</Icon>
-    <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, MVVM</Tags>
-    <Preview>true</Preview>
-  </Metadata>
-  <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
-  </Installation>
-  <Dependencies>
-    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-  </Dependencies>
-  <Prerequisites>
-    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
-  </Prerequisites>
-  <Assets>
-    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-  </Assets>
+    <Metadata>
+        <Identity Id="RapidXaml.Common.3cb31872-64f7-49f8-91a7-31393173c5ce" Version="0.10.4" Language="en-US" Publisher="Matt Lacey" />
+        <DisplayName>Rapid XAML Common Functionality</DisplayName>
+        <Description xml:space="preserve">Common infrastructure used by other extensions that are part of the Rapid XAML Toolkit.</Description>
+        <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
+        <License>LICENSE.txt</License>
+        <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
+        <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/RELEASE_NOTES.md</ReleaseNotes>
+        <Icon>Resources\RapidXamlCommonLogo.png</Icon>
+        <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, MVVM</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    </Dependencies>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
 </PackageManifest>
