@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		nuget.config = nuget.config
 		nuget.exe = nuget.exe
 		packandsignnupkg.targets = packandsignnupkg.targets
+		..\RELEASE_NOTES.md = ..\RELEASE_NOTES.md
 		signvsix.targets = signvsix.targets
 		UseSecretsForBuild.ps1 = UseSecretsForBuild.ps1
 	EndProjectSection
@@ -50,7 +51,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.InternalAnalyzers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SetVersionNumbers", "SetVersionNumbers\SetVersionNumbers.csproj", "{7B0DFD50-E54F-4068-AF94-FD3F306F71B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarking", "Benchmarking\Benchmarking.csproj", "{F479F9DD-C357-4435-BF03-FDD063C60D67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benchmarking", "Benchmarking\Benchmarking.csproj", "{F479F9DD-C357-4435-BF03-FDD063C60D67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
