@@ -20,7 +20,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         protected RapidXamlDisplayedTag(TagDependencies deps, string errorCode, TagErrorType defaultErrorType)
             : base(deps.Span, deps.Snapshot, deps.FileName, deps.Logger)
         {
-            var line = deps.Snapshot.GetLineFromPosition(deps.Span.Start);
+            // TODO: will need to change this for AutoFixes
+            var line = (ITextSnapshotLine)deps.Snapshot.GetLineFromPosition(deps.Span.Start);
             var col = deps.Span.Start - line.Start.Position;
 
             this.ErrorCode = errorCode;
@@ -199,7 +200,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public override ITagSpan<IErrorTag> AsErrorTag()
         {
-            var span = new SnapshotSpan(this.Snapshot, this.Span);
+            var span = new SnapshotSpan((ITextSnapshot)this.Snapshot, this.Span);
 
             return new TagSpan<IErrorTag>(
                 span,
@@ -213,7 +214,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             return new ErrorRow
             {
                 ExtendedMessage = this.ExtendedMessage,
-                Span = new SnapshotSpan(this.Snapshot, this.Span),
+                Span = new SnapshotSpan((ITextSnapshot)this.Snapshot, this.Span),
                 Message = this.Description,
                 ErrorCode = this.ErrorCode,
                 IsInternalError = this.IsInternalError,

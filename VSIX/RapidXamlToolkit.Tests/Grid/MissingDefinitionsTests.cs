@@ -163,7 +163,7 @@ namespace RapidXamlToolkit.Tests.Grid
 
             var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new RealTextSnapshot(new FakeTextSnapshot());
 
             sut.Process("testfile.xaml", 1, xaml, "	    ", snapshot, outputTags);
 

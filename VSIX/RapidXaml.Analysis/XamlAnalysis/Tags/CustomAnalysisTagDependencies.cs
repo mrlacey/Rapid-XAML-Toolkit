@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     {
         public Span Span { get; set; }
 
-        public ITextSnapshot Snapshot { get; set; }
+        public IRapidXamlTextSnapshot Snapshot { get; set; }
 
         public string FileName { get; set; }
 

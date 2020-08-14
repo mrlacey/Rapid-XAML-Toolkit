@@ -8,7 +8,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class InsertionTag : RapidXamlDiscreteTag
     {
-        protected InsertionTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger)
+        protected InsertionTag(Span span, IRapidXamlTextSnapshot snapshot, string fileName, ILogger logger)
             : base(span, snapshot, fileName, logger)
         {
         }

@@ -14,7 +14,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
         }
 
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, IRapidXamlTextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             if (this.TryGetAttribute(xamlElement, Attributes.SelectedItem, AttributeType.Inline | AttributeType.Element, out _, out int index, out int length, out string value))
             {

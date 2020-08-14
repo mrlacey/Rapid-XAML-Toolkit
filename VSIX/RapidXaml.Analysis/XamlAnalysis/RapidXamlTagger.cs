@@ -52,7 +52,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                             break;
                         }
 
-                        if (span.Snapshot.Version.VersionNumber != viewTag.Snapshot.Version.VersionNumber)
+                        if (span.Snapshot.Version.VersionNumber != viewTag.Snapshot.VersionNumber)
                         {
                             //// SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_SnapshotVersionChanged.WithParams(this.file));
                             System.Diagnostics.Debug.WriteLine(StringRes.Info_SnapshotVersionChanged.WithParams(this.file));

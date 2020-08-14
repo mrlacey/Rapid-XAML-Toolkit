@@ -55,7 +55,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new RealTextSnapshot(new FakeTextSnapshot());
 
             sut.Process("testfile.xaml", 1, xaml, "	    ", snapshot, outputTags);
 
@@ -71,7 +71,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests(ProjectType.Wpf));
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new RealTextSnapshot(new FakeTextSnapshot());
 
             sut.Process("testfile.xaml", 1, xaml, "    ", snapshot, outputTags);
 
@@ -85,7 +85,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var text = File.ReadAllText(".\\Misc\\Generic.xaml");
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new RealTextSnapshot(new FakeTextSnapshot());
 
             XamlElementExtractor.Parse(ProjectType.Uwp, "Generic.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, new TestVisualStudioAbstraction(), DefaultTestLogger.Create()), result.Tags, new TestVisualStudioAbstraction());
 
@@ -105,7 +105,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var text = File.ReadAllText(filePath);
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new RealTextSnapshot(new FakeTextSnapshot());
 
             try
             {

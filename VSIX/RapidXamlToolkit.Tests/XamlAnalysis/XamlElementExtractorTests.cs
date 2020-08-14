@@ -809,7 +809,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 tags = new TagList();
             }
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new RealTextSnapshot(new FakeTextSnapshot());
 
             XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", snapshot, xaml, processors, tags, new TestVisualStudioAbstraction());
         }

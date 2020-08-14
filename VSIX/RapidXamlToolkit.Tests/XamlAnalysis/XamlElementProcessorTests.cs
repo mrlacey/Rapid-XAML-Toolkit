@@ -693,7 +693,7 @@ ar=""True""
         private string GetSubElementAtStar(string outerElement)
         {
             var offset = outerElement.IndexOf('☆');
-            return XamlElementProcessor.GetSubElementAtPosition(ProjectType.Any, "testFile.xaml", new FakeTextSnapshot(), outerElement.Replace("☆", string.Empty), offset, new DefaultTestLogger(), string.Empty, new TestVisualStudioAbstraction());
+            return XamlElementProcessor.GetSubElementAtPosition(ProjectType.Any, "testFile.xaml", new RealTextSnapshot(new FakeTextSnapshot()), outerElement.Replace("☆", string.Empty), offset, new DefaultTestLogger(), string.Empty, new TestVisualStudioAbstraction());
         }
 
         private bool HasDefaultValue(string xaml)

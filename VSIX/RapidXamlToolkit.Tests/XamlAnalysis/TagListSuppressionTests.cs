@@ -20,7 +20,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             new TagDependencies
             {
                 Span = new Span(1, 14),
-                Snapshot = new FakeTextSnapshot(),
+                Snapshot = new RealTextSnapshot(new FakeTextSnapshot()),
                 FileName = TestFileName,
                 Logger = DefaultTestLogger.Create(),
                 VsAbstraction = new TestVisualStudioAbstraction(),

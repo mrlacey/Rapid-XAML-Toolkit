@@ -127,6 +127,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfImageAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomProcessorWrapper.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />
+    <Compile Include="XamlAnalysis\IRapidXamlTextSnapshot.cs" />
     <Compile Include="XamlAnalysis\ParsedAction.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />

@@ -35,7 +35,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         private static Dictionary<string, (DateTime timeStamp, List<TagSuppression> suppressions)> SuppressionsCache { get; }
             = new Dictionary<string, (DateTime, List<TagSuppression>)>();
 
-        public static RapidXamlDocument Create(ITextSnapshot snapshot, string fileName, IVisualStudioAbstraction vsa, string projectFile)
+        public static RapidXamlDocument Create(IRapidXamlTextSnapshot snapshot, string fileName, IVisualStudioAbstraction vsa, string projectFile)
         {
             var result = new RapidXamlDocument();
 

@@ -16,8 +16,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
         }
 
-        // Candidate for perf optimization
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, IRapidXamlTextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
             // Remove children to avoid getting duplicates when children are processed.
             xamlElement = GetOpeningWithoutChildren(xamlElement);

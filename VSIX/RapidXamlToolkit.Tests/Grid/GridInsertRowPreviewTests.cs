@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.Tests.Grid
    + Environment.NewLine + "    </Grid>"
    + Environment.NewLine + "</Page>";
 
-            var tag = new InsertRowDefinitionTag(new Span(0, 0), new FakeTextSnapshot(), "testfile.xaml", DefaultTestLogger.Create())
+            var tag = new InsertRowDefinitionTag(new Span(0, 0), new RealTextSnapshot(new FakeTextSnapshot()), "testfile.xaml", DefaultTestLogger.Create())
             {
                 XamlTag = "<RowDefinition Height=\"XXX\" />",
                 InsertPoint = original.IndexOf("☆", StringComparison.Ordinal),
@@ -85,7 +85,7 @@ namespace RapidXamlToolkit.Tests.Grid
    + Environment.NewLine + "    </Grid>"
    + Environment.NewLine + "</Page>";
 
-            var tag = new InsertRowDefinitionTag(new Span(0, 0), new FakeTextSnapshot(), "testfile.xaml", DefaultTestLogger.Create())
+            var tag = new InsertRowDefinitionTag(new Span(0, 0), new RealTextSnapshot(new FakeTextSnapshot()), "testfile.xaml", DefaultTestLogger.Create())
             {
                 XamlTag = "<RowDefinition Height=\"XXX\" />",
                 InsertPoint = original.IndexOf("☆", StringComparison.Ordinal),
@@ -129,7 +129,7 @@ namespace RapidXamlToolkit.Tests.Grid
    + Environment.NewLine + "    </Grid>"
    + Environment.NewLine + "</Page>";
 
-            var tag = new InsertRowDefinitionTag(new Span(0, 0), new FakeTextSnapshot(), "testfile.xaml", DefaultTestLogger.Create())
+            var tag = new InsertRowDefinitionTag(new Span(0, 0), new RealTextSnapshot(new FakeTextSnapshot()), "testfile.xaml", DefaultTestLogger.Create())
             {
                 XamlTag = "<RowDefinition Height=\"XXX\" />",
                 InsertPoint = original.IndexOf("☆", StringComparison.Ordinal),
@@ -181,7 +181,7 @@ namespace RapidXamlToolkit.Tests.Grid
    + Environment.NewLine + "    </Grid>"
    + Environment.NewLine + "</Page>";
 
-            var tag = new InsertRowDefinitionTag(new Span(0, 0), new FakeTextSnapshot(), "testfile.xaml", DefaultTestLogger.Create())
+            var tag = new InsertRowDefinitionTag(new Span(0, 0), new RealTextSnapshot(new FakeTextSnapshot()), "testfile.xaml", DefaultTestLogger.Create())
             {
                 XamlTag = "<RowDefinition Height=\"XXX\" />",
                 InsertPoint = original.IndexOf("☆", StringComparison.Ordinal),
@@ -235,7 +235,7 @@ namespace RapidXamlToolkit.Tests.Grid
    + Environment.NewLine + "    </Grid>"
    + Environment.NewLine + "</Page>";
 
-            var tag = new InsertRowDefinitionTag(new Span(0, 0), new FakeTextSnapshot(), "testfile.xaml", DefaultTestLogger.Create())
+            var tag = new InsertRowDefinitionTag(new Span(0, 0), new RealTextSnapshot(new FakeTextSnapshot()), "testfile.xaml", DefaultTestLogger.Create())
             {
                 XamlTag = "<RowDefinition Height=\"XXX\" />",
                 InsertPoint = original.IndexOf("☆", StringComparison.Ordinal),
@@ -297,7 +297,7 @@ namespace RapidXamlToolkit.Tests.Grid
    + Environment.NewLine + "    </Grid>"
    + Environment.NewLine + "</Page>";
 
-            var tag = new InsertRowDefinitionTag(new Span(0, 0), new FakeTextSnapshot(), "testfile.xaml", DefaultTestLogger.Create())
+            var tag = new InsertRowDefinitionTag(new Span(0, 0), new RealTextSnapshot(new FakeTextSnapshot()), "testfile.xaml", DefaultTestLogger.Create())
             {
                 XamlTag = "<RowDefinition Height=\"XXX\" />",
                 InsertPoint = original.IndexOf("☆", StringComparison.Ordinal),
@@ -397,7 +397,7 @@ namespace RapidXamlToolkit.Tests.Grid
 + Environment.NewLine + "    </Grid>"
 + Environment.NewLine + "</Window>";
 
-            var tag = new InsertRowDefinitionTag(new Span(0, 0), new FakeTextSnapshot(), "testfile.xaml", DefaultTestLogger.Create())
+            var tag = new InsertRowDefinitionTag(new Span(0, 0), new RealTextSnapshot(new FakeTextSnapshot()), "testfile.xaml", DefaultTestLogger.Create())
             {
                 XamlTag = "<RowDefinition Height=\"XXX\" />",
                 InsertPoint = original.IndexOf("☆", StringComparison.Ordinal),

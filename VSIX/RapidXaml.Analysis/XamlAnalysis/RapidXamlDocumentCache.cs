@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 // Don't worry about timing this call as it's only repeated calls to analyze a document that might cause a user prompt.
                 // This only happens on document open. Repeated analysis of a document will happen through TryUpdate.
-                var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
+                var doc = RapidXamlDocument.Create(new RealTextSnapshot(snapshot), file, vsa, string.Empty);
 
                 lock (CacheLock)
                 {
@@ -171,7 +171,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         {
                             sw.Start();
 
-                            doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
+                            doc = RapidXamlDocument.Create(new RealTextSnapshot(snapshot), file, vsa, string.Empty);
                         }
                         finally
                         {

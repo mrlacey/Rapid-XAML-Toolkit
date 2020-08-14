@@ -14,7 +14,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions = null, string projectFilePath = null, bool skipEveryElementProcessor = false)
+        public static bool Parse(ProjectType projectType, string fileName, IRapidXamlTextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions = null, string projectFilePath = null, bool skipEveryElementProcessor = false)
         {
             var elementsOfInterest = new List<string>();
 

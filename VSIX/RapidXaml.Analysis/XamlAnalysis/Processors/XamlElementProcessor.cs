@@ -120,7 +120,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
-        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger, string projectFile, IVisualStudioAbstraction vsAbstraction)
+        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, IRapidXamlTextSnapshot snapshot, string xaml, int position, ILogger logger, string projectFile, IVisualStudioAbstraction vsAbstraction)
         {
             var startPos = xaml.LastIndexOf('<', position, position);
 
@@ -217,7 +217,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         /// <param name="snapshot">The ITextSnapshot containing the XAML being analyzed.</param>
         /// <param name="tags">Reference to the list of all tags found in the document. Add any new tags here.</param>
         /// <param name="suppressions">A list of user defined suppressions to override default behavior.</param>
-        public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null);
+        public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, IRapidXamlTextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null);
 
         public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
         {
@@ -311,7 +311,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return false;
         }
 
-        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
+        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, IRapidXamlTextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
         {
             if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
@@ -337,7 +337,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
         }
 
-        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, string guidFallbackAttributeName, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
+        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, IRapidXamlTextSnapshot snapshot, int offset, string guidFallbackAttributeName, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
         {
             if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
@@ -397,7 +397,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return (uidExists, uid);
         }
 
-        protected TagDependencies CreateBaseTagDependencies(Span span, ITextSnapshot snapshot, string fileName)
+        protected TagDependencies CreateBaseTagDependencies(Span span, IRapidXamlTextSnapshot snapshot, string fileName)
         {
             return new TagDependencies
             {
@@ -419,7 +419,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             public event EventHandler<SubElementEventArgs> SubElementFound;
 
-            public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
+            public override void Process(string fileName, int offset, string xamlElement, string linePadding, IRapidXamlTextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
             {
                 if (offset == 0)
                 {

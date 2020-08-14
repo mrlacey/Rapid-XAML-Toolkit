@@ -77,7 +77,7 @@ namespace RapidXaml.AnalysisExe
 
                             Console.WriteLine($"- Analyzing: '{xamlFilePath}'");
 
-                            var snapshot = new BuildAnalysisTextSnapshot(xamlFilePath);
+                            var snapshot = new RealTextSnapshot(new BuildAnalysisTextSnapshot(xamlFilePath));
                             var rxdoc = RapidXamlDocument.Create(snapshot, xamlFilePath, bavsa, projectPath);
 
                             Debug.WriteLine($"Found {rxdoc.Tags.Count} taggable issues in '{xamlFilePath}'.");
