@@ -35,7 +35,7 @@ There are three sln file to be aware of
 ####  Templates/RapidXaml.Templates.sln
 
 The `Templates` folder includes `RapidXaml.Templates.sln` which contains the [project and item templates packaged in a VSIX package](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlTemplates).
-These are kept separate from the other projects to reduce the size of solutions that are worked with.
+These are kept separate from the other projects to reduce the size of the solutions.
 
 #### VSIX/RapidXamlToolkit.sln
 
