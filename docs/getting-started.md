@@ -49,7 +49,7 @@ The solution contains these projects:
 - `RapidXaml.BuildAnalysis` is a shipping **NuGet** package that contains RapidXaml.AnalysisExe so that XAML Analysis can be performed as part of a build process. _[install link](https://www.nuget.org/packages/RapidXaml.BuildAnalysis/)_
 - `RapidXaml.Common` is a shipping **VSIX** package that contains Visual Studio context menus that are shared by other extensions. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlCommon)_
 - `RapidXaml.CustomAnalysis` is the **NuGet** package that contains the shared logic for custom XAML Analysis. _[install link](https://www.nuget.org/packages/RapidXaml.CustomAnalysis/)_
-- `RapidXaml.Generation` is a shipping **VSIX** package that contains the functionality for generating XAML from C# and VB.NET code ._[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlGeneration)_
+- `RapidXaml.Generation` is a shipping **VSIX** package that contains the functionality for generating XAML from C# and VB.NET code. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlGeneration)_
 - `RapidXaml.RoslynAnalyzers` is a shipping **VSIX** package that contains Roslyn Analyzers and code fixes. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlRoslynAnalyzers)_
 - `RapidXaml.Shared` is a library containing code shared between other projects that produce a VSIX package.
 - `RapidXamlToolkit` is a shipping **VSIX** extension pack for bundling all separate tools through a single extension. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit)_
