@@ -14,7 +14,7 @@ namespace RapidXaml.InternalAnalyzers
     {
         public const string DiagnosticId = "RXILOC";
         private const string Category = "Naming";
-        private static readonly string Title = "Incorrect use of hard-coded string.";
+        private static readonly string Title = "Incorrect use of hard-coded string";
         private static readonly string MessageFormat = "Hard-coded string passed to '{0}'";
         private static readonly string Description = "All strings passed to ILogger methods must be localized.";
 
@@ -30,6 +30,8 @@ namespace RapidXaml.InternalAnalyzers
 
         public override void Initialize(AnalysisContext context)
         {
+            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze | GeneratedCodeAnalysisFlags.ReportDiagnostics);
+            context.EnableConcurrentExecution();
             context.RegisterSyntaxNodeAction(this.AnalyzeSyntaxNode, SyntaxKind.InvocationExpression);
         }
 
