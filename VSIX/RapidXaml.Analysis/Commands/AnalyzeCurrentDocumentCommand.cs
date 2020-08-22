@@ -62,8 +62,8 @@ namespace RapidXamlToolkit.Commands
 
                 this.Logger?.RecordFeatureUsage(nameof(AnalyzeCurrentDocumentCommand));
 
-                var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
-                var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
+                var dte = await Instance.AsyncPackage.GetServiceAsync(typeof(DTE)) as DTE;
+                var vs = new VisualStudioAbstraction(this.Logger, this.AsyncPackage, dte);
 
                 var filePath = vs.GetActiveDocumentFilePath();
 
