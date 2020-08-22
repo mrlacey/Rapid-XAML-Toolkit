@@ -40,7 +40,7 @@ namespace RapidXamlToolkit.Commands
             // Verify the current thread is the UI thread - the call to AddCommand in SendToToolboxCommand's constructor requires the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
+            var commandService = await package.GetServiceAsync<IMenuCommandService, OleMenuCommandService>();
             Instance = new SendToToolboxCommand(package, commandService, logger);
         }
 
@@ -48,7 +48,7 @@ namespace RapidXamlToolkit.Commands
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            var tbs = await Instance.AsyncPackage.GetServiceAsync(typeof(IVsToolbox)) as IVsToolbox;
+            var tbs = await Instance.AsyncPackage.GetServiceAsync<IVsToolbox, IVsToolbox>();
 
             var itemInfo = new TBXITEMINFO[1];
             var tbItem = new OleDataObject();

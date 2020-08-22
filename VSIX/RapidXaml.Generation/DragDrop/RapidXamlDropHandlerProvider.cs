@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.DragDrop
             Logger = logger;
             Package = package;
 
-            dte = await package.GetServiceAsync(typeof(DTE)) as DTE;
+            dte = await package.GetServiceAsync<DTE, DTE>();
         }
 
         public IDropHandler GetAssociatedDropHandler(IWpfTextView view)
