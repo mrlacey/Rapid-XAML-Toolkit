@@ -45,7 +45,7 @@ namespace RapidXamlToolkit.Commands
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
             Package = package;
-            OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
+            var commandService = await package.GetServiceAsync<IMenuCommandService, OleMenuCommandService>();
             Instance = new AnalyzeCurrentDocumentCommand(package, commandService, logger);
         }
 
@@ -62,8 +62,8 @@ namespace RapidXamlToolkit.Commands
 
                 this.Logger?.RecordFeatureUsage(nameof(AnalyzeCurrentDocumentCommand));
 
-                var dte = await Instance.ServiceProvider.GetServiceAsync(typeof(DTE)) as DTE;
-                var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
+                var dte = await Instance.AsyncPackage.GetServiceAsync<DTE, DTE>();
+                var vs = new VisualStudioAbstraction(this.Logger, this.AsyncPackage, dte);
 
                 var filePath = vs.GetActiveDocumentFilePath();
 

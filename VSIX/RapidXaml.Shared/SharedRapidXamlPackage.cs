@@ -37,7 +37,7 @@ namespace RapidXamlToolkit
 
                     Logger = new RxtLoggerWithTelemtry(rxtLogger, telemLogger);
 
-                    var activityLog = await package.GetServiceAsync(typeof(SVsActivityLog)) as IVsActivityLog;
+                    var activityLog = await package.GetServiceAsync<SVsActivityLog, IVsActivityLog>();
                     rxtLogger.VsActivityLog = activityLog;
                 }
 

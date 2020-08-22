@@ -37,7 +37,7 @@ namespace RapidXamlToolkit.Commands
             // Verify the current thread is the UI thread - the call to AddCommand in CreateXamlStringCommand's constructor requires the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
+            var commandService = await package.GetServiceAsync<IMenuCommandService, OleMenuCommandService>();
             Instance = new CopyToClipboardCommand(package, commandService, logger);
         }
 
@@ -55,7 +55,7 @@ namespace RapidXamlToolkit.Commands
                 this.Logger?.RecordFeatureUsage(nameof(CopyToClipboardCommand));
 
                 this.Logger?.RecordInfo(StringRes.Info_AttemptingToCopy);
-                var output = await this.GetXamlAsync(Instance.ServiceProvider);
+                var output = await this.GetXamlAsync(Instance.AsyncPackage);
 
                 if (output != null && output.OutputType != ParserOutputType.None)
                 {
@@ -64,7 +64,7 @@ namespace RapidXamlToolkit.Commands
                     if (!string.IsNullOrWhiteSpace(message))
                     {
                         Clipboard.SetText(message);
-                        await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.Info_CopiedXaml.WithParams(output.OutputType, output.Name));
+                        await ShowStatusBarMessageAsync(Instance.AsyncPackage, StringRes.Info_CopiedXaml.WithParams(output.OutputType, output.Name));
                         this.Logger.RecordInfo(StringRes.Info_CopiedXaml.WithParams(output.OutputType, output.Name));
                     }
                     else
@@ -74,7 +74,7 @@ namespace RapidXamlToolkit.Commands
                 }
                 else
                 {
-                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.Info_NoXamlCopied);
+                    await ShowStatusBarMessageAsync(Instance.AsyncPackage, StringRes.Info_NoXamlCopied);
                     this.Logger.RecordInfo(StringRes.Info_NoXamlCopied);
                 }
             }

@@ -8,23 +8,24 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.Telemetry;
 using RapidXamlToolkit.XamlAnalysis;
+using static Microsoft.VisualStudio.VSConstants;
 using Task = System.Threading.Tasks.Task;
 
 namespace RapidXamlToolkit
 {
-    [ProvideAutoLoad(UIContextGuids.SolutionHasMultipleProjects, PackageAutoLoadFlags.BackgroundLoad)]
-    [ProvideAutoLoad(UIContextGuids.SolutionHasSingleProject, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(UICONTEXT.CSharpProject_string, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(UICONTEXT.VBProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", "0.10.4")] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(RapidXamlAnalysisPackage.PackageGuidString)]
     [ProvideOptionPage(typeof(AnalysisOptionsGrid), "Rapid XAML", "Analysis", 106, 107, true)]
+    [ProvideProfile(typeof(AnalysisOptionsGrid), "Rapid XAML", "Analysis", 106, 107, true)]
     public sealed class RapidXamlAnalysisPackage : AsyncPackage
     {
         public const string PackageGuidString = "fd0b0440-83be-4d1b-a449-9ca75d53007c";
