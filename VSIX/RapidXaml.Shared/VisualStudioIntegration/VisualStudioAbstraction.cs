@@ -299,7 +299,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
         {
-            var componentModel = await this.serviceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel;
+            var componentModel = await this.serviceProvider.GetServiceAsync<SComponentModel, IComponentModel>();
             var visualStudioWorkspace = componentModel?.GetService<VisualStudioWorkspace>();
 
             if (visualStudioWorkspace != null)

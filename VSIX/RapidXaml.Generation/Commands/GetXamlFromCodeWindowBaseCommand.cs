@@ -48,7 +48,7 @@ namespace RapidXamlToolkit.Commands
 
                     var semanticModel = await document.GetSemanticModelAsync();
 
-                    var vs = new VisualStudioAbstraction(this.Logger, this.ServiceProvider, dte);
+                    var vs = new VisualStudioAbstraction(this.Logger, this.AsyncPackage, dte);
                     var xamlIndent = await vs.GetXamlIndentAsync();
 
                     var proj = dte.Solution.GetProjectContainingFile(document.FilePath);

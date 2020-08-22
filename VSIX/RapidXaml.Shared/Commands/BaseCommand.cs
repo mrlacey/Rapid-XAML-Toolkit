@@ -14,19 +14,15 @@ namespace RapidXamlToolkit.Commands
 {
     public class BaseCommand
     {
-        private readonly AsyncPackage package;
-
         public BaseCommand(AsyncPackage package, ILogger logger)
         {
-            this.package = package ?? throw new ArgumentNullException(nameof(package));
+            this.AsyncPackage = package ?? throw new ArgumentNullException(nameof(package));
             this.Logger = logger;
         }
 
         protected ILogger Logger { get; }
 
-        protected AsyncPackage AsyncPackage => this.package;
-
-        protected IAsyncServiceProvider ServiceProvider => this.package;
+        protected AsyncPackage AsyncPackage { get; private set; }
 
         protected static async Task<Microsoft.VisualStudio.Text.Editor.IWpfTextView> GetTextViewAsync(IAsyncServiceProvider serviceProvider)
         {

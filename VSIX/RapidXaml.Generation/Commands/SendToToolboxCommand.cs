@@ -40,7 +40,7 @@ namespace RapidXamlToolkit.Commands
             // Verify the current thread is the UI thread - the call to AddCommand in SendToToolboxCommand's constructor requires the UI thread.
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
+            var commandService = await package.GetServiceAsync<IMenuCommandService, OleMenuCommandService>();
             Instance = new SendToToolboxCommand(package, commandService, logger);
         }
 
@@ -48,7 +48,7 @@ namespace RapidXamlToolkit.Commands
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            var tbs = await Instance.ServiceProvider.GetServiceAsync(typeof(IVsToolbox)) as IVsToolbox;
+            var tbs = await Instance.AsyncPackage.GetServiceAsync<IVsToolbox, IVsToolbox>();
 
             var itemInfo = new TBXITEMINFO[1];
             var tbItem = new OleDataObject();
@@ -79,7 +79,7 @@ namespace RapidXamlToolkit.Commands
                 this.Logger?.RecordFeatureUsage(nameof(SendToToolboxCommand));
 
                 this.Logger?.RecordInfo(StringRes.Info_AttemptingToAddToToolbox);
-                var parserResult = await this.GetXamlAsync(Instance.ServiceProvider);
+                var parserResult = await this.GetXamlAsync(Instance.AsyncPackage);
 
                 if (parserResult != null && parserResult.OutputType != ParserOutputType.None)
                 {
@@ -87,12 +87,12 @@ namespace RapidXamlToolkit.Commands
 
                     await AddToToolboxAsync(label, parserResult.Output);
 
-                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.UI_AddedXamlToToolbox.WithParams(label));
+                    await ShowStatusBarMessageAsync(Instance.AsyncPackage, StringRes.UI_AddedXamlToToolbox.WithParams(label));
                     this.Logger.RecordInfo(StringRes.UI_AddedXamlToToolbox.WithParams(label));
                 }
                 else
                 {
-                    await ShowStatusBarMessageAsync(Instance.ServiceProvider, StringRes.UI_NothingAddedToToolbox);
+                    await ShowStatusBarMessageAsync(Instance.AsyncPackage, StringRes.UI_NothingAddedToToolbox);
                     this.Logger.RecordInfo(StringRes.UI_NothingAddedToToolbox);
                 }
             }

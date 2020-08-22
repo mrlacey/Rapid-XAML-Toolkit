@@ -5,6 +5,11 @@ I know. There's a lot going on here. It's complicated.
 
 These notes are to try and make it a little be easier to understand.
 
+There are high level notes at https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/docs/getting-started.md#working-with-source
+
+Some more specific testing notes are below.
+
+
 Build Time Analysis
 -------------------
 

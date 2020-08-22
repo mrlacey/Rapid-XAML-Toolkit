@@ -26,10 +26,11 @@ Here's what you need to know if you want to [contribute](../CONTRIBUTING.md) or 
 
 ### Solutions
 
-There are three sln file to be aware of
+There are four sln file to be aware of
 
 - Templates/RapidXaml.Templates.sln
 - VSIX/RapidXamlToolkit.sln
+- VSIX/RapidXamlToolkit.Everything.sln
 - VSIX/RapidXamlToolkit.PRBuild.sln
 
 ####  Templates/RapidXaml.Templates.sln
@@ -43,7 +44,6 @@ These are kept separate from the other projects to reduce the size of the soluti
 
 The solution contains these projects:
 
-- `BuildAnalysisUwpTestApp` is a UWP app that is used to manually test the BuildAnalysis functionality.
 - `RapidXaml.Analysis` is a shipping **VSIX** package that contains the XAML Analysis functionality. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlAnalysis)_
 - `RapidXaml.AnalysisExe` is a console app that is capable of running the XAML Analysis functionality outside of Visual Studio.
 - `RapidXaml.BuildAnalysis` is a shipping **NuGet** package that contains RapidXaml.AnalysisExe so that XAML Analysis can be performed as part of a build process. _[install link](https://www.nuget.org/packages/RapidXaml.BuildAnalysis/)_
@@ -54,15 +54,21 @@ The solution contains these projects:
 - `RapidXaml.Shared` is a library containing code shared between other projects that produce a VSIX package.
 - `RapidXamlToolkit` is a shipping **VSIX** extension pack for bundling all separate tools through a single extension. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit)_
 - `RapidXamlToolkit.Tests` is a test project containing automated tests for other projects in the solution.
-- `RapidXamlToolkit.Tests.Manual` is a test project containing tests that require additional configuration or manual verification. You will need to make changes to the code to run these tests. Look for comments in the code for details of what to change/specify.
-- `Tools/OptionsEmulator` is a WPF app that allows viewing the UI that is displayed in the Options dialogs without having to start an instance of Visual Studio. It is useful in testing.
-- `Tools/Benchmarking` is a Console app that contains a sampling of the XAML Analysis functionality and is used for monitoring performance.
 - `Tools/RapidXaml.InternalAnalyzers` contains Roslyn code anlayzers for enforcing code patterns and requirements within the solution.
-- `Tools/SetVersionNumbers` is a Console app that can set the version number in all files that are part of the toolkit. This exists to avoid manually changing multiple files.
 
 #### VSIX/RapidXamlToolkit.PRBuild.sln
 
 There is another solution (`RapidXamlToolkit.PRBuild.sln`) in the 'VSIX' folder which only contains the main extension projects and the automated tests project. This solution is used by the PR and CI pipelines. Depending on what you do with the source, you _may_ be able to get by with using this solution.
+
+#### VSIX/RapidXamlToolkit.Everything.sln
+
+The final solution in the 'VSIX' folder contains everything in 'RapidXamlToolkit.sln' and some extra utilities as well:
+
+- `BuildAnalysisUwpTestApp` is a UWP app that is used to manually test the BuildAnalysis functionality.
+- `RapidXamlToolkit.Tests.Manual` is a test project containing tests that require additional configuration or manual verification. You will need to make changes to the code to run these tests. Look for comments in the code for details of what to change/specify.
+- `Tools/Benchmarking` is a Console app that contains a sampling of the XAML Analysis functionality and is used for monitoring performance.
+- `Tools/OptionsEmulator` is a WPF app that allows viewing the UI that is displayed in the Options dialogs without having to start an instance of Visual Studio. It is useful in testing.
+- `Tools/SetVersionNumbers` is a Console app that can set the version number in all files that are part of the toolkit. This exists to avoid the need to manually change multiple files.
 
 ### Warnings and TODO comments
 
