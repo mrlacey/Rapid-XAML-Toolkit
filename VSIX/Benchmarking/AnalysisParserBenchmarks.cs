@@ -31,7 +31,6 @@ namespace Benchmarking
             var snapshot = new FakeTextSnapshot();
 
             XamlElementExtractor.Parse(ProjectType.Uwp, fileName, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, new TestVisualStudioAbstraction(), DefaultTestLogger.Create()), result.Tags, new TestVisualStudioAbstraction());
-
         }
     }
 }

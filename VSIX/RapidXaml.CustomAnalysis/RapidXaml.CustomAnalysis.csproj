@@ -18,10 +18,6 @@
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\RapidXaml.Analysis\XamlAnalysis\RapidXamlElementExtractor.cs" Link="RapidXamlElementExtractor.cs" />
-    <Compile Include="..\RapidXaml.Analysis\XamlAnalysis\SizeLimitedDictionary.cs" Link="SizeLimitedDictionary.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="GuiLabs.Language.Xml" Version="1.2.46" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
@@ -52,6 +48,10 @@
   <!-- Don't clutter up the solution view with generated packages -->
   <ItemGroup>
     <None Remove="*.nupkg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\RapidXamlElementExtractor.cs" Link="RapidXamlElementExtractor.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\SizeLimitedDictionary.cs" Link="SizeLimitedDictionary.cs" />
   </ItemGroup>
   <Import Project="..\packandsignnupkg.targets" />
 </Project>

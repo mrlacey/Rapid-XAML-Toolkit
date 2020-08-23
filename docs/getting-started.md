@@ -26,14 +26,13 @@ Here's what you need to know if you want to [contribute](../CONTRIBUTING.md) or 
 
 ### Solutions
 
-There are four sln file to be aware of
+There are three sln files to be aware of
 
 - Templates/RapidXaml.Templates.sln
 - VSIX/RapidXamlToolkit.sln
 - VSIX/RapidXamlToolkit.Everything.sln
-- VSIX/RapidXamlToolkit.PRBuild.sln
 
-####  Templates/RapidXaml.Templates.sln
+#### Templates/RapidXaml.Templates.sln
 
 The `Templates` folder includes `RapidXaml.Templates.sln` which contains the [project and item templates packaged in a VSIX package](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlTemplates).
 These are kept separate from the other projects to reduce the size of the solutions.
@@ -45,7 +44,9 @@ These are kept separate from the other projects to reduce the size of the soluti
 The solution contains these projects:
 
 - `RapidXaml.Analysis` is a shipping **VSIX** package that contains the XAML Analysis functionality. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlAnalysis)_
+- `RapidXaml.AnalysisCore` is a shared library containing some of the core XAML analysis related classes. It contains logic used by RapidXaml.Analysis, RapidXaml.AnalysisExe, and RapidXaml.ApplyChanges
 - `RapidXaml.AnalysisExe` is a console app that is capable of running the XAML Analysis functionality outside of Visual Studio.
+- `RapidXaml.ApplyChanges` is a shipping **NuGet** package that contains the ability to use Custom XAML Analysis functionality to automatically modify XAML files. _[install link](https://www.nuget.org/packages/RapidXaml.ApplyChanges/)_
 - `RapidXaml.BuildAnalysis` is a shipping **NuGet** package that contains RapidXaml.AnalysisExe so that XAML Analysis can be performed as part of a build process. _[install link](https://www.nuget.org/packages/RapidXaml.BuildAnalysis/)_
 - `RapidXaml.Common` is a shipping **VSIX** package that contains Visual Studio context menus that are shared by other extensions. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlCommon)_
 - `RapidXaml.CustomAnalysis` is the **NuGet** package that contains the shared logic for custom XAML Analysis. _[install link](https://www.nuget.org/packages/RapidXaml.CustomAnalysis/)_
@@ -54,15 +55,11 @@ The solution contains these projects:
 - `RapidXaml.Shared` is a library containing code shared between other projects that produce a VSIX package.
 - `RapidXamlToolkit` is a shipping **VSIX** extension pack for bundling all separate tools through a single extension. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit)_
 - `RapidXamlToolkit.Tests` is a test project containing automated tests for other projects in the solution.
-- `Tools/RapidXaml.InternalAnalyzers` contains Roslyn code anlayzers for enforcing code patterns and requirements within the solution.
-
-#### VSIX/RapidXamlToolkit.PRBuild.sln
-
-There is another solution (`RapidXamlToolkit.PRBuild.sln`) in the 'VSIX' folder which only contains the main extension projects and the automated tests project. This solution is used by the PR and CI pipelines. Depending on what you do with the source, you _may_ be able to get by with using this solution.
+- `Tools/RapidXaml.InternalAnalyzers` contains Roslyn code analyzers for enforcing code patterns and requirements within the solution.
 
 #### VSIX/RapidXamlToolkit.Everything.sln
 
-The final solution in the 'VSIX' folder contains everything in 'RapidXamlToolkit.sln' and some extra utilities as well:
+The other solution in the 'VSIX' folder contains everything in 'RapidXamlToolkit.sln' and some extra utilities as well:
 
 - `BuildAnalysisUwpTestApp` is a UWP app that is used to manually test the BuildAnalysis functionality.
 - `RapidXamlToolkit.Tests.Manual` is a test project containing tests that require additional configuration or manual verification. You will need to make changes to the code to run these tests. Look for comments in the code for details of what to change/specify.
@@ -95,4 +92,3 @@ Release builds of projects that produce .vsix or .nupkg files are automatically 
 - `SIGN_CERT_HASH` is the hash of the certificate.
 - `SIGN_CERTIFICATE` is the path to the .pfx file.
 - `SIGN_PASSWORD` is the password for the certificate.
-

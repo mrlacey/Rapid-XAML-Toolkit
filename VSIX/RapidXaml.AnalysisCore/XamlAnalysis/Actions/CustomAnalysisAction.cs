@@ -63,7 +63,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     this.InnerExecute(vs, sat, cancellationToken);
                 }
 
+#if VSIXNOTEXE
                 RapidXamlDocumentCache.TryUpdate(this.File);
+#endif
             }
             finally
             {

@@ -36,5 +36,10 @@ namespace RapidXamlToolkit.Commands
         {
             return Path.Combine(paths);
         }
+
+        public void WriteAllFileText(string fileName, string fileContents)
+        {
+            File.WriteAllText(fileName, fileContents);
+        }
     }
 }

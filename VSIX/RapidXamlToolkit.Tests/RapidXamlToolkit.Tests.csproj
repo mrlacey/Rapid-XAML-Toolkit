@@ -56,6 +56,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplyChanges\XamlConverterTests.cs" />
     <Compile Include="Extensions\ProjectTypeExtensionTests.cs" />
     <Compile Include="FakeTextSnapshot.cs" />
     <Compile Include="FakeTextSnapshotLine.cs" />
@@ -243,9 +244,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">
+      <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
+      <Name>RapidXaml.AnalysisCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Analysis\RapidXaml.Analysis.csproj">
       <Project>{fc81b148-4683-4557-bea1-69ad39241576}</Project>
       <Name>RapidXaml.Analysis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.ApplyChanges\RapidXaml.ApplyChanges.csproj">
+      <Project>{5F3422D2-6BD4-45C1-85BE-70A722EB8AEB}</Project>
+      <Name>RapidXaml.ApplyChanges</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
       <Project>{93ba7914-1204-49f8-977a-091d30e4718b}</Project>
@@ -264,6 +273,7 @@
       <Name>RapidXaml.Shared</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

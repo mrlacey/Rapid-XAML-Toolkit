@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             this.customProcessor = customProcessor;
         }
 
-        internal RapidXaml.ICustomAnalyzer CustomAnalyzer
+        public RapidXaml.ICustomAnalyzer CustomAnalyzer
         {
             get
             {

@@ -51,7 +51,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public string CustomFeatureUsageOverride { get; protected set; }
 
-        internal string File { get; }
+        public string File { get; }
 
         protected ITextView View { get; set; }
 

@@ -9,7 +9,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     public class NameTitleCaseTag : RapidXamlDisplayedTag
     {
         public NameTitleCaseTag(TagDependencies tagDeps, string value)
-            : base(tagDeps, "RXT452",  TagErrorType.Suggestion)
+            : base(tagDeps, "RXT452", TagErrorType.Suggestion)
         {
             this.SuggestedAction = typeof(MakeNameStartWithCapitalAction);
             this.ToolTip = StringRes.UI_XamlAnalysisNameTitleCaseToolTip;

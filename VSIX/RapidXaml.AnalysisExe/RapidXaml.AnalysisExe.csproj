@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj" />
     <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj" />
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj" />
   </ItemGroup>

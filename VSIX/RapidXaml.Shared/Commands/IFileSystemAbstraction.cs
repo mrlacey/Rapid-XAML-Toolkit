@@ -16,5 +16,7 @@ namespace RapidXamlToolkit.Commands
         string PathCombine(params string[] paths);
 
         string GetFileNameWithoutExtension(string fileName);
+
+        void WriteAllFileText(string fileName, string fileContents);
     }
 }

@@ -12,6 +12,8 @@ namespace RapidXamlToolkit.Tests
 
         public string FileText { get; set; } = null;
 
+        public string WrittenFileText { get; set; } = null;
+
         public bool FileExists(string fileName)
         {
             return this.FileExistsResponse;
@@ -40,6 +42,11 @@ namespace RapidXamlToolkit.Tests
         public string PathCombine(params string[] paths)
         {
             return Path.Combine(paths);
+        }
+
+        public void WriteAllFileText(string fileName, string fileContents)
+        {
+            this.WrittenFileText = fileContents;
         }
     }
 }
