@@ -18,13 +18,13 @@ namespace RapidXaml.InternalAnalyzers
         private static readonly string MessageFormat = "Hard-coded string passed to '{0}'";
         private static readonly string Description = "All strings passed to ILogger methods must be localized.";
 
-        private static DiagnosticDescriptor rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
+        private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Warning, isEnabledByDefault: true, description: Description);
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
             get
             {
-                return ImmutableArray.Create(rule);
+                return ImmutableArray.Create(Rule);
             }
         }
 
@@ -103,7 +103,7 @@ namespace RapidXaml.InternalAnalyzers
                     if (arg.Expression is LiteralExpressionSyntax
                      || arg.Expression.ToString().StartsWith("\""))
                     {
-                        var diagnostic = Diagnostic.Create(rule, arg.GetLocation(), checkArgs);
+                        var diagnostic = Diagnostic.Create(Rule, arg.GetLocation(), checkArgs);
 
                         context.ReportDiagnostic(diagnostic);
                     }

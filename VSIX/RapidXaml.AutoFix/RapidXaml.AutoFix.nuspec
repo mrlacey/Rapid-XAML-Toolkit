@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>RapidXaml.AutoFix</id>
+    <version>1.0.0-preview1</version>
+    <authors>Matt Lacey</authors>
+    <owners>MRLacey</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://rapidxaml.dev</projectUrl>
+    <repository type="git" url="https://github.com/mrlacey/Rapid-XAML-Toolkit" />
+    <icon>images\icon.png</icon>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Use Rapid XAML custom analyzers to modify XAML files.</description>
+    <summary>Apply automatic changes to XAML files.</summary>
+    <releaseNotes>.</releaseNotes>
+    <copyright>Copyright 2020 Matt Lacey Ltd.</copyright>
+    <tags>XAML, WinUI, UWP, WPF, Xamarin.Forms, MVVM, UNO</tags>
+    <dependencies>
+      <group targetFramework="netstandard2.0">
+        <dependency id="RapidXaml.CustomAnalysis" version="0.10.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src=".\icon.png" target="images\" />
+      <file src=".\bin\release\net472\*.dll" target="lib\net472\" />
+      <file src=".\bin\release\net472\*.pdb" target="lib\net472\" />
+      <file src=".\bin\release\net472\*.config" target="lib\net472\" />
+  </files>
+</package>

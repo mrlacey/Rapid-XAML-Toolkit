@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-namespace RapidXaml
+namespace RapidXaml.AutoFix
 {
-    public class ApplyChangesAnalysisActions : AnalysisActions
+    public class AutoFixAnalysisActions : AnalysisActions
     {
         public static AnalysisActions RenameElement(string newName)
         {

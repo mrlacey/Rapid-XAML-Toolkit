@@ -85,7 +85,6 @@
     <Compile Include="XamlAnalysis\Actions\AddRowDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ColumnSpanOverflowAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\HardCodedStringAction.cs" />
     <Compile Include="XamlAnalysis\Actions\InjectFixedXamlSuggestedAction.cs" />
     <Compile Include="XamlAnalysis\Actions\InsertRowDefinitionAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MediaElementAction.cs" />
@@ -156,7 +155,6 @@
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
     <Compile Include="XamlAnalysis\Tags\CheckBoxCheckedAndUncheckedEventsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertRowDefinitionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\MissingColumnDefinitionTag.cs" />

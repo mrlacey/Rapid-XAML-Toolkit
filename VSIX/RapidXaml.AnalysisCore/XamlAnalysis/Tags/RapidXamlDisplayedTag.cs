@@ -154,6 +154,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public void SetAsHiddenInSettingsFile()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (string.IsNullOrWhiteSpace(this.FileName))
             {
                 this.Logger.RecordInfo(StringRes.Info_FileNameMissingFromTag);

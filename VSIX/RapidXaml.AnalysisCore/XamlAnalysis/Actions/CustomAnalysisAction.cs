@@ -62,10 +62,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     var sat = this.RepurposeTagForSupplementaryAction(this.Tag, suppAction);
                     this.InnerExecute(vs, sat, cancellationToken);
                 }
-
-#if VSIXNOTEXE
-                RapidXamlDocumentCache.TryUpdate(this.File);
-#endif
             }
             finally
             {

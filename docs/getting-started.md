@@ -44,9 +44,9 @@ These are kept separate from the other projects to reduce the size of the soluti
 The solution contains these projects:
 
 - `RapidXaml.Analysis` is a shipping **VSIX** package that contains the XAML Analysis functionality. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlAnalysis)_
-- `RapidXaml.AnalysisCore` is a shared library containing some of the core XAML analysis related classes. It contains logic used by RapidXaml.Analysis, RapidXaml.AnalysisExe, and RapidXaml.ApplyChanges
+- `RapidXaml.AnalysisCore` is a shared library containing some of the core XAML analysis related classes. It contains logic used by RapidXaml.Analysis, RapidXaml.AnalysisExe, and RapidXaml.AutoFix
 - `RapidXaml.AnalysisExe` is a console app that is capable of running the XAML Analysis functionality outside of Visual Studio.
-- `RapidXaml.ApplyChanges` is a shipping **NuGet** package that contains the ability to use Custom XAML Analysis functionality to automatically modify XAML files. _[install link](https://www.nuget.org/packages/RapidXaml.ApplyChanges/)_
+- `RapidXaml.AutoFix` is a shipping **NuGet** package that contains the ability to use Custom XAML Analysis functionality to automatically modify XAML files. _[install link](https://www.nuget.org/packages/RapidXaml.AutoFix/)_
 - `RapidXaml.BuildAnalysis` is a shipping **NuGet** package that contains RapidXaml.AnalysisExe so that XAML Analysis can be performed as part of a build process. _[install link](https://www.nuget.org/packages/RapidXaml.BuildAnalysis/)_
 - `RapidXaml.Common` is a shipping **VSIX** package that contains Visual Studio context menus that are shared by other extensions. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlCommon)_
 - `RapidXaml.CustomAnalysis` is the **NuGet** package that contains the shared logic for custom XAML Analysis. _[install link](https://www.nuget.org/packages/RapidXaml.CustomAnalysis/)_

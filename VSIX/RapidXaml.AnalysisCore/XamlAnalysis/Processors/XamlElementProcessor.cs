@@ -313,7 +313,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
         {
-#if VSIXNOTEXE
             if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
@@ -336,12 +335,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     tags.TryAdd(tag, xamlElement, suppressions);
                 }
             }
-#endif
         }
 
         protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, string guidFallbackAttributeName, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
         {
-#if VSIXNOTEXE
             if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
@@ -366,7 +363,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     tags.TryAdd(tag, xamlElement, suppressions);
                 }
             }
-#endif
         }
 
         protected (bool uidExists, string uidValue) GetOrGenerateUid(string xamlElement, string attributeName)

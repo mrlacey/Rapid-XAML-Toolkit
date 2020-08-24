@@ -3,9 +3,9 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
-using RapidXaml.ApplyChanges;
+using RapidXaml.AutoFix;
 
-namespace RapidXamlToolkit.Tests.ApplyChanges
+namespace RapidXamlToolkit.Tests.AutoFix
 {
     [TestClass]
     public class XamlConverterTests
@@ -120,12 +120,14 @@ namespace RapidXamlToolkit.Tests.ApplyChanges
                 FileText = original,
             };
 
+#if DEBUG
             var sut = new XamlConverter(fs);
 
             var (success, _) = sut.ConvertFile("somefile.xaml", new[] { new WebViewToWebView2Basic() });
 
             Assert.AreEqual(true, success);
             Assert.AreEqual(expected, fs.WrittenFileText);
+#endif
         }
 
         public class WebViewToWebView2Basic : ICustomAnalyzer
@@ -134,7 +136,7 @@ namespace RapidXamlToolkit.Tests.ApplyChanges
 
             public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
             {
-                return ApplyChangesAnalysisActions.RenameElement("WebView2");
+                return AutoFixAnalysisActions.RenameElement("WebView2");
             }
         }
     }

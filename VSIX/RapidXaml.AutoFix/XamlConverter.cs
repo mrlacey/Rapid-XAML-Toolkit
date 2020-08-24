@@ -12,7 +12,7 @@ using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
-namespace RapidXaml.ApplyChanges
+namespace RapidXaml.AutoFix
 {
     public class XamlConverter
     {
@@ -50,13 +50,14 @@ namespace RapidXaml.ApplyChanges
 
             var text = this.FileSystem.GetAllFileText(xamlFilePath);
 
-            var output = new List<string>();
-
-            output.Add($"Analyzing '{xamlFilePath}'");
+            var output = new List<string>
+            {
+                $"Analyzing '{xamlFilePath}'",
+            };
 
             var snapshot = new FakeTextSnapshot();
 
-            var logger = DefaultTestLogger.Create();
+            var logger = EmptyLogger.Create();
             var vsAbstraction = new AutoFixVisualStudioAbstraction();
 
             try
@@ -80,7 +81,6 @@ namespace RapidXaml.ApplyChanges
 
                 foreach (var tag in tags)
                 {
-                    // TODO: fix the issue(s)
                     // base this on CustomAnalysisAction.InnerExecute
                     // but need a new VsAbstraction (that doesn't need to worry about line number offset)
                     // This always should be a CustomAnalysisTag but doesn't hurt to check when casting.

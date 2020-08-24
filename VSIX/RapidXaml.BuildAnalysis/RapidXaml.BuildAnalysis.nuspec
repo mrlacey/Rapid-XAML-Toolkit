@@ -43,7 +43,6 @@
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.EditorFeatures.Text.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.Features.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.FlowAnalysis.Utilities.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\Microsoft.CodeAnalysis.InteractiveHost.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.Scripting.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.VisualBasic.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll" target="tools/net472/" />

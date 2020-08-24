@@ -34,7 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.CoreUtility" Version="16.1.89" />
     <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="16.1.89" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
