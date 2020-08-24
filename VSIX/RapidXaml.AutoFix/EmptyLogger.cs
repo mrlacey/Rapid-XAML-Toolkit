@@ -4,7 +4,7 @@
 using System;
 using RapidXamlToolkit.Logging;
 
-namespace RapidXaml.AutoFix
+namespace RapidXaml
 {
     public class EmptyLogger : ILogger
     {

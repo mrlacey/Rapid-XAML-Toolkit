@@ -12,7 +12,7 @@ using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
-namespace RapidXaml.AutoFix
+namespace RapidXaml
 {
     public class XamlConverter
     {

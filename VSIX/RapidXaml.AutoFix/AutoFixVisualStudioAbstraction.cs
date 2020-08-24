@@ -8,7 +8,7 @@ using RapidXamlToolkit;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.VisualStudioIntegration;
 
-namespace RapidXaml.AutoFix
+namespace RapidXaml
 {
     public class AutoFixVisualStudioAbstraction : IVisualStudioAbstraction
     {
