@@ -101,6 +101,8 @@ namespace RapidXaml
                                 break;
                             case ActionType.RenameElement:
 
+                                output.Add($"Renaming an instance of {cat.ElementName} to {cat.Name}");
+
                                 var orig = cat.AnalyzedElement.OriginalString;
 
                                 // Note that cat.Span is for the name of the element in the opening tag
@@ -138,7 +140,8 @@ namespace RapidXaml
 
         public (bool success, List<string> details) ConvertAllFilesInProject(string projectFilePath, IEnumerable<ICustomAnalyzer> analyzers)
         {
-            throw new NotImplementedException("TODO");
+            // TODO: ISSUE#380 Implement XamlConverter support for project files
+            throw new NotImplementedException("Coming Soon");
         }
     }
 }
