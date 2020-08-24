@@ -254,10 +254,6 @@
       <Project>{66140843-f2dc-4697-bac4-50b7afaa8bbe}</Project>
       <Name>RapidXaml.AutoFix</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
-      <Project>{93ba7914-1204-49f8-977a-091d30e4718b}</Project>
-      <Name>RapidXaml.CustomAnalysis</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Generation\RapidXaml.Generation.csproj">
       <Project>{f3e12d01-04d9-49d0-bb5b-f4fd62cff54a}</Project>
       <Name>RapidXaml.Generation</Name>

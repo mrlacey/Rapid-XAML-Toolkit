@@ -14,21 +14,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class CustomProcessorWrapper : XamlElementProcessor
     {
-        private readonly RapidXaml.ICustomAnalyzer customProcessor;
-
         public CustomProcessorWrapper(RapidXaml.ICustomAnalyzer customProcessor, ProjectType projType, string projectPath, ILogger logger, IVisualStudioAbstraction vsa)
             : base(new ProcessorEssentials(projType, logger, projectPath, vsa))
         {
-            this.customProcessor = customProcessor;
+            this.CustomAnalyzer = customProcessor;
         }
 
-        public RapidXaml.ICustomAnalyzer CustomAnalyzer
-        {
-            get
-            {
-                return this.customProcessor;
-            }
-        }
+        public RapidXaml.ICustomAnalyzer CustomAnalyzer { get; private set; }
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
         {
@@ -36,7 +28,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             var details = new ExtraAnalysisDetails(fileName, ProjectFrameworkHelper.FromType(this.ProjectType));
 
-            var analysisActions = this.customProcessor.Analyze(rxElement, details);
+            var analysisActions = this.CustomAnalyzer.Analyze(rxElement, details);
 
             if (!analysisActions.IsNone)
             {
@@ -59,13 +51,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                     // Treat `NotReallyCustomAnalyzer` types as any other built-in type.
                     // Track additional information about 3rd party custom analyzers.
-                    if (this.customProcessor is CustomAnalysis.NotReallyCustomAnalyzer)
+                    if (this.CustomAnalyzer is CustomAnalysis.NotReallyCustomAnalyzer)
                     {
-                        tagDeps.CustomFeatureUsageValue = this.customProcessor.GetType().Name;
+                        tagDeps.CustomFeatureUsageValue = this.CustomAnalyzer.GetType().Name;
                     }
                     else
                     {
-                        tagDeps.CustomFeatureUsageValue = $"{this.customProcessor} {action.Code}";
+                        tagDeps.CustomFeatureUsageValue = $"{this.CustomAnalyzer} {action.Code}";
                     }
 
                     if (action.Location == null)

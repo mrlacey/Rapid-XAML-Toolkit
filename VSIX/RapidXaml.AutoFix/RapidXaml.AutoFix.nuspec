@@ -17,7 +17,7 @@
     <tags>XAML, WinUI, UWP, WPF, Xamarin.Forms, MVVM, UNO</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
-        <dependency id="RapidXaml.CustomAnalysis" version="0.10.0" exclude="Build,Analyzers" />
+        <dependency id="RapidXaml.CustomAnalysis" version="0.10.1" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

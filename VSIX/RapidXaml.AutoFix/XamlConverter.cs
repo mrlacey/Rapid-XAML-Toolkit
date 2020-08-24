@@ -66,7 +66,7 @@ namespace RapidXaml
 
                 foreach (var analyzer in analyzers)
                 {
-                    output.Add($"Preparing to analyze '{analyzer.TargetType()}'.");
+                    output.Add($"Will analyze instances of '{analyzer.TargetType()}'.");
 
                     processors.Add(
                         (analyzer.TargetType(),
@@ -77,7 +77,10 @@ namespace RapidXaml
 
                 XamlElementExtractor.Parse(ProjectType.Any, "Generic.xaml", snapshot, text, processors, tags, vsAbstraction, skipEveryElementProcessor: true);
 
-                output.Add($"Found {tags.Count} places to make changes.");
+                var plural = tags.Count == 1 ? string.Empty : "s";
+                output.Add($"Found {tags.Count} place{plural} to make changes.");
+
+                tags.Reverse();  // Work back through the document to allow for modifications
 
                 foreach (var tag in tags)
                 {

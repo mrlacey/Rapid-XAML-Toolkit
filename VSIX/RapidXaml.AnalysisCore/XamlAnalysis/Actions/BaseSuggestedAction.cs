@@ -95,7 +95,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     SharedRapidXamlPackage.Logger?.RecordFeatureUsage(this.CustomFeatureUsageOverride.Trim());
                 }
 
-                // TODO: need to call this - somehow
+                // TODO: call this - somehow
                 //RapidXamlDocumentCache.TryUpdate(this.File);
             }
             catch (Exception exc)

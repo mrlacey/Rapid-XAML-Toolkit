@@ -206,9 +206,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GuiLabs.Language.Xml">
-      <Version>1.2.46</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis">
       <Version>3.2.0</Version>
     </PackageReference>
@@ -250,10 +247,6 @@
     <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">
       <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
       <Name>RapidXaml.AnalysisCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
-      <Project>{93ba7914-1204-49f8-977a-091d30e4718b}</Project>
-      <Name>RapidXaml.CustomAnalysis</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>

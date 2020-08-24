@@ -93,7 +93,7 @@
       <Version>16.0.206</Version>
     </PackageReference>
     <PackageReference Include="RapidXaml.CustomAnalysis">
-      <Version>0.10.0</Version>
+      <Version>0.10.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

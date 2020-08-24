@@ -240,7 +240,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             if (!string.IsNullOrWhiteSpace(xamlElement)
                 && RxElementCache.ContainsKey(xamlElement))
             {
-                return RxElementCache[xamlElement];
+                return RxElementCache[xamlElement].WithUpdatedLocationStart(offset);
             }
             else
             {

@@ -143,6 +143,22 @@ namespace RapidXamlToolkit.Tests.AutoFix
             this.TestWebViewToWebView2BasicConversions(input, expected);
         }
 
+        [TestMethod]
+        public void ReplaceEmptyAndSelfClosingElements_MultipleInstances()
+        {
+            var input = @"<Page>
+<WebView></WebView>
+<WebView />
+</Page>";
+
+            var expected = @"<Page>
+<WebView2></WebView2>
+<WebView2 />
+</Page>";
+
+            this.TestWebViewToWebView2BasicConversions(input, expected);
+        }
+
         private void TestWebViewToWebView2BasicConversions(string original, string expected)
         {
             var fs = new TestFileSystem

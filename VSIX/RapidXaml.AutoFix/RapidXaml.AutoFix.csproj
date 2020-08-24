@@ -27,7 +27,7 @@
       <Version>16.0.206</Version>
     </PackageReference>
     <PackageReference Include="RapidXaml.CustomAnalysis">
-      <Version>0.10.0</Version>
+      <Version>0.10.1</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
