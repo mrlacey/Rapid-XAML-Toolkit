@@ -82,6 +82,9 @@ namespace RapidXaml
 
                 tags.Reverse();  // Work back through the document to allow for modifications
 
+                // TODO: consider adding an actiontype to include xmlns at top level of document
+
+                // TODO: handle SuplementaryActions
                 foreach (var tag in tags)
                 {
                     // base this on CustomAnalysisAction.InnerExecute
@@ -92,15 +95,19 @@ namespace RapidXaml
                         switch (cat.Action)
                         {
                             case ActionType.AddAttribute:
+                                // TODO: implement AddAttribute
                                 break;
                             case ActionType.AddChild:
+                                // TODO: implement AddChild
                                 break;
                             case ActionType.HighlightWithoutAction:
                                 // NOOP - Nothing to fix here
                                 break;
                             case ActionType.RemoveAttribute:
+                                // TODO: implement RemoveAttribute
                                 break;
                             case ActionType.RemoveChild:
+                                // TODO: implement RemoveChild
                                 break;
                             case ActionType.RenameElement:
 
@@ -124,6 +131,7 @@ namespace RapidXaml
 
                                 break;
                             case ActionType.ReplaceElement:
+                                // TODO: implement ReplaceElement
                                 break;
                             default:
                                 break;
