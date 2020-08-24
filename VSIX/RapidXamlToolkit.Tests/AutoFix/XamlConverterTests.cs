@@ -3,7 +3,6 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
-using RapidXaml.AutoFix;
 
 namespace RapidXamlToolkit.Tests.AutoFix
 {
@@ -107,6 +106,38 @@ namespace RapidXamlToolkit.Tests.AutoFix
     <WebView2>
         <SomethingElse />
     </WebView2>
+</Page>";
+
+            this.TestWebViewToWebView2BasicConversions(input, expected);
+        }
+
+        [TestMethod]
+        public void ReplaceSelfClosingElementName_MultipleInstances()
+        {
+            var input = @"<Page>
+<WebView />
+<WebView />
+</Page>";
+
+            var expected = @"<Page>
+<WebView2 />
+<WebView2 />
+</Page>";
+
+            this.TestWebViewToWebView2BasicConversions(input, expected);
+        }
+
+        [TestMethod]
+        public void ReplaceEmptyElementName_MultipleInstances()
+        {
+            var input = @"<Page>
+<WebView></WebView>
+<WebView></WebView>
+</Page>";
+
+            var expected = @"<Page>
+<WebView2></WebView2>
+<WebView2></WebView2>
 </Page>";
 
             this.TestWebViewToWebView2BasicConversions(input, expected);
