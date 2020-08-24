@@ -56,11 +56,11 @@ namespace RapidXaml.TestHelpers
             return element;
         }
 
-        public static RapidXamlElement SetContent(this RapidXamlElement expected, string content)
+        public static RapidXamlElement SetContent(this RapidXamlElement element, string content)
         {
-            expected.Content = content;
+            element.Content = content;
 
-            return expected;
+            return element;
         }
     }
 }
