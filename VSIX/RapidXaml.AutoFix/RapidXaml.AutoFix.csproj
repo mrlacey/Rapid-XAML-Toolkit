@@ -16,6 +16,8 @@
     <Compile Include="..\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\RapidXamlElementExtractor.cs" Link="RapidXamlElementExtractor.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\SizeLimitedDictionary.cs" Link="SizeLimitedDictionary.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">

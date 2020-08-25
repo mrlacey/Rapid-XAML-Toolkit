@@ -8,7 +8,7 @@ using RapidXaml.TestHelpers;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
-    // This is internal as also linked into the CustomAnalysis project.
+    // This is internal as also linked into the CustomAnalysis & AutoFix projects.
     internal static class RapidXamlElementExtractor
     {
         // This is quite a simple caching strategy.

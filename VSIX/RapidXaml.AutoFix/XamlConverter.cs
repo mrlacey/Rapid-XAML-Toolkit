@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Tests;
@@ -84,114 +85,21 @@ namespace RapidXaml
 
                 // TODO: consider adding an actiontype to include xmlns at top level of document
 
-                // TODO: handle SuplementaryActions
                 foreach (var tag in tags)
                 {
-                    // base this on CustomAnalysisAction.InnerExecute
-                    // but need a new VsAbstraction (that doesn't need to worry about line number offset)
                     // This always should be a CustomAnalysisTag but doesn't hurt to check when casting.
                     if (tag is CustomAnalysisTag cat)
                     {
-                        var orig = cat.AnalyzedElement.OriginalString;
+                        var newElement = this.UpdateElementXaml(text, cat, output);
 
-                        switch (cat.Action)
+                        text = text.Substring(0, cat.AnalyzedElement.Location.Start) + newElement + text.Substring(cat.AnalyzedElement.Location.End());
+
+                        foreach (var suppAction in cat.SupplementaryActions)
                         {
-                            case ActionType.AddAttribute:
-                                output.Add($"Adding attribute '{cat.Name}' to {cat.ElementName}");
+                            var sat = this.RepurposeTagForSupplementaryAction(cat, suppAction, newElement);
 
-                                if (orig.EndsWith("/>"))
-                                {
-                                    text = text.Substring(0, cat.Span.Start - 1) + orig.Substring(0, orig.Length - 2) + $"{cat.Name}=\"{cat.Value}\" />" + text.Substring(cat.AnalyzedElement.Location.Start + cat.AnalyzedElement.Location.Length);
-                                }
-                                else
-                                {
-                                    text = text.Substring(0, cat.Span.End) + $" {cat.Name}=\"{cat.Value}\"" + text.Substring(cat.Span.End);
-                                }
-
-                                break;
-                            case ActionType.AddChild:
-                                output.Add($"Adding child element to {cat.ElementName}");
-
-                                if (orig.EndsWith("/>"))
-                                {
-                                    var replacementXaml = $">{Environment.NewLine}{cat.Content}{Environment.NewLine}</{cat.ElementName}>";
-
-                                    text = text.Substring(0, cat.AnalyzedElement.Location.Start + cat.AnalyzedElement.Location.Length - 2) + replacementXaml + text.Substring(cat.AnalyzedElement.Location.Start + cat.AnalyzedElement.Location.Length);
-                                }
-                                else
-                                {
-                                    var insertPos = orig.IndexOf('>');
-
-                                    text = text.Substring(0, cat.AnalyzedElement.Location.Start + insertPos + 1) + $"{Environment.NewLine}{cat.Content}" + text.Substring(cat.AnalyzedElement.Location.Start + insertPos + 1);
-                                }
-
-                                break;
-                            case ActionType.HighlightWithoutAction:
-                                // NOOP - Nothing to fix here
-                                break;
-                            case ActionType.RemoveAttribute:
-
-                                var attrs = cat.AnalyzedElement.GetAttributes(cat.Name).ToList();
-
-                                if (attrs.Count() == 1)
-                                {
-                                    output.Add($"Removing attribute '{cat.Name}' from {cat.ElementName}");
-
-                                    var attr = attrs.First();
-                                    text = text.Substring(0, attr.Location.Start) + text.Substring(attr.Location.Start + attr.Location.Length);
-                                }
-                                else
-                                {
-                                    output.Add($"Not removing attribute '{cat.Name}' from {cat.ElementName} as it doesn't exist");
-                                }
-
-                                break;
-                            case ActionType.RemoveChild:
-                                var children = cat.AnalyzedElement.GetChildren(cat.Element.Name).ToList();
-
-                                if (children.Count() >= 1)
-                                {
-                                    children.Reverse();
-
-                                    foreach (var child in children)
-                                    {
-                                        output.Add($"Removing child '{cat.Element.Name}' from {cat.ElementName}");
-
-                                        text = text.Substring(0, child.Location.Start) + text.Substring(child.Location.Start + child.Location.Length);
-                                    }
-                                }
-                                else
-                                {
-                                    output.Add($"Not removing child '{cat.Name}' from {cat.ElementName} as it doesn't exist");
-                                }
-
-                                break;
-                            case ActionType.RenameElement:
-                                output.Add($"Renaming an instance of {cat.ElementName} to {cat.Name}");
-
-                                // Note that cat.Span is for the name of the element in the opening tag
-                                if (orig.EndsWith("/>"))
-                                {
-                                    text = text.Substring(0, cat.Span.Start) + cat.Name + text.Substring(cat.Span.End);
-                                }
-                                else
-                                {
-                                    var startNameEnd = cat.ElementName.Length + 1;
-                                    var endNameStart = orig.LastIndexOf("</");
-
-                                    var updated = $"<{cat.Name}" + orig.Substring(startNameEnd, endNameStart - startNameEnd) + $"</{cat.Name}>";
-                                    text = text.Substring(0, cat.AnalyzedElement.Location.Start) + updated + text.Substring(cat.AnalyzedElement.Location.Start + cat.AnalyzedElement.Location.Length);
-                                }
-
-                                break;
-                            case ActionType.ReplaceElement:
-                                output.Add($"Replacing {cat.ElementName}");
-
-                                text = text.Substring(0, cat.AnalyzedElement.Location.Start) + cat.Content + text.Substring(cat.AnalyzedElement.Location.Start + cat.AnalyzedElement.Location.Length);
-
-                                break;
-                            default:
-                                break;
+                            newElement = this.UpdateElementXaml(text, sat, output);
+                            text = text.Substring(0, sat.AnalyzedElement.Location.Start) + newElement + text.Substring(sat.AnalyzedElement.Location.End());
                         }
                     }
                 }
@@ -210,6 +118,149 @@ namespace RapidXaml
         {
             // TODO: ISSUE#380 Implement XamlConverter support for project files
             throw new NotImplementedException("Coming Soon");
+        }
+
+        private CustomAnalysisTag RepurposeTagForSupplementaryAction(CustomAnalysisTag tag, AnalysisAction suppAction, string elementXaml)
+        {
+            var ae = RapidXamlElementExtractor.GetElement(elementXaml, tag.AnalyzedElement.Location.Start);
+
+            var catd = new CustomAnalysisTagDependencies
+            {
+                AnalyzedElement = ae,
+                Action = suppAction,
+                ElementName = ae.Name,
+                FileName = tag.FileName,
+                InsertPos = tag.InsertPosition,
+                Logger = tag.Logger,
+                ProjectFilePath = tag.ProjectFilePath,
+                Snapshot = tag.Snapshot,
+                //// Don't need to set VsAbstraction as tags only need it for referencing settings but supplementary actions don't need to know about settings.
+            };
+
+            if (suppAction.Location == null)
+            {
+                if (tag.Action == ActionType.RenameElement)
+                {
+                    catd.Span = new Span(tag.Span.Start, tag.Name.Length);
+                }
+                else
+                {
+                    catd.Span = tag.Span;
+                }
+            }
+            else
+            {
+                catd.Span = suppAction.Location.ToSpanPlusStartPos(tag.InsertPosition);
+            }
+
+            return new CustomAnalysisTag(catd);
+        }
+
+        private string UpdateElementXaml(string text, CustomAnalysisTag cat, List<string> output)
+        {
+            var orig = cat.AnalyzedElement.OriginalString;
+            var newXaml = orig;
+
+            switch (cat.Action)
+            {
+                case ActionType.AddAttribute:
+                    output.Add($"Adding attribute '{cat.Name}' to {cat.ElementName}");
+
+                    if (orig.EndsWith("/>"))
+                    {
+                        newXaml = orig.Substring(0, orig.Length - 2) + $"{cat.Name}=\"{cat.Value}\" />";
+                    }
+                    else
+                    {
+                        newXaml = orig.Substring(0, cat.Span.End - cat.AnalyzedElement.Location.Start) + $" {cat.Name}=\"{cat.Value}\"" + orig.Substring(cat.Span.End - cat.AnalyzedElement.Location.Start);
+                    }
+
+                    break;
+                case ActionType.AddChild:
+                    output.Add($"Adding child element to {cat.ElementName}");
+
+                    if (orig.EndsWith("/>"))
+                    {
+                        var replacementXaml = $">{Environment.NewLine}{cat.Content}{Environment.NewLine}</{cat.ElementName}>";
+
+                        newXaml = orig.Substring(0, orig.Length - 2) + replacementXaml;
+                    }
+                    else
+                    {
+                        var insertPos = orig.IndexOf('>');
+
+                        newXaml = orig.Substring(0, insertPos + 1) + $"{Environment.NewLine}{cat.Content}" + orig.Substring(insertPos + 1);
+                    }
+
+                    break;
+                case ActionType.HighlightWithoutAction:
+                    // NOOP - Nothing to fix here
+                    break;
+                case ActionType.RemoveAttribute:
+
+                    var attrs = cat.AnalyzedElement.GetAttributes(cat.Name).ToList();
+
+                    if (attrs.Count() == 1)
+                    {
+                        output.Add($"Removing attribute '{cat.Name}' from {cat.ElementName}");
+
+                        var attr = attrs.First();
+                        newXaml = orig.Substring(0, attr.Location.Start - cat.AnalyzedElement.Location.Start) + orig.Substring(attr.Location.End() - cat.AnalyzedElement.Location.Start);
+                    }
+                    else
+                    {
+                        output.Add($"Not removing attribute '{cat.Name}' from {cat.ElementName} as it doesn't exist");
+                    }
+
+                    break;
+                case ActionType.RemoveChild:
+                    var children = cat.AnalyzedElement.GetChildren(cat.Element.Name).ToList();
+
+                    if (children.Count() >= 1)
+                    {
+                        children.Reverse();
+
+                        foreach (var child in children)
+                        {
+                            output.Add($"Removing child '{cat.Element.Name}' from {cat.ElementName}");
+
+                            newXaml = newXaml.Substring(0, child.Location.Start - cat.AnalyzedElement.Location.Start) + newXaml.Substring(child.Location.End() - cat.AnalyzedElement.Location.Start);
+                        }
+                    }
+                    else
+                    {
+                        output.Add($"Not removing child '{cat.Name}' from {cat.ElementName} as it doesn't exist");
+                    }
+
+                    break;
+                case ActionType.RenameElement:
+                    output.Add($"Renaming an instance of {cat.ElementName} to {cat.Name}");
+
+                    if (orig.EndsWith("/>"))
+                    {
+                        newXaml = $"<{cat.Name}" + orig.Substring(cat.Span.End - cat.AnalyzedElement.Location.Start);
+                    }
+                    else
+                    {
+                        var startNameEnd = cat.ElementName.Length + 1;
+                        var endNameStart = orig.LastIndexOf("</");
+
+                        var updated = $"<{cat.Name}" + orig.Substring(startNameEnd, endNameStart - startNameEnd) + $"</{cat.Name}>";
+                        newXaml = updated;
+                    }
+
+                    break;
+                case ActionType.ReplaceElement:
+                    output.Add($"Replacing {cat.ElementName}");
+
+                    newXaml = cat.Content;
+
+                    break;
+                default:
+                    break;
+            }
+
+            return newXaml;
         }
     }
 }
