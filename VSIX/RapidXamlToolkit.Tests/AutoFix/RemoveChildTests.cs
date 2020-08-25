@@ -66,6 +66,28 @@ namespace RapidXamlToolkit.Tests.AutoFix
             this.TestWebViewRemoveChildConversions(input, expected);
         }
 
+        [TestMethod]
+        public void RemoveMultipleChildAttributes()
+        {
+            var input = @"<Page>
+    <WebView>
+        <TextBlock>SomeText</TextBlock>
+        <Button />
+        <TextBlock>SomeText</TextBlock>
+    </WebView>
+</Page>";
+
+            var expected = @"<Page>
+    <WebView>
+        
+        <Button />
+        
+    </WebView>
+</Page>";
+
+            this.TestWebViewRemoveChildConversions(input, expected);
+        }
+
         private void TestWebViewRemoveChildConversions(string original, string expected)
         {
             var fs = new TestFileSystem

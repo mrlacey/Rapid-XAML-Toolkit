@@ -149,12 +149,16 @@ namespace RapidXaml
                             case ActionType.RemoveChild:
                                 var children = cat.AnalyzedElement.GetChildren(cat.Element.Name).ToList();
 
-                                if (children.Count() == 1)
+                                if (children.Count() >= 1)
                                 {
-                                    output.Add($"Removing child '{cat.Element.Name}' from {cat.ElementName}");
+                                    children.Reverse();
 
-                                    var child = children.First();
-                                    text = text.Substring(0, child.Location.Start) + text.Substring(child.Location.Start + child.Location.Length);
+                                    foreach (var child in children)
+                                    {
+                                        output.Add($"Removing child '{cat.Element.Name}' from {cat.ElementName}");
+
+                                        text = text.Substring(0, child.Location.Start) + text.Substring(child.Location.Start + child.Location.Length);
+                                    }
                                 }
                                 else
                                 {
