@@ -110,8 +110,19 @@ namespace RapidXaml
 
                                 break;
                             case ActionType.AddChild:
-                                // TODO: implement AddChild
 
+                                if (orig.EndsWith("/>"))
+                                {
+                                    var replacementXaml = $">{Environment.NewLine}{cat.Content}{Environment.NewLine}</{cat.ElementName}>";
+
+                                    text = text.Substring(0, cat.AnalyzedElement.Location.Start + cat.AnalyzedElement.Location.Length - 2) + replacementXaml + text.Substring(cat.AnalyzedElement.Location.Start + cat.AnalyzedElement.Location.Length);
+                                }
+                                else
+                                {
+                                    var insertPos = orig.IndexOf('>');
+
+                                    text = text.Substring(0, cat.AnalyzedElement.Location.Start + insertPos + 1) + $"{Environment.NewLine}{cat.Content}" + text.Substring(cat.AnalyzedElement.Location.Start + insertPos + 1);
+                                }
 
                                 break;
                             case ActionType.HighlightWithoutAction:

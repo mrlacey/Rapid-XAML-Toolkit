@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoFix\AddAttributeTests.cs" />
+    <Compile Include="AutoFix\AddChildStringTests.cs" />
     <Compile Include="AutoFix\RemoveAttributeTests.cs" />
     <Compile Include="AutoFix\RenameElementTests.cs" />
     <Compile Include="AutoFix\ReplaceElementTests.cs" />

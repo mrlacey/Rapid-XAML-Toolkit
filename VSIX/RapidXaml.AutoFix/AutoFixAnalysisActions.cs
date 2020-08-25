@@ -26,6 +26,16 @@ namespace RapidXaml
                 addAttributeValue);
         }
 
+        public static AnalysisActions AddChildString(string xaml)
+        {
+            return AddChildString(
+                RapidXamlErrorType.Error,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                xaml);
+        }
+
         public static AnalysisActions ReplaceElement(string replacementXaml)
         {
             return ReplaceElement(

@@ -19,6 +19,14 @@ namespace RapidXaml
 
         public int Length { get; set; } = -1;
 
+        public int End
+        {
+            get
+            {
+                return this.Start + this.Length;
+            }
+        }
+
         public override string ToString()
         {
             return $"({this.Start}, {this.Length})";
