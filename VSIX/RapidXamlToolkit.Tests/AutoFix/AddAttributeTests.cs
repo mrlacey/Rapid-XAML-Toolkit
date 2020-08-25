@@ -93,6 +93,24 @@ namespace RapidXamlToolkit.Tests.AutoFix
             this.TestWebViewAddAttributeConversions(input, expected);
         }
 
+        [TestMethod]
+        public void NoChangeIfAlreadyAChildElement()
+        {
+            var input = @"<Page>
+    <WebView>
+        <WebView.OnLoaded>OnLoadedEventHandler</WebView.OnLoaded>
+    </WebView>
+</Page>";
+
+            var expected = @"<Page>
+    <WebView>
+        <WebView.OnLoaded>OnLoadedEventHandler</WebView.OnLoaded>
+    </WebView>
+</Page>";
+
+            this.TestWebViewAddAttributeConversions(input, expected);
+        }
+
         private void TestWebViewAddAttributeConversions(string original, string expected)
         {
             var fs = new TestFileSystem
