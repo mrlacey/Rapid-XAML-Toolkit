@@ -111,6 +111,8 @@ namespace RapidXaml
                                 break;
                             case ActionType.AddChild:
                                 // TODO: implement AddChild
+
+
                                 break;
                             case ActionType.HighlightWithoutAction:
                                 // NOOP - Nothing to fix here
@@ -126,7 +128,7 @@ namespace RapidXaml
                                     var attr = attrs.First();
                                     var attrString = orig.Substring(attr.Location.Start - cat.AnalyzedElement.Location.Start, attr.Location.Length);
 
-                                    text = text.Substring(0, cat.AnalyzedElement.Location.Start) + orig.Substring(0, attr.Location.Start - cat.AnalyzedElement.Location.Start) + orig.Substring(attr.Location.Start - cat.AnalyzedElement.Location.Start + attr.Location.Length) + text.Substring(cat.AnalyzedElement.Location.Start + cat.AnalyzedElement.Location.Length);
+                                    text = text.Substring(0, attr.Location.Start) + text.Substring(attr.Location.Start + attr.Location.Length);
                                 }
                                 else
                                 {
