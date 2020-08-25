@@ -14,5 +14,16 @@ namespace RapidXaml
                 string.Empty,
                 newName);
         }
+
+        public static AnalysisActions AddAttribute(string addAttributeName, string addAttributeValue)
+        {
+            return AddAttribute(
+                RapidXamlErrorType.Error,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                addAttributeName,
+                addAttributeValue);
+        }
     }
 }

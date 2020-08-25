@@ -92,10 +92,22 @@ namespace RapidXaml
                     // This always should be a CustomAnalysisTag but doesn't hurt to check when casting.
                     if (tag is CustomAnalysisTag cat)
                     {
+                        var orig = cat.AnalyzedElement.OriginalString;
+
                         switch (cat.Action)
                         {
                             case ActionType.AddAttribute:
-                                // TODO: implement AddAttribute
+                                output.Add($"Adding attribute '{cat.Name}' to {cat.ElementName}");
+
+                                if (orig.EndsWith("/>"))
+                                {
+                                    text = text.Substring(0, cat.Span.Start - 1) + orig.Substring(0, orig.Length - 2) + $"{cat.Name}=\"{cat.Value}\" />" + text.Substring(cat.AnalyzedElement.Location.Start + cat.AnalyzedElement.Location.Length);
+                                }
+                                else
+                                {
+                                    text = text.Substring(0, cat.Span.End) + $" {cat.Name}=\"{cat.Value}\"" + text.Substring(cat.Span.End);
+                                }
+
                                 break;
                             case ActionType.AddChild:
                                 // TODO: implement AddChild
@@ -112,8 +124,6 @@ namespace RapidXaml
                             case ActionType.RenameElement:
 
                                 output.Add($"Renaming an instance of {cat.ElementName} to {cat.Name}");
-
-                                var orig = cat.AnalyzedElement.OriginalString;
 
                                 // Note that cat.Span is for the name of the element in the opening tag
                                 if (orig.EndsWith("/>"))

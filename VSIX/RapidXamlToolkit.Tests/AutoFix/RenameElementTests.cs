@@ -7,7 +7,7 @@ using RapidXaml;
 namespace RapidXamlToolkit.Tests.AutoFix
 {
     [TestClass]
-    public class XamlConverterTests
+    public class RenameElementTests
     {
         [TestMethod]
         public void ReplaceSelfClosingElementName()
