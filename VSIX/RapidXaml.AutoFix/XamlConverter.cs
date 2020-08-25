@@ -116,7 +116,23 @@ namespace RapidXaml
                                 // NOOP - Nothing to fix here
                                 break;
                             case ActionType.RemoveAttribute:
-                                // TODO: implement RemoveAttribute
+
+                                var attrs = cat.AnalyzedElement.GetAttributes(cat.Name).ToList();
+
+                                if (attrs.Count() == 1)
+                                {
+                                    output.Add($"Remove attribute '{cat.Name}' from {cat.ElementName}");
+
+                                    var attr = attrs.First();
+                                    var attrString = orig.Substring(attr.Location.Start - cat.AnalyzedElement.Location.Start, attr.Location.Length);
+
+                                    text = text.Substring(0, cat.AnalyzedElement.Location.Start) + orig.Substring(0, attr.Location.Start - cat.AnalyzedElement.Location.Start) + orig.Substring(attr.Location.Start - cat.AnalyzedElement.Location.Start + attr.Location.Length) + text.Substring(cat.AnalyzedElement.Location.Start + cat.AnalyzedElement.Location.Length);
+                                }
+                                else
+                                {
+                                    output.Add($"Not removing attribute '{cat.Name}' from {cat.ElementName} as it doesn't exist");
+                                }
+
                                 break;
                             case ActionType.RemoveChild:
                                 // TODO: implement RemoveChild

@@ -35,5 +35,15 @@ namespace RapidXaml
                 string.Empty,
                 replacementXaml);
         }
+
+        public static AnalysisActions RemoveAttribute(string attributeName)
+        {
+            return RemoveAttribute(
+                RapidXamlErrorType.Error,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                attributeName);
+        }
     }
 }
