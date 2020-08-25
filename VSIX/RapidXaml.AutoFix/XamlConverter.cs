@@ -110,6 +110,7 @@ namespace RapidXaml
 
                                 break;
                             case ActionType.AddChild:
+                                output.Add($"Adding child element to {cat.ElementName}");
 
                                 if (orig.EndsWith("/>"))
                                 {
@@ -134,7 +135,7 @@ namespace RapidXaml
 
                                 if (attrs.Count() == 1)
                                 {
-                                    output.Add($"Remove attribute '{cat.Name}' from {cat.ElementName}");
+                                    output.Add($"Removing attribute '{cat.Name}' from {cat.ElementName}");
 
                                     var attr = attrs.First();
                                     var attrString = orig.Substring(attr.Location.Start - cat.AnalyzedElement.Location.Start, attr.Location.Length);
