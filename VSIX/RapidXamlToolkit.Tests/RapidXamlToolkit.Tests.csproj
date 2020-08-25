@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="AutoFix\AddAttributeTests.cs" />
     <Compile Include="AutoFix\RenameElementTests.cs" />
+    <Compile Include="AutoFix\ReplaceElementTests.cs" />
     <Compile Include="Extensions\ProjectTypeExtensionTests.cs" />
     <Compile Include="Grid\GridExclusionsTests.cs" />
     <Compile Include="Grid\GridInsertRowPreviewTests.cs" />

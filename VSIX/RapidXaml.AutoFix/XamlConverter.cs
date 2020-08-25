@@ -80,7 +80,7 @@ namespace RapidXaml
                 var plural = tags.Count == 1 ? string.Empty : "s";
                 output.Add($"Found {tags.Count} place{plural} to make changes.");
 
-                tags.Reverse();  // Work back through the document to allow for modifications
+                tags.Reverse();  // Work back through the document to allow for modifications changing document length
 
                 // TODO: consider adding an actiontype to include xmlns at top level of document
 
@@ -122,7 +122,6 @@ namespace RapidXaml
                                 // TODO: implement RemoveChild
                                 break;
                             case ActionType.RenameElement:
-
                                 output.Add($"Renaming an instance of {cat.ElementName} to {cat.Name}");
 
                                 // Note that cat.Span is for the name of the element in the opening tag
@@ -141,7 +140,10 @@ namespace RapidXaml
 
                                 break;
                             case ActionType.ReplaceElement:
-                                // TODO: implement ReplaceElement
+                                output.Add($"Replacing {cat.ElementName}");
+
+                                text = text.Substring(0, cat.AnalyzedElement.Location.Start) + cat.Content + text.Substring(cat.AnalyzedElement.Location.Start + cat.AnalyzedElement.Location.Length);
+
                                 break;
                             default:
                                 break;
