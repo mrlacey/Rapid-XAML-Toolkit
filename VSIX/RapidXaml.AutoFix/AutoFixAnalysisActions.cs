@@ -36,16 +36,6 @@ namespace RapidXaml
                 xaml);
         }
 
-        public static AnalysisActions ReplaceElement(string replacementXaml)
-        {
-            return ReplaceElement(
-                RapidXamlErrorType.Error,
-                string.Empty,
-                string.Empty,
-                string.Empty,
-                replacementXaml);
-        }
-
         public static AnalysisActions RemoveAttribute(string attributeName)
         {
             return RemoveAttribute(
@@ -54,6 +44,26 @@ namespace RapidXaml
                 string.Empty,
                 string.Empty,
                 attributeName);
+        }
+
+        public static AnalysisActions RemoveChild(RapidXamlElement child)
+        {
+            return RemoveChild(
+                RapidXamlErrorType.Error,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                child);
+        }
+
+        public static AnalysisActions ReplaceElement(string replacementXaml)
+        {
+            return ReplaceElement(
+                RapidXamlErrorType.Error,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                replacementXaml);
         }
     }
 }

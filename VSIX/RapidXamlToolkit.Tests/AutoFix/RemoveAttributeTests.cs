@@ -52,7 +52,7 @@ namespace RapidXamlToolkit.Tests.AutoFix
         }
 
         [TestMethod]
-        public void ReplaceOnlyChildAttribute()
+        public void RemoveOnlyChildAttribute()
         {
             var input = @"<Page>
     <WebView>
@@ -70,7 +70,7 @@ namespace RapidXamlToolkit.Tests.AutoFix
         }
 
         [TestMethod]
-        public void ReplaceOneOfManyChildAttributes()
+        public void RemoveOneOfManyChildAttributes()
         {
             var input = @"<Page>
     <WebView>
@@ -90,7 +90,7 @@ namespace RapidXamlToolkit.Tests.AutoFix
         }
 
         [TestMethod]
-        public void ReplaceOnlyAttribute()
+        public void RemoveOnlyAttribute()
         {
             var input = @"<Page>
     <WebView OnLoaded=""LoadedHandler"">

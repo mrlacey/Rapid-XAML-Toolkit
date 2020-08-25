@@ -138,8 +138,6 @@ namespace RapidXaml
                                     output.Add($"Removing attribute '{cat.Name}' from {cat.ElementName}");
 
                                     var attr = attrs.First();
-                                    var attrString = orig.Substring(attr.Location.Start - cat.AnalyzedElement.Location.Start, attr.Location.Length);
-
                                     text = text.Substring(0, attr.Location.Start) + text.Substring(attr.Location.Start + attr.Location.Length);
                                 }
                                 else
@@ -149,7 +147,20 @@ namespace RapidXaml
 
                                 break;
                             case ActionType.RemoveChild:
-                                // TODO: implement RemoveChild
+                                var children = cat.AnalyzedElement.GetChildren(cat.Element.Name).ToList();
+
+                                if (children.Count() == 1)
+                                {
+                                    output.Add($"Removing child '{cat.Element.Name}' from {cat.ElementName}");
+
+                                    var child = children.First();
+                                    text = text.Substring(0, child.Location.Start) + text.Substring(child.Location.Start + child.Location.Length);
+                                }
+                                else
+                                {
+                                    output.Add($"Not removing child '{cat.Name}' from {cat.ElementName} as it doesn't exist");
+                                }
+
                                 break;
                             case ActionType.RenameElement:
                                 output.Add($"Renaming an instance of {cat.ElementName} to {cat.Name}");
