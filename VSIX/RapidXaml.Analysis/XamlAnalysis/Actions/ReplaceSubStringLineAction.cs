@@ -33,7 +33,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
             {
                 vs.ReplaceInActiveDocOnLine(this.Original, this.Replace, this.LineNo);
 
-                //RapidXamlDocumentCache.TryUpdate(this.File);
+                RapidXamlDocumentCache.TryUpdate(this.File);
             }
             finally
             {

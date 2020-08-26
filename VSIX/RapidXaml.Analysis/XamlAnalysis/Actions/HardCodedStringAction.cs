@@ -126,8 +126,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     }
                 }
 
-                // TODO: have this called by caller
-                //RapidXamlDocumentCache.TryUpdate(this.File);
+                RapidXamlDocumentCache.TryUpdate(this.File);
             }
             finally
             {

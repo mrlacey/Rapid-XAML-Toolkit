@@ -90,7 +90,7 @@ namespace RapidXaml
                     // This always should be a CustomAnalysisTag but doesn't hurt to check when casting.
                     if (tag is CustomAnalysisTag cat)
                     {
-                        var newElement = this.UpdateElementXaml(text, cat, output);
+                        var newElement = this.UpdateElementXaml(cat, output);
 
                         text = text.Substring(0, cat.AnalyzedElement.Location.Start) + newElement + text.Substring(cat.AnalyzedElement.Location.End());
 
@@ -98,7 +98,7 @@ namespace RapidXaml
                         {
                             var sat = this.RepurposeTagForSupplementaryAction(cat, suppAction, newElement);
 
-                            newElement = this.UpdateElementXaml(text, sat, output);
+                            newElement = this.UpdateElementXaml(sat, output);
                             text = text.Substring(0, sat.AnalyzedElement.Location.Start) + newElement + text.Substring(sat.AnalyzedElement.Location.End());
                         }
                     }
@@ -156,7 +156,7 @@ namespace RapidXaml
             return new CustomAnalysisTag(catd);
         }
 
-        private string UpdateElementXaml(string text, CustomAnalysisTag cat, List<string> output)
+        private string UpdateElementXaml(CustomAnalysisTag cat, List<string> output)
         {
             var orig = cat.AnalyzedElement.OriginalString;
             var newXaml = orig;
