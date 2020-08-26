@@ -51,7 +51,6 @@
     <Compile Include="XamlAnalysis\CustomProcessorWrapper.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />
     <Compile Include="XamlAnalysis\ParsedAction.cs" />
-    <Compile Include="XamlAnalysis\Processors\EveryElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ProcessorEssentials.cs" />
     <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\ProjectFrameworkHelper.cs" />
@@ -62,11 +61,9 @@
     <Compile Include="XamlAnalysis\TagSuppression.cs" />
     <Compile Include="XamlAnalysis\Tags\CustomAnalysisTag.cs" />
     <Compile Include="XamlAnalysis\Tags\CustomAnalysisTagDependencies.cs" />
-    <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\IRapidXamlAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\Tags\IRapidXamlErrorListTag.cs" />
     <Compile Include="XamlAnalysis\Tags\IRapidXamlTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\NameTitleCaseTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTagExtensions.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlDiscreteTag.cs" />
@@ -78,7 +75,6 @@
     <Compile Include="XamlAnalysis\Tags\TagErrorTypeCreator.cs" />
     <Compile Include="XamlAnalysis\Tags\TagErrorTypeExtensions.cs" />
     <Compile Include="XamlAnalysis\Tags\TagErrorTypeParser.cs" />
-    <Compile Include="XamlAnalysis\Tags\UidTitleCaseTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
     <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
   </ItemGroup>

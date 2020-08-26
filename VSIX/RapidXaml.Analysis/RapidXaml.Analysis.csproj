@@ -128,6 +128,7 @@
     <Compile Include="XamlAnalysis\Processors\CheckBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\EveryElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\GridProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="XamlAnalysis\Processors\TimePickerProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\XamlElementProcessorExtensions.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
     <Compile Include="XamlAnalysis\RapidXamlParsingEventArgs.cs" />
@@ -161,13 +163,16 @@
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
     <Compile Include="XamlAnalysis\Tags\CheckBoxCheckedAndUncheckedEventsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertRowDefinitionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\MissingColumnDefinitionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\MissingDefinitionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\MissingRowDefinitionTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\NameTitleCaseTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
     <Compile Include="XamlAnalysis\Tags\SelectedItemBindingModeTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\UidTitleCaseTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UseMediaPlayerElementTag.cs" />
   </ItemGroup>
   <ItemGroup>

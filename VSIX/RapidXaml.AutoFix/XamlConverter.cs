@@ -76,7 +76,7 @@ namespace RapidXaml
 
                 var tags = new TagList();
 
-                XamlElementExtractor.Parse(ProjectType.Any, "Generic.xaml", snapshot, text, processors, tags, vsAbstraction, skipEveryElementProcessor: true);
+                XamlElementExtractor.Parse(ProjectType.Any, "Generic.xaml", snapshot, text, processors, tags, vsAbstraction, null, null, null, logger);
 
                 var plural = tags.Count == 1 ? string.Empty : "s";
                 output.Add($"Found {tags.Count} place{plural} to make changes.");
@@ -84,7 +84,6 @@ namespace RapidXaml
                 tags.Reverse();  // Work back through the document to allow for modifications changing document length
 
                 // TODO: consider adding an actiontype to include xmlns at top level of document
-
                 foreach (var tag in tags)
                 {
                     // This always should be a CustomAnalysisTag but doesn't hurt to check when casting.

@@ -22,13 +22,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             this.VSAbstraction = pe.Vsa;
         }
 
-        protected ProjectType ProjectType { get; }
+        public ProjectType ProjectType { get; }
 
-        protected ILogger Logger { get; }
+        public ILogger Logger { get; }
 
-        protected string ProjectFilePath { get; }
+        public string ProjectFilePath { get; }
 
-        protected IVisualStudioAbstraction VSAbstraction { get; }
+        public IVisualStudioAbstraction VSAbstraction { get; }
 
         public static bool IsSelfClosing(ReadOnlySpan<char> xaml, int startPoint = 0)
         {
@@ -131,7 +131,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var processor = new SubElementProcessor(new ProcessorEssentials(projectType, logger, projectFile, vsAbstraction));
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
-            XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList(), vsAbstraction, skipEveryElementProcessor: true);
+            XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList(), vsAbstraction, suppressions: null, projectFilePath: null, everyElementProcessor: null, logger);
 
 #if DEBUG
             if (result == null)
@@ -309,105 +309,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             length = 0;
             value = string.Empty;
             return false;
-        }
-
-        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
-        {
-            if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
-            {
-                if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
-                {
-                    var tagDeps = this.CreateBaseTagDependencies(
-                        new Span(offset + tbIndex, length),
-                        snapshot,
-                        fileName);
-
-                    var tag = new HardCodedStringTag(tagDeps, elementName, attributeName, projType)
-                    {
-                        AttributeType = foundAttributeType,
-                        Value = value,
-                        Description = descriptionFormat.WithParams(value),
-                        UidExists = uidExists,
-                        UidValue = uidValue,
-                        ElementGuid = elementIdentifier,
-                    };
-
-                    tags.TryAdd(tag, xamlElement, suppressions);
-                }
-            }
-        }
-
-        protected void CheckForHardCodedAttribute(string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, string guidFallbackAttributeName, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
-        {
-            if (this.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
-            {
-                if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
-                {
-                    var tagDeps = this.CreateBaseTagDependencies(
-                        new Span(offset + tbIndex, length),
-                        snapshot,
-                        fileName);
-
-                    var (uidExists, uidValue) = this.GetOrGenerateUid(xamlElement, guidFallbackAttributeName);
-
-                    var tag = new HardCodedStringTag(tagDeps, elementName, attributeName, projType)
-                    {
-                        AttributeType = foundAttributeType,
-                        Value = value,
-                        Description = descriptionFormat.WithParams(value),
-                        UidExists = uidExists,
-                        UidValue = uidValue,
-                        ElementGuid = elementIdentifier,
-                    };
-
-                    tags.TryAdd(tag, xamlElement, suppressions);
-                }
-            }
-        }
-
-        protected (bool uidExists, string uidValue) GetOrGenerateUid(string xamlElement, string attributeName)
-        {
-            var uidExists = this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
-
-            if (!uidExists)
-            {
-                // reuse `Name` or `x:Name` if exist
-                if (this.TryGetAttribute(xamlElement, Attributes.Name, AttributeType.InlineOrElement, out AttributeType _, out int _, out int _, out string name))
-                {
-                    uid = name;
-                }
-                else
-                {
-                    var elementName = GetElementName(xamlElement.AsSpan());
-
-                    if (this.TryGetAttribute(xamlElement, attributeName, AttributeType.InlineOrElement, out _, out _, out _, out string value))
-                    {
-                        uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(value)}{elementName}";
-
-                        uid = uid.RemoveAllWhitespace().RemoveNonAlphaNumerics();
-                    }
-                    else
-                    {
-                        // This is just a large random number created to hopefully avoid collisions
-                        uid = $"{elementName}{new Random().Next(1001, 8999)}";
-                    }
-                }
-            }
-
-            return (uidExists, uid);
-        }
-
-        protected TagDependencies CreateBaseTagDependencies(Span span, ITextSnapshot snapshot, string fileName)
-        {
-            return new TagDependencies
-            {
-                Logger = this.Logger,
-                VsAbstraction = this.VSAbstraction,
-                ProjectFilePath = this.ProjectFilePath,
-                Span = span,
-                Snapshot = snapshot,
-                FileName = fileName,
-            };
         }
 
         public class SubElementProcessor : XamlElementProcessor

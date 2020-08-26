@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
@@ -14,7 +15,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
-        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions = null, string projectFilePath = null, bool skipEveryElementProcessor = false)
+        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions, string projectFilePath, XamlElementProcessor everyElementProcessor, ILogger logger)
         {
             var elementsOfInterest = new List<string>();
 
@@ -24,8 +25,6 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
             var elementsBeingTracked = new List<TrackingElement>();
-
-            var everyElementProcessor = skipEveryElementProcessor ? null : new EveryElementProcessor(new ProcessorEssentials(projectType, SharedRapidXamlPackage.Logger, projectFilePath, vsAbstraction));
 
             bool isIdentifyingElement = false;
             bool isClosingElement = false;
@@ -182,9 +181,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                                 if (!(customAnalyzer is BuiltInXamlAnalyzer))
                                                 {
-                                                    SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_ErrorInCustomAnalyzer.WithParams(customAnalyzer.GetType().FullName), force: true);
-                                                    SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_ErrorInCustomAnalyzer.WithParams(customAnalyzer.GetType().FullName));
-                                                    SharedRapidXamlPackage.Logger?.RecordException(exc);
+                                                    logger?.RecordError(StringRes.Error_ErrorInCustomAnalyzer.WithParams(customAnalyzer.GetType().FullName), force: true);
+                                                    logger?.RecordError(StringRes.Error_ErrorInCustomAnalyzer.WithParams(customAnalyzer.GetType().FullName));
+                                                    logger?.RecordException(exc);
                                                     bubbleUpError = false;
                                                 }
                                             }
