@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using RapidXamlToolkit;
-using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXaml

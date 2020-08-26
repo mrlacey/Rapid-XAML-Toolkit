@@ -60,7 +60,7 @@
     </Compile>
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\IFileSystemAbstraction.cs" />
-    <Compile Include="Commands\ProjectWrapper.cs" />
+    <Compile Include="VisualStudioIntegration\ProjectWrapper.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />
     <Compile Include="Configuration\RxtSettings.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />

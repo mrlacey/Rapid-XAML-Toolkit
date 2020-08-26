@@ -3,7 +3,6 @@
 
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
-using RapidXamlToolkit.Commands;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
 {

@@ -109,6 +109,5 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 FileName = fileName,
             };
         }
-
     }
 }
