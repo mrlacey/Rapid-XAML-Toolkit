@@ -8,7 +8,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class SwitchCellAnalyzer : NotReallyCustomAnalyzer
+    public class SwitchCellAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.SwitchCell;
 

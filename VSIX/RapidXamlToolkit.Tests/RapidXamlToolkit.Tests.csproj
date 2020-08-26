@@ -225,6 +225,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.Memory">
+      <Version>4.5.4</Version>
+    </PackageReference>
     <PackageReference Include="WarnAboutTODOs">
       <Version>1.5.0</Version>
     </PackageReference>
@@ -271,6 +274,10 @@
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
       <Name>RapidXaml.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj">
+      <Project>{2d65223e-f87c-4e5a-b643-ba3c4304e52d}</Project>
+      <Name>RapidXaml.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

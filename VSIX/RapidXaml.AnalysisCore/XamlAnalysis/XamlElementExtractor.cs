@@ -180,7 +180,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                             {
                                                 var customAnalyzer = wrapper.CustomAnalyzer;
 
-                                                if (!(customAnalyzer is NotReallyCustomAnalyzer))
+                                                if (!(customAnalyzer is BuiltInXamlAnalyzer))
                                                 {
                                                     SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_ErrorInCustomAnalyzer.WithParams(customAnalyzer.GetType().FullName), force: true);
                                                     SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_ErrorInCustomAnalyzer.WithParams(customAnalyzer.GetType().FullName));

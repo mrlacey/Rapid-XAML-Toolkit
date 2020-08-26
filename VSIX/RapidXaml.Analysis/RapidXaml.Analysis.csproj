@@ -84,12 +84,18 @@
     <Compile Include="XamlAnalysis\Actions\AddRowAndColumnDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddRowDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\BaseSuggestedAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ColumnSpanOverflowAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\CustomAnalysisAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\HardCodedStringAction.cs" />
     <Compile Include="XamlAnalysis\Actions\InjectFixedXamlSuggestedAction.cs" />
     <Compile Include="XamlAnalysis\Actions\InsertRowDefinitionAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MakeNameStartWithCapitalAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\MakeUidStartWithCapitalAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MediaElementAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingCheckBoxEventAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
+    <Compile Include="XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
     <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
     <Compile Include="XamlAnalysis\Actions\SelectedItemBindingModeAction.cs" />
     <Compile Include="XamlAnalysis\Actions\SuppressWarningAction.cs" />
@@ -251,6 +257,10 @@
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
       <Name>RapidXaml.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj">
+      <Project>{2d65223e-f87c-4e5a-b643-ba3c4304e52d}</Project>
+      <Name>RapidXaml.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -55,6 +55,7 @@ The solution contains these projects:
 - `RapidXaml.Shared` is a library containing code shared between other projects that produce a VSIX package.
 - `RapidXamlToolkit` is a shipping **VSIX** extension pack for bundling all separate tools through a single extension. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit)_
 - `RapidXamlToolkit.Tests` is a test project containing automated tests for other projects in the solution.
+- `RapidXamlToolkit.Utils` is a library containing generic utility functions with no dependencies on the Visual Studio SDK.
 - `Tools/RapidXaml.InternalAnalyzers` contains Roslyn code analyzers for enforcing code patterns and requirements within the solution.
 
 #### VSIX/RapidXamlToolkit.Everything.sln

@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using RapidXaml;
-using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -14,8 +13,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public CustomAnalysisTag(CustomAnalysisTagDependencies deps)
             : base(deps.ToTagDependencies(), deps.ErrorCode, deps.ErrorType)
         {
-            this.SuggestedAction = typeof(CustomAnalysisAction);
-
             this.Dependencies = deps;
 
             this.Action = deps.Action.Action;
@@ -61,7 +58,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         private CustomAnalysisTagDependencies Dependencies { get; }
 
-        internal CustomAnalysisTag RecreateForAlternativeAction(AnalysisAction altAction)
+        public CustomAnalysisTag RecreateForAlternativeAction(AnalysisAction altAction)
         {
             var deps = this.Dependencies;
 

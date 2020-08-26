@@ -9,8 +9,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public interface IRapidXamlTag : ITag
     {
-        Type SuggestedAction { get; }
-
         Span Span { get; set; }
     }
 }

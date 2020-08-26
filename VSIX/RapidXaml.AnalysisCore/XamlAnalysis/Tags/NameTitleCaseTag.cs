@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -11,7 +10,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public NameTitleCaseTag(TagDependencies tagDeps, string value)
             : base(tagDeps, "RXT452", TagErrorType.Suggestion)
         {
-            this.SuggestedAction = typeof(MakeNameStartWithCapitalAction);
             this.ToolTip = StringRes.UI_XamlAnalysisNameTitleCaseToolTip;
             this.Description = StringRes.UI_XamlAnalysisNameTitleCaseDescription.WithParams(value);
 
