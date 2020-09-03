@@ -27,7 +27,7 @@
     <file src=".\bin\release\net472\RapidXaml.BuildAnalysis.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.BuildAnalysis.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.pdb" target="tools/net472/" />
+    <!-- <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.pdb" target="tools/net472/" /> -->
     <file src=".\bin\release\net472\RapidXaml.Shared.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.dll.config" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.pdb" target="tools/net472/" />
