@@ -423,19 +423,19 @@ namespace RapidXamlToolkit.Tests.Extensions
         [TestMethod]
         public void MakeNameSafe_NoDot()
         {
-            Assert.AreEqual("something", "something".MakeNameSafe());
+            Assert.AreEqual("something", "something".AsSpan().MakeNameSafe());
         }
 
         [TestMethod]
         public void MakeNameSafe_OneDot()
         {
-            Assert.AreEqual("child", "parent.child".MakeNameSafe());
+            Assert.AreEqual("child", "parent.child".AsSpan().MakeNameSafe());
         }
 
         [TestMethod]
         public void MakeNameSafe_TwoDots()
         {
-            Assert.AreEqual("child", "grandparent.parent.child".MakeNameSafe());
+            Assert.AreEqual("child", "grandparent.parent.child".AsSpan().MakeNameSafe());
         }
 
         [TestMethod]
@@ -693,13 +693,227 @@ namespace RapidXamlToolkit.Tests.Extensions
             Assert.AreEqual("MyAttribute|Bar|Foo", "[MyAttribute]int|[Bar]string[]|[Foo]double[]|bool[]|float".GetAttributes());
         }
 
+        [TestMethod]
+        public void GetBetween_Basic()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween("[", "]");
+
+            Assert.AreEqual("key", actual);
+        }
+
+        [TestMethod]
+        public void GetBetween_NothingToFind()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween("$", "*");
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
+        public void GetBetween_Null_Start()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween(null, "]");
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
+        public void GetBetween_Empty_Start()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween(string.Empty, "]");
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
+        public void GetBetween_Null_End()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween("[", null);
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
+        public void GetBetween_Empty_End()
+        {
+            var original = "something[key]";
+
+            var actual = original.AsSpan().GetBetween("[", string.Empty);
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
+        public void PartAfter_Basic()
+        {
+            var original = "before:after";
+
+            var actual = original.AsSpan().PartAfter(':');
+
+            Assert.AreEqual("after", actual);
+        }
+
+        [TestMethod]
+        public void PartAfter_Start()
+        {
+            var original = ":after";
+
+            var actual = original.AsSpan().PartAfter(':');
+
+            Assert.AreEqual("after", actual);
+        }
+
+        [TestMethod]
+        public void PartAfter_End()
+        {
+            var original = "before:";
+
+            var actual = original.AsSpan().PartAfter(':');
+
+            Assert.AreEqual(string.Empty, actual);
+        }
+
+        [TestMethod]
+        public void PartAfter_Without()
+        {
+            var original = "own";
+
+            var actual = original.AsSpan().PartAfter(':');
+
+            Assert.AreEqual("own", actual);
+        }
+
+        [TestMethod]
+        public void RemoveFromEndIfExists_With()
+        {
+            var actual = "startend".RemoveFromEndIfExists("end");
+
+            Assert.AreEqual("start", actual);
+        }
+
+        [TestMethod]
+        public void RemoveFromEndIfExists_Without()
+        {
+            var actual = "start".RemoveFromEndIfExists("end");
+
+            Assert.AreEqual("start", actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void RemoveFromEndIfExists_NullSource()
+        {
+            string original = null;
+
+            var _ = original.RemoveFromEndIfExists("end");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void RemoveFromEndIfExists_Null_ToRemove()
+        {
+            var _ = "start".RemoveFromEndIfExists(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void MatchesAnyOfInCSharpFormat_Null_Value()
+        {
+            string original = null;
+
+            var _ = original.MatchesAnyOfInCSharpFormat("end");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void MatchesAnyOfInCSharpFormat_Null_Options()
+        {
+            var _ = "something".MatchesAnyOfInCSharpFormat(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Append_Null_source()
+        {
+            string original = null;
+
+            var _ = original.Append("newending");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Append_Null_ToAdd()
+        {
+            var _ = "something".Append(null);
+        }
+
+        [TestMethod]
+        public void Append_Basic()
+        {
+            var actual = "start".Append("end");
+
+            Assert.AreEqual("startend", actual);
+        }
+
+        [TestMethod]
+        public void FirstIndexOf_FindFirst()
+        {
+            var fileContents = "public class TestViewModel"
+       + Environment.NewLine + "{"
+       + Environment.NewLine + "    public string FirstProperty { get; set; }"
+       + Environment.NewLine + "    public string SecondProperty { get; set; }"
+       + Environment.NewLine + "}";
+
+            var cursorPos = fileContents.AsSpan().FirstIndexOf(" class ", " Class ");
+
+            Assert.AreEqual(6, cursorPos);
+        }
+
+        [TestMethod]
+        public void FirstIndexOf_FindLast()
+        {
+            var fileContents = "public class TestViewModel"
+       + Environment.NewLine + "{"
+       + Environment.NewLine + "    public string FirstProperty { get; set; }"
+       + Environment.NewLine + "    public string SecondProperty { get; set; }"
+       + Environment.NewLine + "}";
+
+            var cursorPos = fileContents.AsSpan().FirstIndexOf(" Class ", " class ");
+
+            Assert.AreEqual(6, cursorPos);
+        }
+
+        [TestMethod]
+        public void FirstIndexOf_FindNone()
+        {
+            var fileContents = "public class TestViewModel"
+       + Environment.NewLine + "{"
+       + Environment.NewLine + "    public string FirstProperty { get; set; }"
+       + Environment.NewLine + "    public string SecondProperty { get; set; }"
+       + Environment.NewLine + "}";
+
+            var cursorPos = fileContents.AsSpan().FirstIndexOf("artichoke", "banana", "kumquat", "lemon", "apple");
+
+            Assert.AreEqual(-1, cursorPos);
+        }
+
         private void StarIsNotInComment(string xaml)
         {
             var offset = xaml.IndexOf("☆");
 
             var xamlToProcess = xaml.Replace("☆", string.Empty);
 
-            Assert.IsFalse(xamlToProcess.InComment(offset));
+            Assert.IsFalse(xamlToProcess.AsSpan().InComment(offset));
         }
 
         private void StarIsInComment(string xaml)
@@ -708,7 +922,7 @@ namespace RapidXamlToolkit.Tests.Extensions
 
             var xamlToProcess = xaml.Replace("☆", string.Empty);
 
-            Assert.IsTrue(xamlToProcess.InComment(offset));
+            Assert.IsTrue(xamlToProcess.AsSpan().InComment(offset));
         }
     }
 }

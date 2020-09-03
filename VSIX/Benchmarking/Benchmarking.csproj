@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>NU1701</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>NU1701</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="16.1.89" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj" />
+    <ProjectReference Include="..\RapidXaml.Analysis\RapidXaml.Analysis.csproj" />
+    <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj" />
+    <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj" />
+    <ProjectReference Include="..\RapidXamlToolkit.Tests\RapidXamlToolkit.Tests.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="..\RapidXamlToolkit.Tests\Misc\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <Link>files\ComboBox.xaml</Link>
+    </Page>
+    <Page Include="..\RapidXamlToolkit.Tests\Misc\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <Link>files\Generic.xaml</Link>
+    </Page>
+    <Page Include="..\RapidXamlToolkit.Tests\Misc\ProfileConfigControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <Link>files\ProfileConfigControl.xaml</Link>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="files\A11yTabIndex.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="files\Classic.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="files\ComboBox.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="files\Generic.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="files\ProfileConfigControl.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

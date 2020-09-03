@@ -8,7 +8,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class RadioButtonAnalyzer : NotReallyCustomAnalyzer
+    public class RadioButtonAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.RadioButton;
 

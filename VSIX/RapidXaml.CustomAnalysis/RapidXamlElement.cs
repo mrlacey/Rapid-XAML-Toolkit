@@ -39,12 +39,12 @@ namespace RapidXaml
         /// Gets a list of the attributes assigned to the element.
         /// This includes attributes specified inline or as children.
         /// </summary>
-        public List<RapidXamlAttribute> Attributes { get; } = new List<RapidXamlAttribute>();
+        public List<RapidXamlAttribute> Attributes { get; internal set; } = new List<RapidXamlAttribute>();
 
         /// <summary>
         /// Gets a list of child elements specified for th element.
         /// </summary>
-        public List<RapidXamlElement> Children { get; } = new List<RapidXamlElement>();
+        public List<RapidXamlElement> Children { get; internal set; } = new List<RapidXamlElement>();
 
         /// <summary>
         /// Gets all attributes that are specified as child elements.
@@ -248,6 +248,21 @@ namespace RapidXaml
                     yield return innerChild;
                 }
             }
+        }
+
+        public RapidXamlElement WithUpdatedLocationStart(int newLocationStart)
+        {
+            var result = new RapidXamlElement
+            {
+                Attributes = this.Attributes,
+                Children = this.Children,
+                Content = this.Content,
+                Location = new RapidXamlSpan(newLocationStart, this.Location.Length),
+                Name = this.Name,
+                OriginalString = this.OriginalString,
+            };
+
+            return result;
         }
 
         private bool ContainsChildOrAttribute(string name)

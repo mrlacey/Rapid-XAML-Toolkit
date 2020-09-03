@@ -73,8 +73,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (this.ProjectType.Matches(ProjectType.Uwp))
             {
-                var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Header);
-
                 var nameEndPos = xamlElement.IndexOfAny(new[] { ' ', '/', '>' });
                 var elementName = xamlElement.Substring(1, nameEndPos - 1);
 
@@ -87,8 +85,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     xamlElement,
                     snapshot,
                     offset,
-                    uidExists,
-                    uid,
+                    Attributes.Header,
                     Guid.Empty,
                     tags,
                     suppressions,

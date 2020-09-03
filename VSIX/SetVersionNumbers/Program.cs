@@ -14,6 +14,7 @@ namespace SetVersionNumbers
         private static readonly List<string> AssemblyInfoFiles = new List<string>
         {
             "../../../../RapidXaml.Analysis/Properties/AssemblyInfo.cs",
+            "../../../../RapidXaml.AutoFix/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.Common/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.CustomAnalysis/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.Generation/Properties/AssemblyInfo.cs",
@@ -44,12 +45,14 @@ namespace SetVersionNumbers
 
         private static readonly List<string> NuSpecFiles = new List<string>
         {
+            "../../../../RapidXaml.AutoFix/RapidXaml.AutoFix.nuspec",
             "../../../../RapidXaml.CustomAnalysis/RapidXaml.CustomAnalysis.nuspec",
             "../../../../RapidXaml.BuildAnalysis/RapidXaml.BuildAnalysis.nuspec",
         };
 
         private static readonly List<string> NugetProjectFiles = new List<string>
         {
+            "../../../../RapidXaml.AutoFix/RapidXaml.AutoFix.csproj",
             "../../../../RapidXaml.CustomAnalysis/RapidXaml.CustomAnalysis.csproj",
             "../../../../RapidXaml.BuildAnalysis/RapidXaml.BuildAnalysis.csproj",
         };

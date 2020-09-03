@@ -2,7 +2,7 @@ pull_requests:
   do_not_increment_build_number: true
 branches:
   only:
-  - master
+  - main
 skip_tags: true
 configuration: Release
 image: Visual Studio 2019
@@ -11,12 +11,12 @@ install:
 - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
 
 before_build:
-- cmd: nuget restore .\VSIX\RapidXamlToolkit.PRBuild.sln -Verbosity quiet
+- cmd: nuget restore .\VSIX\RapidXamlToolkit.sln -Verbosity quiet
 - ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
   #- ps: Vsix-TokenReplacement src\source.extension.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
 build_script:
-  - msbuild .\VSIX\RapidXamlToolkit.PRBuild.sln /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
+  - msbuild .\VSIX\RapidXamlToolkit.sln /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
 
 after_test:
   - ps: Vsix-PushArtifacts | Vsix-PublishToGallery

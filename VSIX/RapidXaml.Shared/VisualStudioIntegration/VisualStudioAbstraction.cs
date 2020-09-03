@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -23,6 +24,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 {
     public class VisualStudioAbstraction : VisualStudioTextManipulation, IVisualStudioAbstraction
     {
+        private static readonly Dictionary<string, ProjectType> ProjectTypeCache = new Dictionary<string, ProjectType>();
+
         private readonly ILogger logger;
         private readonly IAsyncServiceProvider serviceProvider;
         private IComponentModel componentModel;
@@ -57,6 +60,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             if (string.IsNullOrWhiteSpace(project?.FileName) || project?.DTE == null)
             {
                 return ProjectType.Unknown;
+            }
+
+            if (ProjectTypeCache.ContainsKey(project.FileName))
+            {
+                return ProjectTypeCache[project.FileName];
             }
 
             bool ReferencesXamarin(EnvDTE.Project proj)
@@ -153,6 +161,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             {
                 if (this.ProjectUsesWpf(project))
                 {
+                    ProjectTypeCache.Add(project.FileName, ProjectType.Wpf);
                     return ProjectType.Wpf;
                 }
             }
@@ -206,6 +215,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 }
             }
 
+            ProjectTypeCache.Add(project.FileName, result);
             return result;
         }
 
@@ -290,7 +300,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
         {
-            var componentModel = await this.serviceProvider.GetServiceAsync(typeof(SComponentModel)) as IComponentModel;
+            var componentModel = await this.serviceProvider.GetServiceAsync<SComponentModel, IComponentModel>();
             var visualStudioWorkspace = componentModel?.GetService<VisualStudioWorkspace>();
 
             if (visualStudioWorkspace != null)

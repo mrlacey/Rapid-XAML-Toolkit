@@ -841,4 +841,9 @@
   <data name="UI_XamlAnalysisFixUnavailable" xml:space="preserve">
     <value>Sorry, an automated fix for this issue is not currently available.</value>
   </data>
+  <data name="Info_PromptToDisableAnalysisOnSave" xml:space="preserve">
+    <value>
+XAML analysis seems to be running slower than expected.
+If you're noticing an issue, you can disable automatic analysis every time a file is saved. Go to : Tools &gt; Options &gt; Rapid XAML &gt; Analysis</value>
+  </data>
 </root>

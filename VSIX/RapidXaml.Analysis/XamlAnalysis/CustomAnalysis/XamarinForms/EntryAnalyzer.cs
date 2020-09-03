@@ -8,7 +8,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class EntryAnalyzer : NotReallyCustomAnalyzer
+    public class EntryAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.Entry;
 

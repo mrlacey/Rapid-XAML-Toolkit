@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -11,7 +10,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public RowSpanOverflowTag(TagDependencies tagDeps)
             : base(tagDeps, "RXT103", TagErrorType.Warning)
         {
-            this.SuggestedAction = typeof(RowSpanOverflowAction);
             this.ToolTip = StringRes.UI_XamlAnalysisRowSpanOverflowTooltip;
         }
     }

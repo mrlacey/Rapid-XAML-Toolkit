@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
@@ -13,6 +14,8 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.TextManager.Interop;
 using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.Telemetry;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -25,6 +28,9 @@ namespace RapidXamlToolkit.XamlAnalysis
         private static readonly List<string> CurrentlyProcessing = new List<string>();
         private static AsyncPackage package;
         private static IVisualStudioAbstraction vsa;
+
+        private static TimeSpan lastAnalysisTime = TimeSpan.Zero;
+        private static bool havePromptedForSaveAnalysisPerformance = false;
 
         public static event EventHandler<RapidXamlParsingEventArgs> Parsed;
 
@@ -49,6 +55,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             else
             {
+                // Don't worry about timing this call as it's only repeated calls to analyze a document that might cause a user prompt.
+                // This only happens on document open. Repeated analysis of a document will happen through TryUpdate.
                 var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
 
                 lock (CacheLock)
@@ -156,7 +164,44 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         CurrentlyProcessing.Add(snapshotText);
 
-                        var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
+                        RapidXamlDocument doc;
+
+                        var sw = new Stopwatch();
+                        try
+                        {
+                            sw.Start();
+
+                            doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
+                        }
+                        finally
+                        {
+                            sw.Stop();
+
+                            var elapsed = sw.Elapsed;
+                            var threshold = TimeSpan.FromSeconds(1.5);
+
+                            Debug.WriteLine($"Document anlaysis took:  {elapsed}");
+
+                            var analyzeOnSave = true;
+#if VSIXNOTEXE
+                            analyzeOnSave = RapidXamlAnalysisPackage.Options?.AnalyzeWhenDocumentSaved ?? false;
+#endif
+
+                            // Don't prompt about a single execution time greater than the threshold
+                            if (elapsed > threshold
+                             && lastAnalysisTime > threshold
+                             && analyzeOnSave == true
+                             && !havePromptedForSaveAnalysisPerformance)
+                            {
+                                SharedRapidXamlPackage.Logger.RecordFeatureUsage(MiscellaneousFeatures.PromptToDisableAnalysisOnSave, quiet: true);
+                                RxtOutputPane.Instance.Write(StringRes.Info_PromptToDisableAnalysisOnSave);
+                                RxtOutputPane.Instance.Activate(); // To increase the likelihood that it's seen
+
+                                havePromptedForSaveAnalysisPerformance = true;
+                            }
+
+                            lastAnalysisTime = elapsed;
+                        }
 
                         lock (CacheLock)
                         {

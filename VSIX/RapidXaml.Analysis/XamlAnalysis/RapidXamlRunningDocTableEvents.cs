@@ -32,15 +32,18 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public int OnAfterSave(uint docCookie)
         {
+#if VSIXNOTEXE
             var documentInfo = this.runningDocumentTable.GetDocumentInfo(docCookie);
 
             var documentPath = documentInfo.Moniker;
 
-            if (Path.GetExtension(documentPath) == ".xaml")
+            if (Path.GetExtension(documentPath) == ".xaml"
+             && RapidXamlAnalysisPackage.IsLoaded
+             && RapidXamlAnalysisPackage.Options.AnalyzeWhenDocumentSaved)
             {
                 RapidXamlDocumentCache.TryUpdate(documentPath);
             }
-
+#endif
             return VSConstants.S_OK;
         }
 

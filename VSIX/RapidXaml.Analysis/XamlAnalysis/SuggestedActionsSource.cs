@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Language.Intellisense;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
@@ -73,56 +74,60 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 foreach (var rxTag in rxTags)
                 {
-                    switch (rxTag.SuggestedAction.Name)
+                    if (rxTag is CustomAnalysisTag cat)
                     {
-                        case nameof(HardCodedStringAction):
-                            list.AddRange(this.CreateActionSet(rxTag, new HardCodedStringAction(this.file, this.view, (HardCodedStringTag)rxTag)));
-                            break;
-                        case nameof(InsertRowDefinitionAction):
-                            list.AddRange(this.CreateActionSet(rxTag, InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rxTag, this.file, this.view)));
-                            break;
-                        case nameof(AddRowDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag, AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rxTag, this.file)));
-                            break;
-                        case nameof(AddColumnDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag, AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rxTag, this.file)));
-                            break;
-                        case nameof(AddRowAndColumnDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag, AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rxTag, this.file)));
-                            break;
-                        case nameof(AddMissingRowDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag, AddMissingRowDefinitionsAction.Create((MissingRowDefinitionTag)rxTag, this.file)));
-                            break;
-                        case nameof(AddMissingColumnDefinitionsAction):
-                            list.AddRange(this.CreateActionSet(rxTag, AddMissingColumnDefinitionsAction.Create((MissingColumnDefinitionTag)rxTag, this.file)));
-                            break;
-                        case nameof(RowSpanOverflowAction):
-                            list.AddRange(this.CreateActionSet(rxTag, RowSpanOverflowAction.Create((RowSpanOverflowTag)rxTag, this.file)));
-                            break;
-                        case nameof(ColumnSpanOverflowAction):
-                            list.AddRange(this.CreateActionSet(rxTag, ColumnSpanOverflowAction.Create((ColumnSpanOverflowTag)rxTag, this.file)));
-                            break;
-                        case nameof(AddTextBoxInputScopeAction):
-                            list.AddRange(this.CreateActionSet(rxTag, AddTextBoxInputScopeAction.Create((AddTextBoxInputScopeTag)rxTag, this.file)));
-                            break;
-                        case nameof(MissingCheckBoxEventAction):
-                            list.AddRange(this.CreateActionSet(rxTag, MissingCheckBoxEventAction.Create((CheckBoxCheckedAndUncheckedEventsTag)rxTag, this.file)));
-                            break;
-                        case nameof(MediaElementAction):
-                            list.AddRange(this.CreateActionSet(rxTag, MediaElementAction.Create((UseMediaPlayerElementTag)rxTag, this.file)));
-                            break;
-                        case nameof(MakeNameStartWithCapitalAction):
-                            list.AddRange(this.CreateActionSet(rxTag, MakeNameStartWithCapitalAction.Create((NameTitleCaseTag)rxTag, this.file)));
-                            break;
-                        case nameof(MakeUidStartWithCapitalAction):
-                            list.AddRange(this.CreateActionSet(rxTag, MakeUidStartWithCapitalAction.Create((UidTitleCaseTag)rxTag, this.file)));
-                            break;
-                        case nameof(SelectedItemBindingModeAction):
-                            list.AddRange(this.CreateActionSet(rxTag, SelectedItemBindingModeAction.Create((SelectedItemBindingModeTag)rxTag, this.file)));
-                            break;
-                        case nameof(CustomAnalysisAction):
-                            list.AddRange(this.CreateActionSet(rxTag, CustomAnalysisAction.Create((CustomAnalysisTag)rxTag, this.file)));
-                            break;
+                        list.AddRange(this.CreateActionSet(rxTag, CustomAnalysisAction.Create(cat, this.file)));
+                    }
+                    else
+                    {
+                        switch (rxTag.GetType().Name)
+                        {
+                            case nameof(HardCodedStringTag):
+                                list.AddRange(this.CreateActionSet(rxTag, new HardCodedStringAction(this.file, this.view, (HardCodedStringTag)rxTag)));
+                                break;
+                            case nameof(InsertRowDefinitionTag):
+                                list.AddRange(this.CreateActionSet(rxTag, InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rxTag, this.file, this.view)));
+                                break;
+                            case nameof(AddRowDefinitionsTag):
+                                list.AddRange(this.CreateActionSet(rxTag, AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rxTag, this.file)));
+                                break;
+                            case nameof(AddColumnDefinitionsTag):
+                                list.AddRange(this.CreateActionSet(rxTag, AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rxTag, this.file)));
+                                break;
+                            case nameof(AddRowAndColumnDefinitionsTag):
+                                list.AddRange(this.CreateActionSet(rxTag, AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rxTag, this.file)));
+                                break;
+                            case nameof(MissingRowDefinitionTag):
+                                list.AddRange(this.CreateActionSet(rxTag, AddMissingRowDefinitionsAction.Create((MissingRowDefinitionTag)rxTag, this.file)));
+                                break;
+                            case nameof(MissingColumnDefinitionTag):
+                                list.AddRange(this.CreateActionSet(rxTag, AddMissingColumnDefinitionsAction.Create((MissingColumnDefinitionTag)rxTag, this.file)));
+                                break;
+                            case nameof(RowSpanOverflowTag):
+                                list.AddRange(this.CreateActionSet(rxTag, RowSpanOverflowAction.Create((RowSpanOverflowTag)rxTag, this.file)));
+                                break;
+                            case nameof(ColumnSpanOverflowTag):
+                                list.AddRange(this.CreateActionSet(rxTag, ColumnSpanOverflowAction.Create((ColumnSpanOverflowTag)rxTag, this.file)));
+                                break;
+                            case nameof(AddTextBoxInputScopeTag):
+                                list.AddRange(this.CreateActionSet(rxTag, AddTextBoxInputScopeAction.Create((AddTextBoxInputScopeTag)rxTag, this.file)));
+                                break;
+                            case nameof(CheckBoxCheckedAndUncheckedEventsTag):
+                                list.AddRange(this.CreateActionSet(rxTag, MissingCheckBoxEventAction.Create((CheckBoxCheckedAndUncheckedEventsTag)rxTag, this.file)));
+                                break;
+                            case nameof(UseMediaPlayerElementTag):
+                                list.AddRange(this.CreateActionSet(rxTag, MediaElementAction.Create((UseMediaPlayerElementTag)rxTag, this.file)));
+                                break;
+                            case nameof(NameTitleCaseTag):
+                                list.AddRange(this.CreateActionSet(rxTag, MakeNameStartWithCapitalAction.Create((NameTitleCaseTag)rxTag, this.file)));
+                                break;
+                            case nameof(UidTitleCaseTag):
+                                list.AddRange(this.CreateActionSet(rxTag, MakeUidStartWithCapitalAction.Create((UidTitleCaseTag)rxTag, this.file)));
+                                break;
+                            case nameof(SelectedItemBindingModeTag):
+                                list.AddRange(this.CreateActionSet(rxTag, SelectedItemBindingModeAction.Create((SelectedItemBindingModeTag)rxTag, this.file)));
+                                break;
+                        }
                     }
                 }
             }

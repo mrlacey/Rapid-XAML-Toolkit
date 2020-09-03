@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -12,7 +11,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public CheckBoxCheckedAndUncheckedEventsTag(TagDependencies tagDeps, string existingName, bool hasChecked)
             : base(tagDeps, "RXT401", TagErrorType.Warning)
         {
-            this.SuggestedAction = typeof(MissingCheckBoxEventAction);
             this.ToolTip = StringRes.UI_XamlAnalysisCheckBoxCheckedAndUncheckedEventsToolTip;
             this.Description = StringRes.UI_XamlAnalysisCheckBoxCheckedAndUncheckedEventsDescription;
             this.ExtendedMessage = StringRes.UI_XamlAnalysisCheckBoxCheckedAndUncheckedEventsExtendedMessage;

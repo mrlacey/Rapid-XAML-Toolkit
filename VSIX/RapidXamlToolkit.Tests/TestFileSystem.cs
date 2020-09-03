@@ -12,12 +12,14 @@ namespace RapidXamlToolkit.Tests
 
         public string FileText { get; set; } = null;
 
+        public string WrittenFileText { get; set; } = null;
+
         public bool FileExists(string fileName)
         {
             return this.FileExistsResponse;
         }
 
-        public string GetAllFileText(string fileName)
+        public virtual string GetAllFileText(string fileName)
         {
             return this.FileText;
         }
@@ -40,6 +42,16 @@ namespace RapidXamlToolkit.Tests
         public string PathCombine(params string[] paths)
         {
             return Path.Combine(paths);
+        }
+
+        public virtual string[] ReadAllLines(string path)
+        {
+            return new[] { string.Empty };
+        }
+
+        public virtual void WriteAllFileText(string fileName, string fileContents)
+        {
+            this.WrittenFileText = fileContents;
         }
     }
 }

@@ -62,8 +62,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     var sat = this.RepurposeTagForSupplementaryAction(this.Tag, suppAction);
                     this.InnerExecute(vs, sat, cancellationToken);
                 }
-
-                RapidXamlDocumentCache.TryUpdate(this.File);
             }
             finally
             {
@@ -108,7 +106,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     var lineNumber = tag.Snapshot.GetLineNumberFromPosition(tag.InsertPosition) + 1;
 
                     // Can't rely on the original element name as this may be supplemental after it's been renamed
-                    if (XamlElementProcessor.IsSelfClosing(tag.AnalyzedElement.OriginalString))
+                    if (XamlElementProcessor.IsSelfClosing(tag.AnalyzedElement.OriginalString.AsSpan()))
                     {
                         var before = $"/>";
                         var after = $"{tag.Name}=\"{tag.Value}\" />";

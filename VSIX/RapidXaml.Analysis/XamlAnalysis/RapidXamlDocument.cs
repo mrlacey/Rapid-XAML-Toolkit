@@ -67,7 +67,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         processors = GetAllProcessors(projType, projFileName, vsAbstraction);
 
                         // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
-                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, vsAbstraction, suppressions, projectFilePath: projFileName);
+                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, vsAbstraction, suppressions, projectFilePath: projFileName, GetEveryElementProcessor(projType, projFileName, vsAbstraction), SharedRapidXamlPackage.Logger);
 
                         var tagsFound = result.Tags.OfType<RapidXamlDisplayedTag>().Count();
 
@@ -97,6 +97,11 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
             return result;
+        }
+
+        public static XamlElementProcessor GetEveryElementProcessor(ProjectType projectType, string projectFilePath, IVisualStudioAbstraction vsAbstraction)
+        {
+            return new EveryElementProcessor(new ProcessorEssentials(projectType, SharedRapidXamlPackage.Logger, projectFilePath, vsAbstraction));
         }
 
         public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectFilePath, IVisualStudioAbstraction vsAbstraction, ILogger logger = null)
@@ -167,7 +172,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.PickerAnalyzer());
                 customProcessors.Add(new CustomAnalysis.BindingToXBindAnalyzer());
 
-                processors.AddRange(WrapCustomProcessors(customProcessors, projType, projectFilePath, logger, vsAbstraction));
+                for (int i = 0; i < customProcessors.Count; i++)
+                {
+                    ICustomAnalyzer customProcessor = customProcessors[i];
+                    processors.Add(
+                        (customProcessor.TargetType(),
+                         new CustomProcessorWrapper(customProcessor, projType, projectFilePath, logger, vsAbstraction)));
+                }
             }
 
             return processors;
