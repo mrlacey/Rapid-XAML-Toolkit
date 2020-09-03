@@ -151,7 +151,7 @@ namespace RapidXaml
 
                 tags.Reverse();  // Work back through the document to allow for modifications changing document length
 
-                // TODO: consider adding an actiontype to include xmlns at top level of document
+                // TODO ISSUE#394: consider adding an actiontype to include xmlns at top level of document
                 foreach (var tag in tags)
                 {
                     // This always should be a CustomAnalysisTag but doesn't hurt to check when casting.
