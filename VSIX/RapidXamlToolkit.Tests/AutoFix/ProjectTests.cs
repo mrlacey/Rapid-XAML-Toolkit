@@ -189,7 +189,7 @@ namespace RapidXamlToolkit.Tests.AutoFix
             var (success, details) = sut.ConvertAllFilesInProject("MyApp.csproj", new[] { new WebViewMultipleActionsAnalyzer() });
 
             Assert.AreEqual(true, success);
-            Assert.IsTrue(details.Count() > 3);
+            Assert.IsTrue(details.Count() == 20);
             Assert.AreEqual(expectedXaml1, fs.WrittenFiles["Page1.xaml"]);
             Assert.AreEqual(expectedXaml2, fs.WrittenFiles["Page2.xaml"]);
             Assert.AreEqual(expectedXaml3, fs.WrittenFiles["Page3.xaml"]);

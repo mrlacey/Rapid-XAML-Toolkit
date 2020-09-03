@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RapidXaml.AutoFix</id>
-    <version>1.0.0-preview7</version>
+    <version>1.0.0-preview8</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <license type="expression">MIT</license>
