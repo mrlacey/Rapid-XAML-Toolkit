@@ -72,7 +72,7 @@
     <file src=".\bin\release\net472\Newtonsoft.Json.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\NuGet.VisualStudio.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.InternalAnalyzers.dll" target="tools/net472/" />
+      <!--<file src=".\bin\release\net472\RapidXaml.InternalAnalyzers.dll" target="tools/net472/" />-->
     <file src=".\bin\release\net472\RapidXaml.Shared.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\stdole.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\System.Buffers.dll" target="tools/net472/" />
