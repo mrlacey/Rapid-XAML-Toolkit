@@ -59,6 +59,7 @@
     <Compile Include="AutoFix\AddAttributeTests.cs" />
     <Compile Include="AutoFix\AddChildStringTests.cs" />
     <Compile Include="AutoFix\CombinationTests.cs" />
+    <Compile Include="AutoFix\ProjectTests.cs" />
     <Compile Include="AutoFix\RemoveAttributeTests.cs" />
     <Compile Include="AutoFix\RemoveChildTests.cs" />
     <Compile Include="AutoFix\RenameElementTests.cs" />

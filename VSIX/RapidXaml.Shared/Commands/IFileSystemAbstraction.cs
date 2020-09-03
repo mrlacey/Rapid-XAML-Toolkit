@@ -13,6 +13,8 @@ namespace RapidXamlToolkit.Commands
 
         string GetDirectoryName(string fileName);
 
+        string[] ReadAllLines(string path);
+
         string PathCombine(params string[] paths);
 
         string GetFileNameWithoutExtension(string fileName);

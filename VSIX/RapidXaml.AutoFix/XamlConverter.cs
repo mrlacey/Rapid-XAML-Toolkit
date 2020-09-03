@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit;
@@ -39,7 +38,7 @@ namespace RapidXaml
                 return (false, new[] { "File does not exist." });
             }
 
-            if (Path.GetExtension(xamlFilePath).ToLowerInvariant() != ".xaml")
+            if (this.FileSystem.GetFileExtension(xamlFilePath).ToLowerInvariant() != ".xaml")
             {
                 return (false, new[] { "File must have a .xaml extension." });
             }
@@ -49,13 +48,82 @@ namespace RapidXaml
                 return (false, new[] { "No analyzers provided. Without these no changes can be made." });
             }
 
-            var text = this.FileSystem.GetAllFileText(xamlFilePath);
+            var output = new List<string>();
+
+            try
+            {
+                this.AnalyzeXamlFile(xamlFilePath, analyzers, output);
+
+                return (true, output);
+            }
+            catch (Exception exc)
+            {
+                output.Add(exc.Message);
+                return (false, output);
+            }
+        }
+
+        public (bool success, IEnumerable<string> details) ConvertAllFilesInProject(string projectFilePath, IEnumerable<ICustomAnalyzer> analyzers)
+        {
+            if (!this.FileSystem.FileExists(projectFilePath))
+            {
+                return (false, new[] { "File does not exist." });
+            }
+
+            var fileExt = this.FileSystem.GetFileExtension(projectFilePath);
+
+            if (!fileExt.ToLowerInvariant().Equals(".csproj")
+              & !fileExt.ToLowerInvariant().Equals(".vbproj"))
+            {
+                return (false, new[] { $"{fileExt} is not recognized as a project file." });
+            }
+
+            if (!analyzers.Any())
+            {
+                return (false, new[] { "No analyzers provided. Without these no changes can be made." });
+            }
 
             var output = new List<string>
             {
-                $"Analyzing '{xamlFilePath}'",
+                $"Analyzing files from '{projectFilePath}'",
             };
 
+            try
+            {
+                var projFileLines = this.FileSystem.ReadAllLines(projectFilePath);
+                var projDir = this.FileSystem.GetDirectoryName(projectFilePath);
+
+                foreach (var line in projFileLines)
+                {
+                    var endPos = line.IndexOf(".xaml\"");
+                    if (endPos > 1)
+                    {
+                        var startPos = line.IndexOf("Include");
+
+                        if (startPos > 1)
+                        {
+                            var relativeFilePath = line.Substring(startPos + 9, endPos + 5 - startPos - 9);
+                            var xamlFilePath = System.IO.Path.Combine(projDir, relativeFilePath);
+
+                            this.AnalyzeXamlFile(xamlFilePath, analyzers, output);
+                        }
+                    }
+                }
+
+                return (true, output);
+            }
+            catch (Exception exc)
+            {
+                output.Add(exc.Message);
+                return (false, output);
+            }
+        }
+
+        private void AnalyzeXamlFile(string xamlFilePath, IEnumerable<ICustomAnalyzer> analyzers, List<string> output)
+        {
+            output.Add($"Analyzing '{xamlFilePath}'");
+
+            var text = this.FileSystem.GetAllFileText(xamlFilePath);
             var snapshot = new FakeTextSnapshot();
 
             var logger = EmptyLogger.Create();
@@ -104,19 +172,11 @@ namespace RapidXaml
                 }
 
                 this.FileSystem.WriteAllFileText(xamlFilePath, text);
-                return (true, output);
             }
             catch (Exception exc)
             {
                 output.Add(exc.Message);
-                return (false, output);
             }
-        }
-
-        public (bool success, List<string> details) ConvertAllFilesInProject(string projectFilePath, IEnumerable<ICustomAnalyzer> analyzers)
-        {
-            // TODO: ISSUE#380 Implement XamlConverter support for project files
-            throw new NotImplementedException("Coming Soon");
         }
 
         private CustomAnalysisTag RepurposeTagForSupplementaryAction(CustomAnalysisTag tag, AnalysisAction suppAction, string elementXaml)

@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.Tests
             return this.FileExistsResponse;
         }
 
-        public string GetAllFileText(string fileName)
+        public virtual string GetAllFileText(string fileName)
         {
             return this.FileText;
         }
@@ -44,7 +44,12 @@ namespace RapidXamlToolkit.Tests
             return Path.Combine(paths);
         }
 
-        public void WriteAllFileText(string fileName, string fileContents)
+        public virtual string[] ReadAllLines(string path)
+        {
+            return new[] { string.Empty };
+        }
+
+        public virtual void WriteAllFileText(string fileName, string fileContents)
         {
             this.WrittenFileText = fileContents;
         }
