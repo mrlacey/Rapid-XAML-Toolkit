@@ -63,8 +63,11 @@ namespace RapidXamlToolkit.Tests.AutoFix
 
             public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
             {
-                return AutoFixAnalysisActions.RenameElement("WebView2")
-                                             .AndAddAttribute("Source", "https://rapidxaml.dev/");
+                var result = AutoFixAnalysisActions.RenameElement("WebView2");
+
+                result.AndAddAttribute("Source", "https://rapidxaml.dev/");
+
+                return result;
             }
         }
     }
