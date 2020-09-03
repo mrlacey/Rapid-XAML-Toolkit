@@ -8,7 +8,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class XfListViewAnalyzer : NotReallyCustomAnalyzer
+    public class XfListViewAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.ListView;
 

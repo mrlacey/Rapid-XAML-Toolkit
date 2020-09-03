@@ -8,7 +8,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class SearchBarAnalyzer : NotReallyCustomAnalyzer
+    public class SearchBarAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.SearchBar;
 

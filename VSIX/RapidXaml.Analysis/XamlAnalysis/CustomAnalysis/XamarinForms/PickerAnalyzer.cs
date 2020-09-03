@@ -8,7 +8,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class PickerAnalyzer : NotReallyCustomAnalyzer
+    public class PickerAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.Picker;
 

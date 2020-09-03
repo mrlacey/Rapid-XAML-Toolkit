@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
-using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests

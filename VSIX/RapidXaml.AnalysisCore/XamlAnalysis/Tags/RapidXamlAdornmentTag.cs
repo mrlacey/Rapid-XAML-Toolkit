@@ -20,8 +20,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public string ToolTip { get; set; }
 
-        public Type SuggestedAction { get; set; }
-
         public Span Span { get; set; }
 
         public ITextSnapshot Snapshot { get; set; }

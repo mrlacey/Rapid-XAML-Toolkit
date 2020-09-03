@@ -8,7 +8,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class LabelAnalyzer : NotReallyCustomAnalyzer
+    public class LabelAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.Label;
 

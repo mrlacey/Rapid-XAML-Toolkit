@@ -8,14 +8,13 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using Newtonsoft.Json;
 using RapidXamlToolkit.ErrorList;
-using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlDisplayedTag : RapidXamlAdornmentTag, IRapidXamlErrorListTag
     {
-        private const string SettingsFileName = "settings.xamlAnalysis";
+        public const string SettingsFileName = "settings.xamlAnalysis";
 
         protected RapidXamlDisplayedTag(TagDependencies deps, string errorCode, TagErrorType defaultErrorType)
             : base(deps.Span, deps.Snapshot, deps.FileName, deps.Logger)
@@ -150,51 +149,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
 
             return false;
-        }
-
-        public void SetAsHiddenInSettingsFile()
-        {
-            if (string.IsNullOrWhiteSpace(this.FileName))
-            {
-                this.Logger.RecordInfo(StringRes.Info_FileNameMissingFromTag);
-                return;
-            }
-
-            var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(this.FileName);
-
-            if (proj == null)
-            {
-                this.Logger.RecordInfo(StringRes.Info_UnableToFindProjectContainingFile.WithParams(this.FileName));
-                return;
-            }
-
-            var settingsFile = Path.Combine(Path.GetDirectoryName(proj.FullName), SettingsFileName);
-
-            Dictionary<string, string> settings;
-
-            bool addToProject = false;
-
-            if (File.Exists(settingsFile))
-            {
-                var json = File.ReadAllText(settingsFile);
-                settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-            }
-            else
-            {
-                settings = new Dictionary<string, string>();
-                addToProject = true;
-            }
-
-            settings[this.ErrorCode] = nameof(TagErrorType.Hidden);
-
-            var jsonSettings = new JsonSerializerSettings { Formatting = Formatting.Indented };
-
-            File.WriteAllText(settingsFile, JsonConvert.SerializeObject(settings, settings: jsonSettings));
-
-            if (addToProject)
-            {
-                proj.ProjectItems.AddFromFile(settingsFile);
-            }
         }
 
         public override ITagSpan<IErrorTag> AsErrorTag()

@@ -29,9 +29,10 @@ namespace Benchmarking
             var text = File.ReadAllText($".\\files\\{fileName}");
 
             var snapshot = new FakeTextSnapshot();
+            var vsa = new TestVisualStudioAbstraction();
+            var logger = DefaultTestLogger.Create();
 
-            XamlElementExtractor.Parse(ProjectType.Uwp, fileName, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, new TestVisualStudioAbstraction(), DefaultTestLogger.Create()), result.Tags, new TestVisualStudioAbstraction());
-
+            XamlElementExtractor.Parse(ProjectType.Uwp, fileName, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger), result.Tags, vsa, null, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa), logger);
         }
     }
 }

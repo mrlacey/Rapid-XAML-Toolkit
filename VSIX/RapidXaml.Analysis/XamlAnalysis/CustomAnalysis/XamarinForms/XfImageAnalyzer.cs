@@ -7,7 +7,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class XfImageAnalyzer : NotReallyCustomAnalyzer
+    public class XfImageAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.Image;
 

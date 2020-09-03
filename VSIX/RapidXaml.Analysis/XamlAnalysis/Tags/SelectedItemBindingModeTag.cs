@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -11,7 +10,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public SelectedItemBindingModeTag(TagDependencies tagDeps)
             : base(tagDeps, "RXT160", TagErrorType.Warning)
         {
-            this.SuggestedAction = typeof(SelectedItemBindingModeAction);
             this.ToolTip = StringRes.UI_XamlAnalysisSetBindingModeToTwoWayToolTip;
             this.Description = StringRes.UI_XamlAnalysisSetBindingModeToTwoWayDescription;
         }

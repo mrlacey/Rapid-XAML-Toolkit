@@ -35,6 +35,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override void Execute(CancellationToken cancellationToken)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var resPath = this.GetResourceFilePath();
 
             if (resPath == null)
@@ -166,6 +168,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         private string GetResourceFilePath()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var resFiles = new List<string>();
 
             // See also https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.shell.interop.ivssolution.getprojectenum?view=visualstudiosdk-2017#Microsoft_VisualStudio_Shell_Interop_IVsSolution_GetProjectEnum_System_UInt32_System_Guid__Microsoft_VisualStudio_Shell_Interop_IEnumHierarchies__
