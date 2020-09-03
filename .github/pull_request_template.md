@@ -5,6 +5,7 @@ This PR relates to Issue #
 
 
 **Confirm**
+- [ ] Everything builds in 'Release` mode
 - [ ] Docs updated
 - [ ] Release notes updated
 
