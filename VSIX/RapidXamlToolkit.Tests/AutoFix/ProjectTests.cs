@@ -161,6 +161,17 @@ namespace RapidXamlToolkit.Tests.AutoFix
   <Import Project=""$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets"" />
 </Project>";
 
+            var fs = new BespokeTestFileSystem
+            {
+                FileExistsResponse = true,
+                FileLines = projFile.Split(new[] { Environment.NewLine }, StringSplitOptions.None),
+            };
+
+            fs.FilesAndContents.Add("MyApp.csproj", projFile);
+            fs.FilesAndContents.Add("Page1.xaml", xamlFile1);
+            fs.FilesAndContents.Add("Page2.xaml", xamlFile2);
+            fs.FilesAndContents.Add("Page3.xaml", xamlFile3);
+#if DEBUG
             var expectedXaml1 = @"<Page>
     <WebView2 Source=""https://rapidxaml.dev/"" />
 </Page>";
@@ -173,23 +184,12 @@ namespace RapidXamlToolkit.Tests.AutoFix
     <WebView2 Source=""https://rapidxaml.dev/""></WebView2>
 </Page>";
 
-            var fs = new BespokeTestFileSystem
-            {
-                FileExistsResponse = true,
-                FileLines = projFile.Split(new[] { Environment.NewLine }, StringSplitOptions.None),
-            };
-
-            fs.FilesAndContents.Add("MyApp.csproj", projFile);
-            fs.FilesAndContents.Add("Page1.xaml", xamlFile1);
-            fs.FilesAndContents.Add("Page2.xaml", xamlFile2);
-            fs.FilesAndContents.Add("Page3.xaml", xamlFile3);
-#if DEBUG
             var sut = new XamlConverter(fs);
 
             var (success, details) = sut.ConvertAllFilesInProject("MyApp.csproj", new[] { new WebViewMultipleActionsAnalyzer() });
 
             Assert.AreEqual(true, success);
-            Assert.IsTrue(details.Count() == 20);
+            Assert.AreEqual(20, details.Count());
             Assert.AreEqual(expectedXaml1, fs.WrittenFiles["Page1.xaml"]);
             Assert.AreEqual(expectedXaml2, fs.WrittenFiles["Page2.xaml"]);
             Assert.AreEqual(expectedXaml3, fs.WrittenFiles["Page3.xaml"]);
