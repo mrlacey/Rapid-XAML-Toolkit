@@ -798,10 +798,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var tags = new TagList();
 
-            var xaml = @"<Page>
-<WebView></WebView>
-<WebView></WebView>
-</Page>";
+            var xaml = "<Page>" +
+ Environment.NewLine + "<WebView></WebView>" +
+ Environment.NewLine + "<WebView></WebView>" +
+ Environment.NewLine + "</Page>";
 
             var snapshot = new FakeTextSnapshot();
             var vsa = new TestVisualStudioAbstraction();
