@@ -26,15 +26,17 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
             var result = new RapidXamlDocument();
 
             var snapshot = new FakeTextSnapshot();
+            var logger = DefaultTestLogger.Create();
+            var vsa = new TestVisualStudioAbstraction();
 
             var processors = RapidXamlDocument.WrapCustomProcessors(
                 new List<ICustomAnalyzer> { new TextTypesCustomAnalyzer() },
                 ProjectType.Unknown,
                 string.Empty,
-                DefaultTestLogger.Create(),
-                new TestVisualStudioAbstraction());
+                logger,
+                vsa);
 
-            XamlElementExtractor.Parse(ProjectType.Uwp, "Generic.xaml", snapshot, xaml, processors.ToList(), result.Tags, new TestVisualStudioAbstraction());
+            XamlElementExtractor.Parse(ProjectType.Uwp, "Generic.xaml", snapshot, xaml, processors.ToList(), result.Tags, vsa, null, string.Empty, null, logger);
 
             Assert.AreEqual(2, result.Tags.Count());
         }

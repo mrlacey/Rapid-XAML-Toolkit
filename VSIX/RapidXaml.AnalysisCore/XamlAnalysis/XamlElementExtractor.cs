@@ -15,16 +15,10 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
+        // TODO: remove unused parameters
         // TODO: need to distinguish processors that need to do a contains check
         public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions, string projectFilePath, XamlElementProcessor everyElementProcessor, ILogger logger)
         {
-            var elementsOfInterest = new List<string>();
-
-            for (int i = 0; i < processors.Count; i++)
-            {
-                elementsOfInterest.Add(processors[i].element);
-            }
-
             var elementsBeingTracked = new List<TrackingElement>();
 
             bool isIdentifyingElement = false;
@@ -79,16 +73,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     if (isIdentifyingElement)
                     {
-                        if (elementsOfInterest.Contains(currentElementName.ToString())
-                         || elementsOfInterest.Contains(currentElementName.ToString().AsSpan().PartAfter(':')))
-                        {
-                            elementsBeingTracked.Add(
-                                new TrackingElement
-                                {
-                                    StartPos = currentElementStartPos,
-                                    ElementName = currentElementName.ToString(),
-                                });
-                        }
+                        elementsBeingTracked.Add(
+                            new TrackingElement
+                            {
+                                StartPos = currentElementStartPos,
+                                ElementName = currentElementName.ToString(),
+                            });
                     }
 
                     if (inLineOpeningWhitespace)
@@ -117,16 +107,12 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         if (isIdentifyingElement)
                         {
-                            if (elementsOfInterest.Contains(currentElementName.ToString())
-                             || elementsOfInterest.Contains(currentElementName.ToString().AsSpan().PartAfter(':')))
-                            {
-                                elementsBeingTracked.Add(
-                                    new TrackingElement
-                                    {
-                                        StartPos = currentElementStartPos,
-                                        ElementName = currentElementName.ToString(),
-                                    });
-                            }
+                            elementsBeingTracked.Add(
+                                new TrackingElement
+                                {
+                                    StartPos = currentElementStartPos,
+                                    ElementName = currentElementName.ToString(),
+                                });
 
                             isIdentifyingElement = false;
                         }
@@ -166,7 +152,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 }
 
                                 // TODO: Is this also the place to check for processors based on contains?
-                                everyElementProcessor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                everyElementProcessor?.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
 
                                 for (int j = 0; j < processors.Count; j++)
                                 {
@@ -181,7 +167,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                                         {
                                             var bubbleUpError = true;
 
-                                            if (processor is CustomProcessorWrapper wrapper)
                                             if (processors[j].processor is CustomProcessorWrapper wrapper)
                                             {
                                                 var customAnalyzer = wrapper.CustomAnalyzer;
@@ -201,11 +186,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                                             }
                                         }
                                     }
-                                    else if (element.StartsWith("ANYCONTAINING:", System.StringComparison.InvariantCultureIgnoreCase))
+                                    else if (processors[j].element.StartsWith("ANYCONTAINING:", System.StringComparison.InvariantCultureIgnoreCase))
                                     {
-                                        if (elementBody.Contains(element.Substring("ANYCONTAINING:".Length)))
+                                        if (elementBody.Contains(processors[j].element.Substring("ANYCONTAINING:".Length)))
                                         {
-                                            processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
                                         }
                                     }
                                 }
@@ -222,7 +207,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     if (!elementBody.StartsWith("</"))
                                     {
                                         // Do this in the else so don't always have to calculate the substring.
-                                        everyElementProcessor.Process(fileName, currentElementStartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                        everyElementProcessor?.Process(fileName, currentElementStartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
                                     }
                                 }
                             }
@@ -267,7 +252,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 get
                 {
-                    return this.ElementName?.PartAfter(":") ?? string.Empty;
+                    return this.ElementName?.AsSpan().PartAfter(':') ?? string.Empty;
                 }
             }
         }

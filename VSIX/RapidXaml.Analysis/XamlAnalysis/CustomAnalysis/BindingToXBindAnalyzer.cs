@@ -5,7 +5,7 @@ using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class BindingToXBindAnalyzer : NotReallyCustomAnalyzer
+    public class BindingToXBindAnalyzer : BuiltInXamlAnalyzer
     {
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
