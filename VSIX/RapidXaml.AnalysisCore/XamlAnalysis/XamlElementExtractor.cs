@@ -15,6 +15,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public static class XamlElementExtractor
     {
+        private const string AnyContainingStart = "ANYCONTAINING:";
+
         // TODO: remove unused parameters
         // TODO: need to distinguish processors that need to do a contains check
         public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions, string projectFilePath, XamlElementProcessor everyElementProcessor, ILogger logger)
@@ -186,9 +188,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                                             }
                                         }
                                     }
-                                    else if (processors[j].element.StartsWith("ANYCONTAINING:", System.StringComparison.InvariantCultureIgnoreCase))
+                                    else if (processors[j].element.StartsWith(AnyContainingStart, System.StringComparison.InvariantCultureIgnoreCase))
                                     {
-                                        if (elementBody.Contains(processors[j].element.Substring("ANYCONTAINING:".Length)))
+                                        if (elementBody.Contains(processors[j].element.Substring(AnyContainingStart.Length)))
                                         {
                                             processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
                                         }

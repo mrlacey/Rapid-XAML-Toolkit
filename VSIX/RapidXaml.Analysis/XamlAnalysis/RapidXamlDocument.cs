@@ -19,6 +19,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class RapidXamlDocument
     {
+        private const string AnyOfStart = "ANYOF:";
+
         private static readonly Dictionary<string, (DateTime timestamp, List<ICustomAnalyzer> analyzer)> AnalyzerCache = new Dictionary<string, (DateTime timestamp, List<ICustomAnalyzer> analyzer)>();
 
         public RapidXamlDocument()
@@ -192,7 +194,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 var wrapper = new CustomProcessorWrapper(customProcessor, projType, projectFilePath, logger, vsAbstraction);
 
-                if (targetType.StartsWith("ANYOF:", StringComparison.InvariantCultureIgnoreCase))
+                if (targetType.StartsWith(AnyOfStart, StringComparison.InvariantCultureIgnoreCase))
                 {
                     var types = targetType.Substring(6).Split(new[] { ' ', ',', ':', ';' }, StringSplitOptions.RemoveEmptyEntries);
 
