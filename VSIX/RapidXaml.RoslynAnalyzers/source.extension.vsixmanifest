@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-    <Metadata>
-        <Identity Id="RapidXaml.RoslynAnalyzers.c58ca4bd-0d58-46cd-afc3-c47a1e1b8c7f" Version="0.10.4" Language="en-US" Publisher="Matt Lacey" />
-        <DisplayName>Rapid XAML RoslynAnalyzers</DisplayName>
-        <Description xml:space="preserve">Roslyn analyzers to help with XAML app development.</Description>
-        <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
-        <License>LICENSE.txt</License>
-        <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/RELEASE_NOTES.md</ReleaseNotes>
-        <Icon>Resources\RapidXamlRoslynAnalyzersLogo.png</Icon>
-        <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, MVVM</Tags>
-    </Metadata>
-    <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
-    </Installation>
-    <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
-        <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[16.0,)" DisplayName="Roslyn Language Services" />
-    </Prerequisites>
-    <Assets>
-        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-        <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-    </Assets>
+  <Metadata>
+    <Identity Id="RapidXaml.RoslynAnalyzers.c58ca4bd-0d58-46cd-afc3-c47a1e1b8c7f" Version="0.11.0" Language="en-US" Publisher="Matt Lacey" />
+    <DisplayName>Rapid XAML RoslynAnalyzers</DisplayName>
+    <Description xml:space="preserve">Roslyn analyzers to help with XAML app development.</Description>
+    <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
+    <License>LICENSE.txt</License>
+    <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/RELEASE_NOTES.md</ReleaseNotes>
+    <Icon>Resources\RapidXamlRoslynAnalyzersLogo.png</Icon>
+    <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, MVVM</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
+  </Installation>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
+    <Prerequisite Id="Microsoft.VisualStudio.Component.Roslyn.LanguageServices" Version="[16.0,)" DisplayName="Roslyn Language Services" />
+  </Prerequisites>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+  </Assets>
 </PackageManifest>
