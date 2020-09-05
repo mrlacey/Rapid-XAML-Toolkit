@@ -88,12 +88,12 @@ namespace RapidXamlToolkit.Commands
                     await AddToToolboxAsync(label, parserResult.Output);
 
                     await ShowStatusBarMessageAsync(Instance.AsyncPackage, StringRes.UI_AddedXamlToToolbox.WithParams(label));
-                    this.Logger.RecordInfo(StringRes.UI_AddedXamlToToolbox.WithParams(label));
+                    this.Logger?.RecordInfo(StringRes.UI_AddedXamlToToolbox.WithParams(label));
                 }
                 else
                 {
                     await ShowStatusBarMessageAsync(Instance.AsyncPackage, StringRes.UI_NothingAddedToToolbox);
-                    this.Logger.RecordInfo(StringRes.UI_NothingAddedToToolbox);
+                    this.Logger?.RecordInfo(StringRes.UI_NothingAddedToToolbox);
                 }
             }
             catch (Exception exc)

@@ -391,7 +391,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
             catch (Exception exc)
             {
-                this.logger.RecordException(exc);
+                this.logger?.RecordException(exc);
             }
 
             var indent = new IndentSize();

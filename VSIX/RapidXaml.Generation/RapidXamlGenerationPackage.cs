@@ -48,8 +48,8 @@ namespace RapidXamlToolkit
             {
                 await SharedRapidXamlPackage.InitializeAsync(cancellationToken, this);
 
-                SharedRapidXamlPackage.Logger.RecordNotice(StringRes.Info_LaunchVersionGeneration.WithParams(CoreDetails.GetVersion()));
-                SharedRapidXamlPackage.Logger.RecordNotice(string.Empty);
+                SharedRapidXamlPackage.Logger?.RecordNotice(StringRes.Info_LaunchVersionGeneration.WithParams(CoreDetails.GetVersion()));
+                SharedRapidXamlPackage.Logger?.RecordNotice(string.Empty);
 
                 await CopyToClipboardCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
                 await SendToToolboxCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
@@ -66,7 +66,7 @@ namespace RapidXamlToolkit
 
                 var ass = Assembly.GetExecutingAssembly().GetName();
 
-                SharedRapidXamlPackage.Logger.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version), quiet: true);
+                SharedRapidXamlPackage.Logger?.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version), quiet: true);
             }
             catch (Exception exc)
             {

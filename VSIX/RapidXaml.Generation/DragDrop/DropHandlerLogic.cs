@@ -48,7 +48,7 @@ namespace RapidXamlToolkit.DragDrop
 
             if (cursorPos < 0)
             {
-                this.logger.RecordInfo(StringRes.Info_CouldNotFindClassInFile.WithParams(draggedFilename));
+                this.logger?.RecordInfo(StringRes.Info_CouldNotFindClassInFile.WithParams(draggedFilename));
                 return null;
             }
 

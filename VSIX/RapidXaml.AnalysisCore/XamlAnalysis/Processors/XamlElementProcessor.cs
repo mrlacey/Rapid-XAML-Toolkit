@@ -228,7 +228,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     if (string.IsNullOrWhiteSpace(xaml))
                     {
                         System.Diagnostics.Debugger.Break();
-                        this.Logger.RecordError($"xaml not passed to `TryGetAttribute({xaml}, {attributeName}, {attributeTypesToCheck})`");
+                        this.Logger?.RecordError($"xaml not passed to `TryGetAttribute({xaml}, {attributeName}, {attributeTypesToCheck})`");
 
                         attributeType = AttributeType.None;
                         index = -1;

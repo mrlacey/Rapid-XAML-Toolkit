@@ -39,7 +39,7 @@ namespace RapidXamlToolkit
 
                 var ass = Assembly.GetExecutingAssembly().GetName();
 
-                SharedRapidXamlPackage.Logger.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version), quiet: true);
+                SharedRapidXamlPackage.Logger?.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version), quiet: true);
             }
             catch (Exception exc)
             {

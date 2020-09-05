@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.Logging
             ThreadHelper.JoinableTaskFactory.Run(async () =>
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-                this.Logger.RecordError(message);
+                this.Logger?.RecordError(message);
             });
         }
 
@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.Logging
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                this.Logger.RecordGeneralError(message);
+                this.Logger?.RecordGeneralError(message);
             });
         }
 
@@ -46,7 +46,7 @@ namespace RapidXamlToolkit.Logging
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                this.Logger.RecordException(exception);
+                this.Logger?.RecordException(exception);
                 this.Telem.TrackException(exception);
             });
         }
@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.Logging
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                this.Logger.RecordFeatureUsage(feature, quiet);
+                this.Logger?.RecordFeatureUsage(feature, quiet);
                 this.Telem.TrackEvent(feature);
             });
         }
@@ -68,7 +68,7 @@ namespace RapidXamlToolkit.Logging
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                this.Logger.RecordNotice(message);
+                this.Logger?.RecordNotice(message);
             });
         }
 
@@ -78,7 +78,7 @@ namespace RapidXamlToolkit.Logging
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                this.Logger.RecordInfo(message);
+                this.Logger?.RecordInfo(message);
             });
         }
     }
