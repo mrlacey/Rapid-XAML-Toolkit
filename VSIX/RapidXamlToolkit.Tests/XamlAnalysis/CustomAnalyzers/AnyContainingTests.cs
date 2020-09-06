@@ -10,15 +10,16 @@ using RapidXamlToolkit.XamlAnalysis;
 namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 {
     [TestClass]
-    public class AnyOfTests
+    public class AnyContainingTests
     {
         [TestMethod]
-        public void AnalyzeAllCommaSeparatedTypes()
+        public void OnlyElementsThatContainAreAnalyzed()
         {
             var xaml = @"
 <StackPanel>
-    <TextBlock />
-    <TextBox />
+    <TextBlock Text=""Something"" />
+    <TextBlock Text=""{Binding SomeVmProperty}"" />
+    <TextBlock Text=""{x:Bind}"" />
 </StackPanel>";
 
             var result = new RapidXamlDocument();
@@ -28,7 +29,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
             var vsa = new TestVisualStudioAbstraction();
 
             var processors = RapidXamlDocument.WrapCustomProcessors(
-                new List<ICustomAnalyzer> { new TextTypesCustomAnalyzer() },
+                new List<ICustomAnalyzer> { new AnyContainingCustomAnalyzer() },
                 ProjectType.Unknown,
                 string.Empty,
                 logger,
@@ -36,17 +37,21 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             XamlElementExtractor.Parse(ProjectType.Uwp, "Generic.xaml", snapshot, xaml, processors.ToList(), result.Tags, vsa, null, string.Empty, null, logger);
 
-            Assert.AreEqual(2, result.Tags.Count());
+            Assert.AreEqual(1, AnyContainingCustomAnalyzer.AnalyzeCallCount);
         }
 
-        public class TextTypesCustomAnalyzer : ICustomAnalyzer
+        public class AnyContainingCustomAnalyzer : ICustomAnalyzer
         {
+            public static int AnalyzeCallCount = 0;
+
             public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
             {
-                return AnalysisActions.HighlightWithoutAction(RapidXamlErrorType.Warning, "ANYOF01", "just a test. carry on");
+                AnalyzeCallCount += 1;
+
+                return AnalysisActions.None;
             }
 
-            public string TargetType() => "AnyOf:TextBlock,TextBox";
+            public string TargetType() => "AnyContaining:{Binding ";
         }
     }
 }

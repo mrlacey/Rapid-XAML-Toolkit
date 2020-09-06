@@ -121,7 +121,9 @@
     <Compile Include="TestProfile.cs" />
     <Compile Include="TestVisualStudioAbstraction.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\AnalyzerTestsBase.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\AnyContainingTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\AnyOfTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\AnyOrChildrenContainingTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\CustomAnalysisTestHelperTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\FakeExtraAnalysisDetails.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\FooAnalysisTests.cs" />

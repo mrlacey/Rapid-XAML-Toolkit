@@ -16,9 +16,9 @@ namespace RapidXamlToolkit.XamlAnalysis
     public static class XamlElementExtractor
     {
         private const string AnyContainingStart = "ANYCONTAINING:";
+        private const string AnyOrChildrenContainingStart = "ANYORCHILDRENCONTAINING:";
 
         // TODO: remove unused parameters
-        // TODO: need to distinguish processors that need to do a contains check
         public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions, string projectFilePath, XamlElementProcessor everyElementProcessor, ILogger logger)
         {
             var elementsBeingTracked = new List<TrackingElement>();
@@ -153,7 +153,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     System.Diagnostics.Debug.WriteLine("DEBUG!!!!!!");
                                 }
 
-                                // TODO: Is this also the place to check for processors based on contains?
                                 everyElementProcessor?.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
 
                                 for (int j = 0; j < processors.Count; j++)
@@ -188,9 +187,16 @@ namespace RapidXamlToolkit.XamlAnalysis
                                             }
                                         }
                                     }
-                                    else if (processors[j].element.StartsWith(AnyContainingStart, System.StringComparison.InvariantCultureIgnoreCase))
+                                    else if (processors[j].element.StartsWith(AnyContainingStart, StringComparison.InvariantCultureIgnoreCase))
                                     {
-                                        if (elementBody.Contains(processors[j].element.Substring(AnyContainingStart.Length)))
+                                        if (XamlElementProcessor.GetOpeningWithoutChildren(elementBody).Contains(processors[j].element.Substring(AnyContainingStart.Length)))
+                                        {
+                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                        }
+                                    }
+                                    else if (processors[j].element.StartsWith(AnyOrChildrenContainingStart, StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        if (elementBody.Contains(processors[j].element.Substring(AnyOrChildrenContainingStart.Length)))
                                         {
                                             processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
                                         }

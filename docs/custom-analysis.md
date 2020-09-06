@@ -30,16 +30,30 @@ In the generated analyzer you will first need to specify the name of the Control
 
 #### Specifying multiple types at once
 
-If you want your analyzer to work with multiple types you can do this by prefixing the names with `ANYOF:` and then specify the different element names separated with commas.
+If you want your analyzer to work with multiple types you can do this by prefixing the names with `ANYOF:` (case-insensitive) and then specify the different element names separated with commas.
 
 e.g.: `ANYOF:MyElement1,MyElement2`
 
 #### Analysis not based on the element type
 
-It's also possible to have an analyzer run on any element based on the contents of the specified XAML. You can do this by specify the TargetType as starting with `ANYCONTAINING:` followed by the string to search for.
+It's also possible to have an analyzer run on any element based on the contents of the specified XAML. You can do this by specify the TargetType as starting with `ANYCONTAINING:` (case-insensitive) followed by the string to search for.
 
 For example, to analyze any element that binds a property to a DynamicResource, specify  
 `TargetType() => "ANYCONTAINING:=\"{DynamicResource";`
+
+#### Analysis not based on the element type and allowing for child elements
+
+If your analyzer needs to know about the contents of child elements, this can be done by starting the TargetType with `AnyOrChildrenContaining:` (case-insensitive) followed by the string to search for.
+
+Considering the following XAML, the analyzer would be called for both the `StackPanel` and the `TextBlock`.
+`TargetType() => "ANYORCHILDRENCONTAINING:=\"{DynamicResource";`
+
+```xml
+<StackPanel>
+    <Image Source="Images/PageTitleLogo.png" />
+    <TextBlock Text="{DynamicResource PageTitleResource}" />
+</StackPanel>
+```
 
 ### Step 3. Implement the analyzer logic
 
