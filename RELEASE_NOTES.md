@@ -10,6 +10,12 @@
 
 _earlier release notes are summary only and were retrospectively created_
 
+## 0.11
+
+- Performance improvements.
+- Enabled custom analysis using `AnyOf:`, `AnyContaining:`, and `AnyOrChildrenContaining:` prefixes.
+- Refactoring to support the AutoFix package.
+
 ## 0.10
 
 - Added Build time XAML Analysis option.
