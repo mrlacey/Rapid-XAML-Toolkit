@@ -35,7 +35,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
                 logger,
                 vsa);
 
-            XamlElementExtractor.Parse(ProjectType.Uwp, "Generic.xaml", snapshot, xaml, processors.ToList(), result.Tags, vsa, null, string.Empty, null, logger);
+            XamlElementExtractor.Parse("Generic.xaml", snapshot, xaml, processors.ToList(), result.Tags, null, null, logger);
 
             // This will be two becuase called for the 2nd TextBlock and also the containing StackPanel
             Assert.AreEqual(2, AnyOrChildrenContainingCustomAnalyzer.AnalyzeCallCount);

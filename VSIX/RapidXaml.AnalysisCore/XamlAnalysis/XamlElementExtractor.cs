@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         private const string AnyOrChildrenContainingStart = "ANYORCHILDRENCONTAINING:";
 
         // TODO: remove unused parameters
-        public static bool Parse(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, IVisualStudioAbstraction vsAbstraction, List<TagSuppression> suppressions, string projectFilePath, XamlElementProcessor everyElementProcessor, ILogger logger)
+        public static bool Parse(string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions, XamlElementProcessor everyElementProcessor, ILogger logger)
         {
             var elementsBeingTracked = new List<TrackingElement>();
 

@@ -812,7 +812,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 ("WebView", new CustomProcessorWrapper(new WebViewToWebView2Basic(), ProjectType.Any, string.Empty, logger, vsa)),
             };
 
-            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", snapshot, xaml, processors, tags, vsa, null, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
 
             Assert.AreEqual(2, tags.Count);
             Assert.AreEqual(8, (tags[0] as CustomAnalysisTag).AnalyzedElement.Location.Start);
@@ -829,7 +829,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
-            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", null, xaml, processors, tags, vsa, null, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+            XamlElementExtractor.Parse("testfile.xaml", null, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
         }
 
         private void TestParsingWithFakeSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags = null)
@@ -843,7 +843,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
-            XamlElementExtractor.Parse(ProjectType.Any, "testfile.xaml", snapshot, xaml, processors, tags, vsa, null, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
         }
 
         public class WebViewToWebView2Basic : ICustomAnalyzer

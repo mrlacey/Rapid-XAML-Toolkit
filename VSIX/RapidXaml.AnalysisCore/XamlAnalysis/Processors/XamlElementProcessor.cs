@@ -129,7 +129,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var processor = new SubElementProcessor(new ProcessorEssentials(projectType, logger, projectFile, vsAbstraction));
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
-            XamlElementExtractor.Parse(projectType, fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList(), vsAbstraction, suppressions: null, projectFilePath: null, everyElementProcessor: null, logger);
+            XamlElementExtractor.Parse(fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList(), suppressions: null, everyElementProcessor: null, logger);
 
 #if DEBUG
             if (result == null)

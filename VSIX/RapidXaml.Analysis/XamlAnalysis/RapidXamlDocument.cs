@@ -69,7 +69,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         processors = GetAllProcessors(projType, projFileName, vsAbstraction);
 
                         // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
-                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, vsAbstraction, suppressions, projectFilePath: projFileName, GetEveryElementProcessor(projType, projFileName, vsAbstraction), SharedRapidXamlPackage.Logger);
+                        XamlElementExtractor.Parse(fileName, snapshot, text, processors, result.Tags, suppressions, GetEveryElementProcessor(projType, projFileName, vsAbstraction), SharedRapidXamlPackage.Logger);
 
                         var tagsFound = result.Tags.OfType<RapidXamlDisplayedTag>().Count();
 

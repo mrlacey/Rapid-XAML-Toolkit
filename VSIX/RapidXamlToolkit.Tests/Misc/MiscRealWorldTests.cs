@@ -89,7 +89,7 @@ namespace RapidXamlToolkit.Tests.Misc
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
-            XamlElementExtractor.Parse(ProjectType.Uwp, "Generic.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger), result.Tags, vsa, null, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa), logger);
+            XamlElementExtractor.Parse("Generic.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger), result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa), logger);
 
             Assert.AreEqual(0, result.Tags.OfType<MissingRowDefinitionTag>().Count());
             Assert.AreEqual(0, result.Tags.OfType<MissingColumnDefinitionTag>().Count());
@@ -114,14 +114,11 @@ namespace RapidXamlToolkit.Tests.Misc
             try
             {
                 XamlElementExtractor.Parse(
-                    projType,
                     Path.GetFileName(filePath),
                     snapshot,
                     text,
                     RapidXamlDocument.GetAllProcessors(projType, string.Empty, vsa, logger),
                     result.Tags,
-                    vsa,
-                    null,
                     null,
                     RapidXamlDocument.GetEveryElementProcessor(projType, null, vsa),
                     logger);
