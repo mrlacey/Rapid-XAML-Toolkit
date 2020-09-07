@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         {
             if (deps.Span.Start > deps.Snapshot.Length)
             {
-                deps.Logger.RecordError(
+                deps.Logger?.RecordError(
                     $"Span calculated outside snapshot for ErrorCode={ErrorCode}",
                     deps.TelemetryProperties);
 
