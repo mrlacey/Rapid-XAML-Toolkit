@@ -32,7 +32,7 @@ namespace Benchmarking
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
-            XamlElementExtractor.Parse(ProjectType.Uwp, fileName, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger), result.Tags, vsa, null, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa), logger);
+            XamlElementExtractor.Parse(fileName, snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger), result.Tags, null,RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa), logger);
         }
     }
 }

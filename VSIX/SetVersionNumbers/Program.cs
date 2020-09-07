@@ -14,7 +14,6 @@ namespace SetVersionNumbers
         private static readonly List<string> AssemblyInfoFiles = new List<string>
         {
             "../../../../RapidXaml.Analysis/Properties/AssemblyInfo.cs",
-            "../../../../RapidXaml.AutoFix/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.Common/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.CustomAnalysis/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.Generation/Properties/AssemblyInfo.cs",

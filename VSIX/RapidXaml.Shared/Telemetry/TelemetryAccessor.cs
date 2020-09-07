@@ -71,7 +71,7 @@ namespace RapidXamlToolkit.Telemetry
 
                 TelemetryConfiguration.Active.DisableTelemetry = true;
 
-                logger.RecordException(ex);
+                logger?.RecordException(ex);
             }
 
             return instance;
@@ -168,7 +168,7 @@ namespace RapidXamlToolkit.Telemetry
             }
             catch (Exception)
             {
-                logger.RecordInfo(StringRes.Info_UnableToAccessTelemetry);
+                logger?.RecordInfo(StringRes.Info_UnableToAccessTelemetry);
                 isOptedIn = false;
             }
 
