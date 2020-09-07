@@ -163,6 +163,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.ReplaceElementTestAnalyzer());
                 customProcessors.Add(new CustomAnalysis.AddChildTestAnalyzer());
                 customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
+                customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer());
+                customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer2());
 #endif
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
                 customProcessors.Add(new CustomAnalysis.LabelAnalyzer());
