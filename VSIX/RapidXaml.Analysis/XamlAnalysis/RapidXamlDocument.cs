@@ -19,6 +19,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class RapidXamlDocument
     {
+        private const string AnyOfStart = "ANYOF:";
+
         private static readonly Dictionary<string, (DateTime timestamp, List<ICustomAnalyzer> analyzer)> AnalyzerCache = new Dictionary<string, (DateTime timestamp, List<ICustomAnalyzer> analyzer)>();
 
         public RapidXamlDocument()
@@ -67,7 +69,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         processors = GetAllProcessors(projType, projFileName, vsAbstraction);
 
                         // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
-                        XamlElementExtractor.Parse(projType, fileName, snapshot, text, processors, result.Tags, vsAbstraction, suppressions, projectFilePath: projFileName, GetEveryElementProcessor(projType, projFileName, vsAbstraction), SharedRapidXamlPackage.Logger);
+                        XamlElementExtractor.Parse(fileName, snapshot, text, processors, result.Tags, suppressions, GetEveryElementProcessor(projType, projFileName, vsAbstraction), SharedRapidXamlPackage.Logger);
 
                         var tagsFound = result.Tags.OfType<RapidXamlDisplayedTag>().Count();
 
@@ -161,6 +163,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.ReplaceElementTestAnalyzer());
                 customProcessors.Add(new CustomAnalysis.AddChildTestAnalyzer());
                 customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
+                customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer());
+                customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer2());
 #endif
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
                 customProcessors.Add(new CustomAnalysis.LabelAnalyzer());
@@ -170,6 +174,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer());
                 customProcessors.Add(new CustomAnalysis.EntryAnalyzer());
                 customProcessors.Add(new CustomAnalysis.PickerAnalyzer());
+                customProcessors.Add(new CustomAnalysis.BindingToXBindAnalyzer());
 
                 for (int i = 0; i < customProcessors.Count; i++)
                 {
@@ -181,6 +186,30 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
 
             return processors;
+        }
+
+        public static IEnumerable<(string, XamlElementProcessor)> WrapCustomProcessors(List<ICustomAnalyzer> customProcessors, ProjectType projType, string projectFilePath, ILogger logger, IVisualStudioAbstraction vsAbstraction)
+        {
+            foreach (var customProcessor in customProcessors)
+            {
+                var targetType = customProcessor.TargetType();
+
+                var wrapper = new CustomProcessorWrapper(customProcessor, projType, projectFilePath, logger, vsAbstraction);
+
+                if (targetType.StartsWith(AnyOfStart, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var types = targetType.Substring(6).Split(new[] { ' ', ',', ':', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (var type in types)
+                    {
+                        yield return (type, wrapper);
+                    }
+                }
+                else
+                {
+                    yield return (targetType, wrapper);
+                }
+            }
         }
 
         public static List<ICustomAnalyzer> GetCustomProcessors(string projectFileDirectory)

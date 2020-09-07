@@ -144,7 +144,7 @@ namespace RapidXaml
 
                 var tags = new TagList();
 
-                XamlElementExtractor.Parse(ProjectType.Any, "Generic.xaml", snapshot, text, processors, tags, vsAbstraction, null, null, null, logger);
+                XamlElementExtractor.Parse("Generic.xaml", snapshot, text, processors, tags, null, null, logger);
 
                 var plural = tags.Count == 1 ? string.Empty : "s";
                 output.Add($"Found {tags.Count} place{plural} to make changes.");

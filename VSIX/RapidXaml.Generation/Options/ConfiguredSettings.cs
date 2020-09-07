@@ -41,8 +41,8 @@ namespace RapidXamlToolkit.Options
                         configurationErrorReported = true;
 
                         // `RecordError` may query settings and a problem with settings is why we may be here.
-                        SharedRapidXamlPackage.Logger.RecordError(StringRes.Error_OutdatedConfigurationDetected2, force: true);
-                        SharedRapidXamlPackage.Logger.RecordGeneralError(StringRes.Error_OutdatedConfigurationDetected2);
+                        SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_OutdatedConfigurationDetected2, force: true);
+                        SharedRapidXamlPackage.Logger?.RecordGeneralError(StringRes.Error_OutdatedConfigurationDetected2);
                     }
                 }
                 else

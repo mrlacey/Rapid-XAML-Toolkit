@@ -16,7 +16,7 @@ namespace RapidXamlToolkit
     [ProvideAutoLoad(UICONTEXT.CSharpProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UICONTEXT.VBProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.10.4")] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.11.0")] // Info on this package for Help/About
     [Guid(RapidXamlRoslynAnalyzersPackage.PackageGuidString)]
     public sealed class RapidXamlRoslynAnalyzersPackage : AsyncPackage
     {
@@ -39,7 +39,7 @@ namespace RapidXamlToolkit
 
                 var ass = Assembly.GetExecutingAssembly().GetName();
 
-                SharedRapidXamlPackage.Logger.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version), quiet: true);
+                SharedRapidXamlPackage.Logger?.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version), quiet: true);
             }
             catch (Exception exc)
             {
