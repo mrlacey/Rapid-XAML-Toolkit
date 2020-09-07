@@ -43,7 +43,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
         public class AnyOrChildrenContainingCustomAnalyzer : ICustomAnalyzer
         {
-            public static int AnalyzeCallCount = 0;
+            public static int AnalyzeCallCount { get; set; } = 0;
 
             public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
             {
