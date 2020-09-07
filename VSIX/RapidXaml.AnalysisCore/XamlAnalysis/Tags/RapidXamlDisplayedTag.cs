@@ -19,6 +19,16 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         protected RapidXamlDisplayedTag(TagDependencies deps, string errorCode, TagErrorType defaultErrorType)
             : base(deps.Span, deps.Snapshot, deps.FileName, deps.Logger)
         {
+            if (deps.Span.Start > deps.Snapshot.Length)
+            {
+                deps.Logger.RecordError(
+                    $"Span calculated outside snapshot for ErrorCode={ErrorCode}",
+                    deps.TelemetryProperties);
+
+                // Reset the span location to something that's definitely valid
+                deps.Span = new Span(0, 0);
+            }
+
             var line = deps.Snapshot.GetLineFromPosition(deps.Span.Start);
             var col = deps.Span.Start - line.Start.Position;
 

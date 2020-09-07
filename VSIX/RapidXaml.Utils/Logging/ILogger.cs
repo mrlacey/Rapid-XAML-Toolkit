@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 
 namespace RapidXamlToolkit.Logging
 {
@@ -24,8 +25,9 @@ namespace RapidXamlToolkit.Logging
         /// Record an error.
         /// </summary>
         /// <param name="message">Description of the error.</param>
+        /// <param name="properties">Additional properties to enable easier debugging.</param>
         /// <param name="force">Try and make this error visible in VS UI.</param>
-        void RecordError(string message, bool force = false);
+        void RecordError(string message, Dictionary<string, string> properties = null, bool force = false);
 
         void RecordGeneralError(string message);
 
