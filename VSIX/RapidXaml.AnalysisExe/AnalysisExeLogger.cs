@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using RapidXamlToolkit.Logging;
 
 namespace RapidXaml.AnalysisExe
@@ -10,7 +11,7 @@ namespace RapidXaml.AnalysisExe
     {
         public bool UseExtendedLogging { get; set; } = true;
 
-        public void RecordError(string message, bool force = false)
+        public void RecordError(string message, Dictionary<string, string> properties = null, bool force = false)
         {
             Console.WriteLine($"AEL-Error: {message}");
         }

@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.Resources;
@@ -19,7 +20,7 @@ namespace RapidXamlToolkit.Logging
             return $"[{DateTime.Now:HH:mm:ss.fff}]  {message}{Environment.NewLine}";
         }
 
-        public void RecordError(string message, bool force = false)
+        public void RecordError(string message, Dictionary<string, string> properties = null, bool force = false)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 

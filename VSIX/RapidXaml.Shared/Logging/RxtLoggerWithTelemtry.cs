@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.Shell;
 using RapidXamlToolkit.Telemetry;
 
@@ -21,12 +22,13 @@ namespace RapidXamlToolkit.Logging
 
         public bool UseExtendedLogging { get; set; }
 
-        public void RecordError(string message, bool force = false)
+        public void RecordError(string message, Dictionary<string, string> properties = null, bool force = false)
         {
             ThreadHelper.JoinableTaskFactory.Run(async () =>
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
                 this.Logger?.RecordError(message);
+                this.Telem.TrackEvent(message, properties);
             });
         }
 

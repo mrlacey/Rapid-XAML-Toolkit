@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
@@ -103,11 +104,11 @@ namespace RapidXamlToolkit.Telemetry
             }
         }
 
-        public void TrackEvent(string eventName)
+        public void TrackEvent(string eventName, Dictionary<string, string> properties = null)
         {
             if (this.IsEnabled && this.Client.IsEnabled())
             {
-                this.Client.TrackEvent(eventName);
+                this.Client.TrackEvent(eventName, properties);
                 this.Flush();
             }
         }

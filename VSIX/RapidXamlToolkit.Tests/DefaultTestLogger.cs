@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.Tests
@@ -15,7 +16,7 @@ namespace RapidXamlToolkit.Tests
             return new DefaultTestLogger();
         }
 
-        public void RecordError(string message, bool force = false)
+        public void RecordError(string message, Dictionary<string, string> properties = null, bool force = false)
         {
         }
 
