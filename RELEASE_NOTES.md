@@ -15,6 +15,7 @@ _earlier release notes are summary only and were retrospectively created_
 - Performance improvements.
 - Enabled custom analysis using `AnyOf:`, `AnyContaining:`, and `AnyOrChildrenContaining:` prefixes.
 - Refactoring to support the AutoFix package.
+- Add first Uno specific analyzers.
 
 ## 0.10
 

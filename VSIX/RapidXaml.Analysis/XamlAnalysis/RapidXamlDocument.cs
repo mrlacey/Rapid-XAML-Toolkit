@@ -167,6 +167,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer2());
 #endif
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
+                customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer());
                 customProcessors.Add(new CustomAnalysis.LabelAnalyzer());
                 customProcessors.Add(new CustomAnalysis.XfImageAnalyzer());
                 customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer());
