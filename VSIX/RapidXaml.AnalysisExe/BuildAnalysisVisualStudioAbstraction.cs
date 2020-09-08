@@ -61,16 +61,6 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
-        public Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Microsoft.CodeAnalysis.Document document)
-        {
-            throw new NotImplementedException();
-        }
-
         public ProjectWrapper GetProject(string projectName)
         {
             throw new NotImplementedException();

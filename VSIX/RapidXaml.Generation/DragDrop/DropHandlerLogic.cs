@@ -17,9 +17,9 @@ namespace RapidXamlToolkit.DragDrop
         private readonly ILogger logger;
         private readonly IFileSystemAbstraction fileSystem;
         private readonly Profile profileOverride;
-        private readonly IVisualStudioAbstraction vs;
+        private readonly IVisualStudioAbstractionAndDocumentModelAccess vs;
 
-        public DropHandlerLogic(ILogger logger, IVisualStudioAbstraction vs, IFileSystemAbstraction fileSystem = null, Profile profileOverride = null)
+        public DropHandlerLogic(ILogger logger, IVisualStudioAbstractionAndDocumentModelAccess vs, IFileSystemAbstraction fileSystem = null, Profile profileOverride = null)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.vs = vs ?? throw new ArgumentNullException(nameof(vs));

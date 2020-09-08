@@ -15,14 +15,13 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
-using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using IAsyncServiceProvider = Microsoft.VisualStudio.Shell.IAsyncServiceProvider;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
 {
-    public class VisualStudioAbstraction : VisualStudioTextManipulation, IVisualStudioAbstraction
+    public class VisualStudioAbstraction : VisualStudioTextManipulation, IVisualStudioAbstractionAndDocumentModelAccess
     {
         private static readonly Dictionary<string, ProjectType> ProjectTypeCache = new Dictionary<string, ProjectType>();
 

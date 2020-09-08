@@ -15,10 +15,6 @@ namespace RapidXaml
 
         public ProjectWrapper NamedProject { get; set; } = null;
 
-        public SyntaxTree SyntaxTree { get; set; } = null;
-
-        public SemanticModel SemanticModel { get; set; } = null;
-
         public bool UserConfirmsResult { get; set; } = false;
 
         public string ActiveDocumentFileName { get; set; }
@@ -43,12 +39,6 @@ namespace RapidXaml
             return this.NamedProject;
         }
 
-        public virtual async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
-        {
-            await Task.CompletedTask;
-            return (this.SyntaxTree, this.SemanticModel);
-        }
-
         public bool UserConfirms(string title, string message)
         {
             return this.UserConfirmsResult;
@@ -62,12 +52,6 @@ namespace RapidXaml
         public string GetActiveDocumentText()
         {
             return this.ActiveDocumentText;
-        }
-
-        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Microsoft.CodeAnalysis.Document document)
-        {
-            await Task.CompletedTask;
-            return (this.SyntaxTree, this.SemanticModel);
         }
 
         public bool ActiveDocumentIsCSharp()

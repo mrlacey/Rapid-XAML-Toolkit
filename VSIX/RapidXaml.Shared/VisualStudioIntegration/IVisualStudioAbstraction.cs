@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
 {
@@ -13,10 +12,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         ProjectWrapper GetActiveProject();
 
         ProjectWrapper GetProject(string projectName);
-
-        Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName);
-
-        Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Document document);
 
         string GetActiveDocumentFileName();
 

@@ -8,7 +8,7 @@ using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests
 {
-    public class TestVisualStudioAbstraction : IVisualStudioAbstraction
+    public class TestVisualStudioAbstraction : IVisualStudioAbstractionAndDocumentModelAccess
     {
         public ProjectWrapper ActiveProject { get; set; } = null;
 
