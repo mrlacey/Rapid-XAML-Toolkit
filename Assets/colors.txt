@@ -2,9 +2,9 @@ BLUE   = 0,120,255   #0078ff	Toolkit
 RED    = 255,36,36   #ff2424	Generation
 YELLOW = 255,236,36  #ffec24	Roslyn
 GREEN  = 89,165,36   #59a524	Analysis
-PINK   = 255,105,180 #ff69b4	(Resources)
+PINK   = 255,105,180 #ff69b4	EditorExtras
 PURPLE = 102,51,153  #663399	CustomAnalysis
 SILVER = 192,192,192 #C0C0C0	Common
-ORANGE = 255,165,0   #FFA500	(Templates)
+ORANGE = 255,165,0   #FFA500	Templates
 
-?????	(Styles)
+?????	(Styles) - in EditorExtras?
