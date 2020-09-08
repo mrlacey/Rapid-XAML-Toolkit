@@ -7,7 +7,7 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
 {
     public class StubCustomAnalysisProcessor : ICustomAnalyzer
     {
-        public AnalysisActions Analyze(RapidXamlElement element)
+        public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             // Don't do anything.
             // Knowing this is called is enough as this exists only to know

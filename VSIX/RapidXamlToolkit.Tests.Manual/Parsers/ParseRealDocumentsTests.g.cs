@@ -1,13 +1,5 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
-<#@ template debug="false" hostspecific="false" language="C#" #>
-<#@ assembly name="System.Core" #>
-<#@ import namespace="System" #>
-<#@ import namespace="System.IO" #>
-<#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Text" #>
-<#@ import namespace="System.Collections.Generic" #>
-<#@ output extension=".g.cs" #>
 
 using System;
 using System.Collections.Generic;
@@ -25,23 +17,6 @@ namespace RapidXamlToolkit.Tests.Manual.Parsers
     public class ParseRealDocumentsTests
     {
         public TestContext TestContext { get; set; }
-<#
-
-// IMPORANT - Change this to an appropriate folder on your machine.
-// This folder should contain sub-folders that contain XAML files.
-// Individual tests are created for each sub-folder to help manage the testing of large numbers of files.
-const string rootFolder = @"C:\Users\matt\Documents\GitHub\";
-
-foreach (var subFolder in Directory.GetDirectories(rootFolder))
-{
-    WriteLine("");
-    WriteLine("        [TestMethod]");
-    WriteLine($"        public async Task TestCodeFilesIn_{string.Concat(new DirectoryInfo(subFolder).Name.Where(ch => Char.IsLetterOrDigit(ch)))}()");
-    WriteLine("        {");
-    WriteLine($"            await this.CanParseWithoutErrors(@\"{subFolder}\");");
-    WriteLine("        }");
-}
-#>
 
         private static IEnumerable<string> GetCodeFiles(string folder)
         {

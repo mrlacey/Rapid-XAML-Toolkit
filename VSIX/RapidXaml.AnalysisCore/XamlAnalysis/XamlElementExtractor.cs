@@ -205,7 +205,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                             }
                             else
                             {
-                                if (!inComment)
+                                // Account for unknown startPos until address ISSUE#400
+                                if (!inComment && currentElementStartPos >= 0)
                                 {
                                     var elementBody = xaml.Substring(currentElementStartPos, i - currentElementStartPos + 1);
 
