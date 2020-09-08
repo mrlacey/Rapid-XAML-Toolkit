@@ -292,7 +292,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return null;
         }
 
-        public ProjectWrapper GetActiveProject()
+        public IProjectWrapper GetActiveProject()
         {
             return new ProjectWrapper(((Array)this.Dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project);
         }
@@ -324,7 +324,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return (syntaxTree, semModel);
         }
 
-        public ProjectWrapper GetProject(string projectName)
+        public IProjectWrapper GetProject(string projectName)
         {
             foreach (var project in this.Dte.Solution.GetAllProjects())
             {

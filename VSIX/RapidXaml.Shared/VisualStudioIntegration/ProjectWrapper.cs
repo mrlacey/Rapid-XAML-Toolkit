@@ -3,8 +3,10 @@
 
 namespace RapidXamlToolkit.VisualStudioIntegration
 {
-    public class ProjectWrapper
+    public class ProjectWrapper : IProjectWrapper
     {
+        private readonly EnvDTE.Project project;
+
         private string name;
 
         private string fileName;
@@ -15,13 +17,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public ProjectWrapper(EnvDTE.Project project)
         {
-            this.Project = project;
+            this.project = project;
         }
 
-        public EnvDTE.Project Project { get; set; }
+        public string Name { get => this.project?.Name ?? this.name; set => this.name = value; }
 
-        public string Name { get => this.Project?.Name ?? this.name; set => this.name = value; }
-
-        public string FileName { get => this.Project?.FileName ?? this.fileName; set => this.fileName = value; }
+        public string FileName { get => this.project?.FileName ?? this.fileName; set => this.fileName = value; }
     }
 }

@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
 using RapidXamlToolkit;
 using RapidXamlToolkit.VisualStudioIntegration;
 
@@ -46,7 +45,7 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
-        public ProjectWrapper GetActiveProject()
+        public IProjectWrapper GetActiveProject()
         {
             throw new NotImplementedException();
         }
@@ -61,7 +60,7 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
-        public ProjectWrapper GetProject(string projectName)
+        public IProjectWrapper GetProject(string projectName)
         {
             throw new NotImplementedException();
         }

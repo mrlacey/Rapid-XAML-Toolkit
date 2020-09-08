@@ -61,6 +61,7 @@
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Commands\IFileSystemAbstraction.cs" />
     <Compile Include="VisualStudioIntegration\IDocumentModelAccess.cs" />
+    <Compile Include="VisualStudioIntegration\IProjectWrapper.cs" />
     <Compile Include="VisualStudioIntegration\IVisualStudioAbstractionAndDocumentModelAccess.cs" />
     <Compile Include="VisualStudioIntegration\ProjectWrapper.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />

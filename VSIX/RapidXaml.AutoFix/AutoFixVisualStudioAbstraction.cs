@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
 using RapidXamlToolkit;
 using RapidXamlToolkit.VisualStudioIntegration;
 
@@ -11,9 +10,9 @@ namespace RapidXaml
 {
     public class AutoFixVisualStudioAbstraction : IVisualStudioAbstraction
     {
-        public ProjectWrapper ActiveProject { get; set; } = null;
+        public IProjectWrapper ActiveProject { get; set; } = null;
 
-        public ProjectWrapper NamedProject { get; set; } = null;
+        public IProjectWrapper NamedProject { get; set; } = null;
 
         public bool UserConfirmsResult { get; set; } = false;
 
@@ -29,12 +28,12 @@ namespace RapidXaml
 
         public int XamlIndent { get; set; } = 4;
 
-        public ProjectWrapper GetActiveProject()
+        public IProjectWrapper GetActiveProject()
         {
             return this.ActiveProject;
         }
 
-        public ProjectWrapper GetProject(string projectName)
+        public IProjectWrapper GetProject(string projectName)
         {
             return this.NamedProject;
         }

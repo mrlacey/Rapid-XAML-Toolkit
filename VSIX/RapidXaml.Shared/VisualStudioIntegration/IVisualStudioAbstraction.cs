@@ -9,9 +9,9 @@ namespace RapidXamlToolkit.VisualStudioIntegration
     {
         bool UserConfirms(string title, string message);
 
-        ProjectWrapper GetActiveProject();
+        IProjectWrapper GetActiveProject();
 
-        ProjectWrapper GetProject(string projectName);
+        IProjectWrapper GetProject(string projectName);
 
         string GetActiveDocumentFileName();
 

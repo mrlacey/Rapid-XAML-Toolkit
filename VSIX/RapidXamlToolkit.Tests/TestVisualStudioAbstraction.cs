@@ -10,9 +10,9 @@ namespace RapidXamlToolkit.Tests
 {
     public class TestVisualStudioAbstraction : IVisualStudioAbstractionAndDocumentModelAccess
     {
-        public ProjectWrapper ActiveProject { get; set; } = null;
+        public IProjectWrapper ActiveProject { get; set; } = null;
 
-        public ProjectWrapper NamedProject { get; set; } = null;
+        public IProjectWrapper NamedProject { get; set; } = null;
 
         public SyntaxTree SyntaxTree { get; set; } = null;
 
@@ -32,12 +32,12 @@ namespace RapidXamlToolkit.Tests
 
         public int XamlIndent { get; set; } = 4;
 
-        public ProjectWrapper GetActiveProject()
+        public IProjectWrapper GetActiveProject()
         {
             return this.ActiveProject;
         }
 
-        public ProjectWrapper GetProject(string projectName)
+        public IProjectWrapper GetProject(string projectName)
         {
             return this.NamedProject;
         }
