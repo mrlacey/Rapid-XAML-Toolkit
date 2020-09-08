@@ -9,23 +9,12 @@ namespace RapidXamlToolkit.VisualStudioIntegration
     {
         bool UserConfirms(string title, string message);
 
-        IProjectWrapper GetActiveProject();
-
-        IProjectWrapper GetProject(string projectName);
-
-        string GetActiveDocumentFileName();
-
         string GetActiveDocumentText();
 
         ProjectType GetProjectType(EnvDTE.Project project);
 
-        // TODO: move this to a separate interface that AutoFix (& Build/AnalysisExe) don't need to know about
+        // TO DO: move this to a separate interface that AutoFix (& Build/AnalysisExe) don't need to know about
         (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName);
-
-        bool ActiveDocumentIsCSharp();
-
-        // This should be the selection start if not a single point
-        int GetCursorPosition();
 
         (int, int) GetCursorPositionAndLineNumber();
 

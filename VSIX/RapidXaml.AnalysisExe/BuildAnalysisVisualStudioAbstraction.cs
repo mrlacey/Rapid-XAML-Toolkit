@@ -20,11 +20,6 @@ namespace RapidXaml.AnalysisExe
             this.projectType = projectType;
         }
 
-        public bool ActiveDocumentIsCSharp()
-        {
-            throw new NotImplementedException();
-        }
-
         public void DeleteFromEndOfLine(int lineNumber, int charsToDelete)
         {
             throw new NotImplementedException();
@@ -35,32 +30,12 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
-        public string GetActiveDocumentFileName()
-        {
-            throw new NotImplementedException();
-        }
-
         public string GetActiveDocumentText()
         {
             throw new NotImplementedException();
         }
 
-        public IProjectWrapper GetActiveProject()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GetCursorPosition()
-        {
-            throw new NotImplementedException();
-        }
-
         public (int, int) GetCursorPositionAndLineNumber()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IProjectWrapper GetProject(string projectName)
         {
             throw new NotImplementedException();
         }

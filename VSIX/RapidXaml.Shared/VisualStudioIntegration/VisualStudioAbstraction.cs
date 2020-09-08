@@ -38,11 +38,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             this.serviceProvider = serviceProvider;
         }
 
-        public string GetActiveDocumentFileName()
-        {
-            return this.Dte.ActiveDocument.Name;
-        }
-
         public string GetActiveDocumentFilePath()
         {
             return this.Dte.ActiveDocument.FullName;
@@ -292,11 +287,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return null;
         }
 
-        public IProjectWrapper GetActiveProject()
-        {
-            return new ProjectWrapper(((Array)this.Dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project);
-        }
-
         public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
         {
             var componentModel = await this.serviceProvider.GetServiceAsync<SComponentModel, IComponentModel>();
@@ -324,19 +314,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return (syntaxTree, semModel);
         }
 
-        public IProjectWrapper GetProject(string projectName)
-        {
-            foreach (var project in this.Dte.Solution.GetAllProjects())
-            {
-                if (project.Name == projectName)
-                {
-                    return new ProjectWrapper(project);
-                }
-            }
-
-            return null;
-        }
-
         public bool UserConfirms(string title, string message)
         {
             var msgResult = MessageBox.Show(
@@ -346,18 +323,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                                             MessageBoxImage.Warning);
 
             return msgResult == MessageBoxResult.Yes;
-        }
-
-        public bool ActiveDocumentIsCSharp()
-        {
-            return this.Dte.ActiveDocument.Language == "CSharp";
-        }
-
-        public int GetCursorPosition()
-        {
-            var (offset, _) = this.GetCursorPositionAndLineNumber();
-
-            return offset;
         }
 
         public (int, int) GetCursorPositionAndLineNumber()

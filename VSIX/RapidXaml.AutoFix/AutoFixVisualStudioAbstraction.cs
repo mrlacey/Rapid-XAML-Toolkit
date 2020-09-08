@@ -10,17 +10,9 @@ namespace RapidXaml
 {
     public class AutoFixVisualStudioAbstraction : IVisualStudioAbstraction
     {
-        public IProjectWrapper ActiveProject { get; set; } = null;
-
-        public IProjectWrapper NamedProject { get; set; } = null;
-
         public bool UserConfirmsResult { get; set; } = false;
 
-        public string ActiveDocumentFileName { get; set; }
-
         public string ActiveDocumentText { get; set; }
-
-        public bool DocumentIsCSharp { get; set; } = false;
 
         public int CursorPosition { get; set; } = -1;
 
@@ -28,39 +20,14 @@ namespace RapidXaml
 
         public int XamlIndent { get; set; } = 4;
 
-        public IProjectWrapper GetActiveProject()
-        {
-            return this.ActiveProject;
-        }
-
-        public IProjectWrapper GetProject(string projectName)
-        {
-            return this.NamedProject;
-        }
-
         public bool UserConfirms(string title, string message)
         {
             return this.UserConfirmsResult;
         }
 
-        public string GetActiveDocumentFileName()
-        {
-            return this.ActiveDocumentFileName;
-        }
-
         public string GetActiveDocumentText()
         {
             return this.ActiveDocumentText;
-        }
-
-        public bool ActiveDocumentIsCSharp()
-        {
-            return this.DocumentIsCSharp;
-        }
-
-        public int GetCursorPosition()
-        {
-            return this.CursorPosition;
         }
 
         public (int, int) GetCursorPositionAndLineNumber()
