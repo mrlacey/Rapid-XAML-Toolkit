@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public ILogger Logger { get; set; }
 
-        public IVisualStudioAbstraction VsAbstraction { get; set; }
+        public IVisualStudioProjectFilePath VsAbstraction { get; set; }
 
         public string ProjectFilePath { get; set; }
 

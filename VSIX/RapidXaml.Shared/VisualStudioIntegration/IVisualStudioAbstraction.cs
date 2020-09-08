@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
 {
-    public interface IVisualStudioAbstraction : IVisualStudioTextManipulation
+    public interface IVisualStudioAbstraction : IVisualStudioTextManipulation, IVisualStudioProjectFilePath
     {
         bool UserConfirms(string title, string message);
 
@@ -19,6 +19,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         ProjectType GetProjectType(EnvDTE.Project project);
 
+        // TODO: move this to a separate interface that AutoFix (& Build/AnalysisExe) don't need to know about
         (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName);
 
         bool ActiveDocumentIsCSharp();

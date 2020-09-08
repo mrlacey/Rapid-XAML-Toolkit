@@ -145,6 +145,11 @@ namespace RapidXamlToolkit.Tests
             return ProjectType.Unknown;
         }
 
+        public string GetPathOfProjectContainingFile(string fileName)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
         {
             throw new System.NotImplementedException();

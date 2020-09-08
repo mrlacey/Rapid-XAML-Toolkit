@@ -65,6 +65,16 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
+        public string GetNameProjectContainingFile(string fileName)
+        {
+            return this.projFile;
+        }
+
+        public string GetPathOfProjectContainingFile(string fileName)
+        {
+            return this.projFile;
+        }
+
         public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
         {
             return (this.projFile, this.projectType);
