@@ -691,6 +691,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Editor Extras (v{0}).
+        /// </summary>
+        public static string Info_LaunchVersionEditorExtras {
+            get {
+                return ResourceManager.GetString("Info_LaunchVersionEditorExtras", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rapid XAML Generation (v{0}).
         /// </summary>
         public static string Info_LaunchVersionGeneration {
