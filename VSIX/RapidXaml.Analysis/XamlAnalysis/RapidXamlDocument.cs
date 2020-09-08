@@ -85,7 +85,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     Snapshot = snapshot,
                     FileName = fileName,
                     Logger = SharedRapidXamlPackage.Logger,
-                    VsAbstraction = vsAbstraction,
+                    VsPfp = vsAbstraction,
                     ProjectFilePath = string.Empty,
                 };
 

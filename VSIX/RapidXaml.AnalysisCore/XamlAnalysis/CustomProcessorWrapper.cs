@@ -14,8 +14,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class CustomProcessorWrapper : XamlElementProcessor
     {
-        public CustomProcessorWrapper(RapidXaml.ICustomAnalyzer customProcessor, ProjectType projType, string projectPath, ILogger logger, IVisualStudioAbstraction vsa)
-            : base(new ProcessorEssentials(projType, logger, projectPath, vsa))
+        public CustomProcessorWrapper(RapidXaml.ICustomAnalyzer customProcessor, ProjectType projType, string projectPath, ILogger logger, IVisualStudioProjectFilePath vspfp)
+            : base(new ProcessorEssentials(projType, logger, projectPath, vspfp))
         {
             this.CustomAnalyzer = customProcessor;
         }
@@ -46,7 +46,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         Logger = this.Logger,
                         ProjectFilePath = this.ProjectFilePath,
                         Snapshot = snapshot,
-                        VsAbstraction = this.VSAbstraction,
+                        VsPfp = this.VSPFP,
                     };
 
                     // Treat `BuiltInXamlAnalyzer` types as any other built-in type.

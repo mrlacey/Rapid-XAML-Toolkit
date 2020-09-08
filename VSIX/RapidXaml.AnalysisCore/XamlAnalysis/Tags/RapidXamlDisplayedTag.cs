@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Line = line.LineNumber;
             this.Column = col;
             this.DefaultErrorType = defaultErrorType;
-            this.VsPfp = deps.VsAbstraction;
+            this.VsPfp = deps.VsPfp;
             this.ProjectFilePath = deps.ProjectFilePath;
             this.MoreInfoUrl = deps.MoreInfoUrl;
             this.CustomFeatureUsageOverride = deps.FeatureUsageOverride;

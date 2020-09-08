@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             this.ProjectType = pe.ProjectType;
             this.Logger = pe.Logger;
             this.ProjectFilePath = pe.ProjectFilePath;
-            this.VSAbstraction = pe.Vsa;
+            this.VSPFP = pe.Vspfp;
         }
 
         public ProjectType ProjectType { get; }
@@ -26,7 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public string ProjectFilePath { get; }
 
-        public IVisualStudioAbstraction VSAbstraction { get; }
+        public IVisualStudioProjectFilePath VSPFP { get; }
 
         public static bool IsSelfClosing(ReadOnlySpan<char> xaml, int startPoint = 0)
         {
@@ -118,7 +118,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
-        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger, string projectFile, IVisualStudioAbstraction vsAbstraction)
+        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger, string projectFile, IVisualStudioProjectFilePath vspfp)
         {
             var startPos = xaml.LastIndexOf('<', position, position);
 
@@ -126,7 +126,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             string result = null;
 
-            var processor = new SubElementProcessor(new ProcessorEssentials(projectType, logger, projectFile, vsAbstraction));
+            var processor = new SubElementProcessor(new ProcessorEssentials(projectType, logger, projectFile, vspfp));
             processor.SubElementFound += (s, e) => { result = e.SubElement; };
 
             XamlElementExtractor.Parse(fileName, snapshot, xaml.Substring(startPos), new List<(string element, XamlElementProcessor processor)> { (elementName, processor), }, new TagList(), suppressions: null, everyElementProcessor: null, logger);

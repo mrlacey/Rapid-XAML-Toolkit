@@ -23,7 +23,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 Snapshot = new FakeTextSnapshot(),
                 FileName = TestFileName,
                 Logger = DefaultTestLogger.Create(),
-                VsAbstraction = new TestVisualStudioAbstraction(),
+                VsPfp = new TestVisualStudioAbstraction(),
                 ProjectFilePath = string.Empty,
             },
             Elements.MenuFlyoutItem,

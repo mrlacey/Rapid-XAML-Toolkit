@@ -105,7 +105,7 @@ namespace RapidXaml
                             var relativeFilePath = line.Substring(startPos + 9, endPos + 5 - startPos - 9);
                             var xamlFilePath = System.IO.Path.Combine(projDir, relativeFilePath);
 
-                            this.AnalyzeXamlFile(xamlFilePath, analyzers, output);
+                            this.AnalyzeXamlFile(xamlFilePath, analyzers, output, projectFilePath);
                         }
                     }
                 }
@@ -119,7 +119,7 @@ namespace RapidXaml
             }
         }
 
-        private void AnalyzeXamlFile(string xamlFilePath, IEnumerable<ICustomAnalyzer> analyzers, List<string> output)
+        private void AnalyzeXamlFile(string xamlFilePath, IEnumerable<ICustomAnalyzer> analyzers, List<string> output, string projectFilePath = "")
         {
             output.Add($"Analyzing '{xamlFilePath}'");
 
@@ -127,7 +127,7 @@ namespace RapidXaml
             var snapshot = new FakeTextSnapshot();
 
             var logger = EmptyLogger.Create();
-            var vsAbstraction = new AutoFixVisualStudioAbstraction();
+            var vspfp = new AutoFixProjectFilePath(projectFilePath);
 
             try
             {
@@ -139,7 +139,7 @@ namespace RapidXaml
 
                     processors.Add(
                         (analyzer.TargetType(),
-                         new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsAbstraction)));
+                         new CustomProcessorWrapper(analyzer, ProjectType.Any, projectFilePath, logger, vspfp)));
                 }
 
                 var tags = new TagList();

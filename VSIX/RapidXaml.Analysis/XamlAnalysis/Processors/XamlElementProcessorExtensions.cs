@@ -102,7 +102,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return new TagDependencies
             {
                 Logger = source.Logger,
-                VsAbstraction = source.VSAbstraction,
+                VsPfp = source.VSPFP,
                 ProjectFilePath = source.ProjectFilePath,
                 Span = span,
                 Snapshot = snapshot,

@@ -13,7 +13,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         ProjectType GetProjectType(EnvDTE.Project project);
 
-        // TO DO: move this to a separate interface that AutoFix (& Build/AnalysisExe) don't need to know about
         (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName);
 
         (int, int) GetCursorPositionAndLineNumber();
