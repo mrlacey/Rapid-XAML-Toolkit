@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>RapidXaml.AutoFix</id>
+    <version>0.11.0</version>
+    <authors>Matt Lacey</authors>
+    <owners>MRLacey</owners>
+    <license type="expression">MIT</license>
+    <projectUrl>https://rapidxaml.dev</projectUrl>
+    <repository type="git" url="https://github.com/mrlacey/Rapid-XAML-Toolkit" />
+    <icon>images\icon.png</icon>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Use Rapid XAML custom analyzers to modify XAML files.</description>
+    <summary>Apply automatic changes to XAML files.</summary>
+    <releaseNotes>.</releaseNotes>
+    <copyright>© 2020 Matt Lacey Ltd.</copyright>
+    <tags>XAML, WinUI, UWP, WPF, Xamarin.Forms, MVVM, UNO</tags>
+    <dependencies>
+      <group targetFramework="netstandard2.0">
+        <dependency id="RapidXaml.CustomAnalysis" version="0.10.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src=".\icon.png" target="images\" />
+    <!--<file src=".\bin\release\net472\*.dll" target="lib\net472\" />
+      <file src=".\bin\release\net472\*.pdb" target="lib\net472\" />
+      <file src=".\bin\release\net472\*.config" target="lib\net472\" />-->
+    <!-- Specify these exactly to avoid including unnecessary dependencies -->
+    <file src=".\bin\release\net472\RapidXaml.AnalysisCore.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.AnalysisCore.pdb" target="lib/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.AutoFix.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.AutoFix.pdb" target="lib/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Shared.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Shared.pdb" target="lib/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Utils.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Utils.pdb" target="lib/net472/" />
+    <file src=".\bin\release\net472\EnvDTE.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\Microsoft.CodeAnalysis.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\Microsoft.CodeAnalysis.Workspaces.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\Microsoft.Language.Xml.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\Microsoft.VisualStudio.CoreUtility.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Data.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Logic.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\System.Memory.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\System.Numerics.Vectors.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\System.Runtime.CompilerServices.Unsafe.dll" target="lib/net472/" />
+  </files>
+</package>

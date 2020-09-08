@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
@@ -70,7 +71,7 @@ namespace RapidXamlToolkit.Telemetry
 
                 TelemetryConfiguration.Active.DisableTelemetry = true;
 
-                logger.RecordException(ex);
+                logger?.RecordException(ex);
             }
 
             return instance;
@@ -103,11 +104,11 @@ namespace RapidXamlToolkit.Telemetry
             }
         }
 
-        public void TrackEvent(string eventName)
+        public void TrackEvent(string eventName, Dictionary<string, string> properties = null)
         {
             if (this.IsEnabled && this.Client.IsEnabled())
             {
-                this.Client.TrackEvent(eventName);
+                this.Client.TrackEvent(eventName, properties);
                 this.Flush();
             }
         }
@@ -167,7 +168,7 @@ namespace RapidXamlToolkit.Telemetry
             }
             catch (Exception)
             {
-                logger.RecordInfo(StringRes.Info_UnableToAccessTelemetry);
+                logger?.RecordInfo(StringRes.Info_UnableToAccessTelemetry);
                 isOptedIn = false;
             }
 

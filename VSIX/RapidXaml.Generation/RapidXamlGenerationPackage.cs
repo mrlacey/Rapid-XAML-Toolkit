@@ -21,7 +21,7 @@ namespace RapidXamlToolkit
     [ProvideAutoLoad(UICONTEXT.CSharpProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UICONTEXT.VBProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.10.4")] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.11.0")] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(RapidXamlGenerationPackage.PackageGuidString)]
     [ProvideOptionPage(typeof(SettingsConfigPage), "Rapid XAML", "Generation Profiles", 106, 107, true)]
@@ -48,8 +48,8 @@ namespace RapidXamlToolkit
             {
                 await SharedRapidXamlPackage.InitializeAsync(cancellationToken, this);
 
-                SharedRapidXamlPackage.Logger.RecordNotice(StringRes.Info_LaunchVersionGeneration.WithParams(CoreDetails.GetVersion()));
-                SharedRapidXamlPackage.Logger.RecordNotice(string.Empty);
+                SharedRapidXamlPackage.Logger?.RecordNotice(StringRes.Info_LaunchVersionGeneration.WithParams(CoreDetails.GetVersion()));
+                SharedRapidXamlPackage.Logger?.RecordNotice(string.Empty);
 
                 await CopyToClipboardCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
                 await SendToToolboxCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
@@ -66,7 +66,7 @@ namespace RapidXamlToolkit
 
                 var ass = Assembly.GetExecutingAssembly().GetName();
 
-                SharedRapidXamlPackage.Logger.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version), quiet: true);
+                SharedRapidXamlPackage.Logger?.RecordFeatureUsage(StringRes.Info_PackageLoad.WithParams(ass.Name, ass.Version), quiet: true);
             }
             catch (Exception exc)
             {

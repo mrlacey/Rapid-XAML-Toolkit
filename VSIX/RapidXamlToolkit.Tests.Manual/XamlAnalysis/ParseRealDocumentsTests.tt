@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 <#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
@@ -61,12 +61,12 @@ foreach (var subFolder in Directory.GetDirectories(rootFolder))
                     var result = new RapidXamlDocument();
 
                     var snapshot = new FakeTextSnapshot();
-
+                    var vsa = new TestVisualStudioAbstraction();
                     var logger = DefaultTestLogger.Create();
 
-                    var processors = RapidXamlDocument.GetAllProcessors(ProjectType.Any, string.Empty, logger);
+                    var processors = RapidXamlDocument.GetAllProcessors(ProjectType.Any, string.Empty, vsa, logger);
 
-                    var customProcessor = new CustomProcessorWrapper(new StubCustomAnalysisProcessor(), ProjectType.Any, logger);
+                    var customProcessor = new CustomProcessorWrapper(new StubCustomAnalysisProcessor(), ProjectType.Any, string.Empty, logger, vsa);
 
                     processors.Add(("Application", customProcessor));
                     processors.Add(("Page", customProcessor));
@@ -85,7 +85,7 @@ foreach (var subFolder in Directory.GetDirectories(rootFolder))
                     processors.Add(("TemplatedPage", customProcessor));
                     processors.Add(("Shell", customProcessor));
 
-                    XamlElementExtractor.Parse(ProjectType.Any, filePath, snapshot, text, processors, result.Tags);
+                    XamlElementExtractor.Parse(filePath, snapshot, text, processors, result.Tags, null, null, logger);
 
                     Debug.WriteLine($"Found {result.Tags.Count} taggable issues in '{filePath}'.");
 

@@ -1,10 +1,16 @@
 # Rapid XAML Toolkit - Release Notes
 
+## 0.11
+
+- Added Editor Extras package
+- Performance improvements across all areas of the toolkit.
+- Enabled custom analysis using `AnyOf:`, `AnyContaining:`, and `AnyOrChildrenContaining:` prefixes.
+- Refactoring to support the AutoFix NuGet package.
+- Added first Uno specific XAML analyzers.
+
 ## 0.10.5
 
-### XAML Analysis
-
-- Performance improvements and bug fixes.
+- Performance improvements and bug fixes for XAML Analysis.
 
 ---
 

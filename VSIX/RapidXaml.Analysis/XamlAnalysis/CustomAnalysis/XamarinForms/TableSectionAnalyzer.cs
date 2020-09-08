@@ -8,7 +8,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class TableSectionAnalyzer : NotReallyCustomAnalyzer
+    public class TableSectionAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.TableSection;
 

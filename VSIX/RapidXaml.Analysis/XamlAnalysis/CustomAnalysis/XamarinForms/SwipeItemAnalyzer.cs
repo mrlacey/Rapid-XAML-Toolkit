@@ -8,7 +8,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class SwipeItemAnalyzer : NotReallyCustomAnalyzer
+    public class SwipeItemAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.SwipeItem;
 

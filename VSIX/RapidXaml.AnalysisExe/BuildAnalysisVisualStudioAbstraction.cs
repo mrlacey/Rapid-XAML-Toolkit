@@ -3,16 +3,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
-using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit;
-using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.VisualStudioIntegration;
-using RapidXamlToolkit.XamlAnalysis;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXaml.AnalysisExe
 {

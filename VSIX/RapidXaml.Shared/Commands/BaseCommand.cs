@@ -80,7 +80,7 @@ namespace RapidXamlToolkit.Commands
             }
             catch (Exception exc)
             {
-                this.Logger.RecordException(exc);
+                this.Logger?.RecordException(exc);
             }
 
             var indent = new Microsoft.VisualStudio.Text.Editor.IndentSize();

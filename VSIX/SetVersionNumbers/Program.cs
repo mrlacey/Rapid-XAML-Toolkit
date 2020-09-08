@@ -16,6 +16,7 @@ namespace SetVersionNumbers
             "../../../../RapidXaml.Analysis/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.Common/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.CustomAnalysis/Properties/AssemblyInfo.cs",
+            "../../../../RapidXaml.EditorExtras/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.Generation/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.RoslynAnalyzers/Properties/AssemblyInfo.cs",
             "../../../../RapidXaml.Shared/Properties/AssemblyInfo.cs",
@@ -26,6 +27,7 @@ namespace SetVersionNumbers
         private static readonly List<string> PackageFiles = new List<string>
         {
             "../../../../RapidXaml.Analysis/RapidXamlAnalysisPackage.cs",
+            "../../../../RapidXaml.EditorExtras/RapidXamlEditorExtrasPackage.cs",
             "../../../../RapidXaml.Generation/RapidXamlGenerationPackage.cs",
             "../../../../RapidXaml.RoslynAnalyzers/RapidXamlRoslynAnalyzersPackage.cs",
             "../../../../RapidXamlToolkit/RapidXamlPackage.cs",
@@ -36,6 +38,7 @@ namespace SetVersionNumbers
         {
             "../../../../RapidXaml.Analysis/source.extension.vsixmanifest",
             "../../../../RapidXaml.Common/source.extension.vsixmanifest",
+            "../../../../RapidXaml.EditorExtras/source.extension.vsixmanifest",
             "../../../../RapidXaml.Generation/source.extension.vsixmanifest",
             "../../../../RapidXaml.RoslynAnalyzers/source.extension.vsixmanifest",
             "../../../../RapidXamlToolkit/source.extension.vsixmanifest",
@@ -44,12 +47,14 @@ namespace SetVersionNumbers
 
         private static readonly List<string> NuSpecFiles = new List<string>
         {
+            "../../../../RapidXaml.AutoFix/RapidXaml.AutoFix.nuspec",
             "../../../../RapidXaml.CustomAnalysis/RapidXaml.CustomAnalysis.nuspec",
             "../../../../RapidXaml.BuildAnalysis/RapidXaml.BuildAnalysis.nuspec",
         };
 
         private static readonly List<string> NugetProjectFiles = new List<string>
         {
+            "../../../../RapidXaml.AutoFix/RapidXaml.AutoFix.csproj",
             "../../../../RapidXaml.CustomAnalysis/RapidXaml.CustomAnalysis.csproj",
             "../../../../RapidXaml.BuildAnalysis/RapidXaml.BuildAnalysis.csproj",
         };

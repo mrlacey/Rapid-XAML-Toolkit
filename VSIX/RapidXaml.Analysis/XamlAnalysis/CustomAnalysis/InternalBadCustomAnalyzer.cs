@@ -6,7 +6,7 @@ using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class InternalBadCustomAnalyzer : NotReallyCustomAnalyzer
+    public class InternalBadCustomAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => "InternalBad";
 

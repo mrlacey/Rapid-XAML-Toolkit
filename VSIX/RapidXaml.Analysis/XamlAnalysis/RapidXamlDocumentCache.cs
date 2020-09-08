@@ -193,7 +193,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                              && analyzeOnSave == true
                              && !havePromptedForSaveAnalysisPerformance)
                             {
-                                SharedRapidXamlPackage.Logger.RecordFeatureUsage(MiscellaneousFeatures.PromptToDisableAnalysisOnSave, quiet: true);
+                                SharedRapidXamlPackage.Logger?.RecordFeatureUsage(MiscellaneousFeatures.PromptToDisableAnalysisOnSave, quiet: true);
                                 RxtOutputPane.Instance.Write(StringRes.Info_PromptToDisableAnalysisOnSave);
                                 RxtOutputPane.Instance.Activate(); // To increase the likelihood that it's seen
 

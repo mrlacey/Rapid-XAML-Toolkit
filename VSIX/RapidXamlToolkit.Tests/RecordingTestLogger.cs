@@ -23,7 +23,7 @@ namespace RapidXamlToolkit.Tests
 
         public bool UseExtendedLogging { get; set; }
 
-        public void RecordError(string message, bool force = false)
+        public void RecordError(string message, Dictionary<string, string> properties = null, bool force = false)
         {
             this.Errors.Add(message);
         }

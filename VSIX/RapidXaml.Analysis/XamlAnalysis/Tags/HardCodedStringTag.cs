@@ -3,7 +3,6 @@
 
 using System;
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.XamlAnalysis.Actions;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -12,7 +11,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         public HardCodedStringTag(TagDependencies tagDeps, string elementName, string attributeName, ProjectType projType)
             : base(tagDeps, "RXT200", TagErrorType.Warning)
         {
-            this.SuggestedAction = typeof(HardCodedStringAction);
             this.ToolTip = StringRes.UI_XamlAnalysisHardcodedStringTooltip;
             this.ExtendedMessage = StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage;
             this.ElementName = elementName;

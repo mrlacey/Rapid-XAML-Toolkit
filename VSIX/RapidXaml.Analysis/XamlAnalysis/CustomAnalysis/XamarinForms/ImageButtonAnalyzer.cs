@@ -6,7 +6,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class ImageButtonAnalyzer : NotReallyCustomAnalyzer
+    public class ImageButtonAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.ImageButton;
 

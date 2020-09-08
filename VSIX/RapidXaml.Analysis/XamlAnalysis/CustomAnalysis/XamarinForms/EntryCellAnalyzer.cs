@@ -8,7 +8,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class EntryCellAnalyzer : NotReallyCustomAnalyzer
+    public class EntryCellAnalyzer : BuiltInXamlAnalyzer
     {
         public override string TargetType() => Elements.EntryCell;
 

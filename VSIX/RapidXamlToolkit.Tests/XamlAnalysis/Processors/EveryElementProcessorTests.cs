@@ -3,6 +3,7 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -104,6 +105,31 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             Assert.AreEqual(1, outputTags.Count);
             Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+        }
+
+        [TestMethod]
+        public void CheckEveryElementVisited()
+        {
+            var xaml = @"
+<Page x:Name=""lowerCased1"">
+    <Grid x:Name=""lowerCased2"">
+        <TextBlock x:Name=""lowerCased3""></TextBlock>
+        <TextBlock x:Name=""lowerCased4"" />
+    </Grid>
+
+    <TextBlock x:Name=""lowerCased5"" />
+</Page>";
+
+            var result = new RapidXamlDocument();
+
+            var snapshot = new FakeTextSnapshot();
+            var logger = DefaultTestLogger.Create();
+            var vsa = new TestVisualStudioAbstraction();
+
+            var procesors = RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger);
+            XamlElementExtractor.Parse("Generic.xaml", snapshot, xaml, procesors, result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa), logger);
+
+            Assert.AreEqual(5, result.Tags.OfType<NameTitleCaseTag>().Count());
         }
     }
 }

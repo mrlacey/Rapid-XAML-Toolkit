@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>RapidXaml.BuildAnalysis</id>
-    <version>0.10.4</version>
+    <version>0.11.0</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <copyright>Copyright © 2020 Matt Lacey Ltd.</copyright>
@@ -27,7 +27,7 @@
     <file src=".\bin\release\net472\RapidXaml.BuildAnalysis.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.BuildAnalysis.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.pdb" target="tools/net472/" />
+    <!-- <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.pdb" target="tools/net472/" /> -->
     <file src=".\bin\release\net472\RapidXaml.Shared.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.dll.config" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.pdb" target="tools/net472/" />
@@ -43,7 +43,6 @@
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.EditorFeatures.Text.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.Features.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.FlowAnalysis.Utilities.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\Microsoft.CodeAnalysis.InteractiveHost.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.Scripting.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.VisualBasic.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll" target="tools/net472/" />
@@ -73,7 +72,7 @@
     <file src=".\bin\release\net472\Newtonsoft.Json.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\NuGet.VisualStudio.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.InternalAnalyzers.dll" target="tools/net472/" />
+    <!--<file src=".\bin\release\net472\RapidXaml.InternalAnalyzers.dll" target="tools/net472/" />-->
     <file src=".\bin\release\net472\RapidXaml.Shared.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\stdole.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\System.Buffers.dll" target="tools/net472/" />

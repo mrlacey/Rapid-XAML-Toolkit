@@ -72,7 +72,6 @@
     <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
     <Compile Include="Commands\OpenAnalysisOptionsCommand.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
-    <Compile Include="ErrorList\ErrorRow.cs" />
     <Compile Include="ErrorList\FileErrorCollection.cs" />
     <Compile Include="ErrorList\SinkManager.cs" />
     <Compile Include="ErrorList\TableDataSource.cs" />
@@ -100,12 +99,13 @@
     <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
     <Compile Include="XamlAnalysis\Actions\SelectedItemBindingModeAction.cs" />
     <Compile Include="XamlAnalysis\Actions\SuppressWarningAction.cs" />
-    <Compile Include="XamlAnalysis\AnalyzerImporter.cs" />
-    <Compile Include="XamlAnalysis\Attributes.cs" />
-    <Compile Include="XamlAnalysis\AttributeType.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\AddChildTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BadCustomAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\BindingToXBindAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer2.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\UnoIgnorablesAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\EntryCellAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\FooAnalysis.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\InternalBadCustomAnalyzer.cs" />
@@ -119,16 +119,11 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\SearchBarAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\RadioButtonAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\LabelAnalyzer.cs" />
-    <Compile Include="XamlAnalysis\CustomAnalysis\NotReallyCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\RemoveFirstChildAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\RenameElementTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\ReplaceElementTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\TwoPaneViewAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfImageAnalyzer.cs" />
-    <Compile Include="XamlAnalysis\CustomProcessorWrapper.cs" />
-    <Compile Include="XamlAnalysis\Elements.cs" />
-    <Compile Include="XamlAnalysis\IRapidXamlTextSnapshot.cs" />
-    <Compile Include="XamlAnalysis\ParsedAction.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
@@ -148,7 +143,6 @@
     <Compile Include="XamlAnalysis\Processors\PasswordBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\PivotItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\PivotProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\ProcessorEssentials.cs" />
     <Compile Include="XamlAnalysis\Processors\RepeatButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\RichEditBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\SelectedItemAttributeProcessor.cs" />
@@ -158,56 +152,32 @@
     <Compile Include="XamlAnalysis\Processors\TimePickerProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />
-    <Compile Include="XamlAnalysis\ProjectFrameworkHelper.cs" />
+    <Compile Include="XamlAnalysis\Processors\XamlElementProcessorExtensions.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
-    <Compile Include="XamlAnalysis\RapidXamlElementExtractor.cs" />
     <Compile Include="XamlAnalysis\RapidXamlParsingEventArgs.cs" />
     <Compile Include="XamlAnalysis\RapidXamlRunningDocTableEvents.cs" />
-    <Compile Include="XamlAnalysis\RapidXamlSpanExtensions.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagger.cs" />
     <Compile Include="XamlAnalysis\RapidXamlTagProvider.cs" />
-    <Compile Include="XamlAnalysis\SizeLimitedDictionary.cs" />
     <Compile Include="XamlAnalysis\SuggestedActionsSource.cs" />
     <Compile Include="XamlAnalysis\SuggestedActionsSourceProvider.cs" />
-    <Compile Include="XamlAnalysis\TagList.cs" />
-    <Compile Include="XamlAnalysis\TagSuppression.cs" />
     <Compile Include="XamlAnalysis\Tags\AddColumnDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddRowDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
     <Compile Include="XamlAnalysis\Tags\CheckBoxCheckedAndUncheckedEventsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\CustomAnalysisTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\CustomAnalysisTagDependencies.cs" />
-    <Compile Include="XamlAnalysis\Tags\TagDependencies.cs" />
     <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertRowDefinitionTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\IRapidXamlAdornmentTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\IRapidXamlErrorListTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\IRapidXamlTag.cs" />
     <Compile Include="XamlAnalysis\Tags\MissingColumnDefinitionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\MissingDefinitionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\MissingRowDefinitionTag.cs" />
     <Compile Include="XamlAnalysis\Tags\NameTitleCaseTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTagExtensions.cs" />
-    <Compile Include="XamlAnalysis\Tags\RapidXamlDiscreteTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\RapidXamlDisplayedTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\RapidXamlSuggestionAdornmentTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\RapidXamlWarningAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
     <Compile Include="XamlAnalysis\Tags\SelectedItemBindingModeTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\TagErrorType.cs" />
-    <Compile Include="XamlAnalysis\Tags\TagErrorTypeCreator.cs" />
-    <Compile Include="XamlAnalysis\Tags\TagErrorTypeExtensions.cs" />
-    <Compile Include="XamlAnalysis\Tags\TagErrorTypeParser.cs" />
     <Compile Include="XamlAnalysis\Tags\UidTitleCaseTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\UnexpectedErrorTag.cs" />
     <Compile Include="XamlAnalysis\Tags\UseMediaPlayerElementTag.cs" />
-    <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
@@ -251,9 +221,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GuiLabs.Language.Xml">
-      <Version>1.2.46</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis">
       <Version>3.2.0</Version>
     </PackageReference>
@@ -292,13 +259,17 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
-      <Project>{93ba7914-1204-49f8-977a-091d30e4718b}</Project>
-      <Name>RapidXaml.CustomAnalysis</Name>
+    <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">
+      <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
+      <Name>RapidXaml.AnalysisCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
       <Name>RapidXaml.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj">
+      <Project>{2d65223e-f87c-4e5a-b643-ba3c4304e52d}</Project>
+      <Name>RapidXaml.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -65,17 +65,17 @@ namespace RapidXamlToolkit.Commands
                     {
                         Clipboard.SetText(message);
                         await ShowStatusBarMessageAsync(Instance.AsyncPackage, StringRes.Info_CopiedXaml.WithParams(output.OutputType, output.Name));
-                        this.Logger.RecordInfo(StringRes.Info_CopiedXaml.WithParams(output.OutputType, output.Name));
+                        this.Logger?.RecordInfo(StringRes.Info_CopiedXaml.WithParams(output.OutputType, output.Name));
                     }
                     else
                     {
-                        this.Logger.RecordInfo(StringRes.Info_NothingToCopy);
+                        this.Logger?.RecordInfo(StringRes.Info_NothingToCopy);
                     }
                 }
                 else
                 {
                     await ShowStatusBarMessageAsync(Instance.AsyncPackage, StringRes.Info_NoXamlCopied);
-                    this.Logger.RecordInfo(StringRes.Info_NoXamlCopied);
+                    this.Logger?.RecordInfo(StringRes.Info_NoXamlCopied);
                 }
             }
             catch (Exception exc)
