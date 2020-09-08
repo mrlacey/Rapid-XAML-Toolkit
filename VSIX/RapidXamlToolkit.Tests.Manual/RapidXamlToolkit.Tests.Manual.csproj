@@ -108,6 +108,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">
+      <Project>{2B687603-849F-443C-AF11-12CD03F7C139}</Project>
+      <Name>RapidXaml.AnalysisCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Analysis\RapidXaml.Analysis.csproj">
       <Project>{fc81b148-4683-4557-bea1-69ad39241576}</Project>
       <Name>RapidXaml.Analysis</Name>
@@ -127,6 +131,10 @@
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
       <Name>RapidXaml.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj">
+      <Project>{2D65223E-F87C-4E5A-B643-BA3C4304E52D}</Project>
+      <Name>RapidXaml.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXamlToolkit.Tests\RapidXamlToolkit.Tests.csproj">
       <Project>{8a7dd653-78bc-4eab-8227-4309cc25e750}</Project>
