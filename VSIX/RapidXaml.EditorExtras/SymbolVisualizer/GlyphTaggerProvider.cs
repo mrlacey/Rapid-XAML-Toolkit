@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.Utilities;
 namespace RapidXaml.EditorExtras.SymbolVisualizer
 {
     [Export(typeof(ITaggerProvider))]
-    [ContentType("XAML")]
+    [ContentType(KnownContentTypes.Xaml)]
     [TagType(typeof(SymbolIconTag))]
     internal sealed class GlyphTaggerProvider : ITaggerProvider
     {
