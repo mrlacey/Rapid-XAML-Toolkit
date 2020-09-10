@@ -5,6 +5,7 @@ using System;
 using System.ComponentModel.Composition;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Editor.DragDrop;
@@ -25,6 +26,7 @@ namespace RapidXamlToolkit.DragDrop
     internal class RapidXamlDropHandlerProvider : IDropHandlerProvider
     {
         private static DTE dte;
+        private static IVsSolution solution;
 
         private static AsyncPackage Package { get; set; }
 
@@ -42,6 +44,7 @@ namespace RapidXamlToolkit.DragDrop
             Package = package;
 
             dte = await package.GetServiceAsync<DTE, DTE>();
+            solution = await package.GetServiceAsync<SVsSolution, IVsSolution>();
         }
 
         public IDropHandler GetAssociatedDropHandler(IWpfTextView view)
@@ -62,7 +65,7 @@ namespace RapidXamlToolkit.DragDrop
                     Logger?.RecordInfo(StringRes.Info_DetectedProjectType.WithParams(projType.GetDescription()));
                 }
 
-                return view.Properties.GetOrCreateSingletonProperty(() => new RapidXamlDropHandler(Logger, view, undoManager, vsa, projType));
+                return view.Properties.GetOrCreateSingletonProperty(() => new RapidXamlDropHandler(Logger, view, undoManager, vsa, projType, solution));
             }
             catch (Exception exc)
             {
