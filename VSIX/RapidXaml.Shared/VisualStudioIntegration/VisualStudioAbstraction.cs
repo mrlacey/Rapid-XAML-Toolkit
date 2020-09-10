@@ -15,14 +15,13 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
-using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using IAsyncServiceProvider = Microsoft.VisualStudio.Shell.IAsyncServiceProvider;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
 {
-    public class VisualStudioAbstraction : VisualStudioTextManipulation, IVisualStudioAbstraction
+    public class VisualStudioAbstraction : VisualStudioTextManipulation, IVisualStudioAbstractionAndDocumentModelAccess
     {
         private static readonly Dictionary<string, ProjectType> ProjectTypeCache = new Dictionary<string, ProjectType>();
 
@@ -37,11 +36,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.serviceProvider = serviceProvider;
-        }
-
-        public string GetActiveDocumentFileName()
-        {
-            return this.Dte.ActiveDocument.Name;
         }
 
         public string GetActiveDocumentFilePath()
@@ -293,11 +287,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return null;
         }
 
-        public ProjectWrapper GetActiveProject()
-        {
-            return new ProjectWrapper(((Array)this.Dte.ActiveSolutionProjects).GetValue(0) as EnvDTE.Project);
-        }
-
         public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
         {
             var componentModel = await this.serviceProvider.GetServiceAsync<SComponentModel, IComponentModel>();
@@ -325,19 +314,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return (syntaxTree, semModel);
         }
 
-        public ProjectWrapper GetProject(string projectName)
-        {
-            foreach (var project in this.Dte.Solution.GetAllProjects())
-            {
-                if (project.Name == projectName)
-                {
-                    return new ProjectWrapper(project);
-                }
-            }
-
-            return null;
-        }
-
         public bool UserConfirms(string title, string message)
         {
             var msgResult = MessageBox.Show(
@@ -347,18 +323,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                                             MessageBoxImage.Warning);
 
             return msgResult == MessageBoxResult.Yes;
-        }
-
-        public bool ActiveDocumentIsCSharp()
-        {
-            return this.Dte.ActiveDocument.Language == "CSharp";
-        }
-
-        public int GetCursorPosition()
-        {
-            var (offset, _) = this.GetCursorPositionAndLineNumber();
-
-            return offset;
         }
 
         public (int, int) GetCursorPositionAndLineNumber()
@@ -397,6 +361,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             var indent = new IndentSize();
 
             return indent.Default;
+        }
+
+        public string GetPathOfProjectContainingFile(string fileName)
+        {
+            return this.Dte.Solution.GetProjectContainingFile(fileName).FileName;
         }
 
         public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)

@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
 using RapidXamlToolkit;
 using RapidXamlToolkit.VisualStudioIntegration;
 
@@ -21,11 +20,6 @@ namespace RapidXaml.AnalysisExe
             this.projectType = projectType;
         }
 
-        public bool ActiveDocumentIsCSharp()
-        {
-            throw new NotImplementedException();
-        }
-
         public void DeleteFromEndOfLine(int lineNumber, int charsToDelete)
         {
             throw new NotImplementedException();
@@ -36,22 +30,7 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
-        public string GetActiveDocumentFileName()
-        {
-            throw new NotImplementedException();
-        }
-
         public string GetActiveDocumentText()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ProjectWrapper GetActiveProject()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GetCursorPosition()
         {
             throw new NotImplementedException();
         }
@@ -61,19 +40,14 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
-        public Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
+        public string GetNameProjectContainingFile(string fileName)
         {
-            throw new NotImplementedException();
+            return this.projFile;
         }
 
-        public Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Microsoft.CodeAnalysis.Document document)
+        public string GetPathOfProjectContainingFile(string fileName)
         {
-            throw new NotImplementedException();
-        }
-
-        public ProjectWrapper GetProject(string projectName)
-        {
-            throw new NotImplementedException();
+            return this.projFile;
         }
 
         public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)

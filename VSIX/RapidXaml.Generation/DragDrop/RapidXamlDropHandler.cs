@@ -25,12 +25,12 @@ namespace RapidXamlToolkit.DragDrop
         private readonly IWpfTextView view;
         private readonly ITextBufferUndoManager undoManager;
         private readonly IFileSystemAbstraction fileSystem;
-        private readonly IVisualStudioAbstraction vs;
+        private readonly IVisualStudioAbstractionAndDocumentModelAccess vs;
         private readonly ProjectType projectType;
         private readonly IVsSolution solution;
         private string draggedFilename;
 
-        public RapidXamlDropHandler(ILogger logger, IWpfTextView view, ITextBufferUndoManager undoManager, IVisualStudioAbstraction vs, ProjectType projectType, IVsSolution solution, IFileSystemAbstraction fileSystem = null)
+        public RapidXamlDropHandler(ILogger logger, IWpfTextView view, ITextBufferUndoManager undoManager, IVisualStudioAbstractionAndDocumentModelAccess vs, ProjectType projectType, IVsSolution solution, IFileSystemAbstraction fileSystem = null)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.view = view;

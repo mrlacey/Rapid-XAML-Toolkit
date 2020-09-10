@@ -8,39 +8,21 @@ using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests
 {
-    public class TestVisualStudioAbstraction : IVisualStudioAbstraction
+    public class TestVisualStudioAbstraction : IVisualStudioAbstractionAndDocumentModelAccess
     {
-        public ProjectWrapper ActiveProject { get; set; } = null;
-
-        public ProjectWrapper NamedProject { get; set; } = null;
-
         public SyntaxTree SyntaxTree { get; set; } = null;
 
         public SemanticModel SemanticModel { get; set; } = null;
 
         public bool UserConfirmsResult { get; set; } = false;
 
-        public string ActiveDocumentFileName { get; set; }
-
         public string ActiveDocumentText { get; set; }
-
-        public bool DocumentIsCSharp { get; set; } = false;
 
         public int CursorPosition { get; set; } = -1;
 
         public int LineNumber { get; set; } = 1;  // Assume that everything is on one line for testing. Bypasses the way VS adds extra char for end of line
 
         public int XamlIndent { get; set; } = 4;
-
-        public ProjectWrapper GetActiveProject()
-        {
-            return this.ActiveProject;
-        }
-
-        public ProjectWrapper GetProject(string projectName)
-        {
-            return this.NamedProject;
-        }
 
         public virtual async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
         {
@@ -53,11 +35,6 @@ namespace RapidXamlToolkit.Tests
             return this.UserConfirmsResult;
         }
 
-        public string GetActiveDocumentFileName()
-        {
-            return this.ActiveDocumentFileName;
-        }
-
         public string GetActiveDocumentText()
         {
             return this.ActiveDocumentText;
@@ -67,16 +44,6 @@ namespace RapidXamlToolkit.Tests
         {
             await Task.CompletedTask;
             return (this.SyntaxTree, this.SemanticModel);
-        }
-
-        public bool ActiveDocumentIsCSharp()
-        {
-            return this.DocumentIsCSharp;
-        }
-
-        public int GetCursorPosition()
-        {
-            return this.CursorPosition;
         }
 
         public (int, int) GetCursorPositionAndLineNumber()
@@ -143,6 +110,11 @@ namespace RapidXamlToolkit.Tests
         public ProjectType GetProjectType(EnvDTE.Project project)
         {
             return ProjectType.Unknown;
+        }
+
+        public string GetPathOfProjectContainingFile(string fileName)
+        {
+            throw new System.NotImplementedException();
         }
 
         public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)

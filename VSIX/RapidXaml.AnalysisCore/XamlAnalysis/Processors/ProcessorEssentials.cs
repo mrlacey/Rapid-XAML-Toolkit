@@ -12,12 +12,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
         }
 
-        public ProcessorEssentials(ProjectType projectType, ILogger logger, string projectFilePath, IVisualStudioAbstraction vsa)
+        public ProcessorEssentials(ProjectType projectType, ILogger logger, string projectFilePath, IVisualStudioProjectFilePath vspfp)
         {
             this.ProjectType = projectType;
             this.Logger = logger;
             this.ProjectFilePath = projectFilePath;
-            this.Vsa = vsa;
+            this.Vspfp = vspfp;
         }
 
         public ProjectType ProjectType { get; set; }
@@ -26,6 +26,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public string ProjectFilePath { get; set; }
 
-        public IVisualStudioAbstraction Vsa { get; set; }
+        public IVisualStudioProjectFilePath Vspfp { get; set; }
     }
 }

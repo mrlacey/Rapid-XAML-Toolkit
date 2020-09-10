@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             this.Line = line.LineNumber;
             this.Column = col;
             this.DefaultErrorType = defaultErrorType;
-            this.VsAbstraction = deps.VsAbstraction;
+            this.VsPfp = deps.VsPfp;
             this.ProjectFilePath = deps.ProjectFilePath;
             this.MoreInfoUrl = deps.MoreInfoUrl;
             this.CustomFeatureUsageOverride = deps.FeatureUsageOverride;
@@ -61,7 +61,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public string ProjectFilePath { get; private set; }
 
-        public IVisualStudioAbstraction VsAbstraction { get; }
+        public IVisualStudioProjectFilePath VsPfp { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the tag is for something that should show in the Errors tab of the error list.
@@ -99,7 +99,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
                 if (string.IsNullOrWhiteSpace(this.ProjectFilePath))
                 {
-                    var (projFileName, _) = this.VsAbstraction.GetNameAndTypeOfProjectContainingFile(this.FileName);
+                    var projFileName = this.VsPfp.GetPathOfProjectContainingFile(this.FileName);
 
                     if (string.IsNullOrWhiteSpace(projFileName))
                     {

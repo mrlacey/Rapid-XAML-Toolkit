@@ -49,6 +49,7 @@ The solution contains these projects:
 - `RapidXaml.AutoFix` is a shipping **NuGet** package that contains the ability to use Custom XAML Analysis functionality to automatically modify XAML files. _[install link](https://www.nuget.org/packages/RapidXaml.AutoFix/)_
 - `RapidXaml.Common` is a shipping **VSIX** package that contains Visual Studio context menus that are shared by other extensions. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlCommon)_
 - `RapidXaml.CustomAnalysis` is the **NuGet** package that contains the shared logic for custom XAML Analysis. _[install link](https://www.nuget.org/packages/RapidXaml.CustomAnalysis/)_
+- `RapidXaml.EditorExtras` is a shipping **VSIX** package that contains the functionality for enhancing the Visual Studio Editor window. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlEditorExtras)_
 - `RapidXaml.Generation` is a shipping **VSIX** package that contains the functionality for generating XAML from C# and VB.NET code. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlGeneration)_
 - `RapidXaml.RoslynAnalyzers` is a shipping **VSIX** package that contains Roslyn Analyzers and code fixes for use in projects that use XAML files. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlRoslynAnalyzers)_
 - `RapidXaml.Shared` is a library containing code shared between other projects that produce a VSIX package.

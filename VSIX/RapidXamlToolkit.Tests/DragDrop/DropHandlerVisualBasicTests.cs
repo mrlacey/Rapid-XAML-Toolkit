@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             var fileContents = " ' Just a comment";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) = this.GetVbAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
@@ -42,7 +42,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
        + Environment.NewLine + "    Private Property SecondProperty As String"
        + Environment.NewLine + "End Class";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) = this.GetVbAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
@@ -65,7 +65,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
        + Environment.NewLine + "    Public Property SecondProperty As String"
        + Environment.NewLine + "End Class";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) = this.GetVbAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
@@ -88,7 +88,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
        + Environment.NewLine + "    Private Property OnlyHiddenProperty As String"
        + Environment.NewLine + "End Module";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) = this.GetVbAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
@@ -111,7 +111,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
        + Environment.NewLine + "    Public Property SecondProperty As String"
        + Environment.NewLine + "End Module";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) = this.GetVbAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
@@ -136,7 +136,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
        + Environment.NewLine + "    Public Property SecondProperty As String"
        + Environment.NewLine + "End Class";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) = this.GetVbAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 

@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
 
             var fileContents = " // Just a comment";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) = this.GetCSAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
@@ -43,7 +43,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
        + Environment.NewLine + "    private string SecondProperty { get; set; }"
        + Environment.NewLine + "}";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) = this.GetCSAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
@@ -67,7 +67,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
        + Environment.NewLine + "    public string SecondProperty { get; set; }"
        + Environment.NewLine + "}";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) = this.GetCSAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 
@@ -93,7 +93,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
        + Environment.NewLine + "    public string SecondProperty { get; set; }"
        + Environment.NewLine + "}";
 
-            (IFileSystemAbstraction fs, IVisualStudioAbstraction vsa) = this.GetCSAbstractions(fileContents);
+            (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) = this.GetCSAbstractions(fileContents);
 
             var sut = new DropHandlerLogic(DefaultTestLogger.Create(), vsa, fs, profile);
 

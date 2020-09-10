@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
         {
             var fileContents = " // Just a comment";
 
-            (IFileSystemAbstraction _, IVisualStudioAbstraction vsa) = this.GetVbAbstractions(fileContents);
+            (IFileSystemAbstraction _, IVisualStudioAbstractionAndDocumentModelAccess vsa) = this.GetVbAbstractions(fileContents);
 
             var _ = new DropHandlerLogic(null, vsa);
         }

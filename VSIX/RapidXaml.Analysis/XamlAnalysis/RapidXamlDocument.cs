@@ -85,7 +85,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     Snapshot = snapshot,
                     FileName = fileName,
                     Logger = SharedRapidXamlPackage.Logger,
-                    VsAbstraction = vsAbstraction,
+                    VsPfp = vsAbstraction,
                     ProjectFilePath = string.Empty,
                 };
 
@@ -420,8 +420,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 if (string.IsNullOrWhiteSpace(projectFileName))
                 {
-                    var (projFileName, _) = vsa.GetNameAndTypeOfProjectContainingFile(fileName);
-                    projectFileName = projFileName;
+                    projectFileName = vsa.GetPathOfProjectContainingFile(fileName);
                 }
 
                 var suppressionsFile = Path.Combine(Path.GetDirectoryName(projectFileName), "suppressions.xamlAnalysis");

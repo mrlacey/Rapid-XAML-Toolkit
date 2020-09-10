@@ -55,7 +55,8 @@ namespace RapidXamlToolkit.Commands
 
                     if (proj == null)
                     {
-                        proj = vs.GetActiveProject().Project;
+                        // Default to the "active project" if file is not part of a known project
+                        proj = ((Array)dte.ActiveSolutionProjects).GetValue(0) as Project;
                     }
 
                     var projType = vs.GetProjectType(proj);

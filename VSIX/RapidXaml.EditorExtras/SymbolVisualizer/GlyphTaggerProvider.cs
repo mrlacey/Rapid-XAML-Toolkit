@@ -6,11 +6,12 @@ using System.ComponentModel.Composition;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using Microsoft.VisualStudio.Utilities;
+using RapidXamlToolkit;
 
 namespace RapidXaml.EditorExtras.SymbolVisualizer
 {
     [Export(typeof(ITaggerProvider))]
-    [ContentType("XAML")]
+    [ContentType(KnownContentTypes.Xaml)]
     [TagType(typeof(SymbolIconTag))]
     internal sealed class GlyphTaggerProvider : ITaggerProvider
     {

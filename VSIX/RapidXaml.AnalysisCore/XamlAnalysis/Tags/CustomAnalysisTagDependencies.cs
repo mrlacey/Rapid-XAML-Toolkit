@@ -35,7 +35,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         // This is stored for use by actions
         public RapidXamlElement AnalyzedElement { get; set; }
 
-        public IVisualStudioAbstraction VsAbstraction { get; set; }
+        public IVisualStudioProjectFilePath VsPfp { get; set; }
 
         internal TagDependencies ToTagDependencies()
         {
@@ -48,7 +48,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 ProjectFilePath = this.ProjectFilePath,
                 Span = this.Span,
                 Snapshot = this.Snapshot,
-                VsAbstraction = this.VsAbstraction,
+                VsPfp = this.VsPfp,
             };
         }
     }
