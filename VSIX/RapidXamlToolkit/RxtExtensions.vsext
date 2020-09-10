@@ -17,6 +17,10 @@
         {
             "vsixId": "RapidXaml.Templates.bde4c7e5-6e5b-40e7-9335-9c3454b1eb11",
             "name": "Rapid XAML Templates"
+        },
+        {
+            "vsixId": "RapidXaml.EditorExtras.07e87ef8-07f8-49fd-8f4b-f0958a539030",
+            "name": "Rapid XAML Editor Extras"
         }
     ]
 }
