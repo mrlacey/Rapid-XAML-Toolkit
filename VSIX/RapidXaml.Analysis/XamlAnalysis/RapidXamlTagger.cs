@@ -64,6 +64,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                     }
                 }
             }
+
+            yield break;
         }
 
         public void RaiseTagsChanged()

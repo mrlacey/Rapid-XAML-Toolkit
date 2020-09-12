@@ -16,6 +16,8 @@ namespace RapidXamlToolkit
                 yield return current;
                 current = current.BaseType;
             }
+
+            yield break;
         }
     }
 }

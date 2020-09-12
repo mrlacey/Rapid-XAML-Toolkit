@@ -66,6 +66,8 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
                     }
                 }
             }
+
+            yield break;
         }
 
         /// <summary>
@@ -131,6 +133,8 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
 
                 lastVisitedLineNumber = lastLine;
             }
+
+            yield break;
         }
     }
 }

@@ -211,6 +211,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                     yield return (targetType, wrapper);
                 }
             }
+
+            yield break;
         }
 
         public static List<ICustomAnalyzer> GetCustomProcessors(string projectFileDirectory)

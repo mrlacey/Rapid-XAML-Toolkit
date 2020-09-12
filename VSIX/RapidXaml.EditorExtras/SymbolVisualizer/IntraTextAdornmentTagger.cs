@@ -70,6 +70,8 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
                 IntraTextAdornmentTag tag = new IntraTextAdornmentTag(tagSpan.Tag.Adornment, tagSpan.Tag.RemovalCallback, tagSpan.Tag.Affinity);
                 yield return new TagSpan<IntraTextAdornmentTag>(span, tag);
             }
+
+            yield break;
         }
 
         protected abstract TAdornment CreateAdornment(TData data, SnapshotSpan span);
@@ -252,6 +254,8 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
             {
                 this.adornmentCache.Remove(snapshotSpan);
             }
+
+            yield break;
         }
 
         private class Comparer : IEqualityComparer<Tuple<SnapshotSpan, PositionAffinity?, TData>>

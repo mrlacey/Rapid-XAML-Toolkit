@@ -64,6 +64,8 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
 
                 yield return Tuple.Create(adornmentSpan, (PositionAffinity?)PositionAffinity.Successor, dataTagSpan.Tag);
             }
+
+            yield break;
         }
 
         protected override SymbolIconAdornment CreateAdornment(SymbolIconTag dataTag, SnapshotSpan span)
