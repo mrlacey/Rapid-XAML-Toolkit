@@ -36,6 +36,17 @@ namespace RapidXaml
                 xaml);
         }
 
+        public static AnalysisActions AddXmlns(string alias, string value)
+        {
+            return AddXmlns(
+                RapidXamlErrorType.Error,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                alias,
+                value);
+        }
+
         public static AnalysisActions RemoveAttribute(string attributeName)
         {
             return RemoveAttribute(

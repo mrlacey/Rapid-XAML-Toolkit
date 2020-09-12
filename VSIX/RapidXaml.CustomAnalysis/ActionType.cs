@@ -16,6 +16,11 @@ namespace RapidXaml
         AddChild,
 
         /// <summary>
+        /// Add an xmlns alias to the top-level document element.
+        /// </summary>
+        AddXmlns,
+
+        /// <summary>
         /// Report the error but provide no fix.
         /// </summary>
         HighlightWithoutAction,

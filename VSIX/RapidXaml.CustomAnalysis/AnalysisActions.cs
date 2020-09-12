@@ -134,6 +134,15 @@ namespace RapidXaml
             return result;
         }
 
+        public static AnalysisActions AddXmlns(RapidXamlErrorType errorType, string code, string description, string actionText, string alias, string value, string moreInfoUrl = null, string extendedMessage = null)
+        {
+            var result = new AnalysisActions();
+
+            result.AddXmlns(errorType, code, description, actionText, alias, value, extendedMessage, moreInfoUrl);
+
+            return result;
+        }
+
         /// <summary>
         /// Indicate an issue with the element but don't provide a quick action to fix it.
         /// </summary>

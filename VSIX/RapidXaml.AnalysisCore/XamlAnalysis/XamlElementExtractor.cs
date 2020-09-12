@@ -17,6 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         private const string AnyContainingStart = "ANYCONTAINING:";
         private const string AnyOrChildrenContainingStart = "ANYORCHILDRENCONTAINING:";
 
+        // TODO: extract toplevel xmlns
         public static bool Parse(string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions, XamlElementProcessor everyElementProcessor, ILogger logger)
         {
             var elementsBeingTracked = new List<TrackingElement>();

@@ -26,6 +26,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var rxElement = RapidXamlElementExtractor.GetElement(xamlElement, offset);
 
+            // TODO: also pass known xmlns
             var details = new ExtraAnalysisDetails(fileName, ProjectFrameworkHelper.FromType(this.ProjectType));
 
             var analysisActions = this.CustomAnalyzer.Analyze(rxElement, details);

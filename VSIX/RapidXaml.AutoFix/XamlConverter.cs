@@ -151,12 +151,18 @@ namespace RapidXaml
 
                 tags.Reverse();  // Work back through the document to allow for modifications changing document length
 
-                // TODO ISSUE#394: consider adding an actiontype to include xmlns at top level of document
+                var finalActions = new List<CustomAnalysisTag>();
+
                 foreach (var tag in tags)
                 {
                     // This always should be a CustomAnalysisTag but doesn't hurt to check when casting.
                     if (tag is CustomAnalysisTag cat)
                     {
+                        if (cat.Action == ActionType.AddXmlns)
+                        {
+                            finalActions.Add(cat);
+                        }
+
                         var newElement = this.UpdateElementXaml(cat, output);
 
                         text = text.Substring(0, cat.AnalyzedElement.Location.Start) + newElement + text.Substring(cat.AnalyzedElement.Location.End());
@@ -171,12 +177,70 @@ namespace RapidXaml
                     }
                 }
 
+                foreach (var faTag in finalActions)
+                {
+                    if (faTag.Action == ActionType.AddXmlns)
+                    {
+                        text = this.AddXmlns(faTag, text, output);
+                    }
+                }
+
                 this.FileSystem.WriteAllFileText(xamlFilePath, text);
             }
             catch (Exception exc)
             {
                 output.Add(exc.Message);
             }
+        }
+
+        private string AddXmlns(CustomAnalysisTag faTag, string xaml, List<string> output)
+        {
+            var element = RapidXamlElementExtractor.GetElement(xaml);
+
+            bool exists = false;
+
+            foreach (var attr in element.InlineAttributes)
+            {
+                if (attr.Name.StartsWith("xmlns:"))
+                {
+                    var alias = attr.Name.Substring(6);
+
+                    if (alias == faTag.Name)
+                    {
+                        if (attr.StringValue == faTag.Value)
+                        {
+                            output.Add("XMLNS is already specified in the document.");
+                        }
+                        else
+                        {
+                            output.Add("XMLNS is already specified in the document but with a different value.");
+                        }
+
+                        exists = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!exists)
+            {
+                var insertPos = element.InlineAttributes?.LastOrDefault()?.Location?.End();
+
+                output.Add($"Adding xmlns alias for '{faTag.Name}'");
+
+                if (insertPos != null)
+                {
+                    xaml = xaml.Insert(insertPos.Value, $" xmlns:{faTag.Name}=\"{faTag.Value}\"");
+                }
+                else
+                {
+                    xaml = xaml.Insert(
+                        element.Location.Start + element.Name.Length + 1,
+                        $" xmlns:{faTag.Name}=\"{faTag.Value}\"");
+                }
+            }
+
+            return xaml;
         }
 
         private CustomAnalysisTag RepurposeTagForSupplementaryAction(CustomAnalysisTag tag, AnalysisAction suppAction, string elementXaml)
