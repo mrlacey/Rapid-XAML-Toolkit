@@ -201,10 +201,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void AddXmlnsAliasToActiveDoc(string alias, string value)
         {
-            // Get opening tag from document
-            // check for existing xmlns alias
-            // if not already there - add before closing '>'
-
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 txtDoc.Selection.MoveToLineAndOffset(1, 1);
