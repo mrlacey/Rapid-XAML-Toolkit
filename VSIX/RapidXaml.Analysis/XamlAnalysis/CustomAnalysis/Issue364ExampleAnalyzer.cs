@@ -30,4 +30,13 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             return result;
         }
     }
+    public class AddXmlnsAnalyzer : BuiltInXamlAnalyzer
+    {
+        public override string TargetType() => "WebView";
+
+        public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
+        {
+            return AnalysisActions.AddXmlns(RapidXamlErrorType.Warning, "addns", "add xmlns", "add xmlns", "newns", "using:mynewnamespace");
+        }
+    }
 }
