@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.VisualStudio.Debugger.Evaluation;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
@@ -17,7 +18,6 @@ namespace RapidXamlToolkit.XamlAnalysis
         private const string AnyContainingStart = "ANYCONTAINING:";
         private const string AnyOrChildrenContainingStart = "ANYORCHILDRENCONTAINING:";
 
-        // TODO: extract toplevel xmlns
         public static bool Parse(string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions, XamlElementProcessor everyElementProcessor, ILogger logger)
         {
             var elementsBeingTracked = new List<TrackingElement>();
@@ -32,6 +32,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             var currentElementName = new StringBuilder();
             var closingElementName = new StringBuilder();
             var lineIndent = new StringBuilder();  // Use this rather than counting characters as may be a combination of tabs and spaces
+
+            Dictionary<string, string> xmlnsAliases = null;
 
             for (int i = 0; i < xaml.Length; i++)
             {
@@ -104,6 +106,26 @@ namespace RapidXamlToolkit.XamlAnalysis
                     }
                     else
                     {
+                        if (xmlnsAliases == null)
+                        {
+                            xmlnsAliases = new Dictionary<string, string>();
+
+                            var props = xaml.Substring(currentElementStartPos, i - currentElementStartPos).Split(new[] { " ", "\t", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                            foreach (var prop in props)
+                            {
+                                var equalsIndex = prop.IndexOf("=");
+                                if (prop.StartsWith("xmlns:"))
+                                {
+                                    xmlnsAliases.Add(prop.Substring(6, equalsIndex - 6), prop.Substring(equalsIndex + 1).Trim('"'));
+                                }
+                                else if (prop.StartsWith("xmlns"))
+                                {
+                                    xmlnsAliases.Add(string.Empty, prop.Substring(equalsIndex + 1).Trim('"'));
+                                }
+                            }
+                        }
+
                         inLineOpeningWhitespace = false;
 
                         if (isIdentifyingElement)
