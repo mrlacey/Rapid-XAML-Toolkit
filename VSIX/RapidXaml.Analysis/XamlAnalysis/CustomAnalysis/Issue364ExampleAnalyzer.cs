@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System.Linq;
+using System.Collections.Generic;
 using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
@@ -28,15 +28,6 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             }
 
             return result;
-        }
-    }
-    public class AddXmlnsAnalyzer : BuiltInXamlAnalyzer
-    {
-        public override string TargetType() => "WebView";
-
-        public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
-        {
-            return AnalysisActions.AddXmlns(RapidXamlErrorType.Warning, "addns", "add xmlns", "add xmlns", "newns", "using:mynewnamespace");
         }
     }
 }

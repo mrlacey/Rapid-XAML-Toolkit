@@ -126,5 +126,10 @@ namespace RapidXamlToolkit.Tests
         {
             // NOOP
         }
+
+        public void AddXmlnsAliasToActiveDoc(string alias, string value)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -22,12 +22,16 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public RapidXaml.ICustomAnalyzer CustomAnalyzer { get; private set; }
 
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xmlns = null)
         {
             var rxElement = RapidXamlElementExtractor.GetElement(xamlElement, offset);
 
-            // TODO: also pass known xmlns
             var details = new ExtraAnalysisDetails(fileName, ProjectFrameworkHelper.FromType(this.ProjectType));
+
+            if (xmlns != null)
+            {
+                details.Add("xmlns", xmlns);
+            }
 
             var analysisActions = this.CustomAnalyzer.Analyze(rxElement, details);
 

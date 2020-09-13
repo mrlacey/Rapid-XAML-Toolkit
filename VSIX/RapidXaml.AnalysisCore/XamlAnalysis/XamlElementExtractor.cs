@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.VisualStudio.Debugger.Evaluation;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
@@ -174,7 +173,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     System.Diagnostics.Debug.WriteLine("DEBUG!!!!!!");
                                 }
 
-                                everyElementProcessor?.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                everyElementProcessor?.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
 
                                 for (int j = 0; j < processors.Count; j++)
                                 {
@@ -183,7 +182,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     {
                                         try
                                         {
-                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
                                         }
                                         catch (Exception exc)
                                         {
@@ -212,14 +211,14 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     {
                                         if (XamlElementProcessor.GetOpeningWithoutChildren(elementBody).Contains(processors[j].element.Substring(AnyContainingStart.Length)))
                                         {
-                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
                                         }
                                     }
                                     else if (processors[j].element.StartsWith(AnyOrChildrenContainingStart, StringComparison.InvariantCultureIgnoreCase))
                                     {
                                         if (elementBody.Contains(processors[j].element.Substring(AnyOrChildrenContainingStart.Length)))
                                         {
-                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
                                         }
                                     }
                                 }
@@ -237,7 +236,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     if (!elementBody.StartsWith("</"))
                                     {
                                         // Do this in the else so don't always have to calculate the substring.
-                                        everyElementProcessor?.Process(fileName, currentElementStartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions);
+                                        everyElementProcessor?.Process(fileName, currentElementStartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
                                     }
                                 }
                             }
