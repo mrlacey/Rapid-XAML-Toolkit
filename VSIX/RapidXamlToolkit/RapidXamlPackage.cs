@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.Shell;
 namespace RapidXamlToolkit
 {
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.11.0")] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.11.1")] // Info on this package for Help/About
     [Guid("ed7fe961-2d10-4598-8040-7423b66b6540")]
     public sealed class RapidXamlPackage : AsyncPackage
     {
