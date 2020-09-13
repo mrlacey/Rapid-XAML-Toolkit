@@ -1,5 +1,9 @@
 # Rapid XAML Toolkit - Release Notes
 
+## 0.11.1
+
+- Fixes an issue when calling `AnalysisActions.AndAddXmlns`.
+
 ## 0.11
 
 - Added Editor Extras package.
