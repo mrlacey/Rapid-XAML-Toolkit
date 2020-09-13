@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RapidXaml.AutoFix</id>
-    <version>1.0.0-preview10</version>
+    <version>1.0.0</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <license type="expression">MIT</license>
@@ -17,7 +17,7 @@
     <tags>XAML, WinUI, UWP, WPF, Xamarin.Forms, MVVM, UNO</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
-        <dependency id="RapidXaml.CustomAnalysis" version="0.10.1" exclude="Build,Analyzers" />
+        <dependency id="RapidXaml.CustomAnalysis" version="0.11.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
