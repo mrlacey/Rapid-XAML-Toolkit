@@ -59,6 +59,8 @@ namespace TestHelper
                     yield return newArray[newIndex++];
                 }
             }
+
+            yield break;
         }
 
         /// <summary>

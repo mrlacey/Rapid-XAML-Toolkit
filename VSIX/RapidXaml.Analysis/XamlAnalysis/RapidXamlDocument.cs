@@ -165,6 +165,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
                 customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer());
                 customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer2());
+                customProcessors.Add(new CustomAnalysis.AddXmlnsAnalyzer());
 #endif
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
                 customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer());
@@ -211,6 +212,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                     yield return (targetType, wrapper);
                 }
             }
+
+            yield break;
         }
 
         public static List<ICustomAnalyzer> GetCustomProcessors(string projectFileDirectory)

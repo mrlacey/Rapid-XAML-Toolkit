@@ -38,6 +38,20 @@ namespace RapidXamlToolkit.Tests.AutoFix
             this.TestWebViewMultipleActionConversions(input, expected);
         }
 
+        [TestMethod]
+        public void RenameWebViewAndAddNewXmlns()
+        {
+            var input = @"<Page>
+    <WebView />
+</Page>";
+
+            var expected = @"<Page xmlns:newcontrols=""https://somenewdomain/newcontrols"">
+    <newcontrols:WebView2 />
+</Page>";
+
+            this.TestRenameWebViewWithCustomXmlnsAnalyzerConversions(input, expected);
+        }
+
         private void TestWebViewMultipleActionConversions(string original, string expected)
         {
             var fs = new TestFileSystem
@@ -57,6 +71,25 @@ namespace RapidXamlToolkit.Tests.AutoFix
 #endif
         }
 
+        private void TestRenameWebViewWithCustomXmlnsAnalyzerConversions(string original, string expected)
+        {
+            var fs = new TestFileSystem
+            {
+                FileExistsResponse = true,
+                FileText = original,
+            };
+
+#if DEBUG
+            var sut = new XamlConverter(fs);
+
+            var (success, details) = sut.ConvertFile("somefile.xaml", new[] { new RenameWebViewWithCustomXmlnsAnalyzer() });
+
+            Assert.AreEqual(true, success);
+            Assert.IsTrue(details.Count() > 3);
+            Assert.AreEqual(expected, fs.WrittenFileText);
+#endif
+        }
+
         public class WebViewMultipleActionsAnalyzer : ICustomAnalyzer
         {
             public string TargetType() => "WebView";
@@ -66,6 +99,20 @@ namespace RapidXamlToolkit.Tests.AutoFix
                 var result = AutoFixAnalysisActions.RenameElement("WebView2");
 
                 result.AndAddAttribute("Source", "https://rapidxaml.dev/");
+
+                return result;
+            }
+        }
+
+        public class RenameWebViewWithCustomXmlnsAnalyzer : ICustomAnalyzer
+        {
+            public string TargetType() => "WebView";
+
+            public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
+            {
+                var result = AutoFixAnalysisActions.RenameElement("newcontrols:WebView2");
+
+                result.AndAddXmlns("newcontrols", "https://somenewdomain/newcontrols");
 
                 return result;
             }

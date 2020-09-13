@@ -114,5 +114,10 @@ namespace RapidXaml.AnalysisExe
         {
             throw new NotImplementedException();
         }
+
+        public void AddXmlnsAliasToActiveDoc(string alias, string value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

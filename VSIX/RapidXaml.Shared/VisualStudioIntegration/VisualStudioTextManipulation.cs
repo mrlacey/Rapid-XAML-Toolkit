@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using EnvDTE;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
@@ -195,6 +196,41 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 txtDoc.Selection.MoveToLineAndOffset(lineNumber, 1);
                 txtDoc.Selection.EndOfLine();
                 txtDoc.Selection.DeleteLeft(charsToDelete);
+            }
+        }
+
+        public void AddXmlnsAliasToActiveDoc(string alias, string value)
+        {
+            if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
+            {
+                txtDoc.Selection.MoveToLineAndOffset(1, 1);
+                txtDoc.Selection.FindText(">", (int)vsFindOptions.vsFindOptionsMatchCase);
+
+                txtDoc.Selection.MoveToLineAndOffset(1, 1, true);
+
+                if (!txtDoc.Selection.Text.Contains($" xmlns:{alias}"))
+                {
+                    if (txtDoc.Selection.BottomLine > txtDoc.Selection.TopLine)
+                    {
+                        var lineOfInterest = txtDoc.Selection.BottomLine;
+
+                        txtDoc.Selection.GotoLine(lineOfInterest);
+                        txtDoc.Selection.SelectLine();
+
+                        var lineText = txtDoc.Selection.Text;
+
+                        var trimLineText = lineText.TrimStart();
+                        var indent = lineText.Substring(0, lineText.Length - trimLineText.Length);
+
+                        txtDoc.Selection.MoveToLineAndOffset(txtDoc.Selection.BottomLine - 1, 1);
+                        txtDoc.Selection.Insert($"{indent}xmlns:{alias}=\"{value}\"{Environment.NewLine}");
+                    }
+                    else
+                    {
+                        txtDoc.Selection.MoveToLineAndOffset(txtDoc.Selection.TopLine, txtDoc.Selection.BottomPoint.DisplayColumn);
+                        txtDoc.Selection.Insert($" xmlns:{alias}=\"{value}\"");
+                    }
+                }
             }
         }
     }

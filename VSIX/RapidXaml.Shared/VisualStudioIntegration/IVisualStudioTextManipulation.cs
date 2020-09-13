@@ -25,6 +25,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         void InsertIntoActiveDocOnLineAfterClosingTag(int openingAngleBracketLineNumber, string toInsert);
 
+        void AddXmlnsAliasToActiveDoc(string alias, string value);
+
         bool StartSingleUndoOperation(string name);
 
         void EndSingleUndoOperation();

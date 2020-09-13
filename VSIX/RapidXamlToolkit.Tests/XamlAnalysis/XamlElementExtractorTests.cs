@@ -819,6 +819,112 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(29, (tags[1] as CustomAnalysisTag).AnalyzedElement.Location.Start);
         }
 
+        [TestMethod]
+        public void PassSingleXmlnsToAnalyzers_SingleLine()
+        {
+            var tags = new TagList();
+
+            var xaml = "<Page xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">" +
+ Environment.NewLine + "    <TestElement />" +
+ Environment.NewLine + "</Page>";
+
+            var snapshot = new FakeTextSnapshot();
+            var vsa = new TestVisualStudioAbstraction();
+            var logger = DefaultTestLogger.Create();
+
+            var analyzer = new XmnlsCounterAnalyzer();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsa)),
+            };
+
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+
+            Assert.AreEqual(1, analyzer.Count);
+        }
+
+        [TestMethod]
+        public void PassSingleXmlnsToAnalyzers_MultipleLines()
+        {
+            var tags = new TagList();
+
+            var xaml = "<Page " +
+ Environment.NewLine + " xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">" +
+ Environment.NewLine + "    <TestElement />" +
+ Environment.NewLine + "</Page>";
+
+            var snapshot = new FakeTextSnapshot();
+            var vsa = new TestVisualStudioAbstraction();
+            var logger = DefaultTestLogger.Create();
+
+            var analyzer = new XmnlsCounterAnalyzer();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsa)),
+            };
+
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+
+            Assert.AreEqual(1, analyzer.Count);
+        }
+
+        [TestMethod]
+        public void PassMultipleXmlnsToAnalyzers()
+        {
+            var tags = new TagList();
+
+            var xaml = "<Page" +
+ Environment.NewLine + " xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"" +
+ Environment.NewLine + " xmlns:x=\"http://schemas.microsoft.com/winfx/2006/xaml\"" +
+ Environment.NewLine + " xmlns:local=\"using:XamlChangeTest\"" +
+ Environment.NewLine + " xmlns:d=\"http://schemas.microsoft.com/expression/blend/2008\"" +
+ Environment.NewLine + " xmlns:mc=\"http://schemas.openxmlformats.org/markup-compatibility/2006\">" +
+ Environment.NewLine + "    <TestElement />" +
+ Environment.NewLine + "</Page>";
+
+            var snapshot = new FakeTextSnapshot();
+            var vsa = new TestVisualStudioAbstraction();
+            var logger = DefaultTestLogger.Create();
+
+            var analyzer = new XmnlsCounterAnalyzer();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsa)),
+            };
+
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+
+            Assert.AreEqual(5, analyzer.Count);
+        }
+
+        [TestMethod]
+        public void PassNoXmlnsToAnalyzers()
+        {
+            var tags = new TagList();
+
+            var xaml = "<Page>" +
+ Environment.NewLine + "    <TestElement />" +
+ Environment.NewLine + "</Page>";
+
+            var snapshot = new FakeTextSnapshot();
+            var vsa = new TestVisualStudioAbstraction();
+            var logger = DefaultTestLogger.Create();
+
+            var analyzer = new XmnlsCounterAnalyzer();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsa)),
+            };
+
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+
+            Assert.AreEqual(0, analyzer.Count);
+        }
+
         private void TestParsingWithoutSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags = null)
         {
             if (tags == null)
@@ -844,6 +950,27 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var logger = DefaultTestLogger.Create();
 
             XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+        }
+
+        public class XmnlsCounterAnalyzer : ICustomAnalyzer
+        {
+            public int Count { get; set; }
+
+            public string TargetType() => "TestElement";
+
+            public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
+            {
+                if (extraDetails.TryGet("xmlns", out Dictionary<string, string> xmlns))
+                {
+                    this.Count = xmlns.Count();
+                }
+                else
+                {
+                    this.Count = 0;
+                }
+
+                return AnalysisActions.EmptyList;
+            }
         }
 
         public class WebViewToWebView2Basic : ICustomAnalyzer

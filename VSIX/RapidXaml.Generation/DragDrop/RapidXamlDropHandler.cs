@@ -123,6 +123,8 @@ namespace RapidXamlToolkit.DragDrop
             {
                 handle.Free();
             }
+
+            yield break;
         }
 
         [DllImport("shell32.dll", EntryPoint = "DragQueryFileW", SetLastError = true, CharSet = CharSet.Unicode, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]

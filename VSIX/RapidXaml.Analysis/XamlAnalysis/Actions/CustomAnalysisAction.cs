@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using RapidXaml;
+using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -194,6 +195,17 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         vs.ReplaceInActiveDocOnLine($"{tag.ElementName}.{childAttr.Name}", $"{tag.Name}.{childAttr.Name}", renameLineNumber);
                     }
 
+                    break;
+                case RapidXaml.ActionType.AddXmlns:
+                    System.Diagnostics.Debug.WriteLine(tag);
+
+                    vs.AddXmlnsAliasToActiveDoc(tag.Name, tag.Value);
+
+                    break;
+                default:
+                    // Using a newer version of CustomAnalysis than the VSIX knows about
+                    // Doing nothing is a suitable fallback.
+                    tag.Logger?.RecordInfo(StringRes.Info_UnknownCustomActionType);
                     break;
             }
         }

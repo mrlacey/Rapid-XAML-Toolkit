@@ -60,6 +60,27 @@ namespace RapidXaml
                         yield return attr;
                     }
                 }
+
+                yield break;
+            }
+        }
+
+        /// <summary>
+        /// Gets all attributes that are not specified as child elements.
+        /// </summary>
+        public IEnumerable<RapidXamlAttribute> InlineAttributes
+        {
+            get
+            {
+                foreach (var attr in this.Attributes)
+                {
+                    if (attr.HasStringValue)
+                    {
+                        yield return attr;
+                    }
+                }
+
+                yield break;
             }
         }
 
@@ -161,6 +182,8 @@ namespace RapidXaml
                     yield return attr;
                 }
             }
+
+            yield break;
         }
 
         /// <summary>
@@ -208,6 +231,8 @@ namespace RapidXaml
                     yield return child;
                 }
             }
+
+            yield break;
         }
 
         /// <summary>
@@ -248,6 +273,8 @@ namespace RapidXaml
                     yield return innerChild;
                 }
             }
+
+            yield break;
         }
 
         public RapidXamlElement WithUpdatedLocationStart(int newLocationStart)

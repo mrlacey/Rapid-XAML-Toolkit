@@ -1071,6 +1071,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;Unknown functionality defined in CustomAnalysis. Try updating the extension.&quot;.
+        /// </summary>
+        public static string Info_UnknownCustomActionType {
+            get {
+                return ResourceManager.GetString("Info_UnknownCustomActionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DocumentParsed_TagsFound{0}.
         /// </summary>
         public static string Info_UsedFeatureParseDocument {

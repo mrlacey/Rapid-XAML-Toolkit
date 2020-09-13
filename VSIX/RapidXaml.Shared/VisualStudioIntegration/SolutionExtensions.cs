@@ -31,6 +31,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                     }
                 }
             }
+
+            yield break;
         }
 
         public static IEnumerable<EnvDTE.Project> GetSolutionFolderProjects(this EnvDTE.Project solutionFolder)
@@ -54,6 +56,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                     }
                 }
             }
+
+            yield break;
         }
 
         public static EnvDTE.Project GetProjectContainingFile(this EnvDTE.Solution solution, string filePath)

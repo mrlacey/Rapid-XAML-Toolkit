@@ -187,6 +187,40 @@ namespace RapidXaml
                 });
         }
 
+        public static AnalysisActions AddXmlns(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string alias, string value, string moreInfoUrl = null, string extendedMessage = null)
+        {
+            var result = analysisActions;
+
+            result.Actions.Add(new AnalysisAction
+            {
+                Action = ActionType.AddXmlns,
+                Code = code,
+                Description = description,
+                ErrorType = errorType,
+                ActionText = actionText,
+                Name = alias,
+                Value = value,
+                ExtendedMessage = extendedMessage,
+                MoreInfoUrl = moreInfoUrl,
+            });
+
+            return result;
+        }
+
+        public static AnalysisActions AndAddXmlns(this AnalysisActions analysisActions, string alias, string value)
+        {
+            var result = analysisActions;
+
+            result.Actions.Add(new AnalysisAction
+            {
+                Action = ActionType.AddXmlns,
+                Name = alias,
+                Value = value,
+            });
+
+            return result;
+        }
+
         /// <summary>
         /// Indicate an issue with the element but don't provide a quick action to fix it.
         /// </summary>
