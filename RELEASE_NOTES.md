@@ -3,6 +3,7 @@
 ## 0.11.1
 
 - Fixes an issue when calling `AnalysisActions.AndAddXmlns`.
+- Fix (harmless) error message when running BuildAnalysis.
 
 ## 0.11
 
