@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>RapidXaml.BuildAnalysis</id>
-    <version>0.11.1</version>
+    <version>0.11.2</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <copyright>Copyright © 2020 Matt Lacey Ltd.</copyright>
@@ -21,6 +21,9 @@
     <file src="_._" target="lib/net40/" />
     <file src=".\icon.png" target="images\" />
     <!-- Specify release versions explicitly so NuGet doesn't get confused by $outpath$ -->
+    <file src=".\bin\release\net472\RapidXaml.AnalysisCore.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.AnalysisCore.dll.config" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.AnalysisCore.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.AnalysisExe.exe" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.AnalysisExe.exe.config" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.AnalysisExe.pdb" target="tools/net472/" />
@@ -32,6 +35,8 @@
     <file src=".\bin\release\net472\RapidXaml.Shared.dll.config" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.xml" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Utils.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Utils.pdb" target="tools/net472/" />
     <!-- Would love to do this with wildcards but for some reason it's not working -->
     <file src=".\bin\release\net472\ApiAnalysis.SimpleJsonAnalyzer.vsixuse.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\EnvDTE.dll" target="tools/net472/" />
@@ -55,6 +60,7 @@
     <file src=".\bin\release\net472\Microsoft.VisualStudio.LanguageServices.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.OLE.Interop.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.RemoteControl.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Framework.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.10.0.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.11.0.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.12.0.dll" target="tools/net472/" />
@@ -62,6 +68,7 @@
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Telemetry.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Data.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Logic.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.TextManager.Interop.11.0.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.TextManager.Interop.12.0.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.TextManager.Interop.8.0.dll" target="tools/net472/" />
