@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="RapidXaml.RoslynAnalyzers.c58ca4bd-0d58-46cd-afc3-c47a1e1b8c7f" Version="0.11.1" Language="en-US" Publisher="Matt Lacey" />
+    <Identity Id="RapidXaml.RoslynAnalyzers.c58ca4bd-0d58-46cd-afc3-c47a1e1b8c7f" Version="0.11.2" Language="en-US" Publisher="Matt Lacey" />
     <DisplayName>Rapid XAML RoslynAnalyzers</DisplayName>
     <Description xml:space="preserve">Roslyn analyzers to help with XAML app development.</Description>
     <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>

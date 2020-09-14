@@ -17,7 +17,7 @@ namespace RapidXaml.EditorExtras
     [ProvideAutoLoad(UICONTEXT.CSharpProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UICONTEXT.VBProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.11.1")] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.11.2")] // Info on this package for Help/About
     [Guid(RapidXamlEditorExtrasPackage.PackageGuidString)]
     [ProvideOptionPage(typeof(EditorExtrasOptionsGrid), "Rapid XAML", "Editor", 106, 107, true)]
     [ProvideProfile(typeof(EditorExtrasOptionsGrid), "Rapid XAML", "Editor", 106, 107, true)]
