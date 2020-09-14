@@ -171,8 +171,15 @@ namespace RapidXaml
                         {
                             var sat = this.RepurposeTagForSupplementaryAction(cat, suppAction, newElement);
 
-                            newElement = this.UpdateElementXaml(sat, output);
-                            text = text.Substring(0, sat.AnalyzedElement.Location.Start) + newElement + text.Substring(sat.AnalyzedElement.Location.End());
+                            if (sat.Action == ActionType.AddXmlns)
+                            {
+                                finalActions.Add(sat);
+                            }
+                            else
+                            {
+                                newElement = this.UpdateElementXaml(sat, output);
+                                text = text.Substring(0, sat.AnalyzedElement.Location.Start) + newElement + text.Substring(sat.AnalyzedElement.Location.End());
+                            }
                         }
                     }
                 }
