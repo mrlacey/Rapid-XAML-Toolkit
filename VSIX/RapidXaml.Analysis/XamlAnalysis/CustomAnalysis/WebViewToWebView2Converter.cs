@@ -44,7 +44,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                 RapidXamlErrorType.Warning,
                 "WEBV2",
                 "Replace WebView with, the new and improved, WebView2",
-                "Rename WebView",
+                "Replace WebView with WebView2",
                 $"{aliasToUse}:WebView2");
 
             if (addAlias)
