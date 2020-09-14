@@ -134,6 +134,18 @@ namespace RapidXaml
             return result;
         }
 
+        /// <summary>
+        /// Add an XML Namespace (and alias) to the document.
+        /// </summary>
+        /// <param name="errorType">How the response should be indicated.</param>
+        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
+        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
+        /// <param name="actionText">The text displayed in the quick action.</param>
+        /// <param name="alias">The alias to use for the XML Namespace.</param>
+        /// <param name="value">The XML Namespace to add.</param>
+        /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
+        /// <returns>An AnalysisActions result.</returns>
         public static AnalysisActions AddXmlns(RapidXamlErrorType errorType, string code, string description, string actionText, string alias, string value, string moreInfoUrl = null, string extendedMessage = null)
         {
             var result = new AnalysisActions();
