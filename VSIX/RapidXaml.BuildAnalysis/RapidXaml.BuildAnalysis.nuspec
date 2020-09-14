@@ -60,6 +60,7 @@
     <file src=".\bin\release\net472\Microsoft.VisualStudio.LanguageServices.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.OLE.Interop.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.RemoteControl.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Framework.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.10.0.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.11.0.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.12.0.dll" target="tools/net472/" />
@@ -67,6 +68,7 @@
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Telemetry.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Data.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Logic.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.TextManager.Interop.11.0.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.TextManager.Interop.12.0.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.TextManager.Interop.8.0.dll" target="tools/net472/" />
