@@ -54,6 +54,7 @@ namespace SetVersionNumbers
 
         private static readonly List<string> NugetProjectFiles = new List<string>
         {
+            "../../../../RapidXaml.AnalysisExe/RapidXaml.AnalysisExe.csproj",
             "../../../../RapidXaml.AutoFix/RapidXaml.AutoFix.csproj",
             "../../../../RapidXaml.CustomAnalysis/RapidXaml.CustomAnalysis.csproj",
             "../../../../RapidXaml.BuildAnalysis/RapidXaml.BuildAnalysis.csproj",
