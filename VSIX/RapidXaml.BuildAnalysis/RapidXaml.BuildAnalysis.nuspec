@@ -32,6 +32,8 @@
     <file src=".\bin\release\net472\RapidXaml.Shared.dll.config" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.xml" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Utils.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Utils.pdb" target="tools/net472/" />
     <!-- Would love to do this with wildcards but for some reason it's not working -->
     <file src=".\bin\release\net472\ApiAnalysis.SimpleJsonAnalyzer.vsixuse.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\EnvDTE.dll" target="tools/net472/" />
