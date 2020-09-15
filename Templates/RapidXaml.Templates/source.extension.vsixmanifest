@@ -9,7 +9,6 @@
     <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/docs/custom-analysis.md</GettingStartedGuide>
     <Icon>Resources\RapidXamlTemplatesLogo.png</Icon>
     <Tags>XAML</Tags>
-    <Preview>true</Preview>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
