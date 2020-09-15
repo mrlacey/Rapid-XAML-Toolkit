@@ -2,9 +2,11 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows.Documents;
 using RapidXamlToolkit;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -63,6 +65,8 @@ namespace RapidXaml.AnalysisExe
                 // Treat project type as unknown as unable to resolve referenced projects and installed NuGet packages.
                 var bavsa = new BuildAnalysisVisualStudioAbstraction(projectPath, ProjectType.Unknown);
 
+                var linesOutputted = new List<string>();
+
                 foreach (var line in projFileLines)
                 {
                     var endPos = line.IndexOf(".xaml\"");
@@ -114,7 +118,13 @@ namespace RapidXaml.AnalysisExe
                                         // Add 1 to line number to allow for VS counting without zero index
                                         // Error code is repeated with the description because it doesn't show in the Visual Studio Error List
                                         // For format see https://github.com/Microsoft/msbuild/blob/master/src/Shared/CanonicalError.cs
-                                        Console.WriteLine($"{xamlFilePath}({issue.Line + 1},{issue.Column}): {messageType} {issue.ErrorCode}: {issue.Description} ({issue.ErrorCode})");
+                                        var outputText = $"{xamlFilePath}({issue.Line + 1},{issue.Column}): {messageType} {issue.ErrorCode}: {issue.Description} ({issue.ErrorCode})";
+
+                                        if (!linesOutputted.Contains(outputText))
+                                        {
+                                            linesOutputted.Add(outputText);
+                                            Console.WriteLine(outputText);
+                                        }
                                     }
                                 }
                             }
