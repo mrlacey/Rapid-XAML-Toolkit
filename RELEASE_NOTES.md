@@ -1,9 +1,13 @@
 # Rapid XAML Toolkit - Release Notes
 
+## 0.11.3
+
+- Avoid duplicate output from BuildAnalysis.
+
 ## 0.11.2
 
 - Fix (harmless) error message when running BuildAnalysis.
-- 
+
 ## 0.11.1
 
 - Fixes an issue when calling `AnalysisActions.AndAddXmlns`.
