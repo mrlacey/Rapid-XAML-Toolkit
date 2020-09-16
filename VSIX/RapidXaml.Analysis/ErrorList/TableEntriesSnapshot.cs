@@ -134,7 +134,7 @@ namespace RapidXamlToolkit.ErrorList
                         }
                         else if (error.ErrorCode.StartsWith("RXT"))
                         {
-                            content = $"https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/warnings/{error.ErrorCode}.md";
+                            content = $"https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/docs/warnings/{error.ErrorCode}.md";
                             return true;
                         }
                         else

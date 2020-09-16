@@ -178,7 +178,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md.
+        ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md.
         /// </summary>
         public static string Error_OutdatedConfigurationDetected2 {
             get {
