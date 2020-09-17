@@ -6,11 +6,15 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using EnvDTE;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace RapidXaml.EditorExtras.SymbolVisualizer
 {
     internal sealed class SymbolIconAdornment : TextBlock
     {
+        private double? vsFontSize = null;
+
         public SymbolIconAdornment(SymbolIconTag tag)
         {
             this.SymbolTag = tag;
@@ -1015,6 +1019,7 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
         {
             this.SymbolTag = dataTag;
             this.SetTextAndFontFamily(dataTag);
+            this.SetFontSize();
         }
 
         private void SetTextAndFontFamily(SymbolIconTag tag)
@@ -1061,6 +1066,35 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
             }
 
             return null;
+        }
+
+        private void SetFontSize()
+        {
+            if (this.vsFontSize is null)
+            {
+                DTE vsEnvironment = (DTE)Microsoft.VisualStudio.Shell.ServiceProvider.GlobalProvider.GetService(typeof(SDTE));
+
+                if (vsEnvironment != null)
+                {
+                    Properties propertiesList = vsEnvironment.get_Properties("FontsAndColors", "TextEditor");
+                    Property pFontSize = null;
+
+                    if (propertiesList != null)
+                    {
+                        pFontSize = propertiesList.Item("FontSize");
+                    }
+
+                    if (pFontSize != null)
+                    {
+                        this.vsFontSize = Convert.ToDouble(pFontSize.Value.ToString());
+                    }
+                }
+            }
+
+            if (this.vsFontSize.HasValue)
+            {
+                this.FontSize = this.vsFontSize.Value;
+            }
         }
     }
 }
