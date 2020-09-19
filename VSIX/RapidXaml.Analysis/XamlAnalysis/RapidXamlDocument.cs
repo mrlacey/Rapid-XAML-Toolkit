@@ -427,30 +427,33 @@ namespace RapidXamlToolkit.XamlAnalysis
                     projectFileName = vsa.GetPathOfProjectContainingFile(fileName);
                 }
 
-                var suppressionsFile = Path.Combine(Path.GetDirectoryName(projectFileName), "suppressions.xamlAnalysis");
-
-                if (File.Exists(suppressionsFile))
+                if (!string.IsNullOrWhiteSpace(projectFileName) && File.Exists(projectFileName))
                 {
-                    List<TagSuppression> allSuppressions = null;
-                    var fileTime = File.GetLastWriteTimeUtc(suppressionsFile);
+                    var suppressionsFile = Path.Combine(Path.GetDirectoryName(projectFileName), "suppressions.xamlAnalysis");
 
-                    if (SuppressionsCache.ContainsKey(suppressionsFile))
+                    if (File.Exists(suppressionsFile))
                     {
-                        if (SuppressionsCache[suppressionsFile].timeStamp == fileTime)
+                        List<TagSuppression> allSuppressions = null;
+                        var fileTime = File.GetLastWriteTimeUtc(suppressionsFile);
+
+                        if (SuppressionsCache.ContainsKey(suppressionsFile))
                         {
-                            allSuppressions = SuppressionsCache[suppressionsFile].suppressions;
+                            if (SuppressionsCache[suppressionsFile].timeStamp == fileTime)
+                            {
+                                allSuppressions = SuppressionsCache[suppressionsFile].suppressions;
+                            }
                         }
+
+                        if (allSuppressions == null)
+                        {
+                            var json = File.ReadAllText(suppressionsFile);
+                            allSuppressions = JsonConvert.DeserializeObject<List<TagSuppression>>(json);
+                        }
+
+                        SuppressionsCache[suppressionsFile] = (fileTime, allSuppressions);
+
+                        result = allSuppressions.Where(s => string.IsNullOrWhiteSpace(s.FileName) || fileName.EndsWith(s.FileName)).ToList();
                     }
-
-                    if (allSuppressions == null)
-                    {
-                        var json = File.ReadAllText(suppressionsFile);
-                        allSuppressions = JsonConvert.DeserializeObject<List<TagSuppression>>(json);
-                    }
-
-                    SuppressionsCache[suppressionsFile] = (fileTime, allSuppressions);
-
-                    result = allSuppressions.Where(s => string.IsNullOrWhiteSpace(s.FileName) || fileName.EndsWith(s.FileName)).ToList();
                 }
             }
             catch (Exception exc)
