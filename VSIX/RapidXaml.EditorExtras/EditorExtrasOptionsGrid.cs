@@ -15,6 +15,7 @@ namespace RapidXaml.EditorExtras
     {
         [DisplayName("Show Symbol Icons")]
         [Description("Show symbols and glyphs where used in the editor.")]
+        [DefaultValue(true)]
         public bool ShowSymbolIcons { get; set; } = true;
 
         protected override void OnClosed(EventArgs e)
