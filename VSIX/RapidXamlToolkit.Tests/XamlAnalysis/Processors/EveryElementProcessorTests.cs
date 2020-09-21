@@ -122,7 +122,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             var result = new RapidXamlDocument();
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(xaml.Length);
             var logger = DefaultTestLogger.Create();
             var vsa = new TestVisualStudioAbstraction();
 

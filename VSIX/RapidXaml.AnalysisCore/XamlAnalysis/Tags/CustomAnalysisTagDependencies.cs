@@ -49,6 +49,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 Span = this.Span,
                 Snapshot = this.Snapshot,
                 VsPfp = this.VsPfp,
+                ExtraDebugInfo = $"{ElementName}:{AnalyzedElement.OriginalString}",
             };
         }
     }

@@ -18,7 +18,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             var sut = (T)Activator.CreateInstance(typeof(T), new ProcessorEssentialsForSimpleTests(projectType));
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(xaml.Length);
 
             sut.Process("testfile.xaml", 0, xaml, string.Empty, snapshot, outputTags);
 

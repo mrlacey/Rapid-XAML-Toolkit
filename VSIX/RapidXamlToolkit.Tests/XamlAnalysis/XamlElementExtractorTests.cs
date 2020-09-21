@@ -803,7 +803,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "<WebView></WebView>" +
  Environment.NewLine + "</Page>";
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(xaml.Length);
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
@@ -828,7 +828,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    <TestElement />" +
  Environment.NewLine + "</Page>";
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(xaml.Length);
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
@@ -854,7 +854,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    <TestElement />" +
  Environment.NewLine + "</Page>";
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(xaml.Length);
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
@@ -884,7 +884,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    <TestElement />" +
  Environment.NewLine + "</Page>";
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(xaml.Length);
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
@@ -909,7 +909,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
  Environment.NewLine + "    <TestElement />" +
  Environment.NewLine + "</Page>";
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(xaml.Length);
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
@@ -945,7 +945,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 tags = new TagList();
             }
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(xaml.Length);
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
