@@ -3,6 +3,7 @@
 ## 0.11.3
 
 - Avoid duplicate output from BuildAnalysis.
+- Increased error handling in RapidXaml.Analysis.
 
 ## 0.11.2
 
