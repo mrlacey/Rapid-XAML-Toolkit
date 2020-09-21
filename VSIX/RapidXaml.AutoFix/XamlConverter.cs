@@ -124,7 +124,7 @@ namespace RapidXaml
             output.Add($"Analyzing '{xamlFilePath}'");
 
             var text = this.FileSystem.GetAllFileText(xamlFilePath);
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(text.Length);
 
             var logger = EmptyLogger.Create();
             var vspfp = new AutoFixProjectFilePath(projectFilePath);

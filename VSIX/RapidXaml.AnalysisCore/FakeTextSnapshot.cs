@@ -11,6 +11,15 @@ namespace RapidXamlToolkit.Tests
 {
     public class FakeTextSnapshot : ITextSnapshot
     {
+        public FakeTextSnapshot()
+        {
+        }
+
+        public FakeTextSnapshot(int length)
+        {
+            this.Length = length;
+        }
+
         public ITextBuffer TextBuffer { get; }
 
         public IContentType ContentType { get; }

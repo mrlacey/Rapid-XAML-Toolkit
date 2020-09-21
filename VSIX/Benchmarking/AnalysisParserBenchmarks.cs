@@ -28,7 +28,7 @@ namespace Benchmarking
 
             var text = File.ReadAllText($".\\files\\{fileName}");
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(text.Length);
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
