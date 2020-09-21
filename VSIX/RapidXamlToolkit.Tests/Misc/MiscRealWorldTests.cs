@@ -101,6 +101,12 @@ namespace RapidXamlToolkit.Tests.Misc
             this.ParseWithoutError(".\\Misc\\ComboBox.xaml", ProjectType.Wpf);
         }
 
+        [TestMethod]
+        public void Real_ParseWithoutError_PageWithXmlEncoding()
+        {
+            this.ParseWithoutError(".\\Misc\\PageWithXmlEncoding.xaml", ProjectType.Uwp);
+        }
+
         private void ParseWithoutError(string filePath, ProjectType projType)
         {
             var result = new RapidXamlDocument();

@@ -99,7 +99,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 }
                 else if (xaml[i] == '>')
                 {
-                    if (i > 2 && xaml.Substring(i - 2, 3) == "-->")
+                    if (i > 2 && (xaml.Substring(i - 2, 3) == "-->" || xaml.Substring(i - 1, 2) == "?>"))
                     {
                         inComment = false;
                     }
@@ -250,6 +250,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                 else if (xaml[i] == '-')
                 {
                     if (i >= 3 && xaml.Substring(i - 3, 4) == "<!--")
+                    {
+                        inComment = true;
+                    }
+                }
+                else if (xaml[i] == '?')
+                {
+                    if (i >= 2 && xaml.Substring(i - 1, 2) == "<?")
                     {
                         inComment = true;
                     }

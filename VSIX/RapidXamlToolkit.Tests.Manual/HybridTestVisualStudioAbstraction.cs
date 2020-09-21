@@ -19,8 +19,6 @@ namespace RapidXamlToolkit.Tests.Manual
 
             var isCSharp = Path.GetExtension(fileName) == ".cs";
 
-            this.DocumentIsCSharp = isCSharp;
-
             var syntaxTree = isCSharp ? CSharpSyntaxTree.ParseText(code)
                                       : VisualBasicSyntaxTree.ParseText(code);
 
