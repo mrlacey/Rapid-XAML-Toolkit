@@ -111,11 +111,21 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             var props = xaml.Substring(currentElementStartPos, i - currentElementStartPos).Split(new[] { " ", "\t", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-                            foreach (var prop in props)
+                            for (int j = 0; j < props.Length; j++)
                             {
+                                string prop = props[j];
+
                                 var equalsIndex = prop.IndexOf("=");
+
                                 if (prop.StartsWith("xmlns:"))
                                 {
+                                    while (!prop.Contains("=") || !prop.TrimEnd().EndsWith("\""))
+                                    {
+                                        prop += props[++j].Trim();
+                                    }
+
+                                    equalsIndex = prop.IndexOf("=");
+
                                     xmlnsAliases.Add(prop.Substring(6, equalsIndex - 6), prop.Substring(equalsIndex + 1).Trim('"'));
                                 }
                                 else if (prop.StartsWith("xmlns"))
