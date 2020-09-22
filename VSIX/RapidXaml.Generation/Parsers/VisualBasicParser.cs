@@ -645,7 +645,6 @@ namespace RapidXamlToolkit.Parsers
                     }
                     else if (innerType is QualifiedNameSyntax iqns)
                     {
-                        //yntax)pbs.PropertyStatement.AsClause).Type)).Right as GenericNameSyntax).TypeArgumentList.Arguments.First()
                         typeSyntax = (iqns.Right as GenericNameSyntax).TypeArgumentList.Arguments.First();
                     }
                 }
