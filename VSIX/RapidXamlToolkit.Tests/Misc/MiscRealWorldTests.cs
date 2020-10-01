@@ -102,6 +102,12 @@ namespace RapidXamlToolkit.Tests.Misc
         }
 
         [TestMethod]
+        public void Real_ParseWithoutError_XmlSpace1()
+        {
+            this.ParseWithoutError(".\\Misc\\XmlSpace1.xaml", ProjectType.Wpf);
+        }
+
+        [TestMethod]
         public void Real_ParseWithoutError_PageWithXmlEncoding()
         {
             this.ParseWithoutError(".\\Misc\\PageWithXmlEncoding.xaml", ProjectType.Uwp);

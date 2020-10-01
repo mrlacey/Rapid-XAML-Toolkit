@@ -119,7 +119,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                 if (prop.StartsWith("xmlns:"))
                                 {
-                                    while (!prop.Contains("=") || !prop.TrimEnd().EndsWith("\""))
+                                    while (!prop.Contains("=") || (!prop.TrimEnd().EndsWith("\"") && !prop.TrimEnd().EndsWith("'")))
                                     {
                                         prop += props[++j].Trim();
                                     }
