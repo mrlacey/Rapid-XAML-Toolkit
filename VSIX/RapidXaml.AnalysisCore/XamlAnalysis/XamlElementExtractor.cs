@@ -126,11 +126,11 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                     equalsIndex = prop.IndexOf("=");
 
-                                    xmlnsAliases.Add(prop.Substring(6, equalsIndex - 6), prop.Substring(equalsIndex + 1).Trim('"'));
+                                    xmlnsAliases.Add(prop.Substring(6, equalsIndex - 6), prop.Substring(equalsIndex + 1).Trim('"', '\''));
                                 }
                                 else if (prop.StartsWith("xmlns"))
                                 {
-                                    xmlnsAliases.Add(string.Empty, prop.Substring(equalsIndex + 1).Trim('"'));
+                                    xmlnsAliases.Add(string.Empty, prop.Substring(equalsIndex + 1).Trim('"', '\''));
                                 }
                             }
                         }

@@ -871,7 +871,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         }
 
         [TestMethod]
-        public void PassMultipleXmlnsToAnalyzers()
+        public void PassMultipleXmlnsToAnalyzers_DoubleQuotes()
         {
             var tags = new TagList();
 
@@ -898,6 +898,38 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
 
             Assert.AreEqual(5, analyzer.Count);
+            Assert.AreEqual("http://schemas.microsoft.com/winfx/2006/xaml/presentation", analyzer.Xmlns[string.Empty]);
+        }
+
+        [TestMethod]
+        public void PassMultipleXmlnsToAnalyzers_SingleQuotes()
+        {
+            var tags = new TagList();
+
+            var xaml = "<Page" +
+ Environment.NewLine + " xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation'" +
+ Environment.NewLine + " xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'" +
+ Environment.NewLine + " xmlns:local='using:XamlChangeTest'" +
+ Environment.NewLine + " xmlns:d='http://schemas.microsoft.com/expression/blend/2008'" +
+ Environment.NewLine + " xmlns:mc='http://schemas.openxmlformats.org/markup-compatibility/2006'>" +
+ Environment.NewLine + "    <TestElement />" +
+ Environment.NewLine + "</Page>";
+
+            var snapshot = new FakeTextSnapshot(xaml.Length);
+            var vsa = new TestVisualStudioAbstraction();
+            var logger = DefaultTestLogger.Create();
+
+            var analyzer = new XmnlsCounterAnalyzer();
+
+            var processors = new List<(string, XamlElementProcessor)>
+            {
+                (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsa)),
+            };
+
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+
+            Assert.AreEqual(5, analyzer.Count);
+            Assert.AreEqual("http://schemas.microsoft.com/winfx/2006/xaml/presentation", analyzer.Xmlns[string.Empty]);
         }
 
         [TestMethod]
