@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Shell;
 
 namespace RapidXaml.Templates
 {
-    [InstalledProductRegistration("#110", "#112", "0.11.3")] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.11.4")] // Info on this package for Help/About
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(RapidXamlTemplatesPackage.PackageGuidString)]
     public sealed class RapidXamlTemplatesPackage : AsyncPackage
