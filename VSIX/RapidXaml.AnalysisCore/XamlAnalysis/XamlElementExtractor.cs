@@ -119,18 +119,18 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                 if (prop.StartsWith("xmlns:"))
                                 {
-                                    while (!prop.Contains("=") || !prop.TrimEnd().EndsWith("\""))
+                                    while (!prop.Contains("=") || (!prop.TrimEnd().EndsWith("\"") && !prop.TrimEnd().EndsWith("'")))
                                     {
                                         prop += props[++j].Trim();
                                     }
 
                                     equalsIndex = prop.IndexOf("=");
 
-                                    xmlnsAliases.Add(prop.Substring(6, equalsIndex - 6), prop.Substring(equalsIndex + 1).Trim('"'));
+                                    xmlnsAliases.Add(prop.Substring(6, equalsIndex - 6), prop.Substring(equalsIndex + 1).Trim('"', '\''));
                                 }
                                 else if (prop.StartsWith("xmlns"))
                                 {
-                                    xmlnsAliases.Add(string.Empty, prop.Substring(equalsIndex + 1).Trim('"'));
+                                    xmlnsAliases.Add(string.Empty, prop.Substring(equalsIndex + 1).Trim('"', '\''));
                                 }
                             }
                         }
