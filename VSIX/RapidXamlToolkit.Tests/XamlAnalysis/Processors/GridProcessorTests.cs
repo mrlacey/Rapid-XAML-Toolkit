@@ -153,5 +153,57 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             Assert.AreEqual(1, outputTags.OfType<ColumnSpanOverflowTag>().Count());
         }
+
+        [TestMethod]
+        public void DetectConcise_RowDefinitions()
+        {
+            var xaml = @"<Grid RowDefinitions=""*,*"">
+    <Label Grid.Row=""1"" />
+</Grid>";
+
+            var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
+
+            Assert.AreEqual(0, outputTags.OfType<AddRowDefinitionsTag>().Count());
+            Assert.AreEqual(0, outputTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void DetectConcise_ColumnDefinitions()
+        {
+            var xaml = @"<Grid ColumnDefinitions=""*,*"">
+    <Label Grid.Column=""1"" />
+</Grid>";
+
+            var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
+
+            Assert.AreEqual(0, outputTags.OfType<AddColumnDefinitionsTag>().Count());
+            Assert.AreEqual(0, outputTags.OfType<MissingColumnDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void DetectOutsideConcise_RowDefinitions()
+        {
+            var xaml = @"<Grid RowDefinitions=""*,*"">
+    <Label Grid.Row=""2"" />
+</Grid>";
+
+            var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
+
+            Assert.AreEqual(0, outputTags.OfType<AddRowDefinitionsTag>().Count());
+            Assert.AreEqual(1, outputTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void DetectOutsideConcise_ColumnDefinitions()
+        {
+            var xaml = @"<Grid ColumnDefinitions=""*,*"">
+    <Label Grid.Column=""2"" />
+</Grid>";
+
+            var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
+
+            Assert.AreEqual(0, outputTags.OfType<AddColumnDefinitionsTag>().Count());
+            Assert.AreEqual(1, outputTags.OfType<MissingColumnDefinitionTag>().Count());
+        }
     }
 }

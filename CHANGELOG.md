@@ -1,5 +1,9 @@
 # Rapid XAML Toolkit - ChangeLog
 
+## 0.11.4
+
+- Support succinct Row and Column Definitions in RapidXaml.Analysis.
+
 ## 0.11.3
 
 - Avoid duplicate output from BuildAnalysis.
