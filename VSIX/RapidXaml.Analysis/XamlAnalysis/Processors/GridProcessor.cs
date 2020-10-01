@@ -35,10 +35,32 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 hasRowDef = firstNestedGrid <= 0 || rowDefPos < firstNestedGrid;
             }
 
+            string rowDefsString = null;
+
+            if (rowDefPos < 0 && this.ProjectType.Matches(ProjectType.XamarinForms))
+            {
+                // See if using new inline format
+                if (this.TryGetAttribute(xamlElement, Attributes.RowDefinitions, AttributeType.Inline, out _, out _, out _, out rowDefsString))
+                {
+                    hasRowDef = true;
+                }
+            }
+
             var hasColDef = false;
             if (colDefPos > 0)
             {
                 hasColDef = firstNestedGrid <= 0 || colDefPos < firstNestedGrid;
+            }
+
+            string colDefsString = null;
+
+            if (colDefPos < 0 && this.ProjectType.Matches(ProjectType.XamarinForms))
+            {
+                // See if using new inline format
+                if (this.TryGetAttribute(xamlElement, Attributes.ColumnDefinitions, AttributeType.Inline, out _, out _, out _, out colDefsString))
+                {
+                    hasColDef = true;
+                }
             }
 
             var leftPad = linePadding.Contains("\t") ? linePadding + "\t" : linePadding + "    ";
@@ -126,6 +148,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 rowDefIndex = xamlElement.IndexOf(rowDefStart, endPos, StringComparison.Ordinal);
             }
 
+            if (rowDefsCount == 0 && !string.IsNullOrEmpty(rowDefsString))
+            {
+                rowDefsCount = rowDefsString.Split(new[] { ',' }, StringSplitOptions.None).Length;
+            }
+
             foreach (var tag in toAdd)
             {
                 tag.RowCount = rowDefsCount;
@@ -143,6 +170,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 colDefsCount += 1;
 
                 colDefIndex = xamlElement.IndexOf(colDef, colDefIndex + 1, StringComparison.Ordinal);
+            }
+
+            if (colDefsCount == 0 && !string.IsNullOrEmpty(colDefsString))
+            {
+                colDefsCount = colDefsString.Split(new[] { ',' }, StringSplitOptions.None).Length;
             }
 
             const string rowDefUse = "Grid.Row=\"";
