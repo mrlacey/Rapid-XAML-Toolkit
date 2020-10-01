@@ -11,7 +11,7 @@ While it's being installed you might learn how to configure it to meet your need
 
 The latest version is available from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit) or by searching inside Visual Studio (Extensions > Manage Extensions).
 
-![Manage Extensions search dialog showing the Rapid XAML Toolkit listing](./Assets/extension-search-dialog.png)
+![Manage Extensions search dialog showing the Rapid XAML Toolkit listing](./Assets/extension-search-d.png)
 
 Please see the [installation guide](installation.md) for more details.
 
