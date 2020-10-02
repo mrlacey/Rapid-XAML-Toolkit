@@ -19,6 +19,11 @@ namespace RapidXaml
 
         public int Length { get; set; } = -1;
 
+        public RapidXamlSpan CloneWithAdjustedLocationStart(int startChange)
+        {
+            return new RapidXamlSpan(this.Start + startChange, this.Length);
+        }
+
         public override string ToString()
         {
             return $"({this.Start}, {this.Length})";
