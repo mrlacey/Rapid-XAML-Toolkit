@@ -279,15 +279,34 @@ namespace RapidXaml
 
         public RapidXamlElement WithUpdatedLocationStart(int newLocationStart)
         {
+            var change = newLocationStart - this.Location.Start;
+
+            var result = this.CloneWithAdjustedLocationStart(change);
+
+            result.Location = new RapidXamlSpan(newLocationStart, this.Location.Length);
+
+            return result;
+        }
+
+        public RapidXamlElement CloneWithAdjustedLocationStart(int startChange)
+        {
             var result = new RapidXamlElement
             {
-                Attributes = this.Attributes,
-                Children = this.Children,
                 Content = this.Content,
-                Location = new RapidXamlSpan(newLocationStart, this.Location.Length),
+                Location = this.Location.CloneWithAdjustedLocationStart(startChange),
                 Name = this.Name,
                 OriginalString = this.OriginalString,
             };
+
+            for (int i = 0; i < this.Attributes.Count; i++)
+            {
+                result.Attributes.Add(this.Attributes[i].CloneWithAdjustedLocationStart(startChange));
+            }
+
+            for (int i = 0; i < this.Children.Count; i++)
+            {
+                result.Children.Add(this.Children[i].CloneWithAdjustedLocationStart(startChange));
+            }
 
             return result;
         }

@@ -74,6 +74,24 @@ namespace RapidXaml
         /// </summary>
         public RapidXamlSpan Location { get; internal set; } = new RapidXamlSpan();
 
+        public RapidXamlAttribute CloneWithAdjustedLocationStart(int startChange)
+        {
+            var result = new RapidXamlAttribute
+            {
+                Name = this.Name,
+                IsInline = this.IsInline,
+                StringValue = this.StringValue,
+                Location = this.Location.CloneWithAdjustedLocationStart(startChange),
+            };
+
+            for (int i = 0; i < this.Children.Count; i++)
+            {
+                result.Children.Add(this.Children[i].CloneWithAdjustedLocationStart(startChange));
+            }
+
+            return result;
+        }
+
         /// <inheritdoc/>
         public override string ToString()
         {

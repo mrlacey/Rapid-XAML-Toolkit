@@ -1,5 +1,9 @@
 # Rapid XAML Toolkit - ChangeLog
 
+## Upcoming
+
+- Fix bug where the location of items to underline was not calculated correctly.
+
 ## 0.11.4
 
 - Support succinct Row and Column Definitions in RapidXaml.Analysis.

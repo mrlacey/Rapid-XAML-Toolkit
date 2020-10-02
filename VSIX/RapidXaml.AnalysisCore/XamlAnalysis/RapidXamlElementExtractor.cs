@@ -115,7 +115,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     childElement.Width);
                             }
 
-                            var childAsString = xaml.TrimStart().Substring(childElement.Start, childElement.Width);
+                            var childAsString = xaml.TrimStart().Substring(childElement.SpanStart, childElement.Width);
 
                             if (content.TrimStart().StartsWith(childAsString.TrimStart()))
                             {
