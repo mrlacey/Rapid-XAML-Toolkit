@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Create custom XAML analyzers for use with the Rapid XAML toolkit.</description>
     <summary>Create custom XAML analyzers.</summary>
-    <releaseNotes>Add functions to support AutoFixes.</releaseNotes>
+    <releaseNotes>Fix caching issue.</releaseNotes>
     <copyright>Copyright 2020 Matt Lacey Ltd.</copyright>
     <tags>XAML, UWP, WPF, Xamarin.Forms, MVVM, UNO</tags>
     <dependencies>
