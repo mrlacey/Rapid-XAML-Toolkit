@@ -174,6 +174,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 }
                             }
 
+                            // This might not be the case if the was an encoded opening but not an encoded closing angle bracket
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                             {
                                 var elementBody = xaml.Substring(toProcess.StartPos, i - toProcess.StartPos + 1);
@@ -234,21 +235,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 }
 
                                 elementsBeingTracked.Remove(toProcess);
-                            }
-                            else
-                            {
-                                // Account for unknown startPos until address ISSUE#400
-                                if (!inComment && currentElementStartPos >= 0)
-                                {
-                                    var elementBody = xaml.Substring(currentElementStartPos, i - currentElementStartPos + 1);
-
-                                    // Don't process closing blocks
-                                    if (!elementBody.StartsWith("</"))
-                                    {
-                                        // Do this in the else so don't always have to calculate the substring.
-                                        everyElementProcessor?.Process(fileName, currentElementStartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
-                                    }
-                                }
                             }
 
                             // Reset this so know what we should be tracking
