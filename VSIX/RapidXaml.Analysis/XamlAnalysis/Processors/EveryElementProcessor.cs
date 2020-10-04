@@ -21,6 +21,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             // Remove children to avoid getting duplicates when children are processed.
             xamlElement = GetOpeningWithoutChildren(xamlElement);
 
+            if (!xamlElement.Contains("=") && !xamlElement.Contains("."))
+            {
+                // There are no attributes so skip any further checks
+                return;
+            }
+
             if (this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.InlineOrElement, out _, out int index, out int length, out string value))
             {
                 if (!char.IsUpper(value[0]))
