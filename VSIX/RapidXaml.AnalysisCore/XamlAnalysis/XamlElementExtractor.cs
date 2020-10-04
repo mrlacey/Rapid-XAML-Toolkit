@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static bool Parse(string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions, XamlElementProcessor everyElementProcessor, ILogger logger)
         {
-            var elementsBeingTracked = new List<TrackingElement>();
+            var elementsBeingTracked = new Stack<TrackingElement>();
 
             bool isIdentifyingElement = false;
             bool isClosingElement = false;
@@ -73,9 +73,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                 }
                 else if (char.IsWhiteSpace(xaml[i]))
                 {
-                    if (isIdentifyingElement)
+                    if (isIdentifyingElement && currentElementName.Length > 0)
                     {
-                        elementsBeingTracked.Add(
+                        elementsBeingTracked.Push(
                             new TrackingElement
                             {
                                 StartPos = currentElementStartPos,
@@ -92,6 +92,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 }
                 else if (xaml[i] == '/')
                 {
+                    // Also need to look at being here as part of a URL (such as in an xmlns declaration)
                     isClosingElement = true;
                     closingElementName.Clear();
                     isIdentifyingElement = false;
@@ -137,9 +138,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         inLineOpeningWhitespace = false;
 
-                        if (isIdentifyingElement)
+                        if (isIdentifyingElement && currentElementName.Length > 0)
                         {
-                            elementsBeingTracked.Add(
+                            elementsBeingTracked.Push(
                                 new TrackingElement
                                 {
                                     StartPos = currentElementStartPos,
@@ -165,13 +166,10 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             var toProcess = TrackingElement.Default;
 
-                            for (int j = elementsBeingTracked.Count - 1; j >= 0; j--)
+                            if (elementsBeingTracked.Count > 0
+                             && elementsBeingTracked.Peek().ElementName == nameOfInterest)
                             {
-                                if (elementsBeingTracked[j].ElementName == nameOfInterest)
-                                {
-                                    toProcess = elementsBeingTracked[j];
-                                    break;
-                                }
+                                toProcess = elementsBeingTracked.Pop();
                             }
 
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
@@ -232,8 +230,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                                         }
                                     }
                                 }
-
-                                elementsBeingTracked.Remove(toProcess);
                             }
                             else
                             {
