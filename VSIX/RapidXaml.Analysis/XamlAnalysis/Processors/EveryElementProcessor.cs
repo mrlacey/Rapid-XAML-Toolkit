@@ -18,6 +18,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
         {
+            // TODO: need to determine position of end of opening when parsing original XAML to avoid this lookup each time
             // Remove children to avoid getting duplicates when children are processed.
             xamlElement = GetOpeningWithoutChildren(xamlElement);
 

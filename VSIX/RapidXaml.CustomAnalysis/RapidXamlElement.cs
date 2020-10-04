@@ -283,6 +283,7 @@ namespace RapidXaml
 
             var result = this.CloneWithAdjustedLocationStart(change);
 
+            // TODO: make descendent Attributes, Children, & Spans lazy loaded to avoid assigning before needed (& because they may not be)
             result.Location = new RapidXamlSpan(newLocationStart, this.Location.Length);
 
             return result;
