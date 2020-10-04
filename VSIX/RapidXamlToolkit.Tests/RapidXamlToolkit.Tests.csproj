@@ -140,6 +140,7 @@
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\SearchBarAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\RadioButtonAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\PickerAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XmlEncodingTests.cs" />
     <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessorTests.cs" />
@@ -295,6 +296,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Misc\XmlSpace1.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Misc\AsyncRelayCommandPage.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
