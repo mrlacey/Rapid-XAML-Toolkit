@@ -373,13 +373,6 @@ namespace RapidXaml
                 Children = this.Children,
             };
 
-            // TODO: make descendent Attributes, Children, & Spans lazy loaded to avoid assigning before needed (& because they may not be)
-
-            //for (int i = 0; i < this.Attributes.Count; i++)
-            //{
-            //    result.Attributes.Add(this.Attributes[i].CloneWithAdjustedLocationStart(startChange));
-            //}
-
             for (int i = 0; i < this.Children.Count; i++)
             {
                 result.Children.Add(this.Children[i].CloneWithAdjustedLocationStart(startChange));

@@ -16,6 +16,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
         }
 
+        // TODO: review opportunities for performance inprovements
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
         {
             const string gridOpenSpace = "<Grid ";

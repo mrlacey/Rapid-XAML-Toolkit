@@ -18,67 +18,73 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
         {
-            // TODO: need to determine position of end of opening when parsing original XAML to avoid this lookup each time
-            // Remove children to avoid getting duplicates when children are processed.
-            xamlElement = GetOpeningWithoutChildren(xamlElement);
-
             if (!xamlElement.Contains("=") && !xamlElement.Contains("."))
             {
                 // There are no attributes so skip any further checks
                 return;
             }
 
-            if (this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.InlineOrElement, out _, out int index, out int length, out string value))
+            // This check is cheaper than two unnecessary calls to TryGetAttribute
+            if (xamlElement.Contains($"{Attributes.Uid}="))
             {
-                if (!char.IsUpper(value[0]))
+                if (this.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.InlineOrElement, out _, out int index, out int length, out string value))
                 {
-                    var tagDeps = this.CreateBaseTagDependencies(
-                        new Span(offset + index, length),
-                        snapshot,
-                        fileName);
+                    if (!char.IsUpper(value[0]))
+                    {
+                        var tagDeps = this.CreateBaseTagDependencies(
+                            new Span(offset + index, length),
+                            snapshot,
+                            fileName);
 
-                    tags.TryAdd(new UidTitleCaseTag(tagDeps, value), xamlElement, suppressions);
+                        tags.TryAdd(new UidTitleCaseTag(tagDeps, value), xamlElement, suppressions);
+                    }
                 }
-            }
-            else if (this.TryGetAttribute(xamlElement, Attributes.X_Uid, AttributeType.InlineOrElement, out _, out index, out length, out value))
-            {
-                if (!char.IsUpper(value[0]))
+                else if (this.TryGetAttribute(xamlElement, Attributes.X_Uid, AttributeType.InlineOrElement, out _, out index, out length, out value))
                 {
-                    var tagDeps = this.CreateBaseTagDependencies(
-                        new Span(offset + index, length),
-                        snapshot,
-                        fileName);
+                    if (!char.IsUpper(value[0]))
+                    {
+                        var tagDeps = this.CreateBaseTagDependencies(
+                            new Span(offset + index, length),
+                            snapshot,
+                            fileName);
 
-                    tags.TryAdd(new UidTitleCaseTag(tagDeps, value), xamlElement, suppressions);
-                }
-            }
-
-            if (this.TryGetAttribute(xamlElement, Attributes.Name, AttributeType.InlineOrElement, out _, out index, out length, out value))
-            {
-                if (!char.IsUpper(value[0]))
-                {
-                    var tagDeps = this.CreateBaseTagDependencies(
-                        new Span(offset + index, length),
-                        snapshot,
-                        fileName);
-
-                    tags.TryAdd(new NameTitleCaseTag(tagDeps, value), xamlElement, suppressions);
-                }
-            }
-            else if (this.TryGetAttribute(xamlElement, Attributes.X_Name, AttributeType.InlineOrElement, out _, out index, out length, out value))
-            {
-                if (!char.IsUpper(value[0]))
-                {
-                    var tagDeps = this.CreateBaseTagDependencies(
-                        new Span(offset + index, length),
-                        snapshot,
-                        fileName);
-
-                    tags.TryAdd(new NameTitleCaseTag(tagDeps, value), xamlElement, suppressions);
+                        tags.TryAdd(new UidTitleCaseTag(tagDeps, value), xamlElement, suppressions);
+                    }
                 }
             }
 
-            if (this.ProjectType.Matches(ProjectType.Uwp))
+            // This check is cheaper than two unnecessary calls to TryGetAttribute
+            if (xamlElement.Contains($"{Attributes.Name}="))
+            {
+                if (this.TryGetAttribute(xamlElement, Attributes.Name, AttributeType.InlineOrElement, out _, out int index, out int length, out string value))
+                {
+                    if (!char.IsUpper(value[0]))
+                    {
+                        var tagDeps = this.CreateBaseTagDependencies(
+                            new Span(offset + index, length),
+                            snapshot,
+                            fileName);
+
+                        tags.TryAdd(new NameTitleCaseTag(tagDeps, value), xamlElement, suppressions);
+                    }
+                }
+                else if (this.TryGetAttribute(xamlElement, Attributes.X_Name, AttributeType.InlineOrElement, out _, out index, out length, out value))
+                {
+                    if (!char.IsUpper(value[0]))
+                    {
+                        var tagDeps = this.CreateBaseTagDependencies(
+                            new Span(offset + index, length),
+                            snapshot,
+                            fileName);
+
+                        tags.TryAdd(new NameTitleCaseTag(tagDeps, value), xamlElement, suppressions);
+                    }
+                }
+            }
+
+            // The Contains check is cheaper than getting the StringRes to pass to CheckForHardCodedAttribute, let alone running it
+            if (this.ProjectType.Matches(ProjectType.Uwp)
+             && xamlElement.Contains($"{Attributes.TooltipServiceDotToolTip}="))
             {
                 var nameEndPos = xamlElement.IndexOfAny(new[] { ' ', '/', '>' });
                 var elementName = xamlElement.Substring(1, nameEndPos - 1);

@@ -166,10 +166,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var c = xamlElementThatMayHaveChildren[i];
 
-                if (c == '<' &&  ++openTagCount > 2)
-                        break;
+                if (c == '<' && ++openTagCount > 2)
+                    break;
                 if (c == '>' && ++closeTagCount > 2)
-                        break;
+                    break;
             }
 
             // Don't walk the whole string if we can avoid it for something without any sub-elements
@@ -261,6 +261,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
         {
+            // Pass null for elementName if don't already know it
+            return TryGetAttribute(xaml, attributeName, attributeTypesToCheck, null, out attributeType, out index, out length, out value);
+        }
+
+        public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, string elementName, out AttributeType attributeType, out int index, out int length, out string value)
+        {
             try
             {
                 var xamlSpan = xaml.AsSpan();
@@ -295,7 +301,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
                 }
 
-                var elementName = GetElementName(xamlSpan);
+                if (string.IsNullOrWhiteSpace(elementName))
+                {
+                    elementName = GetElementName(xamlSpan);
+                }
 
                 if (attributeTypesToCheck.HasFlag(AttributeType.Element))
                 {
