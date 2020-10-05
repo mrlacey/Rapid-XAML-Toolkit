@@ -96,6 +96,22 @@ namespace RapidXamlToolkit.Tests.Misc
         }
 
         [TestMethod]
+        public void Real_AsyncRelayCommandPage()
+        {
+            var result = new RapidXamlDocument();
+
+            var text = File.ReadAllText(".\\Misc\\AsyncRelayCommandPage.xaml");
+
+            var snapshot = new FakeTextSnapshot(text.Length);
+            var vsa = new TestVisualStudioAbstraction();
+            var logger = DefaultTestLogger.Create();
+
+            XamlElementExtractor.Parse("AsyncRelayCommandPage.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger), result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa), logger);
+
+            Assert.IsTrue(true, "Got here without error.");
+        }
+
+        [TestMethod]
         public void Real_ParseWithoutError_ComboBox()
         {
             this.ParseWithoutError(".\\Misc\\ComboBox.xaml", ProjectType.Wpf);
