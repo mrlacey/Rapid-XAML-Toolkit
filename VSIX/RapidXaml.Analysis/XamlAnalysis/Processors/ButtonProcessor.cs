@@ -23,23 +23,30 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 return;
             }
 
-            var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Content);
+            // REVIEW this when add support for WPF & XF
+            // Avoid unnecessary calls to CheckForHardCodedAttribute
+            if (xamlElement.Contains($"{Attributes.Content}=")
+             || xamlElement.Contains($"{Elements.Button}.{Attributes.Content}")
+             || xamlElement.Contains($"</{Elements.Button}>"))
+            {
+                var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Content);
 
-            this.CheckForHardCodedAttribute(
-                fileName,
-                Elements.Button,
-                Attributes.Content,
-                AttributeType.Any,
-                StringRes.UI_XamlAnalysisHardcodedStringButtonContentMessage,
-                xamlElement,
-                snapshot,
-                offset,
-                uidExists,
-                uid,
-                Guid.Empty,
-                tags,
-                suppressions,
-                this.ProjectType);
+                this.CheckForHardCodedAttribute(
+                    fileName,
+                    Elements.Button,
+                    Attributes.Content,
+                    AttributeType.Any,
+                    StringRes.UI_XamlAnalysisHardcodedStringButtonContentMessage,
+                    xamlElement,
+                    snapshot,
+                    offset,
+                    uidExists,
+                    uid,
+                    Guid.Empty,
+                    tags,
+                    suppressions,
+                    this.ProjectType);
+            }
         }
     }
 }

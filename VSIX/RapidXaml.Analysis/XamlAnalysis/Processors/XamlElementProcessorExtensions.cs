@@ -13,7 +13,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
     {
         public static void CheckForHardCodedAttribute(this XamlElementProcessor source, string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
         {
-            if (source.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
+            if (source.TryGetAttribute(xamlElement, attributeName, types, elementName, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
@@ -39,7 +39,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public static void CheckForHardCodedAttribute(this XamlElementProcessor source, string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, string guidFallbackAttributeName, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
         {
-            if (source.TryGetAttribute(xamlElement, attributeName, types, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
+            if (source.TryGetAttribute(xamlElement, attributeName, types, elementName, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
