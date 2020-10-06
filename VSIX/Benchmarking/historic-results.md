@@ -12,7 +12,7 @@ If running this on your own machine, run the test against the default branch fir
 
 Add new results below here but above old results.
 
-## post 0.11.5 (perf review - 6 Oct 2020)
+## post 0.11.4 (perf review - 6 Oct 2020)
 
 ```ascii
 BenchmarkDotNet=v0.12.1, OS=Windows 10.0.20175

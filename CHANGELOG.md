@@ -3,6 +3,7 @@
 ## Upcoming
 
 - Fix bug where the location of items to underline was not calculated correctly.
+- Performance improvements in analysis.
 
 ## 0.11.4
 
