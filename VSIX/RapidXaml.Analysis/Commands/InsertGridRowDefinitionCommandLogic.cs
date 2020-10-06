@@ -8,7 +8,7 @@ using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Commands
 {
-    // TODO: review if this is still needed.
+    // TO-DO: review if this is still needed.
     public class InsertGridRowDefinitionCommandLogic
     {
         private const string RowDefOpening = "<RowDefinition";

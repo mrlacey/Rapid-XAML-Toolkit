@@ -12,6 +12,21 @@ If running this on your own machine, run the test against the default branch fir
 
 Add new results below here but above old results.
 
+## post 0.11.5 (perf review - 6 Oct 2020)
+
+```ascii
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.20175
+Intel Core i7-8650U CPU 1.90GHz (Kaby Lake R), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.100-preview.8.20417.9
+  [Host]     : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+  DefaultJob : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+
+
+|       Method |     Mean |    Error |   StdDev | Ratio | Rank |     Gen 0 |     Gen 1 |    Gen 2 | Allocated |
+|------------- |---------:|---------:|---------:|------:|-----:|----------:|----------:|---------:|----------:|
+| ParseCurrent | 62.49 ms | 0.898 ms | 0.701 ms |  1.00 |    1 | 8000.0000 | 1125.0000 | 500.0000 |   33.9 MB |
+```
+
 
 ## 0.10.5 (initial perf improvements)
 

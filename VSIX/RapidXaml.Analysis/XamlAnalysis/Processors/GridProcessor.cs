@@ -9,6 +9,7 @@ using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
+    // When change this to be based on BuiltInAnalyzer look to optimize performance
     public class GridProcessor : XamlElementProcessor
     {
         public GridProcessor(ProcessorEssentials essentials)
@@ -16,7 +17,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
         }
 
-        // TODO: review opportunities for performance inprovements
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
         {
             const string gridOpenSpace = "<Grid ";
@@ -330,23 +330,23 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                             }
                         }
                         else if (xamlElement.Substring(spanUseOffset).StartsWith(colSpanUse))
-                    {
-                        var valueStartPos = spanUseOffset + colSpanUse.Length;
-                        var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
-
-                        var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
-
-                        if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger, this.ProjectFilePath, this.VSPFP);
+                            var valueStartPos = spanUseOffset + colSpanUse.Length;
+                            var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
 
-                            var gridCol = 0;
-                            if (this.TryGetAttribute(element, "Grid.Column", AttributeType.InlineOrElement, out _, out _, out _, out string colStr))
+                            var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
+
+                            if (int.TryParse(assignedStr, out int assignedInt))
                             {
-                                gridCol = int.Parse(colStr);
-                            }
+                                var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger, this.ProjectFilePath, this.VSPFP);
 
-                            if (assignedInt > 1 && assignedInt - 1 + gridCol >= colDefsCount)
+                                var gridCol = 0;
+                                if (this.TryGetAttribute(element, "Grid.Column", AttributeType.InlineOrElement, out _, out _, out _, out string colStr))
+                                {
+                                    gridCol = int.Parse(colStr);
+                                }
+
+                                if (assignedInt > 1 && assignedInt - 1 + gridCol >= colDefsCount)
                                 {
                                     var tagDeps = this.CreateBaseTagDependencies(
                                         new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
