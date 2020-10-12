@@ -1,0 +1,9 @@
+{
+    "title": "Rapid XAML Analysis Settings schema",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+
+    "type": "object",
+    "additionalProperties": {
+        "enum": [ "Error", "Warning", "Suggestion", "Hidden", "None" ]
+    }
+}
