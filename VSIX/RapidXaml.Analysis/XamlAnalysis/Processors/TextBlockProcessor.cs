@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
         {
-            if (!this.ProjectType.Matches(ProjectType.Uwp))
+            if (this.ProjectType.Matches(ProjectType.XamarinForms))
             {
                 return;
             }
