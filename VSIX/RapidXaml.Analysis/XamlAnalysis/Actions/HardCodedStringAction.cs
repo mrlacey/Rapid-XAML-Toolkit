@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -91,18 +92,41 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 }
                 else if (this.Tag.ProjType == ProjectType.Wpf)
                 {
-                    // TODO: ISSUE#163 Implement WPF resource creation
-                    var resourceName = "NEED TO GENERATE THIS";
+                    var resourceName = $"{Path.GetFileNameWithoutExtension(this.Tag.FileName)}{this.Tag.Value}".RemoveNonAlphaNumerics();
                     this.AddResource(resPath, resourceName, this.Tag.Value);
+
+                    var resourceNs = this.GetResourceFileNamespace(resPath);
+
+                    // TODO: Issue#410 determine if XMLNS already exists based on resfile folder
+                    // TODO: Issue#410 convert this to be based on BuiltInAnalyzer so can check for existing xmlns aliases
+                    var xmlns = "properties";
+                    var xmlnsExists = true;
+
+                    var newAttribute = $"{this.Tag.AttributeName}=\"{{x:static {xmlns}:{Path.GetFileNameWithoutExtension(resPath)}.{resourceName}}}\"";
 
                     switch (this.Tag.AttributeType)
                     {
                         case AttributeType.Inline:
+                            var currentAttribute = $"{this.Tag.AttributeName}=\"{this.Tag.Value}\"";
+                            vs.ReplaceInActiveDocOnLine(currentAttribute, newAttribute, this.Tag.GetDesignerLineNumber());
                             break;
                         case AttributeType.Element:
+                            var currentElementAttribute = $"<{this.Tag.ElementName}.{this.Tag.AttributeName}>{this.Tag.Value}</{this.Tag.ElementName}.{this.Tag.AttributeName}>";
+                            vs.RemoveInActiveDocOnLine(currentElementAttribute, this.Tag.GetDesignerLineNumber());
+
+                            var newXaml = $"<{this.Tag.ElementName} {newAttribute}";
+                            vs.ReplaceInActiveDocOnLineOrAbove($"<{this.Tag.ElementName}", newXaml, this.Tag.GetDesignerLineNumber());
                             break;
                         case AttributeType.DefaultValue:
+                            var current = $">{this.Tag.Value}</{this.Tag.ElementName}>";
+                            var replaceWith = $" {newAttribute} />";
+                            vs.ReplaceInActiveDocOnLine(current, replaceWith, this.Tag.GetDesignerLineNumber());
                             break;
+                    }
+
+                    if (!xmlnsExists)
+                    {
+                        vs.AddXmlnsAliasToActiveDoc(xmlns, $"clr-namespace:{resourceNs}");
                     }
                 }
                 else if (this.Tag.ProjType == ProjectType.XamarinForms)
@@ -135,6 +159,30 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     vs.EndSingleUndoOperation();
                 }
             }
+        }
+
+        private string GetResourceFileNamespace(string resPath)
+        {
+            // It's fine that this is C# only as WPFCore doesn't (yet) support VB
+            // https://developercommunity.visualstudio.com/idea/750543/add-visual-basic-support-to-net-core-3-wpfwindows.html
+            var designerFileName = Path.Combine(Path.GetDirectoryName(resPath), Path.GetFileNameWithoutExtension(resPath) + ".Designer.cs");
+
+            if (!System.IO.File.Exists(designerFileName))
+            {
+                return string.Empty;
+            }
+
+            var lines = System.IO.File.ReadAllLines(designerFileName);
+
+            foreach (var line in lines)
+            {
+                if (line.StartsWith("namespace "))
+                {
+                    return line.Substring(10).Trim(' ', '\t', '{');
+                }
+            }
+
+            return null;
         }
 
         private void AddResource(string resPath, string name, string value)
@@ -185,8 +233,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         {
                             IterateProjItems(projItem);
                         }
-                        else if (projItem.Name.EndsWith(".resw")
-                              || projItem.Name.EndsWith(".resx"))
+
+                        if (projItem.Name.EndsWith(".resw")
+                         || projItem.Name.EndsWith(".resx"))
                         {
                             // Get either type of res file. Don't have a reason for a project to contain both.
                             resFiles.Add(projItem.FileNames[0]);

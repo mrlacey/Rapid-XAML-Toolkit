@@ -257,7 +257,6 @@ namespace RapidXamlToolkit.XamlAnalysis
             return new List<ICustomAnalyzer>();
         }
 
-        // TODO: ISSUE#331 cache this response so don't need to look up again if files haven't changed.
         public static List<ICustomAnalyzer> GetCustomAnalyzers(string folderToSearch)
         {
             var result = new List<ICustomAnalyzer>();
