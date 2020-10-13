@@ -1,0 +1,4 @@
+Microsoft.WebTools.Languages.Json.dll is originally from C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\Microsoft\Web Tools\Languages
+It is an internal library for Visual Studio and not officially for use as there is no guarantee of API stability.
+It is included here as it provides the IJsonSchemaSelector interface.
+Without a copy directly accessible it's not possible to build the project outside of VS (such as is needed by AppVeyor and GitHub Actions)
