@@ -16,7 +16,7 @@ before_build:
   #- ps: Vsix-TokenReplacement src\source.extension.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
 
 build_script:
-  - msbuild .\VSIX\RapidXamlToolkit.sln /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:d
+  - msbuild .\VSIX\RapidXamlToolkit.sln /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:n
 
 after_test:
   - ps: Vsix-PushArtifacts | Vsix-PublishToGallery
