@@ -193,6 +193,8 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\References\about-Microsoft.WebTools.Languages.Json.dll.txt" />
+    <None Include="Resources\References\Microsoft.WebTools.Languages.Json.dll" />
     <VSCTCompile Include="RapidXamlAnalysisPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
@@ -219,9 +221,9 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.WebTools.Languages.Json">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\Microsoft\Web Tools\Languages\Microsoft.WebTools.Languages.Json.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Microsoft.WebTools.Languages.Json, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\References\Microsoft.WebTools.Languages.Json.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="PresentationCore" />
@@ -302,6 +304,7 @@
       <OutputItemType>Analyzer</OutputItemType>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>
