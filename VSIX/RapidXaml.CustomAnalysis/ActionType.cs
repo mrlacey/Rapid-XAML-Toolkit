@@ -44,5 +44,10 @@ namespace RapidXaml
         /// Replace the entire element.
         /// </summary>
         ReplaceElement,
+
+        /// <summary>
+        /// Create an entry in a Resource file (RESW or RESX).
+        /// </summary>
+        CreateResource,
     }
 }
