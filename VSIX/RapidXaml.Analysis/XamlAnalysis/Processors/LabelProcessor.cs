@@ -4,37 +4,39 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.Text;
-using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
-    public class TextBlockProcessor : XamlElementProcessor
+    // This exists for testing development of functionality related to #163 & #410
+    // Once they are implemented remove this in preference for LINK:CustomAnalysis/XamarinForms/LabelAnalyzer.cs
+    public class LabelProcessor : XamlElementProcessor
     {
-        public TextBlockProcessor(ProcessorEssentials essentials)
+        public LabelProcessor(ProcessorEssentials essentials)
             : base(essentials)
         {
         }
 
         public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
         {
-            if (this.ProjectType == ProjectType.XamarinForms)
+            if (!this.ProjectType.Matches(ProjectType.XamarinForms))
             {
                 return;
             }
 
-            var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Text);
+            //// var (uidExists, uid) = this.GetOrGenerateUid(xamlElement, Attributes.Text);
 
             this.CheckForHardCodedAttribute(
                 fileName,
-                Elements.TextBlock,
+                Elements.Label,
                 Attributes.Text,
                 AttributeType.Any,
-                StringRes.UI_XamlAnalysisHardcodedStringTextblockTextMessage,
+                ////StringRes.UI_XamlAnalysisHardcodedStringTextblockTextMessage,
+                "Label contains hard-coded Text value '{0}'",
                 xamlElement,
                 snapshot,
                 offset,
-                uidExists,
-                uid,
+                true,
+                string.Empty,
                 Guid.Empty,
                 tags,
                 suppressions,

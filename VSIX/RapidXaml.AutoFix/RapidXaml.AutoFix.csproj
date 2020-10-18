@@ -7,7 +7,7 @@
   <!-- Pack settings -->
   <PropertyGroup>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <NuspecFile>RapidXaml.ApplyChanges.nuspec</NuspecFile>
+    <NuspecFile>RapidXaml.AutoFix.nuspec</NuspecFile>
     <IntermediatePackDir>$(MSBuildProjectDirectory)/bin/$(Configuration)/publish/</IntermediatePackDir>
     <PublishDir>$(IntermediatePackDir)$(TargetFramework)/</PublishDir>
     <NuspecProperties>publishDir=$([MSBuild]::NormalizeDirectory($(IntermediatePackDir)))</NuspecProperties>

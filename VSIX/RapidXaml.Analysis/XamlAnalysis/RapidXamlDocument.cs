@@ -147,6 +147,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.MediaElement, new MediaElementProcessor(processorEssentials)),
                         (Elements.ListView, new SelectedItemAttributeProcessor(processorEssentials)),
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(processorEssentials)),
+                        (Elements.Label, new LabelProcessor(processorEssentials)),
                     };
 
             if (!string.IsNullOrWhiteSpace(projectFilePath))
@@ -170,7 +171,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 #endif
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
                 customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer());
-                customProcessors.Add(new CustomAnalysis.LabelAnalyzer());
+                ////customProcessors.Add(new CustomAnalysis.LabelAnalyzer());
                 customProcessors.Add(new CustomAnalysis.XfImageAnalyzer());
                 customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer());
                 customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer());
