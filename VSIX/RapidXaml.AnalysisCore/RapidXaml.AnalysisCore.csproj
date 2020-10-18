@@ -40,9 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ErrorList\ErrorRow.cs" />
-    <Compile Include="FakeTextSnapshot.cs" />
-    <Compile Include="FakeTextSnapshotLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XamlAnalysis\AnalyzerImporter.cs" />
     <Compile Include="XamlAnalysis\Attributes.cs" />

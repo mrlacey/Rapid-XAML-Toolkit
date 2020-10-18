@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public RapidXaml.ICustomAnalyzer CustomAnalyzer { get; private set; }
 
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xmlns = null)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshotAbstraction snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xmlns = null)
         {
             var rxElement = RapidXamlElementExtractor.GetElement(xamlElement, offset);
 
@@ -50,7 +50,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         InsertPos = offset,
                         Logger = this.Logger,
                         ProjectFilePath = this.ProjectFilePath,
-                        Snapshot = snapshot,
+                        Snapshot = snapshot as ITextSnapshotAbstraction,
                         VsPfp = this.VSPFP,
                     };
 
@@ -68,18 +68,18 @@ namespace RapidXamlToolkit.XamlAnalysis
                     if (action.Location == null)
                     {
                         // Add one to allow for opening angle bracket
-                        tagDeps.Span = new Span(offset + 1, tagDeps.ElementName.Length); // Highlight only the opening element name
+                        tagDeps.Span = new RapidXamlSpan(offset + 1, tagDeps.ElementName.Length); // Highlight only the opening element name
                     }
                     else
                     {
                         // Allow for action location considering the offset or not
                         if (action.Location.Start > offset)
                         {
-                            tagDeps.Span = action.Location.ToSpan();
+                            tagDeps.Span = action.Location;
                         }
                         else
                         {
-                            tagDeps.Span = action.Location.ToSpanPlusStartPos(offset);
+                            tagDeps.Span = action.Location.AddStartPos(offset);
                         }
                     }
 

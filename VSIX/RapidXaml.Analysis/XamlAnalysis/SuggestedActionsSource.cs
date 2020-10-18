@@ -148,7 +148,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     actions: actions,
                     title: StringRes.UI_SuggestedActionSetTitle,
                     priority: SuggestedActionSetPriority.None,
-                    applicableToSpan: tag.Span),
+                    applicableToSpan: new Span(tag.Span.Start, tag.Span.Length)),
             };
 
             if (tag is RapidXamlDisplayedTag rxdt)
@@ -163,7 +163,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                             actions: new[] { SuppressWarningAction.Create(rxdt, action.File, this) },
                             title: StringRes.UI_SuggestedActionSetTitle,
                             priority: SuggestedActionSetPriority.None,
-                            applicableToSpan: tag.Span));
+                            applicableToSpan: new Span(tag.Span.Start, tag.Span.Length)));
                     }
                 }
             }
@@ -193,7 +193,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         private IEnumerable<IRapidXamlTag> GetTags(SnapshotSpan span)
         {
-            return RapidXamlDocumentCache.AdornmentTags(this.file).Where(t => t.Span.IntersectsWith(span)).Select(t => t);
+            return RapidXamlDocumentCache.AdornmentTags(this.file).Where(t => span.IntersectsWith(new Span(t.Span.Start, t.Span.Length))).Select(t => t);
         }
 
         private IEnumerable<IMappingTagSpan<IRapidXamlTag>> GetErrorTags(ITextView textView, SnapshotSpan span)

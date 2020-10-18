@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using RapidXamlToolkit.ErrorList;
-
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public interface IRapidXamlErrorListTag : IRapidXamlAdornmentTag
@@ -16,7 +14,5 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         int Column { get; }
 
         bool IsInternalError { get; }
-
-        ErrorRow AsErrorRow();
     }
 }

@@ -87,11 +87,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             if (suppAction.Location == null)
             {
-                catd.Span = tag.Span;
+                catd.Span = new RapidXamlSpan(tag.Span.Start, tag.Span.Length);
             }
             else
             {
-                catd.Span = suppAction.Location.ToSpanPlusStartPos(tag.InsertPosition);
+                catd.Span = suppAction.Location.AddStartPos(tag.InsertPosition);
             }
 
             return new CustomAnalysisTag(catd);

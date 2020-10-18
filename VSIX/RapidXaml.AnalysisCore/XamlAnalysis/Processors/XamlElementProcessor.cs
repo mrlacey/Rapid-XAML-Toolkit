@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.VisualStudioIntegration;
 
@@ -117,7 +116,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return exclusions;
         }
 
-        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshot snapshot, string xaml, int position, ILogger logger, string projectFile, IVisualStudioProjectFilePath vspfp)
+        public static string GetSubElementAtPosition(ProjectType projectType, string fileName, ITextSnapshotAbstraction snapshot, string xaml, int position, ILogger logger, string projectFile, IVisualStudioProjectFilePath vspfp)
         {
             var startPos = xaml.LastIndexOf('<', position, position);
 
@@ -257,7 +256,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         /// <param name="tags">Reference to the list of all tags found in the document. Add any new tags here.</param>
         /// <param name="suppressions">A list of user defined suppressions to override default behavior.</param>
         /// <param name="xmlns">A dictionalry of XML namespace aliases known by the document.</param>
-        public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xmlns = null);
+        public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshotAbstraction snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xmlns = null);
 
         public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
         {
@@ -369,7 +368,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             public event EventHandler<SubElementEventArgs> SubElementFound;
 
-            public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
+            public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshotAbstraction snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
             {
                 if (offset == 0)
                 {

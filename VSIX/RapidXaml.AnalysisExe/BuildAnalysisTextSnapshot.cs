@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Utilities;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXaml.AnalysisExe
 {
-    public class BuildAnalysisTextSnapshot : ITextSnapshot
+    public class BuildAnalysisTextSnapshot : ITextSnapshot, ITextSnapshotAbstraction
     {
         private string rawText;
 
@@ -18,13 +19,15 @@ namespace RapidXaml.AnalysisExe
             this.FileName = fileName;
         }
 
-        public ITextBuffer TextBuffer { get; }
+        public int Length => this.rawText?.Length ?? 0;
+
+        public object TextBuffer { get; set; }
+
+        public int VersionNumber => 0;
 
         public IContentType ContentType { get; }
 
         public ITextVersion Version { get; }
-
-        public int Length => this.rawText?.Length ?? 0;
 
         public int LineCount { get; }
 
@@ -32,17 +35,9 @@ namespace RapidXaml.AnalysisExe
 
         public string FileName { get; }
 
+        ITextBuffer ITextSnapshot.TextBuffer => throw new NotImplementedException();
+
         public char this[int position] => throw new NotImplementedException();
-
-        public string GetText(Span span)
-        {
-            return string.Empty;
-        }
-
-        public string GetText(int startIndex, int length)
-        {
-            return string.Empty;
-        }
 
         public string GetText()
         {
@@ -52,6 +47,23 @@ namespace RapidXaml.AnalysisExe
             }
 
             return this.rawText;
+        }
+
+        public (int StartPosition, int LineNumber) GetLineDetailsFromPosition(int position)
+        {
+            var line = new BuildAnalysisTextSnapshotLine(this, position);
+
+            return (line.Start.Position, line.LineNumber);
+        }
+
+        public string GetText(Span span)
+        {
+            return string.Empty;
+        }
+
+        public string GetText(int startIndex, int length)
+        {
+            return string.Empty;
         }
 
         public char[] ToCharArray(int startIndex, int length)

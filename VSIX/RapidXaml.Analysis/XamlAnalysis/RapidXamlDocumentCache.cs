@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 // Don't worry about timing this call as it's only repeated calls to analyze a document that might cause a user prompt.
                 // This only happens on document open. Repeated analysis of a document will happen through TryUpdate.
-                var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
+                var doc = RapidXamlDocument.Create(new VsTextSnapshot(snapshot), file, vsa, string.Empty);
 
                 lock (CacheLock)
                 {
@@ -171,7 +171,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         {
                             sw.Start();
 
-                            doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
+                            doc = RapidXamlDocument.Create(new VsTextSnapshot(snapshot), file, vsa, string.Empty);
                         }
                         finally
                         {
@@ -243,15 +243,15 @@ namespace RapidXamlToolkit.XamlAnalysis
             return result;
         }
 
-        public static List<IRapidXamlErrorListTag> ErrorListTags(string fileName)
+        public static List<RapidXamlDisplayedTag> ErrorListTags(string fileName)
         {
-            var result = new List<IRapidXamlErrorListTag>();
+            var result = new List<RapidXamlDisplayedTag>();
 
             lock (CacheLock)
             {
                 if (Cache.ContainsKey(fileName))
                 {
-                    result.AddRange(Cache[fileName].Tags.OfType<IRapidXamlErrorListTag>());
+                    result.AddRange(Cache[fileName].Tags.OfType<RapidXamlDisplayedTag>());
                 }
             }
 

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Version>0.11.4</Version>
   </PropertyGroup>
   <!-- Pack settings -->
@@ -25,9 +25,6 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.SDK">
-      <Version>16.0.206</Version>
-    </PackageReference>
     <PackageReference Include="RapidXaml.CustomAnalysis">
       <Version>0.11.4</Version>
     </PackageReference>
@@ -46,10 +43,7 @@
       <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
       <Name>RapidXaml.AnalysisCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
-      <Project>{891D63BC-FA0D-4657-B433-F7F8DD27CD28}</Project>
-      <Name>RapidXaml.Shared</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

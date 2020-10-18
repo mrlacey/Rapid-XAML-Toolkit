@@ -3,6 +3,7 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXaml.AnalysisExe
 {

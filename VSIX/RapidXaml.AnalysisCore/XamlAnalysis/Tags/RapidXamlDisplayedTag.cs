@@ -7,7 +7,6 @@ using System.IO;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using Newtonsoft.Json;
-using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
@@ -29,14 +28,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 }
 
                 // Reset the span location to something that's definitely valid
-                deps.Span = new Span(0, 0);
+                deps.Span = (0, 0);
             }
 
-            var line = deps.Snapshot.GetLineFromPosition(deps.Span.Start);
-            var col = deps.Span.Start - line.Start.Position;
+            var (startPos, lineNumber) = deps.Snapshot.GetLineDetailsFromPosition(deps.Span.Start);
+            var col = deps.Span.Start - startPos;
 
             this.ErrorCode = errorCode;
-            this.Line = line.LineNumber;
+            this.Line = lineNumber;
             this.Column = col;
             this.DefaultErrorType = defaultErrorType;
             this.VsPfp = deps.VsPfp;
@@ -72,7 +71,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         /// </summary>
         public bool IsInternalError { get; protected set; }
 
-        public TagErrorType ConfiguredErrorType
+        public new TagErrorType ConfiguredErrorType
         {
             get
             {
@@ -162,31 +161,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             tagErrorType = this?.DefaultErrorType ?? TagErrorType.Warning;
 
             return false;
-        }
-
-        public override ITagSpan<IErrorTag> AsErrorTag()
-        {
-            var span = new SnapshotSpan(this.Snapshot, this.Span);
-
-            return new TagSpan<IErrorTag>(
-                span,
-                new RapidXamlWarningAdornmentTag(
-                    this.ToolTip,
-                    this.ConfiguredErrorType.AsVsAdornmentErrorType()));
-        }
-
-        public ErrorRow AsErrorRow()
-        {
-            return new ErrorRow
-            {
-                ExtendedMessage = this.ExtendedMessage,
-                Span = new SnapshotSpan(this.Snapshot, this.Span),
-                Message = this.Description,
-                ErrorCode = this.ErrorCode,
-                IsInternalError = this.IsInternalError,
-                ErrorType = this.ConfiguredErrorType,
-                MoreInfoUrl = this.MoreInfoUrl,
-            };
         }
     }
 }

@@ -3,8 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
@@ -16,7 +16,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
         }
 
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshotAbstraction snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
         {
             if (!xamlElement.Contains("=") && !xamlElement.Contains("."))
             {
@@ -32,7 +32,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     if (!char.IsUpper(value[0]))
                     {
                         var tagDeps = this.CreateBaseTagDependencies(
-                            new Span(offset + index, length),
+                            new VsTextSpan(offset + index, length),
                             snapshot,
                             fileName);
 
@@ -44,7 +44,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     if (!char.IsUpper(value[0]))
                     {
                         var tagDeps = this.CreateBaseTagDependencies(
-                            new Span(offset + index, length),
+                            new VsTextSpan(offset + index, length),
                             snapshot,
                             fileName);
 
@@ -61,7 +61,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     if (!char.IsUpper(value[0]))
                     {
                         var tagDeps = this.CreateBaseTagDependencies(
-                            new Span(offset + index, length),
+                            new VsTextSpan(offset + index, length),
                             snapshot,
                             fileName);
 
@@ -73,7 +73,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     if (!char.IsUpper(value[0]))
                     {
                         var tagDeps = this.CreateBaseTagDependencies(
-                            new Span(offset + index, length),
+                            new VsTextSpan(offset + index, length),
                             snapshot,
                             fileName);
 

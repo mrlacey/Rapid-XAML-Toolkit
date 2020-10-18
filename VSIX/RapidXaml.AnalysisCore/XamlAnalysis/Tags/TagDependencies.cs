@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using System.Collections.Generic;
-using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.VisualStudioIntegration;
 
@@ -10,9 +9,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class TagDependencies
     {
-        public Span Span { get; set; }
+        public (int Start, int Length) Span { get; set; }
 
-        public ITextSnapshot Snapshot { get; set; }
+        public ITextSnapshotAbstraction Snapshot { get; set; }
 
         public string FileName { get; set; }
 

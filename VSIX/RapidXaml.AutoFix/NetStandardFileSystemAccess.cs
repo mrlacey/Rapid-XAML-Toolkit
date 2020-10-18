@@ -4,9 +4,9 @@
 using System.IO;
 using RapidXamlToolkit.Utils.IO;
 
-namespace RapidXamlToolkit.Commands
+namespace RapidXaml
 {
-    public class WindowsFileSystem : IFileSystemAbstraction
+    public class NetStandardFileSystemAccess : IFileSystemAbstraction
     {
         public bool FileExists(string fileName)
         {

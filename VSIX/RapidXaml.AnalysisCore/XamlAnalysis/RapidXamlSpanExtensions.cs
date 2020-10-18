@@ -3,6 +3,7 @@
 
 using Microsoft.VisualStudio.Text;
 using RapidXaml;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
@@ -13,9 +14,9 @@ namespace RapidXamlToolkit.XamlAnalysis
             return new Span(fileStartPos + source.Start, source.Length);
         }
 
-        public static Span ToSpan(this RapidXamlSpan source)
+        public static RapidXamlSpan AddStartPos(this RapidXamlSpan source, int fileStartPos)
         {
-            return new Span(source.Start, source.Length);
+            return new RapidXamlSpan(fileStartPos + source.Start, source.Length);
         }
 
         public static int End(this RapidXamlSpan source)

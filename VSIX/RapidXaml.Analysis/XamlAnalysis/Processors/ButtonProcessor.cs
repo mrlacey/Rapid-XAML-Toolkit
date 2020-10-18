@@ -3,8 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
@@ -15,7 +15,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
         }
 
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshotAbstraction snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
         {
             // TODO: ISSUE#163 this must also work for WPF & XF
             if (!this.ProjectType.Matches(ProjectType.Uwp))

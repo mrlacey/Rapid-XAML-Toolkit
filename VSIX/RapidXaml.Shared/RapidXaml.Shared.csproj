@@ -59,10 +59,6 @@
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
     <Compile Include="Commands\BaseCommand.cs" />
-    <Compile Include="Commands\IFileSystemAbstraction.cs" />
-    <Compile Include="VisualStudioIntegration\IDocumentModelAccess.cs" />
-    <Compile Include="VisualStudioIntegration\IVisualStudioAbstractionAndDocumentModelAccess.cs" />
-    <Compile Include="VisualStudioIntegration\IVisualStudioProjectFilePath.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />
     <Compile Include="Configuration\RxtSettings.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />
@@ -88,8 +84,8 @@
     <Compile Include="Telemetry\TelemetryAccessor.cs" />
     <Compile Include="Telemetry\TelemetryEvents.cs" />
     <Compile Include="Telemetry\TelemetryProperties.cs" />
-    <Compile Include="VisualStudioIntegration\IVisualStudioAbstraction.cs" />
-    <Compile Include="VisualStudioIntegration\IVisualStudioTextManipulation.cs" />
+    <Compile Include="VisualStudioIntegration\IDocumentModelAccess.cs" />
+    <Compile Include="VisualStudioIntegration\IVisualStudioAbstractionAndDocumentModelAccess.cs" />
     <Compile Include="VisualStudioIntegration\SolutionExtensions.cs" />
     <Compile Include="VisualStudioIntegration\VisualStudioAbstraction.cs" />
     <Compile Include="VisualStudioIntegration\VisualStudioTextManipulation.cs" />

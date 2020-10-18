@@ -4,9 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 
@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         private const string AnyContainingStart = "ANYCONTAINING:";
         private const string AnyOrChildrenContainingStart = "ANYORCHILDRENCONTAINING:";
 
-        public static bool Parse(string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions, XamlElementProcessor everyElementProcessor, ILogger logger)
+        public static bool Parse(string fileName, ITextSnapshotAbstraction snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions, XamlElementProcessor everyElementProcessor, ILogger logger)
         {
             var elementsBeingTracked = new Stack<TrackingElement>();
 

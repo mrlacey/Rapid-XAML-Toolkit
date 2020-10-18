@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
@@ -10,8 +10,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
     {
         string ToolTip { get; set; }
 
-        ITextSnapshot Snapshot { get; set; }
+        ITextSnapshotAbstraction Snapshot { get; set; }
 
-        ITagSpan<IErrorTag> AsErrorTag();
+        TagErrorType ConfiguredErrorType { get; }
     }
 }

@@ -66,6 +66,8 @@
     <Compile Include="AutoFix\RenameElementTests.cs" />
     <Compile Include="AutoFix\ReplaceElementTests.cs" />
     <Compile Include="Extensions\ProjectTypeExtensionTests.cs" />
+    <Compile Include="FakeTextSnapshot.cs" />
+    <Compile Include="FakeTextSnapshotLine.cs" />
     <Compile Include="Grid\GridExclusionsTests.cs" />
     <Compile Include="Grid\GridInsertRowPreviewTests.cs" />
     <Compile Include="Grid\GridProcessTests.cs" />

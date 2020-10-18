@@ -72,6 +72,7 @@
     <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
     <Compile Include="Commands\OpenAnalysisOptionsCommand.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
+    <Compile Include="ErrorList\ErrorRow.cs" />
     <Compile Include="ErrorList\FileErrorCollection.cs" />
     <Compile Include="ErrorList\SinkManager.cs" />
     <Compile Include="ErrorList\TableDataSource.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\ReplaceElementTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\TwoPaneViewAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfImageAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\IRapidXamlAdornmentTagExtensions.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
@@ -155,6 +157,9 @@
     <Compile Include="XamlAnalysis\Processors\TimePickerProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlDisplayedTagExtensions.cs" />
+    <Compile Include="XamlAnalysis\VsTextSnapshot.cs" />
+    <Compile Include="XamlAnalysis\VsTextSpan.cs" />
     <Compile Include="XamlAnalysis\Processors\XamlElementProcessorExtensions.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
