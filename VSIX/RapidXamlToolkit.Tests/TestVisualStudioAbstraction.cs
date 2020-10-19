@@ -131,5 +131,10 @@ namespace RapidXamlToolkit.Tests
         {
             throw new System.NotImplementedException();
         }
+
+        public void AddResource(string resPath, string resKey, string resValue)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

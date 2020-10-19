@@ -197,11 +197,15 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                     break;
                 case RapidXaml.ActionType.AddXmlns:
-                    System.Diagnostics.Debug.WriteLine(tag);
-
                     vs.AddXmlnsAliasToActiveDoc(tag.Name, tag.Value);
 
                     break;
+
+                case RapidXaml.ActionType.CreateResource:
+                    //vs.AddResource(resPath, resKey, resValue);
+
+                    break;
+
                 default:
                     // Using a newer version of CustomAnalysis than the VSIX knows about
                     // Doing nothing is a suitable fallback.

@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using EnvDTE;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
@@ -232,6 +231,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                     }
                 }
             }
+        }
+
+        public void AddResource(string resPath, string resKey, string resValue)
+        {
+            throw new NotImplementedException();
         }
     }
 }

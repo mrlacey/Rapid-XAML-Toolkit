@@ -119,5 +119,10 @@ namespace RapidXaml.AnalysisExe
         {
             throw new NotImplementedException();
         }
+
+        public void AddResource(string resPath, string resKey, string resValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
