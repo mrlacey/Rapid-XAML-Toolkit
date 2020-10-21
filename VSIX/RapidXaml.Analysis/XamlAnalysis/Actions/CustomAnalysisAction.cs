@@ -22,7 +22,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             if (string.IsNullOrWhiteSpace(tag.ActionText))
             {
-                this.DisplayText = Resources.StringRes.UI_XamlAnalysisFixUnavailable;
+                this.DisplayText = StringRes.UI_XamlAnalysisFixUnavailable;
                 this.IsEnabled = false;
             }
             else
@@ -202,7 +202,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     break;
 
                 case RapidXaml.ActionType.CreateResource:
-                    //vs.AddResource(resPath, resKey, resValue);
+                    vs.AddResource(tag.Content, tag.Name, tag.Value);
 
                     break;
 

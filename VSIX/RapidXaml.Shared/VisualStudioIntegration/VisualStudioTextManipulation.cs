@@ -235,7 +235,16 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void AddResource(string resPath, string resKey, string resValue)
         {
+            // TODO: Implement AddResource
             throw new NotImplementedException();
+
+            //// Need to warn in output if no resource file exists.
+            ////var resPath = this.GetResourceFilePath();
+
+            ////if (resPath == null)
+            ////{
+            ////    return;
+            ////}
         }
     }
 }
