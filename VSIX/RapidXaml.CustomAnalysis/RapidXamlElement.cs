@@ -356,8 +356,6 @@ namespace RapidXaml
 
             var result = this.CloneWithAdjustedLocationStart(change);
 
-            result.Location = new RapidXamlSpan(newLocationStart, this.Location.Length);
-
             return result;
         }
 
@@ -369,13 +367,16 @@ namespace RapidXaml
                 Location = this.Location.CloneWithAdjustedLocationStart(startChange),
                 Name = this.Name,
                 OriginalString = this.OriginalString,
-                Attributes = this.Attributes,
-                Children = this.Children,
             };
 
             for (int i = 0; i < this.Children.Count; i++)
             {
                 result.Children.Add(this.Children[i].CloneWithAdjustedLocationStart(startChange));
+            }
+
+            for (int i = 0; i < this.Attributes.Count; i++)
+            {
+                result.Attributes.Add(this.Attributes[i].CloneWithAdjustedLocationStart(startChange));
             }
 
             return result;
@@ -384,8 +385,8 @@ namespace RapidXaml
         private bool ContainsChildOrAttribute(string name)
         {
             return this.Children.Any(
-                c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
-                  || c.Name.EndsWith($":{name}", StringComparison.InvariantCultureIgnoreCase))
+                    c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
+                      || c.Name.EndsWith($":{name}", StringComparison.InvariantCultureIgnoreCase))
                 || this.Attributes.Any(
                     a => !a.HasStringValue
                       && a.Children.Any(c => c.ContainsDescendant(name)));

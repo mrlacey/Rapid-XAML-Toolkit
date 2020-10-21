@@ -1754,7 +1754,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
   Environment.NewLine + "        <Child.Age>14</Child.Age>" +
   Environment.NewLine + "        <Child.Name><string>Carla</string></Child.Name>" +
   Environment.NewLine + "        <Child.Pet><Hamster /></Child.Pet>" +
-  Environment.NewLine + "        <GrandChild><GrandChild.Nom><Identifier Id=\"Bobby\" /><GrandChild.Nom></GrandChild>" +
+  Environment.NewLine + "        <GrandChild><GrandChild.Nom><Identifier Id=\"Bobby\" /></GrandChild.Nom></GrandChild>" +
   Environment.NewLine + "    </Child>" +
   Environment.NewLine + "    <Sibling Name=\"Mary\">" +
   Environment.NewLine + "        <ParentMoniker Value=\"Monica\" />" +

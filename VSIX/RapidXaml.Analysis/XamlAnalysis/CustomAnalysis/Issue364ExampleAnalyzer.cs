@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System.Collections.Generic;
 using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
