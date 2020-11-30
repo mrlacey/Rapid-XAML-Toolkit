@@ -63,5 +63,43 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             Assert.AreEqual(0, outputTags.Count);
         }
+
+        [TestMethod]
+        public void IsChecked_Before_CheckedUnChecked_DoesNotMatter()
+        {
+            var xaml = @"<CheckBox
+    Name=""FormattedTextCheckbox""
+    Margin=""5,2""
+    HorizontalAlignment=""Left""
+    VerticalContentAlignment=""Center""
+    IsChecked=""{Binding ElementName=TextBlockSettingUserControl, Path=IsBodyTextFormatted}""
+    Checked=""FormattedTextCheckbox_Checked""
+    Unchecked=""FormattedTextCheckbox_Unchecked"">
+    Enable text formatting
+</CheckBox>";
+
+            var outputTags = this.GetTags<CheckBoxProcessor>(xaml);
+
+            Assert.AreEqual(0, outputTags.Count);
+        }
+
+        [TestMethod]
+        public void IsChecked_After_CheckedUnChecked_DoesNotMatter()
+        {
+            var xaml = @"<CheckBox
+    Name=""FormattedTextCheckbox""
+    Margin=""5,2""
+    HorizontalAlignment=""Left""
+    VerticalContentAlignment=""Center""
+    Checked=""FormattedTextCheckbox_Checked""
+    Unchecked=""FormattedTextCheckbox_Unchecked""
+    IsChecked=""{Binding ElementName=TextBlockSettingUserControl, Path=IsBodyTextFormatted}"">
+    Enable text formatting
+</CheckBox>";
+
+            var outputTags = this.GetTags<CheckBoxProcessor>(xaml);
+
+            Assert.AreEqual(0, outputTags.Count);
+        }
     }
 }
