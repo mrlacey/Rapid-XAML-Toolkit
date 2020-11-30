@@ -3,6 +3,10 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
+using RapidXaml.TestHelpers;
+using RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers;
+using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -78,9 +82,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
     Enable text formatting
 </CheckBox>";
 
-            var outputTags = this.GetTags<CheckBoxProcessor>(xaml);
+            var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            Assert.AreEqual(0, outputTags.Count);
+            var sut = new CheckBoxAnalyzer();
+
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
+
+            Assert.AreEqual(0, actual.Actions.Count);
         }
 
         [TestMethod]
@@ -97,9 +105,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
     Enable text formatting
 </CheckBox>";
 
-            var outputTags = this.GetTags<CheckBoxProcessor>(xaml);
+            var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            Assert.AreEqual(0, outputTags.Count);
+            var sut = new CheckBoxAnalyzer();
+
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
+
+            Assert.AreEqual(0, actual.Actions.Count);
         }
     }
 }
