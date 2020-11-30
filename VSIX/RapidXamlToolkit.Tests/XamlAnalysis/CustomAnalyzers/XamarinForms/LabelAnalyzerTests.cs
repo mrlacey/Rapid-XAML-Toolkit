@@ -17,11 +17,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var actions = this.GetActions<LabelAnalyzer>(xaml, ProjectType.XamarinForms);
 
-            // TODO: ISSUE#163 update when add support for localizing hard-coded strings in Xamarin.Forms.
             Assert.IsFalse(actions.IsNone);
             Assert.AreEqual(1, actions.Actions.Count);
-            Assert.AreEqual(ActionType.HighlightWithoutAction, actions.Actions[0].Action);
-            Assert.AreEqual("RXT201", actions.Actions[0].Code);
+            Assert.AreEqual(ActionType.RemoveAttribute, actions.Actions[0].Action);
+            Assert.AreEqual("RXT200", actions.Actions[0].Code);
         }
     }
 }

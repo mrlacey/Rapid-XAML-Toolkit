@@ -49,5 +49,10 @@ namespace RapidXaml
         /// Create an entry in a Resource file (RESW or RESX).
         /// </summary>
         CreateResource,
+
+        /// <summary>
+        /// Remove the body content of the element.
+        /// </summary>
+        RemoveContent,
     }
 }
