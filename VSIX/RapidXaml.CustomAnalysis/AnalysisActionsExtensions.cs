@@ -607,6 +607,50 @@ namespace RapidXaml
                 });
         }
 
+        /// <summary>
+        /// The default value of the element should be removed.
+        /// </summary>
+        /// <param name="analysisActions">The object to add this action to.</param>
+        /// <param name="errorType">How the response should be indicated.</param>
+        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
+        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
+        /// <param name="actionText">The text displayed in the quick action.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
+        /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions RemoveDefaultValue(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string extendedMessage = null, string moreInfoUrl = null)
+        {
+            var result = analysisActions;
+
+            result.Actions.Add(new AnalysisAction
+            {
+                Action = ActionType.RemoveContent,
+                Code = code,
+                Description = description,
+                ErrorType = errorType,
+                ActionText = actionText,
+                ExtendedMessage = extendedMessage,
+                MoreInfoUrl = moreInfoUrl,
+            });
+
+            return result;
+        }
+
+        /// <summary>
+        /// The default value of the element should be removed as part of another quick action.
+        /// </summary>
+        /// <param name="analysisActions">The object to add this action to.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions AndRemoveDefaultValue(this AnalysisActions analysisActions)
+        {
+
+            return analysisActions.AddSupplementaryAction(
+                new AnalysisAction
+                {
+                    Action = ActionType.RemoveContent,
+                });
+        }
+
         private static AnalysisActions AddSupplementaryAction(this AnalysisActions analysisActions, AnalysisAction action)
         {
             var result = analysisActions;
