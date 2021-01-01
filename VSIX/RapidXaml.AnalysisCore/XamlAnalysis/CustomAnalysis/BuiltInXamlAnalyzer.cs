@@ -254,7 +254,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
         private string GetResourceFilePath(string fileName)
         {
-            // TODO: test the implaction of this!!!
+            // TODO: test the impliction of this!!!
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
             var resFiles = new List<string>();
@@ -283,6 +283,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                 }
             }
 
+            // TODO: change to use vsa
             void IterateProject(EnvDTE.Project project)
             {
                 var item = project.ProjectItems.GetEnumerator();
