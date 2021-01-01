@@ -81,7 +81,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                                     }
                                     else
                                     {
-                                        // TODO: remove the default value
+                                        result.AndRemoveDefaultValue();
                                     }
 
                                     break;
@@ -136,7 +136,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                                     }
                                     else
                                     {
-                                        // TODO: remove the default value
+                                        result.AndRemoveDefaultValue();
                                     }
 
                                     result.AndAddAttribute(
@@ -161,7 +161,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             return result;
         }
 
-        // TODO: Add unit tests for GetOrGenerateUid
+        // TODO: Add unit tests for NeedToAddUid
         public static bool NeedToAddUid(RapidXamlElement element, string attributeName, out string uid)
         {
             var uidAttr = element.GetAttributes(Attributes.Uid).FirstOrDefault();

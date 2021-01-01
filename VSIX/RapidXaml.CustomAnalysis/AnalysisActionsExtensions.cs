@@ -643,7 +643,6 @@ namespace RapidXaml
         /// <returns>An AnalysisActions result.</returns>
         public static AnalysisActions AndRemoveDefaultValue(this AnalysisActions analysisActions)
         {
-
             return analysisActions.AddSupplementaryAction(
                 new AnalysisAction
                 {

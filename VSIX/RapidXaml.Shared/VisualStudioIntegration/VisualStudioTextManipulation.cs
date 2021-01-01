@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using EnvDTE;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
@@ -235,16 +236,31 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void AddResource(string resPath, string resKey, string resValue)
         {
-            // TODO: Implement AddResource
-            throw new NotImplementedException();
+            var xdoc = XDocument.Load(resPath);
 
-            //// Need to warn in output if no resource file exists.
-            ////var resPath = this.GetResourceFilePath();
+            // Don't want to create a duplicate entry.
+            var alreadyExists = false;
 
-            ////if (resPath == null)
-            ////{
-            ////    return;
-            ////}
+            foreach (var element in xdoc.Descendants("data"))
+            {
+                if (element.Attribute("name")?.Value == resKey)
+                {
+                    alreadyExists = true;
+                    break;
+                }
+            }
+
+            if (!alreadyExists)
+            {
+                var newData = new XElement("data");
+
+                newData.Add(new XAttribute("name", resKey));
+
+                newData.Add(new XAttribute(XNamespace.Xml + "space", "preserve"));
+                newData.Add(new XElement("value", resValue));
+                xdoc.Element("root").Add(newData);
+                xdoc.Save(resPath);
+            }
         }
     }
 }
