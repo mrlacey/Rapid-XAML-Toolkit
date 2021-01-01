@@ -32,10 +32,10 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             {
                 // TODO: if can't get framework or resource file, hint at issue without fix
                 // If don't know framework then can't know how to fix issues
-                if (extraDetails.TryGet("framework", out ProjectFramework framework))
+                if (extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework))
                 {
                     // If don't know file path, can't find appropriate resource file
-                    if (extraDetails.TryGet("filepath", out string fileName))
+                    if (extraDetails.TryGet(KnownExtraDetails.FilePath, out string fileName))
                     {
                         // TODO: cache resource file path
                         var resourceFilePath = this.GetResourceFilePath(fileName);
@@ -97,7 +97,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                                     var xmlnsToUse = "properties"; // default/fallback
                                     var xmlnsExists = true; // Assume existence. (i.e. don't add it. It's better than douplicating or adding something wrong)
 
-                                    if (extraDetails.TryGet("xmlns", out Dictionary<string, string> xmlns))
+                                    if (extraDetails.TryGet(KnownExtraDetails.Xmlns, out Dictionary<string, string> xmlns))
                                     {
                                         bool foundXmlns = false;
 

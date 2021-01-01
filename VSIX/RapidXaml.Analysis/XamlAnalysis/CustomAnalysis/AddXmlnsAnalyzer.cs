@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
             var aliasToUse = defaultAlias;
 
-            extraDetails.TryGet("xmlns", out Dictionary<string, string> xmlns);
+            extraDetails.TryGet(KnownExtraDetails.Xmlns, out Dictionary<string, string> xmlns);
 
             if (xmlns != null)
             {
