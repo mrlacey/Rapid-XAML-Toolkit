@@ -2018,7 +2018,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hard-coded string.
+        ///   Looks up a localized string similar to Extract hard-coded string to resource file..
         /// </summary>
         public static string UI_XamlAnalysisHardcodedStringTooltip {
             get {

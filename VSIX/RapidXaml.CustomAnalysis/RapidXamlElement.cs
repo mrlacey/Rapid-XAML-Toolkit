@@ -19,6 +19,7 @@ namespace RapidXaml
         private List<RapidXamlElement> children;
         private bool attributesUpdated = false;
         private bool childrenUpdated = false;
+        private bool? isSelfClosing = null;
 
         public RapidXamlElement()
         {
@@ -380,6 +381,21 @@ namespace RapidXaml
             }
 
             return result;
+        }
+
+        public bool IsSelfClosing()
+        {
+            if (!this.isSelfClosing.HasValue)
+            {
+                this.isSelfClosing = this.OriginalString.EndsWith("/>");
+            }
+
+            return this.isSelfClosing.Value;
+        }
+
+        public void OverrideIsSelfClosing(bool newValue)
+        {
+            this.isSelfClosing = newValue;
         }
 
         private bool ContainsChildOrAttribute(string name)

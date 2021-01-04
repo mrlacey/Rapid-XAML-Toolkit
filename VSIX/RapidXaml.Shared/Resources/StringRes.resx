@@ -398,7 +398,7 @@
     <value>TextBlock contains hard-coded Text value '{0}'.</value>
   </data>
   <data name="UI_XamlAnalysisHardcodedStringTooltip" xml:space="preserve">
-    <value>Hard-coded string</value>
+    <value>Extract hard-coded string to resource file.</value>
   </data>
   <data name="UI_AddColumnDefinitions" xml:space="preserve">
     <value>Add ColumnDefinitions</value>

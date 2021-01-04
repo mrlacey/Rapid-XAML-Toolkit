@@ -13,7 +13,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            if (!extraDetails.TryGetKnownExtraDetails.FilePath, out ProjectFramework framework)
+            if (!extraDetails.TryGet(KnownExtraDetails.FilePath, out ProjectFramework framework)
              || framework != ProjectFramework.XamarinForms)
             {
                 return AnalysisActions.None;

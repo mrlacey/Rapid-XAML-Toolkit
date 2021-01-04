@@ -106,8 +106,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 case RapidXaml.ActionType.AddAttribute:
                     var lineNumber = tag.Snapshot.GetLineNumberFromPosition(tag.InsertPosition) + 1;
 
-                    // Can't rely on the original element name as this may be supplemental after it's been renamed
-                    if (XamlElementProcessor.IsSelfClosing(tag.AnalyzedElement.OriginalString.AsSpan()))
+                    if (tag.AnalyzedElement.IsSelfClosing())
                     {
                         var before = $"/>";
                         var after = $"{tag.Name}=\"{tag.Value}\" />";
@@ -126,15 +125,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                 case RapidXaml.ActionType.AddChild:
 
-                    var origXaml = tag.AnalyzedElement.OriginalString;
-
                     // Allow for self-closing elements
-                    if (origXaml.EndsWith("/>"))
+                    if (tag.AnalyzedElement.IsSelfClosing())
                     {
                         var replacementXaml = $">{Environment.NewLine}{tag.Content}{Environment.NewLine}</{tag.ElementName}>";
 
                         var insertLine = tag.Snapshot.GetLineNumberFromPosition(tag.InsertPosition) + 1;
                         vs.ReplaceInActiveDocOnLine("/>", replacementXaml, insertLine);
+                        tag.AnalyzedElement.OverrideIsSelfClosing(false);
                     }
                     else
                     {
@@ -204,6 +202,13 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 case RapidXaml.ActionType.CreateResource:
                     vs.AddResource(tag.Content, tag.Name, tag.Value);
 
+                    break;
+
+                case RapidXaml.ActionType.RemoveContent:
+                    var current = $">{this.Tag.Value}</{this.Tag.ElementName}>";
+                    var replaceWith = $" />";
+                    vs.ReplaceInActiveDocOnLine(current, replaceWith, this.Tag.GetDesignerLineNumber());
+                    tag.AnalyzedElement.OverrideIsSelfClosing(true);
                     break;
 
                 default:
