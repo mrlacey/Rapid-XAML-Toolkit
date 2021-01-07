@@ -116,7 +116,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     else
                     {
                         var before = $">";
-                        var after = $"{tag.Name}=\"{tag.Value}\" /";
+                        var after = $" {tag.Name}=\"{tag.Value}\" >";
 
                         vs.ReplaceInActiveDocOnLine(before, after, lineNumber);
                     }
