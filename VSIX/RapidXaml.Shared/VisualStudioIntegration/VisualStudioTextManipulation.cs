@@ -46,25 +46,23 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             {
                 txtDoc.Selection.MoveToLineAndOffset(lineNumber, 1);
 
-                txtDoc.Selection.FindText(find, (int)vsFindOptions.vsFindOptionsMatchCase);
-
                 var lineToSearch = lineNumber;
 
-                var keepLooking = true;
+                var found = false;
 
-                while (keepLooking)
+                while (!found)
                 {
-                    if (txtDoc.Selection.ActivePoint.Line == lineToSearch)
+                    found = txtDoc.Selection.FindText(find, (int)vsFindOptions.vsFindOptionsMatchCase);
+
+                    if (found)
                     {
                         // The FindText call selected the search text so this insert pastes over the top of it
                         txtDoc.Selection.Insert(replace);
-                        keepLooking = false;
                     }
                     else
                     {
                         lineToSearch -= 1;
                         txtDoc.Selection.MoveToLineAndOffset(lineToSearch, 1);
-                        txtDoc.Selection.FindText(find, (int)vsFindOptions.vsFindOptionsMatchCase);
                     }
                 }
             }
