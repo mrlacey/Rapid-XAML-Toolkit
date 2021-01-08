@@ -261,6 +261,28 @@ namespace RapidXaml
         }
 
         /// <summary>
+        /// Get attributes of the element that have the specified names.
+        /// </summary>
+        /// <param name="attributeNames">The names of the attributes to get.</param>
+        /// <returns>Attributes with the specified names.</returns>
+        public IEnumerable<RapidXamlAttribute> GetAttributes(params string[] attributeNames)
+        {
+            // TODO: add testing for this
+            foreach (var attr in this.Attributes)
+            {
+                foreach (var attName in attributeNames)
+                {
+                    if (attr.Name.Equals(attName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        yield return attr;
+                    }
+                }
+            }
+
+            yield break;
+        }
+
+        /// <summary>
         /// Tries to get the string value of the specified attribtue.
         /// </summary>
         /// <param name="attributeName">The name of the desired attribute.</param>

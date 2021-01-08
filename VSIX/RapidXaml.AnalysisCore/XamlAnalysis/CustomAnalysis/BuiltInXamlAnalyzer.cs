@@ -171,10 +171,9 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             return result;
         }
 
-        // TODO: Add unit tests for NeedToAddUid
         public static bool NeedToAddUid(RapidXamlElement element, string attributeName, out string uid)
         {
-            var uidAttr = element.GetAttributes(Attributes.Uid).FirstOrDefault();
+            var uidAttr = element.GetAttributes(Attributes.X_Uid, Attributes.Uid).FirstOrDefault();
 
             var uidExists = (uidAttr != null && uidAttr.HasStringValue);
 
@@ -185,7 +184,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             else
             {
                 // reuse `Name` or `x:Name` if exist
-                var nameAttr = element.GetAttributes(Attributes.Name).FirstOrDefault();
+                var nameAttr = element.GetAttributes(Attributes.Name, Attributes.X_Name).FirstOrDefault();
                 if (nameAttr != null && nameAttr.HasStringValue)
                 {
                     uid = nameAttr.StringValue;
