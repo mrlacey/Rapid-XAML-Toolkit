@@ -394,13 +394,84 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             sut.AddInlineAttribute("Width", "Auto");
             sut.AddInlineAttribute("Direction", "LTR");
             sut.AddInlineAttribute("Color", "Red");
-            sut.AddInlineAttribute("Height", "Red");
+            sut.AddInlineAttribute("Height", "100");
             sut.AddChildAttribute("Content", RapidXamlElement.Build("Label").AddInlineAttribute("Text", "Hello"));
             sut.AddChildAttribute("Content", RapidXamlElement.Build("Label").SetContent("World!"));
 
             var actual = sut.GetAttributes("Content");
 
             Assert.AreEqual(2, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetAttributes_Params_NoMatching()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddInlineAttribute("Width", "Auto");
+            sut.AddInlineAttribute("Direction", "LTR");
+            sut.AddInlineAttribute("Color", "Red");
+            sut.AddInlineAttribute("Height", "100");
+
+            var actual = sut.GetAttributes("Content", "Orientation");
+
+            Assert.AreEqual(0, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetAttributes_Params_FindMultiple()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddInlineAttribute("Width", "Auto");
+            sut.AddInlineAttribute("Direction", "LTR");
+            sut.AddInlineAttribute("Color", "Red");
+            sut.AddInlineAttribute("Height", "100");
+
+            var actual = sut.GetAttributes("Direction", "Height");
+
+            Assert.AreEqual(2, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetAttributes_Params_FindFirst()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddInlineAttribute("Width", "Auto");
+            sut.AddInlineAttribute("Direction", "LTR");
+            sut.AddInlineAttribute("Color", "Red");
+            sut.AddInlineAttribute("Height", "100");
+
+            var actual = sut.GetAttributes("Direction", "Orientation");
+
+            Assert.AreEqual(1, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetAttributes_Params_FindLast()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddInlineAttribute("Width", "Auto");
+            sut.AddInlineAttribute("Direction", "LTR");
+            sut.AddInlineAttribute("Color", "Red");
+            sut.AddInlineAttribute("Height", "100");
+
+            var actual = sut.GetAttributes("Content", "Direction");
+
+            Assert.AreEqual(1, actual.Count());
+        }
+
+        [TestMethod]
+        public void GetAttributes_Params_()
+        {
+            var sut = RapidXamlElement.Build("Grid");
+            sut.AddInlineAttribute("Width", "Auto");
+            sut.AddInlineAttribute("Direction", "LTR");
+            sut.AddInlineAttribute("Color", "Red");
+            sut.AddInlineAttribute("Height", "100");
+            sut.AddChildAttribute("Color", "Blue");
+
+            var actual = sut.GetAttributes("Color", "Width");
+
+            Assert.AreEqual(3, actual.Count());
         }
 
         [TestMethod]
