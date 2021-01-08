@@ -7,8 +7,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.Shell;
 using RapidXaml;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
@@ -18,6 +16,8 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     public abstract class BuiltInXamlAnalyzer : RapidXaml.ICustomAnalyzer
     {
         private readonly IVisualStudioAbstraction vsa;
+
+        private static Dictionary<string, string> resourceFileLocationCache = new Dictionary<string, string>();
 
         public BuiltInXamlAnalyzer(IVisualStudioAbstraction vsa)
         {
@@ -35,129 +35,135 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             if (element.ContainsAttribute(attributeName)
              || (attributeType.HasFlag(AttributeType.DefaultValue) && element.OriginalString.Contains("</")))
             {
-                // TODO: if can't get framework or resource file, hint at issue without fix
                 // If don't know framework then can't know how to fix issues
-                if (extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework))
+
+                extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework);
+
+                // If don't know file path, can't find appropriate resource file
+                extraDetails.TryGet(KnownExtraDetails.FilePath, out string fileName);
+
+                var resourceFilePath = this.GetResourceFilePath(fileName);
+
+                // Only make a suggestion if no resource file in project as autofix won't be possible
+                var warningLevel = string.IsNullOrWhiteSpace(resourceFilePath)
+                    ? RapidXamlErrorType.Suggestion
+                    : RapidXamlErrorType.Warning;
+
+                var attr = element.GetAttributes(attributeName).FirstOrDefault();
+
+                var value = GetAttributeValue(element, attr, attributeType);
+
+                if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
-                    // If don't know file path, can't find appropriate resource file
-                    if (extraDetails.TryGet(KnownExtraDetails.FilePath, out string fileName))
+                    switch (framework)
                     {
-                        var resourceFilePath = this.GetResourceFilePath(fileName);
+                        case ProjectFramework.Uwp:
 
-                        // Only make a suggestion if no resource file in project as autofix won't be possible
-                        var warningLevel = string.IsNullOrWhiteSpace(resourceFilePath)
-                            ? RapidXamlErrorType.Suggestion
-                            : RapidXamlErrorType.Warning;
+                            var addUid = NeedToAddUid(element, attributeName, out string uid);
 
-                        var attr = element.GetAttributes(attributeName).FirstOrDefault();
+                            // Create the resource first as there will always be a need to do this
+                            result = AnalysisActions.CreateResource(
+                                errorType: warningLevel,
+                                code: "RXT200",
+                                description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(element.Name, attributeName, value),
+                                actionText: StringRes.UI_XamlAnalysisHardcodedStringTooltip,
+                                resFilePath: resourceFilePath,
+                                resourceKey: uid,
+                                resourceValue: value,
+                                extendedMessage: StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage
+                                );
 
-                        var value = GetAttributeValue(element, attr, attributeType);
-
-                        if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
-                        {
-                            switch (framework)
+                            if (addUid)
                             {
-                                case ProjectFramework.Uwp:
-
-                                    var addUid = NeedToAddUid(element, attributeName, out string uid);
-
-                                    // Create the resource first as there will always be a need to do this
-                                    result = AnalysisActions.CreateResource(
-                                        errorType: warningLevel,
-                                        code: "RXT200",
-                                        description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(element.Name, attributeName, value),
-                                        actionText: StringRes.UI_XamlAnalysisHardcodedStringTooltip,
-                                        resFilePath: resourceFilePath,
-                                        resourceKey: uid,
-                                        resourceValue: value,
-                                        extendedMessage: StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage
-                                        );
-
-                                    if (addUid)
-                                    {
-                                        result.AndAddAttribute("x:Uid", uid);
-                                    }
-
-                                    // Only something to remove if not the default value
-                                    if (attr != null)
-                                    {
-                                        result.AndRemoveAttribute(attr);
-                                    }
-                                    else
-                                    {
-                                        result.AndRemoveDefaultValue();
-                                    }
-
-                                    break;
-                                case ProjectFramework.Wpf:
-                                case ProjectFramework.XamarinForms:
-
-                                    var resourceNs = this.GetResourceFileNamespace(resourceFilePath);
-
-                                    var resourceName = !string.IsNullOrWhiteSpace(fileName)
-                                        ? $"{Path.GetFileNameWithoutExtension(fileName)}{value}".RemoveNonAlphaNumerics()
-                                        : value.RemoveNonAlphaNumerics();
-
-                                    var xmlnsToUse = "properties"; // default/fallback
-                                    var xmlnsExists = true; // Assume existence. (i.e. don't add it. It's better than douplicating or adding something wrong)
-
-                                    if (extraDetails.TryGet(KnownExtraDetails.Xmlns, out Dictionary<string, string> xmlns))
-                                    {
-                                        bool foundXmlns = false;
-
-                                        foreach (var alias in xmlns)
-                                        {
-                                            if (alias.Value.Equals($"clr-namespace:{resourceNs}"))
-                                            {
-                                                resourceNs = alias.Key;
-                                                foundXmlns = true;
-                                                break;  // foreach
-                                            }
-                                        }
-
-                                        if (!foundXmlns)
-                                        {
-                                            xmlnsExists = false;
-                                        }
-                                    }
-
-                                    // Create the resource first as there will always be a need to do this
-                                    result = AnalysisActions.CreateResource(
-                                        errorType: warningLevel,
-                                        code: "RXT200",
-                                        description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(element.Name, attributeName, value),
-                                        actionText: StringRes.UI_XamlAnalysisHardcodedStringTooltip,
-                                        resFilePath: resourceFilePath,
-                                        resourceKey: resourceName,
-                                        resourceValue: value,
-                                        extendedMessage: StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage
-                                        );
-
-                                    // Only something to remove if not the default value
-                                    if (attr != null)
-                                    {
-                                        result.AndRemoveAttribute(attr);
-                                    }
-                                    else
-                                    {
-                                        result.AndRemoveDefaultValue();
-                                    }
-
-                                    result.AndAddAttribute(
-                                        attributeName,
-                                        $"{{x:Static {xmlnsToUse}:{Path.GetFileNameWithoutExtension(resourceFilePath)}.{resourceName}}}");
-
-                                    if (!xmlnsExists)
-                                    {
-                                        result.AndAddXmlns(xmlnsToUse, $"clr-namespace:{resourceNs}");
-                                    }
-
-                                    break;
-                                case ProjectFramework.Unknown:
-                                default:
-                                    break;
+                                result.AndAddAttribute("x:Uid", uid);
                             }
-                        }
+
+                            // Only something to remove if not the default value
+                            if (attr != null)
+                            {
+                                result.AndRemoveAttribute(attr);
+                            }
+                            else
+                            {
+                                result.AndRemoveDefaultValue();
+                            }
+
+                            break;
+                        case ProjectFramework.Wpf:
+                        case ProjectFramework.XamarinForms:
+
+                            var resourceNs = this.GetResourceFileNamespace(resourceFilePath);
+
+                            var resourceName = !string.IsNullOrWhiteSpace(fileName)
+                                ? $"{Path.GetFileNameWithoutExtension(fileName)}{value}".RemoveNonAlphaNumerics()
+                                : value.RemoveNonAlphaNumerics();
+
+                            var xmlnsToUse = "properties"; // default/fallback
+                            var xmlnsExists = true; // Assume existence. (i.e. don't add it. It's better than douplicating or adding something wrong)
+
+                            if (extraDetails.TryGet(KnownExtraDetails.Xmlns, out Dictionary<string, string> xmlns))
+                            {
+                                bool foundXmlns = false;
+
+                                foreach (var alias in xmlns)
+                                {
+                                    if (alias.Value.Equals($"clr-namespace:{resourceNs}"))
+                                    {
+                                        resourceNs = alias.Key;
+                                        foundXmlns = true;
+                                        break;  // foreach
+                                    }
+                                }
+
+                                if (!foundXmlns)
+                                {
+                                    xmlnsExists = false;
+                                }
+                            }
+
+                            // Create the resource first as there will always be a need to do this
+                            result = AnalysisActions.CreateResource(
+                                errorType: warningLevel,
+                                code: "RXT200",
+                                description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(element.Name, attributeName, value),
+                                actionText: StringRes.UI_XamlAnalysisHardcodedStringTooltip,
+                                resFilePath: resourceFilePath,
+                                resourceKey: resourceName,
+                                resourceValue: value,
+                                extendedMessage: StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage
+                                );
+
+                            // Only something to remove if not the default value
+                            if (attr != null)
+                            {
+                                result.AndRemoveAttribute(attr);
+                            }
+                            else
+                            {
+                                result.AndRemoveDefaultValue();
+                            }
+
+                            result.AndAddAttribute(
+                                attributeName,
+                                $"{{x:Static {xmlnsToUse}:{Path.GetFileNameWithoutExtension(resourceFilePath)}.{resourceName}}}");
+
+                            if (!xmlnsExists)
+                            {
+                                result.AndAddXmlns(xmlnsToUse, $"clr-namespace:{resourceNs}");
+                            }
+
+                            break;
+                        case ProjectFramework.Unknown:
+                        default:
+
+                            result = AnalysisActions.HighlightWithoutAction(
+                                errorType: RapidXamlErrorType.Suggestion,
+                                code: "RXT200",
+                                description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(element.Name, attributeName, value),
+                                extendedMessage: StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage
+                                );
+
+                            break;
                     }
                 }
             }
@@ -261,20 +267,30 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             return null;
         }
 
-        // TODO: cache resource file path
         private string GetResourceFilePath(string fileName)
         {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                return string.Empty;
+            }
+
+            if (resourceFileLocationCache.ContainsKey(fileName))
+            {
+                return resourceFileLocationCache[fileName];
+            }
+
             // Get either type of res file. Don't have a reason for a project to contain both.
             var resFiles = vsa.GetFilesFromContainingProject(fileName, new[] { ".resw", ".resx" });
+
+            string result = null;
 
             if (resFiles.Count == 0)
             {
                 SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_NoResourceFileFound);
-                return null;
             }
             else if (resFiles.Count == 1)
             {
-                return resFiles.First();
+                result = resFiles.First();
             }
             else
             {
@@ -282,15 +298,19 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
                 if (!string.IsNullOrWhiteSpace(langOfInterest))
                 {
-                    return resFiles.FirstOrDefault(f => f.IndexOf(langOfInterest, StringComparison.OrdinalIgnoreCase) > 0);
+                    result = resFiles.FirstOrDefault(f => f.IndexOf(langOfInterest, StringComparison.OrdinalIgnoreCase) > 0);
                 }
                 else
                 {
                     // Find neutral language file to return
                     // RegEx to match if lang identifier in path or file name
-                    return resFiles.FirstOrDefault(f => Regex.Matches(f, "([\\.][a-zA-Z]{2}-[a-zA-Z]{2}[\\.])").Count == 0);
+                    result = resFiles.FirstOrDefault(f => Regex.Matches(f, "([\\.][a-zA-Z]{2}-[a-zA-Z]{2}[\\.])").Count == 0);
                 }
             }
+
+            resourceFileLocationCache.Add(fileName, result);
+
+            return result;
         }
     }
 }
