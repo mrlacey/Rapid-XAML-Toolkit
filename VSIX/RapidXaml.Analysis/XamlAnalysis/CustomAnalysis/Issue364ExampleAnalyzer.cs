@@ -7,6 +7,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class Issue364ExampleAnalyzer : BuiltInXamlAnalyzer
     {
+        public Issue364ExampleAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override string TargetType() => "ANYCONTAINING:=\"{Binding";
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)

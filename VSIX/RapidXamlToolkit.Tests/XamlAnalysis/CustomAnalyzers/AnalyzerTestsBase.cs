@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
         internal AnalysisActions GetActions<T>(string xaml, ProjectType projectType = ProjectType.Any)
             where T : ICustomAnalyzer
         {
-            var sut = (T)Activator.CreateInstance(typeof(T));
+            var sut = (T)Activator.CreateInstance(typeof(T), new TestVisualStudioAbstraction());
 
             var element = RapidXamlElementExtractor.GetElement(xaml);
 

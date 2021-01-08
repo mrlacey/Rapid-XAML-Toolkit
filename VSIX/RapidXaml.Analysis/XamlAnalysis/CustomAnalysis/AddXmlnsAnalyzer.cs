@@ -8,6 +8,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class AddXmlnsAnalyzer : BuiltInXamlAnalyzer
     {
+        public AddXmlnsAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override string TargetType() => "WebView";
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)

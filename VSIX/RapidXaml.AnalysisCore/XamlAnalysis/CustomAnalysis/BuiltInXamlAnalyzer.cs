@@ -17,13 +17,20 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public abstract class BuiltInXamlAnalyzer : RapidXaml.ICustomAnalyzer
     {
+        private readonly IVisualStudioAbstraction vsa;
+
+        public BuiltInXamlAnalyzer(IVisualStudioAbstraction vsa)
+        {
+            this.vsa = vsa;
+        }
+
         public abstract AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails);
 
         public abstract string TargetType();
 
         protected AnalysisActions CheckForHardCodedString(string attributeName, AttributeType attributeType, RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
+           // ThreadHelper.ThrowIfNotOnUIThread();
 
             var result = AnalysisActions.None;
 
@@ -37,7 +44,6 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     // If don't know file path, can't find appropriate resource file
                     if (extraDetails.TryGet(KnownExtraDetails.FilePath, out string fileName))
                     {
-                        // TODO: cache resource file path
                         var resourceFilePath = this.GetResourceFilePath(fileName);
 
                         // Only make a suggestion if no resource file in project as autofix won't be possible
@@ -230,6 +236,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
         private string GetResourceFileNamespace(string resPath)
         {
+            if (string.IsNullOrWhiteSpace(resPath))
+            {
+                return string.Empty;
+            }
+
             // It's fine that this is C# only as WPFCore doesn't (yet) and XF doesn't support VB
             // https://developercommunity.visualstudio.com/idea/750543/add-visual-basic-support-to-net-core-3-wpfwindows.html
             var designerFileName = Path.Combine(Path.GetDirectoryName(resPath), Path.GetFileNameWithoutExtension(resPath) + ".Designer.cs");
@@ -252,56 +263,14 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             return null;
         }
 
+        // TODO: cache resource file path
         private string GetResourceFilePath(string fileName)
         {
-            // TODO: test the impliction of this!!!
-            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            // TODO: test the impliction of this!!! - Called from tests
+            //Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
-            var resFiles = new List<string>();
-
-            // See also https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.shell.interop.ivssolution.getprojectenum?view=visualstudiosdk-2017#Microsoft_VisualStudio_Shell_Interop_IVsSolution_GetProjectEnum_System_UInt32_System_Guid__Microsoft_VisualStudio_Shell_Interop_IEnumHierarchies__
-            void IterateProjItems(EnvDTE.ProjectItem projectItem)
-            {
-                var item = projectItem.ProjectItems.GetEnumerator();
-
-                while (item.MoveNext())
-                {
-                    if (item.Current is EnvDTE.ProjectItem projItem)
-                    {
-                        if (projItem.ProjectItems.Count > 0)
-                        {
-                            IterateProjItems(projItem);
-                        }
-
-                        if (projItem.Name.EndsWith(".resw")
-                         || projItem.Name.EndsWith(".resx"))
-                        {
-                            // Get either type of res file. Don't have a reason for a project to contain both.
-                            resFiles.Add(projItem.FileNames[0]);
-                        }
-                    }
-                }
-            }
-
-            // TODO: change to use vsa
-            void IterateProject(EnvDTE.Project project)
-            {
-                var item = project.ProjectItems.GetEnumerator();
-
-                while (item.MoveNext())
-                {
-                    if (item.Current is EnvDTE.ProjectItem projItem)
-                    {
-                        IterateProjItems(projItem);
-                    }
-                }
-            }
-
-            // TODO: change to use vsa
-            var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName);
-
-            // For very large projects this can be very inefficient. When an issue, consider caching or querying the file system directly.
-            IterateProject(proj);
+            // Get either type of res file. Don't have a reason for a project to contain both.
+            var resFiles = vsa.GetFilesFromContainingProject(fileName, new[] { ".resw", ".resx" });
 
             if (resFiles.Count == 0)
             {
@@ -314,27 +283,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             }
             else
             {
-                var langOfInterest = string.Empty;
-
-                var neutralLang = proj.Properties.Item("NeutralResourcesLanguage").Value.ToString();
-
-                if (string.IsNullOrWhiteSpace(neutralLang))
-                {
-                    var xProj = XDocument.Load(proj.FileName);
-
-                    XNamespace xmlns = "http://schemas.microsoft.com/developer/msbuild/2003";
-
-                    var defLang = xProj.Descendants(xmlns + "DefaultLanguage").FirstOrDefault();
-
-                    if (defLang != null)
-                    {
-                        langOfInterest = defLang.Value;
-                    }
-                }
-                else
-                {
-                    langOfInterest = neutralLang;
-                }
+                var langOfInterest = vsa.GetLanguageFromContainingProject(fileName);
 
                 if (!string.IsNullOrWhiteSpace(langOfInterest))
                 {

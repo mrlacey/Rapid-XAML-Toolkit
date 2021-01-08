@@ -158,27 +158,27 @@ namespace RapidXamlToolkit.XamlAnalysis
                 // These types exists for testing only and so are only referenced during Debug
                 customProcessors.Add(new CustomAnalysis.FooAnalysis());
                 customProcessors.Add(new CustomAnalysis.BadCustomAnalyzer());
-                customProcessors.Add(new CustomAnalysis.InternalBadCustomAnalyzer());
+                customProcessors.Add(new CustomAnalysis.InternalBadCustomAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.CustomGridDefinitionAnalyzer());
                 customProcessors.Add(new CustomAnalysis.RenameElementTestAnalyzer());
                 customProcessors.Add(new CustomAnalysis.ReplaceElementTestAnalyzer());
                 customProcessors.Add(new CustomAnalysis.AddChildTestAnalyzer());
                 customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
-                customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer());
-                customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer2());
+                customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer2(vsAbstraction));
                ////customProcessors.Add(new CustomAnalysis.AddXmlnsAnalyzer());
                 customProcessors.Add(new CustomAnalysis.WebViewToWebView2Converter());
 #endif
-                customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer());
-                customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer());
-                customProcessors.Add(new CustomAnalysis.LabelAnalyzer());
-                customProcessors.Add(new CustomAnalysis.XfImageAnalyzer());
-                customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer());
-                customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer());
-                customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer());
-                customProcessors.Add(new CustomAnalysis.EntryAnalyzer());
-                customProcessors.Add(new CustomAnalysis.PickerAnalyzer());
-                customProcessors.Add(new CustomAnalysis.BindingToXBindAnalyzer());
+                customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.LabelAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.XfImageAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.EntryAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.PickerAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.BindingToXBindAnalyzer(vsAbstraction));
 
                 for (int i = 0; i < customProcessors.Count; i++)
                 {

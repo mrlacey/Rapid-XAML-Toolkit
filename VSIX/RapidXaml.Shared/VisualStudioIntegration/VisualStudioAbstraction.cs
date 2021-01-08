@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 using EnvDTE;
 using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.ComponentModelHost;
@@ -371,6 +372,92 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         {
             var proj = this.Dte.Solution.GetProjectContainingFile(fileName);
             return (proj.FileName, this.GetProjectType(proj));
+        }
+
+        public string GetLanguageFromContainingProject(string fileName)
+        {
+            try
+            {
+                var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName);
+
+                var neutralLang = proj.Properties?.Item("NeutralResourcesLanguage")?.Value?.ToString();
+
+                if (string.IsNullOrWhiteSpace(neutralLang))
+                {
+                    var xProj = XDocument.Load(proj.FileName);
+
+                    XNamespace xmlns = "http://schemas.microsoft.com/developer/msbuild/2003";
+
+                    var defLang = xProj.Descendants(xmlns + "DefaultLanguage").FirstOrDefault();
+
+                    if (defLang != null)
+                    {
+                        return defLang.Value;
+                    }
+                }
+                else
+                {
+                    return neutralLang;
+                }
+            }
+            catch (Exception exc)
+            {
+                // It'd be good know about this as it suggests a project file format that needs to be supported.
+                this.logger.RecordException(exc);
+            }
+
+            return string.Empty;
+        }
+
+        public List<string> GetFilesFromContainingProject(string fileName, params string[] fileNameEndings)
+        {
+            var result = new List<string>();
+
+            // See also https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.shell.interop.ivssolution.getprojectenum?view=visualstudiosdk-2017#Microsoft_VisualStudio_Shell_Interop_IVsSolution_GetProjectEnum_System_UInt32_System_Guid__Microsoft_VisualStudio_Shell_Interop_IEnumHierarchies__
+            void IterateProjItems(EnvDTE.ProjectItem projectItem)
+            {
+                var item = projectItem.ProjectItems.GetEnumerator();
+
+                while (item.MoveNext())
+                {
+                    if (item.Current is EnvDTE.ProjectItem projItem)
+                    {
+                        if (projItem.ProjectItems.Count > 0)
+                        {
+                            IterateProjItems(projItem);
+                        }
+
+                        foreach (var ending in fileNameEndings)
+                        {
+                            if (projItem.Name.EndsWith(ending))
+                            {
+                                result.Add(projItem.FileNames[0]);
+                                break;  // Don't continue with other ending checks if added this item
+                            }
+                        }
+                    }
+                }
+            }
+
+            void IterateProject(EnvDTE.Project project)
+            {
+                var item = project.ProjectItems.GetEnumerator();
+
+                while (item.MoveNext())
+                {
+                    if (item.Current is EnvDTE.ProjectItem projItem)
+                    {
+                        IterateProjItems(projItem);
+                    }
+                }
+            }
+
+            var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName);
+
+            // For very large projects this can be very inefficient. When an issue, consider caching or querying the file system directly.
+            IterateProject(proj);
+
+            return result;
         }
 
         private NuGet.VisualStudio.IVsPackageInstallerServices GetNuGetService(EnvDTE.Project proj)

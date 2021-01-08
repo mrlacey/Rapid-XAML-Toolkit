@@ -7,9 +7,14 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class BindingToXBindAnalyzer : BuiltInXamlAnalyzer
     {
+        public BindingToXBindAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            if (!extraDetails.TryGet(KnownExtraDetails.FilePath, out ProjectFramework framework)
+            if (!extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework)
              || framework != ProjectFramework.Uwp)
             {
                 return AnalysisActions.None;

@@ -234,6 +234,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void AddResource(string resPath, string resKey, string resValue)
         {
+            // TODO: allow for resPath not existing
             var xdoc = XDocument.Load(resPath);
 
             // Don't want to create a duplicate entry.

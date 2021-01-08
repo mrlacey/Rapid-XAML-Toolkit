@@ -8,6 +8,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class ImageButtonAnalyzer : BuiltInXamlAnalyzer
     {
+        public ImageButtonAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override string TargetType() => Elements.ImageButton;
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)

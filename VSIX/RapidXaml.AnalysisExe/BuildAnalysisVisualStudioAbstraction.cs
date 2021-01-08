@@ -9,6 +9,8 @@ using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXaml.AnalysisExe
 {
+    // The methods in this class can all throw exceptions because they should never be called.
+    // As part of analysis nothing here is needed...hopefully.
     public class BuildAnalysisVisualStudioAbstraction : IVisualStudioAbstraction
     {
         private readonly string projFile;
@@ -121,6 +123,16 @@ namespace RapidXaml.AnalysisExe
         }
 
         public void AddResource(string resPath, string resKey, string resValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetLanguageFromContainingProject(string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> GetFilesFromContainingProject(string fileName, params string[] fileNameEndings)
         {
             throw new NotImplementedException();
         }
