@@ -30,8 +30,6 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
         protected AnalysisActions CheckForHardCodedString(string attributeName, AttributeType attributeType, RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-           // ThreadHelper.ThrowIfNotOnUIThread();
-
             var result = AnalysisActions.None;
 
             if (element.ContainsAttribute(attributeName)
@@ -266,9 +264,6 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
         // TODO: cache resource file path
         private string GetResourceFilePath(string fileName)
         {
-            // TODO: test the impliction of this!!! - Called from tests
-            //Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-
             // Get either type of res file. Don't have a reason for a project to contain both.
             var resFiles = vsa.GetFilesFromContainingProject(fileName, new[] { ".resw", ".resx" });
 
