@@ -267,7 +267,6 @@ namespace RapidXaml
         /// <returns>Attributes with the specified names.</returns>
         public IEnumerable<RapidXamlAttribute> GetAttributes(params string[] attributeNames)
         {
-            // TODO: add testing for this
             foreach (var attr in this.Attributes)
             {
                 foreach (var attName in attributeNames)
