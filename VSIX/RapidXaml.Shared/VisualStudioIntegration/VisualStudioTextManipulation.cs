@@ -234,31 +234,43 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void AddResource(string resPath, string resKey, string resValue)
         {
-            // TODO: allow for resPath not existing
-            var xdoc = XDocument.Load(resPath);
-
-            // Don't want to create a duplicate entry.
-            var alreadyExists = false;
-
-            foreach (var element in xdoc.Descendants("data"))
+            if (!System.IO.File.Exists(resPath))
             {
-                if (element.Attribute("name")?.Value == resKey)
-                {
-                    alreadyExists = true;
-                    break;
-                }
+                return;
             }
 
-            if (!alreadyExists)
+            try
             {
-                var newData = new XElement("data");
+                var xdoc = XDocument.Load(resPath);
 
-                newData.Add(new XAttribute("name", resKey));
+                // Don't want to create a duplicate entry.
+                var alreadyExists = false;
 
-                newData.Add(new XAttribute(XNamespace.Xml + "space", "preserve"));
-                newData.Add(new XElement("value", resValue));
-                xdoc.Element("root").Add(newData);
-                xdoc.Save(resPath);
+                foreach (var element in xdoc?.Descendants("data"))
+                {
+                    if (element.Attribute("name")?.Value == resKey)
+                    {
+                        alreadyExists = true;
+                        break;
+                    }
+                }
+
+                if (!alreadyExists)
+                {
+                    var newData = new XElement("data");
+
+                    newData.Add(new XAttribute("name", resKey));
+
+                    newData.Add(new XAttribute(XNamespace.Xml + "space", "preserve"));
+                    newData.Add(new XElement("value", resValue));
+                    xdoc.Element("root").Add(newData);
+                    xdoc.Save(resPath);
+                }
+            }
+            catch (Exception exc)
+            {
+                // File locked, read-only, or corrupt are all reasons to get here.
+                System.Diagnostics.Debug.WriteLine(exc);
             }
         }
     }
