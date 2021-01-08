@@ -210,8 +210,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             return !uidExists;
         }
 
-        // TODO: Add unit tests for GetAttributeValue
-        private static string GetAttributeValue(RapidXamlElement element, RapidXamlAttribute attr, AttributeType attributeTypesToCheck)
+        public static string GetAttributeValue(RapidXamlElement element, RapidXamlAttribute attr, AttributeType attributeTypesToCheck)
         {
             if (attributeTypesToCheck.HasFlag(AttributeType.Inline))
             {
