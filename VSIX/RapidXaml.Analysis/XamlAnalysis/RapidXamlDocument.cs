@@ -179,6 +179,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.EntryAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.PickerAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.BindingToXBindAnalyzer(vsAbstraction));
+                ////customProcessors.Add(new CustomAnalysis.CheckBoxAnalyzer());
 
                 for (int i = 0; i < customProcessors.Count; i++)
                 {

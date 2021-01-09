@@ -104,6 +104,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\AddXmlnsAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BadCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BindingToXBindAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\CheckBoxAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer2.cs" />

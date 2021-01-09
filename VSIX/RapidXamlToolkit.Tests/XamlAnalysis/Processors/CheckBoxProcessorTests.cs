@@ -3,6 +3,10 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
+using RapidXaml.TestHelpers;
+using RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers;
+using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -62,6 +66,52 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
             var outputTags = this.GetTags<CheckBoxProcessor>(xaml);
 
             Assert.AreEqual(0, outputTags.Count);
+        }
+
+        [TestMethod]
+        public void IsChecked_Before_CheckedUnChecked_DoesNotMatter()
+        {
+            var xaml = @"<CheckBox
+    Name=""FormattedTextCheckbox""
+    Margin=""5,2""
+    HorizontalAlignment=""Left""
+    VerticalContentAlignment=""Center""
+    IsChecked=""{Binding ElementName=TextBlockSettingUserControl, Path=IsBodyTextFormatted}""
+    Checked=""FormattedTextCheckbox_Checked""
+    Unchecked=""FormattedTextCheckbox_Unchecked"">
+    Enable text formatting
+</CheckBox>";
+
+            var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
+
+            var sut = new CheckBoxAnalyzer();
+
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
+
+            Assert.AreEqual(0, actual.Actions.Count);
+        }
+
+        [TestMethod]
+        public void IsChecked_After_CheckedUnChecked_DoesNotMatter()
+        {
+            var xaml = @"<CheckBox
+    Name=""FormattedTextCheckbox""
+    Margin=""5,2""
+    HorizontalAlignment=""Left""
+    VerticalContentAlignment=""Center""
+    Checked=""FormattedTextCheckbox_Checked""
+    Unchecked=""FormattedTextCheckbox_Unchecked""
+    IsChecked=""{Binding ElementName=TextBlockSettingUserControl, Path=IsBodyTextFormatted}"">
+    Enable text formatting
+</CheckBox>";
+
+            var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
+
+            var sut = new CheckBoxAnalyzer();
+
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
+
+            Assert.AreEqual(0, actual.Actions.Count);
         }
     }
 }
