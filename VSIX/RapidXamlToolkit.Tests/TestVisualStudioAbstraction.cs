@@ -131,5 +131,20 @@ namespace RapidXamlToolkit.Tests
         {
             throw new System.NotImplementedException();
         }
+
+        public void AddResource(string resPath, string resKey, string resValue)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string GetLanguageFromContainingProject(string fileName)
+        {
+            return string.Empty;
+        }
+
+        public List<string> GetFilesFromContainingProject(string fileName, params string[] fileNameEndings)
+        {
+            return new List<string>();
+        }
     }
 }

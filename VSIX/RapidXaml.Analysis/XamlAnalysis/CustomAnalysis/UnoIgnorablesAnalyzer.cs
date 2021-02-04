@@ -8,11 +8,16 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class UnoIgnorablesAnalyzer : BuiltInXamlAnalyzer
     {
+        public UnoIgnorablesAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override string TargetType() => "Page";
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            if (!extraDetails.TryGet("framework", out ProjectFramework framework)
+            if (!extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework)
              || framework != ProjectFramework.Uwp)
             {
                 return AnalysisActions.None;

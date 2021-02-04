@@ -10,6 +10,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class EntryAnalyzer : BuiltInXamlAnalyzer
     {
+        public EntryAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override string TargetType() => Elements.Entry;
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)

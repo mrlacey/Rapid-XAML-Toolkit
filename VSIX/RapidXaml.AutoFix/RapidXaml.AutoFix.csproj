@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <Version>0.11.4</Version>
+    <Version>0.11.5</Version>
   </PropertyGroup>
   <!-- Pack settings -->
   <PropertyGroup>
@@ -29,7 +29,7 @@
       <Version>16.0.206</Version>
     </PackageReference>
     <PackageReference Include="RapidXaml.CustomAnalysis">
-      <Version>0.11.4</Version>
+      <Version>0.11.5</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
@@ -46,6 +46,7 @@
       <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
       <Name>RapidXaml.AnalysisCore</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj" />
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891D63BC-FA0D-4657-B433-F7F8DD27CD28}</Project>
       <Name>RapidXaml.Shared</Name>

@@ -19,6 +19,7 @@ namespace RapidXaml
         private List<RapidXamlElement> children;
         private bool attributesUpdated = false;
         private bool childrenUpdated = false;
+        private bool? isSelfClosing = null;
 
         public RapidXamlElement()
         {
@@ -260,6 +261,27 @@ namespace RapidXaml
         }
 
         /// <summary>
+        /// Get attributes of the element that have the specified names.
+        /// </summary>
+        /// <param name="attributeNames">The names of the attributes to get.</param>
+        /// <returns>Attributes with the specified names.</returns>
+        public IEnumerable<RapidXamlAttribute> GetAttributes(params string[] attributeNames)
+        {
+            foreach (var attr in this.Attributes)
+            {
+                foreach (var attName in attributeNames)
+                {
+                    if (attr.Name.Equals(attName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        yield return attr;
+                    }
+                }
+            }
+
+            yield break;
+        }
+
+        /// <summary>
         /// Tries to get the string value of the specified attribtue.
         /// </summary>
         /// <param name="attributeName">The name of the desired attribute.</param>
@@ -356,8 +378,6 @@ namespace RapidXaml
 
             var result = this.CloneWithAdjustedLocationStart(change);
 
-            result.Location = new RapidXamlSpan(newLocationStart, this.Location.Length);
-
             return result;
         }
 
@@ -369,8 +389,6 @@ namespace RapidXaml
                 Location = this.Location.CloneWithAdjustedLocationStart(startChange),
                 Name = this.Name,
                 OriginalString = this.OriginalString,
-                Attributes = this.Attributes,
-                Children = this.Children,
             };
 
             for (int i = 0; i < this.Children.Count; i++)
@@ -378,14 +396,34 @@ namespace RapidXaml
                 result.Children.Add(this.Children[i].CloneWithAdjustedLocationStart(startChange));
             }
 
+            for (int i = 0; i < this.Attributes.Count; i++)
+            {
+                result.Attributes.Add(this.Attributes[i].CloneWithAdjustedLocationStart(startChange));
+            }
+
             return result;
+        }
+
+        public bool IsSelfClosing()
+        {
+            if (!this.isSelfClosing.HasValue)
+            {
+                this.isSelfClosing = this.OriginalString.EndsWith("/>");
+            }
+
+            return this.isSelfClosing.Value;
+        }
+
+        public void OverrideIsSelfClosing(bool newValue)
+        {
+            this.isSelfClosing = newValue;
         }
 
         private bool ContainsChildOrAttribute(string name)
         {
             return this.Children.Any(
-                c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
-                  || c.Name.EndsWith($":{name}", StringComparison.InvariantCultureIgnoreCase))
+                    c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
+                      || c.Name.EndsWith($":{name}", StringComparison.InvariantCultureIgnoreCase))
                 || this.Attributes.Any(
                     a => !a.HasStringValue
                       && a.Children.Any(c => c.ContainsDescendant(name)));

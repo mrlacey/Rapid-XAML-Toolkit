@@ -27,4 +27,4 @@ Testing Custom Analyzers
 
 If a custom anlayzer project is changed, the project that references it may need to do a Clean AND a rebuild to pick up those changes.
 
-
+To debug (or test) code related to custom analyzers, you may need to remove the NuGet references and reference the project directly.

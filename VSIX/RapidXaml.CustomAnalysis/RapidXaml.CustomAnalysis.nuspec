@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RapidXaml.CustomAnalysis</id>
-    <version>0.11.4</version>
+    <version>0.11.5</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <license type="expression">MIT</license>
@@ -12,9 +12,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Create custom XAML analyzers for use with the Rapid XAML toolkit.</description>
     <summary>Create custom XAML analyzers.</summary>
-    <releaseNotes>Fix caching issue.</releaseNotes>
+    <releaseNotes>Add support for CreateResource. (Will require VSIX version >= 0.12)</releaseNotes>
     <copyright>Copyright 2020 Matt Lacey Ltd.</copyright>
-    <tags>XAML, UWP, WPF, Xamarin.Forms, MVVM, UNO</tags>
+    <tags>XAML, UWP, WPF, Xamarin.Forms, MVVM, UNO, WinUI</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
         <dependency id="GuiLabs.Language.Xml" version="1.2.46" exclude="Build,Analyzers" />

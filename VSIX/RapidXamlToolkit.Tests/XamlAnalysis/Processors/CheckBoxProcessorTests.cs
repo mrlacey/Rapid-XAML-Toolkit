@@ -84,7 +84,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new CheckBoxAnalyzer();
+            var sut = new CheckBoxAnalyzer(new TestVisualStudioAbstraction());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -107,7 +107,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new CheckBoxAnalyzer();
+            var sut = new CheckBoxAnalyzer(new TestVisualStudioAbstraction());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 

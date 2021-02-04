@@ -82,9 +82,6 @@
     <PackageReference Include="Microsoft.VisualStudio.SDK">
       <Version>16.0.206</Version>
     </PackageReference>
-    <PackageReference Include="RapidXaml.CustomAnalysis">
-      <Version>0.11.4</Version>
-    </PackageReference>
     <PackageReference Include="System.Memory">
       <Version>4.5.4</Version>
     </PackageReference>
@@ -95,6 +92,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
+      <Project>{93ba7914-1204-49f8-977a-091d30e4718b}</Project>
+      <Name>RapidXaml.CustomAnalysis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
       <Name>RapidXaml.Shared</Name>

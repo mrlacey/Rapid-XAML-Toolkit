@@ -6,6 +6,10 @@
 - Performance improvements in analysis.
 - Add JsonSchema support for .xamlAnalysis files
 
+## 0.11.5
+
+- CustomAnalysis can identify where to CreateResource(s).
+
 ## 0.11.4
 
 - Support succinct Row and Column Definitions in RapidXaml.Analysis.
