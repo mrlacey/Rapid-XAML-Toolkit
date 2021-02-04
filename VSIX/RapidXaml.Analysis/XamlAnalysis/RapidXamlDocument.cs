@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using RapidXaml;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.Telemetry;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -91,7 +92,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 result.Tags.Add(new UnexpectedErrorTag(tagDeps)
                 {
-                    Description = StringRes.Error_XamlAnalysisDescription,
+                    Description = StringRes.Error_XamlAnalysisDescription.WithParams(CoreDetails.GetVersion()),
                     ExtendedMessage = StringRes.Error_XamlAnalysisExtendedMessage.WithParams(e),
                 });
 

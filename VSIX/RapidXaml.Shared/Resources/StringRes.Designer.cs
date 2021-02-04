@@ -205,7 +205,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unexpected error occurred while parsing XAML..
+        ///   Looks up a localized string similar to Unexpected error occurred while parsing XAML. (v{0}).
         /// </summary>
         public static string Error_XamlAnalysisDescription {
             get {
