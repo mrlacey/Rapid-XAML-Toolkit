@@ -4,6 +4,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
+using RapidXaml.TestHelpers;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 
@@ -302,6 +303,38 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var element = XamlElementProcessor.GetSubElementAtPosition(ProjectType.Wpf, "testFile.xaml", new FakeTextSnapshot(), xaml.Replace("☆", string.Empty), offset, new DefaultTestLogger(), string.Empty, new TestVisualStudioAbstraction());
 
             Assert.IsNotNull(element);
+        }
+
+        [TestMethod]
+        public void Issue455()
+        {
+            var xaml = @"
+        <muxc:TwoPaneView
+            x:Name=""TwoPaneContent""
+            Grid.Column=""1""
+            Margin=""40,0,0,0""
+            MinTallModeHeight=""Infinity""
+            MinWideModeWidth=""Infinity""
+            ModeChanged=""OnTwoPaneViewModeChanged"">
+            <muxc:TwoPaneView.Pane1>
+                <!-- Grid necessary because of ContentFrame1 using deferred loaded -->
+                <Grid Margin=""0,32,0,0"">
+                    <Frame x:Name=""ContentFrame1"" x:Load=""True"" />
+                </Grid>
+            </muxc:TwoPaneView.Pane1>
+            <muxc:TwoPaneView.Pane2>
+                <!-- Grid necessary because of ContentFrame2 using deferred loaded -->
+                <Grid>
+                    <Frame x:Name=""ContentFrame2"" x:Load=""False"" />
+                </Grid>
+            </muxc:TwoPaneView.Pane2>
+        </muxc:TwoPaneView>";
+
+            var sut = CustomAnalysisTestHelper.StringToElement(xaml);
+
+            var actual = sut.ContainsDescendant("TwoPaneView");
+
+            Assert.IsFalse(actual);
         }
 
         [TestMethod]
