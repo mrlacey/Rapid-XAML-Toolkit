@@ -426,7 +426,7 @@ namespace RapidXaml
                       || c.Name.EndsWith($":{name}", StringComparison.InvariantCultureIgnoreCase))
                 || this.Attributes.Any(
                     a => !a.HasStringValue
-                      && a.Children.Any(c => c.ContainsDescendant(name)));
+                      && a.Children.Any(c => c?.ContainsDescendant(name) ?? false));
         }
     }
 }
