@@ -1776,5 +1776,22 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             Assert.AreNotEqual(first.Children.Last().Location.Start, second.Children.Last().Location.Start);
         }
+
+        [TestMethod]
+        public void EnsureCommentsAreIgnoredInAttributeChildren()
+        {
+            var xaml = @"
+        <muxc:TwoPaneView>
+            <muxc:TwoPaneView.Pane1>
+                <!-- something important -->
+                <Grid />
+            </muxc:TwoPaneView.Pane1>
+            <muxc:TwoPaneView.Pane2 />
+        </muxc:TwoPaneView>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(1, sut.Attributes[0].Children.Count);
+        }
     }
 }
