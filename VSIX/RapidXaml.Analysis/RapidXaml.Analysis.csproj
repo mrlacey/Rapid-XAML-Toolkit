@@ -213,9 +213,6 @@
       <LastGenOutput>RapidXamlCommonMenus.cs</LastGenOutput>
     </None>
     <Content Include="Resources\RapidXamlAnalysisIcons.png" />
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Key.snk" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
@@ -236,35 +233,39 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>3.2.0</Version>
+      <Version>3.7.0-3.20271.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Common">
-      <Version>3.2.0</Version>
+      <Version>3.7.0-3.20271.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp">
+      <Version>3.7.0-3.20271.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.InteractiveHost">
-      <Version>3.5.0-beta3-20074-03</Version>
+      <Version>3.7.0-3.20271.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.LanguageServices">
-      <Version>3.2.0</Version>
+      <Version>3.7.0-3.20271.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.206" ExcludeAssets="runtime">
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Text.Data">
-      <Version>16.1.89</Version>
+      <Version>16.8.39</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.TextManager.Interop.12.0">
       <Version>12.0.30112</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.2.3074">
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.8.3038">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VSSDK.Vsixsigntool">
-      <Version>16.2.29116.78</Version>
+      <Version>16.3.29220.27</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>

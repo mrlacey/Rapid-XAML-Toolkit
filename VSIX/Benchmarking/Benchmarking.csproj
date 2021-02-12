@@ -1,47 +1,72 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F479F9DD-C357-4435-BF03-FDD063C60D67}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Benchmarking</RootNamespace>
+    <AssemblyName>Benchmarking</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <NoWarn>NU1701</NoWarn>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <NoWarn>NU1701</NoWarn>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.2.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="16.1.89" />
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj" />
-    <ProjectReference Include="..\RapidXaml.Analysis\RapidXaml.Analysis.csproj" />
-    <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj" />
-    <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj" />
-    <ProjectReference Include="..\RapidXamlToolkit.Tests\RapidXamlToolkit.Tests.csproj" />
+    <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">
+      <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
+      <Name>RapidXaml.AnalysisCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Analysis\RapidXaml.Analysis.csproj">
+      <Project>{fc81b148-4683-4557-bea1-69ad39241576}</Project>
+      <Name>RapidXaml.Analysis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
+      <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
+      <Name>RapidXaml.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj">
+      <Project>{2d65223e-f87c-4e5a-b643-ba3c4304e52d}</Project>
+      <Name>RapidXaml.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXamlToolkit.Tests\RapidXamlToolkit.Tests.csproj">
+      <Project>{8a7dd653-78bc-4eab-8227-4309cc25e750}</Project>
+      <Name>RapidXamlToolkit.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
-
-  <ItemGroup>
-    <Page Include="..\RapidXamlToolkit.Tests\Misc\ComboBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <Link>files\ComboBox.xaml</Link>
-    </Page>
-    <Page Include="..\RapidXamlToolkit.Tests\Misc\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <Link>files\Generic.xaml</Link>
-    </Page>
-    <Page Include="..\RapidXamlToolkit.Tests\Misc\ProfileConfigControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <Link>files\ProfileConfigControl.xaml</Link>
-    </Page>
-  </ItemGroup>
-
   <ItemGroup>
     <None Update="files\A11yTabIndex.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -58,6 +83,35 @@
     <None Update="files\ProfileConfigControl.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="app.config" />
+    <None Include="historic-results.md" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Compile Include="AnalysisParserBenchmarks.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="files\A11yTabIndex.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="files\Classic.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="files\ComboBox.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="files\Generic.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="files\ProfileConfigControl.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

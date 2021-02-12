@@ -32,13 +32,13 @@
     <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.dll" target="tools/net472/" />
     <!-- <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.pdb" target="tools/net472/" /> -->
     <file src=".\bin\release\net472\RapidXaml.Shared.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.Shared.dll.config" target="tools/net472/" />
+    <!--<file src=".\bin\release\net472\RapidXaml.Shared.dll.config" target="tools/net472/" />-->
     <file src=".\bin\release\net472\RapidXaml.Shared.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.xml" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Utils.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Utils.pdb" target="tools/net472/" />
     <!-- Would love to do this with wildcards but for some reason it's not working -->
-    <file src=".\bin\release\net472\ApiAnalysis.SimpleJsonAnalyzer.vsixuse.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\ApiAnalysis.SimpleJsonAnalyzer.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\EnvDTE.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\EnvDTE80.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.ApplicationInsights.dll" target="tools/net472/" />
@@ -47,7 +47,7 @@
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.EditorFeatures.Text.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.Features.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\Microsoft.CodeAnalysis.FlowAnalysis.Utilities.dll" target="tools/net472/" />
+    <!--<file src=".\bin\release\net472\Microsoft.CodeAnalysis.FlowAnalysis.Utilities.dll" target="tools/net472/" />-->
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.Scripting.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.VisualBasic.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll" target="tools/net472/" />
