@@ -42,7 +42,9 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter
         public string GetNameProjectContainingFile(string fileName)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             return this.projFile;
         }
