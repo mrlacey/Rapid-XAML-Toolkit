@@ -430,7 +430,7 @@ namespace RapidXamlToolkit.Parsers
                 rawOutput = rawOutput.Replace(Placeholder.PropertyName, $"{namePrefix}.{Placeholder.PropertyName}");
             }
 
-            return this.FormatOutput(rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, property.Attributes, getSubPropertyOutput);
+            return this.FormatOutput(rawOutput, property.PropertyType, property.Name, numericSubstitute, property?.Symbol, property.Attributes, getSubPropertyOutput);
         }
 
         protected (string output, int counter) GetMethodOutputAndCounter(MethodDetails method, int numericSubstitute, SemanticModel semModel)
@@ -650,7 +650,7 @@ namespace RapidXamlToolkit.Parsers
                 }
             }
 
-            if (result.Contains(Placeholder.EnumMembers))
+            if (result.Contains(Placeholder.EnumMembers) && symbol != null)
             {
                 var enumMembers = symbol.GetMembers().Where(m => m.Kind == SymbolKind.Field && !m.IsImplicitlyDeclared).ToList();
 
