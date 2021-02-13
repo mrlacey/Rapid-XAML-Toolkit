@@ -40,9 +40,7 @@ namespace RapidXamlToolkit
 
         public static AnalysisOptionsGrid Options { get; internal set; }
 
-#pragma warning disable CS0628 // New protected member declared in sealed class
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
-#pragma warning restore CS0628 // New protected member declared in sealed class
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
