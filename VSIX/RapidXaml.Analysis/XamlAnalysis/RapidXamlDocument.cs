@@ -123,7 +123,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.Grid, new GridProcessor(processorEssentials)),
                         (Elements.TextBlock, new TextBlockProcessor(processorEssentials)),
                         (Elements.TextBox, new TextBoxProcessor(processorEssentials)),
-                        (Elements.Button, new ButtonProcessor(processorEssentials)),
                         (Elements.AppBarButton, new AppBarButtonProcessor(processorEssentials)),
                         (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(processorEssentials)),
                         (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(processorEssentials)),
@@ -157,19 +156,20 @@ namespace RapidXamlToolkit.XamlAnalysis
 
 #if DEBUG
                 // These types exists for testing only and so are only referenced during Debug
-                customProcessors.Add(new CustomAnalysis.FooAnalysis());
-                customProcessors.Add(new CustomAnalysis.BadCustomAnalyzer());
-                customProcessors.Add(new CustomAnalysis.InternalBadCustomAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.CustomGridDefinitionAnalyzer());
-                customProcessors.Add(new CustomAnalysis.RenameElementTestAnalyzer());
-                customProcessors.Add(new CustomAnalysis.ReplaceElementTestAnalyzer());
-                customProcessors.Add(new CustomAnalysis.AddChildTestAnalyzer());
-                customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
-                customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer2(vsAbstraction));
+                ////customProcessors.Add(new CustomAnalysis.FooAnalysis());
+                ////customProcessors.Add(new CustomAnalysis.BadCustomAnalyzer());
+                ////customProcessors.Add(new CustomAnalysis.InternalBadCustomAnalyzer(vsAbstraction));
+                ////customProcessors.Add(new CustomAnalysis.CustomGridDefinitionAnalyzer());
+                ////customProcessors.Add(new CustomAnalysis.RenameElementTestAnalyzer());
+                ////customProcessors.Add(new CustomAnalysis.ReplaceElementTestAnalyzer());
+                ////customProcessors.Add(new CustomAnalysis.AddChildTestAnalyzer());
+                ////customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
+                ////customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer(vsAbstraction));
+                ////customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer2(vsAbstraction));
                ////customProcessors.Add(new CustomAnalysis.AddXmlnsAnalyzer());
                 customProcessors.Add(new CustomAnalysis.WebViewToWebView2Converter());
 #endif
+                customProcessors.Add(new CustomAnalysis.ButtonAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.LabelAnalyzer(vsAbstraction));

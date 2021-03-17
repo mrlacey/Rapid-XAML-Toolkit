@@ -7,7 +7,6 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-
     public class CheckBoxAnalyzer : BuiltInXamlAnalyzer
     {
         public CheckBoxAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
