@@ -7,6 +7,7 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
+
     public class CheckBoxAnalyzer : BuiltInXamlAnalyzer
     {
         public CheckBoxAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
@@ -14,7 +15,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
         {
         }
 
-        public override string TargetType() => "CheckBox";
+        public override string TargetType() => Elements.CheckBox;
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
