@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
                     if (attrValue.StartsWith("{Binding"))
                     {
-                        result.RemoveAttribute(RapidXamlErrorType.Suggestion, "RXTPOC", $"Use 'x:Bind' rather than 'Binding' for '{attribute.Name}'.", "Change to 'x:Bind'", attribute)
+                        result.RemoveAttribute(RapidXamlErrorType.Suggestion, "RXT170", $"Use 'x:Bind' rather than 'Binding' for '{attribute.Name}'.", "Change to 'x:Bind'", attribute)
                               .AndAddAttribute(attribute.Name, attrValue.Replace("{Binding", "{x:Bind"));
                     }
                 }

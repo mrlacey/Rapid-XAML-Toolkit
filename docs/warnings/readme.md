@@ -10,6 +10,7 @@ The following may be shown in the Error List.
 | [RXT104](./RXT104.md) | Use of a `Grid.ColumnSpan` value without corresponding `ColumnDefinition`. |
 | [RXT150](./RXT150.md) | `TextBox` does not have an `InputScope` specified. |
 | [RXT160](./RXT160.md) | `SelectedItem` binding should probably be `TwoWay`. |
+| [RXT170](./RXT170.md) | Use 'x:Bind' rather than 'Binding'. |
 | [RXT200](./RXT200.md) | Hard-coded string value that should be a resource. |
 | [RXT300](./RXT300.md) | `Entry` does not have a `Keyboard` specified. |
 | [RXT300](./RXT301.md) | Password `Entry` does not have a `MaxLength` specified. |
@@ -21,3 +22,4 @@ The following may be shown in the Error List.
 | [RXT452](./RXT452.md) | `Name` should begin with an upper case character. |
 | [RXT700](./RXT700.md) | Platform-specific Uno xmlns should be Ignorable. |
 | [RXT999](./RXT999.md) | Unknown error - Something went wrong when parsing XAML document. |
+| [RXTPOC](./RXTPOC.md) | Congratulations, you've found something experimental. |
