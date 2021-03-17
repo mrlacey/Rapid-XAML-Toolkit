@@ -127,6 +127,7 @@
     <Compile Include="XamlAnalysis\CustomAnalyzers\AnyOrChildrenContainingTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\BuiltInXamlAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\ButtonAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\CheckBoxAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\CustomAnalysisTagLocationTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\CustomAnalysisTestHelperTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\FakeExtraAnalysisDetails.cs" />
@@ -149,7 +150,6 @@
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\CalendarDatePickerProcessorTests.cs" />
-    <Compile Include="XamlAnalysis\Processors\CheckBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessorTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\EntryAnalyzerTests.cs" />

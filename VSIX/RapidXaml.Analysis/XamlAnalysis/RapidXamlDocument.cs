@@ -127,7 +127,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(processorEssentials)),
                         (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(processorEssentials)),
                         (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(processorEssentials)),
-                        (Elements.CheckBox, new CheckBoxProcessor(processorEssentials)),
                         (Elements.ComboBox, new ComboBoxProcessor(processorEssentials)),
                         (Elements.DatePicker, new DatePickerProcessor(processorEssentials)),
                         (Elements.TimePicker, new TimePickerProcessor(processorEssentials)),

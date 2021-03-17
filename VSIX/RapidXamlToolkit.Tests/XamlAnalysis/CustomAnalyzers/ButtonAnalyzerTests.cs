@@ -8,7 +8,6 @@ using RapidXaml;
 using RapidXaml.TestHelpers;
 using RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers;
 using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
