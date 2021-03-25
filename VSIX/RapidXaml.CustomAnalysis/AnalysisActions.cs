@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 
 namespace RapidXaml
@@ -54,6 +55,18 @@ namespace RapidXaml
         /// Gets a list of the actions that shoudl be performed as a result of the analysis.
         /// </summary>
         public List<AnalysisAction> Actions { get; private set; } = new List<AnalysisAction>();
+
+        /// <summary>
+        /// Add the actions from another AnalysisActions object.
+        /// </summary>
+        /// <param name="otherActions">Another custom anlaysis response.</param>
+        public void Add(AnalysisActions otherActions)
+        {
+            if (otherActions != null && !otherActions.IsNone)
+            {
+                this.Actions.AddRange(otherActions.Actions);
+            }
+        }
 
         /// <summary>
         /// An attribute should be added to the analyzed element.
