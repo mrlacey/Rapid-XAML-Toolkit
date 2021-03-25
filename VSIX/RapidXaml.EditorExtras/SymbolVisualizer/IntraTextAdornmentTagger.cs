@@ -42,6 +42,15 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
 
             this.view.LayoutChanged += this.HandleLayoutChanged;
             this.view.TextBuffer.Changed += this.HandleBufferChanged;
+
+            this.view.Closed += (s, e) =>
+            {
+                this.view.LayoutChanged -= this.HandleLayoutChanged;
+                if (this.view.TextBuffer != null)
+                {
+                    this.view.TextBuffer.Changed -= this.HandleBufferChanged;
+                }
+            };
         }
 
         public event EventHandler<SnapshotSpanEventArgs> TagsChanged;
