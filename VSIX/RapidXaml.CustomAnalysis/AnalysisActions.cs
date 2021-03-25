@@ -57,18 +57,6 @@ namespace RapidXaml
         public List<AnalysisAction> Actions { get; private set; } = new List<AnalysisAction>();
 
         /// <summary>
-        /// Add the actions from another AnalysisActions object.
-        /// </summary>
-        /// <param name="otherActions">Another custom anlaysis response.</param>
-        public void Add(AnalysisActions otherActions)
-        {
-            if (otherActions != null && !otherActions.IsNone)
-            {
-                this.Actions.AddRange(otherActions.Actions);
-            }
-        }
-
-        /// <summary>
         /// An attribute should be added to the analyzed element.
         /// </summary>
         /// <param name="errorType">How the response should be indicated.</param>
@@ -344,6 +332,18 @@ namespace RapidXaml
             result.RenameElement(errorType, code, description, actionText, newName, extendedMessage, moreInfoUrl);
 
             return result;
+        }
+
+        /// <summary>
+        /// Add the actions from another AnalysisActions object.
+        /// </summary>
+        /// <param name="otherActions">Another custom anlaysis response.</param>
+        public void Add(AnalysisActions otherActions)
+        {
+            if (otherActions != null && !otherActions.IsNone)
+            {
+                this.Actions.AddRange(otherActions.Actions);
+            }
         }
 
         private static AnalysisActions CreateNone()
