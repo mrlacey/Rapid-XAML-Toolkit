@@ -9,7 +9,7 @@
     <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
     <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md</ReleaseNotes>
     <Icon>Resources\RapidXamlEditorExtrasLogo.png</Icon>
-    <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, Forms, MVVM, Roslyn, Analysis</Tags>
+    <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;Forms;MVVM;Roslyn;Analysis</Tags>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
