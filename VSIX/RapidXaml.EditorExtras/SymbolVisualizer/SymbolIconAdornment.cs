@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using System.Windows.Media;
 using EnvDTE;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
 namespace RapidXaml.EditorExtras.SymbolVisualizer
@@ -14,6 +16,7 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
     internal sealed class SymbolIconAdornment : TextBlock
     {
         private double? vsFontSize = null;
+        private uint? vsPlainTextForeground = null;
 
         public SymbolIconAdornment(SymbolIconTag tag)
         {
@@ -1072,21 +1075,32 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
         {
             if (this.vsFontSize is null)
             {
-                DTE vsEnvironment = (DTE)Microsoft.VisualStudio.Shell.ServiceProvider.GlobalProvider.GetService(typeof(SDTE));
+                DTE vsEnvironment = (DTE)ServiceProvider.GlobalProvider.GetService(typeof(SDTE));
 
                 if (vsEnvironment != null)
                 {
                     Properties propertiesList = vsEnvironment.get_Properties("FontsAndColors", "TextEditor");
                     Property pFontSize = null;
+                    ColorableItems pPlainText = null;
 
                     if (propertiesList != null)
                     {
                         pFontSize = propertiesList.Item("FontSize");
+
+                        var fandcItems = propertiesList.Item("FontsAndColorsItems") as EnvDTE.Property;
+                        var fcList = fandcItems.Object as EnvDTE.FontsAndColorsItems;
+
+                        pPlainText = fcList.Item("Plain Text");
                     }
 
                     if (pFontSize != null)
                     {
                         this.vsFontSize = Convert.ToDouble(pFontSize.Value.ToString());
+                    }
+
+                    if (pPlainText != null)
+                    {
+                        this.vsPlainTextForeground = pPlainText.Foreground;
                     }
                 }
             }
@@ -1094,6 +1108,20 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
             if (this.vsFontSize.HasValue)
             {
                 this.FontSize = this.vsFontSize.Value;
+            }
+
+            if (this.vsPlainTextForeground.HasValue)
+            {
+                Color UIntToColor(uint color)
+                {
+                    var a = (byte)(color >> 24);
+                    var r = (byte)(color >> 16);
+                    var g = (byte)(color >> 8);
+                    var b = (byte)(color >> 0);
+                    return Color.FromArgb(255, r, g, b);
+                }
+
+                this.Foreground = new SolidColorBrush(UIntToColor(this.vsPlainTextForeground.Value));
             }
         }
     }
