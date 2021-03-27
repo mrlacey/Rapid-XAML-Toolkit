@@ -4,7 +4,8 @@
 
 - Fix bug where the location of items to underline was not calculated correctly.
 - Performance improvements in analysis.
-- Add JsonSchema support for .xamlAnalysis files
+- Add JsonSchema support for .xamlAnalysis files.
+- Add automated fixes for hard-coded strings in WPF & Xamarin.Forms.
 
 ## 0.11.5
 

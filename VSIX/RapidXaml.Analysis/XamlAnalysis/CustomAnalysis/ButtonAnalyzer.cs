@@ -5,14 +5,14 @@ using RapidXaml;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class LabelAnalyzer : BuiltInXamlAnalyzer
+    public class ButtonAnalyzer : BuiltInXamlAnalyzer
     {
-        public LabelAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+        public ButtonAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
             : base(vsa)
         {
         }
 
-        public override string TargetType() => Elements.Label;
+        public override string TargetType() => Elements.Button;
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
@@ -20,13 +20,13 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
             switch (framework)
             {
+                case ProjectFramework.Uwp:
                 case ProjectFramework.Wpf:
                     return this.CheckForHardCodedString(Attributes.Content, AttributeType.Any, element, extraDetails);
 
                 case ProjectFramework.XamarinForms:
                     return this.CheckForHardCodedString(Attributes.Text, AttributeType.Any, element, extraDetails);
 
-                case ProjectFramework.Uwp:
                 case ProjectFramework.Unknown:
                 default:
                     return AnalysisActions.EmptyList;

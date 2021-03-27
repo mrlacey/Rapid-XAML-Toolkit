@@ -51,6 +51,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             const string XamAndroidGuid = "{EFBA0AD7-5A72-4C68-AF49-83D382785DCF}";
             const string XamIosGuid = "{6BC8ED88-2882-458C-8E55-DFD12B67127B}";
 
+            // If trying to get this before the solution has fully loaded
+            // the referenced packages are not available and so can't be certain that the project type is known.
+            // This means "Unknown" may incorrectly be detected and so we don't want to cache that.
+            bool canCache = true;
+
             if (string.IsNullOrWhiteSpace(project?.FileName) || project?.DTE == null)
             {
                 return ProjectType.Unknown;
@@ -91,6 +96,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 catch (Exception exc)
                 {
                     this.logger?.RecordException(exc);
+                    canCache = false;
                 }
 
                 return false;
@@ -209,7 +215,11 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 }
             }
 
-            ProjectTypeCache.Add(project.FileName, result);
+            if (canCache)
+            {
+                ProjectTypeCache.Add(project.FileName, result);
+            }
+
             return result;
         }
 

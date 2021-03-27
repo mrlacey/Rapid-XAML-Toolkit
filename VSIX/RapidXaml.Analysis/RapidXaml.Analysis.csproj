@@ -94,7 +94,6 @@
     <Compile Include="XamlAnalysis\Actions\MakeNameStartWithCapitalAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MakeUidStartWithCapitalAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MediaElementAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\MissingCheckBoxEventAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
     <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
@@ -104,6 +103,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\AddXmlnsAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BadCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BindingToXBindAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\ButtonAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\CheckBoxAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer.cs" />
@@ -131,9 +131,7 @@
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\ButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\CalendarDatePickerProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\CheckBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\EveryElementProcessor.cs" />
@@ -170,7 +168,6 @@
     <Compile Include="XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddRowDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\CheckBoxCheckedAndUncheckedEventsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
     <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />

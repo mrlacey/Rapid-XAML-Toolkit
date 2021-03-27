@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 
 namespace RapidXaml
@@ -331,6 +332,18 @@ namespace RapidXaml
             result.RenameElement(errorType, code, description, actionText, newName, extendedMessage, moreInfoUrl);
 
             return result;
+        }
+
+        /// <summary>
+        /// Add the actions from another AnalysisActions object.
+        /// </summary>
+        /// <param name="otherActions">Another custom anlaysis response.</param>
+        public void Add(AnalysisActions otherActions)
+        {
+            if (otherActions != null && !otherActions.IsNone)
+            {
+                this.Actions.AddRange(otherActions.Actions);
+            }
         }
 
         private static AnalysisActions CreateNone()

@@ -9,7 +9,7 @@
     <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
     <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md</ReleaseNotes>
     <Icon>Resources\RapidXamlCommonLogo.png</Icon>
-    <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, MVVM</Tags>
+    <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;MVVM</Tags>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
