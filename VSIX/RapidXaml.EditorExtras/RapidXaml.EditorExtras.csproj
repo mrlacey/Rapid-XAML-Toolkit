@@ -55,6 +55,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlEditorExtrasPackage.cs" />
+    <Compile Include="SymbolVisualizer\AppBarButtonTagger.cs" />
+    <Compile Include="SymbolVisualizer\AppBarButtonTaggerProvider.cs" />
     <Compile Include="SymbolVisualizer\FontAwesomeTagger.cs" />
     <Compile Include="SymbolVisualizer\FontAwesomeTaggerProvider.cs" />
     <Compile Include="SymbolVisualizer\GlyphTagger.cs" />
