@@ -31,6 +31,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var gridIsSelfClosing = XamlElementProcessor.IsSelfClosing(xamlElement.AsSpan());
 
             var hasRowDef = false;
+            var shortRowSyntax = false;
             if (rowDefPos > 0)
             {
                 hasRowDef = firstNestedGrid <= 0 || rowDefPos < firstNestedGrid;
@@ -44,10 +45,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 if (this.TryGetAttribute(xamlElement, Attributes.RowDefinitions, AttributeType.Inline, out _, out _, out _, out rowDefsString))
                 {
                     hasRowDef = true;
+                    shortRowSyntax = true;
                 }
             }
 
             var hasColDef = false;
+            var shortColSyntax = false;
             if (colDefPos > 0)
             {
                 hasColDef = firstNestedGrid <= 0 || colDefPos < firstNestedGrid;
@@ -61,6 +64,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 if (this.TryGetAttribute(xamlElement, Attributes.ColumnDefinitions, AttributeType.Inline, out _, out _, out _, out colDefsString))
                 {
                     hasColDef = true;
+                    shortColSyntax = true;
                 }
             }
 
@@ -220,6 +224,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         Description = StringRes.UI_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
                                         ExistingDefsCount = rowDefsCount,
                                         HasSomeDefinitions = hasRowDef,
+                                        UsesShortDefinitionSyntax = shortRowSyntax,
                                         InsertPosition = offset + rowDefsClosingPos,
                                         LeftPad = leftPad,
                                     });
@@ -253,6 +258,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         Description = StringRes.UI_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
                                         ExistingDefsCount = colDefsCount,
                                         HasSomeDefinitions = hasColDef,
+                                        UsesShortDefinitionSyntax = shortColSyntax,
                                         InsertPosition = offset + colDefsClosingPos,
                                         LeftPad = leftPad,
                                     });
