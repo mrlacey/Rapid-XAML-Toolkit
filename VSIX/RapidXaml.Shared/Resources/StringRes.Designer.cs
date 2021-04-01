@@ -2268,5 +2268,23 @@ namespace RapidXamlToolkit.Resources {
                 return ResourceManager.GetString("UI_XamlAnalysisXfImageFilenameExtendedMessage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting the Fill property of a Line is unnecessary as it has no effect..
+        /// </summary>
+        public static string UI_XamlAnalysisXfLineDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfLineDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Fill attribute..
+        /// </summary>
+        public static string UI_XamlAnalysisXfLineToolTip {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfLineToolTip", resourceCulture);
+            }
+        }
     }
 }

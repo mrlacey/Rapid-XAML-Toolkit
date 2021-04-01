@@ -858,4 +858,10 @@ If you're noticing an issue, you can disable automatic analysis every time a fil
   <data name="UI_XamlAnalysisXfImageFilenameExtendedMessage" xml:space="preserve">
     <value>Android drawables have strict naming restrictions. The filename being used breaks these restrictions and so you won't be able to use the same filename for all platforms.</value>
   </data>
+  <data name="UI_XamlAnalysisXfLineDescription" xml:space="preserve">
+    <value>Setting the Fill property of a Line is unnecessary as it has no effect.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfLineToolTip" xml:space="preserve">
+    <value>Remove Fill attribute.</value>
+  </data>
 </root>

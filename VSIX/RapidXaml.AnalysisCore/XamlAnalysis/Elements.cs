@@ -41,6 +41,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Label => "Label";
 
+        public static string Line => "Line";
+
         public static string ListView => "ListView";
 
         public static string MediaElement => "MediaElement";
