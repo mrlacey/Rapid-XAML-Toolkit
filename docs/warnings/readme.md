@@ -14,6 +14,7 @@ The following may be shown in the Error List.
 | [RXT200](./RXT200.md) | Hard-coded string value that should be a resource. |
 | [RXT300](./RXT300.md) | `Entry` does not have a `Keyboard` specified. |
 | [RXT300](./RXT301.md) | Password `Entry` does not have a `MaxLength` specified. |
+| [RXT300](./RXT310.md) | `Image` source filename may not work on all platforms. |
 | [RXT300](./RXT351.md) | `Image` lacks accessibility consideration. |
 | [RXT300](./RXT351.md) | `ImageButton` lacks accessibility consideration. |
 | [RXT401](./RXT401.md) | Handle both `Checked` and `Unchecked` events for a `CheckBox`. |

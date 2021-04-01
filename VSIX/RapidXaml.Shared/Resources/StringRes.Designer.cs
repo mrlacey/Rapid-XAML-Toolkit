@@ -2250,5 +2250,23 @@ namespace RapidXamlToolkit.Resources {
                 return ResourceManager.GetString("UI_XamlAnalysisUseMediaPlayerElementToolTip", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename may not work on all platforms..
+        /// </summary>
+        public static string UI_XamlAnalysisXfImageFilenameDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfImageFilenameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Android drawables have strict naming restrictions. The filename being used breaks these restrictions and so you won&apos;t be able to use the same filename for all platforms..
+        /// </summary>
+        public static string UI_XamlAnalysisXfImageFilenameExtendedMessage {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfImageFilenameExtendedMessage", resourceCulture);
+            }
+        }
     }
 }

@@ -852,4 +852,10 @@ If you're noticing an issue, you can disable automatic analysis every time a fil
   <data name="Info_UnknownCustomActionType" xml:space="preserve">
     <value>"Unknown functionality defined in CustomAnalysis. Try updating the extension."</value>
   </data>
+  <data name="UI_XamlAnalysisXfImageFilenameDescription" xml:space="preserve">
+    <value>Filename may not work on all platforms.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfImageFilenameExtendedMessage" xml:space="preserve">
+    <value>Android drawables have strict naming restrictions. The filename being used breaks these restrictions and so you won't be able to use the same filename for all platforms.</value>
+  </data>
 </root>
