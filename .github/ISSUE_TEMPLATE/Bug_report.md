@@ -1,8 +1,8 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: :bug: Bug report
+about: Tell us that something is wrong or doens't work properly
 title: ''
-labels: ''
+labels: 'bug'
 assignees: ''
 
 ---
