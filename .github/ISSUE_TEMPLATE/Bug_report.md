@@ -1,5 +1,5 @@
 ---
-name: :bug: Bug report
+name: ":bug: Bug report"
 about: Tell us that something is wrong or doens't work properly
 title: ''
 labels: [bug]
