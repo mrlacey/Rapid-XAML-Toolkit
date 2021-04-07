@@ -1,5 +1,5 @@
 ---
-name: Question
+name: "❓ Question"
 about: If you have any questions about this project or use of the extensions
 title: ''
 labels: [question]
