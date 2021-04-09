@@ -1,4 +1,7 @@
 contact_links:
   - name: 🆓 Support this project
     url: https://rapidxaml.dev/support
-    about: See how you can help support this project
+    about: See how you can help support this project.
+  - name: ⭐ Leave a review
+    url: https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit&ssr=false#review-details
+    about: Positive reviews are a great motivator to keep working on this project and they encourage others to try using it.
