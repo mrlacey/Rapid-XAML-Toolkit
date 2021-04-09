@@ -21,7 +21,6 @@ body:
     options:
       - label: "2019"
       - label: "2019 (preview)"
-
 - type: dropdown
   attributes:
     label: Project Type
