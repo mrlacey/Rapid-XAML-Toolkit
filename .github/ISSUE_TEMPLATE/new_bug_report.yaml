@@ -15,7 +15,6 @@ body:
     label: How can this be reproduced
     description: Tell us what's wrong or not working.
     placeholder: "When I do X... Y happens "
-
 - type: chekbox
     label: Which version of Visual Studio are you using?
     options:
