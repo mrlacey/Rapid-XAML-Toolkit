@@ -10,6 +10,11 @@ body:
     placeholder: "When I do X... Y happens "
   validations:
     required: true
+- type: textarea
+  attributes:
+    label: How can this be reproduced
+    description: Tell us what's wrong or not working.
+    placeholder: "When I do X... Y happens "
 - type: dropdown
   attributes:
     label: Project Type
