@@ -16,6 +16,7 @@ body:
     description: Tell us what's wrong or not working.
     placeholder: "When I do X... Y happens "
 - type: chekbox
+  attributes:
     label: "Which version of Visual Studio are you using?"
     options:
       - label: 2019
