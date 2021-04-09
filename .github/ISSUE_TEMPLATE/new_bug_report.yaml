@@ -1,0 +1,20 @@
+---
+name: 🐛 Bug report (new)
+description: Tell us that something is wrong or doesn't work properly
+labels: [bug]
+body:
+- type: textarea
+  attributes:
+    label: Describe the bug
+    description: Tell us what's wrong or not working.
+    placeholder: "When I do X... Y happens "
+  validations:
+    required: true
+- type: dropdown
+  attributes:
+    label: Project Type
+    options:
+    - UWP
+    - WinUI
+    - WPF
+    - Xamarin.Forms
