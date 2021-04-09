@@ -19,8 +19,8 @@ body:
   attributes:
     label: "Which version of Visual Studio are you using?"
     options:
-      - label: 2019
-      - label: 2019 (preview)
+      - label: "2019"
+      - label: "2019 (preview)"
 
 - type: dropdown
   attributes:
