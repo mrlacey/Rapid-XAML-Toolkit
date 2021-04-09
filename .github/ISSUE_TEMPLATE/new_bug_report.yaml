@@ -10,17 +10,6 @@ body:
     placeholder: "When I do X... Y happens "
   validations:
     required: true
-- type: textarea
-  attributes:
-    label: How can this be reproduced
-    description: Tell us what's wrong or not working.
-    placeholder: "When I do X... Y happens "
-- type: checkbox
-  attributes:
-    label: "Which version of Visual Studio are you using?"
-    options:
-      - label: "2019"
-      - label: "2019 (preview)"
 - type: dropdown
   attributes:
     label: Project Type
