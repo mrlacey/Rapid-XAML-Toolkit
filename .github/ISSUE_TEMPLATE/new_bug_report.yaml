@@ -12,9 +12,12 @@ body:
     required: true
 - type: textarea
   attributes:
-    label: How can this be reproduced
-    description: Tell us what's wrong or not working.
-    placeholder: "When I do X... Y happens "
+    label: "How can this be reproduced?"
+    description: Providing steps to reproduce the issue makes it much quicker to find and fix the underlying problem.
+    placeholder: "1. Go to '...'\n
+2. Click on '....'\n
+3. Scroll down to '....'\n
+4. See error "
 - type: checkboxes
   attributes:
     label: "Which version of Visual Studio are you using?"
