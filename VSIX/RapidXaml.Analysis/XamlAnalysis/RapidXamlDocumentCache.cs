@@ -197,6 +197,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 RxtOutputPane.Instance.Write(StringRes.Info_PromptToDisableAnalysisOnSave);
                                 RxtOutputPane.Instance.Activate(); // To increase the likelihood that it's seen
 
+                                ThreadHelper.JoinableTaskFactory.Run(async () =>
+                                {
+                                    var infoBar = new AnalysisSpeedWarningInfoBar();
+
+                                    await infoBar.ShowInfoBarAsync();
+                                });
+
                                 havePromptedForSaveAnalysisPerformance = true;
                             }
 

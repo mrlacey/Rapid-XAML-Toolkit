@@ -852,4 +852,10 @@ If you're noticing an issue, you can disable automatic analysis every time a fil
   <data name="Info_UnknownCustomActionType" xml:space="preserve">
     <value>"Unknown functionality defined in CustomAnalysis. Try updating the extension."</value>
   </data>
+  <data name="Info_PromptAnalysisRunningSlow" xml:space="preserve">
+    <value>XAML analysis seems to be running slower than expected.</value>
+  </data>
+  <data name="Info_PromptDisableAnalysisOnSave" xml:space="preserve">
+    <value>Disable analysis when save file</value>
+  </data>
 </root>
