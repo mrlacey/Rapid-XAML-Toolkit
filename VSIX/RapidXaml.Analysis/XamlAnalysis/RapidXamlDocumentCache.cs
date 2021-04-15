@@ -84,8 +84,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                         package,
                         path,
                         logicalView,
-                        out var dummyHierarchy2,
-                        out var dummyItemId2,
+                        out var _,
+                        out var _,
                         out windowFrame);
                 }
                 else
