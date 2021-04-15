@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.VisualStudioIntegration;
@@ -159,34 +158,76 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 return xamlElementThatMayHaveChildren;
             }
 
+            // Walk the string once rather than separate passes for each count
+            var openTagCount = 0;
+            var closeTagCount = 0;
+
+            for (int i = 0; i < xamlElementThatMayHaveChildren.Length; i++)
+            {
+                var c = xamlElementThatMayHaveChildren[i];
+
+                if (c == '<' && ++openTagCount > 2)
+                    break;
+                if (c == '>' && ++closeTagCount > 2)
+                    break;
+            }
+
             // Don't walk the whole string if we can avoid it for something without any sub-elements
-            if (xamlElementThatMayHaveChildren.Count(x => x == '<') == 2
-             && xamlElementThatMayHaveChildren.Count(x => x == '>') == 2)
+            if (openTagCount == 2 && closeTagCount == 2)
             {
                 return xamlElementThatMayHaveChildren.Substring(0, xamlElementThatMayHaveChildren.IndexOf('>') + 1).Trim();
             }
 
-            var endOfElementName = xamlElementThatMayHaveChildren.AsSpan().FirstIndexOf(" ", "\r", "\n", ">");
+            int endOfElementName = 0;
+
+            // Walk the string once rather than use LINQ
+            for (int i = 0; i < xamlElementThatMayHaveChildren.Length; i++)
+            {
+                var c = xamlElementThatMayHaveChildren[i];
+
+                if (c == ' ' || c == '\r' || c == '\n' || c == '>')
+                {
+                    endOfElementName = i;
+                    break;
+                }
+            }
 
             var elementName = xamlElementThatMayHaveChildren.Substring(1, endOfElementName - 1);
 
             var nextElementStart = xamlElementThatMayHaveChildren.IndexOf('<', endOfElementName);
 
-            var possibleNextElementName = string.Empty;
-
             while (nextElementStart > 0)
             {
-                possibleNextElementName = xamlElementThatMayHaveChildren.Substring(nextElementStart + 1, elementName.Length + 1);
+                var possibleNextElementName = xamlElementThatMayHaveChildren.Substring(nextElementStart + 1, elementName.Length + 1);
 
                 if (possibleNextElementName != $"{elementName}."
                     && possibleNextElementName != $"/{elementName}")
                 {
                     var stringSoFar = xamlElementThatMayHaveChildren.Substring(0, nextElementStart);
 
-                    var openings = stringSoFar.Count(s => s == '<');
-                    var closings = stringSoFar.OccurrenceCount("</");
-                    openings -= closings; // Allow for the openings count incorrectly including closings
-                    var selfClosings = stringSoFar.OccurrenceCount("/>");
+                    int openings = 0;
+                    int closings = 0;
+                    int selfClosings = 0;
+
+                    // Do all counting in a single pass of the string to avoid perf cost of multiple lookups
+                    for (int i = 0; i < stringSoFar.Length - 1; i++)
+                    {
+                        if (stringSoFar[i] == '<')
+                        {
+                            if (stringSoFar[i + 1] == '/')
+                            {
+                                closings++;
+                            }
+                            else
+                            {
+                                openings++;
+                            }
+                        }
+                        else if (stringSoFar[i] == '/' && stringSoFar[i + 1] == '>')
+                        {
+                            selfClosings++;
+                        }
+                    }
 
                     if (openings == closings + selfClosings + 1)
                     {
@@ -219,6 +260,12 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         public abstract void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xmlns = null);
 
         public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, out AttributeType attributeType, out int index, out int length, out string value)
+        {
+            // Pass null for elementName if don't already know it
+            return TryGetAttribute(xaml, attributeName, attributeTypesToCheck, null, out attributeType, out index, out length, out value);
+        }
+
+        public bool TryGetAttribute(string xaml, string attributeName, AttributeType attributeTypesToCheck, string elementName, out AttributeType attributeType, out int index, out int length, out string value)
         {
             try
             {
@@ -254,7 +301,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
                 }
 
-                var elementName = GetElementName(xamlSpan);
+                if (string.IsNullOrWhiteSpace(elementName))
+                {
+                    elementName = GetElementName(xamlSpan);
+                }
 
                 if (attributeTypesToCheck.HasFlag(AttributeType.Element))
                 {

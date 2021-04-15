@@ -17,6 +17,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string CheckedEvent => "Checked";
 
+        public static string ColumnDefinitions => "ColumnDefinitions";
+
         public static string Content => "Content";
 
         public static string Description => "Description";
@@ -42,6 +44,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string Placeholder => "Placeholder";
 
         public static string PlaceholderText => "PlaceholderText";
+
+        public static string RowDefinitions => "RowDefinitions";
 
         public static string SelectedItem => "SelectedItem";
 

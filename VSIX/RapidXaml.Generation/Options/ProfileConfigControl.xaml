@@ -387,7 +387,7 @@
             Margin="0,4"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom">
-            <Hyperlink NavigateUri="https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/docs/profiles.md" RequestNavigate="HelpLinkNavigate">
+            <Hyperlink NavigateUri="https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/docs/profiles.md" RequestNavigate="HelpLinkNavigate">
                 <Run Text="{x:Static strings:OptionsStringRes.Options_HelpWithProfilesAndMappings}" />
             </Hyperlink>
         </TextBlock>

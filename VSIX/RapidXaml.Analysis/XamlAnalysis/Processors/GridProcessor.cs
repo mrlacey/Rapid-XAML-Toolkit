@@ -9,6 +9,7 @@ using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
+    // When change this to be based on BuiltInAnalyzer look to optimize performance
     public class GridProcessor : XamlElementProcessor
     {
         public GridProcessor(ProcessorEssentials essentials)
@@ -30,15 +31,41 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             var gridIsSelfClosing = XamlElementProcessor.IsSelfClosing(xamlElement.AsSpan());
 
             var hasRowDef = false;
+            var shortRowSyntax = false;
             if (rowDefPos > 0)
             {
                 hasRowDef = firstNestedGrid <= 0 || rowDefPos < firstNestedGrid;
             }
 
+            string rowDefsString = null;
+
+            if (rowDefPos < 0 && this.ProjectType.Matches(ProjectType.XamarinForms))
+            {
+                // See if using new inline format
+                if (this.TryGetAttribute(xamlElement, Attributes.RowDefinitions, AttributeType.Inline, out _, out _, out _, out rowDefsString))
+                {
+                    hasRowDef = true;
+                    shortRowSyntax = true;
+                }
+            }
+
             var hasColDef = false;
+            var shortColSyntax = false;
             if (colDefPos > 0)
             {
                 hasColDef = firstNestedGrid <= 0 || colDefPos < firstNestedGrid;
+            }
+
+            string colDefsString = null;
+
+            if (colDefPos < 0 && this.ProjectType.Matches(ProjectType.XamarinForms))
+            {
+                // See if using new inline format
+                if (this.TryGetAttribute(xamlElement, Attributes.ColumnDefinitions, AttributeType.Inline, out _, out _, out _, out colDefsString))
+                {
+                    hasColDef = true;
+                    shortColSyntax = true;
+                }
             }
 
             var leftPad = linePadding.Contains("\t") ? linePadding + "\t" : linePadding + "    ";
@@ -126,6 +153,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 rowDefIndex = xamlElement.IndexOf(rowDefStart, endPos, StringComparison.Ordinal);
             }
 
+            if (rowDefsCount == 0 && !string.IsNullOrEmpty(rowDefsString))
+            {
+                rowDefsCount = rowDefsString.Split(new[] { ',' }, StringSplitOptions.None).Length;
+            }
+
             foreach (var tag in toAdd)
             {
                 tag.RowCount = rowDefsCount;
@@ -143,6 +175,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 colDefsCount += 1;
 
                 colDefIndex = xamlElement.IndexOf(colDef, colDefIndex + 1, StringComparison.Ordinal);
+            }
+
+            if (colDefsCount == 0 && !string.IsNullOrEmpty(colDefsString))
+            {
+                colDefsCount = colDefsString.Split(new[] { ',' }, StringSplitOptions.None).Length;
             }
 
             const string rowDefUse = "Grid.Row=\"";
@@ -187,6 +224,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         Description = StringRes.UI_XamlAnalysisMissingRowDefinitionDescription.WithParams(assignedInt),
                                         ExistingDefsCount = rowDefsCount,
                                         HasSomeDefinitions = hasRowDef,
+                                        UsesShortDefinitionSyntax = shortRowSyntax,
                                         InsertPosition = offset + rowDefsClosingPos,
                                         LeftPad = leftPad,
                                     });
@@ -220,6 +258,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                         Description = StringRes.UI_XamlAnalysisMissingColumnDefinitionDescription.WithParams(assignedInt),
                                         ExistingDefsCount = colDefsCount,
                                         HasSomeDefinitions = hasColDef,
+                                        UsesShortDefinitionSyntax = shortColSyntax,
                                         InsertPosition = offset + colDefsClosingPos,
                                         LeftPad = leftPad,
                                     });
@@ -297,23 +336,23 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                             }
                         }
                         else if (xamlElement.Substring(spanUseOffset).StartsWith(colSpanUse))
-                    {
-                        var valueStartPos = spanUseOffset + colSpanUse.Length;
-                        var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
-
-                        var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
-
-                        if (int.TryParse(assignedStr, out int assignedInt))
                         {
-                            var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger, this.ProjectFilePath, this.VSPFP);
+                            var valueStartPos = spanUseOffset + colSpanUse.Length;
+                            var closePos = xamlElement.IndexOf("\"", valueStartPos, StringComparison.Ordinal);
 
-                            var gridCol = 0;
-                            if (this.TryGetAttribute(element, "Grid.Column", AttributeType.InlineOrElement, out _, out _, out _, out string colStr))
+                            var assignedStr = xamlElement.Substring(valueStartPos, closePos - valueStartPos);
+
+                            if (int.TryParse(assignedStr, out int assignedInt))
                             {
-                                gridCol = int.Parse(colStr);
-                            }
+                                var element = XamlElementProcessor.GetSubElementAtPosition(this.ProjectType, fileName, snapshot, xamlElement, spanUseOffset, this.Logger, this.ProjectFilePath, this.VSPFP);
 
-                            if (assignedInt > 1 && assignedInt - 1 + gridCol >= colDefsCount)
+                                var gridCol = 0;
+                                if (this.TryGetAttribute(element, "Grid.Column", AttributeType.InlineOrElement, out _, out _, out _, out string colStr))
+                                {
+                                    gridCol = int.Parse(colStr);
+                                }
+
+                                if (assignedInt > 1 && assignedInt - 1 + gridCol >= colDefsCount)
                                 {
                                     var tagDeps = this.CreateBaseTagDependencies(
                                         new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),

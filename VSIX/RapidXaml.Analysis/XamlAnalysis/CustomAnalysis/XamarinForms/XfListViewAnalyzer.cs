@@ -1,20 +1,22 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
-using System.Linq;
 using RapidXaml;
-using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class XfListViewAnalyzer : BuiltInXamlAnalyzer
     {
+        public XfListViewAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override string TargetType() => Elements.ListView;
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            if (!extraDetails.TryGet("framework", out ProjectFramework framework)
+            if (!extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework)
              || framework != ProjectFramework.XamarinForms)
             {
                 return AnalysisActions.None;

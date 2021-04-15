@@ -14,8 +14,8 @@ namespace RapidXaml
         public ExtraAnalysisDetails(string filePath, ProjectFramework framework)
         {
             // All keys lowercase for easier searching
-            this.Add("filepath", filePath);
-            this.Add("framework", framework);
+            this.Add(KnownExtraDetails.FilePath, filePath);
+            this.Add(KnownExtraDetails.Framework, framework);
         }
 
         public bool TryGet<T>(string itemName, out T detail)

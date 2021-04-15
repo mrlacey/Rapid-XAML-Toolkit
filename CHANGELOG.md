@@ -1,7 +1,54 @@
-# ChangeLog
+# Rapid XAML Toolkit - ChangeLog
 
-Code is currently available as source or via a [dev/nightly build](https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/docs/installation.md#nightly-dev-builds).
-Until versions are released via the marketplace, this document will only contain details of major, or breaking, changes.
+## Upcoming
+
+- Fix bug where the location of items to underline was not calculated correctly.
+- Performance improvements in analysis.
+- Add JsonSchema support for .xamlAnalysis files.
+- Add automated fixes for hard-coded strings in WPF & Xamarin.Forms.
+
+## 0.11.5
+
+- CustomAnalysis can identify where to CreateResource(s).
+
+## 0.11.4
+
+- Support succinct Row and Column Definitions in RapidXaml.Analysis.
+
+## 0.11.3
+
+- Avoid duplicate output from BuildAnalysis.
+- Increased error handling in RapidXaml.Analysis.
+
+## 0.11.2
+
+- Fix (harmless) error message when running BuildAnalysis.
+
+## 0.11.1
+
+- Fixes an issue when calling `AnalysisActions.AndAddXmlns`.
+
+## 0.11
+
+- Added Editor Extras package.
+- Performance improvements across all areas of the toolkit.
+- Enabled custom analysis using `AnyOf:`, `AnyContaining:`, and `AnyOrChildrenContaining:` prefixes.
+- Refactoring to support the AutoFix NuGet package.
+- Added ability to see all xmlns in Custom Analyzers.
+- Added ability to add a document level xmlns from analyzer / quick action.
+- Added first Uno specific XAML analyzers.
+
+## 0.10.5
+
+- Performance improvements and bug fixes for XAML Analysis.
+
+---
+
+_earlier release notes are summary only_
+
+## 0.10.*
+
+- Added Build time XAML Analysis option.
 
 ## 0.9.*
 

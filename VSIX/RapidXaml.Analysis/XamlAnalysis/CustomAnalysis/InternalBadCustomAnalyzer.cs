@@ -8,6 +8,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class InternalBadCustomAnalyzer : BuiltInXamlAnalyzer
     {
+        public InternalBadCustomAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override string TargetType() => "InternalBad";
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)

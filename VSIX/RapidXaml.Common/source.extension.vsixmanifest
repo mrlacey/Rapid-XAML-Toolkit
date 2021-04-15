@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="RapidXaml.Common.3cb31872-64f7-49f8-91a7-31393173c5ce" Version="0.11.2" Language="en-US" Publisher="Matt Lacey" />
+    <Identity Id="RapidXaml.Common.3cb31872-64f7-49f8-91a7-31393173c5ce" Version="0.11.5" Language="en-US" Publisher="Matt Lacey" />
     <DisplayName>Rapid XAML Common Functionality</DisplayName>
     <Description xml:space="preserve">Common infrastructure used by other extensions that are part of the Rapid XAML Toolkit.</Description>
     <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
     <License>LICENSE.txt</License>
     <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
-    <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/RELEASE_NOTES.md</ReleaseNotes>
+    <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md</ReleaseNotes>
     <Icon>Resources\RapidXamlCommonLogo.png</Icon>
-    <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, MVVM</Tags>
+    <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;MVVM</Tags>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />

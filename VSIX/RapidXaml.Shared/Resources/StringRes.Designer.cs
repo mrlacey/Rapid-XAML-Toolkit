@@ -178,7 +178,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md.
+        ///   Looks up a localized string similar to Out-dated configuration detected. See https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md.
         /// </summary>
         public static string Error_OutdatedConfigurationDetected2 {
             get {
@@ -205,7 +205,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unexpected error occurred while parsing XAML..
+        ///   Looks up a localized string similar to Unexpected error occurred while parsing XAML. (v{0}).
         /// </summary>
         public static string Error_XamlAnalysisDescription {
             get {
@@ -2036,7 +2036,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hard-coded string.
+        ///   Looks up a localized string similar to Extract hard-coded string to resource file..
         /// </summary>
         public static string UI_XamlAnalysisHardcodedStringTooltip {
             get {

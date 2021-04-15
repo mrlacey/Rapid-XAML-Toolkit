@@ -26,6 +26,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public string FeatureUsageOverride { get; set; }
 
+        public string ExtraDebugInfo { get; set; }
+
         public Dictionary<string, string> TelemetryProperties
         {
             get
@@ -35,6 +37,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                     { "Span", $"{Span.Start},{Span.Length}" },
                     { "FileName", FileName },
                     { "FeatureUsageOverride", FeatureUsageOverride },
+                    { "Snapshot.Length", Snapshot.Length.ToString() },
+                    { "ExtraDebugInfo", ExtraDebugInfo },
                 };
             }
         }

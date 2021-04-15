@@ -7,9 +7,9 @@ This PR relates to Issue #
 **Confirm**
 - [ ] Everything builds in 'Release` mode
 - [ ] Docs updated
-- [ ] Release notes updated
+- [ ] Change log updated
 - [ ] All tests in RapidXamlToolkit.Tests passed
-- [ ] If changes analysis or generation - all tests in RapidXamlToolkit.Tests.Manual passed
+- [ ] If changes analysis or generation - all tests in [RapidXamlToolkit.Tests.Manual](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/docs/getting-started.md#vsixrapidxamltoolkiteverythingsln) passed
 
 **Important points of note**  
 <!-- Please identify anything that needs special attention or that the reviewer needs to be aware of. -->

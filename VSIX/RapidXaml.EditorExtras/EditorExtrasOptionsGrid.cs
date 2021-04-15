@@ -2,11 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
 
 namespace RapidXaml.EditorExtras
@@ -15,6 +11,7 @@ namespace RapidXaml.EditorExtras
     {
         [DisplayName("Show Symbol Icons")]
         [Description("Show symbols and glyphs where used in the editor.")]
+        [DefaultValue(true)]
         public bool ShowSymbolIcons { get; set; } = true;
 
         protected override void OnClosed(EventArgs e)

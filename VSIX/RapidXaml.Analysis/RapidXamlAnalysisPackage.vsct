@@ -16,23 +16,27 @@
       <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0100" type="Button">
         <Strings>
           <ButtonText>Move all hard-coded strings to Resource file</ButtonText>
+          <LocCanonicalName>.RapidXAML.MoveAllStrings</LocCanonicalName>
         </Strings>
       </Button>
         <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900" type="Button">
             <Icon guid="guidAnalysisImages" id="bmpFeedback" />
             <Strings>
                 <ButtonText>Give Feedback</ButtonText>
+                <LocCanonicalName>.RapidXAML.GiveFeedback</LocCanonicalName>
             </Strings>
         </Button>
         <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalyzeCurrentDocCommandId" priority="0x0050" type="Button">
             <Strings>
                 <ButtonText>Analyze file</ButtonText>
+                <LocCanonicalName>.RapidXAML.AnalyzeFile</LocCanonicalName>
             </Strings>
         </Button>
         <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="OpenOptionsCommandId" priority="0x0900" type="Button">
             <Icon guid="guidAnalysisImages" id="bmpOptions" />
             <Strings>
                 <ButtonText>Analysis options</ButtonText>
+                <LocCanonicalName>.RapidXAML.AnalysisOptions</LocCanonicalName>
             </Strings>
         </Button>
     </Buttons>

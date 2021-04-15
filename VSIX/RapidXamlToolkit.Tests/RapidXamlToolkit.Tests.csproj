@@ -56,6 +56,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalysisActionsAssert.cs" />
     <Compile Include="AutoFix\AddAttributeTests.cs" />
     <Compile Include="AutoFix\AddChildStringTests.cs" />
     <Compile Include="AutoFix\AddXmlnsTests.cs" />
@@ -125,9 +126,14 @@
     <Compile Include="XamlAnalysis\CustomAnalyzers\AnyContainingTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\AnyOfTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\AnyOrChildrenContainingTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\BuiltInXamlAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\ButtonAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\CheckBoxAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\CustomAnalysisTagLocationTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\CustomAnalysisTestHelperTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\FakeExtraAnalysisDetails.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\FooAnalysisTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\LazyLoadingElementTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\TwoPaneViewAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\UnoIgnorableAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\EntryCellAnalyzerTests.cs" />
@@ -139,13 +145,12 @@
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\SearchBarAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\RadioButtonAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\PickerAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalyzers\XmlEncodingTests.cs" />
     <Compile Include="XamlAnalysis\FakeXamlElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessorTests.cs" />
-    <Compile Include="XamlAnalysis\Processors\ButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\CalendarDatePickerProcessorTests.cs" />
-    <Compile Include="XamlAnalysis\Processors\CheckBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessorTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\EntryAnalyzerTests.cs" />
@@ -212,7 +217,7 @@
       <Version>3.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.InteractiveHost">
-      <Version>3.3.0-beta3-19409-05</Version>
+      <Version>3.5.0-beta3-20074-03</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.LanguageServices">
       <Version>3.2.0</Version>
@@ -235,7 +240,7 @@
       <Version>4.5.4</Version>
     </PackageReference>
     <PackageReference Include="WarnAboutTODOs">
-      <Version>1.5.0</Version>
+      <Version>1.6.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -269,6 +274,10 @@
       <Project>{66140843-f2dc-4697-bac4-50b7afaa8bbe}</Project>
       <Name>RapidXaml.AutoFix</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
+      <Project>{93ba7914-1204-49f8-977a-091d30e4718b}</Project>
+      <Name>RapidXaml.CustomAnalysis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Generation\RapidXaml.Generation.csproj">
       <Project>{f3e12d01-04d9-49d0-bb5b-f4fd62cff54a}</Project>
       <Name>RapidXaml.Generation</Name>
@@ -286,7 +295,24 @@
       <Name>RapidXaml.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Misc\PageWithXmlEncoding.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Misc\XmlSpace1.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Misc\AsyncRelayCommandPage.xaml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

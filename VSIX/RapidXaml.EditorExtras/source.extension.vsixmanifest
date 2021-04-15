@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="RapidXaml.EditorExtras.07e87ef8-07f8-49fd-8f4b-f0958a539030" Version="0.11.2" Language="en-US" Publisher="Matt Lacey" />
+    <Identity Id="RapidXaml.EditorExtras.07e87ef8-07f8-49fd-8f4b-f0958a539030" Version="0.11.5" Language="en-US" Publisher="Matt Lacey" />
     <DisplayName>Rapid XAML Editor Extras</DisplayName>
     <Description xml:space="preserve">Tools to accelerate XAML app development by providing additional features to the Visual Studio editor.</Description>
     <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
     <License>LICENSE.txt</License>
     <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
-    <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/RELEASE_NOTES.md</ReleaseNotes>
+    <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md</ReleaseNotes>
     <Icon>Resources\RapidXamlEditorExtrasLogo.png</Icon>
-    <Tags>XAML, UWP, WPF, Xamarin.Forms, Uno, Forms, MVVM, Roslyn, Analysis</Tags>
+    <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;Forms;MVVM;Roslyn;Analysis</Tags>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />

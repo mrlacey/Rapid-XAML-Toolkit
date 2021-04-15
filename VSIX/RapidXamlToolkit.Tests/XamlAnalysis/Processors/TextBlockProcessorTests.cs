@@ -152,7 +152,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             var sut = new TextBlockProcessor(new ProcessorEssentialsForSimpleTests());
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(xaml.Length);
 
             sut.Process("nofile.xaml", 0, xaml, string.Empty, snapshot, outputTags);
 

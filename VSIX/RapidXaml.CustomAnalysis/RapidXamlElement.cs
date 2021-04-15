@@ -14,6 +14,22 @@ namespace RapidXaml
     [DebuggerDisplay("{OriginalString}")]
     public class RapidXamlElement
     {
+        private readonly int? startChange = null;
+        private List<RapidXamlAttribute> attributes;
+        private List<RapidXamlElement> children;
+        private bool attributesUpdated = false;
+        private bool childrenUpdated = false;
+        private bool? isSelfClosing = null;
+
+        public RapidXamlElement()
+        {
+        }
+
+        internal RapidXamlElement(int startChange)
+        {
+            this.startChange = startChange;
+        }
+
         /// <summary>
         /// Gets the name of the element.
         /// </summary>
@@ -39,12 +55,70 @@ namespace RapidXaml
         /// Gets a list of the attributes assigned to the element.
         /// This includes attributes specified inline or as children.
         /// </summary>
-        public List<RapidXamlAttribute> Attributes { get; internal set; } = new List<RapidXamlAttribute>();
+        public List<RapidXamlAttribute> Attributes
+        {
+            get
+            {
+                if (this.attributes == null)
+                {
+                    this.attributes = new List<RapidXamlAttribute>();
+                }
+
+                if (this.startChange.HasValue && !this.attributesUpdated)
+                {
+                    var newAttributes = new List<RapidXamlAttribute>();
+
+                    for (int i = 0; i < this.attributes.Count; i++)
+                    {
+                        newAttributes.Add(this.attributes[i].CloneWithAdjustedLocationStart(this.startChange.Value));
+                    }
+
+                    this.attributes = newAttributes;
+                    this.attributesUpdated = true;
+                }
+
+                return this.attributes;
+            }
+
+            internal set
+            {
+                this.attributes = value;
+            }
+        }
 
         /// <summary>
         /// Gets a list of child elements specified for th element.
         /// </summary>
-        public List<RapidXamlElement> Children { get; internal set; } = new List<RapidXamlElement>();
+        public List<RapidXamlElement> Children
+        {
+            get
+            {
+                if (this.children == null)
+                {
+                    this.children = new List<RapidXamlElement>();
+                }
+
+                if (this.startChange.HasValue && !this.childrenUpdated)
+                {
+                    var newChildren = new List<RapidXamlElement>();
+
+                    for (int i = 0; i < this.children.Count; i++)
+                    {
+                        newChildren.Add(this.children[i].CloneWithAdjustedLocationStart(this.startChange.Value));
+                    }
+
+                    this.children = newChildren;
+                    this.childrenUpdated = true;
+                }
+
+                return this.children;
+            }
+
+            internal set
+            {
+                this.children = value;
+            }
+        }
 
         /// <summary>
         /// Gets all attributes that are specified as child elements.
@@ -187,6 +261,27 @@ namespace RapidXaml
         }
 
         /// <summary>
+        /// Get attributes of the element that have the specified names.
+        /// </summary>
+        /// <param name="attributeNames">The names of the attributes to get.</param>
+        /// <returns>Attributes with the specified names.</returns>
+        public IEnumerable<RapidXamlAttribute> GetAttributes(params string[] attributeNames)
+        {
+            foreach (var attr in this.Attributes)
+            {
+                foreach (var attName in attributeNames)
+                {
+                    if (attr.Name.Equals(attName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        yield return attr;
+                    }
+                }
+            }
+
+            yield break;
+        }
+
+        /// <summary>
         /// Tries to get the string value of the specified attribtue.
         /// </summary>
         /// <param name="attributeName">The name of the desired attribute.</param>
@@ -279,27 +374,59 @@ namespace RapidXaml
 
         public RapidXamlElement WithUpdatedLocationStart(int newLocationStart)
         {
+            var change = newLocationStart - this.Location.Start;
+
+            var result = this.CloneWithAdjustedLocationStart(change);
+
+            return result;
+        }
+
+        public RapidXamlElement CloneWithAdjustedLocationStart(int startChange)
+        {
             var result = new RapidXamlElement
             {
-                Attributes = this.Attributes,
-                Children = this.Children,
                 Content = this.Content,
-                Location = new RapidXamlSpan(newLocationStart, this.Location.Length),
+                Location = this.Location.CloneWithAdjustedLocationStart(startChange),
                 Name = this.Name,
                 OriginalString = this.OriginalString,
             };
 
+            for (int i = 0; i < this.Children.Count; i++)
+            {
+                result.Children.Add(this.Children[i].CloneWithAdjustedLocationStart(startChange));
+            }
+
+            for (int i = 0; i < this.Attributes.Count; i++)
+            {
+                result.Attributes.Add(this.Attributes[i].CloneWithAdjustedLocationStart(startChange));
+            }
+
             return result;
+        }
+
+        public bool IsSelfClosing()
+        {
+            if (!this.isSelfClosing.HasValue)
+            {
+                this.isSelfClosing = this.OriginalString.EndsWith("/>");
+            }
+
+            return this.isSelfClosing.Value;
+        }
+
+        public void OverrideIsSelfClosing(bool newValue)
+        {
+            this.isSelfClosing = newValue;
         }
 
         private bool ContainsChildOrAttribute(string name)
         {
             return this.Children.Any(
-                c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
-                  || c.Name.EndsWith($":{name}", StringComparison.InvariantCultureIgnoreCase))
+                    c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
+                      || c.Name.EndsWith($":{name}", StringComparison.InvariantCultureIgnoreCase))
                 || this.Attributes.Any(
                     a => !a.HasStringValue
-                      && a.Children.Any(c => c.ContainsDescendant(name)));
+                      && a.Children.Any(c => c?.ContainsDescendant(name) ?? false));
         }
     }
 }

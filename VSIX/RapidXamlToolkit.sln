@@ -11,13 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		..\appveyor.yml = ..\appveyor.yml
+		..\CHANGELOG.md = ..\CHANGELOG.md
 		DeveloperNotes.txt = DeveloperNotes.txt
 		..\docs\getting-started.md = ..\docs\getting-started.md
 		RapidXamlToolkit\GlobalSuppressions.cs = RapidXamlToolkit\GlobalSuppressions.cs
 		nuget.config = nuget.config
 		nuget.exe = nuget.exe
 		packandsignnupkg.targets = packandsignnupkg.targets
-		..\RELEASE_NOTES.md = ..\RELEASE_NOTES.md
 		signvsix.targets = signvsix.targets
 		UseSecretsForBuild.ps1 = UseSecretsForBuild.ps1
 	EndProjectSection
@@ -347,6 +347,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{5EDF5A5A-465F-42F9-9F63-4CADDA8D1B3E} = {B08D9035-A448-49BB-8F55-89E7BC7E70BF}
 		{FDBE6D55-075C-478B-879C-90114FE0EE0A} = {5EDF5A5A-465F-42F9-9F63-4CADDA8D1B3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

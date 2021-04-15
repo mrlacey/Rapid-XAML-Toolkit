@@ -21,7 +21,7 @@ namespace RapidXamlToolkit
     [ProvideAutoLoad(UICONTEXT.CSharpProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UICONTEXT.VBProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [InstalledProductRegistration("#110", "#112", "0.11.2")] // Info on this package for Help/About
+    [InstalledProductRegistration("#110", "#112", "0.11.5")] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(RapidXamlAnalysisPackage.PackageGuidString)]
     [ProvideOptionPage(typeof(AnalysisOptionsGrid), "Rapid XAML", "Analysis", 106, 107, true)]
@@ -40,9 +40,7 @@ namespace RapidXamlToolkit
 
         public static AnalysisOptionsGrid Options { get; internal set; }
 
-#pragma warning disable CS0628 // New protected member declared in sealed class
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
-#pragma warning restore CS0628 // New protected member declared in sealed class
         {
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.

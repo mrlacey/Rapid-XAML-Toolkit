@@ -398,7 +398,7 @@
     <value>TextBlock contains hard-coded Text value '{0}'.</value>
   </data>
   <data name="UI_XamlAnalysisHardcodedStringTooltip" xml:space="preserve">
-    <value>Hard-coded string</value>
+    <value>Extract hard-coded string to resource file.</value>
   </data>
   <data name="UI_AddColumnDefinitions" xml:space="preserve">
     <value>Add ColumnDefinitions</value>
@@ -416,7 +416,7 @@
     <value>Move hard-coded string to resource file.</value>
   </data>
   <data name="Error_XamlAnalysisDescription" xml:space="preserve">
-    <value>Unexpected error occurred while parsing XAML.</value>
+    <value>Unexpected error occurred while parsing XAML. (v{0})</value>
   </data>
   <data name="Error_XamlAnalysisExtendedMessage" xml:space="preserve">
     <value>Please log an issue to https://github.com/mrlacey/Rapid-XAML-Toolkit/issues Reason: {0}</value>
@@ -644,7 +644,7 @@
     <value>Using profile '{0}'.</value>
   </data>
   <data name="Error_OutdatedConfigurationDetected2" xml:space="preserve">
-    <value>Out-dated configuration detected. See https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/dev/CHANGELOG.md</value>
+    <value>Out-dated configuration detected. See https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md</value>
   </data>
   <data name="UI_XamlAnalysisHardcodedStringPasswordboxDescriptionMessage" xml:space="preserve">
     <value>PasswordBox contains hard-coded Description value '{0};</value>

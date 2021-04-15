@@ -11,11 +11,13 @@ namespace RapidXamlToolkit
     {
         [DisplayName("Analyze On Save")]
         [Description("(Re)Ananlyze the XAML document every time it is saved.")]
+        [DefaultValue(true)]
         public bool AnalyzeWhenDocumentSaved { get; set; } = true;
 
         [Category("Experimental")]
         [DisplayName("Enable Custom Analysis")]
         [Description("Attempt to load additional analyzers from referenced libraries.")]
+        [DefaultValue(false)]
         public bool EnableCustomAnalysis { get; set; } = false;
 
         protected override void OnClosed(EventArgs e)

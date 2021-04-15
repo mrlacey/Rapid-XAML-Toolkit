@@ -12,6 +12,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public bool HasSomeDefinitions { get; set; }
 
+        public bool UsesShortDefinitionSyntax { get; set; }
+
         public int AssignedInt { get; set; }
 
         public int ExistingDefsCount { get; set; }

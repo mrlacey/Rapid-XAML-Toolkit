@@ -18,18 +18,21 @@
         <Icon guid="guidGenerationImages" id="bmpCopyAsXaml" />
         <Strings>
           <ButtonText>Copy as XAML</ButtonText>
+            <LocCanonicalName>.RapidXAML.CopyAsXAML</LocCanonicalName>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlGenerationPackageCmdSet" id="SendToToolboxCommandId" priority="0x0100" type="Button">
         <Icon guid="guidGenerationImages" id="bmpToolbox" />
         <Strings>
           <ButtonText>Send to Toolbox</ButtonText>
+          <LocCanonicalName>.RapidXAML.SendToToolbox</LocCanonicalName>
         </Strings>
       </Button>
       <Button guid="guidRapidXamlGenerationPackageCmdSet" id="OpenOptionsCommandId" priority="0x0100" type="Button">
         <Icon guid="guidGenerationImages" id="bmpOptions" />
         <Strings>
           <ButtonText>Generation Profiles</ButtonText>
+          <LocCanonicalName>.RapidXAML.GenerationOptions</LocCanonicalName>
         </Strings>
       </Button>
     </Buttons>

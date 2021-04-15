@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static bool Parse(string fileName, ITextSnapshot snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions, XamlElementProcessor everyElementProcessor, ILogger logger)
         {
-            var elementsBeingTracked = new List<TrackingElement>();
+            var elementsBeingTracked = new Stack<TrackingElement>();
 
             bool isIdentifyingElement = false;
             bool isClosingElement = false;
@@ -73,13 +73,14 @@ namespace RapidXamlToolkit.XamlAnalysis
                 }
                 else if (char.IsWhiteSpace(xaml[i]))
                 {
-                    if (isIdentifyingElement)
+                    if (isIdentifyingElement && currentElementName.Length > 0)
                     {
-                        elementsBeingTracked.Add(
+                        elementsBeingTracked.Push(
                             new TrackingElement
                             {
                                 StartPos = currentElementStartPos,
                                 ElementName = currentElementName.ToString(),
+                                FirstChildPos = -1
                             });
                     }
 
@@ -92,6 +93,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 }
                 else if (xaml[i] == '/')
                 {
+                    // Also need to look at being here as part of a URL (such as in an xmlns declaration)
                     isClosingElement = true;
                     closingElementName.Clear();
                     isIdentifyingElement = false;
@@ -99,7 +101,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 }
                 else if (xaml[i] == '>')
                 {
-                    if (i > 2 && xaml.Substring(i - 2, 3) == "-->")
+                    if (i > 2 && (xaml.Substring(i - 2, 3) == "-->" || xaml.Substring(i - 1, 2) == "?>"))
                     {
                         inComment = false;
                     }
@@ -111,29 +113,44 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             var props = xaml.Substring(currentElementStartPos, i - currentElementStartPos).Split(new[] { " ", "\t", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
-                            foreach (var prop in props)
+                            for (int j = 0; j < props.Length; j++)
                             {
-                                var equalsIndex = prop.IndexOf("=");
-                                if (prop.StartsWith("xmlns:"))
+                                string prop = props[j];
+
+                                // Nest these calls to avoid having to always do both
+                                if (prop.StartsWith("xmlns", StringComparison.InvariantCultureIgnoreCase))
                                 {
-                                    xmlnsAliases.Add(prop.Substring(6, equalsIndex - 6), prop.Substring(equalsIndex + 1).Trim('"'));
-                                }
-                                else if (prop.StartsWith("xmlns"))
-                                {
-                                    xmlnsAliases.Add(string.Empty, prop.Substring(equalsIndex + 1).Trim('"'));
+                                    var equalsIndex = prop.IndexOf("=");
+
+                                    if (prop.StartsWith("xmlns:", StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        while (!prop.Contains("=") || (!prop.TrimEnd().EndsWith("\"") && !prop.TrimEnd().EndsWith("'")))
+                                        {
+                                            prop += props[++j].Trim();
+                                        }
+
+                                        equalsIndex = prop.IndexOf("=");
+
+                                        xmlnsAliases.Add(prop.Substring(6, equalsIndex - 6), prop.Substring(equalsIndex + 1).Trim('"', '\''));
+                                    }
+                                    else
+                                    {
+                                        xmlnsAliases.Add(string.Empty, prop.Substring(equalsIndex + 1).Trim('"', '\''));
+                                    }
                                 }
                             }
                         }
 
                         inLineOpeningWhitespace = false;
 
-                        if (isIdentifyingElement)
+                        if (isIdentifyingElement && currentElementName.Length > 0)
                         {
-                            elementsBeingTracked.Add(
+                            elementsBeingTracked.Push(
                                 new TrackingElement
                                 {
                                     StartPos = currentElementStartPos,
                                     ElementName = currentElementName.ToString(),
+                                    FirstChildPos = -1
                                 });
 
                             isIdentifyingElement = false;
@@ -155,30 +172,53 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             var toProcess = TrackingElement.Default;
 
-                            for (int j = elementsBeingTracked.Count - 1; j >= 0; j--)
+                            if (elementsBeingTracked.Count > 0
+                             && elementsBeingTracked.Peek().ElementName == nameOfInterest)
                             {
-                                if (elementsBeingTracked[j].ElementName == nameOfInterest)
-                                {
-                                    toProcess = elementsBeingTracked[j];
-                                    break;
-                                }
+                                toProcess = elementsBeingTracked.Pop();
                             }
 
+                            // This might not be the case if the was an encoded opening but not an encoded closing angle bracket
                             if (!string.IsNullOrWhiteSpace(toProcess.ElementName))
                             {
                                 var elementBody = xaml.Substring(toProcess.StartPos, i - toProcess.StartPos + 1);
 
-                                if (elementBody.StartsWith("</"))
+                                // Track first child pos as much cheaper than calling GetOpeningWithoutChildren for every element
+                                if (elementsBeingTracked.Count > 0
+                                 && elementsBeingTracked.Peek().FirstChildPos == -1)
                                 {
-                                    System.Diagnostics.Debug.WriteLine("DEBUG!!!!!!");
+                                    var replacement = elementsBeingTracked.Pop();
+
+                                    elementsBeingTracked.Push(new TrackingElement
+                                    {
+                                        ElementName = replacement.ElementName,
+                                        StartPos = replacement.StartPos,
+                                        FirstChildPos = toProcess.StartPos
+                                    });
                                 }
 
-                                everyElementProcessor?.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
+                                string xamlElementWithoutChildren;
+
+                                if (toProcess.FirstChildPos == -1)
+                                {
+                                    // Remove children to avoid getting duplicates when children are processed.
+                                    xamlElementWithoutChildren = XamlElementProcessor.GetOpeningWithoutChildren(elementBody);
+                                }
+                                else
+                                {
+                                    xamlElementWithoutChildren = xaml.Substring(toProcess.StartPos, toProcess.FirstChildPos - toProcess.StartPos);
+                                }
+
+                                everyElementProcessor?.Process(fileName, toProcess.StartPos, xamlElementWithoutChildren, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
+
+                                // Avoid calculating these for every processor
+                                var elementName = toProcess.ElementName; // 
+                                var elementNameWithoutNamespace = toProcess.ElementNameWithoutNamespace;
 
                                 for (int j = 0; j < processors.Count; j++)
                                 {
-                                    if (processors[j].element == toProcess.ElementName
-                                     || processors[j].element == toProcess.ElementNameWithoutNamespace)
+                                    if (processors[j].element == elementName
+                                     || processors[j].element == elementNameWithoutNamespace)
                                     {
                                         try
                                         {
@@ -207,36 +247,24 @@ namespace RapidXamlToolkit.XamlAnalysis
                                             }
                                         }
                                     }
-                                    else if (processors[j].element.StartsWith(AnyContainingStart, StringComparison.InvariantCultureIgnoreCase))
+                                    else if (processors[j].element.StartsWith("ANY", StringComparison.InvariantCultureIgnoreCase))
                                     {
-                                        if (XamlElementProcessor.GetOpeningWithoutChildren(elementBody).Contains(processors[j].element.Substring(AnyContainingStart.Length)))
+                                        // These two calls will very rarely be true.
+                                        // The above single check is to avoid two unlikely checks.
+                                        if (processors[j].element.StartsWith(AnyContainingStart, StringComparison.InvariantCultureIgnoreCase))
                                         {
-                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
+                                            if (XamlElementProcessor.GetOpeningWithoutChildren(elementBody).Contains(processors[j].element.Substring(AnyContainingStart.Length)))
+                                            {
+                                                processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
+                                            }
                                         }
-                                    }
-                                    else if (processors[j].element.StartsWith(AnyOrChildrenContainingStart, StringComparison.InvariantCultureIgnoreCase))
-                                    {
-                                        if (elementBody.Contains(processors[j].element.Substring(AnyOrChildrenContainingStart.Length)))
+                                        else if (processors[j].element.StartsWith(AnyOrChildrenContainingStart, StringComparison.InvariantCultureIgnoreCase))
                                         {
-                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
+                                            if (elementBody.Contains(processors[j].element.Substring(AnyOrChildrenContainingStart.Length)))
+                                            {
+                                                processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
+                                            }
                                         }
-                                    }
-                                }
-
-                                elementsBeingTracked.Remove(toProcess);
-                            }
-                            else
-                            {
-                                // Account for unknown startPos until address ISSUE#400
-                                if (!inComment && currentElementStartPos >= 0)
-                                {
-                                    var elementBody = xaml.Substring(currentElementStartPos, i - currentElementStartPos + 1);
-
-                                    // Don't process closing blocks
-                                    if (!elementBody.StartsWith("</"))
-                                    {
-                                        // Do this in the else so don't always have to calculate the substring.
-                                        everyElementProcessor?.Process(fileName, currentElementStartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
                                     }
                                 }
                             }
@@ -250,6 +278,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                 else if (xaml[i] == '-')
                 {
                     if (i >= 3 && xaml.Substring(i - 3, 4) == "<!--")
+                    {
+                        inComment = true;
+                    }
+                }
+                else if (xaml[i] == '?')
+                {
+                    if (i >= 2 && xaml.Substring(i - 1, 2) == "<?")
                     {
                         inComment = true;
                     }
@@ -269,6 +304,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         StartPos = int.MaxValue,
                         ElementName = string.Empty,
+                        FirstChildPos = -1
                     };
                 }
             }
@@ -276,6 +312,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             public int StartPos { get; set; }
 
             public string ElementName { get; set; }
+
+            public int FirstChildPos { get; set; }
 
             public string ElementNameWithoutNamespace
             {

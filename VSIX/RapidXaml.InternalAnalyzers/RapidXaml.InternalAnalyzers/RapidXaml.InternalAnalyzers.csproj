@@ -18,7 +18,7 @@
     <Description>RapidXaml.InternalAnalyzers</Description>
     <PackageReleaseNotes>Summary of changes made in this release of the package.</PackageReleaseNotes>
     <Copyright>Copyright</Copyright>
-    <PackageTags>RapidXaml.InternalAnalyzers, analyzers</PackageTags>
+    <PackageTags>RapidXaml.InternalAnalyzers;analyzers</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
   </PropertyGroup>
 

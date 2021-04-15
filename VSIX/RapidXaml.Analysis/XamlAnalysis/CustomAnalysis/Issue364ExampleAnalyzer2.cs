@@ -8,6 +8,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class Issue364ExampleAnalyzer2 : BuiltInXamlAnalyzer
     {
+        public Issue364ExampleAnalyzer2(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override string TargetType() => "Binding";
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)

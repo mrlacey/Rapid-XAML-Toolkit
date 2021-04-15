@@ -1745,5 +1745,53 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual("<ColumnDefinition Width=\"Auto\" />", xaml.Substring(attr.Children[2].Location.Start, attr.Children[2].Location.Length));
             Assert.AreEqual("<ColumnDefinition Width=\"2*\" />", xaml.Substring(attr.Children[3].Location.Start, attr.Children[3].Location.Length));
         }
+
+        [TestMethod]
+        public void AllLocationsUpdatedWhenGetCachedValueWIthDifferentOffset()
+        {
+            var xaml = "<Person Moniker=\"Monica\">" +
+  Environment.NewLine + "    <Child ParentName=\"Monica\" OtherParentName=\"Derek\">" +
+  Environment.NewLine + "        <Child.Age>14</Child.Age>" +
+  Environment.NewLine + "        <Child.Name><string>Carla</string></Child.Name>" +
+  Environment.NewLine + "        <Child.Pet><Hamster /></Child.Pet>" +
+  Environment.NewLine + "        <GrandChild><GrandChild.Nom><Identifier Id=\"Bobby\" /></GrandChild.Nom></GrandChild>" +
+  Environment.NewLine + "    </Child>" +
+  Environment.NewLine + "    <Sibling Name=\"Mary\">" +
+  Environment.NewLine + "        <ParentMoniker Value=\"Monica\" />" +
+  Environment.NewLine + "    </Sibling>" +
+  Environment.NewLine + "</Person>";
+
+            var first = RapidXamlElementExtractor.GetElement(xaml, 0);
+
+            var second = RapidXamlElementExtractor.GetElement(xaml, 10);
+
+            Assert.AreNotEqual(first.Location.Start, second.Location.Start);
+            Assert.AreNotEqual(first.Attributes.First().Location.Start, second.Attributes.First().Location.Start);
+
+            Assert.AreNotEqual(first.Children.First().Location.Start, second.Children.First().Location.Start);
+            Assert.AreNotEqual(first.Children.First().Attributes.First().Location.Start, second.Children.First().Attributes.First().Location.Start);
+            Assert.AreNotEqual(first.Children.First().Attributes.Last().Location.Start, second.Children.Last().Attributes.First().Location.Start);
+
+            Assert.AreNotEqual(first.Children.First().Children.First().Location.Start, second.Children.First().Children.First().Location.Start);
+
+            Assert.AreNotEqual(first.Children.Last().Location.Start, second.Children.Last().Location.Start);
+        }
+
+        [TestMethod]
+        public void EnsureCommentsAreIgnoredInAttributeChildren()
+        {
+            var xaml = @"
+        <muxc:TwoPaneView>
+            <muxc:TwoPaneView.Pane1>
+                <!-- something important -->
+                <Grid />
+            </muxc:TwoPaneView.Pane1>
+            <muxc:TwoPaneView.Pane2 />
+        </muxc:TwoPaneView>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(1, sut.Attributes[0].Children.Count);
+        }
     }
 }

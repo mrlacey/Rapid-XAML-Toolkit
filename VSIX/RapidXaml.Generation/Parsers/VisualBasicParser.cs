@@ -443,7 +443,7 @@ namespace RapidXamlToolkit.Parsers
             {
                 md.Name = methodDec.Identifier.ValueText;
 
-                if (methodDec.ParameterList.Parameters.Count > 0)
+                if ((methodDec.ParameterList?.Parameters.Count ?? 0) > 0)
                 {
                     var param1 = methodDec.ParameterList.Parameters.First();
 
@@ -637,7 +637,16 @@ namespace RapidXamlToolkit.Parsers
                 }
                 else if (prop is PropertyBlockSyntax pbs)
                 {
-                    typeSyntax = ((GenericNameSyntax)((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type).TypeArgumentList.Arguments.First();
+                    var innerType = ((SimpleAsClauseSyntax)pbs.PropertyStatement.AsClause).Type;
+
+                    if (innerType is GenericNameSyntax igns)
+                    {
+                        typeSyntax = igns.TypeArgumentList.Arguments.First();
+                    }
+                    else if (innerType is QualifiedNameSyntax iqns)
+                    {
+                        typeSyntax = (iqns.Right as GenericNameSyntax).TypeArgumentList.Arguments.First();
+                    }
                 }
 
                 if (typeSyntax == null)

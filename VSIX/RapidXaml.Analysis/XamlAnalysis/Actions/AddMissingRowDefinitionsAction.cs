@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using System.Linq;
 using System.Threading;
 using Microsoft.VisualStudio.Imaging;
 using Microsoft.VisualStudio.Imaging.Interop;
@@ -39,30 +40,53 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             try
             {
-                var insert = string.Empty;
-
-                const string def = "<RowDefinition Height=\"*\" />";
-
-                var leftPad = this.Tag.LeftPad.Contains("\t") ? this.Tag.LeftPad + "\t" : this.Tag.LeftPad + "    ";
-
-                for (var i = 0; i <= this.Tag.TotalDefsRequired - this.Tag.ExistingDefsCount; i++)
+                if (this.Tag.UsesShortDefinitionSyntax)
                 {
-                    insert += $"{Environment.NewLine}{leftPad}{def}";
+                    var lineNo = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition);
+
+                    while (true)
+                    {
+                        var line = this.Tag.Snapshot.GetLineFromLineNumber(lineNo);
+
+                        if (line.GetText().Contains("RowDefinitions=\""))
+                        {
+                            vs.ReplaceInActiveDocOnLine(
+                                "RowDefinitions=\"",
+                                "RowDefinitions=\"" + string.Concat(Enumerable.Repeat("*,", this.Tag.TotalDefsRequired - this.Tag.ExistingDefsCount + 1)),
+                                lineNo);
+                            break;
+                        }
+
+                        lineNo++;
+                    }
                 }
-
-                var insertLine = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition);
-
-                if (!this.Tag.HasSomeDefinitions)
+                else
                 {
-                    insert = $"{Environment.NewLine}{this.Tag.LeftPad}<Grid.RowDefinitions>{insert}{Environment.NewLine}{this.Tag.LeftPad}</Grid.RowDefinitions>";
+                    var insert = string.Empty;
 
-                    // Account for different reference position - end-of-start vs start-of-end
-                    insertLine += 1;
+                    const string def = "<RowDefinition Height=\"*\" />";
+
+                    var leftPad = this.Tag.LeftPad.Contains("\t") ? this.Tag.LeftPad + "\t" : this.Tag.LeftPad + "    ";
+
+                    for (var i = 0; i <= this.Tag.TotalDefsRequired - this.Tag.ExistingDefsCount; i++)
+                    {
+                        insert += $"{Environment.NewLine}{leftPad}{def}";
+                    }
+
+                    var insertLine = this.Tag.Snapshot.GetLineNumberFromPosition(this.Tag.InsertPosition);
+
+                    if (!this.Tag.HasSomeDefinitions)
+                    {
+                        insert = $"{Environment.NewLine}{this.Tag.LeftPad}<Grid.RowDefinitions>{insert}{Environment.NewLine}{this.Tag.LeftPad}</Grid.RowDefinitions>";
+
+                        // Account for different reference position - end-of-start vs start-of-end
+                        insertLine += 1;
+                    }
+
+                    vs.InsertAtEndOfLine(insertLine, insert);
+
+                    RapidXamlDocumentCache.TryUpdate(this.File);
                 }
-
-                vs.InsertAtEndOfLine(insertLine, insert);
-
-                RapidXamlDocumentCache.TryUpdate(this.File);
             }
             finally
             {

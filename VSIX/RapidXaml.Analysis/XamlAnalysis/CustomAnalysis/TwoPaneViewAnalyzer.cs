@@ -7,6 +7,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class TwoPaneViewAnalyzer : BuiltInXamlAnalyzer
     {
+        public TwoPaneViewAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override string TargetType() => "TwoPaneView";
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)

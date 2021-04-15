@@ -55,7 +55,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(xaml.Length);
 
             sut.Process("testfile.xaml", 1, xaml, "	    ", snapshot, outputTags);
 
@@ -71,7 +71,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests(ProjectType.Wpf));
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(xaml.Length);
 
             sut.Process("testfile.xaml", 1, xaml, "    ", snapshot, outputTags);
 
@@ -85,7 +85,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var text = File.ReadAllText(".\\Misc\\Generic.xaml");
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(text.Length);
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
@@ -96,9 +96,37 @@ namespace RapidXamlToolkit.Tests.Misc
         }
 
         [TestMethod]
+        public void Real_AsyncRelayCommandPage()
+        {
+            var result = new RapidXamlDocument();
+
+            var text = File.ReadAllText(".\\Misc\\AsyncRelayCommandPage.xaml");
+
+            var snapshot = new FakeTextSnapshot(text.Length);
+            var vsa = new TestVisualStudioAbstraction();
+            var logger = DefaultTestLogger.Create();
+
+            XamlElementExtractor.Parse("AsyncRelayCommandPage.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger), result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa), logger);
+
+            Assert.IsTrue(true, "Got here without error.");
+        }
+
+        [TestMethod]
         public void Real_ParseWithoutError_ComboBox()
         {
             this.ParseWithoutError(".\\Misc\\ComboBox.xaml", ProjectType.Wpf);
+        }
+
+        [TestMethod]
+        public void Real_ParseWithoutError_XmlSpace1()
+        {
+            this.ParseWithoutError(".\\Misc\\XmlSpace1.xaml", ProjectType.Wpf);
+        }
+
+        [TestMethod]
+        public void Real_ParseWithoutError_PageWithXmlEncoding()
+        {
+            this.ParseWithoutError(".\\Misc\\PageWithXmlEncoding.xaml", ProjectType.Uwp);
         }
 
         private void ParseWithoutError(string filePath, ProjectType projType)
@@ -107,7 +135,7 @@ namespace RapidXamlToolkit.Tests.Misc
 
             var text = File.ReadAllText(filePath);
 
-            var snapshot = new FakeTextSnapshot();
+            var snapshot = new FakeTextSnapshot(text.Length);
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 

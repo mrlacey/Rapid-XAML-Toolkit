@@ -7,9 +7,14 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class BindingToXBindAnalyzer : BuiltInXamlAnalyzer
     {
+        public BindingToXBindAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            if (!extraDetails.TryGet("framework", out ProjectFramework framework)
+            if (!extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework)
              || framework != ProjectFramework.Uwp)
             {
                 return AnalysisActions.None;
@@ -25,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
                     if (attrValue.StartsWith("{Binding"))
                     {
-                        result.RemoveAttribute(RapidXamlErrorType.Suggestion, "RXTPOC", $"Use 'x:Bind' rather than 'Binding' for '{attribute.Name}'.", "Change to 'x:Bind'", attribute)
+                        result.RemoveAttribute(RapidXamlErrorType.Suggestion, "RXT170", $"Use 'x:Bind' rather than 'Binding' for '{attribute.Name}'.", "Change to 'x:Bind'", attribute)
                               .AndAddAttribute(attribute.Name, attrValue.Replace("{Binding", "{x:Bind"));
                     }
                 }

@@ -27,6 +27,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         void AddXmlnsAliasToActiveDoc(string alias, string value);
 
+        void AddResource(string resPath, string resKey, string resValue);
+
         bool StartSingleUndoOperation(string name);
 
         void EndSingleUndoOperation();

@@ -76,6 +76,7 @@
     <Compile Include="ErrorList\SinkManager.cs" />
     <Compile Include="ErrorList\TableDataSource.cs" />
     <Compile Include="ErrorList\TableEntriesSnapshot.cs" />
+    <Compile Include="JSON\RapidXamlAnalysisJsonSchemaSelector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlAnalysisPackage.cs" />
     <Compile Include="XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
@@ -93,7 +94,6 @@
     <Compile Include="XamlAnalysis\Actions\MakeNameStartWithCapitalAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MakeUidStartWithCapitalAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MediaElementAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\MissingCheckBoxEventAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
     <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
@@ -104,6 +104,8 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\AddXmlnsAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BadCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BindingToXBindAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\ButtonAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\CheckBoxAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer2.cs" />
@@ -130,9 +132,7 @@
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\ButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\CalendarDatePickerProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\CheckBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\EveryElementProcessor.cs" />
@@ -140,6 +140,7 @@
     <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\LabelProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MediaElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
@@ -168,7 +169,6 @@
     <Compile Include="XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddRowDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\CheckBoxCheckedAndUncheckedEventsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
     <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />
@@ -193,10 +193,18 @@
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\References\about-Microsoft.WebTools.Languages.Json.dll.txt" />
+    <None Include="Resources\References\Microsoft.WebTools.Languages.Json.dll" />
     <VSCTCompile Include="RapidXamlAnalysisPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
     <Content Include="RapidXamlAnalysisExtensions.vsext">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="JSON\settings-schema.json">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="JSON\suppressions-schema.json">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <None Include="RapidXamlCommonMenus.vsct">
@@ -213,6 +221,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.WebTools.Languages.Json, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\References\Microsoft.WebTools.Languages.Json.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -231,7 +243,7 @@
       <Version>3.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.InteractiveHost">
-      <Version>3.3.0-beta3-19409-05</Version>
+      <Version>3.5.0-beta3-20074-03</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.LanguageServices">
       <Version>3.2.0</Version>
@@ -258,13 +270,17 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="WarnAboutTODOs">
-      <Version>1.5.0</Version>
+      <Version>1.6.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">
       <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
       <Name>RapidXaml.AnalysisCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
+      <Project>{93ba7914-1204-49f8-977a-091d30e4718b}</Project>
+      <Name>RapidXaml.CustomAnalysis</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
@@ -292,6 +308,7 @@
       <OutputItemType>Analyzer</OutputItemType>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>

@@ -11,7 +11,7 @@ While it's being installed you might learn how to configure it to meet your need
 
 The latest version is available from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit) or by searching inside Visual Studio (Extensions > Manage Extensions).
 
-![Manage Extensions search dialog showing the Rapid XAML Toolkit listing](./Assets/extension-search-dialog.png)
+![Manage Extensions search dialog showing the Rapid XAML Toolkit listing](./Assets/extension-search-d.png)
 
 Please see the [installation guide](installation.md) for more details.
 
@@ -64,7 +64,7 @@ The other solution in the 'VSIX' folder contains everything in 'RapidXamlToolkit
 
 - `BuildAnalysisUwpTestApp` is a UWP app that is used to manually test the BuildAnalysis functionality.
 - `RapidXaml.BuildAnalysis` is a shipping **NuGet** package that contains RapidXaml.AnalysisExe so that XAML Analysis can be performed as part of a build process. _[install link](https://www.nuget.org/packages/RapidXaml.BuildAnalysis/)_
-- `RapidXamlToolkit.Tests.Manual` is a test project containing tests that require additional configuration or manual verification. You will need to make changes to the code to run these tests. Look for comments in the code for details of what to change/specify.
+- `RapidXamlToolkit.Tests.Manual` is a test project containing tests that require additional configuration or manual verification. You will need to make changes to the code ([here](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/VSIX/RapidXamlToolkit.Tests.Manual/Parsers/ParseRealDocumentsTests.tt#L33) and [here](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/VSIX/RapidXamlToolkit.Tests.Manual/XamlAnalysis/ParseRealDocumentsTests.tt#L32)) to run these tests. Look for comments in the code for details of what to change/specify.
 - `Tools/Benchmarking` is a Console app that contains a sampling of the XAML Analysis functionality and is used for monitoring performance.
 - `Tools/OptionsEmulator` is a WPF app that allows viewing the UI that is displayed in the Options dialogs without having to start an instance of Visual Studio. It is useful in testing.
 - `Tools/SetVersionNumbers` is a Console app that can set the version number in all files that are part of the toolkit. This exists to avoid the need to manually change multiple files.
