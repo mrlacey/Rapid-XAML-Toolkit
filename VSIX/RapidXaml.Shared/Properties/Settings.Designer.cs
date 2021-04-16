@@ -25,7 +25,7 @@ namespace RapidXamlToolkit.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cds")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string TelemetryKey {
             get {
                 return ((string)(this["TelemetryKey"]));
