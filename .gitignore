@@ -287,6 +287,8 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 *.secret
+
+# The following have default versions checked in but are always assummed as unchanged
 VSIX/RapidXamlToolkit.Tests.Manual/XamlAnalysis/ParseRealDocumentsTests.g.cs
 VSIX/RapidXamlToolkit.Tests.Manual/Parsers/ParseRealDocumentsTests.g.cs
 VSIX/RapidXaml.Shared/Properties/Settings.Designer.cs
