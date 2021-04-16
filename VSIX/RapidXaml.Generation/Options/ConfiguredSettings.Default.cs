@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.Options
             var result = new Settings
             {
                 FormatVersion = Settings.CurrentFormatVersion,
-                ExtendedOutputEnabled = config.ExtendedOutputEnabledByDefault,  // Disable for release builds but want it on by default for testers
+                ExtendedOutputEnabled = true,  // On by default so hopefully get more info in case of an error.
                 FallBackProfileName = string.Empty,
                 Profiles = new List<Profile>
                 {
