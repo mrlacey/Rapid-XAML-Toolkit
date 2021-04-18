@@ -13,12 +13,12 @@
     <Menus>
       <Menu guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <ButtonText>Rapid XAML</ButtonText>
+          <ButtonText>Rapid &amp;XAML</ButtonText>
         </Strings>
       </Menu>
       <Menu guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" type="Context" priority="0x0100">
         <Strings>
-          <ButtonText>Rapid XAML</ButtonText>
+          <ButtonText>Rapid &amp;XAML</ButtonText>
         </Strings>
       </Menu>
     </Menus>
