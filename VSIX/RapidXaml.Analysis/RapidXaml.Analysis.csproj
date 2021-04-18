@@ -99,6 +99,7 @@
     <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
     <Compile Include="XamlAnalysis\Actions\SelectedItemBindingModeAction.cs" />
     <Compile Include="XamlAnalysis\Actions\SuppressWarningAction.cs" />
+    <Compile Include="XamlAnalysis\AnalysisSpeedWarningInfoBar.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\AddChildTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\AddXmlnsAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BadCustomAnalyzer.cs" />

@@ -1,0 +1,34 @@
+---
+name: 🐛 Bug report (new)
+description: Tell us that something is wrong or doesn't work properly
+labels: [bug]
+body:
+- type: textarea
+  attributes:
+    label: Describe the bug
+    description: Tell us what's wrong or not working.
+    placeholder: "When I do X... Y happens "
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: "How can this be reproduced?"
+    description: Providing steps to reproduce the issue makes it much quicker to find and fix the underlying problem.
+    value: "1. Go to '...'\n
+2. Click on '....'\n
+3. Scroll down to '....'\n
+4. See error "
+- type: checkboxes
+  attributes:
+    label: "Which version of Visual Studio are you using?"
+    options:
+      - label: "2019"
+      - label: "2019 (preview)"
+- type: dropdown
+  attributes:
+    label: Project Type
+    options:
+    - UWP
+    - WinUI
+    - WPF
+    - Xamarin.Forms

@@ -889,6 +889,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to XAML analysis seems to be running slower than expected..
+        /// </summary>
+        public static string Info_PromptAnalysisRunningSlow {
+            get {
+                return ResourceManager.GetString("Info_PromptAnalysisRunningSlow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable analysis when save file.
+        /// </summary>
+        public static string Info_PromptDisableAnalysisOnSave {
+            get {
+                return ResourceManager.GetString("Info_PromptDisableAnalysisOnSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 
         ///XAML analysis seems to be running slower than expected.
         ///If you&apos;re noticing an issue, you can disable automatic analysis every time a file is saved. Go to : Tools &gt; Options &gt; Rapid XAML &gt; Analysis.

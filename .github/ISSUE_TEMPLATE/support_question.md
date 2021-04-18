@@ -1,8 +1,8 @@
 ---
-name: Question
-about: I have a question about this project
+name: "❓ Question"
+about: If you have any questions about this project or use of the extensions
 title: ''
-labels: ''
+labels: [question]
 assignees: ''
 
 ---

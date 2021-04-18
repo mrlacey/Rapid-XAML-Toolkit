@@ -864,4 +864,10 @@ If you're noticing an issue, you can disable automatic analysis every time a fil
   <data name="UI_XamlAnalysisXfLineToolTip" xml:space="preserve">
     <value>Remove Fill attribute.</value>
   </data>
+  <data name="Info_PromptAnalysisRunningSlow" xml:space="preserve">
+    <value>XAML analysis seems to be running slower than expected.</value>
+  </data>
+  <data name="Info_PromptDisableAnalysisOnSave" xml:space="preserve">
+    <value>Disable analysis when save file</value>
+  </data>
 </root>
