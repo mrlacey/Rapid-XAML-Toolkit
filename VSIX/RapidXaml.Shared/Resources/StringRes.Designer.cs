@@ -2304,5 +2304,23 @@ namespace RapidXamlToolkit.Resources {
                 return ResourceManager.GetString("UI_XamlAnalysisXfLineToolTip", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin does not have a Label specified..
+        /// </summary>
+        public static string UI_XamlAnalysisXfMapPinDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfMapPinDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Label attribute..
+        /// </summary>
+        public static string UI_XamlAnalysisXfMapPinToolTip {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfMapPinToolTip", resourceCulture);
+            }
+        }
     }
 }

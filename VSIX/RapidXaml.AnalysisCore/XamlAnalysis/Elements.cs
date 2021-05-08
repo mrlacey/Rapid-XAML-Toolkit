@@ -55,6 +55,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Picker => "Picker";
 
+        public static string Pin => "Pin";
+
         public static string Pivot => "Pivot";
 
         public static string PivotItem => "PivotItem";

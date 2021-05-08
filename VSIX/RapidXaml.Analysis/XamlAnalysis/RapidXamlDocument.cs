@@ -174,6 +174,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.LabelAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.XfImageAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.XfLineAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.XfMapPinAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer(vsAbstraction));

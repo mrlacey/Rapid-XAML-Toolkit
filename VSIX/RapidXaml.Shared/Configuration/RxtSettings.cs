@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.Configuration
             {
                 var configValue = Properties.Settings.Default.LightBulbTelemetryGuid;
 
-                if (string.IsNullOrWhiteSpace(configValue))
+                if (!string.IsNullOrWhiteSpace(configValue))
                 {
                     return new Guid(configValue);
                 }

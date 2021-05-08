@@ -870,4 +870,10 @@ If you're noticing an issue, you can disable automatic analysis every time a fil
   <data name="Info_PromptDisableAnalysisOnSave" xml:space="preserve">
     <value>Disable analysis when save file</value>
   </data>
+  <data name="UI_XamlAnalysisXfMapPinDescription" xml:space="preserve">
+    <value>Pin does not have a Label specified.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfMapPinToolTip" xml:space="preserve">
+    <value>Add Label attribute.</value>
+  </data>
 </root>

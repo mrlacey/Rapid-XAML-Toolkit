@@ -16,6 +16,7 @@ The following may be shown in the Error List.
 | [RXT301](./RXT301.md) | Password `Entry` does not have a `MaxLength` specified. |
 | [RXT310](./RXT310.md) | `Image` `Source` filename may not work on all platforms. |
 | [RXT320](./RXT320.md) | Setting the `Fill` property of a `Line` is unnecessary. |
+| [RXT320](./RXT325.md) | `Pin` does not have a `Label` specified. |
 | [RXT351](./RXT351.md) | Element lacks accessibility consideration. |
 | [RXT401](./RXT401.md) | Handle both `Checked` and `Unchecked` events for a `CheckBox`. |
 | [RXT402](./RXT402.md) | Use `MediaPlayerElement` in place of `MediaElement`. |
