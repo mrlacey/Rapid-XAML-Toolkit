@@ -186,6 +186,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.EntryCellAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.SwitchCellAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.SwipeItemAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.SliderAnalyzer(vsAbstraction));
 
                 for (int i = 0; i < customProcessors.Count; i++)
                 {

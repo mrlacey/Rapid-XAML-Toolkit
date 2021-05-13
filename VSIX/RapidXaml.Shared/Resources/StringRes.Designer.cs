@@ -2322,5 +2322,32 @@ namespace RapidXamlToolkit.Resources {
                 return ResourceManager.GetString("UI_XamlAnalysisXfMapPinToolTip", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slider has a Minimum value greater than Maximum..
+        /// </summary>
+        public static string UI_XamlAnalysisXfSliderMinMaxDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfSliderMinMaxDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThumbColor will not be used as ThumbImageSource takes precedence..
+        /// </summary>
+        public static string UI_XamlAnalysisXfSliderThumbColorDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfSliderThumbColorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove ThumbColor attribute..
+        /// </summary>
+        public static string UI_XamlAnalysisXfSliderThumbColorToolTip {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfSliderThumbColorToolTip", resourceCulture);
+            }
+        }
     }
 }

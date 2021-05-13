@@ -876,4 +876,13 @@ If you're noticing an issue, you can disable automatic analysis every time a fil
   <data name="UI_XamlAnalysisXfMapPinToolTip" xml:space="preserve">
     <value>Add Label attribute.</value>
   </data>
+  <data name="UI_XamlAnalysisXfSliderMinMaxDescription" xml:space="preserve">
+    <value>Slider has a Minimum value greater than Maximum.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfSliderThumbColorDescription" xml:space="preserve">
+    <value>ThumbColor will not be used as ThumbImageSource takes precedence.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfSliderThumbColorToolTip" xml:space="preserve">
+    <value>Remove ThumbColor attribute.</value>
+  </data>
 </root>

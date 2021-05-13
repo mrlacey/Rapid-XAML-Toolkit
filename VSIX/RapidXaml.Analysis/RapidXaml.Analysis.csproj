@@ -116,6 +116,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\InternalBadCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\ImageButtonAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\EntryAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\SliderAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfLineAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfListViewAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\SwitchCellAnalyzer.cs" />
