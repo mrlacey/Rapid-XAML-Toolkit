@@ -173,6 +173,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.LabelAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.XfImageAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.XfLineAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.XfMapPinAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer(vsAbstraction));
@@ -184,6 +186,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.EntryCellAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.SwitchCellAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.SwipeItemAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.SliderAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.StepperAnalyzer(vsAbstraction));
 
                 for (int i = 0; i < customProcessors.Count; i++)
                 {

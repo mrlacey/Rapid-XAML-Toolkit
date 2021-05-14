@@ -6,6 +6,7 @@
 - Performance improvements in analysis.
 - Add JsonSchema support for .xamlAnalysis files.
 - Add automated fixes for hard-coded strings in WPF & Xamarin.Forms.
+- Add analyzers for standard Xamarin.Forms controls.
 
 ## 0.11.5
 

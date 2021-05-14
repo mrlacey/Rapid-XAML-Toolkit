@@ -13,9 +13,14 @@ The following may be shown in the Error List.
 | [RXT170](./RXT170.md) | Use 'x:Bind' rather than 'Binding'. |
 | [RXT200](./RXT200.md) | Hard-coded string value that should be a resource. |
 | [RXT300](./RXT300.md) | `Entry` does not have a `Keyboard` specified. |
-| [RXT300](./RXT301.md) | Password `Entry` does not have a `MaxLength` specified. |
-| [RXT300](./RXT351.md) | `Image` lacks accessibility consideration. |
-| [RXT300](./RXT351.md) | `ImageButton` lacks accessibility consideration. |
+| [RXT301](./RXT301.md) | Password `Entry` does not have a `MaxLength` specified. |
+| [RXT310](./RXT310.md) | `Image` `Source` filename may not work on all platforms. |
+| [RXT320](./RXT320.md) | Setting the `Fill` property of a `Line` is unnecessary. |
+| [RXT325](./RXT325.md) | `Pin` does not have a `Label` specified. |
+| [RXT330](./RXT330.md) | `Slider` has a `Minimum` value greater than `Maximum`. |
+| [RXT331](./RXT331.md) | `Slider` has `ThumbColor` specified but `ThumbImageSource` takes precedence. |
+| [RXT335](./RXT335.md) | `Stepper` has a `Minimum` value greater than `Maximum`. |
+| [RXT351](./RXT351.md) | Element lacks accessibility consideration. |
 | [RXT401](./RXT401.md) | Handle both `Checked` and `Unchecked` events for a `CheckBox`. |
 | [RXT402](./RXT402.md) | Use `MediaPlayerElement` in place of `MediaElement`. |
 | [RXT451](./RXT451.md) | `x:Uid` should begin with an upper case character. |

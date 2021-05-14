@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var actions = this.GetActions<XfImageAnalyzer>(xaml, ProjectType.XamarinForms);
 
-            Assert.IsTrue(actions.IsNone);
+            Assert.AreEqual(0, actions.Actions.Count);
         }
 
         [TestMethod]
@@ -40,7 +40,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var actions = this.GetActions<XfImageAnalyzer>(xaml, ProjectType.XamarinForms);
 
-            Assert.IsTrue(actions.IsNone);
+            Assert.AreEqual(0, actions.Actions.Count);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var actions = this.GetActions<XfImageAnalyzer>(xaml, ProjectType.XamarinForms);
 
-            Assert.IsTrue(actions.IsNone);
+            Assert.AreEqual(0, actions.Actions.Count);
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var actions = this.GetActions<XfImageAnalyzer>(xaml, ProjectType.XamarinForms);
 
-            Assert.IsTrue(actions.IsNone);
+            Assert.AreEqual(0, actions.Actions.Count);
         }
 
         [TestMethod]
@@ -70,7 +70,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var actions = this.GetActions<XfImageAnalyzer>(xaml, ProjectType.XamarinForms);
 
-            Assert.IsTrue(actions.IsNone);
+            Assert.AreEqual(0, actions.Actions.Count);
         }
 
         [TestMethod]
@@ -80,7 +80,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var actions = this.GetActions<XfImageAnalyzer>(xaml, ProjectType.XamarinForms);
 
-            Assert.IsTrue(actions.IsNone);
+            Assert.AreEqual(0, actions.Actions.Count);
         }
 
         [TestMethod]

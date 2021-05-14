@@ -23,6 +23,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Description => "Description";
 
+        public static string Fill => "Fill";
+
         public static string Header => "Header";
 
         public static string InputScope => "InputScope";
@@ -33,7 +35,11 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Label => "Label";
 
+        public static string Maximum => "Maximum";
+
         public static string MaxLength => "MaxLength";
+
+        public static string Minimum => "Minimum";
 
         public static string Name => "Name";
 
@@ -52,6 +58,10 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string Source => "Source";
 
         public static string Text => "Text";
+
+        public static string ThumbColor => "ThumbColor";
+
+        public static string ThumbImageSource => "ThumbImageSource";
 
         public static string Title => "Title";
 

@@ -852,10 +852,40 @@ If you're noticing an issue, you can disable automatic analysis every time a fil
   <data name="Info_UnknownCustomActionType" xml:space="preserve">
     <value>"Unknown functionality defined in CustomAnalysis. Try updating the extension."</value>
   </data>
+  <data name="UI_XamlAnalysisXfImageFilenameDescription" xml:space="preserve">
+    <value>Filename may not work on all platforms.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfImageFilenameExtendedMessage" xml:space="preserve">
+    <value>Android drawables have strict naming restrictions. The filename being used breaks these restrictions and so you won't be able to use the same filename for all platforms.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfLineDescription" xml:space="preserve">
+    <value>Setting the Fill property of a Line is unnecessary as it has no effect.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfLineToolTip" xml:space="preserve">
+    <value>Remove Fill attribute.</value>
+  </data>
   <data name="Info_PromptAnalysisRunningSlow" xml:space="preserve">
     <value>XAML analysis seems to be running slower than expected.</value>
   </data>
   <data name="Info_PromptDisableAnalysisOnSave" xml:space="preserve">
     <value>Disable analysis when save file</value>
+  </data>
+  <data name="UI_XamlAnalysisXfMapPinDescription" xml:space="preserve">
+    <value>Pin does not have a Label specified.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfMapPinToolTip" xml:space="preserve">
+    <value>Add Label attribute.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfSliderMinMaxDescription" xml:space="preserve">
+    <value>Slider has a Minimum value greater than Maximum.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfSliderThumbColorDescription" xml:space="preserve">
+    <value>ThumbColor will not be used as ThumbImageSource takes precedence.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfSliderThumbColorToolTip" xml:space="preserve">
+    <value>Remove ThumbColor attribute.</value>
+  </data>
+  <data name="UI_XamlAnalysisXfStepperMinMaxDescription" xml:space="preserve">
+    <value>Stepper has a Minimum value greater than Maximum.</value>
   </data>
 </root>
