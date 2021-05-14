@@ -885,4 +885,7 @@ If you're noticing an issue, you can disable automatic analysis every time a fil
   <data name="UI_XamlAnalysisXfSliderThumbColorToolTip" xml:space="preserve">
     <value>Remove ThumbColor attribute.</value>
   </data>
+  <data name="UI_XamlAnalysisXfStepperMinMaxDescription" xml:space="preserve">
+    <value>Stepper has a Minimum value greater than Maximum.</value>
+  </data>
 </root>

@@ -2349,5 +2349,14 @@ namespace RapidXamlToolkit.Resources {
                 return ResourceManager.GetString("UI_XamlAnalysisXfSliderThumbColorToolTip", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stepper has a Minimum value greater than Maximum..
+        /// </summary>
+        public static string UI_XamlAnalysisXfStepperMinMaxDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfStepperMinMaxDescription", resourceCulture);
+            }
+        }
     }
 }

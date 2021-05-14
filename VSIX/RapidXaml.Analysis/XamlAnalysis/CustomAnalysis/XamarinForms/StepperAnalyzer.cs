@@ -7,14 +7,14 @@ using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
-    public class SliderAnalyzer : BuiltInXamlAnalyzer
+    public class StepperAnalyzer : BuiltInXamlAnalyzer
     {
-        public SliderAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+        public StepperAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
             : base(vsa)
         {
         }
 
-        public override string TargetType() => Elements.Slider;
+        public override string TargetType() => Elements.Stepper;
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
@@ -43,25 +43,13 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                         {
                             result.HighlightAttributeWithoutAction(
                               RapidXamlErrorType.Error,
-                              "RXT330",
-                              StringRes.UI_XamlAnalysisXfSliderMinMaxDescription,
+                              "RXT335",
+                              StringRes.UI_XamlAnalysisXfStepperMinMaxDescription,
                               minAttr.First(),
-                              moreInfoUrl: "https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/slider");
+                              moreInfoUrl: "https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/stepper");
                         }
                     }
                 }
-            }
-
-            if (element.HasAttribute(Attributes.ThumbColor)
-                 && element.HasAttribute(Attributes.ThumbImageSource))
-            {
-                result.RemoveAttribute(
-                    RapidXamlErrorType.Suggestion,
-                    "RXT331",
-                    StringRes.UI_XamlAnalysisXfSliderThumbColorDescription,
-                    StringRes.UI_XamlAnalysisXfSliderThumbColorToolTip,
-                    element.GetAttributes(Attributes.ThumbColor).First(),
-                    moreInfoUrl: "https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/slider");
             }
 
             return result;

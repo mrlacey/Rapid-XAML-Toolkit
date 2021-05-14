@@ -71,6 +71,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Slider => "Slider";
 
+        public static string Stepper => "Stepper";
+
         public static string SwipeItem => "SwipeItem";
 
         public static string SwitchCell => "SwitchCell";
