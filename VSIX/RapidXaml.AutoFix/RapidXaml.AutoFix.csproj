@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <Version>0.11.5</Version>
+    <Version>0.12</Version>
   </PropertyGroup>
   <!-- Pack settings -->
   <PropertyGroup>

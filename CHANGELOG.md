@@ -1,6 +1,6 @@
 # Rapid XAML Toolkit - ChangeLog
 
-## Upcoming
+## 0.12
 
 - Fix bug where the location of items to underline was not calculated correctly.
 - Performance improvements in analysis.
