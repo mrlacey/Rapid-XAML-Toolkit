@@ -13,7 +13,7 @@
     <description>Create custom XAML analyzers for use with the Rapid XAML toolkit.</description>
     <summary>Create custom XAML analyzers.</summary>
     <releaseNotes>Add support for CreateResource. (Will require VSIX version &gt;= 0.12)</releaseNotes>
-    <copyright>Copyright 2020 Matt Lacey Ltd.</copyright>
+    <copyright>Copyright © 2021 Matt Lacey Ltd.</copyright>
     <tags>XAML, UWP, WPF, Xamarin.Forms, MVVM, UNO, WinUI</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
