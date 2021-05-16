@@ -98,6 +98,9 @@
     <PackageReference Include="MSTest.TestAdapter">
       <Version>1.4.0</Version>
     </PackageReference>
+    <PackageReference Include="RapidXaml.CustomAnalysis">
+      <Version>0.12.0</Version>
+    </PackageReference>
     <PackageReference Include="WindowsTestHelpers">
       <Version>0.4.1</Version>
     </PackageReference>
@@ -115,10 +118,6 @@
     <ProjectReference Include="..\RapidXaml.Analysis\RapidXaml.Analysis.csproj">
       <Project>{fc81b148-4683-4557-bea1-69ad39241576}</Project>
       <Name>RapidXaml.Analysis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
-      <Project>{93ba7914-1204-49f8-977a-091d30e4718b}</Project>
-      <Name>RapidXaml.CustomAnalysis</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Generation\RapidXaml.Generation.csproj">
       <Project>{f3e12d01-04d9-49d0-bb5b-f4fd62cff54a}</Project>
