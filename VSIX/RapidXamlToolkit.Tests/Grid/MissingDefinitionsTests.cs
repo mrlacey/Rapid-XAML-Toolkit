@@ -157,6 +157,71 @@ namespace RapidXamlToolkit.Tests.Grid
             Assert.AreEqual(0, actualTags.OfType<MissingColumnDefinitionTag>().Count());
         }
 
+        [TestMethod]
+        public void NestedGrid_DefinitionInInnerNotOuter_Expanded()
+        {
+            var xaml = @"<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height=""*"" />
+        <RowDefinition Height=""*"" />
+    </Grid.RowDefinitions>
+
+     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=""*"" />
+            <RowDefinition Height=""*"" />
+            <RowDefinition Height=""*"" />
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row=""3"" Text=""hello world"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void NestedGrid_DefinitionInInnerNotOuter_Short()
+        {
+            var xaml = @"<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height=""*"" />
+        <RowDefinition Height=""*"" />
+    </Grid.RowDefinitions>
+
+     <Grid RowDefinitions=""*,*,*,*"">
+        <TextBlock Grid.Row=""3"" Text=""hello world"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void NestedGrid_DefinitionInInnerNotOuter_OtherInner_Short()
+        {
+            var xaml = @"<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height=""*"" />
+        <RowDefinition Height=""*"" />
+    </Grid.RowDefinitions>
+
+     <Grid />
+
+     <Grid RowDefinitions=""*,*,*,*"">
+        <TextBlock Grid.Row=""3"" Text=""hello world"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
         private List<IRapidXamlAdornmentTag> ProcessGrid(string xaml)
         {
             var outputTags = new TagList();
