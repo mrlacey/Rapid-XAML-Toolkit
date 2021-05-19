@@ -47,24 +47,21 @@ namespace RapidXamlToolkit.XamlAnalysis
             lock (CacheLock)
             {
                 fileInCache = Cache.ContainsKey(file);
-            }
 
-            if (fileInCache)
-            {
-                Update(file, snapshot);
-            }
-            else
-            {
-                // Don't worry about timing this call as it's only repeated calls to analyze a document that might cause a user prompt.
-                // This only happens on document open. Repeated analysis of a document will happen through TryUpdate.
-                var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
-
-                lock (CacheLock)
+                if (fileInCache)
                 {
-                    Cache.Add(file, doc);
+                    Update(file, snapshot);
                 }
+                else
+                {
+                    // Don't worry about timing this call as it's only repeated calls to analyze a document that might cause a user prompt.
+                    // This only happens on document open. Repeated analysis of a document will happen through TryUpdate.
+                    var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
 
-                Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Add));
+                    Cache.Add(file, doc);
+
+                    Parsed?.Invoke(null, new RapidXamlParsingEventArgs(doc, file, snapshot, ParsedAction.Add));
+                }
             }
         }
 
