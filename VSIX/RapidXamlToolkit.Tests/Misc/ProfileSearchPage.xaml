@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:c="clr-namespace:GigseekrPoc.Controls"
+             Style="{StaticResource GsContentPage}"
+             x:Class="GigseekrPoc.Views.ProfileSearchPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Reset"
+                 Order="Primary"
+                 Priority="0" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,Auto">
+            <ScrollView Grid.Row="1">
+        <StackLayout Margin="20">
+            <Label Text="Advanced Profile Search" FontSize="Large" />
+            <Grid ColumnDefinitions="*,*,*" >
+                <c:MyRadioButton x:Name="ArtistsButton" IsChecked="True" Text="Artists" />
+                <c:MyRadioButton x:Name="VenuesButton" Grid.Column="1" IsChecked="False" Text="Venues" />
+                <c:MyRadioButton x:Name="PromotersButton" Grid.Column="2" IsChecked="False" Text="Promoters" />
+            </Grid>
+            <BoxView BackgroundColor="{StaticResource GsMediumGrey2}" Margin="0,5" HeightRequest="1" VerticalOptions="Center" />
+
+
+                    <!-- Artists Options -->
+                    <Grid IsVisible="{Binding Path=IsChecked, Source={x:Reference ArtistsButton}}"
+                  ColumnDefinitions="*,Auto"
+                  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Name" FontSize="Medium" VerticalTextAlignment="End"/>
+                            <Label Text="(Optional)" TextColor="{StaticResource GsLightGrey}" FontSize="Small" VerticalTextAlignment="End"/>
+                        </StackLayout>
+                        <Entry Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                <Label Grid.Row="2" Text="Select Location" FontSize="Medium" />
+                <Entry Grid.Row="3" Grid.ColumnSpan="2" />
+
+                <Label Grid.Row="4" Text="Artist Types" FontSize="Medium" />
+                <Button Grid.Row="4" Grid.Column="1" Margin="-10" Style="{StaticResource HyperlinkButtonStyle}" Text="Select" />
+                        <Entry Grid.Row="5" Grid.ColumnSpan="2" />
+
+                <Label Grid.Row="6" Text="Genres" FontSize="Medium" VerticalTextAlignment="End" />
+                <Button Grid.Row="6" Grid.Column="1" Margin="-10" Style="{StaticResource HyperlinkButtonStyle}" Text="Select" />
+                        <Entry Grid.Row="7" Grid.ColumnSpan="2" />
+
+                <Label Grid.Row="8" Text="On Tour" FontSize="Medium" />
+                <Switch Grid.Row="8" Grid.Column="1" HorizontalOptions="EndAndExpand" />
+                
+                <Label Grid.Row="9" Text="Has Events" FontSize="Medium" />
+                <Switch Grid.Row="9" Grid.Column="1" HorizontalOptions="EndAndExpand" />
+
+            </Grid>
+
+
+                    <!-- Venues Options -->
+                    <Grid IsVisible="{Binding Path=IsChecked, Source={x:Reference VenuesButton}}"
+                  ColumnDefinitions="*,Auto"
+                  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                        <Label Text="Name" FontSize="Medium"/>
+                        <Entry Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                        <Label Grid.Row="2" Text="Select Location" FontSize="Medium" />
+                        <Entry Grid.Row="3"  Grid.ColumnSpan="2"/>
+
+                        <Label Grid.Row="4" Text="Search Radius" FontSize="Medium" />
+                        <c:BubbleLabel Grid.Row="4" Grid.Column="1" Text="25 Miles" />
+                        <Slider Grid.Row="5" Grid.ColumnSpan="2" />
+
+                        <Label Grid.Row="6" Text="Event Types" FontSize="Medium" VerticalTextAlignment="End" />
+                        <Button Grid.Row="6" Grid.Column="1" Margin="-10"  Style="{StaticResource HyperlinkButtonStyle}" Text="Select" />
+                        <Entry Grid.Row="7"  Grid.ColumnSpan="2"/>
+
+                        <Label Grid.Row="8" Text="Venue Facilities" FontSize="Medium" VerticalTextAlignment="End" />
+                        <Button Grid.Row="8" Grid.Column="1" Margin="-10"  Style="{StaticResource HyperlinkButtonStyle}" Text="Select" />
+                        <Entry Grid.Row="9"  Grid.ColumnSpan="2"/>
+
+                        <Label Grid.Row="10" Text="Disability Access" FontSize="Medium" VerticalTextAlignment="End" />
+                        <Button Grid.Row="10" Grid.Column="1" Margin="-10"  Style="{StaticResource HyperlinkButtonStyle}" Text="Select" />
+                        <Entry Grid.Row="11"  Grid.ColumnSpan="2"/>
+
+                        <Label Grid.Row="12" Text="Age Restrictions" FontSize="Medium" VerticalTextAlignment="End" />
+                        <Button Grid.Row="12" Grid.Column="1" Margin="-10"  Style="{StaticResource HyperlinkButtonStyle}" Text="Select" />
+                        <Entry Grid.Row="13"  Grid.ColumnSpan="2"/>
+
+
+                    </Grid>
+
+
+                    <!-- Promoters Options -->
+                    <Grid IsVisible="{Binding Path=IsChecked, Source={x:Reference PromotersButton}}"
+                  ColumnDefinitions="*,Auto"
+                  RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                    <Label Text="Name" FontSize="Medium"/>
+                    <Entry Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                    <Label Grid.Row="2" Text="Select Location" FontSize="Medium" />
+                        <Entry Grid.Row="3" Grid.ColumnSpan="2" />
+
+                    <Label Grid.Row="4" Text="Genres" FontSize="Medium" VerticalTextAlignment="End" />
+                    <Button Grid.Row="4" Grid.Column="1" Margin="-10"  Style="{StaticResource HyperlinkButtonStyle}" Text="Select" />
+                        <Entry Grid.Row="5" Grid.ColumnSpan="2" />
+
+                    <Label Grid.Row="6" Text="Event Types" FontSize="Medium" />
+                    <Button Grid.Row="6" Grid.Column="1" Margin="-10" Style="{StaticResource HyperlinkButtonStyle}" Text="Select" />
+                        <Entry Grid.Row="7" Grid.ColumnSpan="2" />
+
+                    <Label Grid.Row="8" Text="Promoted Tours" FontSize="Medium" />
+                    <Switch Grid.Row="8" Grid.Column="1" HorizontalOptions="EndAndExpand" />
+                </Grid>
+
+
+
+                    <ScrollView Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" BackgroundColor="{StaticResource GsDarkGrey2}">
+                    <c:BubbleLabel Text="Gig"/>
+                    <c:BubbleLabel Text="Party"/>
+                </StackLayout>
+            </ScrollView>
+            
+        </StackLayout>
+            </ScrollView>
+            <Frame
+            Grid.Row="1"
+            Margin="0,-6,0,0"
+            Padding="20"
+            Background="{StaticResource GsBarBackground}"
+            CornerRadius="0">
+                <c:GsButton Text="Search For Profiles" />
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
