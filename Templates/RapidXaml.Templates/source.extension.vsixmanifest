@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="RapidXaml.Templates.bde4c7e5-6e5b-40e7-9335-9c3454b1eb11" Version="0.11.4" Language="en-US" Publisher="Matt Lacey" />
+    <Identity Id="RapidXaml.Templates.bde4c7e5-6e5b-40e7-9335-9c3454b1eb11" Version="0.12.1" Language="en-US" Publisher="Matt Lacey" />
     <DisplayName>Rapid XAML Templates</DisplayName>
     <Description xml:space="preserve">Project and item templates to help with XAML development.</Description>
     <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>

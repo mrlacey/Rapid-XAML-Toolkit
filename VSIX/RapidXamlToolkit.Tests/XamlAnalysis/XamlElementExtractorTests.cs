@@ -1031,7 +1031,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
             {
-                if (extraDetails.TryGet("xmlns", out Dictionary<string, string> xmlns))
+                if (extraDetails.TryGet(KnownExtraDetails.Xmlns, out Dictionary<string, string> xmlns))
                 {
                     this.Count = xmlns.Count();
                     this.Xmlns = xmlns;

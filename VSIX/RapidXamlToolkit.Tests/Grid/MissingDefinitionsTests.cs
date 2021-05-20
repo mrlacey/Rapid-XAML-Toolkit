@@ -157,6 +157,146 @@ namespace RapidXamlToolkit.Tests.Grid
             Assert.AreEqual(0, actualTags.OfType<MissingColumnDefinitionTag>().Count());
         }
 
+        [TestMethod]
+        public void NestedGrid_DefinitionInInnerNotOuter_Expanded()
+        {
+            var xaml = @"<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height=""*"" />
+        <RowDefinition Height=""*"" />
+    </Grid.RowDefinitions>
+
+     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=""*"" />
+            <RowDefinition Height=""*"" />
+            <RowDefinition Height=""*"" />
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row=""3"" Text=""hello world"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void NestedGrid_DefinitionInInnerNotOuter_Short()
+        {
+            var xaml = @"<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height=""*"" />
+        <RowDefinition Height=""*"" />
+    </Grid.RowDefinitions>
+
+     <Grid RowDefinitions=""*,*,*,*"">
+        <TextBlock Grid.Row=""3"" Text=""hello world"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void NestedGrid_DefinitionInInnerNotOuter_LongOuterThenShort()
+        {
+            var xaml = @"<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height=""*"" />
+        <RowDefinition Height=""*"" />
+    </Grid.RowDefinitions>
+
+     <Grid RowDefinitions=""*,*,*,*"">
+        <TextBlock Grid.Row=""3"" Text=""hello world"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void NestedGrid_DefinitionInInnerNotOuter_LongOuterThenShort_FindInvalid()
+        {
+            var xaml = @"<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height=""*"" />
+        <RowDefinition Height=""*"" />
+        <RowDefinition Height=""*"" />
+        <RowDefinition Height=""*"" />
+    </Grid.RowDefinitions>
+
+     <Grid RowDefinitions=""*,*"">
+        <TextBlock Grid.Row=""3"" Text=""hello world"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            // This is zero because only looking at the outer grid.
+            Assert.AreEqual(0, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void NestedGrid_DefinitionInInnerNotOuter_ShortOuterLongerInner()
+        {
+            var xaml = @"<Grid RowDefinitions=""*,*"">
+
+     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=""*"" />
+            <RowDefinition Height=""*"" />
+            <RowDefinition Height=""*"" />
+            <RowDefinition Height=""*"" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row=""3"" Text=""hello world"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void NestedGrid_DefinitionInInnerNotOuter_OtherInner_Short()
+        {
+            var xaml = @"<Grid RowDefinitions=""*,*"">
+
+     <Grid />
+
+     <Grid RowDefinitions=""*,*,*,*"">
+        <TextBlock Grid.Row=""3"" Text=""hello world"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void NestedGrid_DefinitionInInnerNotOuter_OtherInner_Short_FindInvalid()
+        {
+            var xaml = @"<Grid RowDefinitions=""*,*,*,*"">
+
+     <Grid Grid.Row=""1"" />
+
+     <Grid Grid.Row=""5"" RowDefinitions=""*,*"">
+        <TextBlock Text=""hello world"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(1, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
         private List<IRapidXamlAdornmentTag> ProcessGrid(string xaml)
         {
             var outputTags = new TagList();

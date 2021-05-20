@@ -17,11 +17,27 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var actions = this.GetActions<RadioButtonAnalyzer>(xaml, ProjectType.XamarinForms);
 
-            // TODO: ISSUE#163 update when add support for localizing hard-coded strings in Xamarin.Forms.
-            Assert.IsFalse(actions.IsNone);
-            Assert.AreEqual(1, actions.Actions.Count);
-            Assert.AreEqual(ActionType.HighlightWithoutAction, actions.Actions[0].Action);
-            Assert.AreEqual("RXT201", actions.Actions[0].Code);
+            AnalysisActionsAssert.HasOneActionToRemoveHardCodedString(actions);
+        }
+
+        [TestMethod]
+        public void HardCoded_Content_Uwp_Detected()
+        {
+            var xaml = @"<RadioButton Content=""HCValue"" />";
+
+            var actions = this.GetActions<RadioButtonAnalyzer>(xaml, ProjectType.Uwp);
+
+            AnalysisActionsAssert.HasOneActionToRemoveHardCodedString(actions);
+        }
+
+        [TestMethod]
+        public void HardCoded_Content_Wpf_Detected()
+        {
+            var xaml = @"<RadioButton Content=""HCValue"" />";
+
+            var actions = this.GetActions<RadioButtonAnalyzer>(xaml, ProjectType.Wpf);
+
+            AnalysisActionsAssert.HasOneActionToRemoveHardCodedString(actions);
         }
     }
 }

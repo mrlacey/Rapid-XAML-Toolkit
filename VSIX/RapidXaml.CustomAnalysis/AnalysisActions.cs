@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Collections.Generic;
 
 namespace RapidXaml
@@ -151,6 +152,28 @@ namespace RapidXaml
             var result = new AnalysisActions();
 
             result.AddXmlns(errorType, code, description, actionText, alias, value, extendedMessage, moreInfoUrl);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Create a resource file entry.
+        /// </summary>
+        /// <param name="errorType">How the response should be indicated.</param>
+        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
+        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
+        /// <param name="actionText">The text displayed in the quick action.</param>
+        /// <param name="resFilePath">The path to the resx or resw file.</param>
+        /// <param name="resourceKey">The key (or name) for the entry in the resource file.</param>
+        /// <param name="resourceValue">The value for the entry in the resource file.</param>
+        /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions CreateResource(RapidXamlErrorType errorType, string code, string description, string actionText, string resFilePath, string resourceKey, string resourceValue, string moreInfoUrl = null, string extendedMessage = null)
+        {
+            var result = new AnalysisActions();
+
+            result.CreateResource(errorType, code, description, actionText, resFilePath, resourceKey, resourceValue, extendedMessage, moreInfoUrl);
 
             return result;
         }
@@ -309,6 +332,18 @@ namespace RapidXaml
             result.RenameElement(errorType, code, description, actionText, newName, extendedMessage, moreInfoUrl);
 
             return result;
+        }
+
+        /// <summary>
+        /// Add the actions from another AnalysisActions object.
+        /// </summary>
+        /// <param name="otherActions">Another custom anlaysis response.</param>
+        public void Add(AnalysisActions otherActions)
+        {
+            if (otherActions != null && !otherActions.IsNone)
+            {
+                this.Actions.AddRange(otherActions.Actions);
+            }
         }
 
         private static AnalysisActions CreateNone()

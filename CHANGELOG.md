@@ -1,10 +1,20 @@
 # Rapid XAML Toolkit - ChangeLog
 
-## Upcoming
+## 0.12.1
+
+- Fix bug affecting the detection of assigned rows and columns within grids.
+
+## 0.12
 
 - Fix bug where the location of items to underline was not calculated correctly.
 - Performance improvements in analysis.
-- Add JsonSchema support for .xamlAnalysis files
+- Add JsonSchema support for .xamlAnalysis files.
+- Add automated fixes for hard-coded strings in WPF & Xamarin.Forms.
+- Add analyzers for standard Xamarin.Forms controls.
+
+## 0.11.5
+
+- CustomAnalysis can identify where to CreateResource(s).
 
 ## 0.11.4
 

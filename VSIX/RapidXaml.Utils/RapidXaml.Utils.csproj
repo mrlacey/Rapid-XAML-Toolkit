@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.4" />
+    <PackageReference Include="WarnAboutTODOs" Version="1.6.0" />
   </ItemGroup>
 
 </Project>

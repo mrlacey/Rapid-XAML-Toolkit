@@ -95,16 +95,18 @@
     <Compile Include="XamlAnalysis\Actions\MakeNameStartWithCapitalAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MakeUidStartWithCapitalAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MediaElementAction.cs" />
-    <Compile Include="XamlAnalysis\Actions\MissingCheckBoxEventAction.cs" />
     <Compile Include="XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
     <Compile Include="XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
     <Compile Include="XamlAnalysis\Actions\SelectedItemBindingModeAction.cs" />
     <Compile Include="XamlAnalysis\Actions\SuppressWarningAction.cs" />
+    <Compile Include="XamlAnalysis\AnalysisSpeedWarningInfoBar.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\AddChildTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\AddXmlnsAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BadCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\BindingToXBindAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\ButtonAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\CheckBoxAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer2.cs" />
@@ -115,6 +117,9 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\InternalBadCustomAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\ImageButtonAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\EntryAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\SliderAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\StepperAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfLineAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfListViewAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\SwitchCellAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\TableSectionAnalyzer.cs" />
@@ -129,12 +134,11 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\TwoPaneViewAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfImageAnalyzer.cs" />
     <Compile Include="XamlAnalysis\IRapidXamlAdornmentTagExtensions.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfMapPinAnalyzer.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\ButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\CalendarDatePickerProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\CheckBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\EveryElementProcessor.cs" />
@@ -142,6 +146,7 @@
     <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
+    <Compile Include="XamlAnalysis\Processors\LabelProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MediaElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
@@ -173,7 +178,6 @@
     <Compile Include="XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddRowDefinitionsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
-    <Compile Include="XamlAnalysis\Tags\CheckBoxCheckedAndUncheckedEventsTag.cs" />
     <Compile Include="XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
     <Compile Include="XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="XamlAnalysis\Tags\InsertionTag.cs" />
@@ -248,7 +252,7 @@
       <Version>3.2.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.InteractiveHost">
-      <Version>3.3.0-beta3-19409-05</Version>
+      <Version>3.5.0-beta3-20074-03</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.LanguageServices">
       <Version>3.2.0</Version>
@@ -269,13 +273,16 @@
     <PackageReference Include="Microsoft.VSSDK.Vsixsigntool">
       <Version>16.2.29116.78</Version>
     </PackageReference>
+    <PackageReference Include="RapidXaml.CustomAnalysis">
+      <Version>0.12.0</Version>
+    </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="WarnAboutTODOs">
-      <Version>1.5.0</Version>
+      <Version>1.6.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

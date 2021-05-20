@@ -129,6 +129,23 @@ namespace RapidXamlToolkit.Tests.Misc
             this.ParseWithoutError(".\\Misc\\PageWithXmlEncoding.xaml", ProjectType.Uwp);
         }
 
+        [TestMethod]
+        public void Real_ProfileSearchPage_XamarinForms_NestedGrids_SimpleRowDefinitions()
+        {
+            var result = new RapidXamlDocument();
+
+            var text = File.ReadAllText(".\\Misc\\ProfileSearchPage.xaml");
+
+            var snapshot = new FakeTextSnapshot(text.Length);
+            var vsa = new TestVisualStudioAbstraction();
+            var logger = DefaultTestLogger.Create();
+
+            XamlElementExtractor.Parse("ProfileSearchPage.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.XamarinForms, string.Empty, vsa, logger), result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.XamarinForms, null, vsa), logger);
+
+            Assert.AreEqual(0, result.Tags.OfType<MissingRowDefinitionTag>().Count());
+            Assert.AreEqual(0, result.Tags.OfType<MissingColumnDefinitionTag>().Count());
+        }
+
         private void ParseWithoutError(string filePath, ProjectType projType)
         {
             var result = new RapidXamlDocument();

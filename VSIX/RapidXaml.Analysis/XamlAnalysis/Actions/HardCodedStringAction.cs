@@ -90,7 +90,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         vs.ReplaceInActiveDocOnLine(current, replaceWith, this.Tag.GetDesignerLineNumber());
                     }
                 }
-                else if (this.Tag.ProjType == ProjectType.Wpf)
+                else if (this.Tag.ProjType == ProjectType.Wpf
+                      || this.Tag.ProjType == ProjectType.XamarinForms)
                 {
                     var resourceName = $"{Path.GetFileNameWithoutExtension(this.Tag.FileName)}{this.Tag.Value}".RemoveNonAlphaNumerics();
                     this.AddResource(resPath, resourceName, this.Tag.Value);
@@ -102,7 +103,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     var xmlns = "properties";
                     var xmlnsExists = true;
 
-                    var newAttribute = $"{this.Tag.AttributeName}=\"{{x:static {xmlns}:{Path.GetFileNameWithoutExtension(resPath)}.{resourceName}}}\"";
+                    var newAttribute = $"{this.Tag.AttributeName}=\"{{x:Static {xmlns}:{Path.GetFileNameWithoutExtension(resPath)}.{resourceName}}}\"";
 
                     switch (this.Tag.AttributeType)
                     {
@@ -129,26 +130,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         vs.AddXmlnsAliasToActiveDoc(xmlns, $"clr-namespace:{resourceNs}");
                     }
                 }
-                else if (this.Tag.ProjType == ProjectType.XamarinForms)
-                {
-                    var resourceName = "NEED TO GENERATE THIS";
-                    this.AddResource(resPath, resourceName, this.Tag.Value);
-
-                    // TODO: ISSUE#163 Implement Xamarin.Forms resource creation
-                    switch (this.Tag.AttributeType)
-                    {
-                        case AttributeType.Inline:
-                            var currentAttribute = $"{this.Tag.AttributeName}=\"{this.Tag.Value}\"";
-                            var localizedAttribute = $"{this.Tag.AttributeName}=\"{{x:Static resources:{System.IO.Path.GetFileNameWithoutExtension(resPath)}.{resourceName}}}\"";
-
-                            vs.ReplaceInActiveDocOnLine(currentAttribute, localizedAttribute, this.Tag.GetDesignerLineNumber());
-                            break;
-                        case AttributeType.Element:
-                            break;
-                        case AttributeType.DefaultValue:
-                            break;
-                    }
-                }
 
                 RapidXamlDocumentCache.TryUpdate(this.File);
             }
@@ -163,7 +144,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         private string GetResourceFileNamespace(string resPath)
         {
-            // It's fine that this is C# only as WPFCore doesn't (yet) support VB
+            // It's fine that this is C# only as WPFCore doesn't (yet) and XF doesn't support VB
             // https://developercommunity.visualstudio.com/idea/750543/add-visual-basic-support-to-net-core-3-wpfwindows.html
             var designerFileName = Path.Combine(Path.GetDirectoryName(resPath), Path.GetFileNameWithoutExtension(resPath) + ".Designer.cs");
 

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RapidXaml.AutoFix</id>
-    <version>0.11.4</version>
+    <version>0.12.1</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <license type="expression">MIT</license>
@@ -13,7 +13,7 @@
     <description>Use Rapid XAML custom analyzers to modify XAML files.</description>
     <summary>Apply automatic changes to XAML files.</summary>
     <releaseNotes>.</releaseNotes>
-    <copyright>© 2020 Matt Lacey Ltd.</copyright>
+    <copyright>© 2021 Matt Lacey Ltd.</copyright>
     <tags>XAML, WinUI, UWP, WPF, Xamarin.Forms, MVVM, UNO</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">

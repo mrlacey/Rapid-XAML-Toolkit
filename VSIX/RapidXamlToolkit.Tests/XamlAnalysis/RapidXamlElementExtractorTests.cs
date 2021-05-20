@@ -1754,7 +1754,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
   Environment.NewLine + "        <Child.Age>14</Child.Age>" +
   Environment.NewLine + "        <Child.Name><string>Carla</string></Child.Name>" +
   Environment.NewLine + "        <Child.Pet><Hamster /></Child.Pet>" +
-  Environment.NewLine + "        <GrandChild><GrandChild.Nom><Identifier Id=\"Bobby\" /><GrandChild.Nom></GrandChild>" +
+  Environment.NewLine + "        <GrandChild><GrandChild.Nom><Identifier Id=\"Bobby\" /></GrandChild.Nom></GrandChild>" +
   Environment.NewLine + "    </Child>" +
   Environment.NewLine + "    <Sibling Name=\"Mary\">" +
   Environment.NewLine + "        <ParentMoniker Value=\"Monica\" />" +
@@ -1775,6 +1775,23 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreNotEqual(first.Children.First().Children.First().Location.Start, second.Children.First().Children.First().Location.Start);
 
             Assert.AreNotEqual(first.Children.Last().Location.Start, second.Children.Last().Location.Start);
+        }
+
+        [TestMethod]
+        public void EnsureCommentsAreIgnoredInAttributeChildren()
+        {
+            var xaml = @"
+        <muxc:TwoPaneView>
+            <muxc:TwoPaneView.Pane1>
+                <!-- something important -->
+                <Grid />
+            </muxc:TwoPaneView.Pane1>
+            <muxc:TwoPaneView.Pane2 />
+        </muxc:TwoPaneView>";
+
+            var sut = RapidXamlElementExtractor.GetElement(xaml);
+
+            Assert.AreEqual(1, sut.Attributes[0].Children.Count);
         }
     }
 }

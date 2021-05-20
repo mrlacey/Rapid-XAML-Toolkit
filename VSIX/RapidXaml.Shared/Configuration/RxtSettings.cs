@@ -7,10 +7,29 @@ namespace RapidXamlToolkit.Configuration
 {
     public class RxtSettings
     {
-        public string TelemetryKey { get; private set; } = "DEFAULT-VALUE";
+        public string TelemetryKey
+        {
+            get
+            {
+                return Properties.Settings.Default.TelemetryKey;
+            }
+        }
 
-        public Guid LightBulbTelemetryGuid { get; private set; } = Guid.Empty;
+        public Guid LightBulbTelemetryGuid
+        {
+            get
+            {
+                var configValue = Properties.Settings.Default.LightBulbTelemetryGuid;
 
-        public bool ExtendedOutputEnabledByDefault { get; private set; } = true;
+                if (!string.IsNullOrWhiteSpace(configValue))
+                {
+                    return new Guid(configValue);
+                }
+                else
+                {
+                    return Guid.Empty;
+                }
+            }
+        }
     }
 }

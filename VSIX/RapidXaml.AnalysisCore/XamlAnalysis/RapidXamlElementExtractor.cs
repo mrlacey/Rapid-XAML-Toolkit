@@ -176,10 +176,20 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                                 foreach (var acListChild in acList.ChildNodes)
                                                 {
-                                                    children.Add(
-                                                        GetElementInternal(
+                                                    if (acListChild is XmlCommentSyntax)
+                                                    {
+                                                        // Don't add a null child entry for comments (as comments are currently ignored)
+                                                        continue;
+                                                    }
+
+                                                    var newElement = GetElementInternal(
                                                             xaml.Substring(acListChild.SpanStart, acListChild.Width),
-                                                            startOffset + acListChild.SpanStart));
+                                                            startOffset + acListChild.SpanStart);
+
+                                                    if (newElement != null)
+                                                    {
+                                                        children.Add(newElement);
+                                                    }
                                                 }
 
                                                 result.AddChildrenAttribute(

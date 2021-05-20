@@ -10,11 +10,18 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class EntryAnalyzer : BuiltInXamlAnalyzer
     {
+        public EntryAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override string TargetType() => Elements.Entry;
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            AnalysisActions result = AnalysisActions.None;
+            var result = this.CheckForHardCodedString(Attributes.Text, AttributeType.Any, element, extraDetails);
+
+            result.Add(this.CheckForHardCodedString(Attributes.Placeholder, AttributeType.Any, element, extraDetails));
 
             if (!element.HasAttribute(Attributes.Keyboard))
             {
@@ -48,40 +55,6 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                         actionText: StringRes.UI_AddEntryKeyboard.WithParams(nonDefaultSuggestion),
                         addAttributeName: Attributes.Keyboard,
                         addAttributeValue: nonDefaultSuggestion);
-                }
-            }
-
-            var txtAttr = element.GetAttributes(Attributes.Text).FirstOrDefault();
-
-            if (txtAttr != null && txtAttr.HasStringValue)
-            {
-                var value = txtAttr.StringValue;
-
-                // TODO: ISSUE#163 change this to an RXT200 when can handle localization of Xamarin.Forms apps
-                if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
-                {
-                    result.HighlightAttributeWithoutAction(
-                    errorType: RapidXamlErrorType.Warning,
-                    code: "RXT201",
-                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.Entry, Attributes.Text, value),
-                    attribute: txtAttr);
-                }
-            }
-
-            var phAttr = element.GetAttributes(Attributes.Placeholder).FirstOrDefault();
-
-            if (phAttr != null && phAttr.HasStringValue)
-            {
-                var value = phAttr.StringValue;
-
-                // TODO: ISSUE#163 change this to an RXT200 when can handle localization of Xamarin.Forms apps
-                if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
-                {
-                    result.HighlightAttributeWithoutAction(
-                    errorType: RapidXamlErrorType.Warning,
-                    code: "RXT201",
-                    description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(Elements.Entry, Attributes.Placeholder, value),
-                    attribute: phAttr);
                 }
             }
 

@@ -41,6 +41,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Label => "Label";
 
+        public static string Line => "Line";
+
         public static string ListView => "ListView";
 
         public static string MediaElement => "MediaElement";
@@ -52,6 +54,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string PasswordBox => "PasswordBox";
 
         public static string Picker => "Picker";
+
+        public static string Pin => "Pin";
 
         public static string Pivot => "Pivot";
 
@@ -66,6 +70,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string SearchBar => "SearchBar";
 
         public static string Slider => "Slider";
+
+        public static string Stepper => "Stepper";
 
         public static string SwipeItem => "SwipeItem";
 

@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             var aliasToUse = defaultAllias;
             var addAlias = true;
 
-            extraDetails.TryGet("xmlns", out Dictionary<string, string> xmlns);
+            extraDetails.TryGet(KnownExtraDetails.Xmlns, out Dictionary<string, string> xmlns);
 
             // Check to see if there is already an alias for the desired namespace
             var xns = xmlns.FirstOrDefault(x => x.Value == xmlnamespace);

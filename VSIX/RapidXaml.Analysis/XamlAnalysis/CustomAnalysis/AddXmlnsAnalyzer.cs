@@ -8,6 +8,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class AddXmlnsAnalyzer : BuiltInXamlAnalyzer
     {
+        public AddXmlnsAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
+            : base(vsa)
+        {
+        }
+
         public override string TargetType() => "WebView";
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
@@ -17,7 +22,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
             var aliasToUse = defaultAlias;
 
-            extraDetails.TryGet("xmlns", out Dictionary<string, string> xmlns);
+            extraDetails.TryGet(KnownExtraDetails.Xmlns, out Dictionary<string, string> xmlns);
 
             if (xmlns != null)
             {

@@ -3,7 +3,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
+using System.Xml.Linq;
 using EnvDTE;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
@@ -46,25 +46,23 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             {
                 txtDoc.Selection.MoveToLineAndOffset(lineNumber, 1);
 
-                txtDoc.Selection.FindText(find, (int)vsFindOptions.vsFindOptionsMatchCase);
-
                 var lineToSearch = lineNumber;
 
-                var keepLooking = true;
+                var found = false;
 
-                while (keepLooking)
+                while (!found)
                 {
-                    if (txtDoc.Selection.ActivePoint.Line == lineToSearch)
+                    found = txtDoc.Selection.FindText(find, (int)vsFindOptions.vsFindOptionsMatchCase);
+
+                    if (found)
                     {
                         // The FindText call selected the search text so this insert pastes over the top of it
                         txtDoc.Selection.Insert(replace);
-                        keepLooking = false;
                     }
                     else
                     {
                         lineToSearch -= 1;
                         txtDoc.Selection.MoveToLineAndOffset(lineToSearch, 1);
-                        txtDoc.Selection.FindText(find, (int)vsFindOptions.vsFindOptionsMatchCase);
                     }
                 }
             }
@@ -231,6 +229,48 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                         txtDoc.Selection.Insert($" xmlns:{alias}=\"{value}\"");
                     }
                 }
+            }
+        }
+
+        public void AddResource(string resPath, string resKey, string resValue)
+        {
+            if (!System.IO.File.Exists(resPath))
+            {
+                return;
+            }
+
+            try
+            {
+                var xdoc = XDocument.Load(resPath);
+
+                // Don't want to create a duplicate entry.
+                var alreadyExists = false;
+
+                foreach (var element in xdoc?.Descendants("data"))
+                {
+                    if (element.Attribute("name")?.Value == resKey)
+                    {
+                        alreadyExists = true;
+                        break;
+                    }
+                }
+
+                if (!alreadyExists)
+                {
+                    var newData = new XElement("data");
+
+                    newData.Add(new XAttribute("name", resKey));
+
+                    newData.Add(new XAttribute(XNamespace.Xml + "space", "preserve"));
+                    newData.Add(new XElement("value", resValue));
+                    xdoc.Element("root").Add(newData);
+                    xdoc.Save(resPath);
+                }
+            }
+            catch (Exception exc)
+            {
+                // File locked, read-only, or corrupt are all reasons to get here.
+                System.Diagnostics.Debug.WriteLine(exc);
             }
         }
     }

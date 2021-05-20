@@ -433,7 +433,9 @@ namespace RapidXamlToolkit.Parsers
             return this.FormatOutput(rawOutput, property.PropertyType, property.Name, numericSubstitute, property.Symbol, property.Attributes, getSubPropertyOutput);
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter
         protected (string output, int counter) GetMethodOutputAndCounter(MethodDetails method, int numericSubstitute, SemanticModel semModel)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             var mappingOfInterest = this.GetMappingOfInterest(method);
 

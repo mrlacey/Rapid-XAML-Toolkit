@@ -8,7 +8,6 @@ using System.Threading;
 using RapidXaml;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
-using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Actions
@@ -22,7 +21,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             if (string.IsNullOrWhiteSpace(tag.ActionText))
             {
-                this.DisplayText = Resources.StringRes.UI_XamlAnalysisFixUnavailable;
+                this.DisplayText = StringRes.UI_XamlAnalysisFixUnavailable;
                 this.IsEnabled = false;
             }
             else
@@ -106,8 +105,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                 case RapidXaml.ActionType.AddAttribute:
                     var lineNumber = tag.Snapshot.GetLineNumberFromPosition(tag.InsertPosition) + 1;
 
-                    // Can't rely on the original element name as this may be supplemental after it's been renamed
-                    if (XamlElementProcessor.IsSelfClosing(tag.AnalyzedElement.OriginalString.AsSpan()))
+                    if (tag.AnalyzedElement.IsSelfClosing())
                     {
                         var before = $"/>";
                         var after = $"{tag.Name}=\"{tag.Value}\" />";
@@ -117,7 +115,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     else
                     {
                         var before = $">";
-                        var after = $"{tag.Name}=\"{tag.Value}\" /";
+                        var after = $" {tag.Name}=\"{tag.Value}\" >";
 
                         vs.ReplaceInActiveDocOnLine(before, after, lineNumber);
                     }
@@ -126,15 +124,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                 case RapidXaml.ActionType.AddChild:
 
-                    var origXaml = tag.AnalyzedElement.OriginalString;
-
                     // Allow for self-closing elements
-                    if (origXaml.EndsWith("/>"))
+                    if (tag.AnalyzedElement.IsSelfClosing())
                     {
                         var replacementXaml = $">{Environment.NewLine}{tag.Content}{Environment.NewLine}</{tag.ElementName}>";
 
                         var insertLine = tag.Snapshot.GetLineNumberFromPosition(tag.InsertPosition) + 1;
                         vs.ReplaceInActiveDocOnLine("/>", replacementXaml, insertLine);
+                        tag.AnalyzedElement.OverrideIsSelfClosing(false);
                     }
                     else
                     {
@@ -197,11 +194,22 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                     break;
                 case RapidXaml.ActionType.AddXmlns:
-                    System.Diagnostics.Debug.WriteLine(tag);
-
                     vs.AddXmlnsAliasToActiveDoc(tag.Name, tag.Value);
 
                     break;
+
+                case RapidXaml.ActionType.CreateResource:
+                    vs.AddResource(tag.Content, tag.Name, tag.Value);
+
+                    break;
+
+                case RapidXaml.ActionType.RemoveContent:
+                    var current = $">{this.Tag.Value}</{this.Tag.ElementName}>";
+                    var replaceWith = $" />";
+                    vs.ReplaceInActiveDocOnLine(current, replaceWith, this.Tag.GetDesignerLineNumber());
+                    tag.AnalyzedElement.OverrideIsSelfClosing(true);
+                    break;
+
                 default:
                     // Using a newer version of CustomAnalysis than the VSIX knows about
                     // Doing nothing is a suitable fallback.

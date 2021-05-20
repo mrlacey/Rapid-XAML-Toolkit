@@ -2,10 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>RapidXaml.BuildAnalysis</id>
-    <version>0.11.4</version>
+    <version>0.12.1</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
-    <copyright>Copyright © 2020 Matt Lacey Ltd.</copyright>
+    <copyright>Copyright © 2021 Matt Lacey Ltd.</copyright>
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <icon>images\icon.png</icon>

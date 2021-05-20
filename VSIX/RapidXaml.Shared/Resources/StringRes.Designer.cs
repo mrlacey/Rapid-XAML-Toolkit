@@ -205,7 +205,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unexpected error occurred while parsing XAML..
+        ///   Looks up a localized string similar to Unexpected error occurred while parsing XAML. (v{0}).
         /// </summary>
         public static string Error_XamlAnalysisDescription {
             get {
@@ -885,6 +885,24 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_ProblemsInstructionsAndLink {
             get {
                 return ResourceManager.GetString("Info_ProblemsInstructionsAndLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XAML analysis seems to be running slower than expected..
+        /// </summary>
+        public static string Info_PromptAnalysisRunningSlow {
+            get {
+                return ResourceManager.GetString("Info_PromptAnalysisRunningSlow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable analysis when save file.
+        /// </summary>
+        public static string Info_PromptDisableAnalysisOnSave {
+            get {
+                return ResourceManager.GetString("Info_PromptDisableAnalysisOnSave", resourceCulture);
             }
         }
         
@@ -2018,7 +2036,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hard-coded string.
+        ///   Looks up a localized string similar to Extract hard-coded string to resource file..
         /// </summary>
         public static string UI_XamlAnalysisHardcodedStringTooltip {
             get {
@@ -2248,6 +2266,96 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_XamlAnalysisUseMediaPlayerElementToolTip {
             get {
                 return ResourceManager.GetString("UI_XamlAnalysisUseMediaPlayerElementToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filename may not work on all platforms..
+        /// </summary>
+        public static string UI_XamlAnalysisXfImageFilenameDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfImageFilenameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Android drawables have strict naming restrictions. The filename being used breaks these restrictions and so you won&apos;t be able to use the same filename for all platforms..
+        /// </summary>
+        public static string UI_XamlAnalysisXfImageFilenameExtendedMessage {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfImageFilenameExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting the Fill property of a Line is unnecessary as it has no effect..
+        /// </summary>
+        public static string UI_XamlAnalysisXfLineDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfLineDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Fill attribute..
+        /// </summary>
+        public static string UI_XamlAnalysisXfLineToolTip {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfLineToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin does not have a Label specified..
+        /// </summary>
+        public static string UI_XamlAnalysisXfMapPinDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfMapPinDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Label attribute..
+        /// </summary>
+        public static string UI_XamlAnalysisXfMapPinToolTip {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfMapPinToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slider has a Minimum value greater than Maximum..
+        /// </summary>
+        public static string UI_XamlAnalysisXfSliderMinMaxDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfSliderMinMaxDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ThumbColor will not be used as ThumbImageSource takes precedence..
+        /// </summary>
+        public static string UI_XamlAnalysisXfSliderThumbColorDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfSliderThumbColorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove ThumbColor attribute..
+        /// </summary>
+        public static string UI_XamlAnalysisXfSliderThumbColorToolTip {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfSliderThumbColorToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stepper has a Minimum value greater than Maximum..
+        /// </summary>
+        public static string UI_XamlAnalysisXfStepperMinMaxDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisXfStepperMinMaxDescription", resourceCulture);
             }
         }
     }

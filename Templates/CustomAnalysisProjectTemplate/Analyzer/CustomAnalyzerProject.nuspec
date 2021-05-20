@@ -13,7 +13,7 @@
         <tags>RapidXaml, XamlAnalyzer</tags>
         <dependencies>
             <group targetFramework="netstandard2.0">
-                <dependency id="RapidXaml.CustomAnalysis" version="0.11.4" exclude="Build,Analyzers" />
+                <dependency id="RapidXaml.CustomAnalysis" version="0.12.1" exclude="Build,Analyzers" />
             </group>
         </dependencies>
     </metadata>
