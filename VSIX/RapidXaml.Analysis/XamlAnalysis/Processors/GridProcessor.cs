@@ -201,9 +201,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 defUseOffset += nextDefUseIndex;
 
                 // Don't warn about definition use in a nested child grid (an excluded area)
-                if (!exclusions.IsInExcludedArea(nextDefUseIndex))
+                if (!exclusions.IsInExcludedArea(defUseOffset))
                 {
-                    if (nextDefUseIndex > endOfOpening)
+                    if (defUseOffset > endOfOpening)
                     {
                         if (!xamlElement.AsSpan().InComment(defUseOffset))
                         {
