@@ -1,5 +1,9 @@
 # Rapid XAML Toolkit - ChangeLog
 
+## 0.12.1
+
+- Fix bug affecting the detection of assigned rows and columns within grids.
+
 ## 0.12
 
 - Fix bug where the location of items to underline was not calculated correctly.
