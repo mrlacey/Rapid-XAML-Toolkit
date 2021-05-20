@@ -50,6 +50,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\BuiltInXamlAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomProcessorWrapper.cs" />
     <Compile Include="XamlAnalysis\Elements.cs" />
+    <Compile Include="XamlAnalysis\ExclusionHelpers.cs" />
     <Compile Include="XamlAnalysis\ParsedAction.cs" />
     <Compile Include="XamlAnalysis\Processors\ProcessorEssentials.cs" />
     <Compile Include="XamlAnalysis\Processors\XamlElementProcessor.cs" />

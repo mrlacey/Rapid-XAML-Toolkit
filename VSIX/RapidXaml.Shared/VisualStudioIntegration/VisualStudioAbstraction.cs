@@ -95,7 +95,10 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 }
                 catch (Exception exc)
                 {
-                    this.logger?.RecordException(exc);
+                    // This will fail when analyzing a document before the project has fully loaded in VS
+                    // Ideally want to record these once the project has fully loaded.
+                    ////this.logger?.RecordException(exc);
+                    System.Diagnostics.Debug.WriteLine(exc);
                     canCache = false;
                 }
 
