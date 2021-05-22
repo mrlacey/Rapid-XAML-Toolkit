@@ -30,6 +30,12 @@ namespace Benchmarking
             return -1;
         }
 
+        public string GetLineTextFromLineNumber(int lineNo)
+        {
+            // This should never be called as only exists in an Action and this won't be invoked during benchmarking
+            throw new System.NotImplementedException();
+        }
+
         public string GetText()
         {
             // This should never be called

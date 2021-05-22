@@ -146,7 +146,6 @@
     <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\LabelProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MediaElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />

@@ -46,9 +46,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                     while (true)
                     {
-                        var line = this.Tag.Snapshot.GetLineFromLineNumber(lineNo);
+                        var lineText = this.Tag.Snapshot.GetLineTextFromLineNumber(lineNo);
 
-                        if (line.GetText().Contains("RowDefinitions=\""))
+                        if (lineText.Contains("RowDefinitions=\""))
                         {
                             vs.ReplaceInActiveDocOnLine(
                                 "RowDefinitions=\"",

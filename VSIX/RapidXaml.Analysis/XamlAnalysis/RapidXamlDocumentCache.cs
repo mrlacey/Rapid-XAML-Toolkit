@@ -56,7 +56,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     // Don't worry about timing this call as it's only repeated calls to analyze a document that might cause a user prompt.
                     // This only happens on document open. Repeated analysis of a document will happen through TryUpdate.
-                    var doc = RapidXamlDocument.Create(snapshot, file, vsa, string.Empty);
+                    var doc = RapidXamlDocument.Create(new VsTextSnapshot(snapshot), file, vsa, string.Empty);
 
                     Cache.Add(file, doc);
 
@@ -194,7 +194,9 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 RxtOutputPane.Instance.Write(StringRes.Info_PromptToDisableAnalysisOnSave);
                                 RxtOutputPane.Instance.Activate(); // To increase the likelihood that it's seen
 
+#pragma warning disable VSTHRD104 // Offer async methods - as can't make the full stack to here async
                                 ThreadHelper.JoinableTaskFactory.Run(async () =>
+#pragma warning restore VSTHRD104 // Offer async methods
                                 {
                                     var infoBar = new AnalysisSpeedWarningInfoBar();
 

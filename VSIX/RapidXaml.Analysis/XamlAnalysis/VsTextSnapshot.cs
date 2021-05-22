@@ -8,7 +8,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     internal class VsTextSnapshot : ITextSnapshotAbstraction
     {
-        private ITextSnapshot underlyingSnapshot;
+        private readonly ITextSnapshot underlyingSnapshot;
 
         public VsTextSnapshot(ITextSnapshot snapshot)
         {
@@ -31,6 +31,11 @@ namespace RapidXamlToolkit.XamlAnalysis
         public int GetLineNumberFromPosition(int position)
         {
             return this.underlyingSnapshot.GetLineFromPosition(position).LineNumber;
+        }
+
+        public string GetLineTextFromLineNumber(int lineNo)
+        {
+            return this.underlyingSnapshot.GetLineFromLineNumber(lineNo).GetText();
         }
 
         public string GetText()

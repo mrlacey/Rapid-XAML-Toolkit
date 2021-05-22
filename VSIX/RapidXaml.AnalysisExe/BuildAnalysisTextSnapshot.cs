@@ -127,5 +127,10 @@ namespace RapidXaml.AnalysisExe
         public void Write(TextWriter writer)
         {
         }
+
+        public string GetLineTextFromLineNumber(int lineNo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

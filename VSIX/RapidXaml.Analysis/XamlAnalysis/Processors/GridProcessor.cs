@@ -221,7 +221,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                     if (assignedInt > 0 && assignedInt >= rowDefsCount)
                                     {
                                         var tagDeps = this.CreateBaseTagDependencies(
-                                            new Span(offset + defUseOffset, closePos - defUseOffset + 1),
+                                            new VsTextSpan(offset + defUseOffset, closePos - defUseOffset + 1),
                                             snapshot,
                                             fileName);
 
@@ -255,7 +255,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                     if (assignedInt > 0 && assignedInt >= colDefsCount)
                                     {
                                         var tagDeps = this.CreateBaseTagDependencies(
-                                            new Span(offset + defUseOffset, closePos - defUseOffset + 1),
+                                            new VsTextSpan(offset + defUseOffset, closePos - defUseOffset + 1),
                                             snapshot,
                                             fileName);
 

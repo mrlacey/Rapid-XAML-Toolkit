@@ -31,6 +31,11 @@ namespace RapidXamlToolkit.Tests
             return -1;
         }
 
+        public string GetLineTextFromLineNumber(int lineNo)
+        {
+            throw new NotImplementedException();
+        }
+
         public string GetText()
         {
             throw new NotImplementedException();

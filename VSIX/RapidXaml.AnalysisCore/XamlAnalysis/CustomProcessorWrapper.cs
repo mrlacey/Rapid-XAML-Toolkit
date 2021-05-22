@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.Text;
 using RapidXaml;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.VisualStudioIntegration;
@@ -50,7 +49,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         InsertPos = offset,
                         Logger = this.Logger,
                         ProjectFilePath = this.ProjectFilePath,
-                        Snapshot = snapshot as ITextSnapshotAbstraction,
+                        Snapshot = snapshot,
                         VsPfp = this.VSPFP,
                     };
 

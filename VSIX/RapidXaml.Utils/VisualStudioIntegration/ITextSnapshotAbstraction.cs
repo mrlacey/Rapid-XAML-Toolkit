@@ -16,5 +16,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         (int StartPosition, int LineNumber) GetLineDetailsFromPosition(int position);
 
         int GetLineNumberFromPosition(int position);
+
+        string GetLineTextFromLineNumber(int lineNo);
     }
 }

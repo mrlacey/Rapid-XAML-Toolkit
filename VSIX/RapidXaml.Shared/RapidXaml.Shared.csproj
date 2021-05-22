@@ -60,7 +60,6 @@
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
     <Compile Include="Commands\BaseCommand.cs" />
-    <Compile Include="Commands\IFileSystemAbstraction.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -68,7 +67,6 @@
     </Compile>
     <Compile Include="VisualStudioIntegration\IDocumentModelAccess.cs" />
     <Compile Include="VisualStudioIntegration\IVisualStudioAbstractionAndDocumentModelAccess.cs" />
-    <Compile Include="VisualStudioIntegration\IVisualStudioProjectFilePath.cs" />
     <Compile Include="Commands\WindowsFileSystem.cs" />
     <Compile Include="Configuration\RxtSettings.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />

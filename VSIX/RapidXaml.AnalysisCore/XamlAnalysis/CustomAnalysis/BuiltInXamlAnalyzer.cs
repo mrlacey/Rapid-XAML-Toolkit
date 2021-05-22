@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     {
         private readonly IVisualStudioAbstraction vsa;
 
-        private static Dictionary<string, string> resourceFileLocationCache = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> resourceFileLocationCache = new Dictionary<string, string>();
 
         public BuiltInXamlAnalyzer(IVisualStudioAbstraction vsa)
         {

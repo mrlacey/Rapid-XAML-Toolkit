@@ -125,5 +125,10 @@ namespace RapidXamlToolkit.Tests
             // Just need to return something
             return (0, 0);
         }
+
+        public string GetLineTextFromLineNumber(int lineNo)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
