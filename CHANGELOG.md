@@ -1,5 +1,9 @@
 # Rapid XAML Toolkit - ChangeLog
 
+## 0.12.2
+
+- Fix issue affecting telemetry.
+
 ## 0.12.1
 
 - Fix bug affecting the detection of assigned rows and columns within grids.
