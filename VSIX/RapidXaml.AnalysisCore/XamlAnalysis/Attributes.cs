@@ -15,6 +15,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string APName => "AutomationProperties.Name";
 
+        public static string Background => "Background";
+
         public static string CheckedEvent => "Checked";
 
         public static string ColumnDefinitions => "ColumnDefinitions";
@@ -24,6 +26,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string Description => "Description";
 
         public static string Fill => "Fill";
+
+        public static string Foreground => "Foreground";
 
         public static string Header => "Header";
 
@@ -53,11 +57,15 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string RowDefinitions => "RowDefinitions";
 
+        public static string Property => "Property";
+
         public static string SelectedItem => "SelectedItem";
 
         public static string Source => "Source";
 
         public static string Text => "Text";
+
+        public static string TextColor => "TextColor";
 
         public static string ThumbColor => "ThumbColor";
 
@@ -70,6 +78,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string Uid => "Uid";
 
         public static string UncheckedEvent => "Unchecked";
+
+        public static string Value => "Value";
 
         public static string X_Name => "x:Name";
 

@@ -168,6 +168,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                ////customProcessors.Add(new CustomAnalysis.AddXmlnsAnalyzer());
                 customProcessors.Add(new CustomAnalysis.WebViewToWebView2Converter());
 #endif
+                customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction));
+
                 customProcessors.Add(new CustomAnalysis.ButtonAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer(vsAbstraction));
                 customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer(vsAbstraction));

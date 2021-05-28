@@ -109,6 +109,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer2.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\StyleAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\UnoIgnorablesAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\WebViewToWebView2Converter.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\EntryCellAnalyzer.cs" />

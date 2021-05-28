@@ -118,6 +118,7 @@
     <Compile Include="RoslynAnalyzers\PropertyDeclarationSyntaxExtensionsTests.cs" />
     <Compile Include="RoslynAnalyzers\Verifiers\CodeFixVerifier.cs" />
     <Compile Include="RoslynAnalyzers\Verifiers\DiagnosticVerifier.cs" />
+    <Compile Include="Shared\ColorHelperTests.cs" />
     <Compile Include="StringAssert.cs" />
     <Compile Include="TestFileSystem.cs" />
     <Compile Include="TestProfile.cs" />
