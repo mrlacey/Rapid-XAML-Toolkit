@@ -92,7 +92,6 @@
     <Compile Include="Telemetry\TelemetryAccessor.cs" />
     <Compile Include="Telemetry\TelemetryEvents.cs" />
     <Compile Include="Telemetry\TelemetryProperties.cs" />
-    <Compile Include="VisualStudioIntegration\IDocumentModelAccess.cs" />
     <Compile Include="VisualStudioIntegration\IVisualStudioAbstractionAndDocumentModelAccess.cs" />
     <Compile Include="VisualStudioIntegration\SolutionExtensions.cs" />
     <Compile Include="VisualStudioIntegration\VisualStudioAbstraction.cs" />
