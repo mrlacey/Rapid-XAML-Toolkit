@@ -62,6 +62,7 @@
     <Compile Include="XamlAnalysis\Tags\IRapidXamlAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\Tags\IRapidXamlErrorListTag.cs" />
     <Compile Include="XamlAnalysis\Tags\IRapidXamlTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\PredefinedErrorTypeNames.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlAdornmentTagExtensions.cs" />
     <Compile Include="XamlAnalysis\Tags\RapidXamlDiscreteTag.cs" />
@@ -77,9 +78,6 @@
     <Compile Include="XamlAnalysis\XamlElementExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.SDK">
-      <Version>16.0.206</Version>
-    </PackageReference>
     <PackageReference Include="RapidXaml.CustomAnalysis">
       <Version>0.12.0</Version>
     </PackageReference>
