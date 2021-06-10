@@ -42,5 +42,10 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             return this.underlyingSnapshot.GetText();
         }
+
+        public ITextSnapshot AsITextSnapshot()
+        {
+            return this.underlyingSnapshot;
+        }
     }
 }

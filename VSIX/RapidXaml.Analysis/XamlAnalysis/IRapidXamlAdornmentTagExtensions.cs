@@ -11,7 +11,7 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         public static ITagSpan<IErrorTag> AsErrorTag(this IRapidXamlAdornmentTag source)
         {
-            var span = new SnapshotSpan((ITextSnapshot)source.Snapshot, new Span(source.Span.Start, source.Span.Length));
+            var span = new SnapshotSpan((source.Snapshot as VsTextSnapshot).AsITextSnapshot(), new Span(source.Span.Start, source.Span.Length));
 
             if (source is RapidXamlDiscreteTag)
             {
