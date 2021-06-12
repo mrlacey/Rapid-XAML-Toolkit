@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Microsoft.VisualStudio.Text;
 using Newtonsoft.Json;
 using RapidXaml;
 using RapidXamlToolkit.Logging;
