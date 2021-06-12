@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.Text;
@@ -49,7 +50,6 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
                             case SymbolType.Glyph:
 
                                 string fontFamily = string.Empty;
-
                                 var attributeOpening = @"FontFamily=""";
                                 var ffPos = elementString.IndexOf(attributeOpening);
 
@@ -60,6 +60,29 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
                                     if (closingPos > 0)
                                     {
                                         fontFamily = elementString.Substring(ffPos + attributeOpening.Length, closingPos - ffPos - attributeOpening.Length);
+                                    }
+                                }
+
+                                // Cruse matching to try and identify a "font awesome" font
+                                // Better to show from the embedded file rather than hope it's installed on the system
+                                if (fontFamily.ToLowerInvariant().Contains("f")
+                                    && fontFamily.ToLowerInvariant().Contains("awesome"))
+                                {
+                                    if (int.TryParse(value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int code))
+                                    {
+                                        string unicodeString = char.ConvertFromUtf32(code);
+
+                                        var icon = SymbolIconAdornment.KnownFontAwesomeIcons.FirstOrDefault(i => i.Value == unicodeString);
+
+                                        if (icon.Key != null)
+                                        {
+                                            return new SymbolIconTag(icon.Key, SymbolType.FontAwesome);
+                                        }
+                                        else
+                                        {
+                                            System.Diagnostics.Debug.WriteLine($"unknown value {value}");
+                                            return null;
+                                        }
                                     }
                                 }
 
