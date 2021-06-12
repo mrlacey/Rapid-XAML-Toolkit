@@ -21,6 +21,7 @@ namespace RapidXamlToolkit.RoslynAnalyzers
         public const string SetPropertyDiagnosticId = "RXRA003";
         public const string DependencyPropertyDiagnosticId = "RXRA004";
         public const string BindablePropertyDiagnosticId = "RXRA005";
+        public const string BindablePropertySimplifiedDiagnosticId = "RXRA015";
 
         private static readonly LocalizableString Title = new LocalizableResourceString(nameof(StringRes.UI_ExpandAutoPropertyAnalyzerTitle), StringRes.ResourceManager, typeof(StringRes));
         private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(StringRes.UI_ExpandAutoPropertyAnalyzerMessage), StringRes.ResourceManager, typeof(StringRes));
@@ -35,11 +36,13 @@ namespace RapidXamlToolkit.RoslynAnalyzers
 
         private static readonly DiagnosticDescriptor BindablePropertyRule = new DiagnosticDescriptor(BindablePropertyDiagnosticId, Title, MessageFormat, StringRes.RapidXamlToolkit, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
 
+        private static readonly DiagnosticDescriptor BindablePropertySimplifiedRule = new DiagnosticDescriptor(BindablePropertySimplifiedDiagnosticId, Title, MessageFormat, StringRes.RapidXamlToolkit, DiagnosticSeverity.Hidden, isEnabledByDefault: true);
+
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
             get
             {
-                return ImmutableArray.Create(OnPropertyRule, SetRule, SetPropertyRule, DependencyPropertyRule, BindablePropertyRule);
+                return ImmutableArray.Create(OnPropertyRule, SetRule, SetPropertyRule, DependencyPropertyRule, BindablePropertyRule, BindablePropertySimplifiedRule);
             }
         }
 
@@ -79,6 +82,11 @@ namespace RapidXamlToolkit.RoslynAnalyzers
                             var bindPropertyDiagnostic = Diagnostic.Create(BindablePropertyRule, context.ContainingSymbol.Locations[0], pds.Identifier);
 
                             context.ReportDiagnostic(bindPropertyDiagnostic);
+
+                            var bindPropertySimplifiedDiagnostic = Diagnostic.Create(BindablePropertySimplifiedRule, context.ContainingSymbol.Locations[0], pds.Identifier);
+
+                            context.ReportDiagnostic(bindPropertySimplifiedDiagnostic);
+
                             break;  // Don't bother looking any deeper in the inheritance hierarchy if found what looking for.
                         }
                     }
