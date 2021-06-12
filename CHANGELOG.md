@@ -1,5 +1,9 @@
 # Rapid XAML Toolkit - ChangeLog
 
+## Upcoming
+
+- Expanded ability to show FontAwesome icon previews within the editor.
+
 ## 0.12.2
 
 - Fix issue affecting telemetry.
