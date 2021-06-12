@@ -16,6 +16,9 @@
     <Compile Include="..\RapidXaml.Analysis\XamlAnalysis\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="..\RapidXaml.Analysis\XamlAnalysis\RapidXamlTagProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
