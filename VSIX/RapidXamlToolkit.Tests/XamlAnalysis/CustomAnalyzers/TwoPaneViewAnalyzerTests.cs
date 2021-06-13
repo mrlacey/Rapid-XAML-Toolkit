@@ -9,7 +9,7 @@ using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 {
     [TestClass]
-    public class TwoPaneViewAnalyzerTests
+    public class TwoPaneViewAnalyzerTests : AnalyzerTestsBase
     {
         [TestMethod]
         public void FindsIssue_WhenExists()
@@ -25,8 +25,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
-
+            var sut = this.CreateAnalyzer<TwoPaneViewAnalyzer>();
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create());
 
             Assert.AreEqual(1, actual.Actions.Count);
@@ -47,8 +46,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
-
+            var sut = this.CreateAnalyzer<TwoPaneViewAnalyzer>();
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create());
 
             Assert.AreEqual(0, actual.Actions.Count);
@@ -69,8 +67,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
-
+            var sut = this.CreateAnalyzer<TwoPaneViewAnalyzer>();
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create());
 
             Assert.AreEqual(1, actual.Actions.Count);
@@ -94,8 +91,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
-
+            var sut = this.CreateAnalyzer<TwoPaneViewAnalyzer>();
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create());
 
             Assert.AreEqual(3, actual.Actions.Count);
