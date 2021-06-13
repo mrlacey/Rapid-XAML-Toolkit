@@ -91,9 +91,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
-      <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
-      <Name>RapidXaml.Shared</Name>
+    <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj">
+      <Project>{3307cd74-9995-4f90-8c12-75760460ad35}</Project>
+      <Name>RapidXaml.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj">
       <Project>{2d65223e-f87c-4e5a-b643-ba3c4304e52d}</Project>

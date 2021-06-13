@@ -134,6 +134,10 @@
       <Project>{fdbe6d55-075c-478b-879c-90114fe0ee0a}</Project>
       <Name>RapidXaml.InternalAnalyzers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj">
+      <Project>{3307cd74-9995-4f90-8c12-75760460ad35}</Project>
+      <Name>RapidXaml.Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891D63BC-FA0D-4657-B433-F7F8DD27CD28}</Project>
       <Name>RapidXaml.Shared</Name>
