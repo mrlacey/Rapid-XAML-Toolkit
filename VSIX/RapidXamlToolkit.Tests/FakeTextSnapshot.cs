@@ -10,7 +10,7 @@ using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests
 {
-    public class FakeTextSnapshot : ITextSnapshot, ITextSnapshotAbstraction
+    public class FakeTextSnapshot : ITextSnapshotAbstraction
     {
         public FakeTextSnapshot()
         {
@@ -94,15 +94,10 @@ namespace RapidXamlToolkit.Tests
             throw new NotImplementedException();
         }
 
-        public ITextSnapshotLine GetLineFromLineNumber(int lineNumber)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITextSnapshotLine GetLineFromPosition(int position)
-        {
-            return new FakeTextSnapshotLine(this);
-        }
+        //public ITextSnapshotLine GetLineFromPosition(int position)
+        //{
+        //    return new FakeTextSnapshotLine(this);
+        //}
 
         public int GetLineNumberFromPosition(int position)
         {

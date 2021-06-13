@@ -2,21 +2,17 @@
 // Licensed under the MIT license.
 
 using System.Linq;
-using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXaml.AnalysisExe
 {
-    public class BuildAnalysisTextSnapshotLine : ITextSnapshotLine
+    public class BuildAnalysisTextSnapshotLine : ITextSnapshotLineAbstraction
     {
-        private readonly ITextSnapshot snapshot;
         private readonly int lineNumber = 0;
         private readonly int start = 0;
 
-        public BuildAnalysisTextSnapshotLine(ITextSnapshot snapshot, int position)
+        public BuildAnalysisTextSnapshotLine(ITextSnapshotAbstraction snapshot, int position)
         {
-            this.snapshot = snapshot;
-
             var fileSoFar = snapshot.GetText().Substring(0, position);
 
             var endOfPreviousLine = fileSoFar.LastIndexOfAny(new char[] { '\r', '\n' });
@@ -28,23 +24,13 @@ namespace RapidXaml.AnalysisExe
             }
         }
 
-        public ITextSnapshot Snapshot { get; }
-
-        public SnapshotSpan Extent { get; }
-
-        public SnapshotSpan ExtentIncludingLineBreak { get; }
-
         public int LineNumber => this.lineNumber;
 
-        public SnapshotPoint Start => new SnapshotPoint(this.snapshot, this.start);
+        public int StartPosition => this.start;
 
         public int Length { get; }
 
         public int LengthIncludingLineBreak { get; }
-
-        public SnapshotPoint End { get; }
-
-        public SnapshotPoint EndIncludingLineBreak { get; }
 
         public int LineBreakLength { get; }
 
