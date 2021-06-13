@@ -162,6 +162,8 @@
     <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDisplayedTagExtensions.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlSuggestionAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlWarningAdornmentTag.cs" />
     <Compile Include="XamlAnalysis\VsTextSnapshot.cs" />
     <Compile Include="XamlAnalysis\VsTextSpan.cs" />
     <Compile Include="XamlAnalysis\Processors\XamlElementProcessorExtensions.cs" />

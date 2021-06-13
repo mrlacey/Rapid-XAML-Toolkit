@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using RapidXamlToolkit.Logging;
+
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public static class TagErrorTypeParser
     {
-        public static bool TryParse(string value, out TagErrorType tagErrorType)
+        public static bool TryParse(string value, ILogger logger, out TagErrorType tagErrorType)
         {
             try
             {
@@ -41,7 +43,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             }
             catch (System.Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                logger?.RecordException(exc);
 
                 tagErrorType = TagErrorType.Hidden;
                 return false;

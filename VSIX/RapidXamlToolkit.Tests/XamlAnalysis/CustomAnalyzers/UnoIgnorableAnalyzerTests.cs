@@ -31,7 +31,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -59,7 +59,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -86,7 +86,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -114,7 +114,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -141,7 +141,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -169,7 +169,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -196,7 +196,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -224,7 +224,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -251,7 +251,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -279,7 +279,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -306,7 +306,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -334,7 +334,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -366,7 +366,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -398,7 +398,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 
@@ -424,7 +424,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
 

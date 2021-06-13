@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using RapidXaml;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 
@@ -16,12 +17,13 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
     public abstract class BuiltInXamlAnalyzer : RapidXaml.ICustomAnalyzer
     {
         private readonly IVisualStudioAbstraction vsa;
-
+        private readonly ILogger logger;
         private static readonly Dictionary<string, string> resourceFileLocationCache = new Dictionary<string, string>();
 
-        public BuiltInXamlAnalyzer(IVisualStudioAbstraction vsa)
+        public BuiltInXamlAnalyzer(IVisualStudioAbstraction vsa, ILogger logger)
         {
             this.vsa = vsa;
+            this.logger = logger;
         }
 
         public abstract AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails);
@@ -284,7 +286,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
             if (resFiles.Count == 0)
             {
-                SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_NoResourceFileFound);
+                this.logger?.RecordInfo(StringRes.Info_NoResourceFileFound);
             }
             else if (resFiles.Count == 1)
             {

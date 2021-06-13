@@ -167,26 +167,26 @@ namespace RapidXamlToolkit.XamlAnalysis
                ////customProcessors.Add(new CustomAnalysis.AddXmlnsAnalyzer());
                 customProcessors.Add(new CustomAnalysis.WebViewToWebView2Converter());
 #endif
-                customProcessors.Add(new CustomAnalysis.ButtonAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.LabelAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.XfImageAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.XfLineAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.XfMapPinAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.EntryAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.PickerAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.BindingToXBindAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.CheckBoxAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.TableSectionAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.EntryCellAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.SwitchCellAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.SwipeItemAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.SliderAnalyzer(vsAbstraction));
-                customProcessors.Add(new CustomAnalysis.StepperAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.ButtonAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.LabelAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.XfImageAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.XfLineAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.XfMapPinAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.EntryAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.PickerAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.BindingToXBindAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.CheckBoxAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.TableSectionAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.EntryCellAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.SwitchCellAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.SwipeItemAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.SliderAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.StepperAnalyzer(vsAbstraction, logger));
 
                 for (int i = 0; i < customProcessors.Count; i++)
                 {

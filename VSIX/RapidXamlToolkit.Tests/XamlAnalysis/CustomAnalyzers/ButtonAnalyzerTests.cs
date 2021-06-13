@@ -171,7 +171,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
         private List<AnalysisAction> Act(string xaml, ProjectFramework framework = ProjectFramework.Unknown)
         {
-            var sut = new ButtonAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new ButtonAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 

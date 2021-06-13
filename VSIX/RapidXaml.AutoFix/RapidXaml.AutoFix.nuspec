@@ -31,8 +31,8 @@
     <file src=".\bin\release\net472\RapidXaml.AnalysisCore.pdb" target="lib/net472/" />
     <file src=".\bin\release\net472\RapidXaml.AutoFix.dll" target="lib/net472/" />
     <file src=".\bin\release\net472\RapidXaml.AutoFix.pdb" target="lib/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.Shared.dll" target="lib/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.Shared.pdb" target="lib/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Resources.dll" target="lib/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Resources.pdb" target="lib/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Utils.dll" target="lib/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Utils.pdb" target="lib/net472/" />
     <file src=".\bin\release\net472\Microsoft.Language.Xml.dll" target="lib/net472/" />

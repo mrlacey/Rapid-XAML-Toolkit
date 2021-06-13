@@ -135,7 +135,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
                     if (settings.ContainsKey(errorCode))
                     {
-                        if (TagErrorTypeParser.TryParse(settings[errorCode], out tagErrorType))
+                        if (TagErrorTypeParser.TryParse(settings[errorCode], base.Logger, out tagErrorType))
                         {
                             return true;
                         }

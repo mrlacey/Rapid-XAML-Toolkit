@@ -25,7 +25,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create());
 
@@ -47,7 +47,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create());
 
@@ -69,7 +69,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create());
 
@@ -94,7 +94,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
-            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create());
 

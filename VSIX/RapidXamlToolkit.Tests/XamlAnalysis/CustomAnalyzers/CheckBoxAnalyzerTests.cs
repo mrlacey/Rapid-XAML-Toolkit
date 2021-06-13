@@ -121,7 +121,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
         private List<AnalysisAction> Act(string xaml, ProjectFramework framework = ProjectFramework.Unknown)
         {
-            var sut = new CheckBoxAnalyzer(new TestVisualStudioAbstraction());
+            var sut = new CheckBoxAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create());
 
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
