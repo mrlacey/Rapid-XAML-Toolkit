@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RapidXaml.AutoFix</id>
-    <version>0.12.1</version>
+    <version>1.0.3</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <license type="expression">MIT</license>
@@ -14,10 +14,10 @@
     <summary>Apply automatic changes to XAML files.</summary>
     <releaseNotes>.</releaseNotes>
     <copyright>© 2021 Matt Lacey Ltd.</copyright>
-    <tags>XAML, WinUI, UWP, WPF, Xamarin.Forms, MVVM, UNO</tags>
+    <tags>XAML, WinUI, UWP, WPF, Xamarin.Forms, MVVM, UNO, MAUI</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
-        <dependency id="RapidXaml.CustomAnalysis" version="0.11.1" exclude="Build,Analyzers" />
+        <dependency id="RapidXaml.CustomAnalysis" version="0.12.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
@@ -27,20 +27,21 @@
       <file src=".\bin\release\net472\*.pdb" target="lib\net472\" />
       <file src=".\bin\release\net472\*.config" target="lib\net472\" />-->
     <!-- Specify these exactly to avoid including unnecessary dependencies -->
-    <file src=".\bin\release\net472\RapidXaml.AnalysisCore.dll" target="lib/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.AnalysisCore.pdb" target="lib/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.AutoFix.dll" target="lib/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.AutoFix.pdb" target="lib/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.Resources.dll" target="lib/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.Resources.pdb" target="lib/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.Utils.dll" target="lib/net472/" />
-    <file src=".\bin\release\net472\RapidXaml.Utils.pdb" target="lib/net472/" />
-    <file src=".\bin\release\net472\Microsoft.Language.Xml.dll" target="lib/net472/" />
-    <file src=".\bin\release\net472\Microsoft.VisualStudio.CoreUtility.dll" target="lib/net472/" />
-    <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Data.dll" target="lib/net472/" />
-    <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Logic.dll" target="lib/net472/" />
-    <file src=".\bin\release\net472\System.Memory.dll" target="lib/net472/" />
-    <file src=".\bin\release\net472\System.Numerics.Vectors.dll" target="lib/net472/" />
-    <file src=".\bin\release\net472\System.Runtime.CompilerServices.Unsafe.dll" target="lib/net472/" />
+    <file src=".\bin\release\netstandard2.0\Newtonsoft.Json.dll" target="lib/netstandard2.0/" />
+    <file src=".\bin\release\netstandard2.0\RapidXaml.AnalysisCore.dll" target="lib/netstandard2.0/" />
+    <file src=".\bin\release\netstandard2.0\RapidXaml.AnalysisCore.pdb" target="lib/netstandard2.0/" />
+    <file src=".\bin\release\netstandard2.0\RapidXaml.AutoFix.dll" target="lib/netstandard2.0/" />
+    <file src=".\bin\release\netstandard2.0\RapidXaml.AutoFix.pdb" target="lib/netstandard2.0/" />
+    <file src=".\bin\release\netstandard2.0\RapidXaml.Resources.dll" target="lib/netstandard2.0/" />
+    <file src=".\bin\release\netstandard2.0\RapidXaml.Resources.pdb" target="lib/netstandard2.0/" />
+    <file src=".\bin\release\netstandard2.0\RapidXaml.Utils.dll" target="lib/netstandard2.0/" />
+    <file src=".\bin\release\netstandard2.0\RapidXaml.Utils.pdb" target="lib/netstandard2.0/" />
+    <!--<file src=".\bin\release\netstandard2.0\Microsoft.Language.Xml.dll" target="lib/netstandard2.0/" />-->
+    <!--<file src=".\bin\release\netstandard2.0\Microsoft.VisualStudio.CoreUtility.dll" target="lib/net472/" />
+    <file src=".\bin\release\netstandard2.0\Microsoft.VisualStudio.Text.Data.dll" target="lib/net472/" />
+    <file src=".\bin\release\netstandard2.0\Microsoft.VisualStudio.Text.Logic.dll" target="lib/net472/" />-->
+    <!--<file src=".\bin\release\netstandard2.0\System.Memory.dll" target="lib/netstandard2.0/" />
+    <file src=".\bin\release\netstandard2.0\System.Numerics.Vectors.dll" target="lib/netstandard2.0/" />
+    <file src=".\bin\release\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll" target="lib/netstandard2.0/" />-->
   </files>
 </package>
