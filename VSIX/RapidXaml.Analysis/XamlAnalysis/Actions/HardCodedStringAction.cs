@@ -51,7 +51,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             try
             {
-                if (this.Tag.ProjType == ProjectType.Uwp)
+                if (this.Tag.ProjType == ProjectType.Uwp
+                 || this.Tag.ProjType == ProjectType.WinUI)
                 {
                     // If the resource file is open with unsaved changes VS will prompt about data being lost.
                     this.AddResource(resPath, $"{this.Tag.UidValue}.{this.Tag.AttributeName}", this.Tag.Value);
@@ -91,7 +92,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                     }
                 }
                 else if (this.Tag.ProjType == ProjectType.Wpf
-                      || this.Tag.ProjType == ProjectType.XamarinForms)
+                      || this.Tag.ProjType == ProjectType.XamarinForms
+                      || this.Tag.ProjType == ProjectType.MAUI)
                 {
                     var resourceName = $"{Path.GetFileNameWithoutExtension(this.Tag.FileName)}{this.Tag.Value}".RemoveNonAlphaNumerics();
                     this.AddResource(resPath, resourceName, this.Tag.Value);

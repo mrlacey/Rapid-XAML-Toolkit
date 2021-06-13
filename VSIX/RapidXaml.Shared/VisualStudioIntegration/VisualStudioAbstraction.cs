@@ -162,10 +162,21 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             // This will be the case in CPS projects
             if (string.IsNullOrWhiteSpace(guids))
             {
-                if (this.ProjectUsesWpf(project))
+                var rawContent = System.IO.File.ReadAllText(project.FullName);
+                if (this.ProjectUsesWpf(rawContent))
                 {
                     ProjectTypeCache.Add(project.FileName, ProjectType.Wpf);
                     return ProjectType.Wpf;
+                }
+                else if (this.ProjectTargetsMaui(rawContent))
+                {
+                    ProjectTypeCache.Add(project.FileName, ProjectType.MAUI);
+                    return ProjectType.MAUI;
+                }
+                else if (this.ProjectReferencesWinUI(rawContent))
+                {
+                    ProjectTypeCache.Add(project.FileName, ProjectType.WinUI);
+                    return ProjectType.WinUI;
                 }
             }
 
@@ -231,6 +242,28 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             var rawContent = System.IO.File.ReadAllText(project.FullName);
 
             return rawContent.Contains("<UseWPF>true</UseWPF>");
+        }
+
+        public bool ProjectUsesWpf(string projectFileContents)
+        {
+            return projectFileContents.Contains("<UseWPF>true</UseWPF>");
+        }
+
+        public bool ProjectReferencesWinUI(string projectFileContents)
+        {
+            return projectFileContents.Contains("PackageReference Include=\"Microsoft.ProjectReunion.WinUI\"");
+        }
+
+        public bool ProjectTargetsMaui(string projectFileContents)
+        {
+            var tfms = projectFileContents.AsSpan().GetBetweenXmlElement("TargetFrameworks");
+
+            if (string.IsNullOrWhiteSpace(tfms))
+            {
+                return false;
+            }
+
+            return tfms.ContainsAnyOf(new[] { "net6.0-ios", "net6.0-android", "net6.0-maccatalyst" });
         }
 
         public string GetProjectTypeGuids(EnvDTE.Project proj)

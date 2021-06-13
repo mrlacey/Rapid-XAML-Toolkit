@@ -20,6 +20,14 @@ namespace RapidXamlToolkit.XamlAnalysis
                 case ProjectType.XamarinForms:
                     return ProjectFramework.XamarinForms;
 
+                case ProjectType.WinUI:
+                    // TODO: Update CustomAnalysis lib for this to work
+                    return ProjectFramework.WinUI;
+
+                case ProjectType.MAUI:
+                    // TODO: Update CustomAnalysis lib for this to work
+                    return ProjectFramework.MAUI;
+
                 case ProjectType.Unknown:
                 case ProjectType.UwpOrWpf:
                 case ProjectType.Any:
