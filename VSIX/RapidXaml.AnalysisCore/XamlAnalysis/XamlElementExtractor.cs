@@ -80,7 +80,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                             {
                                 StartPos = currentElementStartPos,
                                 ElementName = currentElementName.ToString(),
-                                FirstChildPos = -1
+                                FirstChildPos = -1,
                             });
                     }
 
@@ -150,7 +150,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 {
                                     StartPos = currentElementStartPos,
                                     ElementName = currentElementName.ToString(),
-                                    FirstChildPos = -1
+                                    FirstChildPos = -1,
                                 });
 
                             isIdentifyingElement = false;
@@ -193,7 +193,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                     {
                                         ElementName = replacement.ElementName,
                                         StartPos = replacement.StartPos,
-                                        FirstChildPos = toProcess.StartPos
+                                        FirstChildPos = toProcess.StartPos,
                                     });
                                 }
 
@@ -212,7 +212,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 everyElementProcessor?.Process(fileName, toProcess.StartPos, xamlElementWithoutChildren, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
 
                                 // Avoid calculating these for every processor
-                                var elementName = toProcess.ElementName; // 
+                                var elementName = toProcess.ElementName;
                                 var elementNameWithoutNamespace = toProcess.ElementNameWithoutNamespace;
 
                                 for (int j = 0; j < processors.Count; j++)
@@ -304,7 +304,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         StartPos = int.MaxValue,
                         ElementName = string.Empty,
-                        FirstChildPos = -1
+                        FirstChildPos = -1,
                     };
                 }
             }

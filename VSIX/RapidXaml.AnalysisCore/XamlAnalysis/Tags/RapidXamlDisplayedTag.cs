@@ -4,7 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+#if !AUTOFIX
 using Newtonsoft.Json;
+#endif
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
@@ -73,6 +75,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
         {
             get
             {
+#if AUTOFIX
+                return this.DefaultErrorType;
+#else
                 if (this.TryGetConfiguredErrorType(this.ErrorCode, out TagErrorType configuredType))
                 {
                     return configuredType;
@@ -81,9 +86,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 {
                     return this.DefaultErrorType;
                 }
+#endif
             }
         }
 
+#if !AUTOFIX
         private static Dictionary<string, (DateTime timeStamp, Dictionary<string, string> settings)> SettingsCache { get; }
             = new Dictionary<string, (DateTime timeStamp, Dictionary<string, string> settings)>();
 
@@ -160,5 +167,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
             return false;
         }
+#endif
     }
 }

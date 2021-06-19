@@ -38,7 +38,6 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
              || (attributeType.HasFlag(AttributeType.DefaultValue) && element.OriginalString.Contains("</")))
             {
                 // If don't know framework then can't know how to fix issues
-
                 extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework);
 
                 // If don't know file path, can't find appropriate resource file
@@ -72,8 +71,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                                 resFilePath: resourceFilePath,
                                 resourceKey: uid,
                                 resourceValue: value,
-                                extendedMessage: StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage
-                                );
+                                extendedMessage: StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage);
 
                             if (addUid)
                             {
@@ -132,8 +130,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                                 resFilePath: resourceFilePath,
                                 resourceKey: resourceName,
                                 resourceValue: value,
-                                extendedMessage: StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage
-                                );
+                                extendedMessage: StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage);
 
                             // Only something to remove if not the default value
                             if (attr != null)
@@ -162,8 +159,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                                 errorType: RapidXamlErrorType.Suggestion,
                                 code: "RXT200",
                                 description: StringRes.UI_XamlAnalysisGenericHardCodedStringDescription.WithParams(element.Name, attributeName, value),
-                                extendedMessage: StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage
-                                );
+                                extendedMessage: StringRes.UI_XamlAnalysisHardcodedStringExtendedMessage);
 
                             break;
                     }
@@ -177,7 +173,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
         {
             var uidAttr = element.GetAttributes(Attributes.X_Uid, Attributes.Uid).FirstOrDefault();
 
-            var uidExists = (uidAttr != null && uidAttr.HasStringValue);
+            var uidExists = uidAttr != null && uidAttr.HasStringValue;
 
             if (uidExists)
             {
@@ -280,7 +276,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             }
 
             // Get either type of res file. Don't have a reason for a project to contain both.
-            var resFiles = vsa.GetFilesFromContainingProject(fileName, new[] { ".resw", ".resx" });
+            var resFiles = this.vsa.GetFilesFromContainingProject(fileName, new[] { ".resw", ".resx" });
 
             string result = null;
 
@@ -294,7 +290,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             }
             else
             {
-                var langOfInterest = vsa.GetLanguageFromContainingProject(fileName);
+                var langOfInterest = this.vsa.GetLanguageFromContainingProject(fileName);
 
                 if (!string.IsNullOrWhiteSpace(langOfInterest))
                 {

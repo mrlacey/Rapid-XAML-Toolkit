@@ -33,11 +33,11 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
             {
                 return new Dictionary<string, string>
                 {
-                    { "Span", $"{Span.Start},{Span.Length}" },
-                    { "FileName", FileName },
-                    { "FeatureUsageOverride", FeatureUsageOverride },
-                    { "Snapshot.Length", Snapshot.Length.ToString() },
-                    { "ExtraDebugInfo", ExtraDebugInfo },
+                    { "Span", $"{this.Span.Start},{this.Span.Length}" },
+                    { "FileName", this.FileName },
+                    { "FeatureUsageOverride", this.FeatureUsageOverride },
+                    { "Snapshot.Length", this.Snapshot.Length.ToString() },
+                    { "ExtraDebugInfo", this.ExtraDebugInfo },
                 };
             }
         }

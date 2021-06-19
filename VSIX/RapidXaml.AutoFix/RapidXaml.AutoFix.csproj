@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
   </PropertyGroup>
   <!-- Pack settings -->
   <PropertyGroup>
@@ -12,12 +12,41 @@
     <PublishDir>$(IntermediatePackDir)$(TargetFramework)/</PublishDir>
     <NuspecProperties>publishDir=$([MSBuild]::NormalizeDirectory($(IntermediatePackDir)))</NuspecProperties>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;AUTOFIX</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;AUTOFIX</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Attributes.cs" Link="_AnalysisCore\Attributes.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\AttributeType.cs" Link="_AnalysisCore\AttributeType.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\CustomAnalysis\BuiltInXamlAnalyzer.cs" Link="_AnalysisCore\BuiltInXamlAnalyzer.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\CustomProcessorWrapper.cs" Link="_AnalysisCore\CustomProcessorWrapper.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Processors\ProcessorEssentials.cs" Link="_AnalysisCore\ProcessorEssentials.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Processors\XamlElementProcessor.cs" Link="_AnalysisCore\XamlElementProcessor.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\ProjectFrameworkHelper.cs" Link="_AnalysisCore\ProjectFrameworkHelper.cs" />
     <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\RapidXamlElementExtractor.cs" Link="RapidXamlElementExtractor.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\RapidXamlSpanExtensions.cs" Link="_AnalysisCore\RapidXamlSpanExtensions.cs" />
     <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\SizeLimitedDictionary.cs" Link="SizeLimitedDictionary.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\TagList.cs" Link="_AnalysisCore\TagList.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\TagSuppression.cs" Link="_AnalysisCore\TagSuppression.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\CustomAnalysisTag.cs" Link="_AnalysisCore\CustomAnalysisTag.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\CustomAnalysisTagDependencies.cs" Link="_AnalysisCore\CustomAnalysisTagDependencies.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\IRapidXamlAdornmentTag.cs" Link="_AnalysisCore\IRapidXamlAdornmentTag.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\IRapidXamlErrorListTag.cs" Link="_AnalysisCore\IRapidXamlErrorListTag.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\IRapidXamlTag.cs" Link="_AnalysisCore\IRapidXamlTag.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\PredefinedErrorTypeNames.cs" Link="_AnalysisCore\PredefinedErrorTypeNames.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\RapidXamlAdornmentTag.cs" Link="_AnalysisCore\RapidXamlAdornmentTag.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\RapidXamlDisplayedTag.cs" Link="_AnalysisCore\RapidXamlDisplayedTag.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\TagDependencies.cs" Link="_AnalysisCore\TagDependencies.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\TagErrorType.cs" Link="_AnalysisCore\TagErrorType.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\TagErrorTypeCreator.cs" Link="_AnalysisCore\TagErrorTypeCreator.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Tags\TagErrorTypeExtensions.cs" Link="_AnalysisCore\TagErrorTypeExtensions.cs" />
+    <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\XamlElementExtractor.cs" Link="_AnalysisCore\XamlElementExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
@@ -37,16 +66,8 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">
-      <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
-      <Name>RapidXaml.AnalysisCore</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj" />
     <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="icon.png">
