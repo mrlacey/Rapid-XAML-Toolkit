@@ -32,6 +32,7 @@ namespace RapidXamlToolkit.Tests.AutoFix
 
             fs.FilesAndContents.Add(fileName, xamlFile1);
 
+#if DEBUG
             var sut = new XamlConverter(fs);
 
             var (success, details) = sut.ConvertFile(fileName, new[] { new WebViewMultipleActionsAnalyzer() });
@@ -41,6 +42,7 @@ namespace RapidXamlToolkit.Tests.AutoFix
             Assert.AreEqual(true, success);
             Assert.AreEqual(5, details.Count());
             Assert.AreEqual(expectedContent, newFileContents);
+#endif
         }
     }
 }
