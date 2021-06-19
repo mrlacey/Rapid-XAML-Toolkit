@@ -16,14 +16,79 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public abstract class BuiltInXamlAnalyzer : RapidXaml.ICustomAnalyzer
     {
+        private static readonly Dictionary<string, string> ResourceFileLocationCache = new Dictionary<string, string>();
         private readonly IVisualStudioAbstraction vsa;
         private readonly ILogger logger;
-        private static readonly Dictionary<string, string> resourceFileLocationCache = new Dictionary<string, string>();
 
         public BuiltInXamlAnalyzer(IVisualStudioAbstraction vsa, ILogger logger)
         {
             this.vsa = vsa;
             this.logger = logger;
+        }
+
+        public static bool NeedToAddUid(RapidXamlElement element, string attributeName, out string uid)
+        {
+            var uidAttr = element.GetAttributes(Attributes.X_Uid, Attributes.Uid).FirstOrDefault();
+
+            var uidExists = uidAttr != null && uidAttr.HasStringValue;
+
+            if (uidExists)
+            {
+                uid = uidAttr.StringValue;
+            }
+            else
+            {
+                // reuse `Name` or `x:Name` if exist
+                var nameAttr = element.GetAttributes(Attributes.Name, Attributes.X_Name).FirstOrDefault();
+                if (nameAttr != null && nameAttr.HasStringValue)
+                {
+                    uid = nameAttr.StringValue;
+                }
+                else
+                {
+                    // Use defined attribute value
+                    var fbAttr = element.GetAttributes(attributeName).FirstOrDefault();
+                    if (fbAttr != null && fbAttr.HasStringValue)
+                    {
+                        uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(fbAttr.StringValue)}{element.Name}";
+
+                        uid = uid.RemoveAllWhitespace().RemoveNonAlphaNumerics();
+                    }
+                    else
+                    {
+                        // This is just a large random number created to hopefully avoid collisions
+                        uid = $"{element.Name}{new Random().Next(1001, 8999)}";
+                    }
+                }
+            }
+
+            return !uidExists;
+        }
+
+        public static string GetAttributeValue(RapidXamlElement element, RapidXamlAttribute attr, AttributeType attributeTypesToCheck)
+        {
+            if (attributeTypesToCheck.HasFlag(AttributeType.Inline))
+            {
+                if (attr != null && attr.IsInline)
+                {
+                    return attr.StringValue;
+                }
+            }
+
+            if (attributeTypesToCheck.HasFlag(AttributeType.Element))
+            {
+                if (attr != null && !attr.IsInline)
+                {
+                    return attr.StringValue;
+                }
+            }
+
+            if (attributeTypesToCheck.HasFlag(AttributeType.DefaultValue))
+            {
+                return element.Content;
+            }
+
+            return string.Empty;
         }
 
         public abstract AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails);
@@ -169,71 +234,6 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
             return result;
         }
 
-        public static bool NeedToAddUid(RapidXamlElement element, string attributeName, out string uid)
-        {
-            var uidAttr = element.GetAttributes(Attributes.X_Uid, Attributes.Uid).FirstOrDefault();
-
-            var uidExists = uidAttr != null && uidAttr.HasStringValue;
-
-            if (uidExists)
-            {
-                uid = uidAttr.StringValue;
-            }
-            else
-            {
-                // reuse `Name` or `x:Name` if exist
-                var nameAttr = element.GetAttributes(Attributes.Name, Attributes.X_Name).FirstOrDefault();
-                if (nameAttr != null && nameAttr.HasStringValue)
-                {
-                    uid = nameAttr.StringValue;
-                }
-                else
-                {
-                    // Use defined attribute value
-                    var fbAttr = element.GetAttributes(attributeName).FirstOrDefault();
-                    if (fbAttr != null && fbAttr.HasStringValue)
-                    {
-                        uid = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(fbAttr.StringValue)}{element.Name}";
-
-                        uid = uid.RemoveAllWhitespace().RemoveNonAlphaNumerics();
-                    }
-                    else
-                    {
-                        // This is just a large random number created to hopefully avoid collisions
-                        uid = $"{element.Name}{new Random().Next(1001, 8999)}";
-                    }
-                }
-            }
-
-            return !uidExists;
-        }
-
-        public static string GetAttributeValue(RapidXamlElement element, RapidXamlAttribute attr, AttributeType attributeTypesToCheck)
-        {
-            if (attributeTypesToCheck.HasFlag(AttributeType.Inline))
-            {
-                if (attr != null && attr.IsInline)
-                {
-                    return attr.StringValue;
-                }
-            }
-
-            if (attributeTypesToCheck.HasFlag(AttributeType.Element))
-            {
-                if (attr != null && !attr.IsInline)
-                {
-                    return attr.StringValue;
-                }
-            }
-
-            if (attributeTypesToCheck.HasFlag(AttributeType.DefaultValue))
-            {
-                return element.Content;
-            }
-
-            return string.Empty;
-        }
-
         private string GetResourceFileNamespace(string resPath)
         {
             if (string.IsNullOrWhiteSpace(resPath))
@@ -270,9 +270,9 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                 return string.Empty;
             }
 
-            if (resourceFileLocationCache.ContainsKey(fileName))
+            if (ResourceFileLocationCache.ContainsKey(fileName))
             {
-                return resourceFileLocationCache[fileName];
+                return ResourceFileLocationCache[fileName];
             }
 
             // Get either type of res file. Don't have a reason for a project to contain both.
@@ -304,7 +304,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                 }
             }
 
-            resourceFileLocationCache.Add(fileName, result);
+            ResourceFileLocationCache.Add(fileName, result);
 
             return result;
         }
