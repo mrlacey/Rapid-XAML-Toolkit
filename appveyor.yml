@@ -12,11 +12,20 @@ install:
 
 before_build:
 - cmd: nuget restore .\VSIX\RapidXamlToolkit.sln -Verbosity quiet
-- ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
+- cmd: nuget restore .\Templates\RapidXaml.Templates.sln -Verbosity quiet
+  #- ps: Vsix-IncrementVsixVersion | Vsix-UpdateBuildVersion
   #- ps: Vsix-TokenReplacement src\source.extension.cs 'Version = "([0-9\\.]+)"' 'Version = "{version}"'
+- ps: Vsix-IncrementVsixVersion .\VSIX\RapidXaml.Analysis\source.extension.vsixmanifest | Vsix-UpdateBuildVersion
+- ps: Vsix-IncrementVsixVersion .\VSIX\RapidXaml.Common\source.extension.vsixmanifest
+- ps: Vsix-IncrementVsixVersion .\VSIX\RapidXaml.EditorExtras\source.extension.vsixmanifest
+- ps: Vsix-IncrementVsixVersion .\VSIX\RapidXaml.Generation\source.extension.vsixmanifest
+- ps: Vsix-IncrementVsixVersion .\VSIX\RapidXaml.RoslynAnalyzers\source.extension.vsixmanifest
+- ps: Vsix-IncrementVsixVersion .\VSIX\RapidXamlToolkit\source.extension.vsixmanifest
+- ps: Vsix-IncrementVsixVersion .\Templates\RapidXaml.Templates\source.extension.vsixmanifest
 
 build_script:
   - msbuild .\VSIX\RapidXamlToolkit.sln /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:n
+  - msbuild .\Templates\RapidXaml.Templates.sln /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:n
 
 after_test:
   - ps: Vsix-PushArtifacts | Vsix-PublishToGallery
