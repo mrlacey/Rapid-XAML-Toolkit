@@ -2,14 +2,12 @@
 // Licensed under the MIT license.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Utilities;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXaml.AnalysisExe
 {
-    public class BuildAnalysisTextSnapshot : ITextSnapshot
+    public class BuildAnalysisTextSnapshot : ITextSnapshotAbstraction
     {
         private string rawText;
 
@@ -18,31 +16,17 @@ namespace RapidXaml.AnalysisExe
             this.FileName = fileName;
         }
 
-        public ITextBuffer TextBuffer { get; }
-
-        public IContentType ContentType { get; }
-
-        public ITextVersion Version { get; }
-
         public int Length => this.rawText?.Length ?? 0;
 
-        public int LineCount { get; }
+        public object TextBuffer { get; set; }
 
-        public IEnumerable<ITextSnapshotLine> Lines { get; }
+        public int VersionNumber => 0;
+
+        public int LineCount { get; }
 
         public string FileName { get; }
 
         public char this[int position] => throw new NotImplementedException();
-
-        public string GetText(Span span)
-        {
-            return string.Empty;
-        }
-
-        public string GetText(int startIndex, int length)
-        {
-            return string.Empty;
-        }
 
         public string GetText()
         {
@@ -54,6 +38,18 @@ namespace RapidXaml.AnalysisExe
             return this.rawText;
         }
 
+        public (int StartPosition, int LineNumber) GetLineDetailsFromPosition(int position)
+        {
+            var line = new BuildAnalysisTextSnapshotLine(this, position);
+
+            return (line.StartPosition, line.LineNumber);
+        }
+
+        public string GetText(int startIndex, int length)
+        {
+            return string.Empty;
+        }
+
         public char[] ToCharArray(int startIndex, int length)
         {
             throw new NotImplementedException();
@@ -63,42 +59,7 @@ namespace RapidXaml.AnalysisExe
         {
         }
 
-        public ITrackingPoint CreateTrackingPoint(int position, PointTrackingMode trackingMode)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITrackingPoint CreateTrackingPoint(int position, PointTrackingMode trackingMode, TrackingFidelityMode trackingFidelity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITrackingSpan CreateTrackingSpan(Span span, SpanTrackingMode trackingMode)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITrackingSpan CreateTrackingSpan(Span span, SpanTrackingMode trackingMode, TrackingFidelityMode trackingFidelity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITrackingSpan CreateTrackingSpan(int start, int length, SpanTrackingMode trackingMode)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITrackingSpan CreateTrackingSpan(int start, int length, SpanTrackingMode trackingMode, TrackingFidelityMode trackingFidelity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITextSnapshotLine GetLineFromLineNumber(int lineNumber)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITextSnapshotLine GetLineFromPosition(int position)
+        public ITextSnapshotLineAbstraction GetLineFromPosition(int position)
         {
             return new BuildAnalysisTextSnapshotLine(this, position);
         }
@@ -108,12 +69,13 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
-        public void Write(TextWriter writer, Span span)
+        public void Write(TextWriter writer)
         {
         }
 
-        public void Write(TextWriter writer)
+        public string GetLineTextFromLineNumber(int lineNo)
         {
+            throw new NotImplementedException();
         }
     }
 }

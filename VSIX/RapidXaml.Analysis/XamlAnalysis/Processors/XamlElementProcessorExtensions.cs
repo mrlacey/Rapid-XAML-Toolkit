@@ -5,20 +5,21 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
     public static class XamlElementProcessorExtensions
     {
-        public static void CheckForHardCodedAttribute(this XamlElementProcessor source, string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
+        public static void CheckForHardCodedAttribute(this XamlElementProcessor source, string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshotAbstraction snapshot, int offset, bool uidExists, string uidValue, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
         {
             if (source.TryGetAttribute(xamlElement, attributeName, types, elementName, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
                     var tagDeps = source.CreateBaseTagDependencies(
-                        new Span(offset + tbIndex, length),
+                        new VsTextSpan(offset + tbIndex, length),
                         snapshot,
                         fileName);
 
@@ -37,14 +38,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
         }
 
-        public static void CheckForHardCodedAttribute(this XamlElementProcessor source, string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshot snapshot, int offset, string guidFallbackAttributeName, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
+        public static void CheckForHardCodedAttribute(this XamlElementProcessor source, string fileName, string elementName, string attributeName, AttributeType types, string descriptionFormat, string xamlElement, ITextSnapshotAbstraction snapshot, int offset, string guidFallbackAttributeName, Guid elementIdentifier, TagList tags, List<TagSuppression> suppressions, ProjectType projType)
         {
             if (source.TryGetAttribute(xamlElement, attributeName, types, elementName, out AttributeType foundAttributeType, out int tbIndex, out int length, out string value))
             {
                 if (!string.IsNullOrWhiteSpace(value) && char.IsLetterOrDigit(value[0]))
                 {
                     var tagDeps = source.CreateBaseTagDependencies(
-                        new Span(offset + tbIndex, length),
+                        new VsTextSpan(offset + tbIndex, length),
                         snapshot,
                         fileName);
 
@@ -97,14 +98,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             return (uidExists, uid);
         }
 
-        public static TagDependencies CreateBaseTagDependencies(this XamlElementProcessor source, Span span, ITextSnapshot snapshot, string fileName)
+        public static TagDependencies CreateBaseTagDependencies(this XamlElementProcessor source, ISpanAbstraction span, ITextSnapshotAbstraction snapshot, string fileName)
         {
             return new TagDependencies
             {
                 Logger = source.Logger,
                 VsPfp = source.VSPFP,
                 ProjectFilePath = source.ProjectFilePath,
-                Span = span,
+                Span = (span.Start, span.Length),
                 Snapshot = snapshot,
                 FileName = fileName,
             };

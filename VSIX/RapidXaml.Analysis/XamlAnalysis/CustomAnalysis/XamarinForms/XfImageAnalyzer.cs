@@ -4,14 +4,15 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using RapidXaml;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class XfImageAnalyzer : BuiltInXamlAnalyzer
     {
-        public XfImageAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
-            : base(vsa)
+        public XfImageAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa, ILogger logger)
+            : base(vsa, logger)
         {
         }
 

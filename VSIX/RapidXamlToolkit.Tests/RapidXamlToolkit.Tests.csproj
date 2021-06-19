@@ -57,16 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalysisActionsAssert.cs" />
-    <Compile Include="AutoFix\AddAttributeTests.cs" />
-    <Compile Include="AutoFix\AddChildStringTests.cs" />
-    <Compile Include="AutoFix\AddXmlnsTests.cs" />
-    <Compile Include="AutoFix\CombinationTests.cs" />
-    <Compile Include="AutoFix\ProjectTests.cs" />
-    <Compile Include="AutoFix\RemoveAttributeTests.cs" />
-    <Compile Include="AutoFix\RemoveChildTests.cs" />
-    <Compile Include="AutoFix\RenameElementTests.cs" />
-    <Compile Include="AutoFix\ReplaceElementTests.cs" />
     <Compile Include="Extensions\ProjectTypeExtensionTests.cs" />
+    <Compile Include="FakeTextSnapshot.cs" />
+    <Compile Include="FakeTextSnapshotLine.cs" />
     <Compile Include="Grid\GridExclusionsTests.cs" />
     <Compile Include="Grid\GridInsertRowPreviewTests.cs" />
     <Compile Include="Grid\GridProcessTests.cs" />
@@ -227,10 +220,10 @@
       <Version>16.0.206</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestAdapter">
-      <Version>1.4.0</Version>
+      <Version>2.1.2</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework">
-      <Version>1.4.0</Version>
+      <Version>2.1.2</Version>
     </PackageReference>
     <PackageReference Include="RapidXaml.CustomAnalysis">
       <Version>0.12.0</Version>
@@ -273,10 +266,6 @@
     <ProjectReference Include="..\RapidXaml.Analysis\RapidXaml.Analysis.csproj">
       <Project>{fc81b148-4683-4557-bea1-69ad39241576}</Project>
       <Name>RapidXaml.Analysis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RapidXaml.AutoFix\RapidXaml.AutoFix.csproj">
-      <Project>{66140843-f2dc-4697-bac4-50b7afaa8bbe}</Project>
-      <Name>RapidXaml.AutoFix</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Generation\RapidXaml.Generation.csproj">
       <Project>{f3e12d01-04d9-49d0-bb5b-f4fd62cff54a}</Project>

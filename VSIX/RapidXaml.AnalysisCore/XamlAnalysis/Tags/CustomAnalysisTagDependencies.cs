@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using Microsoft.VisualStudio.Text;
 using RapidXaml;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.VisualStudioIntegration;
@@ -10,9 +9,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class CustomAnalysisTagDependencies
     {
-        public Span Span { get; set; }
+        public RapidXamlSpan Span { get; set; }
 
-        public ITextSnapshot Snapshot { get; set; }
+        public ITextSnapshotAbstraction Snapshot { get; set; }
 
         public string FileName { get; set; }
 
@@ -46,10 +45,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
                 Logger = this.Logger,
                 MoreInfoUrl = this.Action.MoreInfoUrl,
                 ProjectFilePath = this.ProjectFilePath,
-                Span = this.Span,
+                Span = (this.Span.Start, this.Span.Length),
                 Snapshot = this.Snapshot,
                 VsPfp = this.VsPfp,
-                ExtraDebugInfo = $"{ElementName}:{AnalyzedElement.OriginalString}",
+                ExtraDebugInfo = $"{this.ElementName}:{this.AnalyzedElement.OriginalString}",
             };
         }
     }

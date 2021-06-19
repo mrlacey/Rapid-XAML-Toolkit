@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
@@ -18,7 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
         }
 
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshotAbstraction snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
         {
             const string gridOpenSpace = "<Grid ";
             const string gridOpenComplete = "<Grid>";
@@ -78,7 +79,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (!hasRowDef)
             {
-                var tag = new AddRowDefinitionsTag(new Span(offset, endOfOpening), snapshot, fileName, this.Logger)
+                var tag = new AddRowDefinitionsTag((offset, endOfOpening), snapshot, fileName, this.Logger)
                 {
                     InsertPosition = offset + endOfOpening,
                     LeftPad = leftPad,
@@ -100,7 +101,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (!hasColDef)
             {
-                var tag = new AddColumnDefinitionsTag(new Span(offset, endOfOpening), snapshot, fileName, this.Logger)
+                var tag = new AddColumnDefinitionsTag((offset, endOfOpening), snapshot, fileName, this.Logger)
                 {
                     InsertPosition = offset + endOfOpening,
                     LeftPad = leftPad,
@@ -117,7 +118,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (!hasRowDef && !hasColDef)
             {
-                var tag = new AddRowAndColumnDefinitionsTag(new Span(offset, endOfOpening), snapshot, fileName, this.Logger)
+                var tag = new AddRowAndColumnDefinitionsTag((offset, endOfOpening), snapshot, fileName, this.Logger)
                 {
                     InsertPosition = offset + endOfOpening,
                     LeftPad = leftPad,
@@ -138,7 +139,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             {
                 var endPos = xamlElement.IndexOf('>', rowDefIndex);
 
-                var tag = new InsertRowDefinitionTag(new Span(offset + rowDefIndex, endPos - rowDefIndex + 1), snapshot, fileName, this.Logger)
+                var tag = new InsertRowDefinitionTag((offset + rowDefIndex, endPos - rowDefIndex + 1), snapshot, fileName, this.Logger)
                 {
                     RowId = rowDefsCount,
                     GridStartPos = offset,
@@ -220,7 +221,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                     if (assignedInt > 0 && assignedInt >= rowDefsCount)
                                     {
                                         var tagDeps = this.CreateBaseTagDependencies(
-                                            new Span(offset + defUseOffset, closePos - defUseOffset + 1),
+                                            new VsTextSpan(offset + defUseOffset, closePos - defUseOffset + 1),
                                             snapshot,
                                             fileName);
 
@@ -254,7 +255,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                     if (assignedInt > 0 && assignedInt >= colDefsCount)
                                     {
                                         var tagDeps = this.CreateBaseTagDependencies(
-                                            new Span(offset + defUseOffset, closePos - defUseOffset + 1),
+                                            new VsTextSpan(offset + defUseOffset, closePos - defUseOffset + 1),
                                             snapshot,
                                             fileName);
 
@@ -324,7 +325,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 if (assignedInt > 1 && assignedInt - 1 + row >= rowDefsCount)
                                 {
                                     var tagDeps = this.CreateBaseTagDependencies(
-                                        new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
+                                        new VsTextSpan(offset + spanUseOffset, closePos - spanUseOffset + 1),
                                         snapshot,
                                         fileName);
 
@@ -362,7 +363,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                                 if (assignedInt > 1 && assignedInt - 1 + gridCol >= colDefsCount)
                                 {
                                     var tagDeps = this.CreateBaseTagDependencies(
-                                        new Span(offset + spanUseOffset, closePos - spanUseOffset + 1),
+                                        new VsTextSpan(offset + spanUseOffset, closePos - spanUseOffset + 1),
                                         snapshot,
                                         fileName);
 

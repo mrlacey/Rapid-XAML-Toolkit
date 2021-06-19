@@ -4,10 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit;
-using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Tests;
+using RapidXamlToolkit.Utils.IO;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -18,14 +17,14 @@ namespace RapidXaml
     {
         public XamlConverter()
         {
-            this.FileSystem = new WindowsFileSystem();
+            this.FileSystem = new NetStandardFileSystemAccess();
         }
 
 #if DEBUG
         // This overload exists in debug for test use only
         public XamlConverter(IFileSystemAbstraction fsa)
         {
-            this.FileSystem = fsa ?? new WindowsFileSystem();
+            this.FileSystem = fsa ?? new NetStandardFileSystemAccess();
         }
 #endif
 
@@ -124,7 +123,8 @@ namespace RapidXaml
             output.Add($"Analyzing '{xamlFilePath}'");
 
             var text = this.FileSystem.GetAllFileText(xamlFilePath);
-            var snapshot = new FakeTextSnapshot(text.Length);
+
+            var snapshot = new AutoFixTextSnapshot(text.Length);
 
             var logger = EmptyLogger.Create();
             var vspfp = new AutoFixProjectFilePath(projectFilePath);
@@ -271,16 +271,16 @@ namespace RapidXaml
             {
                 if (tag.Action == ActionType.RenameElement)
                 {
-                    catd.Span = new Span(tag.Span.Start, tag.Name.Length);
+                    catd.Span = new RapidXamlSpan(tag.Span.Start, tag.Name.Length);
                 }
                 else
                 {
-                    catd.Span = tag.Span;
+                    catd.Span = new RapidXamlSpan(tag.Span.Start, tag.Span.Length);
                 }
             }
             else
             {
-                catd.Span = suppAction.Location.ToSpanPlusStartPos(tag.InsertPosition);
+                catd.Span = suppAction.Location.AddStartPos(tag.InsertPosition);
             }
 
             return new CustomAnalysisTag(catd);
@@ -302,7 +302,7 @@ namespace RapidXaml
                     }
                     else
                     {
-                        newXaml = orig.Substring(0, cat.Span.End - cat.AnalyzedElement.Location.Start) + $" {cat.Name}=\"{cat.Value}\"" + orig.Substring(cat.Span.End - cat.AnalyzedElement.Location.Start);
+                        newXaml = orig.Substring(0, cat.Span.Start + cat.Span.Length - cat.AnalyzedElement.Location.Start) + $" {cat.Name}=\"{cat.Value}\"" + orig.Substring(cat.Span.Start + cat.Span.Length - cat.AnalyzedElement.Location.Start);
                     }
 
                     break;
@@ -368,7 +368,7 @@ namespace RapidXaml
 
                     if (orig.EndsWith("/>"))
                     {
-                        newXaml = $"<{cat.Name}" + orig.Substring(cat.Span.End - cat.AnalyzedElement.Location.Start);
+                        newXaml = $"<{cat.Name}" + orig.Substring(cat.Span.Start + cat.Span.Length - cat.AnalyzedElement.Location.Start);
                     }
                     else
                     {

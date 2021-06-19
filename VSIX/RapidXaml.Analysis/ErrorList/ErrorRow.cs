@@ -14,12 +14,12 @@ namespace RapidXamlToolkit.ErrorList
 
         public SnapshotSpan Span { get; set; }
 
-        public string ErrorCode { get; internal set; }
+        public string ErrorCode { get; set; }
 
-        public bool IsInternalError { get; internal set; }
+        public bool IsInternalError { get; set; }
 
-        public TagErrorType ErrorType { get; internal set; }
+        public TagErrorType ErrorType { get; set; }
 
-        public string MoreInfoUrl { get; internal set; }
+        public string MoreInfoUrl { get; set; }
     }
 }

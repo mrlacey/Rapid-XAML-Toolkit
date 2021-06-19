@@ -1,4 +1,7 @@
-﻿using BenchmarkDotNet.Attributes;
+﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
+// Licensed under the MIT license.
+
+using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
 using RapidXamlToolkit;
 using RapidXamlToolkit.Tests;
@@ -28,7 +31,7 @@ namespace Benchmarking
 
             var text = File.ReadAllText($".\\files\\{fileName}");
 
-            var snapshot = new FakeTextSnapshot(text.Length);
+            var snapshot = new BenchmarkingTextSnapshot(text.Length);
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 

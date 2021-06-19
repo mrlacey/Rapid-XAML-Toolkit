@@ -195,50 +195,5 @@ namespace RapidXamlToolkit.Tests.AutoFix
             Assert.AreEqual(expectedXaml3, fs.WrittenFiles["Page3.xaml"]);
 #endif
         }
-
-        public class BespokeTestFileSystem : TestFileSystem
-        {
-            public Dictionary<string, string> FilesAndContents { get; set; } = new Dictionary<string, string>();
-
-            public Dictionary<string, string> WrittenFiles { get; set; } = new Dictionary<string, string>();
-
-            public string[] FileLines { get; set; }
-
-            public override string GetAllFileText(string fileName)
-            {
-                if (this.FilesAndContents.ContainsKey(fileName))
-                {
-                    return this.FilesAndContents[fileName];
-                }
-                else
-                {
-                    return string.Empty;
-                }
-            }
-
-            public override void WriteAllFileText(string fileName, string fileContents)
-            {
-                this.WrittenFiles.Add(fileName, fileContents);
-            }
-
-            public override string[] ReadAllLines(string path)
-            {
-                return this.FileLines;
-            }
-        }
-
-        public class WebViewMultipleActionsAnalyzer : ICustomAnalyzer
-        {
-            public string TargetType() => "WebView";
-
-            public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
-            {
-                var result = AutoFixAnalysisActions.RenameElement("WebView2");
-
-                result.AndAddAttribute("Source", "https://rapidxaml.dev/");
-
-                return result;
-            }
-        }
     }
 }
