@@ -64,6 +64,7 @@ namespace SetVersionNumbers
         private static readonly List<string> DependencyFiles = new List<string>
         {
             "../../../../RapidXaml.AutoFix/RapidXaml.AutoFix.nuspec",
+            "../../../../RapidXaml.AutoFix/RapidXaml.AutoFix.csproj",
             "../../../../../Templates/CustomAnalysisItemTemplate/CustomAnalysisItemTemplate.vstemplate",
             "../../../../../Templates/CustomAnalysisProjectTemplate/Analyzer/CustomAnalyzerProject.csproj",
             "../../../../../Templates/CustomAnalysisProjectTemplate/Analyzer/CustomAnalyzerProject.nuspec",
