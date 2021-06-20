@@ -67,7 +67,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public virtual Task<object> GetPreviewAsync(CancellationToken cancellationToken)
         {
-            return null;
+            return Task.FromResult<object>(null);
         }
 
         public void Invoke(CancellationToken cancellationToken)
@@ -128,7 +128,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         }
 
         // Call this after having made the change if need to force reevaluation of actions
+#pragma warning disable IDE0051 // Remove unused private members
         private void RaiseBufferChange()
+#pragma warning restore IDE0051 // Remove unused private members
         {
             // Adding and deleting a char in order to force taggers re-evaluation
             string text = " ";

@@ -14,9 +14,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.2.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="16.1.89" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.10.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="16.10.230" />
+    <PackageReference Include="Microsoft.VisualStudio.Validation" Version="16.10.34" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Dataflow" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +46,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Update="files\A11yTabIndex.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
