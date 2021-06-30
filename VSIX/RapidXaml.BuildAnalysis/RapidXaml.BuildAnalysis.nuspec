@@ -31,6 +31,8 @@
     <file src=".\bin\release\net472\RapidXaml.BuildAnalysis.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.dll" target="tools/net472/" />
     <!-- <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.pdb" target="tools/net472/" /> -->
+    <file src=".\bin\release\net472\RapidXaml.Resources.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Resources.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.dll.config" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.pdb" target="tools/net472/" />
@@ -59,6 +61,7 @@
     <file src=".\bin\release\net472\Microsoft.VisualStudio.OLE.Interop.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.RemoteControl.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Framework.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Telemetry.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Data.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Logic.dll" target="tools/net472/" />
