@@ -14,7 +14,7 @@
     <summary>Apply automatic changes to XAML files.</summary>
     <releaseNotes>.</releaseNotes>
     <copyright>© 2021 Matt Lacey Ltd.</copyright>
-    <tags>XAML, WinUI, UWP, WPF, Xamarin.Forms, MVVM, UNO, MAUI</tags>
+    <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
         <dependency id="RapidXaml.CustomAnalysis" version="0.12.0" exclude="Build,Analyzers" />

@@ -9,7 +9,7 @@
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <icon>images\icon.png</icon>
-    <tags>XAML, UWP, WPF, Xamarin.Forms, Uno</tags>
+    <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
     <description>Run Rapid XAML Analysis checks on all *.xaml files when building a project.</description>
     <releaseNotes>.</releaseNotes>
     <projectUrl>https://rapidxaml.dev</projectUrl>
