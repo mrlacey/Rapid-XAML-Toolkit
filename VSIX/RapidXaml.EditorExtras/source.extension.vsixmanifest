@@ -12,7 +12,7 @@
         <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;Forms;MVVM;Roslyn;Analysis</Tags>
     </Metadata>
     <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.2, 17.0)" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.9, 17.0)" />
     </Installation>
     <Dependencies>
     </Dependencies>

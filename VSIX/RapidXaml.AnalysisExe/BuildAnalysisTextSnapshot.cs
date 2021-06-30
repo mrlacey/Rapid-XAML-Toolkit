@@ -45,6 +45,7 @@ namespace RapidXaml.AnalysisExe
             return (line.StartPosition, line.LineNumber);
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter
         public string GetText(int startIndex, int length)
         {
             return string.Empty;
@@ -72,6 +73,7 @@ namespace RapidXaml.AnalysisExe
         public void Write(TextWriter writer)
         {
         }
+#pragma warning restore IDE0060 // Remove unused parameter
 
         public string GetLineTextFromLineNumber(int lineNo)
         {

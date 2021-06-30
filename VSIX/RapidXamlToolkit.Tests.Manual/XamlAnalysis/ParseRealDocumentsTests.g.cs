@@ -42,6 +42,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_AppInstallerEditor()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\AppInstallerEditor");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_AspNetCoreDocs()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\AspNetCore.Docs");
@@ -60,15 +66,33 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_Bravo()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Bravo");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_brewjournal()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\brewjournal");
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_cakevs()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\cake-vs");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_calculator()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\calculator");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_CharacterMapUWP()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Character-Map-UWP");
         }
 
         [TestMethod]
@@ -117,6 +141,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         public void TestXamlFilesIn_CoreTemplateStudio()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\CoreTemplateStudio");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_CreatingcrossplatformapplicationswithUno()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Creating-cross-platform-applications-with-Uno");
         }
 
         [TestMethod]
@@ -180,6 +210,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_FestiveEditor()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\FestiveEditor");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_Gastropods()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Gastropods");
@@ -189,6 +225,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         public void TestXamlFilesIn_GetLiveXamlInfo()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\GetLiveXamlInfo");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_ghpkgtest()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\ghpkgtest");
         }
 
         [TestMethod]
@@ -246,6 +288,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_Infragisticsunosamples()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Infragistics-uno-samples");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_InvokeNavigationViewItems()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\InvokeNavigationViewItems");
@@ -270,6 +318,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_kaxaml()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\kaxaml");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_LanguageRef()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\LanguageRef");
@@ -291,6 +345,18 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         public void TestXamlFilesIn_madskristensenFileIcons()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\madskristensen-FileIcons");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_MahAppsMetro()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\MahApps.Metro");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_MahAppsMetroSimpleChildWindow()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\MahApps.Metro.SimpleChildWindow");
         }
 
         [TestMethod]
@@ -336,6 +402,18 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_mlltdUnoReference()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\mlltd-UnoReference");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_mlltdXamarinReference()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\mlltd-XamarinReference");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_mrlappmonkeys()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\mrl-app-monkeys");
@@ -348,15 +426,33 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_mrlVertiPaqAnalyzer()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\mrl-VertiPaq-Analyzer");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_mrlaceyRXT()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\mrlacey-RXT");
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_MrlaceySnippets()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\MrlaceySnippets");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_MultiLineStringAnalyzer()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\MultiLineStringAnalyzer");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_mvegacaWindowsTemplateStudio()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\mvegaca-WindowsTemplateStudio");
         }
 
         [TestMethod]
@@ -414,6 +510,36 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_Prism()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Prism");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_PrivateWindowsTemplateStudio()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Private-WindowsTemplateStudio");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_ProjectReunionSamples()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Project-Reunion-Samples");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_ProjectReunion()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\ProjectReunion");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_ProWinuiTemplates()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\ProWinuiTemplates");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_radeonasmtools()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\radeon-asm-tools");
@@ -468,6 +594,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_ShowMeTheXAML()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\ShowMeTheXAML");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_ShowSelection()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\ShowSelection");
@@ -507,6 +639,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         public void TestXamlFilesIn_SmartHotel360()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\SmartHotel360");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_sqlbiBravo()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\sqlbi-Bravo");
         }
 
         [TestMethod]
@@ -558,9 +696,27 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_unobook()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\uno-book");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_UnoPlayground()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Uno.Playground");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_UnoSkiaSharpExtended()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Uno.SkiaSharp.Extended");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_unobookcodepoc()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\unobookcodepoc");
         }
 
         [TestMethod]
@@ -624,6 +780,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_VertiPaqAnalyzer()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\VertiPaq-Analyzer");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_VincentHNetCSharpForMarkup()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\VincentH-Net-CSharpForMarkup");
@@ -636,9 +798,21 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_VisualStudioOutputFilterExtension()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\VisualStudio-Output-Filter-Extension");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_vscodegitlens()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\vscode-gitlens");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_VSConsole()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\VSConsole");
         }
 
         [TestMethod]
@@ -720,6 +894,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_WindowsCommunityToolkitwiki()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\WindowsCommunityToolkit-wiki");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_WindowsTemplateStudio()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\WindowsTemplateStudio");
@@ -744,6 +924,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_WinUI3Demos()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\WinUI-3-Demos");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_WinUIEssentials()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\WinUI-Essentials");
@@ -759,6 +945,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         public void TestXamlFilesIn_WTSXamarinFormsPreview()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\WTS-Xamarin-Forms-Preview");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_WTSXamarinFormsPreviewfork()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\WTS-Xamarin-Forms-Preview-fork");
         }
 
         [TestMethod]
@@ -798,6 +990,18 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         }
 
         [TestMethod]
+        public void TestXamlFilesIn_XamarinCommunityToolkit()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\XamarinCommunityToolkit");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_xamlbindingtool()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\xaml-binding-tool");
+        }
+
+        [TestMethod]
         public void TestXamlFilesIn_XamlControlsGallery()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\Xaml-Controls-Gallery");
@@ -807,6 +1011,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         public void TestXamlFilesIn_xamldesignerextensibilitysamples()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\xaml-designer-extensibility-samples");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_XamlBenchmark()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\XamlBenchmark");
         }
 
         [TestMethod]
@@ -825,6 +1035,12 @@ namespace RapidXamlToolkit.Tests.Manual.XamlAnalysis
         public void TestXamlFilesIn_xunit()
         {
             this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\xunit");
+        }
+
+        [TestMethod]
+        public void TestXamlFilesIn_ZenCodingVS()
+        {
+            this.CanParseWithoutErrors(@"C:\Users\matt\Documents\GitHub\ZenCodingVS");
         }
 
         [TestMethod]
