@@ -2,13 +2,14 @@
 // Licensed under the MIT license.
 
 using RapidXaml;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class XfListViewAnalyzer : BuiltInXamlAnalyzer
     {
-        public XfListViewAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
-            : base(vsa)
+        public XfListViewAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa, ILogger logger)
+            : base(vsa, logger)
         {
         }
 

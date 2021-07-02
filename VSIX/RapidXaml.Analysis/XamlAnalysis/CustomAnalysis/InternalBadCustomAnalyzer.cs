@@ -3,13 +3,14 @@
 
 #if DEBUG
 using RapidXaml;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class InternalBadCustomAnalyzer : BuiltInXamlAnalyzer
     {
-        public InternalBadCustomAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
-            : base(vsa)
+        public InternalBadCustomAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa, ILogger logger)
+            : base(vsa, logger)
         {
         }
 

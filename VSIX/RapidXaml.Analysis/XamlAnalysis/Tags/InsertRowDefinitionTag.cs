@@ -2,14 +2,14 @@
 // Licensed under the MIT license.
 
 using System.Collections.Generic;
-using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public class InsertRowDefinitionTag : RapidXamlDiscreteTag
     {
-        public InsertRowDefinitionTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger)
+        public InsertRowDefinitionTag((int Start, int Length) span, ITextSnapshotAbstraction snapshot, string fileName, ILogger logger)
             : base(span, snapshot, fileName, logger)
         {
         }

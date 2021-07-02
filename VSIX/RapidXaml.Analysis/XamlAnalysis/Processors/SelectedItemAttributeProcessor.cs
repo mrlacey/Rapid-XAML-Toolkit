@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 using System.Collections.Generic;
-using Microsoft.VisualStudio.Text;
+using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
@@ -14,7 +14,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         {
         }
 
-        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshot snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
+        public override void Process(string fileName, int offset, string xamlElement, string linePadding, ITextSnapshotAbstraction snapshot, TagList tags, List<TagSuppression> suppressions = null, Dictionary<string, string> xlmns = null)
         {
             if (this.TryGetAttribute(xamlElement, Attributes.SelectedItem, AttributeType.Inline | AttributeType.Element, out _, out int index, out int length, out string value))
             {
@@ -35,7 +35,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     }
 
                     var tagDeps = this.CreateBaseTagDependencies(
-                        new Span(offset + index, length),
+                        new VsTextSpan(offset + index, length),
                         snapshot,
                         fileName);
 

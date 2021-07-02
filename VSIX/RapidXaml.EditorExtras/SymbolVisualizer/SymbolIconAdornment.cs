@@ -1114,7 +1114,7 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
             {
                 Color UIntToColor(uint color)
                 {
-                    var a = (byte)(color >> 24);
+                    ////var a = (byte)(color >> 24);
                     var r = (byte)(color >> 16);
                     var g = (byte)(color >> 8);
                     var b = (byte)(color >> 0);

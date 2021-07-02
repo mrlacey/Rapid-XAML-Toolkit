@@ -2,13 +2,14 @@
 // Licensed under the MIT license.
 
 using RapidXaml;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class SwitchCellAnalyzer : BuiltInXamlAnalyzer
     {
-        public SwitchCellAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
-            : base(vsa)
+        public SwitchCellAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa, ILogger logger)
+            : base(vsa, logger)
         {
         }
 

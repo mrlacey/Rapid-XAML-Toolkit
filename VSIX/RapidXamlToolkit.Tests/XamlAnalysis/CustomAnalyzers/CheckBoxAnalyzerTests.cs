@@ -6,14 +6,13 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
 using RapidXaml.TestHelpers;
-using RapidXamlToolkit.Tests.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 {
     [TestClass]
-    public class CheckBoxAnalyzerTests
+    public class CheckBoxAnalyzerTests : AnalyzerTestsBase
     {
         [TestMethod]
         public void HardCoded_Content_Detected_Uwp()
@@ -121,8 +120,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
         private List<AnalysisAction> Act(string xaml, ProjectFramework framework = ProjectFramework.Unknown)
         {
-            var sut = new CheckBoxAnalyzer(new TestVisualStudioAbstraction());
-
+            var sut = this.CreateAnalyzer<CheckBoxAnalyzer>();
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(framework));

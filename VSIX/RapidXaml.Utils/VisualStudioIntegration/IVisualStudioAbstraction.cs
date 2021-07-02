@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         string GetActiveDocumentText();
 
-        ProjectType GetProjectType(EnvDTE.Project project);
+       // ProjectType GetProjectType(EnvDTE.Project project);
 
         (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName);
 

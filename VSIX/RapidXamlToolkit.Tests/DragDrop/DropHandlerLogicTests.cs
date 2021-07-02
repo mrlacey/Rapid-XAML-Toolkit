@@ -3,8 +3,8 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.DragDrop;
+using RapidXamlToolkit.Utils.IO;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests.DragDrop

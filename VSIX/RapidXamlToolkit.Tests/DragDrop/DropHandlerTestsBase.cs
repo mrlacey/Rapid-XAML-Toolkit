@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.VisualBasic;
 using RapidXamlToolkit.Commands;
 using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Utils.IO;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests.DragDrop

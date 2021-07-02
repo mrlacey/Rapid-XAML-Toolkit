@@ -3,13 +3,14 @@
 
 using System.Collections.Generic;
 using RapidXaml;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class AddXmlnsAnalyzer : BuiltInXamlAnalyzer
     {
-        public AddXmlnsAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
-            : base(vsa)
+        public AddXmlnsAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa, ILogger logger)
+            : base(vsa, logger)
         {
         }
 

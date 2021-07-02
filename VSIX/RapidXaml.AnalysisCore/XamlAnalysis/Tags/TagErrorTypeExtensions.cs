@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using Microsoft.VisualStudio.Text.Adornments;
-
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public static class TagErrorTypeExtensions

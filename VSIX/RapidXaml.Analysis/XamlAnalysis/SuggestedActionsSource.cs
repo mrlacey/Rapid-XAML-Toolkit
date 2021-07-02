@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Language.Intellisense;
-using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
@@ -145,7 +144,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     actions: actions,
                     title: StringRes.UI_SuggestedActionSetTitle,
                     priority: SuggestedActionSetPriority.None,
-                    applicableToSpan: tag.Span),
+                    applicableToSpan: new Span(tag.Span.Start, tag.Span.Length)),
             };
 
             if (tag is RapidXamlDisplayedTag rxdt)
@@ -160,7 +159,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                             actions: new[] { SuppressWarningAction.Create(rxdt, action.File, this) },
                             title: StringRes.UI_SuggestedActionSetTitle,
                             priority: SuggestedActionSetPriority.None,
-                            applicableToSpan: tag.Span));
+                            applicableToSpan: new Span(tag.Span.Start, tag.Span.Length)));
                     }
                 }
             }
@@ -190,12 +189,12 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         private IEnumerable<IRapidXamlTag> GetTags(SnapshotSpan span)
         {
-            return RapidXamlDocumentCache.AdornmentTags(this.file).Where(t => t.Span.IntersectsWith(span)).Select(t => t);
+            return RapidXamlDocumentCache.AdornmentTags(this.file).Where(t => span.IntersectsWith(new Span(t.Span.Start, t.Span.Length))).Select(t => t);
         }
 
-        private IEnumerable<IMappingTagSpan<IRapidXamlTag>> GetErrorTags(ITextView textView, SnapshotSpan span)
+        private IEnumerable<IMappingTagSpan<ITag>> GetErrorTags(ITextView textView, SnapshotSpan span)
         {
-            return this.tagService.CreateTagAggregator<IRapidXamlTag>(textView).GetTags(span);
+            return this.tagService.CreateTagAggregator<ITag>(textView).GetTags(span);
         }
     }
 }

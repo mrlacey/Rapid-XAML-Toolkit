@@ -29,3 +29,6 @@ dotnet_diagnostic.SA1602.severity = none
 [*.{cs}]
 # Sort using and Import directives with System.* appearing first
 dotnet_sort_system_directives_first = true
+
+# CS8032: An instance of analyzer RapidXaml.InternalAnalyzers.RapidXamlInternalAnalyzersAnalyzer cannot be created from C:\Users\matt\Documents\GitHub\mrlacey-RXT\VSIX\RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers\bin\Debug\netstandard2.0\RapidXaml.InternalAnalyzers.dll : Could not load file or assembly 'Microsoft.CodeAnalysis, Version=3.10.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35' or one of its dependencies. The system cannot find the file specified..
+dotnet_diagnostic.CS8032.severity = none

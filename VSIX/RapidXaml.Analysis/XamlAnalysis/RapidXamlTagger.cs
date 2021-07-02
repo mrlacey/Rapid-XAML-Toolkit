@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
@@ -42,9 +43,9 @@ namespace RapidXamlToolkit.XamlAnalysis
             {
                 foreach (var span in spans)
                 {
-                    if (span.IntersectsWith(viewTag.Span))
+                    if (span.IntersectsWith(new Span(viewTag.Span.Start, viewTag.Span.Length)))
                     {
-                        if (span.Snapshot.TextBuffer != viewTag.Snapshot.TextBuffer)
+                        if (span.Snapshot.TextBuffer != (ITextBuffer)viewTag.Snapshot.TextBuffer)
                         {
                             //// SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_TextBufferChanged.WithParams(this.file));
                             System.Diagnostics.Debug.WriteLine(StringRes.Info_TextBufferChanged.WithParams(this.file));
@@ -52,7 +53,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                             break;
                         }
 
-                        if (span.Snapshot.Version.VersionNumber != viewTag.Snapshot.Version.VersionNumber)
+                        if (span.Snapshot.Version.VersionNumber != viewTag.Snapshot.VersionNumber)
                         {
                             //// SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_SnapshotVersionChanged.WithParams(this.file));
                             System.Diagnostics.Debug.WriteLine(StringRes.Info_SnapshotVersionChanged.WithParams(this.file));

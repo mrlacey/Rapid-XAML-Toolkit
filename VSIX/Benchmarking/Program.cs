@@ -1,4 +1,7 @@
-﻿using BenchmarkDotNet.Running;
+﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
+// Licensed under the MIT license.
+
+using BenchmarkDotNet.Running;
 
 namespace Benchmarking
 {

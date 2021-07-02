@@ -53,9 +53,10 @@ The solution contains these projects:
 - `RapidXaml.Generation` is a shipping **VSIX** package that contains the functionality for generating XAML from C# and VB.NET code. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlGeneration)_
 - `RapidXaml.RoslynAnalyzers` is a shipping **VSIX** package that contains Roslyn Analyzers and code fixes for use in projects that use XAML files. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlRoslynAnalyzers)_
 - `RapidXaml.Shared` is a library containing code shared between other projects that produce a VSIX package.
+- `RapidXaml.Utils` is a library containing generic utility functions with no dependencies on the Visual Studio SDK.
 - `RapidXamlToolkit` is a shipping **VSIX** extension pack for bundling all separate tools through a single extension. _[marketplace link](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit)_
 - `RapidXamlToolkit.Tests` is a test project containing automated tests for other projects in the solution.
-- `RapidXamlToolkit.Utils` is a library containing generic utility functions with no dependencies on the Visual Studio SDK.
+- `RapidXamlToolkit.Tests.AutoFix` is a test project containing automated tests for other projects in the AutoFix project. These are separate to avoid issues with duplicate types due to the use of linked files in the AutoFix project.
 - `Tools/RapidXaml.InternalAnalyzers` contains Roslyn code analyzers for enforcing code patterns and requirements within the solution.
 
 #### VSIX/RapidXamlToolkit.Everything.sln

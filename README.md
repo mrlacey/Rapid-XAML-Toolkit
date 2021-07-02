@@ -8,20 +8,13 @@
 
 This is a collection of tools for making it easier for developers to work with XAML (**UWP**, **WPF**, and **Xamarin.Forms**). These tools include
 
-- **XAML Generation** (making it easier to create a UI with XAML)
-- **XAML Analysis** (helping you find and fix issues with XAML)
+- Get in-editor **analysis of your XAML** to find and fix issues faster.
+- **Generate** XAML from your ViewModels.
+- **Enhance the editor** window.
 - **Roslyn Analyzers** (to help with code related to MVVM and XAML)
 - **Project & Item Templates** (to create new apps faster)
 
 Get it from the [VS Marketplace](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.RapidXamlToolkit)
-
-## XAML Generation
-
-Turn your ViewModels into XAML with a couple of clicks or a drag of the mouse.
-
-![Animation showing XAML generated from a ViewModel](./docs/Assets/drag-drop-gen.gif)
-
-The generated XAML is based on common conventions but is highly [configurable](./docs/configuration.md).
 
 ## XAML Analysis
 
@@ -33,15 +26,24 @@ You can also create your own [**Custom Analyzers**](./docs/custom-analysis.md) a
 
 Learn more about [features](./docs/features.md).
 
+## XAML Generation
+
+Turn your ViewModels into XAML with a couple of clicks or a drag of the mouse.
+
+![Animation showing XAML generated from a ViewModel](./docs/Assets/drag-drop-gen.gif)
+
+The generated XAML is based on common conventions but is highly [configurable](./docs/configuration.md).
+
 ---
 
 ## Principles guiding this project
 
+- Developers using XAML deserve the best tools possible.
 - Doing something is better than doing nothing.
-- The toolkit can't generate the final XAML as every app requires unique customization.
 - Everything that is output should be configurable.
 - C# and VB.NET are supported equally.
 - The toolkit won't do things that Visual Studio can already do. (Without very good reason.)
+- The toolkit can't generate the final XAML as every app requires unique customization.
 - This toolkit is focused specifically on tooling for working with XAML. It will not include controls, etc.
 
 ## Installation
