@@ -14,7 +14,7 @@
     <summary>Create custom XAML analyzers.</summary>
     <releaseNotes>Add support for CreateResource. (Will require VSIX version &gt;= 0.12)</releaseNotes>
     <copyright>Copyright © 2021 Matt Lacey Ltd.</copyright>
-    <tags>XAML, UWP, WPF, Xamarin.Forms, MVVM, UNO, WinUI</tags>
+    <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
         <dependency id="GuiLabs.Language.Xml" version="1.2.46" exclude="Build,Analyzers" />

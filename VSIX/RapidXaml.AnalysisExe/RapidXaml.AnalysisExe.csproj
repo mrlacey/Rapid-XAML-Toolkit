@@ -11,6 +11,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;ANALYSISEXE</DefineConstants>
   </PropertyGroup>
+    <PropertyGroup>
+        <NoWarn>NU1608,SA1600</NoWarn>
+    </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\RapidXaml.Analysis\ErrorList\**" />
     <Compile Include="..\RapidXaml.Analysis\XamlAnalysis\**" />
@@ -22,16 +25,18 @@
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\RapidXaml.Analysis\app.config" Link="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj" />
     <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj" />
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj" />
     <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="16.1.89" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="3.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="3.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.InteractiveHost" Version="3.9.0-3.21056.4" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Scripting.Common" Version="3.9.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="16.9.31425.357" />
+    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="16.9.244" />
     <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.12.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>

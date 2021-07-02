@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-  <Metadata>
-    <Identity Id="RapidXaml.EditorExtras.07e87ef8-07f8-49fd-8f4b-f0958a539030" Version="0.12.2" Language="en-US" Publisher="Matt Lacey" />
-    <DisplayName>Rapid XAML Editor Extras</DisplayName>
-    <Description xml:space="preserve">Tools to accelerate XAML app development by providing additional features to the Visual Studio editor.</Description>
-    <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
-    <License>LICENSE.txt</License>
-    <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
-    <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md</ReleaseNotes>
-    <Icon>Resources\RapidXamlEditorExtrasLogo.png</Icon>
-    <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;Forms;MVVM;Roslyn;Analysis</Tags>
-  </Metadata>
-  <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
-  </Installation>
-  <Dependencies>
-  </Dependencies>
-  <Prerequisites>
-    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
-  </Prerequisites>
-  <Assets>
-    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-  </Assets>
+    <Metadata>
+        <Identity Id="RapidXaml.EditorExtras.07e87ef8-07f8-49fd-8f4b-f0958a539030" Version="0.12.2" Language="en-US" Publisher="Matt Lacey" />
+        <DisplayName>Rapid XAML Editor Extras</DisplayName>
+        <Description xml:space="preserve">Tools to accelerate XAML app development by providing additional features to the Visual Studio editor.</Description>
+        <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
+        <License>LICENSE.txt</License>
+        <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
+        <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md</ReleaseNotes>
+        <Icon>Resources\RapidXamlEditorExtrasLogo.png</Icon>
+        <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;Forms;MVVM;Roslyn;Analysis</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.9, 17.0)" />
+    </Installation>
+    <Dependencies>
+    </Dependencies>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+    </Assets>
 </PackageManifest>
