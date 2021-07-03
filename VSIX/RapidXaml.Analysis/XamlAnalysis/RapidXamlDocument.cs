@@ -167,7 +167,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                ////customProcessors.Add(new CustomAnalysis.AddXmlnsAnalyzer());
                 customProcessors.Add(new CustomAnalysis.WebViewToWebView2Converter());
 #endif
-                customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction));
+                customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new CustomAnalysis.ButtonAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer(vsAbstraction, logger));

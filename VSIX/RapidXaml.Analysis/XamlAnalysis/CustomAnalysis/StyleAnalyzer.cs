@@ -1,16 +1,17 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System.Collections.Generic;
 using System.Linq;
 using RapidXaml;
+using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class StyleAnalyzer : BuiltInXamlAnalyzer
     {
-        public StyleAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
-            : base(vsa)
+        public StyleAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa, ILogger logger)
+            : base(vsa, logger)
         {
         }
 
@@ -66,8 +67,8 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                             return AnalysisActions.HighlightWithoutAction(
                                 RapidXamlErrorType.Warning,
                                 "RXT500",
-                                $"The contrast ratio is only {lumRatio:0.00}:1 which is below the recommended level of 4.5:1.",
-                                extendedMessage: "The WCAG recommend a luminance contrast ratio of at least 4.5:1 for normal-size text.");
+                                StringRes.UI_XamlAnalysisStyleColorContrastDescription.WithParams($"{lumRatio:0.00}"),
+                                extendedMessage: StringRes.UI_XamlAnalysisStyleColorContrastExtendedMessage);
                         }
                     }
                 }

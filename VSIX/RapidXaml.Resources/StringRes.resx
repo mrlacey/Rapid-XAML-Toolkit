@@ -888,4 +888,10 @@ If you're noticing an issue, you can disable automatic analysis every time a fil
   <data name="UI_XamlAnalysisXfStepperMinMaxDescription" xml:space="preserve">
     <value>Stepper has a Minimum value greater than Maximum.</value>
   </data>
+  <data name="UI_XamlAnalysisStyleColorContrastDescription" xml:space="preserve">
+    <value>The contrast ratio is only {0}:1 which is below the recommended level of 4.5:1.</value>
+  </data>
+  <data name="UI_XamlAnalysisStyleColorContrastExtendedMessage" xml:space="preserve">
+    <value>The WCAG recommend a luminance contrast ratio of at least 4.5:1 for normal-size text.</value>
+  </data>
 </root>
