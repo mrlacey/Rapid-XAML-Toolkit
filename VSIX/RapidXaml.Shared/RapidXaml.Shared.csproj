@@ -59,6 +59,7 @@
     <Compile Include="..\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
+    <Compile Include="ColorHelper.cs" />
     <Compile Include="Commands\BaseCommand.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

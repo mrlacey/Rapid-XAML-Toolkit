@@ -25,6 +25,7 @@ The following may be shown in the Error List.
 | [RXT402](./RXT402.md) | Use `MediaPlayerElement` in place of `MediaElement`. |
 | [RXT451](./RXT451.md) | `x:Uid` should begin with an upper case character. |
 | [RXT452](./RXT452.md) | `Name` should begin with an upper case character. |
+| [RXT500](./RXT500.md) | Color contrast warning. |
 | [RXT700](./RXT700.md) | Platform-specific Uno xmlns should be Ignorable. |
 | [RXT999](./RXT999.md) | Unknown error - Something went wrong when parsing XAML document. |
 | [RXTPOC](./RXTPOC.md) | Congratulations, you've found something experimental. |
