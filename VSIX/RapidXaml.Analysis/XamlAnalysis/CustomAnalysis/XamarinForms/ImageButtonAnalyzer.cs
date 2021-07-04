@@ -2,14 +2,15 @@
 // Licensed under the MIT license.
 
 using RapidXaml;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class ImageButtonAnalyzer : BuiltInXamlAnalyzer
     {
-        public ImageButtonAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
-            : base(vsa)
+        public ImageButtonAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa, ILogger logger)
+            : base(vsa, logger)
         {
         }
 

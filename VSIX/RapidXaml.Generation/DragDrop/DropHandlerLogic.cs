@@ -8,6 +8,7 @@ using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.Utils.IO;
 using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.DragDrop

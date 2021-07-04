@@ -3,14 +3,15 @@
 
 using System.Linq;
 using RapidXaml;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class SliderAnalyzer : BuiltInXamlAnalyzer
     {
-        public SliderAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
-            : base(vsa)
+        public SliderAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa, ILogger logger)
+            : base(vsa, logger)
         {
         }
 

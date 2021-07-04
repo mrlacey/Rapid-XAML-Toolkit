@@ -72,6 +72,7 @@
     <Compile Include="Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
     <Compile Include="Commands\OpenAnalysisOptionsCommand.cs" />
     <Compile Include="ErrorList\ErrorListService.cs" />
+    <Compile Include="ErrorList\ErrorRow.cs" />
     <Compile Include="ErrorList\FileErrorCollection.cs" />
     <Compile Include="ErrorList\SinkManager.cs" />
     <Compile Include="ErrorList\TableDataSource.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer2.cs" />
+    <Compile Include="XamlAnalysis\CustomAnalysis\StyleAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\UnoIgnorablesAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\WebViewToWebView2Converter.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\EntryCellAnalyzer.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="XamlAnalysis\CustomAnalysis\ReplaceElementTestAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\TwoPaneViewAnalyzer.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfImageAnalyzer.cs" />
+    <Compile Include="XamlAnalysis\IRapidXamlAdornmentTagExtensions.cs" />
     <Compile Include="XamlAnalysis\CustomAnalysis\XamarinForms\XfMapPinAnalyzer.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
@@ -144,7 +147,6 @@
     <Compile Include="XamlAnalysis\Processors\HubProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
-    <Compile Include="XamlAnalysis\Processors\LabelProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MediaElementProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
@@ -160,6 +162,11 @@
     <Compile Include="XamlAnalysis\Processors\TimePickerProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
     <Compile Include="XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
+    <Compile Include="XamlAnalysis\RapidXamlDisplayedTagExtensions.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlSuggestionAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\Tags\RapidXamlWarningAdornmentTag.cs" />
+    <Compile Include="XamlAnalysis\VsTextSnapshot.cs" />
+    <Compile Include="XamlAnalysis\VsTextSpan.cs" />
     <Compile Include="XamlAnalysis\Processors\XamlElementProcessorExtensions.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocument.cs" />
     <Compile Include="XamlAnalysis\RapidXamlDocumentCache.cs" />
@@ -238,35 +245,42 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>3.2.0</Version>
+      <Version>3.9.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Common">
-      <Version>3.2.0</Version>
+      <Version>3.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp">
+      <Version>3.9.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.InteractiveHost">
-      <Version>3.5.0-beta3-20074-03</Version>
+      <Version>3.9.0-3.21056.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.Scripting.Common">
+      <Version>3.9.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.LanguageServices">
-      <Version>3.2.0</Version>
+      <Version>3.9.0</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.206" ExcludeAssets="runtime">
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.9.31425.357" ExcludeAssets="runtime">
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Text.Data">
-      <Version>16.1.89</Version>
+      <Version>16.9.244</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.TextManager.Interop.12.0">
-      <Version>12.0.30112</Version>
+      <Version>16.9.31023.347</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.2.3074">
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.9.1050">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VSSDK.Vsixsigntool">
-      <Version>16.2.29116.78</Version>
+      <Version>16.3.29220.27</Version>
     </PackageReference>
     <PackageReference Include="RapidXaml.CustomAnalysis">
       <Version>0.12.0</Version>
@@ -284,6 +298,10 @@
     <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">
       <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
       <Name>RapidXaml.AnalysisCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj">
+      <Project>{3307cd74-9995-4f90-8c12-75760460ad35}</Project>
+      <Name>RapidXaml.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>

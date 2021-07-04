@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         private readonly IRapidXamlAdornmentTag tag = new HardCodedStringTag(
             new TagDependencies
             {
-                Span = new Span(1, 14),
+                Span = (1, 14),
                 Snapshot = new FakeTextSnapshot(),
                 FileName = TestFileName,
                 Logger = DefaultTestLogger.Create(),

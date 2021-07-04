@@ -12,7 +12,7 @@ using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
     [TestClass]
-    public class ButtonAnalyzerTests : ProcessorTestsBase
+    public class ButtonAnalyzerTests : AnalyzerTestsBase
     {
         [TestMethod]
         public void DetectsHardcodedContent_OnlyAttribute_SelfClosing()
@@ -171,8 +171,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
         private List<AnalysisAction> Act(string xaml, ProjectFramework framework = ProjectFramework.Unknown)
         {
-            var sut = new ButtonAnalyzer(new TestVisualStudioAbstraction());
-
+            var sut = this.CreateAnalyzer<ButtonAnalyzer>();
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(framework));

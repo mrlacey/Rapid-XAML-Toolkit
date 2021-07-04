@@ -1,16 +1,14 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
-using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Text.Tagging;
 using RapidXamlToolkit.Logging;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.XamlAnalysis.Tags
 {
     public abstract class RapidXamlAdornmentTag : IRapidXamlAdornmentTag
     {
-        public RapidXamlAdornmentTag(Span span, ITextSnapshot snapshot, string fileName, ILogger logger)
+        public RapidXamlAdornmentTag((int Start, int Length) span, ITextSnapshotAbstraction snapshot, string fileName, ILogger logger)
         {
             this.Span = span;
             this.Snapshot = snapshot;
@@ -20,9 +18,9 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public string ToolTip { get; set; }
 
-        public Span Span { get; set; }
+        public (int Start, int Length) Span { get; set; }
 
-        public ITextSnapshot Snapshot { get; set; }
+        public ITextSnapshotAbstraction Snapshot { get; set; }
 
         public string FileName { get; }
 
@@ -30,6 +28,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Tags
 
         public string ErrorCode { get; set; }
 
-        public abstract ITagSpan<IErrorTag> AsErrorTag();
+        public TagErrorType ConfiguredErrorType => TagErrorType.Suggestion;
     }
 }

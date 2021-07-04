@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
         + WinNewLine + "    </Grid>"
         + WinNewLine + "</Page>";
 
-            this.AssertSingleTagAtLocation(xaml, new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction()), 634);
+            this.AssertSingleTagAtLocation(xaml, new TwoPaneViewAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create()), 634);
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
         + WinNewLine + "    </Grid>"
         + WinNewLine + "</Page>";
 
-            this.AssertSingleTagAtLocation(xaml, new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction()), 389);
+            this.AssertSingleTagAtLocation(xaml, new UnoIgnorablesAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create()), 389);
         }
 
         [TestMethod]
@@ -79,7 +79,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
         + WinNewLine + "    </Grid>"
         + WinNewLine + "</Page>";
 
-            this.AssertSingleTagAtLocation(xaml, new BindingToXBindAnalyzer(new TestVisualStudioAbstraction()), 179);
+            this.AssertSingleTagAtLocation(xaml, new BindingToXBindAnalyzer(new TestVisualStudioAbstraction(), DefaultTestLogger.Create()), 179);
         }
 
         private void AssertSingleTagAtLocation(string xaml, ICustomAnalyzer analyzer, int startPoint)

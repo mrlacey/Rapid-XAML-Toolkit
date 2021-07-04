@@ -3,13 +3,14 @@
 
 using System.Linq;
 using RapidXaml;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class Issue364ExampleAnalyzer2 : BuiltInXamlAnalyzer
     {
-        public Issue364ExampleAnalyzer2(VisualStudioIntegration.IVisualStudioAbstraction vsa)
-            : base(vsa)
+        public Issue364ExampleAnalyzer2(VisualStudioIntegration.IVisualStudioAbstraction vsa, ILogger logger)
+            : base(vsa, logger)
         {
         }
 

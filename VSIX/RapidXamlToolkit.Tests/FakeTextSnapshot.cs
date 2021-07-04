@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Utilities;
+using RapidXamlToolkit.VisualStudioIntegration;
 
 namespace RapidXamlToolkit.Tests
 {
-    public class FakeTextSnapshot : ITextSnapshot
+    public class FakeTextSnapshot : ITextSnapshotAbstraction
     {
         public FakeTextSnapshot()
         {
@@ -31,6 +32,10 @@ namespace RapidXamlToolkit.Tests
         public int LineCount { get; }
 
         public IEnumerable<ITextSnapshotLine> Lines { get; }
+
+        object ITextSnapshotAbstraction.TextBuffer { get; }
+
+        public int VersionNumber { get; }
 
         public char this[int position] => throw new NotImplementedException();
 
@@ -89,16 +94,6 @@ namespace RapidXamlToolkit.Tests
             throw new NotImplementedException();
         }
 
-        public ITextSnapshotLine GetLineFromLineNumber(int lineNumber)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITextSnapshotLine GetLineFromPosition(int position)
-        {
-            return new FakeTextSnapshotLine(this);
-        }
-
         public int GetLineNumberFromPosition(int position)
         {
             // This is sufficient for current testing needs
@@ -111,6 +106,17 @@ namespace RapidXamlToolkit.Tests
         }
 
         public void Write(TextWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public (int StartPosition, int LineNumber) GetLineDetailsFromPosition(int position)
+        {
+            // Just need to return something
+            return (0, 0);
+        }
+
+        public string GetLineTextFromLineNumber(int lineNo)
         {
             throw new NotImplementedException();
         }

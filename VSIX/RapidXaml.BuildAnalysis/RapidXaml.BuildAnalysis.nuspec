@@ -9,7 +9,7 @@
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <icon>images\icon.png</icon>
-    <tags>XAML, UWP, WPF, Xamarin.Forms, Uno</tags>
+    <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
     <description>Run Rapid XAML Analysis checks on all *.xaml files when building a project.</description>
     <releaseNotes>.</releaseNotes>
     <projectUrl>https://rapidxaml.dev</projectUrl>
@@ -31,6 +31,8 @@
     <file src=".\bin\release\net472\RapidXaml.BuildAnalysis.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.dll" target="tools/net472/" />
     <!-- <file src=".\bin\release\net472\RapidXaml.CustomAnalysis.pdb" target="tools/net472/" /> -->
+    <file src=".\bin\release\net472\RapidXaml.Resources.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\RapidXaml.Resources.pdb" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.dll.config" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Shared.pdb" target="tools/net472/" />
@@ -40,14 +42,12 @@
     <!-- Would love to do this with wildcards but for some reason it's not working -->
     <file src=".\bin\release\net472\ApiAnalysis.SimpleJsonAnalyzer.vsixuse.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\EnvDTE.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\EnvDTE80.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.ApplicationInsights.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.CSharp.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.CSharp.Workspaces.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.EditorFeatures.Text.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.Features.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\Microsoft.CodeAnalysis.FlowAnalysis.Utilities.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.Scripting.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.VisualBasic.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll" target="tools/net472/" />
@@ -60,12 +60,8 @@
     <file src=".\bin\release\net472\Microsoft.VisualStudio.LanguageServices.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.OLE.Interop.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.RemoteControl.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Framework.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.10.0.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.11.0.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.12.0.dll" target="tools/net472/" />
-    <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.8.0.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Interop.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\Microsoft.VisualStudio.Shell.Framework.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Telemetry.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Data.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.VisualStudio.Text.Logic.dll" target="tools/net472/" />

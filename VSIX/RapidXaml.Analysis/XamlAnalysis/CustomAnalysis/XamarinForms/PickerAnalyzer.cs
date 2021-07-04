@@ -1,16 +1,15 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System.Linq;
 using RapidXaml;
-using RapidXamlToolkit.Resources;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class PickerAnalyzer : BuiltInXamlAnalyzer
     {
-        public PickerAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
-            : base(vsa)
+        public PickerAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa, ILogger logger)
+            : base(vsa, logger)
         {
         }
 

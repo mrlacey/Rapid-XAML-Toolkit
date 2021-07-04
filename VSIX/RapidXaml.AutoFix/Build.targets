@@ -1,8 +1,9 @@
 ﻿<Project>
   <Target Name="SetPackageProperties" BeforeTargets="GenerateNuspec" >
     <!-- Create a dummy file when building on linux so the pack task passes. -->
-    <MakeDir Directories="$(BaseOutputPath)\$(Configuration)\net472\" />
-    <Touch Files="$(BaseOutputPath)\$(Configuration)\net472\RapidXaml.ApplyChanges.dll" AlwaysCreate="true" />
+    <!-- Removed as don't need to build on Linux -->
+    <!--<MakeDir Directories="$(BaseOutputPath)\$(Configuration)\net472\" />
+    <Touch Files="$(BaseOutputPath)\$(Configuration)\net472\RapidXaml.ApplyChanges.dll" AlwaysCreate="true" /> -->
 
     <PropertyGroup>
       <NuspecProperties>

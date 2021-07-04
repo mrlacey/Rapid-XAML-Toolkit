@@ -3,13 +3,14 @@
 
 using System.Linq;
 using RapidXaml;
+using RapidXamlToolkit.Logging;
 
 namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 {
     public class UnoIgnorablesAnalyzer : BuiltInXamlAnalyzer
     {
-        public UnoIgnorablesAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa)
-            : base(vsa)
+        public UnoIgnorablesAnalyzer(VisualStudioIntegration.IVisualStudioAbstraction vsa, ILogger logger)
+            : base(vsa, logger)
         {
         }
 

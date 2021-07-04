@@ -2207,6 +2207,24 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The contrast ratio is only {0}:1 which is below the recommended level of 4.5:1..
+        /// </summary>
+        public static string UI_XamlAnalysisStyleColorContrastDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisStyleColorContrastDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The WCAG recommend a luminance contrast ratio of at least 4.5:1 for normal-size text..
+        /// </summary>
+        public static string UI_XamlAnalysisStyleColorContrastExtendedMessage {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisStyleColorContrastExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to InputScope is not specified for the TextBox..
         /// </summary>
         public static string UI_XamlAnalysisTextBoxWithoutInputScopeDescription {

@@ -107,7 +107,9 @@ namespace RapidXamlToolkit.Tests
             // NOOP
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter
         public ProjectType GetProjectType(EnvDTE.Project project)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             return ProjectType.Unknown;
         }
