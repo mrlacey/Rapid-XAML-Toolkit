@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RapidXaml.AutoFix</id>
-    <version>1.0.5</version>
+    <version>0.13.0</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <license type="expression">MIT</license>
@@ -17,7 +17,7 @@
     <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
-        <dependency id="RapidXaml.CustomAnalysis" version="0.12.0" exclude="Build,Analyzers" />
+                <dependency id="RapidXaml.CustomAnalysis" version="0.13.0" exclude="Build,Analyzers" />
         <dependency id="System.Memory" version="4.5.4" exclude="Build,Analyzers" />
       </group>
     </dependencies>
