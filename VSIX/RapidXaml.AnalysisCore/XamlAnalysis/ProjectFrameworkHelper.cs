@@ -30,6 +30,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 case ProjectType.Unknown:
                 case ProjectType.UwpOrWpf:
+                case ProjectType.WindowsOnly:
+                case ProjectType.XamarinOrMaui:
                 case ProjectType.Any:
                 default:
                     return ProjectFramework.Unknown;
