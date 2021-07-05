@@ -174,12 +174,6 @@
     <None Include="RapidXamlStrongNameDependency.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers.csproj">
-      <Project>{fdbe6d55-075c-478b-879c-90114fe0ee0a}</Project>
-      <Name>RapidXaml.InternalAnalyzers</Name>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-      <OutputItemType>Analyzer</OutputItemType>
-    </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj">
       <Project>{3307cd74-9995-4f90-8c12-75760460ad35}</Project>
       <Name>RapidXaml.Resources</Name>
