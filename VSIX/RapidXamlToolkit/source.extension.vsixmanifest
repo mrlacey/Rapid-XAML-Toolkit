@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-  <Metadata>
-    <Identity Id="RapidXamlToolkit.0dc8e86a-836b-47e5-aa3f-f5e71c15e37a" Version="0.13.0" Language="en-US" Publisher="Matt Lacey" />
-    <DisplayName>Rapid XAML Toolkit</DisplayName>
-    <Description xml:space="preserve">Tools to accelerate XAML app development.</Description>
-    <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
-    <License>LICENSE.txt</License>
-    <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
-    <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md</ReleaseNotes>
-    <Icon>Resources\RapidXamlToolkitLogo.png</Icon>
-    <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;MVVM</Tags>
-  </Metadata>
-  <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.9, 17.0)" />
-  </Installation>
-  <Prerequisites>
-    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
-  </Prerequisites>
-  <Assets>
-    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-  </Assets>
+    <Metadata>
+        <Identity Id="RapidXamlToolkit.0dc8e86a-836b-47e5-aa3f-f5e71c15e37a" Version="0.13.0" Language="en-US" Publisher="Matt Lacey" />
+        <DisplayName>Rapid XAML Toolkit</DisplayName>
+        <Description xml:space="preserve">Tools to accelerate XAML app development.</Description>
+        <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
+        <License>LICENSE.txt</License>
+        <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
+        <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md</ReleaseNotes>
+        <Icon>Resources\RapidXamlToolkitLogo.png</Icon>
+        <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;MVVM;MAUI;WinUI</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.9, 17.0)" />
+    </Installation>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
 </PackageManifest>
