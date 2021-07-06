@@ -17,8 +17,12 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            if (!extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework)
-             || framework != ProjectFramework.XamarinForms)
+            if (!extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework))
+            {
+                return AnalysisActions.None;
+            }
+
+            if (framework != ProjectFramework.XamarinForms && framework != ProjectFramework.Maui)
             {
                 return AnalysisActions.None;
             }
