@@ -22,6 +22,8 @@ namespace RapidXamlToolkit.Options
                     case "Uwp": return ProjectType.Uwp;
                     case "Wpf": return ProjectType.Wpf;
                     case "XamarinForms": return ProjectType.XamarinForms;
+                    case "WinUI": return ProjectType.WinUI;
+                    case "MAUI": return ProjectType.MAUI;
                     default: return Binding.DoNothing;
                 }
             }

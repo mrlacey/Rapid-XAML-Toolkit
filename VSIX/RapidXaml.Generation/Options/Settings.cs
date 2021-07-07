@@ -40,6 +40,8 @@ namespace RapidXamlToolkit.Options
                     { ProjectType.Uwp.GetDescription(), false },
                     { ProjectType.Wpf.GetDescription(), false },
                     { ProjectType.XamarinForms.GetDescription(), false },
+                    { ProjectType.WinUI.GetDescription(), false },
+                    { ProjectType.MAUI.GetDescription(), false },
                 };
 
                 bool fallBackIndicated = false;
