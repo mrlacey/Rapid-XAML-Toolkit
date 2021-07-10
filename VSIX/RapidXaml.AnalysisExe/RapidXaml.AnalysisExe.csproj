@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net472</TargetFramework>
-    <Version>0.12.2</Version>
+    <Version>0.13.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>TRACE;ANALYSISEXE</DefineConstants>
@@ -11,9 +11,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;ANALYSISEXE</DefineConstants>
   </PropertyGroup>
-    <PropertyGroup>
-        <NoWarn>NU1608,SA1600</NoWarn>
-    </PropertyGroup>
+  <PropertyGroup>
+    <NoWarn>NU1608,SA1600</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\RapidXaml.Analysis\ErrorList\**" />
     <Compile Include="..\RapidXaml.Analysis\XamlAnalysis\**" />
@@ -37,7 +37,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.Scripting.Common" Version="3.9.0" />
     <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="16.9.31425.357" />
     <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="16.9.244" />
-    <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.12.0" />
+        <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.13.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

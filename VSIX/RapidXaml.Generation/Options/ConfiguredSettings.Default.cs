@@ -95,6 +95,30 @@ namespace RapidXamlToolkit.Options
 
                     new Profile
                     {
+                        Name = "WinUI3 StackPanel",
+                        ProjectType = ProjectType.WinUI,
+                        ClassGrouping = "StackPanel",
+                        FallbackOutput = "<TextBlock Text=\"{x:Bind ViewModel.$name$}\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
+                        EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
+                        Mappings = MappingsForUwpStackPanelWithHeader(),
+                        AttemptAutomaticDocumentFormatting = true,
+                    },
+
+                    new Profile
+                    {
+                        Name = "WinUI3 2ColGrid",
+                        ProjectType = ProjectType.WinUI,
+                        ClassGrouping = "GRID-PLUS-ROWDEFS-2COLS",
+                        FallbackOutput = "<TextBlock Text=\"$namewithspaces$\" Grid.Row=\"$incint$\" Grid.Column=\"0\" /><TextBlock Text=\"{x:Bind ViewModel.$name$}\" Grid.Row=\"$repint$\" Grid.Column=\"1\" />",
+                        SubPropertyOutput = "<TextBlock Text=\"{x:Bind $name$, Mode=OneWay}\" />",
+                        EnumMemberOutput = "<RadioButton Content=\"$element$\" GroupName=\"$enumname$\" />",
+                        Mappings = MappingsForUwp2ColGrid(),
+                        AttemptAutomaticDocumentFormatting = true,
+                    },
+
+                    new Profile
+                    {
                         Name = "WPF StackPanel",
                         ProjectType = ProjectType.Wpf,
                         ClassGrouping = "StackPanel",
@@ -176,6 +200,18 @@ namespace RapidXamlToolkit.Options
                         Mappings = MappingsForXfStackLayout(),
                         AttemptAutomaticDocumentFormatting = true,
                     },
+
+                    new Profile
+                    {
+                        Name = "MAUI StackLayout with Labels",
+                        ProjectType = ProjectType.MAUI,
+                        ClassGrouping = "StackLayout",
+                        FallbackOutput = "<Label Text=\"$namewithspaces$\" /><Label Text=\"{Binding $name$}\" />",
+                        SubPropertyOutput = "<Label Text=\"{Binding $name$}\" />",
+                        EnumMemberOutput = "<x:String>$elementwithspaces$</x:String>",
+                        Mappings = MappingsForXfStackLayoutPlusLabels(),
+                        AttemptAutomaticDocumentFormatting = true,
+                    },
                 },
             };
 
@@ -189,6 +225,12 @@ namespace RapidXamlToolkit.Options
 
             var activeXfDefault = result.Profiles.First(p => p.ProjectType == ProjectType.XamarinForms);
             result.ActiveProfileNames.Add(activeXfDefault.ProjectTypeDescription, activeXfDefault.Name);
+
+            var activeWinUIDefault = result.Profiles.First(p => p.ProjectType == ProjectType.WinUI);
+            result.ActiveProfileNames.Add(activeWinUIDefault.ProjectTypeDescription, activeWinUIDefault.Name);
+
+            var activeMauiDefault = result.Profiles.First(p => p.ProjectType == ProjectType.MAUI);
+            result.ActiveProfileNames.Add(activeMauiDefault.ProjectTypeDescription, activeMauiDefault.Name);
 
             return result;
         }

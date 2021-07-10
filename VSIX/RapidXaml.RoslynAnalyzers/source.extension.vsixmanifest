@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="RapidXaml.RoslynAnalyzers.c58ca4bd-0d58-46cd-afc3-c47a1e1b8c7f" Version="0.12.2" Language="en-US" Publisher="Matt Lacey" />
+        <Identity Id="RapidXaml.RoslynAnalyzers.c58ca4bd-0d58-46cd-afc3-c47a1e1b8c7f" Version="0.13.0" Language="en-US" Publisher="Matt Lacey" />
         <DisplayName>Rapid XAML RoslynAnalyzers</DisplayName>
         <Description xml:space="preserve">Roslyn analyzers to help with XAML app development.</Description>
         <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
@@ -9,7 +9,7 @@
         <GettingStartedGuide>https://rapidxaml.dev/roslyn-analyzers</GettingStartedGuide>
         <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md</ReleaseNotes>
         <Icon>Resources\RapidXamlRoslynAnalyzersLogo.png</Icon>
-        <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;MVVM</Tags>
+        <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;MVVM;MAUI;WinUI</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.9, 17.0)" />

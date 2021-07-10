@@ -25,6 +25,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     return this.CheckForHardCodedString(Attributes.Content, AttributeType.Any, element, extraDetails);
 
                 case ProjectFramework.XamarinForms:
+                case ProjectFramework.Maui:
                     return this.CheckForHardCodedString(Attributes.Text, AttributeType.Any, element, extraDetails);
 
                 case ProjectFramework.Uwp:

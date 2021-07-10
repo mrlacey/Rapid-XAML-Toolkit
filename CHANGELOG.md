@@ -4,6 +4,7 @@
 
 - Expanded ability to show FontAwesome icon previews within the editor.
 - Minimum supported VS version to 16.9.
+- Support for WinUI3 and .NET MAUI.
 
 ## 0.12.2
 

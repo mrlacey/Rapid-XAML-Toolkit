@@ -1071,6 +1071,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to retrieve the latest version of the document from the editor..
+        /// </summary>
+        public static string Info_UnableToRetrieveEditorDocument {
+            get {
+                return ResourceManager.GetString("Info_UnableToRetrieveEditorDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unexpected method type &apos;{0}&apos; cannot be converted to XAML..
         /// </summary>
         public static string Info_UnexpectedMethodType {

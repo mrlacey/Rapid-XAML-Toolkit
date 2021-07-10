@@ -20,8 +20,16 @@ namespace RapidXamlToolkit.XamlAnalysis
                 case ProjectType.XamarinForms:
                     return ProjectFramework.XamarinForms;
 
+                case ProjectType.WinUI:
+                    return ProjectFramework.WinUI;
+
+                case ProjectType.MAUI:
+                    return ProjectFramework.Maui;
+
                 case ProjectType.Unknown:
                 case ProjectType.UwpOrWpf:
+                case ProjectType.WindowsOnly:
+                case ProjectType.XamarinOrMaui:
                 case ProjectType.Any:
                 default:
                     return ProjectFramework.Unknown;

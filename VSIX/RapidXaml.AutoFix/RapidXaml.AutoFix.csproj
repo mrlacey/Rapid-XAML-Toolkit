@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.5</Version>
+    <Version>0.13.0</Version>
   </PropertyGroup>
   <!-- Pack settings -->
   <PropertyGroup>
@@ -18,9 +18,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>TRACE;AUTOFIX</DefineConstants>
   </PropertyGroup>
-    <PropertyGroup>
-        <NoWarn>NU1608</NoWarn>
-    </PropertyGroup>
+  <PropertyGroup>
+    <NoWarn>NU1608</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
@@ -57,7 +57,7 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.12.0" />
+        <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.13.0" />
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

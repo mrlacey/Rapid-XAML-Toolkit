@@ -20,7 +20,7 @@
     </WizardExtension>
     <WizardData>
         <packages>
-            <package id="RapidXaml.CustomAnalysis" version="0.12.2" />
+            <package id="RapidXaml.CustomAnalysis" version="0.13.0" />
         </packages>
     </WizardData>
 </VSTemplate>

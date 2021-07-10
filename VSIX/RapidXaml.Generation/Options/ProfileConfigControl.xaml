@@ -83,8 +83,10 @@
                 </Style>
             </StackPanel.Resources>
             <RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlUwp}" IsChecked="{Binding ProjectType, Converter={StaticResource ProjectTypeConverter}, ConverterParameter=Uwp}" />
+            <RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlWinUI}" IsChecked="{Binding ProjectType, Converter={StaticResource ProjectTypeConverter}, ConverterParameter=WinUI}" />
             <RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlWpf}" IsChecked="{Binding ProjectType, Converter={StaticResource ProjectTypeConverter}, ConverterParameter=Wpf}" />
             <RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlXamarinForms}" IsChecked="{Binding ProjectType, Converter={StaticResource ProjectTypeConverter}, ConverterParameter=XamarinForms}" />
+            <RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlMaui}" IsChecked="{Binding ProjectType, Converter={StaticResource ProjectTypeConverter}, ConverterParameter=MAUI}" />
             <!--<RadioButton Content="{x:Static strings:OptionsStringRes.Options_XamlAll}" IsChecked="{Binding Path=ProjectType, Converter={StaticResource EnumConverter}, ConverterParameter={x:Static rxt:ProjectType.Any}}" />-->
         </StackPanel>
 

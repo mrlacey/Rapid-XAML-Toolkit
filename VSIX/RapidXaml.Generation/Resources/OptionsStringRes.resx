@@ -351,4 +351,10 @@
   <data name="Options_HelpWithProfilesAndMappings" xml:space="preserve">
     <value>About Profiles and Mappings</value>
   </data>
+  <data name="Options_XamlMaui" xml:space="preserve">
+    <value>MAUI</value>
+  </data>
+  <data name="Options_XamlWinUI" xml:space="preserve">
+    <value>WinUI</value>
+  </data>
 </root>

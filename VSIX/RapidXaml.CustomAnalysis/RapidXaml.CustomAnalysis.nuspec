@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RapidXaml.CustomAnalysis</id>
-    <version>0.12.2</version>
+    <version>0.13.0</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <license type="expression">MIT</license>
@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Create custom XAML analyzers for use with the Rapid XAML Toolkit.</description>
     <summary>Create custom XAML analyzers.</summary>
-    <releaseNotes>Add support for CreateResource. (Will require VSIX version &gt;= 0.12)</releaseNotes>
+    <releaseNotes>Add placeholder support for WinUI3 and MAUI</releaseNotes>
     <copyright>Copyright © 2021 Matt Lacey Ltd.</copyright>
     <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
     <dependencies>

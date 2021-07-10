@@ -7,7 +7,6 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Tagging;
 using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Resources;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis
 {
@@ -101,6 +100,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         private string GetProjectName(string fileName)
         {
+#if VSIXNOTEXE
             try
             {
                 return ProjectHelpers.Dte2.Solution.FindProjectItem(fileName)?.ContainingProject?.Name ?? string.Empty;
@@ -108,8 +108,9 @@ namespace RapidXamlToolkit.XamlAnalysis
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e);
-                return string.Empty;
             }
+#endif
+            return string.Empty;
         }
     }
 }

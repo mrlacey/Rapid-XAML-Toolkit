@@ -682,6 +682,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MAUI.
+        /// </summary>
+        public static string Options_XamlMaui {
+            get {
+                return ResourceManager.GetString("Options_XamlMaui", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to XAML page attribute:.
         /// </summary>
         public static string Options_XamlPageAttribute {
@@ -741,6 +750,15 @@ namespace RapidXamlToolkit.Resources {
         public static string Options_XamlUwp {
             get {
                 return ResourceManager.GetString("Options_XamlUwp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WinUI.
+        /// </summary>
+        public static string Options_XamlWinUI {
+            get {
+                return ResourceManager.GetString("Options_XamlWinUI", resourceCulture);
             }
         }
         

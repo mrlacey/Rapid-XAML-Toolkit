@@ -17,5 +17,11 @@ namespace RapidXaml
 
         [Description("Xamarin.Forms")]
         XamarinForms = 8,
+
+        [Description("WinUI3")]
+        WinUI = 16,
+
+        [Description(".NET MAUI")]
+        Maui = 32,
     }
 }

@@ -16,6 +16,9 @@
         <ProjectTypeTag>UWP</ProjectTypeTag>
         <ProjectTypeTag>WPF</ProjectTypeTag>
         <ProjectTypeTag>XAML</ProjectTypeTag>
+        <ProjectTypeTag>WinUI</ProjectTypeTag>
+        <ProjectTypeTag>Xamarin.Forms</ProjectTypeTag>
+        <ProjectTypeTag>MAUI</ProjectTypeTag>
     </TemplateData>
     <TemplateContent>
         <ProjectCollection>

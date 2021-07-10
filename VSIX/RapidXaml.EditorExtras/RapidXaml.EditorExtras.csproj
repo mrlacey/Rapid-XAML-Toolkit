@@ -35,7 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>NU1605</NoWarn>
+    <NoWarn>NU1605,NU1608</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -136,10 +136,6 @@
     <EmbeddedResource Include="VSPackage.resx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers.csproj">
-      <Project>{fdbe6d55-075c-478b-879c-90114fe0ee0a}</Project>
-      <Name>RapidXaml.InternalAnalyzers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj">
       <Project>{3307cd74-9995-4f90-8c12-75760460ad35}</Project>
       <Name>RapidXaml.Resources</Name>

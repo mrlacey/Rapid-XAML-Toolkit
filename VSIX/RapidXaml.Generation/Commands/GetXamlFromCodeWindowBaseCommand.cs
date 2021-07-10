@@ -46,37 +46,44 @@ namespace RapidXamlToolkit.Commands
 
                     var document = caretPosition.Snapshot.GetOpenDocumentInCurrentContextWithChanges();
 
-                    var semanticModel = await document.GetSemanticModelAsync();
-
-                    var vs = new VisualStudioAbstraction(this.Logger, this.AsyncPackage, dte);
-                    var xamlIndent = await vs.GetXamlIndentAsync();
-
-                    var proj = dte.Solution.GetProjectContainingFile(document.FilePath);
-
-                    if (proj == null)
+                    if (document == null)
                     {
-                        // Default to the "active project" if file is not part of a known project
-                        proj = ((Array)dte.ActiveSolutionProjects).GetValue(0) as Project;
+                        this.Logger?.RecordInfo(StringRes.Info_UnableToRetrieveEditorDocument);
                     }
-
-                    var projType = vs.GetProjectType(proj);
-
-                    this.Logger?.RecordInfo(StringRes.Info_DetectedProjectType.WithParams(projType.GetDescription()));
-
-                    IDocumentParser parser = null;
-
-                    if (activeDocument.Language == "CSharp")
+                    else
                     {
-                        parser = new CSharpParser(this.Logger, projType, xamlIndent);
-                    }
-                    else if (activeDocument.Language == "Basic")
-                    {
-                        parser = new VisualBasicParser(this.Logger, projType, xamlIndent);
-                    }
+                        var semanticModel = await document.GetSemanticModelAsync();
 
-                    result = isSelection
-                        ? parser?.GetSelectionOutput(await document.GetSyntaxRootAsync(), semanticModel, selection.Start.Position, selection.End.Position)
-                        : parser?.GetSingleItemOutput(await document.GetSyntaxRootAsync(), semanticModel, caretPosition.Position);
+                        var vs = new VisualStudioAbstraction(this.Logger, this.AsyncPackage, dte);
+                        var xamlIndent = await vs.GetXamlIndentAsync();
+
+                        var proj = dte.Solution.GetProjectContainingFile(document.FilePath);
+
+                        if (proj == null)
+                        {
+                            // Default to the "active project" if file is not part of a known project
+                            proj = ((Array)dte.ActiveSolutionProjects).GetValue(0) as Project;
+                        }
+
+                        var projType = vs.GetProjectType(proj);
+
+                        this.Logger?.RecordInfo(StringRes.Info_DetectedProjectType.WithParams(projType.GetDescription()));
+
+                        IDocumentParser parser = null;
+
+                        if (activeDocument.Language == "CSharp")
+                        {
+                            parser = new CSharpParser(this.Logger, projType, xamlIndent);
+                        }
+                        else if (activeDocument.Language == "Basic")
+                        {
+                            parser = new VisualBasicParser(this.Logger, projType, xamlIndent);
+                        }
+
+                        result = isSelection
+                            ? parser?.GetSelectionOutput(await document.GetSyntaxRootAsync(), semanticModel, selection.Start.Position, selection.End.Position)
+                            : parser?.GetSingleItemOutput(await document.GetSyntaxRootAsync(), semanticModel, caretPosition.Position);
+                    }
                 }
             }
             else

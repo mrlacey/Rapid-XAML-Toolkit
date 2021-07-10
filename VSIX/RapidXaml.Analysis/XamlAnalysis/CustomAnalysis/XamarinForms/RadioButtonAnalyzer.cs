@@ -25,9 +25,11 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                         break;
                     case ProjectFramework.Uwp:
                     case ProjectFramework.Wpf:
+                    case ProjectFramework.WinUI:
                         return this.CheckForHardCodedString(Attributes.Content, AttributeType.Any, element, extraDetails);
 
                     case ProjectFramework.XamarinForms:
+                    case ProjectFramework.Maui:
                         return this.CheckForHardCodedString(Attributes.Text, AttributeType.InlineOrElement, element, extraDetails);
                 }
             }

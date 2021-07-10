@@ -3,7 +3,6 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXamlToolkit.Options;
 
@@ -21,23 +20,25 @@ namespace RapidXamlToolkit.Tests.Options
 
             Assert.IsFalse(string.IsNullOrEmpty(defSet.FallBackProfileName), nameof(Settings.FallBackProfileName));
 
-            Assert.AreEqual(3, defSet.ActiveProfileNames.Count, "Incorrect number of active profiles configured by default.");
+            Assert.AreEqual(5, defSet.ActiveProfileNames.Count, "Incorrect number of active profiles configured by default.");
 
             Assert.IsFalse(string.IsNullOrEmpty(defSet.ActiveProfileNames[ProjectType.Uwp.GetDescription()]), "Active UWP profile is not set.");
             Assert.IsFalse(string.IsNullOrEmpty(defSet.ActiveProfileNames[ProjectType.Wpf.GetDescription()]), "Active WPF profile is not set.");
             Assert.IsFalse(string.IsNullOrEmpty(defSet.ActiveProfileNames[ProjectType.XamarinForms.GetDescription()]), "Active Xamarin.Forms profile is not set.");
+            Assert.IsFalse(string.IsNullOrEmpty(defSet.ActiveProfileNames[ProjectType.WinUI.GetDescription()]), "Active WinUI profile is not set.");
+            Assert.IsFalse(string.IsNullOrEmpty(defSet.ActiveProfileNames[ProjectType.MAUI.GetDescription()]), "Active MAUI profile is not set.");
 
             Assert.IsNotNull(defSet.Profiles, nameof(Settings.Profiles));
 
             foreach (var profile in defSet.Profiles)
             {
                 Assert.IsNotNull(profile.Name, "There's a profile without a name");
-                Assert.IsNotNull(profile.ClassGrouping, $"{nameof(Profile.ClassGrouping)} in profile {profile.Name}");
-                Assert.IsNotNull(profile.FallbackOutput, $"{nameof(Profile.FallbackOutput)} in profile {profile.Name}");
-                Assert.IsNotNull(profile.SubPropertyOutput, $"{nameof(Profile.SubPropertyOutput)} in profile {profile.Name}");
-                Assert.IsNotNull(profile.EnumMemberOutput, $"{nameof(Profile.EnumMemberOutput)} in profile {profile.Name}");
+                Assert.IsNotNull(profile.ClassGrouping, $"{nameof(Profile.ClassGrouping)} in profile {profile.Name} is null");
+                Assert.IsNotNull(profile.FallbackOutput, $"{nameof(Profile.FallbackOutput)} in profile {profile.Name} is null");
+                Assert.IsNotNull(profile.SubPropertyOutput, $"{nameof(Profile.SubPropertyOutput)} in profile {profile.Name} is null");
+                Assert.IsNotNull(profile.EnumMemberOutput, $"{nameof(Profile.EnumMemberOutput)} in profile {profile.Name} is null");
 
-                Assert.IsNotNull(profile.Mappings, $"{nameof(Profile.Mappings)} in profile {profile.Name}");
+                Assert.IsNotNull(profile.Mappings, $"{nameof(Profile.Mappings)} in profile {profile.Name} is null");
 
                 foreach (var mapping in profile.Mappings)
                 {

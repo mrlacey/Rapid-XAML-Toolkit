@@ -45,6 +45,14 @@ namespace RapidXamlToolkit
             {
                 return ProjectType.XamarinForms;
             }
+            else if (ProjectType.WinUI.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return ProjectType.WinUI;
+            }
+            else if (ProjectType.MAUI.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return ProjectType.MAUI;
+            }
             else
             {
                 return ProjectType.Unknown;

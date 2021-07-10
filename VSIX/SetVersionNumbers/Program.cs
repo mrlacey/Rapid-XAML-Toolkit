@@ -63,8 +63,12 @@ namespace SetVersionNumbers
 
         private static readonly List<string> DependencyFiles = new List<string>
         {
+            "../../../../RapidXaml.AnalysisCore/RapidXaml.AnalysisCore.csproj",
+            "../../../../RapidXaml.AnalysisExe/RapidXaml.AnalysisExe.csproj",
             "../../../../RapidXaml.AutoFix/RapidXaml.AutoFix.nuspec",
             "../../../../RapidXaml.AutoFix/RapidXaml.AutoFix.csproj",
+            "../../../../RapidXamlToolkit.Tests/RapidXamlToolkit.Tests.csproj",
+            "../../../../RapidXamlToolkit.Tests.Manual/RapidXamlToolkit.Tests.Manual.csproj",
             "../../../../../Templates/CustomAnalysisItemTemplate/CustomAnalysisItemTemplate.vstemplate",
             "../../../../../Templates/CustomAnalysisProjectTemplate/Analyzer/CustomAnalyzerProject.csproj",
             "../../../../../Templates/CustomAnalysisProjectTemplate/Analyzer/CustomAnalyzerProject.nuspec",
@@ -73,7 +77,6 @@ namespace SetVersionNumbers
 
         private static readonly List<string> ProjectFilesContainingVersionNumbers = new List<string>
         {
-            "../../../../RapidXaml.AnalysisExe/RapidXaml.AnalysisExe.csproj",
             "../../../../RapidXaml.AutoFix/RapidXaml.AutoFix.csproj",
             "../../../../RapidXaml.Resources/RapidXaml.Resources.csproj",
         };

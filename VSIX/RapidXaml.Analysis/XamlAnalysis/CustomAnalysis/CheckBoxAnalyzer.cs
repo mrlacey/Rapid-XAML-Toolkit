@@ -19,15 +19,19 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            if (!extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework)
-             || (framework != ProjectFramework.Uwp && framework != ProjectFramework.Wpf))
+            if (!extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework))
+            {
+                return AnalysisActions.None;
+            }
+
+            if (framework == ProjectFramework.XamarinForms || framework == ProjectFramework.Maui)
             {
                 return AnalysisActions.None;
             }
 
             var result = this.CheckForHardCodedString(Attributes.Content, AttributeType.Any, element, extraDetails);
 
-            if (framework.Equals(ProjectFramework.Uwp))
+            if (framework.Equals(ProjectFramework.Uwp) || framework.Equals(ProjectFramework.WinUI))
             {
                 // If using one event, the recommendation is to use both
                 var hasCheckedEvent = element.HasAttribute(Attributes.CheckedEvent);

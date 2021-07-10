@@ -489,6 +489,11 @@ namespace RapidXamlToolkit
             }
         }
 
+        public static string GetBetweenXmlElement(this ReadOnlySpan<char> source, string elementName)
+        {
+            return source.GetBetween($"<{elementName}>", $"</{elementName}>");
+        }
+
         public static string PartAfter(this ReadOnlySpan<char> source, char identifier)
         {
             var identifierIndex = source.IndexOf(identifier);

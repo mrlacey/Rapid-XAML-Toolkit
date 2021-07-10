@@ -124,6 +124,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     switch (framework)
                     {
                         case ProjectFramework.Uwp:
+                        case ProjectFramework.WinUI:
 
                             var addUid = NeedToAddUid(element, attributeName, out string uid);
 
@@ -156,6 +157,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                             break;
                         case ProjectFramework.Wpf:
                         case ProjectFramework.XamarinForms:
+                        case ProjectFramework.Maui:
 
                             var resourceNs = this.GetResourceFileNamespace(resourceFilePath);
 
