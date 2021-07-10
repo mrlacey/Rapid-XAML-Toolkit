@@ -6,7 +6,7 @@
 ![Works with Visual Studio 2019](https://img.shields.io/static/v1.svg?label=VS&message=2019&color=5F2E96)
 ![AppVeyor tests](https://img.shields.io/appveyor/tests/mrlacey/rapid-xaml-toolkit)
 
-This is a collection of tools for making it easier for developers to work with XAML (**UWP**, **WPF**, and **Xamarin.Forms**). These tools include
+This is a collection of tools for making it easier for developers to work with XAML (**UWP**, **WPF**,  **Xamarin.Forms**, **WinUI3**, and **.NET MAUI**). These tools include
 
 - Get in-editor **analysis of your XAML** to find and fix issues faster.
 - **Generate** XAML from your ViewModels.

@@ -32,3 +32,4 @@ body:
     - WinUI
     - WPF
     - Xamarin.Forms
+    - MAUI

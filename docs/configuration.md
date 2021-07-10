@@ -6,7 +6,7 @@ The Rapid XAML Toolkit is highly configurable so that it can be used regardless 
 
 [Profiles](./profiles.md) are the way XAML generation is configured.
 
-Only one profile can be used at a time. The profile being used is called the **active** profile. You can set different active profiles for UWP, WPF, and Xamarin.Forms projects. The toolkit works out the project type to use based on the currently loaded solution.
+Only one profile can be used at a time. The profile being used is called the **active** profile. You can set different active profiles for UWP, WPF, Xamarin.Forms, WinUI3, and .NET MAUI projects. The toolkit works out the project type to use based on the currently loaded solution.
 
 You can also specify a **fallback** profile which will be used if it's not possible to determine the project type required.
 
