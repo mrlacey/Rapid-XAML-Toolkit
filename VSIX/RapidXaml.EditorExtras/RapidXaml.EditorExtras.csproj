@@ -62,6 +62,8 @@
     <Compile Include="SymbolVisualizer\GlyphTagger.cs" />
     <Compile Include="SymbolVisualizer\GlyphTaggerProvider.cs" />
     <Compile Include="SymbolVisualizer\IntraTextAdornmentTagger.cs" />
+    <Compile Include="SymbolVisualizer\NavigationViewTagger.cs" />
+    <Compile Include="SymbolVisualizer\NavigationViewTaggerProvider.cs" />
     <Compile Include="SymbolVisualizer\RegexTagger.cs" />
     <Compile Include="SymbolVisualizer\SymbolIconAdornment.cs" />
     <Compile Include="SymbolVisualizer\SymbolIconAdornmentTagger.cs" />
