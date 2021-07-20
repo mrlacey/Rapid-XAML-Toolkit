@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             string rowDefsString = null;
 
-            if (rowDefPos < 0 && (this.ProjectType.Matches(ProjectType.XamarinForms) || this.ProjectType.Matches(ProjectType.MAUI)))
+            if (rowDefPos < 0)
             {
                 // See if using new inline format
                 if (this.TryGetAttribute(xamlElement, Attributes.RowDefinitions, AttributeType.Inline, out _, out _, out _, out rowDefsString))
@@ -60,7 +60,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             string colDefsString = null;
 
-            if (colDefPos < 0 && (this.ProjectType.Matches(ProjectType.XamarinForms) || this.ProjectType.Matches(ProjectType.MAUI)))
+            if (colDefPos < 0)
             {
                 // See if using new inline format
                 if (this.TryGetAttribute(xamlElement, Attributes.ColumnDefinitions, AttributeType.Inline, out _, out _, out _, out colDefsString))
