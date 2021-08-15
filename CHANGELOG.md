@@ -2,6 +2,10 @@
 
 ## Upcoming
 
+- [See what's planned](https://github.com/mrlacey/Rapid-XAML-Toolkit/milestone/12)
+
+## 0.13.0
+
 - Expanded ability to show FontAwesome icon previews within the editor.
 - Minimum supported VS version to 16.9.
 - Support for WinUI3 and .NET MAUI.
