@@ -7,6 +7,7 @@
 ## 0.13.1
 
 - Fix analysis issue with nested grids.
+- Fix editor issue that could lock the VS main thread.
 
 ## 0.13.0
 
