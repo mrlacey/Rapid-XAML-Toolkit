@@ -297,6 +297,40 @@ namespace RapidXamlToolkit.Tests.Grid
             Assert.AreEqual(1, actualTags.OfType<MissingRowDefinitionTag>().Count());
         }
 
+        [TestMethod]
+        public void ConciseSyntaxWithMultipleChildGrids_ColumnDefinitions()
+        {
+            var xaml = @"<Grid ColumnDefinitions=""*,*"">
+    <Grid ColumnDefinitions=""*,*"" />
+    <Grid
+        ColumnDefinitions=""*,*,*,*,*"">
+        <Button Grid.Column=""3"" />
+        <Button Grid.Column=""4"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingColumnDefinitionTag>().Count());
+        }
+
+        [TestMethod]
+        public void ConciseSyntaxWithMultipleChildGrids_RowDefinitions()
+        {
+            var xaml = @"<Grid RowDefinitions=""*,*"">
+    <Grid RowDefinitions=""*,*"" />
+    <Grid
+      RowDefinitions=""*,*,*,*,*"">
+        <Button Grid.Row=""3"" />
+        <Button Grid.Row=""4"" />
+    </Grid>
+</Grid>";
+
+            var actualTags = this.ProcessGrid(xaml);
+
+            Assert.AreEqual(0, actualTags.OfType<MissingRowDefinitionTag>().Count());
+        }
+
         private List<IRapidXamlAdornmentTag> ProcessGrid(string xaml)
         {
             var outputTags = new TagList();

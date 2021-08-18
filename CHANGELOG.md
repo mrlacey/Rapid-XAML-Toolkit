@@ -2,7 +2,11 @@
 
 ## Upcoming
 
-- [See what's planned](https://github.com/mrlacey/Rapid-XAML-Toolkit/milestone/12)
+- [See what's planned next](https://github.com/mrlacey/Rapid-XAML-Toolkit/milestone/12)
+
+## 0.13.1
+
+- Fix analysis issue with nested grids.
 
 ## 0.13.0
 
