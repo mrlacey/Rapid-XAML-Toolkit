@@ -51,14 +51,55 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
         public static Dictionary<int, int> GetExclusions(string xaml, string elementName)
         {
             string elementOpen = $"<{elementName}";
-            string elementOpenSpace = $"<{elementName} ";
             string elementOpenComplete = $"<{elementName}>";
             string elementClose = $"</{elementName}>";
 
             var exclusions = new Dictionary<int, int>();
 
+            // Based on StringExtensions.FirstIndexOf
+            int NextOpeningIndex(ReadOnlySpan<char> source)
+            {
+                var result = int.MaxValue;
+
+                // Get complete opening tag
+                var pos = source.Slice(0, source.Length).IndexOf(elementOpenComplete.AsSpan(), StringComparison.InvariantCultureIgnoreCase);
+
+                if (pos > -1 && pos < result)
+                {
+                    result = pos;
+                }
+
+                // get opening followed by whitespace
+                var keepLooking = true;
+                var start = 0;
+
+                while (keepLooking)
+                {
+                    pos = source.Slice(start, Math.Min(result, source.Length) - start).IndexOf(elementOpen.AsSpan(), StringComparison.InvariantCultureIgnoreCase);
+
+                    if (pos > 0)
+                    {
+                        if (char.IsWhiteSpace(source[start + pos + elementOpen.Length]))
+                        {
+                            result = start + pos;
+                            keepLooking = false;
+                        }
+                        else
+                        {
+                            start += pos + elementOpen.Length;
+                        }
+                    }
+                    else
+                    {
+                        keepLooking = false;
+                    }
+                }
+
+                return result < int.MaxValue ? result : -1;
+            }
+
             // This is the opening position of the next opening (here) or closing (when set subsequently) tag
-            var tagOfInterestPos = xaml.Substring(elementOpen.Length).AsSpan().FirstIndexOf(elementOpenComplete, elementOpenSpace) + elementOpen.Length;
+            var tagOfInterestPos = NextOpeningIndex(xaml.Substring(elementOpen.Length).AsSpan()) + elementOpen.Length;
 
             // track the number of open tags seen so know when get to the corresponding closing one.
             var openings = 0;
@@ -101,7 +142,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 }
 
                 // Find next opening or closing tag
-                var nextOpening = xaml.Substring(tagOfInterestPos + elementOpen.Length).AsSpan().FirstIndexOf(elementOpenComplete, elementOpenSpace);
+                var nextOpening = NextOpeningIndex(xaml.Substring(tagOfInterestPos + elementOpen.Length).AsSpan());
 
                 if (nextOpening > -1)
                 {
