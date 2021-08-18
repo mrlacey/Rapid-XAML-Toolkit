@@ -7,11 +7,12 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.Text.Tagging;
 using Microsoft.VisualStudio.Utilities;
+using RapidXamlToolkit;
 
 namespace RapidXaml.EditorExtras.SymbolVisualizer
 {
     [Export(typeof(IViewTaggerProvider))]
-    [ContentType("text")]
+    [ContentType(KnownContentTypes.Xaml)]
     [ContentType("projection")]
     [TagType(typeof(IntraTextAdornmentTag))]
     internal sealed class SymbolIconAdornmentTaggerProvider : IViewTaggerProvider
