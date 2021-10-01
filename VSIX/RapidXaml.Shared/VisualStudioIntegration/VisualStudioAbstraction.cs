@@ -412,7 +412,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public string GetPathOfProjectContainingFile(string fileName)
         {
-            return this.Dte.Solution.GetProjectContainingFile(fileName).FileName;
+            return this.Dte.Solution?.GetProjectContainingFile(fileName)?.FileName;
         }
 
         public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
