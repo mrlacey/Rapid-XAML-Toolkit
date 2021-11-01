@@ -80,10 +80,10 @@
       <Version>16.9.244</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestAdapter">
-      <Version>2.2.4</Version>
+      <Version>2.2.7</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework">
-      <Version>2.2.4</Version>
+      <Version>2.2.7</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
