@@ -8,6 +8,7 @@
 
 - Fix analysis issue with nested grids.
 - Fix editor issue that could lock the VS main thread.
+- Fix tags in the Custom Analysis project.
 
 ## 0.13.0
 
