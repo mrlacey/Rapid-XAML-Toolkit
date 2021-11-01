@@ -12,12 +12,11 @@
         <CreateInPlace>true</CreateInPlace>
         <LanguageTag>csharp</LanguageTag>
         <PlatformTag>Windows</PlatformTag>
-        <ProjectTypeTag>mobile</ProjectTypeTag>
+        <ProjectTypeTag>Mobile</ProjectTypeTag>
         <ProjectTypeTag>UWP</ProjectTypeTag>
-        <ProjectTypeTag>WPF</ProjectTypeTag>
+        <ProjectTypeTag>Desktop</ProjectTypeTag>
         <ProjectTypeTag>XAML</ProjectTypeTag>
         <ProjectTypeTag>WinUI</ProjectTypeTag>
-        <ProjectTypeTag>Xamarin.Forms</ProjectTypeTag>
         <ProjectTypeTag>MAUI</ProjectTypeTag>
     </TemplateData>
     <TemplateContent>
