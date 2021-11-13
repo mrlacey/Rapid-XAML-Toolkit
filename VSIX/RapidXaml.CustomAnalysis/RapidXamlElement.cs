@@ -383,25 +383,39 @@ namespace RapidXaml
 
         public RapidXamlElement CloneWithAdjustedLocationStart(int startChange)
         {
-            var result = new RapidXamlElement
+            try
             {
-                Content = this.Content,
-                Location = this.Location.CloneWithAdjustedLocationStart(startChange),
-                Name = this.Name,
-                OriginalString = this.OriginalString,
-            };
+                var result = new RapidXamlElement
+                {
+                    Content = this.Content,
+                    Location = this.Location.CloneWithAdjustedLocationStart(startChange),
+                    Name = this.Name,
+                    OriginalString = this.OriginalString,
+                };
 
-            for (int i = 0; i < this.Children.Count; i++)
-            {
-                result.Children.Add(this.Children[i].CloneWithAdjustedLocationStart(startChange));
+                for (int i = 0; i < this.Children.Count; i++)
+                {
+                    if (this.Children[i] != null)
+                    {
+                        result.Children.Add(this.Children[i].CloneWithAdjustedLocationStart(startChange));
+                    }
+                }
+
+                for (int i = 0; i < this.Attributes.Count; i++)
+                {
+                    if (this.Attributes[i] != null)
+                    {
+                        result.Attributes.Add(this.Attributes[i].CloneWithAdjustedLocationStart(startChange));
+                    }
+                }
+
+                return result;
             }
-
-            for (int i = 0; i < this.Attributes.Count; i++)
+            catch (Exception exc)
             {
-                result.Attributes.Add(this.Attributes[i].CloneWithAdjustedLocationStart(startChange));
+                System.Diagnostics.Debug.WriteLine(exc);
+                throw;
             }
-
-            return result;
         }
 
         public bool IsSelfClosing()
