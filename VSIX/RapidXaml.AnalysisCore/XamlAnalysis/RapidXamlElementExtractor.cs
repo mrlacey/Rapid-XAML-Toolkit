@@ -82,12 +82,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                         foreach (SyntaxNode listItem in childList.ChildNodes)
                                         {
-                                            if (!(listItem is XmlCommentSyntax))
-                                            {
-                                                attributeChildren.Add(
-                                                    GetElementInternal(
+                                            var ce = GetElementInternal(
                                                         xaml.Substring(listItem.SpanStart, listItem.Width),
-                                                        startOffset + listItem.SpanStart));
+                                                        startOffset + listItem.SpanStart);
+
+                                            if (ce != null)
+                                            {
+                                                attributeChildren.Add(ce);
                                             }
                                         }
 
@@ -127,7 +128,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                         }
                         else
                         {
-                            result.AddChild(GetElementInternal(content, startOffset + child.Start));
+                            var ce = GetElementInternal(content, startOffset + child.Start);
+
+                            if (ce != null)
+                            {
+                                result.AddChild(ce);
+                            }
                         }
                     }
                     else if (child is XmlEmptyElementSyntax selfClosingChild)
@@ -221,7 +227,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 }
                                 else
                                 {
-                                    result.AddChild(GetElementInternal(xaml.Substring(nodeChild.SpanStart, nodeChild.Width), startOffset + nodeChild.SpanStart));
+                                    var ce = GetElementInternal(xaml.Substring(nodeChild.SpanStart, nodeChild.Width), startOffset + nodeChild.SpanStart);
+
+                                    if (ce != null)
+                                    {
+                                        result.AddChild(ce);
+                                    }
                                 }
                             }
                             else if (nodeChild is XmlEmptyElementSyntax ncSelfClosing)
