@@ -82,10 +82,13 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                         foreach (SyntaxNode listItem in childList.ChildNodes)
                                         {
-                                            attributeChildren.Add(
-                                                GetElementInternal(
-                                                    xaml.Substring(listItem.SpanStart, listItem.Width),
-                                                    startOffset + listItem.SpanStart));
+                                            if (!(listItem is XmlCommentSyntax))
+                                            {
+                                                attributeChildren.Add(
+                                                    GetElementInternal(
+                                                        xaml.Substring(listItem.SpanStart, listItem.Width),
+                                                        startOffset + listItem.SpanStart));
+                                            }
                                         }
 
                                         result.AddChildrenAttribute(
