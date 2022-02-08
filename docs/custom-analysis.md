@@ -8,8 +8,8 @@ We've tried to make creating your own analyzer as simple as possible.
 There are only a few simple steps.
 
 1. Create a new .NET Standard 2.0 library.
-1. Reference the `RapidXamlCustomAnalysis` NuGet package.
-1. Create a class that implements `ICustomAnalysis`.
+1. Reference the `RapidXaml.CustomAnalysis` NuGet package.
+1. Create a class that implements `ICustomAnalyzer`.
 1. Specify the name of the control/element the analyzer relates to.
 1. Implement the `Analyze()` method with rules appropriate to your scenario.
 1. Reference the library you've created in your application.
@@ -112,7 +112,7 @@ return AnalysisActions.RemoveAttribute( ... )
 Reference the project containing the analyzer in all projects containing XAML you wish to analyze.  
 You can reference the project directly, the compiled DLL, or package the library in a NuGet package and reference it that way.
 
-The generated project also includes example tests to help you verify your analyzers work correctly. They show how you can confirm the analyzer returns the expected response given different XAML strings as input.
+The generated project also includes example tests to help you verify your analyzer is work correctly. They show how you can confirm the analyzer returns the expected response given different XAML strings as input.
 
 ## Share your experiences
 
