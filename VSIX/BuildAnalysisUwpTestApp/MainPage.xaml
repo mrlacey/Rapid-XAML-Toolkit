@@ -10,6 +10,7 @@
 
     <Grid>
         <!--  There is a setting to report the hard-coded text (RXT200) as an error.  -->
-        <!--<TextBlock x:Name="lowercase" Text="Hard-coded test" /> -->
+        <!--  Uncomment the following line when needing to test, otherwise it can interfere with other things  -->
+        <!--<TextBlock x:Name="lowercase" Text="Hard-coded test" />-->
     </Grid>
 </Page>

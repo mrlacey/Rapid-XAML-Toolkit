@@ -67,6 +67,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.Resources", "Rapi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXamlToolkit.Tests.AutoFix", "RapidXamlToolkit.Tests.AutoFix\RapidXamlToolkit.Tests.AutoFix.csproj", "{7E321ADB-5257-4251-AD0B-6F9B12637AA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXamlToolkit.Tests.AnalysisExe", "RapidXamlToolkit.Tests.AnalysisExe\RapidXamlToolkit.Tests.AnalysisExe.csproj", "{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -520,6 +522,26 @@ Global
 		{7E321ADB-5257-4251-AD0B-6F9B12637AA1}.Release|x64.Build.0 = Release|Any CPU
 		{7E321ADB-5257-4251-AD0B-6F9B12637AA1}.Release|x86.ActiveCfg = Release|Any CPU
 		{7E321ADB-5257-4251-AD0B-6F9B12637AA1}.Release|x86.Build.0 = Release|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Debug|ARM.Build.0 = Debug|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Debug|x64.Build.0 = Debug|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Debug|x86.Build.0 = Debug|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Release|ARM.ActiveCfg = Release|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Release|ARM.Build.0 = Release|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Release|ARM64.Build.0 = Release|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Release|x64.ActiveCfg = Release|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Release|x64.Build.0 = Release|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Release|x86.ActiveCfg = Release|Any CPU
+		{51A8C2A7-BB31-4CCA-B9BD-AD227799BE38}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
