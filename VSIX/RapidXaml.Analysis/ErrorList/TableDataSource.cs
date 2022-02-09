@@ -22,6 +22,7 @@ namespace RapidXamlToolkit.ErrorList
 
         private TableDataSource()
         {
+#if VSIXNOTEXE
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
             compositionService?.DefaultCompositionService.SatisfyImportsOnce(this);
 
@@ -38,6 +39,7 @@ namespace RapidXamlToolkit.ErrorList
                               StandardTableColumnDefinitions.DocumentName,
                               StandardTableColumnDefinitions.Line,
                               StandardTableColumnDefinitions.Column);
+#endif
         }
 
         public static TableDataSource Instance

@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using Microsoft.VisualStudio.Shell;
 using Newtonsoft.Json;
 using RapidXamlToolkit.ErrorList;
 using RapidXamlToolkit.Resources;
@@ -40,6 +41,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override void Execute(CancellationToken cancellationToken)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             this.SetAsHiddenInSettingsFile(this.Tag);
             this.Source.Refresh();
             RapidXamlDocumentCache.RemoveTags(this.Tag.FileName, this.ErrorCode);
