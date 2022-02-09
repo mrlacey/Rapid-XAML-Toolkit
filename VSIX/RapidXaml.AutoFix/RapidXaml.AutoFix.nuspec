@@ -13,7 +13,7 @@
     <description>Use Rapid XAML custom analyzers to modify XAML files.</description>
     <summary>Apply automatic changes to XAML files.</summary>
     <releaseNotes>.</releaseNotes>
-    <copyright>© 2021 Matt Lacey Ltd.</copyright>
+    <copyright>© 2022 Matt Lacey Ltd.</copyright>
     <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">

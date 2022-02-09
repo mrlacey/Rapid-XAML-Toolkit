@@ -5,7 +5,7 @@
     <version>0.13.0</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
-    <copyright>Copyright © 2021 Matt Lacey Ltd.</copyright>
+    <copyright>Copyright © 2022 Matt Lacey Ltd.</copyright>
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <icon>images\icon.png</icon>
@@ -40,7 +40,7 @@
     <file src=".\bin\release\net472\RapidXaml.Utils.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\RapidXaml.Utils.pdb" target="tools/net472/" />
     <!-- Would love to do this with wildcards but for some reason it's not working -->
-    <file src=".\bin\release\net472\ApiAnalysis.SimpleJsonAnalyzer.vsixuse.dll" target="tools/net472/" />
+    <file src=".\bin\release\net472\ApiAnalysis.SimpleJsonAnalyzer.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\EnvDTE.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.ApplicationInsights.dll" target="tools/net472/" />
     <file src=".\bin\release\net472\Microsoft.CodeAnalysis.CSharp.dll" target="tools/net472/" />
