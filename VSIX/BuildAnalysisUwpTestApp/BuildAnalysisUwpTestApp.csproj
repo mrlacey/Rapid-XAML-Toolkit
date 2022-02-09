@@ -151,7 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.12</Version>
+      <Version>6.2.13</Version>
     </PackageReference>
     <PackageReference Include="RapidXaml.BuildAnalysis">
       <Version>0.1.55</Version>
