@@ -189,13 +189,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.SliderAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new CustomAnalysis.StepperAnalyzer(vsAbstraction, logger));
 
-                for (int i = 0; i < customProcessors.Count; i++)
-                {
-                    ICustomAnalyzer customProcessor = customProcessors[i];
-                    processors.Add(
-                        (customProcessor.TargetType(),
-                         new CustomProcessorWrapper(customProcessor, projType, projectFilePath, logger, vsAbstraction)));
-                }
+                // Make sure that all custom analyzers are correctly used as processors
+                processors.AddRange(WrapCustomProcessors(customProcessors, projType, projectFilePath, logger, vsAbstraction));
             }
 
             return processors;
