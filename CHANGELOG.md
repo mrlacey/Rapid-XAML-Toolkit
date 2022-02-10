@@ -4,6 +4,11 @@
 
 - [See what's planned next](https://github.com/mrlacey/Rapid-XAML-Toolkit/milestone/12)
 
+## 0.13.2
+
+- Fix support for "ANYOF:" prefix in Custom analyzers.
+- Fix selection of profiles in the Option dialog.
+
 ## 0.13.1
 
 - Fix analysis issue with nested grids.

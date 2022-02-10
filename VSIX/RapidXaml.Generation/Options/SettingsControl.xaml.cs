@@ -121,12 +121,12 @@ namespace RapidXamlToolkit.Options
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
 
-                var selectedIndex = this.DisplayedProfiles.SelectedIndex;
+                var selectedIndex = (this.DisplayedProfiles.SelectedItem as ProfileSummary)?.Index ?? -1;
 
                 if (selectedIndex >= 0)
                 {
                     var dialog = new ProfileConfigPage();
-                    dialog.SetDataContext(this.SettingsProvider.ActualSettings.Profiles[this.DisplayedProfiles.SelectedIndex]);
+                    dialog.SetDataContext(this.SettingsProvider.ActualSettings.Profiles[selectedIndex]);
 
                     dialog.ShowModal();
 
