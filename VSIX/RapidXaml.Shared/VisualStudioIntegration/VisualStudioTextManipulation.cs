@@ -8,6 +8,7 @@ using EnvDTE;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
 {
+    // TODO: 2022: https://docs.microsoft.com/en-us/visualstudio/extensibility/migration/breaking-api-list?view=vs-2022#legacy-find-api-deprecation
     public class VisualStudioTextManipulation : IVisualStudioTextManipulation
     {
         public VisualStudioTextManipulation(DTE dte)
