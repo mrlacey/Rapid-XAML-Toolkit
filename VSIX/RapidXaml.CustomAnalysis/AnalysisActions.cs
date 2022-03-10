@@ -52,7 +52,7 @@ namespace RapidXaml
         }
 
         /// <summary>
-        /// Gets a list of the actions that shoudl be performed as a result of the analysis.
+        /// Gets a list of the actions that should be performed as a result of the analysis.
         /// </summary>
         public List<AnalysisAction> Actions { get; private set; } = new List<AnalysisAction>();
 
