@@ -15,7 +15,7 @@
         <options:ProfileFontWeightConverter x:Key="FontWeightConverter" />
         <CollectionViewSource x:Key="listViewSource" Source="{Binding ProfilesList}">
             <CollectionViewSource.GroupDescriptions>
-                <PropertyGroupDescription PropertyName="ProjectType" />
+                <PropertyGroupDescription PropertyName="ProfileType" />
             </CollectionViewSource.GroupDescriptions>
             <CollectionViewSource.SortDescriptions>
                 <componentmodel:SortDescription PropertyName="ProjectType" />
