@@ -2,7 +2,15 @@
 
 ## Upcoming
 
-- [See what's planned next](https://github.com/mrlacey/Rapid-XAML-Toolkit/milestone/12)
+- [See what's planned next](https://github.com/mrlacey/Rapid-XAML-Toolkit/milestone/7)
+
+## 0.14.1
+
+- Fix issue with looking up resources as part of BuildAnalysis.
+
+## 0.14.0
+
+- Update NuGet packages to have all the latest fixes.
 
 ## 0.13.2
 

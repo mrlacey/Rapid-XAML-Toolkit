@@ -120,6 +120,14 @@ namespace RapidXaml.AnalysisExe
                                         // For format see https://github.com/Microsoft/msbuild/blob/master/src/Shared/CanonicalError.cs
                                         var outputText = $"{xamlFilePath}({issue.Line + 1},{issue.Column}): {messageType} {issue.ErrorCode}: {issue.Description} ({issue.ErrorCode})";
 
+                                        if (issue.ConfiguredErrorType == TagErrorType.Error
+                                            && issue.ErrorCode.EndsWith("999")
+                                            && !string.IsNullOrWhiteSpace(issue.ExtendedMessage))
+                                        {
+                                            // Get all the error info we can if something has gone wrong
+                                            outputText += $"{Environment.NewLine}{issue.ExtendedMessage}";
+                                        }
+
                                         if (!linesOutputted.Contains(outputText))
                                         {
                                             linesOutputted.Add(outputText);

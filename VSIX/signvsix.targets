@@ -7,5 +7,6 @@
   <Target Name="AfterBuild" DependsOnTargets="CoreCompile" Condition="Exists('$(SIGN_CERTIFICATE)')">
     <Message Text="Signing $(TargetVsixContainer)" Condition="'$(Configuration)' == 'Release'" />
     <Exec Command="$(VsixSignCommand) $(MSBuildProjectDirectory)\$(TargetVsixContainer)" Condition="'$(Configuration)' == 'Release'" />
+    <Exec Command="powershell -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { [XML]$xml = Get-Content .\source.extension.vsixmanifest; $version = $xml.PackageManifest.Metadata.Identity.Version; $verUnder = $version -replace '\.', '_'; $newExt = [System.String]::Concat($verUnder,&apos;.vsix&apos;); $newFileName = &apos;$(TargetVsixContainer)&apos; -Replace &apos;vsix&apos;, $newExt; Copy-Item $(MSBuildProjectDirectory)\$(TargetVsixContainer) -Destination $(MSBuildProjectDirectory)\$newFileName; Write-Host $newFileName; } &quot;" Condition="'$(Configuration)' == 'Release'" />
   </Target>
 </Project>

@@ -133,12 +133,15 @@ namespace RapidXaml.AnalysisExe
 
         public string GetLanguageFromContainingProject(string fileName)
         {
+            // Because the below `GetFilesFromContainingProject` returns no files
+            // we won't ever find any resource files, so we won't ever need to know
+            // the default language to use and so it doesn't matter that this is not implemented.
             throw new NotImplementedException();
         }
 
         public List<string> GetFilesFromContainingProject(string fileName, params string[] fileNameEndings)
         {
-            throw new NotImplementedException();
+            return new List<string>();
         }
     }
 }

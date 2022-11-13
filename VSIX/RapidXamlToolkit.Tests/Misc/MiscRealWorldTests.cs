@@ -343,6 +343,12 @@ namespace RapidXamlToolkit.Tests.Misc
         }
 
         [TestMethod]
+        public void Real_ParseWithoutError_WpfPageWithExpandedCheckbox()
+        {
+            this.ParseWithoutError(".\\Misc\\WpfEmptyCheckBox.xaml", ProjectType.Wpf);
+        }
+
+        [TestMethod]
         public void Real_ProfileSearchPage_XamarinForms_NestedGrids_SimpleRowDefinitions()
         {
             var result = new RapidXamlDocument();
