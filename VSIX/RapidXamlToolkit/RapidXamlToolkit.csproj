@@ -153,7 +153,20 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj">
+      <Project>{3307cd74-9995-4f90-8c12-75760460ad35}</Project>
+      <Name>RapidXaml.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
+      <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
+      <Name>RapidXaml.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj">
+      <Project>{c5c70826-26a9-44ef-b91a-b2a46c066236}</Project>
+      <Name>RapidXaml.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Target Name="IncludeNuGetPackageReferences" AfterTargets="GetVsixSourceItems">
     <ItemGroup>
       <VSIXSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' == 'ApiAnalysis.SimpleJsonAnalyzer.vsixuse'" />
