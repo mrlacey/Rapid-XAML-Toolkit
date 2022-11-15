@@ -73,21 +73,41 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RapidXamlPackage.cs" />
+    <Compile Include="RapidXamlPackage1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RapidXamlPackage.vsct</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\StringRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="source.extension.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>source.extension.vsixmanifest</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
     <None Include="Key.snk" />
+    <VSCTCompile Include="RapidXamlPackage.vsct">
+      <SubType>Designer</SubType>
+      <Generator>VsctGenerator</Generator>
+      <LastGenOutput>RapidXamlPackage1.cs</LastGenOutput>
+    </VSCTCompile>
+    <Content Include="Resources\RapidXamlPackage.ico" />
     <Content Include="Resources\RapidXamlToolkitLogo.png">
       <IncludeInVSIX>true</IncludeInVSIX>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RxtExtensions.vsext">
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
+      <Generator>VsixManifestGenerator</Generator>
+      <LastGenOutput>source.extension.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -110,22 +130,22 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
-      <Version>3.3.2</Version>
+      <Version>3.3.3</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK" ExcludeAssets="runtime">
-      <Version>16.9.31425.357</Version>
+      <Version>17.0.33111.94</Version>
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Text.Data">
-      <Version>16.9.244</Version>
+      <Version>17.0.496</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Validation">
-      <Version>16.9.33</Version>
+      <Version>17.0.71</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VSSDK.BuildTools">
-      <Version>16.9.1050</Version>
+      <Version>17.4.2119</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -139,9 +159,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VSPackage.resx">
-      <MergeWithCTO>true</MergeWithCTO>
-      <LogicalName>VSPackage.Resources</LogicalName>
+    <EmbeddedResource Include="Resources\StringRes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Target Name="IncludeNuGetPackageReferences" AfterTargets="GetVsixSourceItems">
