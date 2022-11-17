@@ -167,6 +167,9 @@
       <Name>RapidXaml.Utils</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Generators\" />
+  </ItemGroup>
   <Target Name="IncludeNuGetPackageReferences" AfterTargets="GetVsixSourceItems">
     <ItemGroup>
       <VSIXSourceItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' == 'ApiAnalysis.SimpleJsonAnalyzer.vsixuse'" />
