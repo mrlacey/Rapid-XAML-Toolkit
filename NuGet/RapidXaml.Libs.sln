@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33103.201
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.WinUI", "RapidXaml.WinUI\RapidXaml.WinUI.csproj", "{EDB05CE5-FBA9-4D68-ABB6-A080E78FF739}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.WinUI", "RapidXaml.WinUI\RapidXaml.WinUI.csproj", "{EDB05CE5-FBA9-4D68-ABB6-A080E78FF739}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.MAUI", "RapidXaml.MAUI\RapidXaml.MAUI.csproj", "{D4FDC86E-EE18-4F77-AC7D-73ABD2EB60FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RapidXaml.MAUI", "RapidXaml.MAUI\RapidXaml.MAUI.csproj", "{D4FDC86E-EE18-4F77-AC7D-73ABD2EB60FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RapidXaml.WPF", "RapidXaml.WPF\RapidXaml.WPF.csproj", "{71C5409E-ED60-4469-A9E5-438367F33A07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D4FDC86E-EE18-4F77-AC7D-73ABD2EB60FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4FDC86E-EE18-4F77-AC7D-73ABD2EB60FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4FDC86E-EE18-4F77-AC7D-73ABD2EB60FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71C5409E-ED60-4469-A9E5-438367F33A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C5409E-ED60-4469-A9E5-438367F33A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C5409E-ED60-4469-A9E5-438367F33A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C5409E-ED60-4469-A9E5-438367F33A07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
