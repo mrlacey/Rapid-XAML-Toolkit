@@ -28,6 +28,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Build.Framework" Version="16.0.461" />
     <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.0.461" />
+    <PackageReference Include="NuGet.CommandLine" Version="6.3.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

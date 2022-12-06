@@ -57,6 +57,10 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
+        <PackageReference Include="NuGet.CommandLine" Version="6.3.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.13.0" />
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
