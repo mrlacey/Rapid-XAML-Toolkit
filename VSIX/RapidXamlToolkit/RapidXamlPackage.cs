@@ -23,13 +23,17 @@ using static Microsoft.VisualStudio.VSConstants;
 
 namespace RapidXamlToolkit
 {
-    // TODO: Change to initialize with projects containing XAML files
-    [ProvideAutoLoad(UICONTEXT.CSharpProject_string, PackageAutoLoadFlags.BackgroundLoad)]
-    [ProvideAutoLoad(UICONTEXT.VBProject_string, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(ActivationContextGuid, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration(Vsix.Name, Vsix.Description, Vsix.Version)] // Info on this package for Help/About
     [Guid(PackageGuids.guidRapidXamlToolkitPackageString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
+    [ProvideUIContextRule(
+        ActivationContextGuid,
+        name: "Load Rapid XAML Package",
+        expression: "HasXamlFiles",
+        termNames: new[] { "HasXamlFiles" },
+        termValues: new[] { "HierSingleSelectionName:.xaml$" })]
     [ProvideOptionPage(typeof(EditorExtrasOptionsGrid), "Rapid XAML", "Editor", 106, 107, true)]
     [ProvideProfile(typeof(EditorExtrasOptionsGrid), "Rapid XAML", "Editor", 106, 107, true)]
     [ProvideOptionPage(typeof(AnalysisOptionsGrid), "Rapid XAML", "Analysis", 106, 104, true)]
@@ -38,6 +42,9 @@ namespace RapidXamlToolkit
     [ProvideProfile(typeof(SettingsConfigPage), "Rapid XAML", "Generation Profiles", 106, 105, true)]
     public sealed class RapidXamlPackage : AsyncPackage
     {
+
+        public const string ActivationContextGuid = "47A8ECBA-E247-4FE7-80EE-CDE6CEAC03A5";
+
         public static bool IsLoaded { get; private set; }
 
         public static AnalysisOptionsGrid AnalysisOptions { get; internal set; }
