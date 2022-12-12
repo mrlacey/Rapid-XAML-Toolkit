@@ -15,6 +15,14 @@ namespace RapidXamlToolkit.Configuration
             }
         }
 
+        public string AppInsightsConnectionString
+        {
+            get
+            {
+                return Properties.Settings.Default.AppInsightsConnStr;
+            }
+        }
+
         public Guid LightBulbTelemetryGuid
         {
             get

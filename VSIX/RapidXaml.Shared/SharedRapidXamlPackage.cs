@@ -33,7 +33,7 @@ namespace RapidXamlToolkit
 
                     var config = new RxtSettings();
 
-                    var telemLogger = TelemetryAccessor.Create(rxtLogger, config.TelemetryKey);
+                    var telemLogger = TelemetryAccessor.Create(rxtLogger, config.AppInsightsConnectionString);
 
                     Logger = new RxtLoggerWithTelemtry(rxtLogger, telemLogger);
 
