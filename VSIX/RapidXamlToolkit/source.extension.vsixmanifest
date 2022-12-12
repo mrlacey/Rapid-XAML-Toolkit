@@ -15,6 +15,9 @@
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
+        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Community">
+            <ProductArchitecture>arm64</ProductArchitecture>
+        </InstallationTarget>
     </Installation>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,18.0)" DisplayName="Visual Studio core editor" />
