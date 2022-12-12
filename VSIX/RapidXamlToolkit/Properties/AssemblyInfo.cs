@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct(RapidXaml.Vsix.Name)]
 [assembly: AssemblyCopyright("Copyright © Matt Lacey Ltd. 2018-2022")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture(RapidXaml.Vsix.Language)]
+[assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 

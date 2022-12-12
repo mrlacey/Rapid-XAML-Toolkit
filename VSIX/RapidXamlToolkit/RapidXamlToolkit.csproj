@@ -54,7 +54,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\RapidXamlToolkitExt.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <NoWarn>,1573,1591,1712,1762,NU1605,NU1608</NoWarn>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <LangVersion>7.3</LangVersion>
@@ -385,11 +386,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.Common">
+      <Version>4.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.LanguageServices">
-      <Version>3.9.0</Version>
+      <Version>4.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK" ExcludeAssets="runtime">
-      <Version>17.0.33111.94</Version>
+      <Version>17.0.33208.330</Version>
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Text.Data">
@@ -422,6 +429,10 @@
     <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">
       <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
       <Name>RapidXaml.AnalysisCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers\RapidXaml.InternalAnalyzers.csproj">
+      <Project>{fdbe6d55-075c-478b-879c-90114fe0ee0a}</Project>
+      <Name>RapidXaml.InternalAnalyzers</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj">
       <Project>{3307cd74-9995-4f90-8c12-75760460ad35}</Project>

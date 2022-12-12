@@ -50,7 +50,7 @@ namespace RapidXamlToolkit.Logging
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            this.generalPane?.OutputString($"{message}{Environment.NewLine}");
+            this.generalPane?.OutputStringThreadSafe($"{message}{Environment.NewLine}");
         }
     }
 }

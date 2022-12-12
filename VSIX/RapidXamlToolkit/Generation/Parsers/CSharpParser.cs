@@ -265,12 +265,9 @@ namespace RapidXamlToolkit.Parsers
 
             var symbol = property.Symbol;
 
-            if (symbol is INamedTypeSymbol nts)
+            if (symbol is INamedTypeSymbol nts && nts.Arity > 0)
             {
-                if (nts.Arity > 0)
-                {
-                    symbol = nts.TypeArguments.First();
-                }
+                symbol = nts.TypeArguments.First();
             }
 
             var subProperties = this.GetAllPublicProperties(symbol, semModel);
@@ -383,7 +380,7 @@ namespace RapidXamlToolkit.Parsers
             else
             {
                 var setterModifiers = setter.Modifiers;
-                propIsReadOnly = setterModifiers.Any(m => m.Kind() == SyntaxKind.PrivateKeyword);
+                propIsReadOnly = setterModifiers.Any(m => m.IsKind(SyntaxKind.PrivateKeyword));
             }
 
             var pd = new PropertyDetails
