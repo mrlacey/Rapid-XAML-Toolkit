@@ -74,6 +74,133 @@
     <Compile Include="..\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
+    <Compile Include="Analysis\AnalysisOptionsGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Analysis\Commands\AnalyzeCurrentDocumentCommand.cs" />
+    <Compile Include="Analysis\Commands\FeedbackCommand.cs" />
+    <Compile Include="Analysis\Commands\InsertGridRowDefinitionCommandLogic.cs" />
+    <Compile Include="Analysis\Commands\MoveAllHardCodedStringsToResourceFileCommand.cs" />
+    <Compile Include="Analysis\Commands\OpenAnalysisOptionsCommand.cs" />
+    <Compile Include="Analysis\ErrorList\ErrorListService.cs" />
+    <Compile Include="Analysis\ErrorList\ErrorRow.cs" />
+    <Compile Include="Analysis\ErrorList\FileErrorCollection.cs" />
+    <Compile Include="Analysis\ErrorList\SinkManager.cs" />
+    <Compile Include="Analysis\ErrorList\TableDataSource.cs" />
+    <Compile Include="Analysis\ErrorList\TableEntriesSnapshot.cs" />
+    <Compile Include="Analysis\JSON\RapidXamlAnalysisJsonSchemaSelector.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\AddRowAndColumnDefinitionsAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\AddRowDefinitionsAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\BaseSuggestedAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\ColumnSpanOverflowAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\CustomAnalysisAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\HardCodedStringAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\InjectFixedXamlSuggestedAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\InsertRowDefinitionAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\MakeNameStartWithCapitalAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\MakeUidStartWithCapitalAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\MediaElementAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\SelectedItemBindingModeAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Actions\SuppressWarningAction.cs" />
+    <Compile Include="Analysis\XamlAnalysis\AnalysisSpeedWarningInfoBar.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\AddChildTestAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\AddXmlnsAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\BadCustomAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\BindingToXBindAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\ButtonAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\CheckBoxAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\CustomGridDefinitionAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\FooAnalysis.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\InternalBadCustomAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer2.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\RemoveFirstChildAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\RenameElementTestAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\ReplaceElementTestAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\StyleAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\TwoPaneViewAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\UnoIgnorablesAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\WebViewToWebView2Converter.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\EntryAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\EntryCellAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\ImageButtonAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\LabelAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\PickerAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\RadioButtonAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\SearchBarAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\SliderAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\StepperAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\SwipeItemAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\SwitchCellAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\TableSectionAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\XfImageAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\XfLineAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\XfListViewAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\XamarinForms\XfMapPinAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\IRapidXamlAdornmentTagExtensions.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\CalendarDatePickerProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\ComboBoxProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\DatePickerProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\EveryElementProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\GridProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\HubProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\HubSectionProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\MediaElementProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\PasswordBoxProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\PivotItemProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\PivotProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\RepeatButtonProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\RichEditBoxProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\SelectedItemAttributeProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\SliderProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\TextBlockProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\TextBoxProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\TimePickerProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\XamlElementProcessorExtensions.cs" />
+    <Compile Include="Analysis\XamlAnalysis\RapidXamlDisplayedTagExtensions.cs" />
+    <Compile Include="Analysis\XamlAnalysis\RapidXamlDocument.cs" />
+    <Compile Include="Analysis\XamlAnalysis\RapidXamlDocumentCache.cs" />
+    <Compile Include="Analysis\XamlAnalysis\RapidXamlParsingEventArgs.cs" />
+    <Compile Include="Analysis\XamlAnalysis\RapidXamlRunningDocTableEvents.cs" />
+    <Compile Include="Analysis\XamlAnalysis\RapidXamlTagger.cs" />
+    <Compile Include="Analysis\XamlAnalysis\RapidXamlTagProvider.cs" />
+    <Compile Include="Analysis\XamlAnalysis\SuggestedActionsSource.cs" />
+    <Compile Include="Analysis\XamlAnalysis\SuggestedActionsSourceProvider.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\AddColumnDefinitionsTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\AddRowDefinitionsTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\HardCodedStringTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\InsertionTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\InsertRowDefinitionTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\MissingColumnDefinitionTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\MissingDefinitionTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\MissingRowDefinitionTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\NameTitleCaseTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\RapidXamlSuggestionAdornmentTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\RapidXamlWarningAdornmentTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\SelectedItemBindingModeTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\UidTitleCaseTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Tags\UseMediaPlayerElementTag.cs" />
+    <Compile Include="Analysis\XamlAnalysis\VsTextSnapshot.cs" />
+    <Compile Include="Analysis\XamlAnalysis\VsTextSpan.cs" />
     <Compile Include="EditorExtras\EditorExtrasOptionsGrid.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -125,12 +252,17 @@
     <AdditionalFiles Include="..\todo-warn.config">
       <Link>todo-warn.config</Link>
     </AdditionalFiles>
+    <Content Include="Analysis\JSON\settings-schema.json" />
+    <Content Include="Analysis\JSON\suppressions-schema.json" />
+    <None Include="Resources\References\Microsoft.WebTools.Languages.Json.dll" />
+    <None Include="Resources\References\about-Microsoft.WebTools.Languages.Json.dll.txt" />
     <None Include="Key.snk" />
     <VSCTCompile Include="RapidXamlPackage.vsct">
       <SubType>Designer</SubType>
       <Generator>VsctGenerator</Generator>
       <LastGenOutput>RapidXamlPackage1.cs</LastGenOutput>
     </VSCTCompile>
+    <Content Include="Resources\RapidXamlAnalysisIcons.png" />
     <Content Include="Resources\RapidXamlPackage.ico" />
     <Content Include="Resources\RapidXamlToolkitLogo.png">
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -143,6 +275,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WebTools.Languages.Json, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\References\Microsoft.WebTools.Languages.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -169,6 +305,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.LanguageServices">
+      <Version>3.9.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK" ExcludeAssets="runtime">
       <Version>17.0.33111.94</Version>
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -186,6 +325,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VSSDK.Vsixsigntool">
       <Version>16.3.29220.27</Version>
+    </PackageReference>
+    <PackageReference Include="RapidXaml.CustomAnalysis">
+      <Version>0.14.0</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
@@ -215,7 +357,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Analysis\" />
     <Folder Include="Generators\" />
   </ItemGroup>
   <ItemGroup>
