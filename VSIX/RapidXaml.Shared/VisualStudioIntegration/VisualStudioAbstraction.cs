@@ -92,16 +92,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
                         ThreadHelper.JoinableTaskFactory.Run(async () =>
                         {
-                            // TODO: Need to get project guid
-                            var projGuid = new Guid("proj");
-                            /*
-                             You will need to go into the VS SDK to get the GUID.
-                            First, given an EnvDTE.Project object, call UniqueName.
-                            The QueryService for the SVsSolution/IVsSolution service/interface.
-                            Next, call IVsSolution::GetProjectOfUniqueName which will return the IVsHierarchy.
-                            Finally, call IVsSolution::GetGuidOfProject passing in the IVsHierarchy.
-                            This will return to you the GUID in a string.
-                             */
+                            var projGuid = this.GetProjectGuid(proj);
 
                             var packagesResult = await this.nugetService.GetInstalledPackagesAsync(projGuid, CancellationToken.None);
 
@@ -317,6 +308,31 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
 
             return projectTypeGuids;
+        }
+
+        public Guid GetProjectGuid(EnvDTE.Project proj)
+        {
+            var projectGuid = Guid.Empty;
+
+            try
+            {
+                object service = this.GetService(proj.DTE, typeof(IVsSolution));
+                var solution = (IVsSolution)service;
+
+                int result = solution.GetProjectOfUniqueName(proj.UniqueName, out IVsHierarchy hierarchy);
+
+                if (result == 0)
+                {
+                    solution.GetGuidOfProject(hierarchy, out projectGuid);
+                }
+            }
+            catch (Exception exc)
+            {
+                // Some (unknown/irrelevant) project types may cause above casts to fail
+                System.Diagnostics.Debug.WriteLine(exc);
+            }
+
+            return projectGuid;
         }
 
         public object GetService(object serviceProvider, Type type)
