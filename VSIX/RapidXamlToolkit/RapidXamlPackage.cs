@@ -11,9 +11,12 @@ using RapidXaml;
 using RapidXaml.EditorExtras;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.Telemetry;
+using static Microsoft.VisualStudio.VSConstants;
 
 namespace RapidXamlToolkit
 {
+    [ProvideAutoLoad(UICONTEXT.CSharpProject_string, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(UICONTEXT.VBProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration(Vsix.Name, Vsix.Description, Vsix.Version)] // Info on this package for Help/About
     [Guid(PackageGuids.guidRapidXamlToolkitPackageString)]

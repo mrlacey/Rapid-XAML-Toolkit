@@ -102,6 +102,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RapidXamlPackage.vsct</DependentUpon>
     </Compile>
+    <Compile Include="RoslynAnalyzers\CsBindablePropertyCodeFixProvider.cs" />
+    <Compile Include="RoslynAnalyzers\CsDependencyPropertyCodeFixProvider.cs" />
+    <Compile Include="RoslynAnalyzers\CsExpandAutoPropertiesAnalyzer.cs" />
+    <Compile Include="RoslynAnalyzers\CsFullPropertyWithOnPropertyChangedCodeFixProvider.cs" />
+    <Compile Include="RoslynAnalyzers\CsFullPropertyWithSetCodeFixProvider.cs" />
+    <Compile Include="RoslynAnalyzers\CsFullPropertyWithSetPropertyCodeFixProvider.cs" />
+    <Compile Include="RoslynAnalyzers\PropertyDeclarationSyntaxExtensions.cs" />
     <Compile Include="source.extension.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -115,6 +122,9 @@
     <Content Include="EditorExtras\SymbolVisualizer\FontAwesome.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <AdditionalFiles Include="..\todo-warn.config">
+      <Link>todo-warn.config</Link>
+    </AdditionalFiles>
     <None Include="Key.snk" />
     <VSCTCompile Include="RapidXamlPackage.vsct">
       <SubType>Designer</SubType>
@@ -207,7 +217,6 @@
   <ItemGroup>
     <Folder Include="Analysis\" />
     <Folder Include="Generators\" />
-    <Folder Include="RoslynAnalyzers\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="VSPackage.resx" />
