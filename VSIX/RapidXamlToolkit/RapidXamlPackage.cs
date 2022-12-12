@@ -38,10 +38,6 @@ namespace RapidXamlToolkit
     [ProvideProfile(typeof(SettingsConfigPage), "Rapid XAML", "Generation Profiles", 106, 105, true)]
     public sealed class RapidXamlPackage : AsyncPackage
     {
-        // TODO: can these be moved to vsct? if still needed at all
-        public static readonly Guid AnalysisCommandSet = new Guid("f1a4455d-b523-4b08-8ff7-2a964177fcf6");
-        public static readonly Guid GenerationCommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
-
         public static bool IsLoaded { get; private set; }
 
         public static AnalysisOptionsGrid AnalysisOptions { get; internal set; }

@@ -161,7 +161,7 @@
 	<Symbols>
 		<GuidSymbol name="guidRapidXamlToolkitPackage" value="{ed7fe961-2d10-4598-8040-7423b66b6540}" />
 		<GuidSymbol name="guidRapidXamlCommonMenuPackage" value="{ed7fe961-2d10-4598-8040-7423b66b6540}" />
-
+			
 		<!-- This is the guid used to group the menu commands together -->
 		<GuidSymbol name="guidRapidXamlCommonMenuPackageCmdSet" value="{c38bde3a-c557-43e4-bb0a-9f167ace4c10}">
 			<IDSymbol value="0x1100" name="CodeContextGroup" />
