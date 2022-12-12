@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using RapidXaml;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
@@ -27,7 +28,7 @@ namespace RapidXamlToolkit.Commands
         {
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
-            var menuCommandID = new CommandID(RapidXamlPackage.AnalysisCommandSet, CommandId);
+            var menuCommandID = new CommandID(PackageGuids.guidRapidXamlAnalysisPackageCmdSet, CommandId);
             var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
             commandService.AddCommand(menuItem);
         }
