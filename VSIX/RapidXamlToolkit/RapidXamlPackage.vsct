@@ -9,9 +9,14 @@
       <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextGroup" priority="0x0600" />
       <Group guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextGroup" priority="0x0600" />
 
-		<Group guid="guidRapidXamlAnalysisPackageCmdSet" id="CodeContextMenuGroup" priority="0x0600" />
-		<Group guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100" />
-		<Group guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0700" />
+		<Group guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalysisCodeContextMenuGroup" priority="0x0600" />
+		<Group guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalysisXamlContextMenuGroup" priority="0x0100" />
+		<Group guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalysisXamlContextMenuSecondaryGroup" priority="0x0700" />
+
+
+		<Group guid="guidRapidXamlGenerationPackageCmdSet" id="GenCodeContextMenuGroup" priority="0x0600" />
+		<Group guid="guidRapidXamlGenerationPackageCmdSet" id="GenCodeContextMenuSecondaryGroup" priority="0x0700" />
+		<Group guid="guidRapidXamlGenerationPackageCmdSet" id="GenXamlContextMenuGroup" priority="0x0500" />
     </Groups>
 
 	  <Buttons>
@@ -22,7 +27,7 @@
 			  </Strings>
 		  </Button>
 		  <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900" type="Button">
-			  <Icon guid="guidAnalysisImages" id="bmpFeedback" />
+			  <Icon guid="guidToolbarImages" id="bmpFeedback" />
 			  <Strings>
 				  <ButtonText>Give &amp;Feedback</ButtonText>
 				  <LocCanonicalName>.RapidXAML.GiveFeedback</LocCanonicalName>
@@ -34,11 +39,34 @@
 				  <LocCanonicalName>.RapidXAML.AnalyzeFile</LocCanonicalName>
 			  </Strings>
 		  </Button>
-		  <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="OpenOptionsCommandId" priority="0x0900" type="Button">
-			  <Icon guid="guidAnalysisImages" id="bmpOptions" />
+		  <Button guid="guidRapidXamlAnalysisPackageCmdSet" id="OpenAnalysisOptionsCommandId" priority="0x0900" type="Button">
+			  <Icon guid="guidToolbarImages" id="bmpOptions" />
 			  <Strings>
 				  <ButtonText>Analysis &amp;options</ButtonText>
 				  <LocCanonicalName>.RapidXAML.AnalysisOptions</LocCanonicalName>
+			  </Strings>
+		  </Button>
+
+
+		  <Button guid="guidRapidXamlGenerationPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100" type="Button">
+			  <Icon guid="guidToolbarImages" id="bmpCopyAsXaml" />
+			  <Strings>
+				  <ButtonText>&amp;Copy as XAML</ButtonText>
+				  <LocCanonicalName>.RapidXAML.CopyAsXAML</LocCanonicalName>
+			  </Strings>
+		  </Button>
+		  <Button guid="guidRapidXamlGenerationPackageCmdSet" id="SendToToolboxCommandId" priority="0x0100" type="Button">
+			  <Icon guid="guidToolbarImages" id="bmpToolbox" />
+			  <Strings>
+				  <ButtonText>Send to &amp;Toolbox</ButtonText>
+				  <LocCanonicalName>.RapidXAML.SendToToolbox</LocCanonicalName>
+			  </Strings>
+		  </Button>
+		  <Button guid="guidRapidXamlGenerationPackageCmdSet" id="OpenGenOptionsCommandId" priority="0x0100" type="Button">
+			  <Icon guid="guidToolbarImages" id="bmpOptions" />
+			  <Strings>
+				  <ButtonText>Generation &amp;Profiles</ButtonText>
+				  <LocCanonicalName>.RapidXAML.GenerationOptions</LocCanonicalName>
 			  </Strings>
 		  </Button>
 	  </Buttons>
@@ -57,7 +85,8 @@
     </Menus>
 
 	  <Bitmaps>
-		  <Bitmap guid="guidAnalysisImages" href="Resources\RapidXamlAnalysisIcons.png" usedList="bmpCopyAsXaml, bmpToolbox, bmpCreateView, bmpOptions, bmpSetDc, bmpFeedback" />
+		  <Bitmap guid="guidToolbarImages" href="Resources\RapidXamlToolbarIcons.png" usedList="bmpCopyAsXaml, bmpToolbox, bmpCreateView, bmpOptions, bmpSetDc, bmpFeedback" />
+		  
 	  </Bitmaps>
   </Commands>
 
@@ -77,32 +106,56 @@
     </CommandPlacement>
 
 
-	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="CodeContextMenuGroup" priority="0x0100">
+	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalysisCodeContextMenuGroup" priority="0x0100">
 		  <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" />
 	  </CommandPlacement>
 	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0400">
-		  <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="CodeContextMenuGroup" />
+		  <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalysisCodeContextMenuGroup" />
 	  </CommandPlacement>
 
-	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" priority="0x0100">
+	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalysisXamlContextMenuGroup" priority="0x0100">
 		  <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
 	  </CommandPlacement>
-	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" priority="0x0800">
+	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalysisXamlContextMenuSecondaryGroup" priority="0x0800">
 		  <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
 	  </CommandPlacement>
 	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalyzeCurrentDocCommandId" priority="0x0100">
-		  <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" />
+		  <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalysisXamlContextMenuGroup" />
 	  </CommandPlacement>
 	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="MoveAllHardCodedStringsToResourceFileCommandId" priority="0x0200">
-		  <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" />
+		  <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalysisXamlContextMenuGroup" />
 	  </CommandPlacement>
 	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="FeedbackCommandId" priority="0x0900">
-		  <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuSecondaryGroup" />
+		  <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalysisXamlContextMenuSecondaryGroup" />
 	  </CommandPlacement>
-	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="OpenOptionsCommandId" priority="0x0300">
-		  <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="XamlContextMenuGroup" />
+	  <CommandPlacement guid="guidRapidXamlAnalysisPackageCmdSet" id="OpenAnalysisOptionsCommandId" priority="0x0300">
+		  <Parent guid="guidRapidXamlAnalysisPackageCmdSet" id="AnalysisXamlContextMenuGroup" />
 	  </CommandPlacement>
 
+
+
+	  <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="GenCodeContextMenuGroup" priority="0x0100">
+		  <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" />
+	  </CommandPlacement>
+	  <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="GenCodeContextMenuSecondaryGroup" priority="0x0100">
+		  <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="CodeContextMenu" />
+	  </CommandPlacement>
+	  <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="CopyToClipboardCommandId" priority="0x0100">
+		  <Parent guid="guidRapidXamlGenerationPackageCmdSet" id="GenCodeContextMenuGroup" />
+	  </CommandPlacement>
+	  <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="SendToToolboxCommandId" priority="0x0200">
+		  <Parent guid="guidRapidXamlGenerationPackageCmdSet" id="GenCodeContextMenuGroup" />
+	  </CommandPlacement>
+	  <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="OpenGenOptionsCommandId" priority="0x0300">
+		  <Parent guid="guidRapidXamlGenerationPackageCmdSet" id="GenCodeContextMenuSecondaryGroup" />
+	  </CommandPlacement>
+
+	  <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="GenXamlContextMenuGroup" priority="0x0700">
+		  <Parent guid="guidRapidXamlCommonMenuPackageCmdSet" id="XamlContextMenu" />
+	  </CommandPlacement>
+	  <CommandPlacement guid="guidRapidXamlGenerationPackageCmdSet" id="OpenGenOptionsCommandId" priority="0x0300">
+		  <Parent guid="guidRapidXamlGenerationPackageCmdSet" id="GenXamlContextMenuGroup" />
+	  </CommandPlacement>
   </CommandPlacements>
 
   <Symbols>
@@ -128,24 +181,40 @@
 
 	  <!-- This is the guid used to group the menu commands together -->
 	  <GuidSymbol name="guidRapidXamlAnalysisPackageCmdSet" value="{f1a4455d-b523-4b08-8ff7-2a964177fcf6}">
-		  <IDSymbol value="0x1300" name="CodeContextMenuGroup" />
+		  <IDSymbol value="0x1300" name="AnalysisCodeContextMenuGroup" />
 
-		  <IDSymbol value="0x2300" name="XamlContextMenuGroup" />
-		  <IDSymbol value="0x2400" name="XamlContextMenuSecondaryGroup" />
+		  <IDSymbol value="0x2300" name="AnalysisXamlContextMenuGroup" />
+		  <IDSymbol value="0x2400" name="AnalysisXamlContextMenuSecondaryGroup" />
 
 		  <IDSymbol name="MoveAllHardCodedStringsToResourceFileCommandId" value="4134" />
 		  <IDSymbol name="FeedbackCommandId" value="4135" />
 		  <IDSymbol name="AnalyzeCurrentDocCommandId" value="4136" />
-		  <IDSymbol name="OpenOptionsCommandId" value="4137" />
+		  <IDSymbol name="OpenAnalysisOptionsCommandId" value="4137" />
 	  </GuidSymbol>
 
-	  <GuidSymbol name="guidAnalysisImages" value="{65bebd64-018e-442f-937f-c435cf70f9b8}">
+	  <GuidSymbol name="guidToolbarImages" value="{65bebd64-018e-442f-937f-c435cf70f9b8}">
 		  <IDSymbol name="bmpCopyAsXaml" value="1" />
 		  <IDSymbol name="bmpToolbox" value="2" />
 		  <IDSymbol name="bmpCreateView" value="3" />
 		  <IDSymbol name="bmpOptions" value="4" />
 		  <IDSymbol name="bmpSetDc" value="5" />
 		  <IDSymbol name="bmpFeedback" value="6" />
+	  </GuidSymbol>
+
+
+
+	  <!-- This is the package guid. Matching definition in RapidXamlGenerationPackage.cs -->
+	  <GuidSymbol name="guidRapidXamlGenerationPackage" value="{ad4704fc-2e81-4406-9833-084d6642cf5b}" />
+
+	  <GuidSymbol name="guidRapidXamlGenerationPackageCmdSet" value="{8c20aab1-50b0-4523-8d9d-24d512fa8154}">
+		  <IDSymbol value="0x1300" name="GenCodeContextMenuGroup" />
+		  <IDSymbol value="0x1400" name="GenCodeContextMenuSecondaryGroup" />
+
+		  <IDSymbol value="0x2300" name="GenXamlContextMenuGroup" />
+
+		  <IDSymbol name="CopyToClipboardCommandId" value="4128" />
+		  <IDSymbol name="SendToToolboxCommandId" value="4129" />
+		  <IDSymbol name="OpenGenOptionsCommandId" value="4131" />
 	  </GuidSymbol>
 
 

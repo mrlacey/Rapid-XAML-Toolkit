@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -235,7 +235,7 @@
     <PackageReference Include="MSTest.TestFramework">
       <Version>2.2.8</Version>
     </PackageReference>
-        <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.0" />
+    <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.0" />
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -271,18 +271,6 @@
       <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
       <Name>RapidXaml.AnalysisCore</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RapidXaml.Analysis\RapidXaml.Analysis.csproj">
-      <Project>{fc81b148-4683-4557-bea1-69ad39241576}</Project>
-      <Name>RapidXaml.Analysis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RapidXaml.Generation\RapidXaml.Generation.csproj">
-      <Project>{f3e12d01-04d9-49d0-bb5b-f4fd62cff54a}</Project>
-      <Name>RapidXaml.Generation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RapidXaml.RoslynAnalyzers\RapidXaml.RoslynAnalyzers.csproj">
-      <Project>{333feec8-4973-4471-9f0c-a90072383fa8}</Project>
-      <Name>RapidXaml.RoslynAnalyzers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
       <Name>RapidXaml.Shared</Name>
@@ -290,6 +278,10 @@
     <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj">
       <Project>{2d65223e-f87c-4e5a-b643-ba3c4304e52d}</Project>
       <Name>RapidXaml.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXamlToolkit\RapidXamlToolkit.csproj">
+      <Project>{053a3048-276a-49ed-bd34-9c3ab1273a26}</Project>
+      <Name>RapidXamlToolkit</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

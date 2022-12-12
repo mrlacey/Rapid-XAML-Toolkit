@@ -30,8 +30,14 @@ namespace RapidXaml
         public const string guidRapidXamlAnalysisPackageCmdSetString = "f1a4455d-b523-4b08-8ff7-2a964177fcf6";
         public static Guid guidRapidXamlAnalysisPackageCmdSet = new Guid(guidRapidXamlAnalysisPackageCmdSetString);
 
-        public const string guidAnalysisImagesString = "65bebd64-018e-442f-937f-c435cf70f9b8";
-        public static Guid guidAnalysisImages = new Guid(guidAnalysisImagesString);
+        public const string guidToolbarImagesString = "65bebd64-018e-442f-937f-c435cf70f9b8";
+        public static Guid guidToolbarImages = new Guid(guidToolbarImagesString);
+
+        public const string guidRapidXamlGenerationPackageString = "ad4704fc-2e81-4406-9833-084d6642cf5b";
+        public static Guid guidRapidXamlGenerationPackage = new Guid(guidRapidXamlGenerationPackageString);
+
+        public const string guidRapidXamlGenerationPackageCmdSetString = "8c20aab1-50b0-4523-8d9d-24d512fa8154";
+        public static Guid guidRapidXamlGenerationPackageCmdSet = new Guid(guidRapidXamlGenerationPackageCmdSetString);
     }
     /// <summary>
     /// Helper class that encapsulates all CommandIDs uses across VS Package.
@@ -43,18 +49,24 @@ namespace RapidXaml
         public const int XamlContextGroup = 0x2100;
         public const int XamlContextMenu = 0x2200;
         public const int IDVisualStudioXAMLWindowContextMenu = 0x0103;
-        public const int CodeContextMenuGroup = 0x1300;
-        public const int XamlContextMenuGroup = 0x2300;
-        public const int XamlContextMenuSecondaryGroup = 0x2400;
+        public const int AnalysisCodeContextMenuGroup = 0x1300;
+        public const int AnalysisXamlContextMenuGroup = 0x2300;
+        public const int AnalysisXamlContextMenuSecondaryGroup = 0x2400;
         public const int MoveAllHardCodedStringsToResourceFileCommandId = 0x1026;
         public const int FeedbackCommandId = 0x1027;
         public const int AnalyzeCurrentDocCommandId = 0x1028;
-        public const int OpenOptionsCommandId = 0x1029;
+        public const int OpenAnalysisOptionsCommandId = 0x1029;
         public const int bmpCopyAsXaml = 0x0001;
         public const int bmpToolbox = 0x0002;
         public const int bmpCreateView = 0x0003;
         public const int bmpOptions = 0x0004;
         public const int bmpSetDc = 0x0005;
         public const int bmpFeedback = 0x0006;
+        public const int GenCodeContextMenuGroup = 0x1300;
+        public const int GenCodeContextMenuSecondaryGroup = 0x1400;
+        public const int GenXamlContextMenuGroup = 0x2300;
+        public const int CopyToClipboardCommandId = 0x1020;
+        public const int SendToToolboxCommandId = 0x1021;
+        public const int OpenGenOptionsCommandId = 0x1023;
     }
 }

@@ -12,7 +12,10 @@ using Microsoft.VisualStudio.Shell;
 using RapidXaml;
 using RapidXaml.EditorExtras;
 using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.DragDrop;
 using RapidXamlToolkit.ErrorList;
+using RapidXamlToolkit.Options;
+using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.Telemetry;
 using RapidXamlToolkit.XamlAnalysis;
@@ -20,6 +23,7 @@ using static Microsoft.VisualStudio.VSConstants;
 
 namespace RapidXamlToolkit
 {
+    // TODO: Change to initialize with projects containing XAML files
     [ProvideAutoLoad(UICONTEXT.CSharpProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideAutoLoad(UICONTEXT.VBProject_string, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
@@ -30,10 +34,13 @@ namespace RapidXamlToolkit
     [ProvideProfile(typeof(EditorExtrasOptionsGrid), "Rapid XAML", "Editor", 106, 107, true)]
     [ProvideOptionPage(typeof(AnalysisOptionsGrid), "Rapid XAML", "Analysis", 106, 104, true)]
     [ProvideProfile(typeof(AnalysisOptionsGrid), "Rapid XAML", "Analysis", 106, 104, true)]
+    [ProvideOptionPage(typeof(SettingsConfigPage), "Rapid XAML", "Generation Profiles", 106, 105, true)]
+    [ProvideProfile(typeof(SettingsConfigPage), "Rapid XAML", "Generation Profiles", 106, 105, true)]
     public sealed class RapidXamlPackage : AsyncPackage
     {
-        // TODO: can this be moved to vsct? if still needed at all
+        // TODO: can these be moved to vsct? if still needed at all
         public static readonly Guid AnalysisCommandSet = new Guid("f1a4455d-b523-4b08-8ff7-2a964177fcf6");
+        public static readonly Guid GenerationCommandSet = new Guid("8c20aab1-50b0-4523-8d9d-24d512fa8154");
 
         public static bool IsLoaded { get; private set; }
 
@@ -114,6 +121,19 @@ namespace RapidXamlToolkit
                 RapidXamlPackage.AnalysisOptions = (AnalysisOptionsGrid)this.GetDialogPage(typeof(AnalysisOptionsGrid));
 
                 RapidXamlPackage.EditorOptions = (EditorExtrasOptionsGrid)this.GetDialogPage(typeof(EditorExtrasOptionsGrid));
+
+                await CopyToClipboardCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+                await SendToToolboxCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+                await OpenOptionsCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+                await RapidXamlDropHandlerProvider.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+
+                // Set the ServiceProvider of CodeParserBase as it's needed to get settings
+                CodeParserBase.ServiceProvider = this;
+
+                if (SharedRapidXamlPackage.Logger != null)
+                {
+                    SharedRapidXamlPackage.Logger.UseExtendedLogging = CodeParserBase.GetSettings().ExtendedOutputEnabled;
+                }
             }
             catch (Exception exc)
             {
