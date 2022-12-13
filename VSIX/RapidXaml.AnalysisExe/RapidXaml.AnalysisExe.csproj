@@ -15,11 +15,11 @@
     <NoWarn>NU1608,SA1600</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\RapidXaml.Analysis\ErrorList\**" />
-    <Compile Include="..\RapidXaml.Analysis\XamlAnalysis\**" />
+    <Compile Include="..\RapidXamlToolkit\Analysis\ErrorList\**" />
+    <Compile Include="..\RapidXamlToolkit\Analysis\XamlAnalysis\**" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="..\RapidXaml.Analysis\XamlAnalysis\RapidXamlTagProvider.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\RapidXamlTagProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />

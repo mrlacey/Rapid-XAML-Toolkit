@@ -126,8 +126,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(processorEssentials)),
                         (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(processorEssentials)),
                         (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(processorEssentials)),
-                        (Elements.ComboBox, new ComboBoxProcessor(processorEssentials)),
-                        (Elements.DatePicker, new DatePickerProcessor(processorEssentials)),
                         (Elements.TimePicker, new TimePickerProcessor(processorEssentials)),
                         (Elements.Hub, new HubProcessor(processorEssentials)),
                         (Elements.HubSection, new HubSectionProcessor(processorEssentials)),
@@ -167,6 +165,12 @@ namespace RapidXamlToolkit.XamlAnalysis
                ////customProcessors.Add(new CustomAnalysis.AddXmlnsAnalyzer());
                 customProcessors.Add(new CustomAnalysis.WebViewToWebView2Converter());
 #endif
+
+                // These have been ported from the original Processor implementations
+                customProcessors.Add(new ComboBoxAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new DatePickerAnalyzer(vsAbstraction, logger));
+
+                // These were created to be built on top of custom analysis
                 customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new CustomAnalysis.ButtonAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer(vsAbstraction, logger));
@@ -234,9 +238,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 #if VSIXNOTEXE
                 // Only load custom analyzers when VS has finished starting up.
                 // We may get here before the package is loaded if a XAML doc is opened with the solution.
-                if (RapidXamlAnalysisPackage.IsLoaded)
+                if (RapidXamlPackage.IsLoaded)
                 {
-                    if (RapidXamlAnalysisPackage.Options.EnableCustomAnalysis)
+                    if (RapidXamlPackage.AnalysisOptions.EnableCustomAnalysis)
                     {
                         loadCustomAnalyzers = true;
                     }
@@ -284,10 +288,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 && !Path.GetFileName(fileName).Equals("WindowsBase.dll")
                                 && !Path.GetFileName(fileName).Equals("RapidXaml.CustomAnalysis.dll");
 
+                // TODO: understand why this is only excluded during debug
 #if DEBUG
                 // Avoid trying to load self while debugging
                 filterResult = filterResult
-                            && !Path.GetFileName(fileName).Equals("RapidXaml.Analysis.dll");
+                            && !Path.GetFileName(fileName).Equals("RapidXamlToolkitExt.dll");
 #endif
 
                 return filterResult;
