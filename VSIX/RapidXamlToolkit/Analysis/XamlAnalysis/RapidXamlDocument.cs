@@ -127,7 +127,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.TimePicker, new TimePickerProcessor(processorEssentials)),
                         (Elements.HyperlinkButton, new HyperlinkButtonProcessor(processorEssentials)),
                         (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(processorEssentials)),
-                        (Elements.RichEditBox, new RichEditBoxProcessor(processorEssentials)),
                         (Elements.ToggleSwitch, new ToggleSwitchProcessor(processorEssentials)),
                         (Elements.Slider, new SliderProcessor(processorEssentials)),
                         (Elements.PasswordBox, new PasswordBoxProcessor(processorEssentials)),
@@ -170,6 +169,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             customProcessors.Add(new PivotAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new PivotItemAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new RepeatButtonAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new RichEditBoxAnalyzer(vsAbstraction, logger));
 
             // These were created to be built on top of custom analysis
             customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction, logger));
