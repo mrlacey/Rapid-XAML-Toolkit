@@ -126,7 +126,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(processorEssentials)),
                         (Elements.TimePicker, new TimePickerProcessor(processorEssentials)),
                         (Elements.HyperlinkButton, new HyperlinkButtonProcessor(processorEssentials)),
-                        (Elements.RepeatButton, new RepeatButtonProcessor(processorEssentials)),
                         (Elements.PivotItem, new PivotItemProcessor(processorEssentials)),
                         (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(processorEssentials)),
                         (Elements.RichEditBox, new RichEditBoxProcessor(processorEssentials)),
@@ -167,6 +166,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new MenuFlyoutItemAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new MenuFlyoutSubItemAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new PivotAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new RepeatButtonAnalyzer(vsAbstraction, logger));
 
                 // These were created to be built on top of custom analysis
                 customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction, logger));

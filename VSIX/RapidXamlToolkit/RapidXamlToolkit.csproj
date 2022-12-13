@@ -161,7 +161,7 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\PasswordBoxProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\PivotItemProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\PivotAnalyzer.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\RepeatButtonProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\RepeatButtonAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\RichEditBoxProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\SelectedItemAttributeProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\SliderProcessor.cs" />
