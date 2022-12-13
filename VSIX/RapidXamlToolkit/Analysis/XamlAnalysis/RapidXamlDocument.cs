@@ -126,7 +126,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(processorEssentials)),
                         (Elements.TimePicker, new TimePickerProcessor(processorEssentials)),
                         (Elements.Hub, new HubProcessor(processorEssentials)),
-                        (Elements.HubSection, new HubSectionProcessor(processorEssentials)),
                         (Elements.HyperlinkButton, new HyperlinkButtonProcessor(processorEssentials)),
                         (Elements.RepeatButton, new RepeatButtonProcessor(processorEssentials)),
                         (Elements.PivotItem, new PivotItemProcessor(processorEssentials)),
@@ -165,6 +164,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 // These have been ported from the original Processor implementations
                 customProcessors.Add(new ComboBoxAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new DatePickerAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new HubSectionAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new MediaElementAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new PivotAnalyzer(vsAbstraction, logger));
 

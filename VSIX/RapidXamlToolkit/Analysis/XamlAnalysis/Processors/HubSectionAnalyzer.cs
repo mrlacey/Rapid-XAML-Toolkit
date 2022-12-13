@@ -11,14 +11,14 @@ using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
-    public class ComboBoxAnalyzer : BuiltInXamlAnalyzer
+    public class HubSectionAnalyzer : BuiltInXamlAnalyzer
     {
-        public ComboBoxAnalyzer(IVisualStudioAbstraction vsa, ILogger logger)
+        public HubSectionAnalyzer(IVisualStudioAbstraction vsa, ILogger logger)
             : base(vsa, logger)
         {
         }
 
-        public override string TargetType() => Elements.ComboBox;
+        public override string TargetType() => Elements.HubSection;
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
