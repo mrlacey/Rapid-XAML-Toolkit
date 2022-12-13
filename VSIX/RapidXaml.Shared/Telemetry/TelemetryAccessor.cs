@@ -38,7 +38,7 @@ namespace RapidXamlToolkit.Telemetry
             {
                 instance = new TelemetryAccessor(logger);
 
-                if (VsTelemetryIsOptedIn(logger) && !string.IsNullOrWhiteSpace(key))
+                if (VsTelemetryIsOptedIn(logger) && !string.IsNullOrWhiteSpace(connStr))
                 {
                     instance.Client = new TelemetryClient(new TelemetryConfiguration
                     {

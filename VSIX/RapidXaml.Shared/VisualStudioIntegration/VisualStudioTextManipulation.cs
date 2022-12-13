@@ -669,7 +669,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var startPosition = GetSnapshotPositionForTextPoint(textSnapshot, startPoint);
-            var endPosition = startPoint + length;
+            var endPosition = startPosition + length;
 
             if (startPosition <= endPosition)
             {
