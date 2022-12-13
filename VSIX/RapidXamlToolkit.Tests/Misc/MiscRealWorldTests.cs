@@ -302,7 +302,7 @@ namespace RapidXamlToolkit.Tests.Misc
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
-            XamlElementExtractor.Parse("Generic.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger), result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa), logger);
+            XamlElementExtractor.Parse("Generic.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger), result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa, logger), logger);
 
             Assert.AreEqual(0, result.Tags.OfType<MissingRowDefinitionTag>().Count());
             Assert.AreEqual(0, result.Tags.OfType<MissingColumnDefinitionTag>().Count());
@@ -319,7 +319,7 @@ namespace RapidXamlToolkit.Tests.Misc
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
-            XamlElementExtractor.Parse("AsyncRelayCommandPage.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger), result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa), logger);
+            XamlElementExtractor.Parse("AsyncRelayCommandPage.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger), result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa, logger), logger);
 
             Assert.IsTrue(true, "Got here without error.");
         }
@@ -359,7 +359,7 @@ namespace RapidXamlToolkit.Tests.Misc
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
-            XamlElementExtractor.Parse("ProfileSearchPage.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.XamarinForms, string.Empty, vsa, logger), result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.XamarinForms, null, vsa), logger);
+            XamlElementExtractor.Parse("ProfileSearchPage.xaml", snapshot, text, RapidXamlDocument.GetAllProcessors(ProjectType.XamarinForms, string.Empty, vsa, logger), result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.XamarinForms, null, vsa, logger), logger);
 
             Assert.AreEqual(0, result.Tags.OfType<MissingRowDefinitionTag>().Count());
             Assert.AreEqual(0, result.Tags.OfType<MissingColumnDefinitionTag>().Count());
@@ -384,7 +384,7 @@ namespace RapidXamlToolkit.Tests.Misc
                     RapidXamlDocument.GetAllProcessors(projType, string.Empty, vsa, logger),
                     result.Tags,
                     null,
-                    RapidXamlDocument.GetEveryElementProcessor(projType, null, vsa),
+                    RapidXamlDocument.GetEveryElementProcessor(projType, null, vsa, logger),
                     logger);
             }
             catch (Exception exc)

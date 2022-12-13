@@ -979,9 +979,7 @@ namespace tests
 
             try
             {
-
-
-            await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, orderProfile, code2);
+                await this.PositionAtStarShouldProduceExpectedUsingAdditionalFiles(code, expected, orderProfile, code2);
             }
             catch (System.Reflection.ReflectionTypeLoadException exc)
             {

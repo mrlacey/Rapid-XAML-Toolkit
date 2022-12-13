@@ -127,7 +127,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
             var vsa = new TestVisualStudioAbstraction();
 
             var procesors = RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger);
-            XamlElementExtractor.Parse("Generic.xaml", snapshot, xaml, procesors, result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa), logger);
+            XamlElementExtractor.Parse("Generic.xaml", snapshot, xaml, procesors, result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa, logger), logger);
 
             Assert.AreEqual(5, result.Tags.OfType<NameTitleCaseTag>().Count());
         }

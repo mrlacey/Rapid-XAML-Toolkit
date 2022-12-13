@@ -37,7 +37,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         private static Dictionary<string, (DateTime timeStamp, List<TagSuppression> suppressions)> SuppressionsCache { get; }
             = new Dictionary<string, (DateTime, List<TagSuppression>)>();
 
-        public static RapidXamlDocument Create(ITextSnapshotAbstraction snapshot, string fileName, IVisualStudioAbstraction vsa, string projectFile)
+        public static RapidXamlDocument Create(ITextSnapshotAbstraction snapshot, string fileName, IVisualStudioAbstraction vsa, string projectFile, ILogger logger)
         {
             var result = new RapidXamlDocument();
 
@@ -66,14 +66,14 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         var (projFileName, projType) = vsAbstraction.GetNameAndTypeOfProjectContainingFile(fileName);
 
-                        processors = GetAllProcessors(projType, projFileName, vsAbstraction);
+                        processors = GetAllProcessors(projType, projFileName, vsAbstraction, logger);
 
                         // May need to tidy-up-release processors after this - depending on caching. X-Ref http://www.visualstudioextensibility.com/2013/03/17/the-strange-case-of-quot-loaderlock-was-detected-quot-with-a-com-add-in-written-in-net/
-                        XamlElementExtractor.Parse(fileName, snapshot, text, processors, result.Tags, suppressions, GetEveryElementProcessor(projType, projFileName, vsAbstraction), SharedRapidXamlPackage.Logger);
+                        XamlElementExtractor.Parse(fileName, snapshot, text, processors, result.Tags, suppressions, GetEveryElementProcessor(projType, projFileName, vsAbstraction, logger), logger);
 
                         var tagsFound = result.Tags.OfType<RapidXamlDisplayedTag>().Count();
 
-                        SharedRapidXamlPackage.Logger?.RecordFeatureUsage(StringRes.Info_UsedFeatureParseDocument.WithParams(tagsFound), quiet: true);
+                        logger?.RecordFeatureUsage(StringRes.Info_UsedFeatureParseDocument.WithParams(tagsFound), quiet: true);
                     }
                 }
             }
@@ -84,7 +84,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                     Span = (0, 0),
                     Snapshot = snapshot,
                     FileName = fileName,
-                    Logger = SharedRapidXamlPackage.Logger,
+                    Logger = logger,
                     VsPfp = vsAbstraction,
                     ProjectFilePath = string.Empty,
                 };
@@ -95,21 +95,19 @@ namespace RapidXamlToolkit.XamlAnalysis
                     ExtendedMessage = StringRes.Error_XamlAnalysisExtendedMessage.WithParams(e),
                 });
 
-                SharedRapidXamlPackage.Logger?.RecordException(e);
+                logger?.RecordException(e);
             }
 
             return result;
         }
 
-        public static XamlElementProcessor GetEveryElementProcessor(ProjectType projectType, string projectFilePath, IVisualStudioAbstraction vsAbstraction)
+        public static XamlElementProcessor GetEveryElementProcessor(ProjectType projectType, string projectFilePath, IVisualStudioAbstraction vsAbstraction, ILogger logger)
         {
-            return new EveryElementProcessor(new ProcessorEssentials(projectType, SharedRapidXamlPackage.Logger, projectFilePath, vsAbstraction));
+            return new EveryElementProcessor(new ProcessorEssentials(projectType, logger, projectFilePath, vsAbstraction));
         }
 
-        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectFilePath, IVisualStudioAbstraction vsAbstraction, ILogger logger = null)
+        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectFilePath, IVisualStudioAbstraction vsAbstraction, ILogger logger)
         {
-            logger = logger ?? SharedRapidXamlPackage.Logger;
-
             var processorEssentials = new ProcessorEssentials
             {
                 ProjectType = projType,
@@ -148,7 +146,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             if (!string.IsNullOrWhiteSpace(projectFilePath))
             {
-                var customProcessors = GetCustomProcessors(Path.GetDirectoryName(projectFilePath));
+                var customProcessors = GetCustomProcessors(Path.GetDirectoryName(projectFilePath), logger);
 
 #if DEBUG
                 // These types exists for testing only and so are only referenced during Debug
@@ -226,7 +224,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             yield break;
         }
 
-        public static List<ICustomAnalyzer> GetCustomProcessors(string projectFileDirectory)
+        public static List<ICustomAnalyzer> GetCustomProcessors(string projectFileDirectory, ILogger logger)
         {
             try
             {
@@ -253,20 +251,20 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                 if (loadCustomAnalyzers)
                 {
-                    return GetCustomAnalyzers(dirToSearch);
+                    return GetCustomAnalyzers(dirToSearch, logger);
                 }
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToImportCustomAnalyzers);
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                logger?.RecordError(StringRes.Error_FailedToImportCustomAnalyzers);
+                logger?.RecordException(exc);
             }
 
             // If package not loaded, setting not enabled, or error.
             return new List<ICustomAnalyzer>();
         }
 
-        public static List<ICustomAnalyzer> GetCustomAnalyzers(string folderToSearch)
+        public static List<ICustomAnalyzer> GetCustomAnalyzers(string folderToSearch, ILogger logger)
         {
             var result = new List<ICustomAnalyzer>();
 
@@ -397,21 +395,21 @@ namespace RapidXamlToolkit.XamlAnalysis
                         sb.AppendLine();
                     }
 
-                    SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Error_FailedToLoadAssemblyMEF.WithParams(file));
-                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.ToString());
-                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.Source);
-                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.Message);
-                    SharedRapidXamlPackage.Logger?.RecordInfo(ex.StackTrace);
-                    SharedRapidXamlPackage.Logger?.RecordInfo(sb.ToString());
+                    logger?.RecordInfo(StringRes.Error_FailedToLoadAssemblyMEF.WithParams(file));
+                    logger?.RecordInfo(ex.ToString());
+                    logger?.RecordInfo(ex.Source);
+                    logger?.RecordInfo(ex.Message);
+                    logger?.RecordInfo(ex.StackTrace);
+                    logger?.RecordInfo(sb.ToString());
                 }
                 catch (Exception exc)
                 {
                     // As these may happen a lot (i.e. if trying to load a file but can't) treat as info only.
-                    SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Error_FailedToLoadAssemblyMEF.WithParams(file));
-                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.ToString());
-                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.Source);
-                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.Message);
-                    SharedRapidXamlPackage.Logger?.RecordInfo(exc.StackTrace);
+                    logger?.RecordInfo(StringRes.Error_FailedToLoadAssemblyMEF.WithParams(file));
+                    logger?.RecordInfo(exc.ToString());
+                    logger?.RecordInfo(exc.Source);
+                    logger?.RecordInfo(exc.Message);
+                    logger?.RecordInfo(exc.StackTrace);
                 }
             }
 

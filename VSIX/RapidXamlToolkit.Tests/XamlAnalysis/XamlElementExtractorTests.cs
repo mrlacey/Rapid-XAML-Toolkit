@@ -813,7 +813,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsa)),
             };
 
-            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa, logger), logger);
 
             Assert.AreEqual(1, analyzer.Count);
         }
@@ -839,7 +839,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsa)),
             };
 
-            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa, logger), logger);
 
             Assert.AreEqual(1, analyzer.Count);
         }
@@ -869,7 +869,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsa)),
             };
 
-            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa, logger), logger);
 
             Assert.AreEqual(5, analyzer.Count);
             Assert.AreEqual("http://schemas.microsoft.com/winfx/2006/xaml/presentation", analyzer.Xmlns[string.Empty]);
@@ -900,7 +900,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsa)),
             };
 
-            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa, logger), logger);
 
             Assert.AreEqual(5, analyzer.Count);
             Assert.AreEqual("http://schemas.microsoft.com/winfx/2006/xaml/presentation", analyzer.Xmlns[string.Empty]);
@@ -933,7 +933,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsa)),
             };
 
-            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa, logger), logger);
 
             Assert.AreEqual(5, analyzer.Count);
 
@@ -963,7 +963,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Any, string.Empty, logger, vsa)),
             };
 
-            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa, logger), logger);
 
             Assert.AreEqual(0, analyzer.Count);
         }
@@ -978,7 +978,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
-            XamlElementExtractor.Parse("testfile.xaml", null, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+            XamlElementExtractor.Parse("testfile.xaml", null, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa, logger), logger);
         }
 
         private void TestParsingWithFakeSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags = null)
@@ -992,7 +992,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             var vsa = new TestVisualStudioAbstraction();
             var logger = DefaultTestLogger.Create();
 
-            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa), logger);
+            XamlElementExtractor.Parse("testfile.xaml", snapshot, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa, logger), logger);
         }
 
         public class XmnlsCounterAnalyzer : ICustomAnalyzer
