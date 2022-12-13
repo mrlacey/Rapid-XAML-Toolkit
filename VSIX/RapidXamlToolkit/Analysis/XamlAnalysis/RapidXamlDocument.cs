@@ -126,7 +126,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(processorEssentials)),
                         (Elements.TimePicker, new TimePickerProcessor(processorEssentials)),
                         (Elements.HyperlinkButton, new HyperlinkButtonProcessor(processorEssentials)),
-                        (Elements.PivotItem, new PivotItemProcessor(processorEssentials)),
                         (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(processorEssentials)),
                         (Elements.RichEditBox, new RichEditBoxProcessor(processorEssentials)),
                         (Elements.ToggleSwitch, new ToggleSwitchProcessor(processorEssentials)),
@@ -137,63 +136,66 @@ namespace RapidXamlToolkit.XamlAnalysis
                         ////(Elements.Label, new LabelProcessor(processorEssentials)),
                     };
 
+            var customProcessors = new List<ICustomAnalyzer>();
+
             if (!string.IsNullOrWhiteSpace(projectFilePath))
             {
-                var customProcessors = GetCustomProcessors(Path.GetDirectoryName(projectFilePath), logger);
+                customProcessors = GetCustomProcessors(Path.GetDirectoryName(projectFilePath), logger);
+            }
 
 #if DEBUG
-                // These types exists for testing only and so are only referenced during Debug
-                ////customProcessors.Add(new CustomAnalysis.FooAnalysis());
-                ////customProcessors.Add(new CustomAnalysis.BadCustomAnalyzer());
-                ////customProcessors.Add(new CustomAnalysis.InternalBadCustomAnalyzer(vsAbstraction));
-                ////customProcessors.Add(new CustomAnalysis.CustomGridDefinitionAnalyzer());
-                ////customProcessors.Add(new CustomAnalysis.RenameElementTestAnalyzer());
-                ////customProcessors.Add(new CustomAnalysis.ReplaceElementTestAnalyzer());
-                ////customProcessors.Add(new CustomAnalysis.AddChildTestAnalyzer());
-                ////customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
-                ////customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer(vsAbstraction));
-                ////customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer2(vsAbstraction));
-               ////customProcessors.Add(new CustomAnalysis.AddXmlnsAnalyzer());
-                customProcessors.Add(new CustomAnalysis.WebViewToWebView2Converter());
+            // These types exists for testing only and so are only referenced during Debug
+            ////customProcessors.Add(new CustomAnalysis.FooAnalysis());
+            ////customProcessors.Add(new CustomAnalysis.BadCustomAnalyzer());
+            ////customProcessors.Add(new CustomAnalysis.InternalBadCustomAnalyzer(vsAbstraction));
+            ////customProcessors.Add(new CustomAnalysis.CustomGridDefinitionAnalyzer());
+            ////customProcessors.Add(new CustomAnalysis.RenameElementTestAnalyzer());
+            ////customProcessors.Add(new CustomAnalysis.ReplaceElementTestAnalyzer());
+            ////customProcessors.Add(new CustomAnalysis.AddChildTestAnalyzer());
+            ////customProcessors.Add(new CustomAnalysis.RemoveFirstChildAnalyzer());
+            ////customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer(vsAbstraction));
+            ////customProcessors.Add(new CustomAnalysis.Issue364ExampleAnalyzer2(vsAbstraction));
+            ////customProcessors.Add(new CustomAnalysis.AddXmlnsAnalyzer());
+            customProcessors.Add(new CustomAnalysis.WebViewToWebView2Converter());
 #endif
 
-                // These have been ported from the original Processor implementations
-                customProcessors.Add(new ComboBoxAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new DatePickerAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new HubAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new HubSectionAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new MediaElementAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new MenuFlyoutItemAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new MenuFlyoutSubItemAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new PivotAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new RepeatButtonAnalyzer(vsAbstraction, logger));
+            // These have been ported from the original Processor implementations
+            customProcessors.Add(new ComboBoxAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new DatePickerAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new HubAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new HubSectionAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new MediaElementAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new MenuFlyoutItemAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new MenuFlyoutSubItemAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new PivotAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new PivotItemAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new RepeatButtonAnalyzer(vsAbstraction, logger));
 
-                // These were created to be built on top of custom analysis
-                customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.ButtonAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.LabelAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.XfImageAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.XfLineAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.XfMapPinAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.EntryAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.PickerAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.BindingToXBindAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.CheckBoxAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.TableSectionAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.EntryCellAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.SwitchCellAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.SwipeItemAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.SliderAnalyzer(vsAbstraction, logger));
-                customProcessors.Add(new CustomAnalysis.StepperAnalyzer(vsAbstraction, logger));
+            // These were created to be built on top of custom analysis
+            customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.ButtonAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.TwoPaneViewAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.UnoIgnorablesAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.LabelAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.XfImageAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.XfLineAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.XfMapPinAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.ImageButtonAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.RadioButtonAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.SearchBarAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.EntryAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.PickerAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.BindingToXBindAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.CheckBoxAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.TableSectionAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.EntryCellAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.SwitchCellAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.SwipeItemAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.SliderAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.StepperAnalyzer(vsAbstraction, logger));
 
-                // Make sure that all custom analyzers are correctly used as processors
-                processors.AddRange(WrapCustomProcessors(customProcessors, projType, projectFilePath, logger, vsAbstraction));
-            }
+            // Make sure that all custom analyzers are correctly used as processors
+            processors.AddRange(WrapCustomProcessors(customProcessors, projType, projectFilePath, logger, vsAbstraction));
 
             return processors;
         }
