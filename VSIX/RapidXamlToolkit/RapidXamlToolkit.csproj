@@ -152,7 +152,7 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\DatePickerAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\EveryElementProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\GridProcessor.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\HubProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\HubAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\HubSectionAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\MediaElementAnalyzer.cs" />
