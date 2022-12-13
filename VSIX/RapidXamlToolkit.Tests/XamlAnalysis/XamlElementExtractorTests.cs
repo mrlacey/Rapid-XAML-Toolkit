@@ -780,10 +780,15 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = @"<Window><TextBox x:Name=""myTextBox"" /><Border x:Name=""myBorder"" /></Window>";
 
-            var processors = new List<(string, XamlElementProcessor)>
-            {
-                ("TextBox", new TextBoxProcessor(new ProcessorEssentialsForSimpleTests())),
-            };
+            var processors = new List<(string, XamlElementProcessor)>();
+
+            var vsAbstraction = new TestVisualStudioAbstraction();
+
+            var logger = DefaultTestLogger.Create();
+
+            var wrapper = new CustomProcessorWrapper(new TextBoxAnalyzer(vsAbstraction, logger), ProjectType.Uwp, "", logger, vsAbstraction);
+
+            processors.Add((Elements.TextBox, wrapper));
 
             var tags = new TagList();
 

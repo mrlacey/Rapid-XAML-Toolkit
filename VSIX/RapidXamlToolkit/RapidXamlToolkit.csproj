@@ -94,7 +94,6 @@
     <Compile Include="Analysis\XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\AddRowAndColumnDefinitionsAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\AddRowDefinitionsAction.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Actions\AddTextBoxInputScopeAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\BaseSuggestedAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\ColumnSpanOverflowAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\CustomAnalysisAction.cs" />
@@ -166,7 +165,7 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\SelectedItemAttributeProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\SliderAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\TextBlockAnalyzer.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\TextBoxProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\TextBoxAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\TimePickerAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\ToggleMenuFlyoutItemAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\ToggleSwitchAnalyzer.cs" />
@@ -183,7 +182,6 @@
     <Compile Include="Analysis\XamlAnalysis\Tags\AddColumnDefinitionsTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\AddRowDefinitionsTag.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Tags\AddTextBoxInputScopeTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\InsertionTag.cs" />

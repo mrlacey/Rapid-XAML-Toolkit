@@ -118,10 +118,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             var processors = new List<(string, XamlElementProcessor)>
                     {
                         (Elements.Grid, new GridProcessor(processorEssentials)),
-                        (Elements.TextBox, new TextBoxProcessor(processorEssentials)),
                         (Elements.ListView, new SelectedItemAttributeProcessor(processorEssentials)),
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(processorEssentials)),
-                        ////(Elements.Label, new LabelProcessor(processorEssentials)),
                     };
 
             var customProcessors = new List<ICustomAnalyzer>();
@@ -167,6 +165,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             customProcessors.Add(new RichEditBoxAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new SliderAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new TextBlockAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new TextBoxAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new TimePickerAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new ToggleMenuFlyoutItemAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new ToggleSwitchAnalyzer(vsAbstraction, logger));
