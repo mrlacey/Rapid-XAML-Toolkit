@@ -181,7 +181,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                             var analyzeOnSave = true;
 #if VSIXNOTEXE
-                            analyzeOnSave = RapidXamlAnalysisPackage.Options?.AnalyzeWhenDocumentSaved ?? false;
+                            analyzeOnSave = RapidXamlPackage.AnalysisOptions?.AnalyzeWhenDocumentSaved ?? false;
 #endif
 
                             // Don't prompt about a single execution time greater than the threshold

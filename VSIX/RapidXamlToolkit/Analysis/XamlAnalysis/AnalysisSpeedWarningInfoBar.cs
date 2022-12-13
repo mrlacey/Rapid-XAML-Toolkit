@@ -62,7 +62,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 #if VSIXNOTEXE
-            RapidXamlAnalysisPackage.Options.AnalyzeWhenDocumentSaved = false;
+            RapidXamlPackage.AnalysisOptions.AnalyzeWhenDocumentSaved = false;
 #endif
             infoBarUIElement.Close();
         }

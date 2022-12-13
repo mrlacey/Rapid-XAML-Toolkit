@@ -3,23 +3,24 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
+using RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers;
 using RapidXamlToolkit.XamlAnalysis.Processors;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
     [TestClass]
-    public class ComboBoxProcessorTests : ProcessorTestsBase
+    public class ComboBoxProcessorTests : AnalyzerTestsBase
     {
         [TestMethod]
         public void HardCoded_Header_Detected()
         {
             var xaml = @"<ComboBox Header=""HCValue"" />";
 
-            var outputTags = this.GetTags<ComboBoxProcessor>(xaml);
+            var actual = this.Act<ComboBoxAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.CreateResource));
         }
     }
 }
