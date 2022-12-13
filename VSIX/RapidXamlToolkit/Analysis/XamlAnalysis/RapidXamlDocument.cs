@@ -123,7 +123,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.TimePicker, new TimePickerProcessor(processorEssentials)),
                         (Elements.HyperlinkButton, new HyperlinkButtonProcessor(processorEssentials)),
                         (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(processorEssentials)),
-                        (Elements.ToggleSwitch, new ToggleSwitchProcessor(processorEssentials)),
                         (Elements.ListView, new SelectedItemAttributeProcessor(processorEssentials)),
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(processorEssentials)),
                         ////(Elements.Label, new LabelProcessor(processorEssentials)),
@@ -170,6 +169,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             customProcessors.Add(new RepeatButtonAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new RichEditBoxAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new SliderAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new ToggleSwitchAnalyzer(vsAbstraction, logger));
 
             // These were created to be built on top of custom analysis
             customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction, logger));

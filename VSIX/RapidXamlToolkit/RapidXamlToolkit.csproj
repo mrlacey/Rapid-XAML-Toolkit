@@ -169,7 +169,7 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\TextBoxProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\TimePickerProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\ToggleSwitchProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\ToggleSwitchAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\XamlElementProcessorExtensions.cs" />
     <Compile Include="Analysis\XamlAnalysis\RapidXamlDisplayedTagExtensions.cs" />
     <Compile Include="Analysis\XamlAnalysis\RapidXamlDocument.cs" />
