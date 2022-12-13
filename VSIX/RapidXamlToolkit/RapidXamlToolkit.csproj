@@ -154,7 +154,7 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\GridProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\HubAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\HubSectionAnalyzer.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\HyperlinkButtonAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\MediaElementAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\MenuFlyoutItemAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\MenuFlyoutSubItemAnalyzer.cs" />
@@ -167,7 +167,7 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\SliderAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\TextBlockProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\TextBoxProcessor.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\TimePickerProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\TimePickerAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\ToggleMenuFlyoutItemProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\ToggleSwitchAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\XamlElementProcessorExtensions.cs" />
