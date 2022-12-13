@@ -146,7 +146,7 @@
     <Compile Include="Analysis\XamlAnalysis\IRapidXamlAdornmentTagExtensions.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\AppBarButtonProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\AppBarToggleButtonProcessor.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\AutoSuggestBoxProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\AutoSuggestBoxAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\CalendarDatePickerProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\ComboBoxAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\DatePickerAnalyzer.cs" />
@@ -164,7 +164,7 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\RepeatButtonAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\RichEditBoxAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\SelectedItemAttributeProcessor.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\SliderProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\SliderAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\TextBlockProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\TextBoxProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\TimePickerProcessor.cs" />

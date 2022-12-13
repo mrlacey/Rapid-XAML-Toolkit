@@ -122,13 +122,11 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.TextBox, new TextBoxProcessor(processorEssentials)),
                         (Elements.AppBarButton, new AppBarButtonProcessor(processorEssentials)),
                         (Elements.AppBarToggleButton, new AppBarToggleButtonProcessor(processorEssentials)),
-                        (Elements.AutoSuggestBox, new AutoSuggestBoxProcessor(processorEssentials)),
                         (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(processorEssentials)),
                         (Elements.TimePicker, new TimePickerProcessor(processorEssentials)),
                         (Elements.HyperlinkButton, new HyperlinkButtonProcessor(processorEssentials)),
                         (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(processorEssentials)),
                         (Elements.ToggleSwitch, new ToggleSwitchProcessor(processorEssentials)),
-                        (Elements.Slider, new SliderProcessor(processorEssentials)),
                         (Elements.ListView, new SelectedItemAttributeProcessor(processorEssentials)),
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(processorEssentials)),
                         ////(Elements.Label, new LabelProcessor(processorEssentials)),
@@ -158,6 +156,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 #endif
 
             // These have been ported from the original Processor implementations
+            customProcessors.Add(new AutoSuggestBoxAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new ComboBoxAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new DatePickerAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new HubAnalyzer(vsAbstraction, logger));
@@ -170,6 +169,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             customProcessors.Add(new PivotItemAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new RepeatButtonAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new RichEditBoxAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new SliderAnalyzer(vsAbstraction, logger));
 
             // These were created to be built on top of custom analysis
             customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction, logger));
