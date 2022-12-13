@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:RapidXamlToolkit"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:options="clr-namespace:RapidXamlToolkit.Options"
-    xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
+    xmlns:strings="clr-namespace:RapidXaml.Resources"
     d:DesignHeight="350"
     d:DesignWidth="400"
     mc:Ignorable="d">

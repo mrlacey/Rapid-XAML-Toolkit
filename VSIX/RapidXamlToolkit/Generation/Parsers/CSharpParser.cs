@@ -272,6 +272,8 @@ namespace RapidXamlToolkit.Parsers
 
             var subProperties = this.GetAllPublicProperties(symbol, semModel);
 
+            Console.WriteLine($"subprops = {subProperties.Count}");
+
             var numericSubstitute = 0;
 
             if (subProperties.Any())

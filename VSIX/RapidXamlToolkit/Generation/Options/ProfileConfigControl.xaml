@@ -7,7 +7,7 @@
     xmlns:local="clr-namespace:RapidXamlToolkit.Options"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:rxt="clr-namespace:RapidXamlToolkit"
-    xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
+    xmlns:strings="clr-namespace:RapidXaml.Resources"
     xmlns:themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
     xmlns:vs_shell="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
     d:DesignHeight="550"

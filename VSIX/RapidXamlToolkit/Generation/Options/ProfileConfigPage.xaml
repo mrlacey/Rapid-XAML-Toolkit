@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:options="clr-namespace:RapidXamlToolkit.Options"
     xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
-    xmlns:strings="clr-namespace:RapidXamlToolkit.Resources"
+    xmlns:strings="clr-namespace:RapidXaml.Resources"
     Title="{x:Static strings:OptionsStringRes.Options_ProfilePageTitle}"
     MinWidth="300"
     MinHeight="350"

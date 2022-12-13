@@ -141,6 +141,12 @@ namespace RapidXamlToolkit.Parsers
                 var classTypeSymbol = (ITypeSymbol)semModel.GetDeclaredSymbol(classNode);
                 var properties = this.GetAllPublicProperties(classTypeSymbol, semModel);
 
+                Console.WriteLine($"properties: {properties.Count}");
+                if (properties.Count > 0)
+                {
+                    Console.WriteLine($"property 1: {properties[0].Name}");
+                }
+
                 var methods = this.GetAllPublicVoidMethods(classTypeSymbol, semModel);
 
                 var output = new StringBuilder();

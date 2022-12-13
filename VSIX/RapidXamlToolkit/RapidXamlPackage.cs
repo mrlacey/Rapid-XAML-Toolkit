@@ -43,7 +43,6 @@ namespace RapidXamlToolkit
     [ProvideProfile(typeof(SettingsConfigPage), "Rapid XAML", "Generation Profiles", 106, 105, true)]
     public sealed class RapidXamlPackage : AsyncPackage
     {
-
         public const string ActivationContextGuid = "47A8ECBA-E247-4FE7-80EE-CDE6CEAC03A5";
 
         public static bool IsLoaded { get; private set; }

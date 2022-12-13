@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="RapidXamlToolkit.0dc8e86a-836b-47e5-aa3f-f5e71c15e37a" Version="0.9.0.0" Language="en-US" Publisher="Matt Lacey" />
+        <Identity Id="RapidXamlToolkit.0dc8e86a-836b-47e5-aa3f-f5e71c15e37a" Version="0.9.0.3" Language="en-US" Publisher="Matt Lacey" />
         <DisplayName>Rapid XAML Toolkit</DisplayName>
         <Description xml:space="preserve">Tools to accelerate XAML app development.</Description>
         <MoreInfo>https://github.com/mrlacey/Rapid-XAML-Toolkit</MoreInfo>
@@ -12,10 +12,10 @@
         <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;MVVM;MAUI;WinUI;DotNetMaui</Tags>
     </Metadata>
     <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.4, 18.0)">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
-        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Community">
+        <InstallationTarget Version="[17.4, 18.0)" Id="Microsoft.VisualStudio.Community">
             <ProductArchitecture>arm64</ProductArchitecture>
         </InstallationTarget>
     </Installation>
@@ -24,5 +24,7 @@
     </Prerequisites>
     <Assets>
         <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+        <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
     </Assets>
 </PackageManifest>

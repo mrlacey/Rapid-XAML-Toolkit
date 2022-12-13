@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
-using RapidXamlToolkit.Resources;
+using RapidXaml.Resources;
 
 namespace RapidXamlToolkit.Options
 {

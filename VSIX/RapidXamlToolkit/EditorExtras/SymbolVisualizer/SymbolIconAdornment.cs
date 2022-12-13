@@ -7,21 +7,27 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Media;
-using EnvDTE;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using RapidXamlToolkit;
 
 namespace RapidXaml.EditorExtras.SymbolVisualizer
 {
     internal sealed class SymbolIconAdornment : TextBlock
     {
-        private double? vsFontSize = null;
-        private uint? vsPlainTextForeground = null;
+        private static readonly SolidColorBrush _textColor = (SolidColorBrush)System.Windows.Application.Current.Resources[VsBrushes.CaptionTextKey];
+
+        private int? fontSize = null;
 
         public SymbolIconAdornment(SymbolIconTag tag)
         {
+            this.Foreground = _textColor;
             this.SymbolTag = tag;
-            this.Margin = new System.Windows.Thickness(4, 0, 4, 0);
+            this.Height = this.GetFontSize() + 2;
+            this.Width = this.Height;
+            this.VerticalAlignment = System.Windows.VerticalAlignment.Center;
+            this.Margin = new System.Windows.Thickness(2, 0, 1, 3);
             this.SetTextAndFontFamily(tag);
         }
 
@@ -1023,6 +1029,7 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
             this.SymbolTag = dataTag;
             this.SetTextAndFontFamily(dataTag);
             this.SetFontSize();
+            this.Foreground = _textColor;
         }
 
         private void SetTextAndFontFamily(SymbolIconTag tag)
@@ -1049,7 +1056,7 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
                     break;
 
                 case SymbolType.FontAwesome:
-                    this.FontFamily = new System.Windows.Media.FontFamily($"file:///{System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/SymbolVisualizer/FontAwesome.otf#FontAwesome");
+                    this.FontFamily = new System.Windows.Media.FontFamily($"file:///{System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}/EditorExtras/SymbolVisualizer/FontAwesome.otf#FontAwesome");
 
                     this.Text = KnownFontAwesomeIcons.ContainsKey(tag.SymbolName) ? KnownFontAwesomeIcons[tag.SymbolName] : string.Empty;
                     break;
@@ -1073,56 +1080,39 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
 
         private void SetFontSize()
         {
-            if (this.vsFontSize is null)
+            this.FontSize = this.GetFontSize();
+        }
+
+        private int GetFontSize()
+        {
+            if (this.fontSize.HasValue)
             {
-                DTE vsEnvironment = (DTE)ServiceProvider.GlobalProvider.GetService(typeof(SDTE));
+                return this.fontSize.Value;
+            }
 
-                if (vsEnvironment != null)
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            try
+            {
+                IVsFontAndColorStorage storage = (IVsFontAndColorStorage)Package.GetGlobalService(typeof(IVsFontAndColorStorage));
+                Guid guid = new("A27B4E24-A735-4d1d-B8E7-9716E1E3D8E0");
+                if (storage != null && storage.OpenCategory(ref guid, (uint)(__FCSTORAGEFLAGS.FCSF_READONLY | __FCSTORAGEFLAGS.FCSF_LOADDEFAULTS)) == VSConstants.S_OK)
                 {
-                    Properties propertiesList = vsEnvironment.get_Properties("FontsAndColors", "TextEditor");
-                    Property pFontSize = null;
-                    ColorableItems pPlainText = null;
+                    LOGFONTW[] Fnt = new LOGFONTW[] { new LOGFONTW() };
+                    FontInfo[] Info = new FontInfo[] { new FontInfo() };
+                    storage.GetFont(Fnt, Info);
 
-                    if (propertiesList != null)
-                    {
-                        pFontSize = propertiesList.Item("FontSize");
+                    this.fontSize = Info[0].wPointSize;
 
-                        var fandcItems = propertiesList.Item("FontsAndColorsItems") as EnvDTE.Property;
-                        var fcList = fandcItems.Object as EnvDTE.FontsAndColorsItems;
-
-                        pPlainText = fcList.Item("Plain Text");
-                    }
-
-                    if (pFontSize != null)
-                    {
-                        this.vsFontSize = Convert.ToDouble(pFontSize.Value.ToString());
-                    }
-
-                    if (pPlainText != null)
-                    {
-                        this.vsPlainTextForeground = pPlainText.Foreground;
-                    }
+                    return this.fontSize.Value;
                 }
             }
-
-            if (this.vsFontSize.HasValue)
+            catch (Exception exc)
             {
-                this.FontSize = this.vsFontSize.Value;
+                SharedRapidXamlPackage.Logger?.RecordException(exc);
             }
 
-            if (this.vsPlainTextForeground.HasValue)
-            {
-                Color UIntToColor(uint color)
-                {
-                    ////var a = (byte)(color >> 24);
-                    var r = (byte)(color >> 16);
-                    var g = (byte)(color >> 8);
-                    var b = (byte)(color >> 0);
-                    return Color.FromArgb(255, r, g, b);
-                }
-
-                this.Foreground = new SolidColorBrush(UIntToColor(this.vsPlainTextForeground.Value));
-            }
+            return 12;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.Options
             this.InitializeComponent();
 
             // Loading embedded image resource in this way as the simplest way of doing this I could find.
-            var bmp = RapidXamlToolkit.Resources.ImageResources.WarningIcon;
+            var bmp = RapidXaml.Resources.ImageResources.WarningIcon;
 
             using (var memory = new System.IO.MemoryStream())
             {

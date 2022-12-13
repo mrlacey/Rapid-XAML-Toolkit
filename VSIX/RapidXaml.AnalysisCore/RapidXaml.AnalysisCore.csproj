@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RapidXaml.AnalysisCore</RootNamespace>
     <AssemblyName>RapidXaml.AnalysisCore</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,9 +82,6 @@
       <Version>13.0.2</Version>
     </PackageReference>
     <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.0" />
-    <PackageReference Include="System.Memory">
-      <Version>4.5.4</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

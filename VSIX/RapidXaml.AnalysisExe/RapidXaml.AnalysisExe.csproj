@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <Version>0.14.1</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -31,13 +31,13 @@
     <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.0.1" />
-	  <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.0.1" />
-	  <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.0.1" />
-    <PackageReference Include="Microsoft.CodeAnalysis.InteractiveHost" Version="3.9.0-3.21056.4" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Scripting.Common" Version="4.0.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="17.0.33208.330" />
-    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="17.0.496" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.4.0" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.4.0" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.4.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Scripting.Common" Version="4.4.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="17.4.33103.184" />
+    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="17.4.255" />
         <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>

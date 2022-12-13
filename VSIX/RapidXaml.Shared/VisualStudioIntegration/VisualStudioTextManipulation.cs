@@ -302,13 +302,12 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
         }
     }
-}
 
 
 
 
-namespace RapidXamlToolkit.VisualStudioIntegration
-{
+
+
     /// <summary>
     /// A static helper class for working with text documents.
     /// </summary>
