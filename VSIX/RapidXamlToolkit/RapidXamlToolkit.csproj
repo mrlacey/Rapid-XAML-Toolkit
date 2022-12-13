@@ -158,7 +158,7 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\MediaElementAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\MenuFlyoutItemAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\MenuFlyoutSubItemAnalyzer.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\PasswordBoxProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\PasswordBoxAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\PivotItemAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\PivotAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\RepeatButtonAnalyzer.cs" />

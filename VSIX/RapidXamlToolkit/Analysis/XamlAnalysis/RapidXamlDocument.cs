@@ -129,7 +129,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(processorEssentials)),
                         (Elements.ToggleSwitch, new ToggleSwitchProcessor(processorEssentials)),
                         (Elements.Slider, new SliderProcessor(processorEssentials)),
-                        (Elements.PasswordBox, new PasswordBoxProcessor(processorEssentials)),
                         (Elements.ListView, new SelectedItemAttributeProcessor(processorEssentials)),
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(processorEssentials)),
                         ////(Elements.Label, new LabelProcessor(processorEssentials)),
@@ -166,6 +165,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             customProcessors.Add(new MediaElementAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new MenuFlyoutItemAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new MenuFlyoutSubItemAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new PasswordBoxAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new PivotAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new PivotItemAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new RepeatButtonAnalyzer(vsAbstraction, logger));

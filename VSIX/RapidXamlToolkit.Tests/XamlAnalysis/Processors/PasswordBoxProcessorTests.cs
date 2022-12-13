@@ -3,23 +3,24 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
+using RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers;
 using RapidXamlToolkit.XamlAnalysis.Processors;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
     [TestClass]
-    public class PasswordBoxProcessorTests : ProcessorTestsBase
+    public class PasswordBoxProcessorTests : AnalyzerTestsBase
     {
         [TestMethod]
         public void HardCoded_Header_Detected()
         {
             var xaml = @"<PasswordBox Header=""HCValue"" />";
 
-            var outputTags = this.GetTags<PasswordBoxProcessor>(xaml);
+            var actual = this.Act<PasswordBoxAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.CreateResource));
         }
 
         [TestMethod]
@@ -27,10 +28,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<PasswordBox Description=""HCValue"" />";
 
-            var outputTags = this.GetTags<PasswordBoxProcessor>(xaml);
+            var actual = this.Act<PasswordBoxAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.CreateResource));
         }
     }
 }
