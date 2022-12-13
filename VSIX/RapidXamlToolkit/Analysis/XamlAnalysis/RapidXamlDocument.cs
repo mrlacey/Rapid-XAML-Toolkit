@@ -128,7 +128,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.HyperlinkButton, new HyperlinkButtonProcessor(processorEssentials)),
                         (Elements.RepeatButton, new RepeatButtonProcessor(processorEssentials)),
                         (Elements.PivotItem, new PivotItemProcessor(processorEssentials)),
-                        (Elements.MenuFlyoutSubItem, new MenuFlyoutSubItemProcessor(processorEssentials)),
                         (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(processorEssentials)),
                         (Elements.RichEditBox, new RichEditBoxProcessor(processorEssentials)),
                         (Elements.ToggleSwitch, new ToggleSwitchProcessor(processorEssentials)),
@@ -166,6 +165,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new HubSectionAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new MediaElementAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new MenuFlyoutItemAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new MenuFlyoutSubItemAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new PivotAnalyzer(vsAbstraction, logger));
 
                 // These were created to be built on top of custom analysis
