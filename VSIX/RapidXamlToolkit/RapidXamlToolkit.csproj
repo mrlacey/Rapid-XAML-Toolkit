@@ -103,7 +103,6 @@
     <Compile Include="Analysis\XamlAnalysis\Actions\InsertRowDefinitionAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\MakeNameStartWithCapitalAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\MakeUidStartWithCapitalAction.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Actions\MediaElementAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
@@ -156,7 +155,7 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\HubProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\HubSectionProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\HyperlinkButtonProcessor.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\MediaElementProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\MediaElementAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\MenuFlyoutItemProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\MenuFlyoutSubItemProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\PasswordBoxProcessor.cs" />
@@ -198,7 +197,6 @@
     <Compile Include="Analysis\XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\SelectedItemBindingModeTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\UidTitleCaseTag.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Tags\UseMediaPlayerElementTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\VsTextSnapshot.cs" />
     <Compile Include="Analysis\XamlAnalysis\VsTextSpan.cs" />
     <Compile Include="EditorExtras\EditorExtrasOptionsGrid.cs">

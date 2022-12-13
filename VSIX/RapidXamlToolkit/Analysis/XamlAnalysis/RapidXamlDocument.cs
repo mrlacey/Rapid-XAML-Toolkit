@@ -138,7 +138,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.ToggleSwitch, new ToggleSwitchProcessor(processorEssentials)),
                         (Elements.Slider, new SliderProcessor(processorEssentials)),
                         (Elements.PasswordBox, new PasswordBoxProcessor(processorEssentials)),
-                        (Elements.MediaElement, new MediaElementProcessor(processorEssentials)),
                         (Elements.ListView, new SelectedItemAttributeProcessor(processorEssentials)),
                         (Elements.DataGrid, new SelectedItemAttributeProcessor(processorEssentials)),
                         ////(Elements.Label, new LabelProcessor(processorEssentials)),
@@ -167,6 +166,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 // These have been ported from the original Processor implementations
                 customProcessors.Add(new ComboBoxAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new DatePickerAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new MediaElementAnalyzer(vsAbstraction, logger));
 
                 // These were created to be built on top of custom analysis
                 customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction, logger));

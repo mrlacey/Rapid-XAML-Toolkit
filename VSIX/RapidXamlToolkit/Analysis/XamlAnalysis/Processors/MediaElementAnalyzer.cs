@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
 using System.Collections.Generic;
 using RapidXaml;
 using RapidXamlToolkit.Logging;
@@ -11,14 +10,14 @@ using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
-    public class DatePickerAnalyzer : BuiltInXamlAnalyzer
+    public class MediaElementAnalyzer : BuiltInXamlAnalyzer
     {
-        public DatePickerAnalyzer(IVisualStudioAbstraction vsa, ILogger logger)
+        public MediaElementAnalyzer(IVisualStudioAbstraction vsa, ILogger logger)
             : base(vsa, logger)
         {
         }
 
-        public override string TargetType() => Elements.DatePicker;
+        public override string TargetType() => Elements.MediaElement;
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
@@ -32,7 +31,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 return AnalysisActions.None;
             }
 
-            var result = this.CheckForHardCodedString(Attributes.Header, AttributeType.InlineOrElement, element, extraDetails);
+            var result = AnalysisActions.RenameElement(
+                        RapidXamlErrorType.Warning,
+                        "RXT402",
+                        StringRes.UI_XamlAnalysisUseMediaPlayerElementDescription,
+                        StringRes.UI_XamlAnalysisUseMediaPlayerElementToolTip,
+                        "MediaPlayerElement",
+                        moreInfoUrl: "https://docs.microsoft.com/en-us/uwp/api/Windows.UI.Xaml.Controls.MediaElement#remarks",
+                        extendedMessage: StringRes.UI_XamlAnalysisUseMediaPlayerElementExtendedMessage);
 
             return result;
         }

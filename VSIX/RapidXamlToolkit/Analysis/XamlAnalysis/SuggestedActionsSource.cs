@@ -111,9 +111,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                             case nameof(AddTextBoxInputScopeTag):
                                 list.AddRange(this.CreateActionSet(rxTag, AddTextBoxInputScopeAction.Create((AddTextBoxInputScopeTag)rxTag, this.file)));
                                 break;
-                            case nameof(UseMediaPlayerElementTag):
-                                list.AddRange(this.CreateActionSet(rxTag, MediaElementAction.Create((UseMediaPlayerElementTag)rxTag, this.file)));
-                                break;
                             case nameof(NameTitleCaseTag):
                                 list.AddRange(this.CreateActionSet(rxTag, MakeNameStartWithCapitalAction.Create((NameTitleCaseTag)rxTag, this.file)));
                                 break;

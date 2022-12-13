@@ -6,7 +6,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
 using RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers;
 using RapidXamlToolkit.XamlAnalysis.Processors;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
