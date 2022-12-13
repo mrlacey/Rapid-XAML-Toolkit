@@ -114,9 +114,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                             case nameof(UidTitleCaseTag):
                                 list.AddRange(this.CreateActionSet(rxTag, MakeUidStartWithCapitalAction.Create((UidTitleCaseTag)rxTag, this.file)));
                                 break;
-                            case nameof(SelectedItemBindingModeTag):
-                                list.AddRange(this.CreateActionSet(rxTag, SelectedItemBindingModeAction.Create((SelectedItemBindingModeTag)rxTag, this.file)));
-                                break;
                         }
                     }
                 }

@@ -46,6 +46,11 @@ namespace RapidXaml
         ReplaceElement,
 
         /// <summary>
+        /// Replaces the value of an attribute.
+        /// </summary>
+        ReplaceAttributeValue,
+
+        /// <summary>
         /// Create an entry in a Resource file (RESW or RESX).
         /// </summary>
         CreateResource,

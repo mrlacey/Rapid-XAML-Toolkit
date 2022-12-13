@@ -561,6 +561,57 @@ namespace RapidXaml
         // an element and then remove it.
 
         /// <summary>
+        /// Replace the value of an attribute.
+        /// </summary>
+        /// <param name="analysisActions">The object to add this action to.</param>
+        /// <param name="errorType">How the response should be indicated.</param>
+        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
+        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
+        /// <param name="actionText">The text displayed in the quick action.</param>
+        /// <param name="attributeName">The name of the attribute.</param>
+        /// <param name="replacementValue">The new value.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
+        /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions ReplaceAttributeValue(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string attributeName, string replacementValue, string extendedMessage = null, string moreInfoUrl = null)
+        {
+            var result = analysisActions;
+
+            result.Actions.Add(new AnalysisAction
+            {
+                Action = ActionType.ReplaceAttributeValue,
+                Code = code,
+                Description = description,
+                ErrorType = errorType,
+                ActionText = actionText,
+                Content = replacementValue,
+                ExtendedMessage = extendedMessage,
+                MoreInfoUrl = moreInfoUrl,
+                Name = attributeName,
+            });
+
+            return result;
+        }
+
+        /// <summary>
+        /// Replace the value of an attribute as part of another quick action.
+        /// </summary>
+        /// <param name="analysisActions">The object to add this action to.</param>
+        /// <param name="attributeName">The name of the attribute.</param>
+        /// <param name="replacementValue">The new value.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions AndReplaceAttributeValue(this AnalysisActions analysisActions, string attributeName, string replacementValue)
+        {
+            return analysisActions.AddSupplementaryAction(
+                new AnalysisAction
+                {
+                    Action = ActionType.RenameElement,
+                    Content = replacementValue,
+                    Name = attributeName,
+                });
+        }
+
+        /// <summary>
         /// The name of the element is an issue and should be changed.
         /// </summary>
         /// <param name="analysisActions">The object to add this action to.</param>

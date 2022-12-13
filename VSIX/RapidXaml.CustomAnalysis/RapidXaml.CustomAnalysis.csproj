@@ -18,7 +18,7 @@
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GuiLabs.Language.Xml" Version="1.2.46" />
+    <PackageReference Include="GuiLabs.Language.Xml" Version="1.2.60" />
     <PackageReference Include="NuGet.CommandLine" Version="6.3.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

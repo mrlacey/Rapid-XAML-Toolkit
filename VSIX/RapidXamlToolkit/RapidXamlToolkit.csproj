@@ -105,7 +105,6 @@
     <Compile Include="Analysis\XamlAnalysis\Actions\MissingDefinitionsAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\ReplaceSubStringLineAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\RowSpanOverflowAction.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Actions\SelectedItemBindingModeAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\SuppressWarningAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\AnalysisSpeedWarningInfoBar.cs" />
     <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\AddChildTestAnalyzer.cs" />
@@ -148,12 +147,14 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\AutoSuggestBoxAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\CalendarDatePickerAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\ComboBoxAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\DataGridAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\DatePickerAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\EveryElementProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\GridProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\HubAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\HubSectionAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\HyperlinkButtonAnalyzer.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\ListViewAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\MediaElementAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\MenuFlyoutItemAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\MenuFlyoutSubItemAnalyzer.cs" />
@@ -162,7 +163,6 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\PivotAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\RepeatButtonAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\RichEditBoxAnalyzer.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\SelectedItemAttributeProcessor.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\SliderAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\TextBlockAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\TextBoxAnalyzer.cs" />
@@ -193,7 +193,6 @@
     <Compile Include="Analysis\XamlAnalysis\Tags\RapidXamlSuggestionAdornmentTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\RapidXamlWarningAdornmentTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\RowSpanOverflowTag.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Tags\SelectedItemBindingModeTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\UidTitleCaseTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\VsTextSnapshot.cs" />
     <Compile Include="Analysis\XamlAnalysis\VsTextSpan.cs" />
@@ -403,9 +402,6 @@
     <PackageReference Include="Microsoft.VSSDK.Vsixsigntool">
       <Version>16.3.29220.27</Version>
     </PackageReference>
-    <PackageReference Include="RapidXaml.CustomAnalysis">
-      <Version>0.14.0</Version>
-    </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -420,6 +416,12 @@
     <PackageReference Include="WarnAboutTODOs">
       <Version>1.6.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
+      <Project>{93BA7914-1204-49F8-977A-091D30E4718B}</Project>
+      <Name>RapidXaml.CustomAnalysis</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">

@@ -35,7 +35,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             result.Add(this.CheckForHardCodedString(Attributes.PlaceholderText, AttributeType.InlineOrElement, element, extraDetails));
 
-            if (!element.Attributes.Any(a => a.Name == Attributes.InputScope))
+            if (!element.ContainsAttribute(Attributes.InputScope))
             {
                 result.Add(AnalysisActions.AddAttribute(
                     RapidXamlErrorType.Suggestion,

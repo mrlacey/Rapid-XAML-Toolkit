@@ -17,7 +17,6 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<MenuFlyoutSubItem Text=""HCValue"" />";
 
-
             var actual = this.Act<MenuFlyoutSubItemAnalyzer>(xaml, ProjectFramework.Uwp);
 
             Assert.AreEqual(1, actual.Count);

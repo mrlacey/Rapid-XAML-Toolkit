@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using Newtonsoft.Json.Linq;
 using RapidXaml;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.VisualStudioIntegration;
@@ -19,12 +20,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            if (!extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework))
-            {
-                return AnalysisActions.None;
-            }
-
-            if (framework != ProjectFramework.Uwp)
+            if (!extraDetails.IsFramework(ProjectFramework.Uwp))
             {
                 return AnalysisActions.None;
             }

@@ -24,6 +24,10 @@ using static Microsoft.VisualStudio.VSConstants;
 
 namespace RapidXamlToolkit
 {
+#if !DEBUG
+#error Replace the local reference to RapidXaml.CustomAnalysis with one to the NuGet package before releasing to the marketplace.
+#endif
+
     [ProvideAutoLoad(ActivationContextGuid, PackageAutoLoadFlags.BackgroundLoad)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration(Vsix.Name, Vsix.Description, Vsix.Version)] // Info on this package for Help/About

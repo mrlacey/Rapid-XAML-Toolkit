@@ -130,6 +130,7 @@
     <Compile Include="XamlAnalysis\Processors\AutoSuggestBoxProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\CalendarDatePickerProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\ComboBoxProcessorTests.cs" />
+    <Compile Include="XamlAnalysis\Processors\DataGridAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\Processors\DatePickerProcessorTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\EntryAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\Processors\EveryElementProcessorTests.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="XamlAnalysis\Processors\HubSectionProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\HyperlinkButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\XamarinForms\LabelAnalyzerTests.cs" />
+    <Compile Include="XamlAnalysis\Processors\ListViewAnalyzerTests.cs" />
     <Compile Include="XamlAnalysis\Processors\MediaElementProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutItemProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\MenuFlyoutSubItemProcessorTests.cs" />
@@ -147,7 +149,6 @@
     <Compile Include="XamlAnalysis\Processors\ProcessorTestsBase.cs" />
     <Compile Include="XamlAnalysis\Processors\RepeatButtonProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\RichEditBoxProcessorTests.cs" />
-    <Compile Include="XamlAnalysis\Processors\SelectedItemAttributeProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\SliderProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBlockProcessorTests.cs" />
     <Compile Include="XamlAnalysis\Processors\TextBoxProcessorTests.cs" />
@@ -253,6 +254,10 @@
     <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">
       <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
       <Name>RapidXaml.AnalysisCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.CustomAnalysis\RapidXaml.CustomAnalysis.csproj">
+      <Project>{93ba7914-1204-49f8-977a-091d30e4718b}</Project>
+      <Name>RapidXaml.CustomAnalysis</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
       <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>

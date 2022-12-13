@@ -315,6 +315,27 @@ namespace RapidXaml
         }
 
         /// <summary>
+        /// Replace the value of an attribute.
+        /// </summary>
+        /// <param name="errorType">How the response should be indicated.</param>
+        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
+        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
+        /// <param name="actionText">The text displayed in the quick action.</param>
+        /// <param name="attributeName">The name of the attribute.</param>
+        /// <param name="replacementValue">The new value.</param>
+        /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
+        /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
+        /// <returns>An AnalysisActions result.</returns>
+        public static AnalysisActions ReplaceAttributeValue(RapidXamlErrorType errorType, string code, string description, string actionText, string attributeName, string replacementValue, string moreInfoUrl = null, string extendedMessage = null)
+        {
+            var result = new AnalysisActions();
+
+            result.ReplaceAttributeValue(errorType, code, description, actionText, attributeName, replacementValue, extendedMessage, moreInfoUrl);
+
+            return result;
+        }
+
+        /// <summary>
         /// The name of the element is an issue and should be changed.
         /// </summary>
         /// <param name="errorType">How the response should be indicated.</param>

@@ -118,8 +118,6 @@ namespace RapidXamlToolkit.XamlAnalysis
             var processors = new List<(string, XamlElementProcessor)>
                     {
                         (Elements.Grid, new GridProcessor(processorEssentials)),
-                        (Elements.ListView, new SelectedItemAttributeProcessor(processorEssentials)),
-                        (Elements.DataGrid, new SelectedItemAttributeProcessor(processorEssentials)),
                     };
 
             var customProcessors = new List<ICustomAnalyzer>();
@@ -151,10 +149,12 @@ namespace RapidXamlToolkit.XamlAnalysis
             customProcessors.Add(new AutoSuggestBoxAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new CalendarDatePickerAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new ComboBoxAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new DataGridAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new DatePickerAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new HubAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new HubSectionAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new HyperlinkButtonAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new ListViewAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new MediaElementAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new MenuFlyoutItemAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new MenuFlyoutSubItemAnalyzer(vsAbstraction, logger));

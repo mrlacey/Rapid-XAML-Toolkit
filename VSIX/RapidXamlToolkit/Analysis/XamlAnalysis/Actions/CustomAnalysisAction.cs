@@ -181,6 +181,10 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
                         tag.Snapshot.GetLineNumberFromPosition(tag.AnalyzedElement.Location.Start));
                     break;
 
+                case RapidXaml.ActionType.ReplaceAttributeValue:
+                    // TODO: implement this
+                    break;
+
                 case RapidXaml.ActionType.RenameElement:
                     // Just change opening tags as Visual Studio will change closing tags automatically
                     var renameLineNumber = tag.Snapshot.GetLineNumberFromPosition(tag.InsertPosition);
