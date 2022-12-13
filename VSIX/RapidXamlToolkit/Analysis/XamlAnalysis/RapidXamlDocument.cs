@@ -120,7 +120,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                         (Elements.Grid, new GridProcessor(processorEssentials)),
                         (Elements.TextBlock, new TextBlockProcessor(processorEssentials)),
                         (Elements.TextBox, new TextBoxProcessor(processorEssentials)),
-                        (Elements.CalendarDatePicker, new CalendarDatePickerProcessor(processorEssentials)),
                         (Elements.TimePicker, new TimePickerProcessor(processorEssentials)),
                         (Elements.HyperlinkButton, new HyperlinkButtonProcessor(processorEssentials)),
                         (Elements.ToggleMenuFlyoutItem, new ToggleMenuFlyoutItemProcessor(processorEssentials)),
@@ -157,6 +156,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             customProcessors.Add(new AppBarButtonAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new AppBarToggleButtonAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new AutoSuggestBoxAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CalendarDatePickerAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new ComboBoxAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new DatePickerAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new HubAnalyzer(vsAbstraction, logger));

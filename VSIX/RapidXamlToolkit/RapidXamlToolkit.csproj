@@ -147,7 +147,7 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\AppBarButtonAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\AppBarToggleButtonAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\AutoSuggestBoxAnalyzer.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\CalendarDatePickerProcessor.cs" />
+    <Compile Include="Analysis\XamlAnalysis\Processors\CalendarDatePickerAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\ComboBoxAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\DatePickerAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\EveryElementProcessor.cs" />
