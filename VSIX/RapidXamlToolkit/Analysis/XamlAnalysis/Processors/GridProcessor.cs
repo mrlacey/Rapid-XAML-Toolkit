@@ -79,14 +79,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
             if (!hasRowDef)
             {
-                var tag = new AddRowDefinitionsTag((offset, endOfOpening), snapshot, fileName, this.Logger)
-                {
-                    InsertPosition = offset + endOfOpening,
-                    LeftPad = leftPad,
-                    GridNeedsExpanding = gridIsSelfClosing,
-                };
-                tags.TryAdd(tag, xamlElement, suppressions);
-
                 rowDefsClosingPos = xamlElement.IndexOf(">", StringComparison.Ordinal);
             }
             else
@@ -95,36 +87,14 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
 
             // Set to make it clear what the default is.
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
             var colDefsClosingPos = -1;
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
-
             if (!hasColDef)
             {
-                var tag = new AddColumnDefinitionsTag((offset, endOfOpening), snapshot, fileName, this.Logger)
-                {
-                    InsertPosition = offset + endOfOpening,
-                    LeftPad = leftPad,
-                    GridNeedsExpanding = gridIsSelfClosing,
-                };
-                tags.TryAdd(tag, xamlElement, suppressions);
-
                 colDefsClosingPos = xamlElement.IndexOf(">", StringComparison.Ordinal);
             }
             else
             {
                 colDefsClosingPos = xamlElement.IndexOf("</Grid.ColumnDefinitions", StringComparison.Ordinal);
-            }
-
-            if (!hasRowDef && !hasColDef)
-            {
-                var tag = new AddRowAndColumnDefinitionsTag((offset, endOfOpening), snapshot, fileName, this.Logger)
-                {
-                    InsertPosition = offset + endOfOpening,
-                    LeftPad = leftPad,
-                    GridNeedsExpanding = gridIsSelfClosing,
-                };
-                tags.TryAdd(tag, xamlElement, suppressions);
             }
 
             const string rowDefStart = "<RowDefinition";

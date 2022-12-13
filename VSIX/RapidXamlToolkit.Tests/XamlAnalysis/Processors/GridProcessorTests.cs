@@ -163,7 +163,6 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
 
-            Assert.AreEqual(0, outputTags.OfType<AddRowDefinitionsTag>().Count());
             Assert.AreEqual(0, outputTags.OfType<MissingRowDefinitionTag>().Count());
         }
 
@@ -176,7 +175,6 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
 
-            Assert.AreEqual(0, outputTags.OfType<AddColumnDefinitionsTag>().Count());
             Assert.AreEqual(0, outputTags.OfType<MissingColumnDefinitionTag>().Count());
         }
 
@@ -189,7 +187,6 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
 
-            Assert.AreEqual(0, outputTags.OfType<AddRowDefinitionsTag>().Count());
             Assert.AreEqual(1, outputTags.OfType<MissingRowDefinitionTag>().Count());
         }
 
@@ -202,7 +199,6 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
 
-            Assert.AreEqual(0, outputTags.OfType<AddColumnDefinitionsTag>().Count());
             Assert.AreEqual(1, outputTags.OfType<MissingColumnDefinitionTag>().Count());
         }
     }

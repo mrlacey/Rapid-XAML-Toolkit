@@ -15,6 +15,7 @@ namespace RapidXamlToolkit.Tests.Grid
     [TestClass]
     public class GridProcessTests
     {
+        // TODO: review this test
         // This should detect for and return as many tags as possible
         [TestMethod]
         public void CreatesMultipleTags()
@@ -34,72 +35,8 @@ namespace RapidXamlToolkit.Tests.Grid
 
             sut.Process("testfile.xaml", 0, xaml, string.Empty, snapshot, outputTags);
 
-            Assert.AreEqual(3, outputTags.Count);
+            Assert.AreEqual(2, outputTags.Count);
             Assert.AreEqual(2, outputTags.OfType<InsertRowDefinitionTag>().Count());
-            Assert.AreEqual(1, outputTags.OfType<AddColumnDefinitionsTag>().Count());
-        }
-
-        [TestMethod]
-        public void CreateAllDefinitionTags()
-        {
-            var xaml = @"<Grid>
-    <!-- Grid contents -->
-</Grid>";
-
-            var outputTags = new TagList();
-
-            var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
-
-            var snapshot = new FakeTextSnapshot(xaml.Length);
-
-            sut.Process("testfile.xaml", 0, xaml, string.Empty, snapshot, outputTags);
-
-            Assert.AreEqual(3, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
-            Assert.AreEqual(1, outputTags.OfType<AddColumnDefinitionsTag>().Count());
-            Assert.AreEqual(1, outputTags.OfType<AddRowAndColumnDefinitionsTag>().Count());
-        }
-
-        [TestMethod]
-        public void CreateRowDefinitionTags_IfJustHaveColumns()
-        {
-            var xaml = @"<Grid>
-    <Grid.ColumnDefinitions />
-
-    <!-- Grid contents -->
-</Grid>";
-
-            var outputTags = new TagList();
-
-            var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
-
-            var snapshot = new FakeTextSnapshot(xaml.Length);
-
-            sut.Process("testfile.xaml", 0, xaml, string.Empty, snapshot, outputTags);
-
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
-        }
-
-        [TestMethod]
-        public void CreateColumnDefinitionTags_IfJustHaveRows()
-        {
-            var xaml = @"<Grid>
-    <Grid.RowDefinitions />
-
-    <!-- Grid contents -->
-</Grid>";
-
-            var outputTags = new TagList();
-
-            var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
-
-            var snapshot = new FakeTextSnapshot(xaml.Length);
-
-            sut.Process("testfile.xaml", 0, xaml, string.Empty, snapshot, outputTags);
-
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<AddColumnDefinitionsTag>().Count());
         }
 
         [TestMethod]
@@ -142,94 +79,6 @@ namespace RapidXamlToolkit.Tests.Grid
             sut.Process("testfile.xaml", 0, xaml, string.Empty, snapshot, outputTags);
 
             Assert.AreEqual(0, outputTags.Count);
-        }
-
-        [TestMethod]
-        public void CreateRowDefinitionTags_WithCorrectLeftPad_Spaces()
-        {
-            var xaml = @"<Grid>
-    <Grid.ColumnDefinitions />
-
-    <!-- Grid contents -->
-</Grid>";
-
-            var outputTags = new TagList();
-
-            var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
-
-            var snapshot = new FakeTextSnapshot(xaml.Length);
-
-            sut.Process("testfile.xaml", 0, xaml, "    ", snapshot, outputTags);
-
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
-            Assert.AreEqual("        ", ((AddRowDefinitionsTag)outputTags[0]).LeftPad);
-        }
-
-        [TestMethod]
-        public void CreateRowDefinitionTags_WithCorrectLeftPad_Tab()
-        {
-            var xaml = @"<Grid>
-	<Grid.ColumnDefinitions />
-
-	<!-- Grid contents -->
-</Grid>";
-
-            var outputTags = new TagList();
-
-            var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
-
-            var snapshot = new FakeTextSnapshot(xaml.Length);
-
-            sut.Process("testfile.xaml", 1, xaml, "	", snapshot, outputTags);
-
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
-            Assert.AreEqual("		", ((AddRowDefinitionsTag)outputTags[0]).LeftPad);
-        }
-
-        [TestMethod]
-        public void CreateRowDefinitionTags_WithCorrectLeftPad_TabSpaces()
-        {
-            var xaml = @"<Grid>
-	<Grid.ColumnDefinitions />
-
-	<!-- Grid contents -->
-</Grid>";
-
-            var outputTags = new TagList();
-
-            var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
-
-            var snapshot = new FakeTextSnapshot(xaml.Length);
-
-            sut.Process("testfile.xaml", 1, xaml, "	    ", snapshot, outputTags);
-
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
-            Assert.AreEqual("	    	", ((AddRowDefinitionsTag)outputTags[0]).LeftPad);
-        }
-
-        [TestMethod]
-        public void CreateRowDefinitionTags_WithCorrectLeftPad_SpacesTab()
-        {
-            var xaml = @"<Grid>
-	<Grid.ColumnDefinitions />
-
-	<!-- Grid contents -->
-</Grid>";
-
-            var outputTags = new TagList();
-
-            var sut = new GridProcessor(new ProcessorEssentialsForSimpleTests());
-
-            var snapshot = new FakeTextSnapshot(xaml.Length);
-
-            sut.Process("testfile.xaml", 1, xaml, "    	", snapshot, outputTags);
-
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<AddRowDefinitionsTag>().Count());
-            Assert.AreEqual("    		", ((AddRowDefinitionsTag)outputTags[0]).LeftPad);
         }
     }
 }

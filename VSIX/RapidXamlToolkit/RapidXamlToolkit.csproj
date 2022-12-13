@@ -89,11 +89,8 @@
     <Compile Include="Analysis\ErrorList\TableDataSource.cs" />
     <Compile Include="Analysis\ErrorList\TableEntriesSnapshot.cs" />
     <Compile Include="Analysis\JSON\RapidXamlAnalysisJsonSchemaSelector.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Actions\AddColumnDefinitionsAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\AddMissingColumnDefinitionsAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\AddMissingRowDefinitionsAction.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Actions\AddRowAndColumnDefinitionsAction.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Actions\AddRowDefinitionsAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\BaseSuggestedAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\ColumnSpanOverflowAction.cs" />
     <Compile Include="Analysis\XamlAnalysis\Actions\CustomAnalysisAction.cs" />
@@ -179,9 +176,6 @@
     <Compile Include="Analysis\XamlAnalysis\RapidXamlTagProvider.cs" />
     <Compile Include="Analysis\XamlAnalysis\SuggestedActionsSource.cs" />
     <Compile Include="Analysis\XamlAnalysis\SuggestedActionsSourceProvider.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Tags\AddColumnDefinitionsTag.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Tags\AddRowAndColumnDefinitionsTag.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Tags\AddRowDefinitionsTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\ColumnSpanOverflowTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\InsertionTag.cs" />

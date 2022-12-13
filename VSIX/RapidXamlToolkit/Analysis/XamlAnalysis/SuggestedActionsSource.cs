@@ -87,15 +87,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                             case nameof(InsertRowDefinitionTag):
                                 list.AddRange(this.CreateActionSet(rxTag, InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rxTag, this.file, this.view)));
                                 break;
-                            case nameof(AddRowDefinitionsTag):
-                                list.AddRange(this.CreateActionSet(rxTag, AddRowDefinitionsAction.Create((AddRowDefinitionsTag)rxTag, this.file)));
-                                break;
-                            case nameof(AddColumnDefinitionsTag):
-                                list.AddRange(this.CreateActionSet(rxTag, AddColumnDefinitionsAction.Create((AddColumnDefinitionsTag)rxTag, this.file)));
-                                break;
-                            case nameof(AddRowAndColumnDefinitionsTag):
-                                list.AddRange(this.CreateActionSet(rxTag, AddRowAndColumnDefinitionsAction.Create((AddRowAndColumnDefinitionsTag)rxTag, this.file)));
-                                break;
                             case nameof(MissingRowDefinitionTag):
                                 list.AddRange(this.CreateActionSet(rxTag, AddMissingRowDefinitionsAction.Create((MissingRowDefinitionTag)rxTag, this.file)));
                                 break;
