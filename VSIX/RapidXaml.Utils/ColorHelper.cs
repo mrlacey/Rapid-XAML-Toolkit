@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
-using System.Windows.Media;
+using System.Drawing;
 
 namespace RapidXamlToolkit
 {
@@ -17,24 +17,7 @@ namespace RapidXamlToolkit
 
             try
             {
-                return (Color)ColorConverter.ConvertFromString(color.Trim());
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public static SolidColorBrush GetColorBrush(string color)
-        {
-            if (!color?.TrimStart().StartsWith("#") ?? false)
-            {
-                color = GetHexForNamedColor(color.Trim());
-            }
-
-            try
-            {
-                return new SolidColorBrush((Color)ColorConverter.ConvertFromString(color.Trim()));
+                return Color.FromName(color.Trim());
             }
             catch
             {

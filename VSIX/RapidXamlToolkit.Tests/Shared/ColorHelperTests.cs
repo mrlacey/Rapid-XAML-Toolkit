@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System.Windows.Media;
+using System.Drawing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RapidXamlToolkit.Tests.Shared
@@ -12,7 +12,7 @@ namespace RapidXamlToolkit.Tests.Shared
         [TestMethod]
         public void GetLuminance_DarkRed()
         {
-            var color = Color.FromRgb(155, 0, 0);
+            var color = Color.FromArgb(255, 155, 0, 0);
             var actual = ColorHelper.GetLuminance(color);
             Assert.IsTrue(AreCloseEnough(0.07, actual));
         }
@@ -20,7 +20,7 @@ namespace RapidXamlToolkit.Tests.Shared
         [TestMethod]
         public void GetLuminance_LimeGreen()
         {
-            var color = Color.FromRgb(155, 255, 0);
+            var color = Color.FromArgb(255, 155, 255, 0);
             var actual = ColorHelper.GetLuminance(color);
             Assert.IsTrue(AreCloseEnough(0.785, actual));
         }
@@ -28,7 +28,7 @@ namespace RapidXamlToolkit.Tests.Shared
         [TestMethod]
         public void GetLuminance_Fuschia()
         {
-            var color = Color.FromRgb(155, 0, 255);
+            var color = Color.FromArgb(255, 155, 0, 255);
             var actual = ColorHelper.GetLuminance(color);
             Assert.IsTrue(AreCloseEnough(0.142, actual));
         }
@@ -36,7 +36,7 @@ namespace RapidXamlToolkit.Tests.Shared
         [TestMethod]
         public void GetLuminance_Black()
         {
-            var color = Color.FromRgb(0, 0, 0);
+            var color = Color.FromArgb(255, 0, 0, 0);
             var actual = ColorHelper.GetLuminance(color);
             Assert.IsTrue(AreCloseEnough(0.0, actual));
         }
@@ -44,7 +44,7 @@ namespace RapidXamlToolkit.Tests.Shared
         [TestMethod]
         public void GetLuminance_White()
         {
-            var color = Color.FromRgb(255, 255, 255);
+            var color = Color.FromArgb(255, 255, 255, 255);
             var actual = ColorHelper.GetLuminance(color);
             Assert.AreEqual(1, actual);
         }
@@ -52,8 +52,8 @@ namespace RapidXamlToolkit.Tests.Shared
         [TestMethod]
         public void GetLuminanceRatio_Fuschia_White()
         {
-            var l1 = ColorHelper.GetLuminance(Color.FromRgb(155, 0, 255));
-            var l2 = ColorHelper.GetLuminance(Color.FromRgb(255, 255, 255));
+            var l1 = ColorHelper.GetLuminance(Color.FromArgb(255, 155, 0, 255));
+            var l2 = ColorHelper.GetLuminance(Color.FromArgb(255, 255, 255, 255));
             var actual = ColorHelper.GetLuminanceRatio(l1, l2);
             Assert.IsTrue(AreCloseEnough(5.472, actual));
         }
@@ -61,8 +61,8 @@ namespace RapidXamlToolkit.Tests.Shared
         [TestMethod]
         public void GetLuminanceRatio_White_Fuschia()
         {
-            var l1 = ColorHelper.GetLuminance(Color.FromRgb(255, 255, 255));
-            var l2 = ColorHelper.GetLuminance(Color.FromRgb(155, 0, 255));
+            var l1 = ColorHelper.GetLuminance(Color.FromArgb(255, 255, 255, 255));
+            var l2 = ColorHelper.GetLuminance(Color.FromArgb(255, 155, 0, 255));
             var actual = ColorHelper.GetLuminanceRatio(l1, l2);
             Assert.IsTrue(AreCloseEnough(5.472, actual));
         }
@@ -70,8 +70,8 @@ namespace RapidXamlToolkit.Tests.Shared
         [TestMethod]
         public void GetLuminanceRatio_Grey_White()
         {
-            var l1 = ColorHelper.GetLuminance(Color.FromRgb(155, 155, 155));
-            var l2 = ColorHelper.GetLuminance(Color.FromRgb(255, 255, 255));
+            var l1 = ColorHelper.GetLuminance(Color.FromArgb(255, 155, 155, 155));
+            var l2 = ColorHelper.GetLuminance(Color.FromArgb(255, 255, 255, 255));
             var actual = ColorHelper.GetLuminanceRatio(l1, l2);
             Assert.IsTrue(AreCloseEnough(2.779, actual));
         }
@@ -79,8 +79,8 @@ namespace RapidXamlToolkit.Tests.Shared
         [TestMethod]
         public void GetLuminanceRatio_Black_White()
         {
-            var l1 = ColorHelper.GetLuminance(Color.FromRgb(0, 0, 0));
-            var l2 = ColorHelper.GetLuminance(Color.FromRgb(255, 255, 255));
+            var l1 = ColorHelper.GetLuminance(Color.FromArgb(255, 0, 0, 0));
+            var l2 = ColorHelper.GetLuminance(Color.FromArgb(255, 255, 255, 255));
             var actual = ColorHelper.GetLuminanceRatio(l1, l2);
             Assert.IsTrue(AreCloseEnough(21, actual));
         }
