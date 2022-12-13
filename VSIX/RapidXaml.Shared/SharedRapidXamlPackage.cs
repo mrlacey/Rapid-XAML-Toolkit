@@ -3,6 +3,7 @@
 
 using System;
 using System.Threading;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using RapidXamlToolkit.Configuration;
@@ -19,8 +20,12 @@ namespace RapidXamlToolkit
 
         public static ILogger Logger { get; set; }
 
+        public static Package Instance { get; private set; }
+
         public static async Task InitializeAsync(CancellationToken cancellationToken, AsyncPackage package)
         {
+            Instance = package;
+
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await package.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);

@@ -45,8 +45,6 @@ namespace RapidXamlToolkit.Telemetry
                         ConnectionString = connStr,
                     });
 
-                    TelemetryConfiguration.Active.InstrumentationKey = key;
-
                     SetContextData(instance.Client);
 
                     instance.Client.TrackEvent(TelemetryEvents.SessionStart);
