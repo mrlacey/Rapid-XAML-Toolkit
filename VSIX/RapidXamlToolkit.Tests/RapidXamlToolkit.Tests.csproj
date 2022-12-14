@@ -85,7 +85,6 @@
     <Compile Include="DragDrop\DropHandlerCSharpTests.cs" />
     <Compile Include="DragDrop\DropHandlerLogicTests.cs" />
     <Compile Include="DragDrop\DropHandlerTestsBase.cs" />
-    <Compile Include="DragDrop\DropHandlerVisualBasicTests.cs" />
     <Compile Include="Extensions\StringExtensionTests.cs" />
     <Compile Include="Formatting\OutputGenerationTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
