@@ -1,5 +1,5 @@
 ---
-name: 🐛 Bug report (new)
+name: 🐛 Bug report
 description: Tell us that something is wrong or doesn't work properly
 labels: [bug]
 body:
@@ -23,7 +23,7 @@ body:
     label: "Which version of Visual Studio are you using?"
     options:
       - label: "2019"
-      - label: "2019 (preview)"
+      - label: "2022"
 - type: dropdown
   attributes:
     label: Project Type

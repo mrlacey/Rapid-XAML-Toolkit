@@ -6,6 +6,16 @@
 ![Works with Visual Studio 2019](https://img.shields.io/static/v1.svg?label=VS&message=2019&color=5F2E96)
 ![AppVeyor tests](https://img.shields.io/appveyor/tests/mrlacey/rapid-xaml-toolkit)
 
+## ‼️ Important News ‼️
+
+The Visual Studio 2019 extensions helped a lot of people improve their XAML experiences. They also showed there's still a lot of opportunity to make things even better.  
+2023 will bring an update to the extension (including VS2022 support) and additional tools and functionality.  
+The best distribution and licensing options are currently under review.
+
+Expect more details soon....
+
+---
+
 This is a collection of tools for making it easier for developers to work with XAML (**UWP**, **WPF**,  **Xamarin.Forms**, **WinUI3**, and **.NET MAUI**). These tools include
 
 - Get in-editor **analysis of your XAML** to find and fix issues faster.
