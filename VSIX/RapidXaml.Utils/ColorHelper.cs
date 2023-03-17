@@ -8,6 +8,7 @@ namespace RapidXamlToolkit
 {
     public static class ColorHelper
     {
+        // TODO: FIx, as this is broken
         public static Color? GetColor(string color)
         {
             if (!color?.TrimStart().StartsWith("#") ?? false)
@@ -17,6 +18,7 @@ namespace RapidXamlToolkit
 
             try
             {
+                // This should be getting the color from the hex value, not the name
                 return Color.FromName(color.Trim());
             }
             catch
