@@ -37,8 +37,8 @@
 	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
 	  <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.4.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.Scripting.Common" Version="4.4.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="17.4.33103.184" />
-    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="17.4.255" />
+    <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="17.5.33428.388" />
+    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="17.5.279" />
         <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>

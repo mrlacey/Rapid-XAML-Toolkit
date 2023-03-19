@@ -4,23 +4,24 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Management.Instrumentation;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using RapidXaml;
 using RapidXaml.EditorExtras;
 using RapidXamlToolkit.Commands;
+using RapidXamlToolkit.Configuration;
 using RapidXamlToolkit.DragDrop;
 using RapidXamlToolkit.ErrorList;
+using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Options;
 using RapidXamlToolkit.Parsers;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.Telemetry;
 using RapidXamlToolkit.XamlAnalysis;
-using static Microsoft.VisualStudio.VSConstants;
 
 namespace RapidXamlToolkit
 {
@@ -49,6 +50,10 @@ namespace RapidXamlToolkit
     {
         public const string ActivationContextGuid = "47A8ECBA-E247-4FE7-80EE-CDE6CEAC03A5";
 
+        public static ILogger Logger { get; set; }
+
+        public static AsyncPackage Instance { get; private set; }
+
         public static bool IsLoaded { get; private set; }
 
         public static AnalysisOptionsGrid AnalysisOptions { get; internal set; }
@@ -57,24 +62,26 @@ namespace RapidXamlToolkit
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+            Instance = this;
+
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
             try
             {
-                await SharedRapidXamlPackage.InitializeAsync(cancellationToken, this);
+                await this.InitializeLoggerAsync(cancellationToken);
 
-                SharedRapidXamlPackage.Logger?.RecordNotice(StringRes.Info_LaunchVersionRxt.WithParams(CoreDetails.GetVersion()));
-                SharedRapidXamlPackage.Logger?.RecordNotice(string.Empty);
+                Logger?.RecordNotice(StringRes.Info_LaunchVersionRxt.WithParams(CoreDetails.GetVersion()));
+                Logger?.RecordNotice(string.Empty);
 
-                await FeedbackCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
-                await MoveAllHardCodedStringsToResourceFileCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
-                await AnalyzeCurrentDocumentCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
-                await OpenAnalysisOptionsCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+                await FeedbackCommand.InitializeAsync(this, Logger);
+                await MoveAllHardCodedStringsToResourceFileCommand.InitializeAsync(this, Logger);
+                await AnalyzeCurrentDocumentCommand.InitializeAsync(this, Logger);
+                await OpenAnalysisOptionsCommand.InitializeAsync(this, Logger);
 
                 await this.SetUpRunningDocumentTableEventsAsync(cancellationToken);
-                RapidXamlDocumentCache.Initialize(this, SharedRapidXamlPackage.Logger);
+                RapidXamlDocumentCache.Initialize(this, Logger);
 
                 Microsoft.VisualStudio.Shell.Events.SolutionEvents.OnAfterCloseSolution += this.HandleCloseSolution;
 
@@ -129,22 +136,59 @@ namespace RapidXamlToolkit
 
                 RapidXamlPackage.EditorOptions = (EditorExtrasOptionsGrid)this.GetDialogPage(typeof(EditorExtrasOptionsGrid));
 
-                await CopyToClipboardCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
-                await SendToToolboxCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
-                await OpenOptionsCommand.InitializeAsync(this, SharedRapidXamlPackage.Logger);
-                await RapidXamlDropHandlerProvider.InitializeAsync(this, SharedRapidXamlPackage.Logger);
+                await CopyToClipboardCommand.InitializeAsync(this, Logger);
+                await SendToToolboxCommand.InitializeAsync(this, Logger);
+                await OpenOptionsCommand.InitializeAsync(this, Logger);
+                await RapidXamlDropHandlerProvider.InitializeAsync(this, Logger);
 
                 // Set the ServiceProvider of CodeParserBase as it's needed to get settings
                 CodeParserBase.ServiceProvider = this;
 
-                if (SharedRapidXamlPackage.Logger != null)
+                if (Logger != null)
                 {
-                    SharedRapidXamlPackage.Logger.UseExtendedLogging = CodeParserBase.GetSettings().ExtendedOutputEnabled;
+                    Logger.UseExtendedLogging = CodeParserBase.GetSettings().ExtendedOutputEnabled;
                 }
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                Logger?.RecordException(exc);
+            }
+        }
+
+        private async Task InitializeLoggerAsync(CancellationToken cancellationToken)
+        {
+            // When initialized asynchronously, the current thread may be a background thread at this point.
+            // Do any initialization that requires the UI thread after switching to the UI thread.
+            await RapidXamlPackage.Instance.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+            try
+            {
+                if (Logger == null)
+                {
+                    var rxtLogger = new RxtLogger();
+
+                    var config = new RxtSettings();
+
+                    var telemLogger = TelemetryAccessor.Create(rxtLogger, config.AppInsightsConnectionString);
+
+                    Logger = new RxtLoggerWithTelemtry(rxtLogger, telemLogger);
+
+                    var activityLog = await RapidXamlPackage.Instance.GetServiceAsync<SVsActivityLog, IVsActivityLog>();
+                    rxtLogger.VsActivityLog = activityLog;
+                }
+
+                // The RxtOutputPane is used by all extensions
+                // so using that as a way to tell if any extensions have initialized.
+                // Only want the default info loading once.
+                if (!RxtOutputPane.IsInitialized())
+                {
+                    Logger?.RecordNotice(StringRes.Info_ProblemsInstructionsAndLink);
+                    Logger?.RecordNotice(string.Empty);
+                }
+            }
+            catch (Exception exc)
+            {
+                Logger?.RecordException(exc);
             }
         }
 
