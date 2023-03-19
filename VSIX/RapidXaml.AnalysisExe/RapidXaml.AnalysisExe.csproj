@@ -28,7 +28,6 @@
   <ItemGroup>
     <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj" />
     <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj" />
-    <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj" />
     <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -39,7 +38,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.Scripting.Common" Version="4.4.0" />
     <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="17.5.33428.388" />
     <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="17.5.279" />
-        <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.0" />
+        <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -437,7 +437,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
                 if (!(await this.serviceProvider.GetServiceAsync(typeof(SVsTextManager)) is IVsTextManager4 textManager))
                 {
-                    SharedRapidXamlPackage.Logger?.RecordGeneralError(StringRes.Error_FailedToGetIVsTextManager4InVisualStudioAbstraction_GetXamlIndentAsync);
+                    RapidXamlPackage.Logger?.RecordGeneralError(StringRes.Error_FailedToGetIVsTextManager4InVisualStudioAbstraction_GetXamlIndentAsync);
                 }
                 else
                 {

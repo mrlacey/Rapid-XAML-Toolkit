@@ -984,10 +984,12 @@ namespace tests
             catch (System.Reflection.ReflectionTypeLoadException exc)
             {
                 Console.WriteLine(exc.ToString());
+
                 foreach (var item in exc.LoaderExceptions)
                 {
                     Console.WriteLine($"LOADER: {item.ToString()}");
                 }
+
                 Console.WriteLine($"INNER: {exc.InnerException?.ToString()}");
                 throw;
             }

@@ -35,7 +35,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
         }
 
         internal List<AnalysisAction> Act<T>(string xaml, ProjectFramework framework = ProjectFramework.Unknown)
-            where T: BuiltInXamlAnalyzer
+            where T : BuiltInXamlAnalyzer
         {
             var sut = this.CreateAnalyzer<T>();
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);

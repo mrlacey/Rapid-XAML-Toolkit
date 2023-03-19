@@ -81,7 +81,7 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.2</Version>
     </PackageReference>
-    <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.0" />
+    <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.1" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
