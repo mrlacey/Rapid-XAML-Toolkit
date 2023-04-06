@@ -8,7 +8,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.Xaml.Interactivity;
 using Microsoft.Xaml.Interactions.Core;
 
-namespace RapidXaml.WinUI;
+namespace RapidXaml;
 
 public partial class EventToCommand : DependencyObject
 {{
