@@ -40,5 +40,6 @@
   <ItemGroup>
       <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.220902.1-preview1" />
       <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22000.194" />
+      <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
   </ItemGroup>
 </Project>
