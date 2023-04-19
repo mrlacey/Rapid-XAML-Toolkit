@@ -8,4 +8,3 @@ public class GenConfig
 
     public string AddUsing { get; set; }
 }
-
