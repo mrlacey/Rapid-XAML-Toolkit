@@ -3,6 +3,8 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
+using RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
@@ -10,17 +12,17 @@ using RapidXamlToolkit.XamlAnalysis.Tags;
 namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
     [TestClass]
-    public class EveryElementProcessorTests : ProcessorTestsBase
+    public class EveryElementProcessorTests : AnalyzerTestsBase
     {
         [TestMethod]
         public void Xname_StartsLowercase_Detected()
         {
             var xaml = @"<Something x:Name=""abc"" />";
 
-            var outputTags = this.GetTags<EveryElementProcessor>(xaml);
+            var actual = this.Act<EveryElementAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<NameTitleCaseTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.ReplaceAttributeValue));
         }
 
         [TestMethod]
@@ -28,10 +30,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<Something Name=""abc"" />";
 
-            var outputTags = this.GetTags<EveryElementProcessor>(xaml);
+            var actual = this.Act<EveryElementAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<NameTitleCaseTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.ReplaceAttributeValue));
         }
 
         [TestMethod]
@@ -39,10 +41,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<Something x:Uid=""abc"" />";
 
-            var outputTags = this.GetTags<EveryElementProcessor>(xaml);
+            var actual = this.Act<EveryElementAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<UidTitleCaseTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.ReplaceAttributeValue));
         }
 
         [TestMethod]
@@ -50,10 +52,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<Something Uid=""abc"" />";
 
-            var outputTags = this.GetTags<EveryElementProcessor>(xaml);
+            var actual = this.Act<EveryElementAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<UidTitleCaseTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.ReplaceAttributeValue));
         }
 
         [TestMethod]
@@ -61,9 +63,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<Something x:Name=""Abc"" />";
 
-            var outputTags = this.GetTags<EveryElementProcessor>(xaml);
+            var actual = this.Act<EveryElementAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -71,9 +73,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<Something Name=""Abc"" />";
 
-            var outputTags = this.GetTags<EveryElementProcessor>(xaml);
+            var actual = this.Act<EveryElementAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -81,9 +83,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<Something x:Uid=""Abc"" />";
 
-            var outputTags = this.GetTags<EveryElementProcessor>(xaml);
+            var actual = this.Act<EveryElementAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -91,20 +93,19 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<Something Uid=""Abc"" />";
 
-            var outputTags = this.GetTags<EveryElementProcessor>(xaml);
+            var actual = this.Act<EveryElementAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
         public void HardCoded_ToolTip_Detected()
         {
             var xaml = @"<Something TooltipService.ToolTip=""More Info"" />";
+            var actual = this.Act<EveryElementAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            var outputTags = this.GetTags<EveryElementProcessor>(xaml);
-
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.CreateResource));
         }
 
         [TestMethod]
@@ -129,7 +130,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
             var procesors = RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger);
             XamlElementExtractor.Parse("Generic.xaml", snapshot, xaml, procesors, result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa, logger), logger);
 
-            Assert.AreEqual(5, result.Tags.OfType<NameTitleCaseTag>().Count());
+            Assert.AreEqual(1, result.Tags.Count());
         }
     }
 }

@@ -51,6 +51,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override void Execute(CancellationToken cancellationToken)
         {
+            // TODO: need to pass this interface in to the constructor
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
             vs.StartSingleUndoOperation(this.DisplayText);
             try
@@ -97,7 +98,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         }
 
 #pragma warning disable IDE0060 // Remove unused parameter - cancellationToken
-        private void InnerExecute(VisualStudioTextManipulation vs, CustomAnalysisTag tag, CancellationToken cancellationToken)
+        private void InnerExecute(IVisualStudioTextManipulation vs, CustomAnalysisTag tag, CancellationToken cancellationToken)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
             switch (tag.Action)

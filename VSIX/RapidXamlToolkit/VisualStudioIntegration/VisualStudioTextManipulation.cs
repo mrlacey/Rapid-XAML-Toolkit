@@ -227,7 +227,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             {
                 txtDoc.Selection.MoveToLineAndOffset(1, 1);
 
-
                 // TODO: change as deprecated
 
                 txtDoc.Selection.FindText(">", (int)vsFindOptions.vsFindOptionsMatchCase);
@@ -708,7 +707,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
 
             if (VsShellUtilities.IsDocumentOpen(
-              SharedRapidXamlPackage.Instance,
+              RapidXamlPackage.Instance,
               filePath,
               Guid.Empty,
               out var _,

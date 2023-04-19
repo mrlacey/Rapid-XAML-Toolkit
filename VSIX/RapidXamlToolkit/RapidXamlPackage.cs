@@ -50,6 +50,8 @@ namespace RapidXamlToolkit
     {
         public const string ActivationContextGuid = "47A8ECBA-E247-4FE7-80EE-CDE6CEAC03A5";
 
+        public const string TelemetryGuid = "c735dfc3-c416-4501-bc33-558e2aaad8c5";
+
         public static ILogger Logger { get; set; }
 
         public static AsyncPackage Instance { get; private set; }

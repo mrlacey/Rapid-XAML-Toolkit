@@ -103,7 +103,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static XamlElementProcessor GetEveryElementProcessor(ProjectType projectType, string projectFilePath, IVisualStudioAbstraction vsAbstraction, ILogger logger)
         {
-            return new EveryElementProcessor(new ProcessorEssentials(projectType, logger, projectFilePath, vsAbstraction));
+            return new CustomProcessorWrapper(new EveryElementAnalyzer(vsAbstraction, logger), projectType, projectFilePath, logger, vsAbstraction);
         }
 
         public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectFilePath, IVisualStudioAbstraction vsAbstraction, ILogger logger)
@@ -466,8 +466,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToLoadSuppressionsAnalysisFile);
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                RapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToLoadSuppressionsAnalysisFile);
+                RapidXamlPackage.Logger?.RecordException(exc);
             }
 
             return result;

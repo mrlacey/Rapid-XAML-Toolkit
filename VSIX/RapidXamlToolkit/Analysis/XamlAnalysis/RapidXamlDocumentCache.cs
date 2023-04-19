@@ -56,7 +56,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     // Don't worry about timing this call as it's only repeated calls to analyze a document that might cause a user prompt.
                     // This only happens on document open. Repeated analysis of a document will happen through TryUpdate.
-                    var doc = RapidXamlDocument.Create(new VsTextSnapshot(snapshot), file, vsa, string.Empty, SharedRapidXamlPackage.Logger);
+                    var doc = RapidXamlDocument.Create(new VsTextSnapshot(snapshot), file, vsa, string.Empty, RapidXamlPackage.Logger);
 
                     Cache.Add(file, doc);
 
@@ -168,7 +168,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                         {
                             sw.Start();
 
-                            doc = RapidXamlDocument.Create(new VsTextSnapshot(snapshot), file, vsa, string.Empty, SharedRapidXamlPackage.Logger);
+                            doc = RapidXamlDocument.Create(new VsTextSnapshot(snapshot), file, vsa, string.Empty, RapidXamlPackage.Logger);
                         }
                         finally
                         {
@@ -190,7 +190,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                              && analyzeOnSave == true
                              && !havePromptedForSaveAnalysisPerformance)
                             {
-                                SharedRapidXamlPackage.Logger?.RecordFeatureUsage(MiscellaneousFeatures.PromptToDisableAnalysisOnSave, quiet: true);
+                                RapidXamlPackage.Logger?.RecordFeatureUsage(MiscellaneousFeatures.PromptToDisableAnalysisOnSave, quiet: true);
                                 RxtOutputPane.Instance.Write(StringRes.Info_PromptToDisableAnalysisOnSave);
                                 RxtOutputPane.Instance.Activate(); // To increase the likelihood that it's seen
 

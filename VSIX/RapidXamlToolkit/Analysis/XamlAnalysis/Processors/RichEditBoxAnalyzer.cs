@@ -1,11 +1,8 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
-using System.Collections.Generic;
 using RapidXaml;
 using RapidXamlToolkit.Logging;
-using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
 

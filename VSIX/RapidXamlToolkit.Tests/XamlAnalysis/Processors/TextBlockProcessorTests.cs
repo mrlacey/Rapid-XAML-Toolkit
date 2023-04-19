@@ -45,7 +45,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         }
 
         [TestMethod]
-        public void DetectsNothingIfNoText_EmptyAttribute_xplicitClosing()
+        public void DetectsNothingIfNoText_EmptyAttribute_ExplicitClosing()
         {
             var xaml = @"<TextBlock Text=""""></TextBlock>";
 

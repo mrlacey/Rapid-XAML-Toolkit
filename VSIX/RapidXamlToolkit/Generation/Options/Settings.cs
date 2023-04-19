@@ -127,7 +127,7 @@ namespace RapidXamlToolkit.Options
                 result = this.GetFallBackProfile();
             }
 
-            SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_UsingProfile.WithParams(result.Name));
+            RapidXamlPackage.Logger?.RecordInfo(StringRes.Info_UsingProfile.WithParams(result.Name));
 
             return result;
         }

@@ -1109,7 +1109,7 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                RapidXamlPackage.Logger?.RecordException(exc);
             }
 
             return 12;

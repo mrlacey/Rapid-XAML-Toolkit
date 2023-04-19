@@ -99,19 +99,13 @@ namespace RapidXamlToolkit.XamlAnalysis
                             case nameof(ColumnSpanOverflowTag):
                                 list.AddRange(this.CreateActionSet(rxTag, ColumnSpanOverflowAction.Create((ColumnSpanOverflowTag)rxTag, this.file)));
                                 break;
-                            case nameof(NameTitleCaseTag):
-                                list.AddRange(this.CreateActionSet(rxTag, MakeNameStartWithCapitalAction.Create((NameTitleCaseTag)rxTag, this.file)));
-                                break;
-                            case nameof(UidTitleCaseTag):
-                                list.AddRange(this.CreateActionSet(rxTag, MakeUidStartWithCapitalAction.Create((UidTitleCaseTag)rxTag, this.file)));
-                                break;
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                SharedRapidXamlPackage.Logger?.RecordException(e);
+                RapidXamlPackage.Logger?.RecordException(e);
             }
 
             return list;

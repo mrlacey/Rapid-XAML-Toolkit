@@ -173,7 +173,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                RapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -198,7 +198,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                RapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -221,7 +221,7 @@ namespace RapidXamlToolkit.Options
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                RapidXamlPackage.Logger?.RecordException(exc);
             }
         }
 
@@ -339,13 +339,13 @@ namespace RapidXamlToolkit.Options
             {
                 await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                SharedRapidXamlPackage.Logger?.RecordFeatureUsage(nameof(this.HelpLinkNavigate));
+                RapidXamlPackage.Logger?.RecordFeatureUsage(nameof(this.HelpLinkNavigate));
 
                 System.Diagnostics.Process.Start("https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/docs/profiles.md");
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                RapidXamlPackage.Logger?.RecordException(exc);
             }
         }
     }

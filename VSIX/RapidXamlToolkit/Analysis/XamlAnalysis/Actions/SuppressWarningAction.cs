@@ -57,7 +57,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             if (string.IsNullOrWhiteSpace(tag.FileName))
             {
-                SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_FileNameMissingFromTag);
+                RapidXamlPackage.Logger?.RecordInfo(StringRes.Info_FileNameMissingFromTag);
                 return;
             }
 
@@ -65,7 +65,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
             if (proj == null)
             {
-                SharedRapidXamlPackage.Logger?.RecordInfo(StringRes.Info_UnableToFindProjectContainingFile.WithParams(tag.FileName));
+                RapidXamlPackage.Logger?.RecordInfo(StringRes.Info_UnableToFindProjectContainingFile.WithParams(tag.FileName));
                 return;
             }
 

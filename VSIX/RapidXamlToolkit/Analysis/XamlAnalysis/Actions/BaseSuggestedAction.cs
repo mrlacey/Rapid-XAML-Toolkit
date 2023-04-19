@@ -88,18 +88,18 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
                 if (string.IsNullOrWhiteSpace(this.CustomFeatureUsageOverride))
                 {
-                    SharedRapidXamlPackage.Logger?.RecordFeatureUsage(this.GetType().Name);
+                    RapidXamlPackage.Logger?.RecordFeatureUsage(this.GetType().Name);
                 }
                 else
                 {
-                    SharedRapidXamlPackage.Logger?.RecordFeatureUsage(this.CustomFeatureUsageOverride.Trim());
+                    RapidXamlPackage.Logger?.RecordFeatureUsage(this.CustomFeatureUsageOverride.Trim());
                 }
 
                 RapidXamlDocumentCache.TryUpdate(this.File);
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                RapidXamlPackage.Logger?.RecordException(exc);
             }
             finally
             {

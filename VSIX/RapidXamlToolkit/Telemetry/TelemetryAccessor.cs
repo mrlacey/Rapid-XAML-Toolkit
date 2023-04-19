@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.VisualStudio.ApplicationInsights;
+using Microsoft.ApplicationInsights;
 using Microsoft.VisualStudio.Telemetry;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;

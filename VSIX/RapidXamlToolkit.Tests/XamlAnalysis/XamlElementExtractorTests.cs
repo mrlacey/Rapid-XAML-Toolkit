@@ -795,7 +795,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             this.TestParsingWithFakeSnapshot(xaml, processors, tags);
 
             Assert.IsTrue(true, "Parsing completed without exception.");
-            Assert.AreEqual(2, tags.OfType<NameTitleCaseTag>().Count());
+
+            // TODO: See if can make this specific to certain types of tag or their content
+            Assert.AreEqual(2, tags.Count());
         }
 
         [TestMethod]

@@ -56,7 +56,7 @@
         <None Remove="*.nupkg" />
     </ItemGroup>
 	<ItemGroup>
-		<None Include="docs\readme.md" Pack="true" PackagePath="\" />
+		<None Include="docs\readme.md" />
 	</ItemGroup>
     <ItemGroup>
         <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\RapidXamlElementExtractor.cs" Link="RapidXamlElementExtractor.cs" />

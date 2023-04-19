@@ -149,7 +149,7 @@ namespace RapidXamlToolkit.ErrorList
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                RapidXamlPackage.Logger?.RecordException(exc);
 
                 content = null;
                 return false;
@@ -171,7 +171,7 @@ namespace RapidXamlToolkit.ErrorList
             }
             catch (Exception exc)
             {
-                SharedRapidXamlPackage.Logger?.RecordException(exc);
+                RapidXamlPackage.Logger?.RecordException(exc);
 
                 content = null;
                 return false;

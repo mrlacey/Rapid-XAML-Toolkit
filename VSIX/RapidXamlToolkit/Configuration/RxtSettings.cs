@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using System;
+using RapidXaml.Properties;
 
 namespace RapidXamlToolkit.Configuration
 {
@@ -11,7 +12,7 @@ namespace RapidXamlToolkit.Configuration
         {
             get
             {
-                return Properties.Settings.Default.TelemetryKey;
+                return Settings.Default.TelemetryKey;
             }
         }
 
@@ -29,7 +30,7 @@ namespace RapidXamlToolkit.Configuration
         {
             get
             {
-                var configValue = Properties.Settings.Default.LightBulbTelemetryGuid;
+                var configValue = Settings.Default.LightBulbTelemetryGuid;
 
                 if (!string.IsNullOrWhiteSpace(configValue))
                 {

@@ -19,6 +19,7 @@
     <Compile Include="..\RapidXamlToolkit\Analysis\XamlAnalysis\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\Processors\EveryElementProcessor.cs" />
     <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\Processors\SelectedItemAttributeProcessor.cs" />
     <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\RapidXamlTagProvider.cs" />
   </ItemGroup>
