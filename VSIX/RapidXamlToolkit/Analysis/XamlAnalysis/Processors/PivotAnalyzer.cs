@@ -17,7 +17,6 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public override string TargetType() => Elements.Pivot;
 
-
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             if (!extraDetails.IsFramework(ProjectFramework.Uwp))

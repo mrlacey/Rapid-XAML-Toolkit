@@ -65,31 +65,14 @@ namespace RapidXaml
         /// <param name="actionText">The text displayed in the quick action.</param>
         /// <param name="addAttributeName">The name for the attribute to be added by the quick action.</param>
         /// <param name="addAttributeValue">The value for the attribute to be added by the quick action.</param>
-        /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions AddAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, string addAttributeName, string addAttributeValue)
-        {
-            // This was the original definition of `AddAttribute`.
-            // Need to keep this signature when added version with extra param so can still load Analyzers that use this version.
-            return AddAttribute(errorType, code, description, actionText, addAttributeName, addAttributeValue, string.Empty);
-        }
-
-        /// <summary>
-        /// An attribute should be added to the analyzed element.
-        /// </summary>
-        /// <param name="errorType">How the response should be indicated.</param>
-        /// <param name="code">A reference code for the issue being highlighted. Can be left blank.</param>
-        /// <param name="description">A description of the issue. This will be displayed in the Error List.</param>
-        /// <param name="actionText">The text displayed in the quick action.</param>
-        /// <param name="addAttributeName">The name for the attribute to be added by the quick action.</param>
-        /// <param name="addAttributeValue">The value for the attribute to be added by the quick action.</param>
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions AddAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, string addAttributeName, string addAttributeValue, string moreInfoUrl, string extendedMessage = null)
+        public static AnalysisActions AddAttribute(RapidXamlErrorType errorType, string code, string description, string actionText, string addAttributeName, string addAttributeValue, string moreInfoUrl = null, string extendedMessage = null)
         {
             var result = new AnalysisActions();
 
-            result.AddAttribute(errorType, code, description, actionText, addAttributeName, addAttributeValue, extendedMessage, moreInfoUrl);
+            result.AddAttribute(errorType, code, description, actionText, addAttributeName, addAttributeValue, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -110,7 +93,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.AddChild(errorType, code, description, actionText, elementName, attributes, extendedMessage, moreInfoUrl);
+            result.AddChild(errorType, code, description, actionText, elementName, attributes, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -130,7 +113,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.AddChildString(errorType, code, description, actionText, xaml, extendedMessage, moreInfoUrl);
+            result.AddChildString(errorType, code, description, actionText, xaml, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -151,7 +134,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.AddXmlns(errorType, code, description, actionText, alias, value, extendedMessage, moreInfoUrl);
+            result.AddXmlns(errorType, code, description, actionText, alias, value, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -173,7 +156,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.CreateResource(errorType, code, description, actionText, resFilePath, resourceKey, resourceValue, extendedMessage, moreInfoUrl);
+            result.CreateResource(errorType, code, description, actionText, resFilePath, resourceKey, resourceValue, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -192,7 +175,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.HighlightDescendantWithoutAction(errorType, code, description, descendant, extendedMessage, moreInfoUrl);
+            result.HighlightDescendantWithoutAction(errorType, code, description, descendant, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -210,7 +193,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.HighlightWithoutAction(errorType, code, description, extendedMessage, moreInfoUrl);
+            result.HighlightWithoutAction(errorType, code, description, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -229,7 +212,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.HighlightAttributeWithoutAction(errorType, code, description, attribute, extendedMessage, moreInfoUrl);
+            result.HighlightAttributeWithoutAction(errorType, code, description, attribute, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -249,7 +232,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.RemoveAttribute(errorType, code, description, actionText, attribute, extendedMessage, moreInfoUrl);
+            result.RemoveAttribute(errorType, code, description, actionText, attribute, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -269,7 +252,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.RemoveAttribute(errorType, code, description, actionText, attributeName, extendedMessage, moreInfoUrl);
+            result.RemoveAttribute(errorType, code, description, actionText, attributeName, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -289,7 +272,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.RemoveChild(errorType, code, description, actionText, child, extendedMessage, moreInfoUrl);
+            result.RemoveChild(errorType, code, description, actionText, child, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -309,7 +292,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.ReplaceElement(errorType, code, description, actionText, replacementXaml, extendedMessage, moreInfoUrl);
+            result.ReplaceElement(errorType, code, description, actionText, replacementXaml, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -330,7 +313,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.ReplaceAttributeValue(errorType, code, description, actionText, attributeName, replacementValue, extendedMessage, moreInfoUrl);
+            result.ReplaceAttributeValue(errorType, code, description, actionText, attributeName, replacementValue, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }
@@ -350,7 +333,7 @@ namespace RapidXaml
         {
             var result = new AnalysisActions();
 
-            result.RenameElement(errorType, code, description, actionText, newName, extendedMessage, moreInfoUrl);
+            result.RenameElement(errorType, code, description, actionText, newName, extendedMessage: extendedMessage, moreInfoUrl: moreInfoUrl);
 
             return result;
         }

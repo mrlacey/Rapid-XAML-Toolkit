@@ -15,6 +15,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         [TestMethod]
         public void HardCoded_HeaderAndPlaceholder_Detected()
         {
+            // TODO: Check if Header is use for automation name
             var xaml = @"<TextBox Header=""HCValue"" PlaceholderText=""HCValue"" InputScope=""KeyBoard"" />";
 
             var actual = this.Act<TextBoxAnalyzer>(xaml, ProjectFramework.Uwp);
@@ -26,12 +27,29 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         [TestMethod]
         public void MissingInputScope_Detected()
         {
-            var xaml = @"<TextBox />";
+            var xaml = @"<TextBox AutomationProperties.Name=""Enter something"" />";
 
             var actual = this.Act<TextBoxAnalyzer>(xaml, ProjectFramework.Uwp);
 
             Assert.AreEqual(1, actual.Count);
             Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.AddAttribute));
+        }
+
+        [TestMethod]
+        public void MissingInputScopeAndAutomationName_Detected()
+        {
+            var xaml = @"<TextBox />";
+
+            var actual = this.Act<TextBoxAnalyzer>(xaml, ProjectFramework.Uwp);
+
+            Assert.AreEqual(2, actual.Count);
+            Assert.AreEqual(2, actual.Count(a => a.Action == ActionType.AddAttribute));
+
+            // No InputScope
+            Assert.AreEqual(1, actual.Where(a => a.Code == "RXT150").Count());
+
+            // Add accessible name
+            Assert.AreEqual(1, actual.Where(a => a.Code == "RXT654").Count());
         }
     }
 }

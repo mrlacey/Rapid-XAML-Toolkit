@@ -130,7 +130,8 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
             var procesors = RapidXamlDocument.GetAllProcessors(ProjectType.Uwp, string.Empty, vsa, logger);
             XamlElementExtractor.Parse("Generic.xaml", snapshot, xaml, procesors, result.Tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Uwp, null, vsa, logger), logger);
 
-            Assert.AreEqual(1, result.Tags.Count());
+            // They should all be "RXT452" as all names are lower case
+            Assert.AreEqual(5, result.Tags.Count());
         }
     }
 }

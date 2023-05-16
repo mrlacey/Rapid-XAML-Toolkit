@@ -31,7 +31,7 @@ namespace RapidXamlToolkit.Commands
                 var (cursorIndex, lineNo) = this.vs.GetCursorPositionAndLineNumber();
 
                 // Add lineNo to account for VS adding extra char to line feed & -1 for current line
-                // Add XAML Lenght to allow for cursor being in this text
+                // Add XAML Length to allow for cursor being in this text
                 var searchPoint = cursorIndex + lineNo - 1 + RowDefOpening.Length;
 
                 var docOfInterest = activeDocText.Substring(0, searchPoint);

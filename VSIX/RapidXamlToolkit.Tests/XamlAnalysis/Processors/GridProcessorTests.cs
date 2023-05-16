@@ -3,24 +3,38 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
+using RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers;
+using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Processors;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
     [TestClass]
-    public class GridProcessorTests : ProcessorTestsBase
+    public class GridAnalyzerTests : AnalyzerTestsBase
     {
         [TestMethod]
         public void MissingRowDefinition_NoDefinitions_Detected()
         {
             var xaml = @"<Grid><TextBlock Grid.Row=""1""></Grid>";
 
-            var outputTags = this.GetTags<GridProcessor>(xaml);
+            //  var outputTags = this.GetTags<GridProcessor>(xaml);
 
-            Assert.AreEqual(1, outputTags.OfType<MissingRowDefinitionTag>().Count());
+            //Assert.AreEqual(1, outputTags.OfType<MissingRowDefinitionTag>().Count());
+
+            var actual = this.Act<GridAnalyzer>(xaml, ProjectFramework.Uwp);
+
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.AddAttribute));
+            Assert.AreEqual(Attributes.RowDefinitions, actual[0].Name);
+            Assert.AreEqual("*,*", actual[0].Value);
         }
+    }
 
+    [TestClass]
+    public class GridProcessorTests : ProcessorTestsBase
+    {
         [TestMethod]
         public void MissingColumnDefinition_NoDefinitions_Detected()
         {

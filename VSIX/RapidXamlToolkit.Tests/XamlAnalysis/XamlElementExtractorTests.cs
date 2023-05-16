@@ -796,8 +796,13 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             Assert.IsTrue(true, "Parsing completed without exception.");
 
-            // TODO: See if can make this specific to certain types of tag or their content
-            Assert.AreEqual(2, tags.Count());
+            Assert.AreEqual(3, tags.Count());
+
+            // No InputScope (from TextBoxAnalyzer)
+            Assert.AreEqual(1, tags.Where(t => t is CustomAnalysisTag cat && cat.ErrorCode == "RXT150").Count());
+
+            // Name is not TitleCase (from EveryElementAnalyzer)
+            Assert.AreEqual(2, tags.Where(t => t is CustomAnalysisTag cat && cat.ErrorCode == "RXT452").Count());
         }
 
         [TestMethod]

@@ -169,6 +169,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             customProcessors.Add(new TimePickerAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new ToggleMenuFlyoutItemAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new ToggleSwitchAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new GridAnalyzer(vsAbstraction, logger));
 
             // These were created to be built on top of custom analysis
             customProcessors.Add(new CustomAnalysis.StyleAnalyzer(vsAbstraction, logger));

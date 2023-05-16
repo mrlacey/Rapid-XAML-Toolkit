@@ -584,7 +584,7 @@ namespace RapidXaml
                 Description = description,
                 ErrorType = errorType,
                 ActionText = actionText,
-                Content = replacementValue,
+                Value = replacementValue,
                 ExtendedMessage = extendedMessage,
                 MoreInfoUrl = moreInfoUrl,
                 Name = attributeName,
@@ -606,7 +606,7 @@ namespace RapidXaml
                 new AnalysisAction
                 {
                     Action = ActionType.RenameElement,
-                    Content = replacementValue,
+                    Value = replacementValue,
                     Name = attributeName,
                 });
         }
