@@ -139,7 +139,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                         Attributes.RowDefinitions,
                         string.Join(",", Enumerable.Repeat('*', rowHighestUsed - rowDefCount + 1))));
 
-                    // TODO: use when get RX.CustomAnalysis v 0.14.1
+                    // TODO: use when get RX.CustomAnalysis v 0.14.2
                     // extendedMessage: StringRes.UI_XamlAnalysisMissingRowDefinitionExtendedMessage);
                 }
             }
@@ -167,7 +167,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                         Attributes.ColumnDefinitions,
                         string.Join(",", Enumerable.Repeat('*', colHighestUsed - colDefCount + 1))));
 
-                    // TODO: use when get RX.CustomAnalysis v 0.14.1
+                    // TODO: use when get RX.CustomAnalysis v 0.14.2
                     // extendedMessage: StringRes.UI_XamlAnalysisMissingColumnDefinitionExtendedMessage);
                 }
             }
