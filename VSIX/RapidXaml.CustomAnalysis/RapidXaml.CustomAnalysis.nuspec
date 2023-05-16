@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RapidXaml.CustomAnalysis</id>
-    <version>0.14.1</version>
+    <version>0.14.2</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <license type="expression">MIT</license>
@@ -12,10 +12,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Create custom XAML analyzers for use with the Rapid XAML Toolkit.</description>
     <summary>Create custom XAML analyzers.</summary>
-    <releaseNotes>Add `AnalysisActions.ReplaceAttributeValue`</releaseNotes>
+    <releaseNotes>Fix bug with `AnalysisActions.AddAttribute`</releaseNotes>
     <copyright>Copyright © 2023 Matt Lacey Ltd.</copyright>
     <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
-    <readme>readme.md</readme>
+    <readme>docs\readme.md</readme>
     <dependencies>
       <group targetFramework="netstandard2.0">
         <dependency id="GuiLabs.Language.Xml" version="1.2.60" exclude="Build,Analyzers" />
