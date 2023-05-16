@@ -41,6 +41,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
 
             if (!element.HasAttribute(Attributes.Name)
+                && !element.HasAttribute(Attributes.Header)
                 && !element.HasAttribute(Attributes.X_Name)
                 && !element.HasAttribute(Attributes.APName)
                 && !element.HasAttribute(Attributes.APLabeledBy))

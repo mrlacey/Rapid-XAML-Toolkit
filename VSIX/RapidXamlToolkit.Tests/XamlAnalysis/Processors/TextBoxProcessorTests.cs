@@ -15,7 +15,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         [TestMethod]
         public void HardCoded_HeaderAndPlaceholder_Detected()
         {
-            // TODO: Check if Header is use for automation name
+            // Note that "Header" is used as the accessible name if none other is provided
             var xaml = @"<TextBox Header=""HCValue"" PlaceholderText=""HCValue"" InputScope=""KeyBoard"" />";
 
             var actual = this.Act<TextBoxAnalyzer>(xaml, ProjectFramework.Uwp);
