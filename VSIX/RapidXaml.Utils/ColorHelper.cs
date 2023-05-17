@@ -8,7 +8,6 @@ namespace RapidXamlToolkit
 {
     public static class ColorHelper
     {
-        // TODO: FIx, as this is broken
         public static Color? GetColor(string color)
         {
             if (!color?.TrimStart().StartsWith("#") ?? false)
@@ -18,13 +17,35 @@ namespace RapidXamlToolkit
 
             try
             {
-                // This should be getting the color from the hex value, not the name
-                return Color.FromName(color.Trim());
+                if (color?.TrimStart().StartsWith("#") ?? false)
+                {
+                    var rgba = color.Trim().TrimStart('#');
+
+                    switch (rgba.Length)
+                    {
+                        case 3:
+                            return Color.FromArgb(Convert.ToInt32(string.Concat(rgba.Substring(0, 1), rgba.Substring(0, 1)), 16), Convert.ToInt32(string.Concat(rgba.Substring(1, 1), rgba.Substring(1, 1)), 16), Convert.ToInt32(string.Concat(rgba.Substring(2, 1), rgba.Substring(2, 1)), 16));
+
+                        case 4:
+                            return Color.FromArgb(Convert.ToInt32(string.Concat(rgba.Substring(0, 1), rgba.Substring(0, 1)), 16), Convert.ToInt32(string.Concat(rgba.Substring(1, 1), rgba.Substring(1, 1)), 16), Convert.ToInt32(string.Concat(rgba.Substring(2, 1), rgba.Substring(2, 1)), 16), Convert.ToInt32(string.Concat(rgba.Substring(3, 1), rgba.Substring(3, 1)), 16));
+
+                        case 6:
+                            return Color.FromArgb(Convert.ToInt32(rgba.Substring(0, 2), 16), Convert.ToInt32(rgba.Substring(2, 2), 16), Convert.ToInt32(rgba.Substring(4, 2), 16));
+
+                        case 8:
+                            return Color.FromArgb(Convert.ToInt32(rgba.Substring(0, 2), 16), Convert.ToInt32(rgba.Substring(2, 2), 16), Convert.ToInt32(rgba.Substring(4, 2), 16), Convert.ToInt32(rgba.Substring(6, 2), 16));
+                    }
+                }
+                else
+                {
+                    return Color.FromName(color.Trim());
+                }
             }
             catch
             {
-                return null;
             }
+
+            return null;
         }
 
         public static string GetHexForNamedColor(string colorName)
