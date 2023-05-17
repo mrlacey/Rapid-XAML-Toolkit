@@ -19,10 +19,6 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<Grid><TextBlock Grid.Row=""1""></Grid>";
 
-            //  var outputTags = this.GetTags<GridProcessor>(xaml);
-
-            //Assert.AreEqual(1, outputTags.OfType<MissingRowDefinitionTag>().Count());
-
             var actual = this.Act<GridAnalyzer>(xaml, ProjectFramework.Uwp);
 
             Assert.AreEqual(1, actual.Count);
@@ -30,19 +26,18 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
             Assert.AreEqual(Attributes.RowDefinitions, actual[0].Name);
             Assert.AreEqual("*,*", actual[0].Value);
         }
-    }
 
-    [TestClass]
-    public class GridProcessorTests : ProcessorTestsBase
-    {
         [TestMethod]
         public void MissingColumnDefinition_NoDefinitions_Detected()
         {
             var xaml = @"<Grid><TextBlock Grid.Column=""1""></Grid>";
 
-            var outputTags = this.GetTags<GridProcessor>(xaml);
+            var actual = this.Act<GridAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.OfType<MissingColumnDefinitionTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.AddAttribute));
+            Assert.AreEqual(Attributes.ColumnDefinitions, actual[0].Name);
+            Assert.AreEqual("*,*", actual[0].Value);
         }
 
         [TestMethod]
@@ -56,11 +51,86 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
     <TextBlock Grid.Row=""4"">
 </Grid>";
 
-            var outputTags = this.GetTags<GridProcessor>(xaml);
+            //var outputTags = this.GetTags<GridProcessor>(xaml);
 
-            Assert.AreEqual(1, outputTags.OfType<MissingRowDefinitionTag>().Count());
+            //Assert.AreEqual(1, outputTags.OfType<MissingRowDefinitionTag>().Count());
+
+            var actual = this.Act<GridAnalyzer>(xaml, ProjectFramework.Uwp);
+
+            // TODO: Need to support RowDefinitions defined with the element syntax
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.ReplaceAttributeValue));
+            Assert.AreEqual(Attributes.RowDefinitions, actual[0].Name);
+            Assert.AreEqual("Auto,Auto,*,*,*", actual[0].Value);
         }
 
+        [TestMethod]
+        public void RowSpan_OverFlow_IgnoredIfInComment()
+        {
+            var xaml = @"<Grid>
+    <!--<TextBlock Grid.Row=""1"" Grid.RowSpan=""2"" />-->
+</Grid>";
+
+            var actual = this.Act<GridAnalyzer>(xaml, ProjectFramework.Uwp);
+            Assert.AreEqual(0, actual.Count);
+        }
+
+        [TestMethod]
+        public void DetectConcise_RowDefinitions()
+        {
+            var xaml = @"<Grid RowDefinitions=""*,*"">
+    <Label Grid.Row=""1"" />
+</Grid>";
+
+            var actual = this.Act<GridAnalyzer>(xaml, ProjectFramework.Uwp);
+            Assert.AreEqual(0, actual.Count);
+        }
+
+        [TestMethod]
+        public void DetectConcise_ColumnDefinitions()
+        {
+            var xaml = @"<Grid ColumnDefinitions=""*,*"">
+    <Label Grid.Column=""1"" />
+</Grid>";
+
+            var actual = this.Act<GridAnalyzer>(xaml, ProjectFramework.Uwp);
+            Assert.AreEqual(0, actual.Count);
+        }
+
+        [TestMethod]
+        public void DetectOutsideConcise_RowDefinitions()
+        {
+            var xaml = @"<Grid RowDefinitions=""*,*"">
+    <Label Grid.Row=""2"" />
+</Grid>";
+
+            var actual = this.Act<GridAnalyzer>(xaml, ProjectFramework.Uwp);
+
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.ReplaceAttributeValue));
+            Assert.AreEqual(Attributes.RowDefinitions, actual[0].Name);
+            Assert.AreEqual("*,*,*", actual[0].Value);
+        }
+
+        [TestMethod]
+        public void DetectOutsideConcise_ColumnDefinitions()
+        {
+            var xaml = @"<Grid ColumnDefinitions=""*,*"">
+    <Label Grid.Column=""2"" />
+</Grid>";
+
+            var actual = this.Act<GridAnalyzer>(xaml, ProjectFramework.Uwp);
+
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.ReplaceAttributeValue));
+            Assert.AreEqual(Attributes.ColumnDefinitions, actual[0].Name);
+            Assert.AreEqual("*,*,*", actual[0].Value);
+        }
+    }
+
+    [TestClass]
+    public class GridProcessorTests : ProcessorTestsBase
+    {
         [TestMethod]
         public void MissingColumnDefinition_SomeDefinitions_Detected()
         {
@@ -128,30 +198,6 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         }
 
         [TestMethod]
-        public void RowSpan_OverFlow_IgnoredIfInComment()
-        {
-            var xaml = @"<Grid>
-    <!--<TextBlock Grid.Row=""1"" Grid.RowSpan=""2"" />-->
-</Grid>";
-
-            var outputTags = this.GetTags<GridProcessor>(xaml);
-
-            Assert.AreEqual(0, outputTags.OfType<RowSpanOverflowTag>().Count());
-        }
-
-        [TestMethod]
-        public void ColumnSpan_OverFlow_IgnoredIfInComment()
-        {
-            var xaml = @"<Grid>
-    <!--<TextBlock Grid.Row=""1"" Grid.ColumnSpan=""2"" />-->
-</Grid>";
-
-            var outputTags = this.GetTags<GridProcessor>(xaml);
-
-            Assert.AreEqual(0, outputTags.OfType<ColumnSpanOverflowTag>().Count());
-        }
-
-        [TestMethod]
         public void ColumnSpan_OverFlow_Detected()
         {
             var xaml = @"<Grid>
@@ -166,54 +212,6 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
             var outputTags = this.GetTags<GridProcessor>(xaml);
 
             Assert.AreEqual(1, outputTags.OfType<ColumnSpanOverflowTag>().Count());
-        }
-
-        [TestMethod]
-        public void DetectConcise_RowDefinitions()
-        {
-            var xaml = @"<Grid RowDefinitions=""*,*"">
-    <Label Grid.Row=""1"" />
-</Grid>";
-
-            var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
-
-            Assert.AreEqual(0, outputTags.OfType<MissingRowDefinitionTag>().Count());
-        }
-
-        [TestMethod]
-        public void DetectConcise_ColumnDefinitions()
-        {
-            var xaml = @"<Grid ColumnDefinitions=""*,*"">
-    <Label Grid.Column=""1"" />
-</Grid>";
-
-            var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
-
-            Assert.AreEqual(0, outputTags.OfType<MissingColumnDefinitionTag>().Count());
-        }
-
-        [TestMethod]
-        public void DetectOutsideConcise_RowDefinitions()
-        {
-            var xaml = @"<Grid RowDefinitions=""*,*"">
-    <Label Grid.Row=""2"" />
-</Grid>";
-
-            var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
-
-            Assert.AreEqual(1, outputTags.OfType<MissingRowDefinitionTag>().Count());
-        }
-
-        [TestMethod]
-        public void DetectOutsideConcise_ColumnDefinitions()
-        {
-            var xaml = @"<Grid ColumnDefinitions=""*,*"">
-    <Label Grid.Column=""2"" />
-</Grid>";
-
-            var outputTags = this.GetTags<GridProcessor>(xaml, ProjectType.XamarinForms);
-
-            Assert.AreEqual(1, outputTags.OfType<MissingColumnDefinitionTag>().Count());
         }
     }
 }

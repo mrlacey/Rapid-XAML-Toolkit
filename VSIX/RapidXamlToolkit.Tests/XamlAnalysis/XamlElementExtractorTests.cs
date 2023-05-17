@@ -765,9 +765,14 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var xaml = @"<Window><Grid><CheckBox IsChecked=""True"" /></Grid></Window>";
 
+            var testEssentials = new ProcessorEssentialsForSimpleTests();
+
+            var vsa = new TestVisualStudioAbstraction();
+            var gridAnalyzer = new CustomProcessorWrapper(new GridAnalyzer(vsa, testEssentials.Logger), testEssentials.ProjectType, testEssentials.ProjectFilePath, testEssentials.Logger, vsa);
+
             var processors = new List<(string, XamlElementProcessor)>
             {
-                ("Grid", new GridProcessor(new ProcessorEssentialsForSimpleTests())),
+                ("Grid", gridAnalyzer),
             };
 
             this.TestParsingWithoutSnapshot(xaml, processors);
