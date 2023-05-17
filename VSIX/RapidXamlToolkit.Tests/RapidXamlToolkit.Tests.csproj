@@ -97,6 +97,7 @@
     <Compile Include="TestFileSystem.cs" />
     <Compile Include="TestProfile.cs" />
     <Compile Include="TestVisualStudioAbstraction.cs" />
+    <Compile Include="Utils\ColorHelperTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\AnalyzerTestsBase.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\AnyContainingTests.cs" />
     <Compile Include="XamlAnalysis\CustomAnalyzers\AnyOfTests.cs" />
@@ -215,7 +216,7 @@
     <PackageReference Include="MSTest.TestFramework">
       <Version>3.0.2</Version>
     </PackageReference>
-    <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.1" />
+    <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.2" />
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

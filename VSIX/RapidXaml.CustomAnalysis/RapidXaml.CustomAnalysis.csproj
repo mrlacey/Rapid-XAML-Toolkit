@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <Version>0.14.2</Version>
+        <Version>0.14.3</Version>
         <IncludeSymbols>true</IncludeSymbols>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -20,7 +20,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="GuiLabs.Language.Xml" Version="1.2.60" />
-        <PackageReference Include="NuGet.CommandLine" Version="6.3.1">
+        <PackageReference Include="NuGet.CommandLine" Version="6.5.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
