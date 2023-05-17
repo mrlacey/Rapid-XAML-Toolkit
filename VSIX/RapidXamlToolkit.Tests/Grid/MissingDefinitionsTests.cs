@@ -295,9 +295,7 @@ namespace RapidXamlToolkit.Tests.Grid
             Assert.AreEqual(1, actual.Count);
             Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.ReplaceAttributeValue));
             Assert.AreEqual(Attributes.RowDefinitions, actual[0].Name);
-            Assert.AreEqual("*,*,*,*,*,*", actual[0].Content);
-            // TODO: Change this above to this once CustomAnalysis 0.14.1 is avaialble
-            //Assert.AreEqual("*,*,*,*,*,*", actual[0].Value);
+            Assert.AreEqual("*,*,*,*,*,*", actual[0].Value);
         }
 
         [TestMethod]
