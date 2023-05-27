@@ -286,13 +286,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="RoslynAnalyzers\CsBindablePropertyCodeFixProvider.cs" />
-    <Compile Include="RoslynAnalyzers\CsDependencyPropertyCodeFixProvider.cs" />
-    <Compile Include="RoslynAnalyzers\CsExpandAutoPropertiesAnalyzer.cs" />
-    <Compile Include="RoslynAnalyzers\CsFullPropertyWithOnPropertyChangedCodeFixProvider.cs" />
-    <Compile Include="RoslynAnalyzers\CsFullPropertyWithSetCodeFixProvider.cs" />
-    <Compile Include="RoslynAnalyzers\CsFullPropertyWithSetPropertyCodeFixProvider.cs" />
-    <Compile Include="RoslynAnalyzers\PropertyDeclarationSyntaxExtensions.cs" />
     <Compile Include="source.extension.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
