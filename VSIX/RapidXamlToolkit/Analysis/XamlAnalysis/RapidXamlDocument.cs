@@ -277,14 +277,8 @@ namespace RapidXamlToolkit.XamlAnalysis
                                 && !Path.GetFileName(fileName).Equals("ucrtbased.dll")
                                 && !Path.GetFileName(fileName).Equals("netstandard.dll")
                                 && !Path.GetFileName(fileName).Equals("WindowsBase.dll")
-                                && !Path.GetFileName(fileName).Equals("RapidXaml.CustomAnalysis.dll");
-
-                // TODO: understand why this is only excluded during debug
-#if DEBUG
-                // Avoid trying to load self while debugging
-                filterResult = filterResult
-                            && !Path.GetFileName(fileName).Equals("RapidXamlToolkitExt.dll");
-#endif
+                                && !Path.GetFileName(fileName).Equals("RapidXaml.CustomAnalysis.dll")
+                                && !Path.GetFileName(fileName).Equals("RapidXamlToolkitExt.dll");
 
                 return filterResult;
             }

@@ -227,7 +227,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             {
                 txtDoc.Selection.MoveToLineAndOffset(1, 1);
 
-
                 // TODO: change as deprecated
 
                 txtDoc.Selection.FindText(">", (int)vsFindOptions.vsFindOptionsMatchCase);
@@ -302,11 +301,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
         }
     }
-
-
-
-
-
 
     /// <summary>
     /// A static helper class for working with text documents.

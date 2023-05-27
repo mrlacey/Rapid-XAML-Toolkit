@@ -41,7 +41,6 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             var actual = this.Act<GridAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            // TODO: Need to support RowDefinitions defined with the element syntax - add a new issue for future tracking/changes (custom analysis v2)
             Assert.AreEqual(1, actual.Count);
             Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.HighlightWithoutAction));
             Assert.AreEqual(StringRes.UI_XamlAnalysisMissingRowDefinitionDescription.WithParams(4), actual[0].Description);
@@ -74,7 +73,6 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 
             var actual = this.Act<GridAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            // TODO: Need to support RowDefinitions defined with the element syntax - add a new issue for future tracking/changes (custom analysis v2)
             Assert.AreEqual(1, actual.Count);
             Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.HighlightWithoutAction));
             Assert.AreEqual(StringRes.UI_XamlAnalysisMissingColumnDefinitionDescription.WithParams(4), actual[0].Description);

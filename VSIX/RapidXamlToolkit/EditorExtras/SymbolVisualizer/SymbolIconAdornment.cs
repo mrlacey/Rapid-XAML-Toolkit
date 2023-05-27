@@ -16,13 +16,13 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
 {
     internal sealed class SymbolIconAdornment : TextBlock
     {
-        private static readonly SolidColorBrush _textColor = (SolidColorBrush)System.Windows.Application.Current.Resources[VsBrushes.CaptionTextKey];
+        private static readonly SolidColorBrush TextColor = (SolidColorBrush)System.Windows.Application.Current.Resources[VsBrushes.CaptionTextKey];
 
         private int? fontSize = null;
 
         public SymbolIconAdornment(SymbolIconTag tag)
         {
-            this.Foreground = _textColor;
+            this.Foreground = TextColor;
             this.SymbolTag = tag;
             this.Height = this.GetFontSize() + 2;
             this.Width = this.Height;
@@ -1029,7 +1029,7 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
             this.SymbolTag = dataTag;
             this.SetTextAndFontFamily(dataTag);
             this.SetFontSize();
-            this.Foreground = _textColor;
+            this.Foreground = TextColor;
         }
 
         private void SetTextAndFontFamily(SymbolIconTag tag)
@@ -1098,11 +1098,11 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
                 Guid guid = new("A27B4E24-A735-4d1d-B8E7-9716E1E3D8E0");
                 if (storage != null && storage.OpenCategory(ref guid, (uint)(__FCSTORAGEFLAGS.FCSF_READONLY | __FCSTORAGEFLAGS.FCSF_LOADDEFAULTS)) == VSConstants.S_OK)
                 {
-                    LOGFONTW[] Fnt = new LOGFONTW[] { new LOGFONTW() };
-                    FontInfo[] Info = new FontInfo[] { new FontInfo() };
-                    storage.GetFont(Fnt, Info);
+                    LOGFONTW[] fnt = new LOGFONTW[] { default };
+                    FontInfo[] info = new FontInfo[] { default };
+                    storage.GetFont(fnt, info);
 
-                    this.fontSize = Info[0].wPointSize;
+                    this.fontSize = info[0].wPointSize;
 
                     return this.fontSize.Value;
                 }

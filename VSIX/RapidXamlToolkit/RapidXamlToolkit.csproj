@@ -243,11 +243,11 @@
     <Compile Include="Generation\Parsers\CSharpParser.cs" />
     <Compile Include="Generation\Parsers\IDocumentParser.cs" />
     <Compile Include="Generation\Parsers\MemberDetails.cs" />
-    <Compile Include="Generation\Parsers\MemberType.cs" />
     <Compile Include="Generation\Parsers\MethodDetails.cs" />
     <Compile Include="Generation\Parsers\ParserOutput.cs" />
     <Compile Include="Generation\Parsers\ParserOutputType.cs" />
     <Compile Include="Generation\Parsers\PropertyDetails.cs" />
+    <Compile Include="Generation\Parsers\TypeOfMember.cs" />
     <Compile Include="Generation\Parsers\VisualBasicParser.cs" />
     <Compile Include="ITypeSymbolExtensions.cs" />
     <Compile Include="KnownContentTypes.cs" />
@@ -260,6 +260,11 @@
     <Compile Include="Placeholder.cs" />
     <Compile Include="ProjectHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="RapidXamlPackage.cs" />
     <Compile Include="RapidXamlPackage1.cs">
       <AutoGen>True</AutoGen>
@@ -317,6 +322,10 @@
     <Content Include="Analysis\JSON\suppressions-schema.json" />
     <None Include="app.config" />
     <None Include="Configuration\RxtSettings.cs.secret" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\WarningIcon.png" />
     <None Include="Resources\References\Microsoft.WebTools.Languages.Json.dll" />
     <None Include="Resources\References\about-Microsoft.WebTools.Languages.Json.dll.txt" />

@@ -46,7 +46,7 @@ namespace RapidXamlToolkit.Tests
             return (this.SyntaxTree, this.SemanticModel);
         }
 
-        public (int, int) GetCursorPositionAndLineNumber()
+        public (int Position, int LineNo) GetCursorPositionAndLineNumber()
         {
             return (this.CursorPosition, this.LineNumber);
         }
@@ -119,7 +119,7 @@ namespace RapidXamlToolkit.Tests
             throw new System.NotImplementedException();
         }
 
-        public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
+        public (string ProjectFileName, ProjectType ProjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
         {
             throw new System.NotImplementedException();
         }

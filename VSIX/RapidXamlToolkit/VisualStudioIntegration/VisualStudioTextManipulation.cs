@@ -312,16 +312,10 @@ namespace RapidXamlToolkit.VisualStudioIntegration
     /// </remarks>
     internal static class TextDocumentHelper
     {
-        #region Internal Constants
-
         /// <summary>
         /// The common set of options to be used for find and replace patterns.
         /// </summary>
         internal const FindOptions StandardFindOptions = FindOptions.MatchCase;
-
-        #endregion Internal Constants
-
-        #region Internal Methods
 
         /// <summary>
         /// Finds all matches of the specified pattern within the specified text document.
@@ -581,10 +575,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return result;
         }
 
-        #endregion Internal Methods
-
-        #region Private Methods
-
         private static EditPoint GetEditPointForSnapshotPosition(TextDocument textDocument, ITextSnapshot textSnapshot, int position)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
@@ -726,7 +716,5 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             textBuffer = null;
             return false;
         }
-
-        #endregion Private Methods
     }
 }

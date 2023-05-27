@@ -51,16 +51,13 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
                 {
                     foreach (var match in regex.Matches(text).Cast<Match>())
                     {
-                        if (snapshotText == null)
-                        {
-                            snapshotText = spans[0].Snapshot.GetText();
-                        }
+                        snapshotText ??= spans[0].Snapshot.GetText();
 
                         T tag = this.TryCreateTagForMatch(match, line.Start.Position, spanStart, snapshotText);
                         if (tag != null)
                         {
                             var afterEqualsPos = match.Value.IndexOf('=') + 1;
-                            SnapshotSpan span = new SnapshotSpan(line.Start + match.Index + afterEqualsPos, match.Length);
+                            SnapshotSpan span = new(line.Start + match.Index + afterEqualsPos, match.Length);
                             yield return new TagSpan<T>(span, tag);
                         }
                     }
@@ -104,14 +101,12 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
             int start = args.Changes[0].NewPosition;
             int end = args.Changes[args.Changes.Count - 1].NewEnd;
 
-            SnapshotSpan totalAffectedSpan = new SnapshotSpan(
-                snapshot.GetLineFromPosition(start).Start,
-                snapshot.GetLineFromPosition(end).End);
+            SnapshotSpan totalAffectedSpan = new(snapshot.GetLineFromPosition(start).Start, snapshot.GetLineFromPosition(end).End);
 
             temp(this, new SnapshotSpanEventArgs(totalAffectedSpan));
         }
 
-        private IEnumerable<(ITextSnapshotLine, int)> GetIntersectingLines(NormalizedSnapshotSpanCollection spans)
+        private IEnumerable<(ITextSnapshotLine LineNo, int StartPos)> GetIntersectingLines(NormalizedSnapshotSpanCollection spans)
         {
             if (spans.Count == 0)
             {

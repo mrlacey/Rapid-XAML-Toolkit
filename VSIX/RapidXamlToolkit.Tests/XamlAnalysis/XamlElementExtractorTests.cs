@@ -985,7 +985,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             Assert.AreEqual(0, analyzer.Count);
         }
 
-        private void TestParsingWithoutSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags = null)
+        private void TestParsingWithoutSnapshot(string xaml, List<(string Element, XamlElementProcessor Processor)> processors, TagList tags = null)
         {
             if (tags == null)
             {
@@ -998,7 +998,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
             XamlElementExtractor.Parse("testfile.xaml", null, xaml, processors, tags, null, RapidXamlDocument.GetEveryElementProcessor(ProjectType.Any, null, vsa, logger), logger);
         }
 
-        private void TestParsingWithFakeSnapshot(string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags = null)
+        private void TestParsingWithFakeSnapshot(string xaml, List<(string Element, XamlElementProcessor Processor)> processors, TagList tags = null)
         {
             if (tags == null)
             {

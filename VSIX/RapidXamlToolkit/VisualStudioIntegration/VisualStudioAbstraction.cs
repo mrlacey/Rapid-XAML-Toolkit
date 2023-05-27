@@ -25,7 +25,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 {
     public class VisualStudioAbstraction : VisualStudioTextManipulation, IVisualStudioAbstractionAndDocumentModelAccess
     {
-        private static readonly Dictionary<string, ProjectType> ProjectTypeCache = new Dictionary<string, ProjectType>();
+        private static readonly Dictionary<string, ProjectType> ProjectTypeCache = new();
 
         private readonly ILogger logger;
         private readonly IAsyncServiceProvider serviceProvider;
@@ -81,10 +81,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             {
                 try
                 {
-                    if (this.nugetService == null)
-                    {
-                        this.nugetService = this.GetNuGetService(proj);
-                    }
+                    this.nugetService ??= this.GetNuGetService(proj);
 
                     if (this.nugetService != null)
                     {
@@ -378,10 +375,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
         {
-            if (this.componentModel == null)
-            {
-                this.componentModel = await this.serviceProvider.GetServiceAsync<SComponentModel, IComponentModel>();
-            }
+            this.componentModel ??= await this.serviceProvider.GetServiceAsync<SComponentModel, IComponentModel>();
 
             var visualStudioWorkspace = this.componentModel?.GetService<VisualStudioWorkspace>();
 
@@ -418,7 +412,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return msgResult == MessageBoxResult.Yes;
         }
 
-        public (int, int) GetCursorPositionAndLineNumber()
+        public (int Position, int LineNo) GetCursorPositionAndLineNumber()
         {
             var offset = ((TextSelection)this.Dte.ActiveDocument.Selection).AnchorPoint.AbsoluteCharOffset;
             var lineNo = ((TextSelection)this.Dte.ActiveDocument.Selection).CurrentLine;
@@ -461,7 +455,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return this.Dte.Solution?.GetProjectContainingFile(fileName)?.FileName;
         }
 
-        public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
+        public (string ProjectFileName, ProjectType ProjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
         {
             var proj = this.Dte.Solution.GetProjectContainingFile(fileName);
             return (proj.FileName, this.GetProjectType(proj));
@@ -556,15 +550,9 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         private NuGet.VisualStudio.Contracts.INuGetProjectService GetNuGetService(EnvDTE.Project proj)
         {
             // Cache these to avoid the overhead of looking them up multiple times for the same solution.
-            if (this.componentModel is null)
-            {
-                this.componentModel = this.GetService(proj.DTE, typeof(SComponentModel)) as IComponentModel;
-            }
+            this.componentModel ??= this.GetService(proj.DTE, typeof(SComponentModel)) as IComponentModel;
 
-            if (this.nugetService is null)
-            {
-                this.nugetService = this.componentModel.GetService<NuGet.VisualStudio.Contracts.INuGetProjectService>();
-            }
+            this.nugetService ??= this.componentModel.GetService<NuGet.VisualStudio.Contracts.INuGetProjectService>();
 
             return this.nugetService;
         }
