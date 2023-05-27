@@ -84,21 +84,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                             case nameof(HardCodedStringTag):
                                 list.AddRange(this.CreateActionSet(rxTag, new HardCodedStringAction(this.file, this.view, (HardCodedStringTag)rxTag)));
                                 break;
-                            case nameof(InsertRowDefinitionTag):
-                                list.AddRange(this.CreateActionSet(rxTag, InsertRowDefinitionAction.Create((InsertRowDefinitionTag)rxTag, this.file, this.view)));
-                                break;
-                            case nameof(MissingRowDefinitionTag):
-                                list.AddRange(this.CreateActionSet(rxTag, AddMissingRowDefinitionsAction.Create((MissingRowDefinitionTag)rxTag, this.file)));
-                                break;
-                            case nameof(MissingColumnDefinitionTag):
-                                list.AddRange(this.CreateActionSet(rxTag, AddMissingColumnDefinitionsAction.Create((MissingColumnDefinitionTag)rxTag, this.file)));
-                                break;
-                            case nameof(RowSpanOverflowTag):
-                                list.AddRange(this.CreateActionSet(rxTag, RowSpanOverflowAction.Create((RowSpanOverflowTag)rxTag, this.file)));
-                                break;
-                            case nameof(ColumnSpanOverflowTag):
-                                list.AddRange(this.CreateActionSet(rxTag, ColumnSpanOverflowAction.Create((ColumnSpanOverflowTag)rxTag, this.file)));
-                                break;
                         }
                     }
                 }

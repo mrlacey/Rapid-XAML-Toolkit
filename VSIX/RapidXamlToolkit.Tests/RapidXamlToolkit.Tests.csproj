@@ -61,9 +61,6 @@
     <Compile Include="Extensions\ProjectTypeExtensionTests.cs" />
     <Compile Include="FakeTextSnapshot.cs" />
     <Compile Include="FakeTextSnapshotLine.cs" />
-    <Compile Include="Grid\GridExclusionsTests.cs" />
-    <Compile Include="Grid\GridInsertRowPreviewTests.cs" />
-    <Compile Include="Grid\GridReplacementTests.cs" />
     <Compile Include="Grid\MissingDefinitionsTests.cs" />
     <Compile Include="ProcessorEssentialsForSimpleTests.cs" />
     <Compile Include="Misc\MiscRealWorldTests.cs" />
@@ -254,6 +251,10 @@
     <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj">
       <Project>{2b687603-849f-443c-af11-12cd03f7c139}</Project>
       <Name>RapidXaml.AnalysisCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj">
+      <Project>{3307CD74-9995-4F90-8C12-75760460AD35}</Project>
+      <Name>RapidXaml.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj">
       <Project>{2d65223e-f87c-4e5a-b643-ba3c4304e52d}</Project>

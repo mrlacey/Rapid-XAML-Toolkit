@@ -115,11 +115,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                 ProjectFilePath = projectFilePath,
             };
 
-            var processors = new List<(string, XamlElementProcessor)>
-                    {
-                        (Elements.Grid, new GridProcessor(processorEssentials)),
-                    };
-
             var customProcessors = new List<ICustomAnalyzer>();
 
             if (!string.IsNullOrWhiteSpace(projectFilePath))
@@ -195,9 +190,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             customProcessors.Add(new CustomAnalysis.StepperAnalyzer(vsAbstraction, logger));
 
             // Make sure that all custom analyzers are correctly used as processors
-            processors.AddRange(WrapCustomProcessors(customProcessors, projType, projectFilePath, logger, vsAbstraction));
-
-            return processors;
+            // This is here for historic reasons. Before there were (custom) Analyzers, there were processors....
+            return WrapCustomProcessors(customProcessors, projType, projectFilePath, logger, vsAbstraction).ToList();
         }
 
         public static IEnumerable<(string, XamlElementProcessor)> WrapCustomProcessors(List<ICustomAnalyzer> customProcessors, ProjectType projType, string projectFilePath, ILogger logger, IVisualStudioAbstraction vsAbstraction)
