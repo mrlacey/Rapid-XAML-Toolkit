@@ -20,7 +20,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 {
     public class SuggestedActionsSource : ISuggestedActionsSource, ISuggestedActionsSource2
     {
-        private readonly RxtSettings config = new RxtSettings();
+        private readonly RxtSettings config = new();
         private readonly ITextView view;
         private readonly ISuggestedActionCategoryRegistryService suggestedActionCategoryRegistry;
         private readonly string file;

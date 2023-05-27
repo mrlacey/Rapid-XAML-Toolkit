@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.XamlAnalysis
     {
         private const string AnyOfStart = "ANYOF:";
 
-        private static readonly Dictionary<string, (DateTime timestamp, List<ICustomAnalyzer> analyzer)> AnalyzerCache = new Dictionary<string, (DateTime timestamp, List<ICustomAnalyzer> analyzer)>();
+        private static readonly Dictionary<string, (DateTime Timestamp, List<ICustomAnalyzer> Analyzer)> AnalyzerCache = new();
 
         public RapidXamlDocument()
         {
@@ -34,7 +34,7 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public IVisualStudioAbstraction VsAbstraction { get; set; }
 
-        private static Dictionary<string, (DateTime timeStamp, List<TagSuppression> suppressions)> SuppressionsCache { get; }
+        private static Dictionary<string, (DateTime TimeStamp, List<TagSuppression> Suppressions)> SuppressionsCache { get; }
             = new Dictionary<string, (DateTime, List<TagSuppression>)>();
 
         public static RapidXamlDocument Create(ITextSnapshotAbstraction snapshot, string fileName, IVisualStudioAbstraction vsa, string projectFile, ILogger logger)
@@ -43,13 +43,10 @@ namespace RapidXamlToolkit.XamlAnalysis
 
             List<(string, XamlElementProcessor)> processors = null;
 
+            // This will be null if open a project with open XAML files before the package is initialized.
             var vsAbstraction = vsa;
 
-            // This will happen if open a project with open XAML files before the package is initialized.
-            if (vsAbstraction == null)
-            {
-                vsAbstraction = new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
-            }
+            vsAbstraction ??= new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
 
             try
             {
@@ -106,7 +103,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             return new CustomProcessorWrapper(new EveryElementAnalyzer(vsAbstraction, logger), projectType, projectFilePath, logger, vsAbstraction);
         }
 
-        public static List<(string, XamlElementProcessor)> GetAllProcessors(ProjectType projType, string projectFilePath, IVisualStudioAbstraction vsAbstraction, ILogger logger)
+        public static List<(string Type, XamlElementProcessor Processor)> GetAllProcessors(ProjectType projType, string projectFilePath, IVisualStudioAbstraction vsAbstraction, ILogger logger)
         {
             var processorEssentials = new ProcessorEssentials
             {
@@ -194,7 +191,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             return WrapCustomProcessors(customProcessors, projType, projectFilePath, logger, vsAbstraction).ToList();
         }
 
-        public static IEnumerable<(string, XamlElementProcessor)> WrapCustomProcessors(List<ICustomAnalyzer> customProcessors, ProjectType projType, string projectFilePath, ILogger logger, IVisualStudioAbstraction vsAbstraction)
+        public static IEnumerable<(string Type, XamlElementProcessor Processor)> WrapCustomProcessors(List<ICustomAnalyzer> customProcessors, ProjectType projType, string projectFilePath, ILogger logger, IVisualStudioAbstraction vsAbstraction)
         {
             foreach (var customProcessor in customProcessors)
             {
@@ -264,7 +261,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         {
             var result = new List<ICustomAnalyzer>();
 
-            bool FileFilter(string fileName)
+            static bool FileFilter(string fileName)
             {
                 var filterResult = !fileName.Contains("/obj/")
                                 && !fileName.Contains("\\obj\\")
@@ -441,9 +438,9 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                         if (SuppressionsCache.ContainsKey(suppressionsFile))
                         {
-                            if (SuppressionsCache[suppressionsFile].timeStamp == fileTime)
+                            if (SuppressionsCache[suppressionsFile].TimeStamp == fileTime)
                             {
-                                allSuppressions = SuppressionsCache[suppressionsFile].suppressions;
+                                allSuppressions = SuppressionsCache[suppressionsFile].Suppressions;
                             }
                         }
 
