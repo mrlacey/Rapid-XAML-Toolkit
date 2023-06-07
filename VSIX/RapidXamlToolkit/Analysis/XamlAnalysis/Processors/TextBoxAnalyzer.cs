@@ -54,7 +54,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                     description: "Focusable element (TextBox) is missing a name.",
                     actionText: "Add automation name",
                     addAttributeName: Attributes.APName,
-                    addAttributeValue: "Set this to something meaningful",
+                    addAttributeValue: "TODO: Set this to something meaningful",
                     moreInfoUrl: "https://www.access-board.gov/ict/#502-interoperability-assistive-technology",
                     extendedMessage: "The Name of a focusable element must not be null. Provide a UI Automation Name property that concisely identifies the element."));
             }

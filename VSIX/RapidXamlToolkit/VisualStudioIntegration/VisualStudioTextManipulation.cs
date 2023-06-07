@@ -74,6 +74,10 @@ namespace RapidXamlToolkit.VisualStudioIntegration
                 while (!found)
                 {
                     // TODO: change as deprecated
+                    // - call GetFinder(find, replace, ????) when can work out suitable buffer
+                    // look through find results to see if any are on the line we want
+                    // Then do something similar to `ReplaceAll` (in class below) to replace the text
+
                     found = txtDoc.Selection.FindText(find, (int)vsFindOptions.vsFindOptionsMatchCase);
 
                     if (found)

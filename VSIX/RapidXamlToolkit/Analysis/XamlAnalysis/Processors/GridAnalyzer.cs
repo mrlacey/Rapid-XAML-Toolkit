@@ -1,19 +1,15 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using RapidXaml;
 using RapidXamlToolkit.Logging;
 using RapidXamlToolkit.Resources;
 using RapidXamlToolkit.VisualStudioIntegration;
 using RapidXamlToolkit.XamlAnalysis.CustomAnalysis;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.XamlAnalysis.Processors
 {
-    // TODO: Rename file when finished moving logic from the processor to the analyzer
     public class GridAnalyzer : BuiltInXamlAnalyzer
     {
         public GridAnalyzer(IVisualStudioAbstraction vsa, ILogger logger)
