@@ -78,7 +78,7 @@
       <Version>17.5.33428.388</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Text.Data">
-      <Version>17.4.255</Version>
+      <Version>17.5.279</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestAdapter">
       <Version>3.0.2</Version>
