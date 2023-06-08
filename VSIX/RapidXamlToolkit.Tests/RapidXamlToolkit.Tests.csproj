@@ -208,10 +208,10 @@
       <Version>17.5.279</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestAdapter">
-      <Version>3.0.2</Version>
+      <Version>3.0.4</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework">
-      <Version>3.0.2</Version>
+      <Version>3.0.4</Version>
     </PackageReference>
     <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.3" />
     <PackageReference Include="StyleCop.Analyzers">

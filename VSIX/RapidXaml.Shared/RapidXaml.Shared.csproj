@@ -138,7 +138,7 @@
       <Version>2.9.109</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.2</Version>
+      <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="NuGet.VisualStudio">
       <Version>17.5.0</Version>
