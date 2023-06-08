@@ -900,4 +900,13 @@ If you're noticing an issue, you can disable automatic analysis every time a fil
   <data name="Info_LaunchVersionRxt" xml:space="preserve">
     <value>Rapid XAML Toolkit (v{0})</value>
   </data>
+  <data name="UI_XamlAnalysisTextBoxA11yNameMissingDescription" xml:space="preserve">
+    <value>Focusable element (TextBox) is missing a name.</value>
+  </data>
+  <data name="UI_XamlAnalysisTextBoxA11yNameMissingExtendedMessage" xml:space="preserve">
+    <value>The Name of a focusable element must not be null. Provide a UI Automation Name property that concisely identifies the element.</value>
+  </data>
+  <data name="UI_XamlAnalysisTextBoxA11yNameMissingToolTip" xml:space="preserve">
+    <value>Add automation name.</value>
+  </data>
 </root>

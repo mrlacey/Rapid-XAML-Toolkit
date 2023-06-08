@@ -46,17 +46,15 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
                 && !element.HasAttribute(Attributes.APName)
                 && !element.HasAttribute(Attributes.APLabeledBy))
             {
-                // TODO: need a proper code
-                // TODO: remove hard coded values
                 result.Add(AnalysisActions.AddAttribute(
                     RapidXamlErrorType.Warning,
-                    code: "RXT654",
-                    description: "Focusable element (TextBox) is missing a name.",
-                    actionText: "Add automation name",
+                    code: "RXT601",
+                    description: StringRes.UI_XamlAnalysisTextBoxA11yNameMissingDescription,
+                    actionText: StringRes.UI_XamlAnalysisTextBoxA11yNameMissingToolTip,
                     addAttributeName: Attributes.APName,
                     addAttributeValue: "TODO: Set this to something meaningful",
                     moreInfoUrl: "https://www.access-board.gov/ict/#502-interoperability-assistive-technology",
-                    extendedMessage: "The Name of a focusable element must not be null. Provide a UI Automation Name property that concisely identifies the element."));
+                    extendedMessage: StringRes.UI_XamlAnalysisTextBoxA11yNameMissingExtendedMessage));
             }
 
             return result;

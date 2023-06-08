@@ -2243,6 +2243,33 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Focusable element (TextBox) is missing a name..
+        /// </summary>
+        public static string UI_XamlAnalysisTextBoxA11yNameMissingDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisTextBoxA11yNameMissingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Name of a focusable element must not be null. Provide a UI Automation Name property that concisely identifies the element..
+        /// </summary>
+        public static string UI_XamlAnalysisTextBoxA11yNameMissingExtendedMessage {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisTextBoxA11yNameMissingExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add automation name..
+        /// </summary>
+        public static string UI_XamlAnalysisTextBoxA11yNameMissingToolTip {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisTextBoxA11yNameMissingToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to InputScope is not specified for the TextBox..
         /// </summary>
         public static string UI_XamlAnalysisTextBoxWithoutInputScopeDescription {
