@@ -1072,7 +1072,7 @@ namespace RapidXamlToolkit.Tests.Grid
             Assert.AreEqual(expected, actual);
         }
 
-        private void PositionAtStarShouldReturnExpectedReplacements(string xaml, List<(string, string)> expected)
+        private void PositionAtStarShouldReturnExpectedReplacements(string xaml, List<(string Find, string Replace)> expected)
         {
             var logic = this.SetUpLogic(xaml);
 
@@ -1085,23 +1085,23 @@ namespace RapidXamlToolkit.Tests.Grid
 
                 for (int i = 0; i < expected.Count; i++)
                 {
-                    Assert.AreEqual(expected[i].Item1, actual[i].find);
-                    Assert.AreEqual(expected[i].Item2, actual[i].replace);
+                    Assert.AreEqual(expected[i].Find, actual[i].Find);
+                    Assert.AreEqual(expected[i].Replace, actual[i].Replace);
                 }
             }
         }
 
-        private void PositionAtStarShouldReturnExpectedDefinition(string xaml, (string definition, int position) expected)
+        private void PositionAtStarShouldReturnExpectedDefinition(string xaml, (string Definition, int Position) expected)
         {
             var logic = this.SetUpLogic(xaml);
 
             var (actualDefinition, actualInsertPos) = logic.GetDefinitionAtCursor();
 
-            Assert.AreEqual(expected.definition, actualDefinition);
-            Assert.AreEqual(expected.position, actualInsertPos);
+            Assert.AreEqual(expected.Definition, actualDefinition);
+            Assert.AreEqual(expected.Position, actualInsertPos);
         }
 
-        private void EachPositionBetweenStarsShouldReturnExpectedDefinition(string xaml, (string definition, int position) expected)
+        private void EachPositionBetweenStarsShouldReturnExpectedDefinition(string xaml, (string Definition, int Position) expected)
         {
             var startPos = xaml.IndexOf("☆", StringComparison.Ordinal);
             var endPos = xaml.LastIndexOf("☆", StringComparison.Ordinal) - 1;
@@ -1122,15 +1122,15 @@ namespace RapidXamlToolkit.Tests.Grid
 
                 var (actualDefinition, actualInsertPos) = logic.GetDefinitionAtCursor();
 
-                Assert.AreEqual(expected.definition, actualDefinition, $"Failure at {pos} ({startPos}-{endPos})");
-                Assert.AreEqual(expected.position, actualInsertPos, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.Definition, actualDefinition, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.Position, actualInsertPos, $"Failure at {pos} ({startPos}-{endPos})");
                 positionsTested += 1;
             }
 
             this.TestContext.WriteLine($"{positionsTested} different positions tested.");
         }
 
-        private void EachPositionBetweenStarsShouldReturnExpectedBoundary(string xaml, (int, int, Dictionary<int, int>) expected)
+        private void EachPositionBetweenStarsShouldReturnExpectedBoundary(string xaml, (int Start, int End, Dictionary<int, int> Exclusions) expected)
         {
             var startPos = xaml.IndexOf("☆", StringComparison.Ordinal);
             var endPos = xaml.LastIndexOf("☆", StringComparison.Ordinal) - 1;
@@ -1151,15 +1151,15 @@ namespace RapidXamlToolkit.Tests.Grid
 
                 var (actualStart, actualEnd, exclusions) = logic.GetGridBoundary();
 
-                Assert.AreEqual(expected.Item1, actualStart, $"Failure at {pos} ({startPos}-{endPos})");
-                Assert.AreEqual(expected.Item2, actualEnd, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.Start, actualStart, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.End, actualEnd, $"Failure at {pos} ({startPos}-{endPos})");
                 Assert.IsNotNull(exclusions, $"Failure at {pos} ({startPos}-{endPos})");
-                Assert.AreEqual(expected.Item3.Count, exclusions.Count, $"Failure at {pos} ({startPos}-{endPos})");
+                Assert.AreEqual(expected.Exclusions.Count, exclusions.Count, $"Failure at {pos} ({startPos}-{endPos})");
 
-                foreach (var expectedKey in expected.Item3.Keys)
+                foreach (var expectedKey in expected.Exclusions.Keys)
                 {
                     Assert.IsTrue(exclusions.ContainsKey(expectedKey), $"Failure at {pos} , Key {expectedKey}");
-                    Assert.AreEqual(exclusions[expectedKey], expected.Item3[expectedKey], $"Failure at {pos} , Value for {expectedKey}");
+                    Assert.AreEqual(exclusions[expectedKey], expected.Exclusions[expectedKey], $"Failure at {pos} , Value for {expectedKey}");
                 }
 
                 positionsTested += 1;

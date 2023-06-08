@@ -9,6 +9,7 @@ namespace RapidXamlToolkit
 {
     internal static class TaskExtensions
     {
+#pragma warning disable VSTHRD110 // Observe result of async calls
         internal static void LogAndForget(this System.Threading.Tasks.Task task, string source) =>
             task.ContinueWith(
                 (t, s) => VsShellUtilities.LogError(s as string, t.Exception?.ToString()),
@@ -16,5 +17,6 @@ namespace RapidXamlToolkit
                 CancellationToken.None,
                 TaskContinuationOptions.OnlyOnFaulted,
                 VsTaskLibraryHelper.GetTaskScheduler(VsTaskRunContext.UIThreadNormalPriority));
+#pragma warning restore VSTHRD110 // Observe result of async calls
     }
 }

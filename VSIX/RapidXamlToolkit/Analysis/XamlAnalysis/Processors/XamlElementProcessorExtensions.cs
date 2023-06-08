@@ -66,7 +66,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
             }
         }
 
-        public static (bool uidExists, string uidValue) GetOrGenerateUid(this XamlElementProcessor source, string xamlElement, string attributeName)
+        public static (bool UidExists, string UidValue) GetOrGenerateUid(this XamlElementProcessor source, string xamlElement, string attributeName)
         {
             var uidExists = source.TryGetAttribute(xamlElement, Attributes.Uid, AttributeType.Inline, out AttributeType _, out int _, out int _, out string uid);
 

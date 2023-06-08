@@ -8,8 +8,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 {
     public interface IDocumentModelAccess
     {
-        Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName);
+        Task<(SyntaxTree SyntaxTree, SemanticModel SemModel)> GetDocumentModelsAsync(string fileName);
 
-        Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Document document);
+        Task<(SyntaxTree SyntaxTree, SemanticModel SemModel)> GetDocumentModelsAsync(Document document);
     }
 }

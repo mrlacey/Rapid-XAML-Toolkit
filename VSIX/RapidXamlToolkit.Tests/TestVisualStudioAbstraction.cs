@@ -24,7 +24,7 @@ namespace RapidXamlToolkit.Tests
 
         public int XamlIndent { get; set; } = 4;
 
-        public virtual async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
+        public virtual async Task<(SyntaxTree SyntaxTree, SemanticModel SemModel)> GetDocumentModelsAsync(string fileName)
         {
             await Task.CompletedTask;
             return (this.SyntaxTree, this.SemanticModel);
@@ -40,7 +40,7 @@ namespace RapidXamlToolkit.Tests
             return this.ActiveDocumentText;
         }
 
-        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Microsoft.CodeAnalysis.Document document)
+        public async Task<(SyntaxTree SyntaxTree, SemanticModel SemModel)> GetDocumentModelsAsync(Microsoft.CodeAnalysis.Document document)
         {
             await Task.CompletedTask;
             return (this.SyntaxTree, this.SemanticModel);
@@ -61,7 +61,7 @@ namespace RapidXamlToolkit.Tests
             // NOOP
         }
 
-        public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusion)
+        public void ReplaceInActiveDoc(List<(string Find, string Replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusion)
         {
             // NOOP
         }

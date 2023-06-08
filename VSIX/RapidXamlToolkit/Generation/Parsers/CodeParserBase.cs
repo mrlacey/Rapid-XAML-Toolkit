@@ -84,9 +84,9 @@ namespace RapidXamlToolkit.Parsers
             return result;
         }
 
-        public string GetPropertyOutput(string type, string name, bool isReadOnly, SemanticModel semModel = null, Func<(List<string> strings, int count)> getSubProperties = null)
+        public string GetPropertyOutput(string type, string name, bool isReadOnly, SemanticModel semModel = null, Func<(List<string> Strings, int Count)> getSubProperties = null)
         {
-            return this.GetPropertyOutputAndCounter(new PropertyDetails { PropertyType = type, Name = name, IsReadOnly = isReadOnly }, 1, semModel, getSubProperties).output;
+            return this.GetPropertyOutputAndCounter(new PropertyDetails { PropertyType = type, Name = name, IsReadOnly = isReadOnly }, 1, semModel, getSubProperties).Output;
         }
 
         public ParserOutput GetSingleItemOutput(SyntaxNode documentRoot, SemanticModel semModel, int caretPosition)
@@ -171,8 +171,8 @@ namespace RapidXamlToolkit.Parsers
                         Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(prop.Name));
                         var toAdd = this.GetOutputToAdd(semModel, prop, numericCounter);
 
-                        numericCounter = toAdd.counter;
-                        propertyOutput.Add(toAdd.output);
+                        numericCounter = toAdd.Counter;
+                        propertyOutput.Add(toAdd.Output);
                     }
 
                     foreach (var method in methods)
@@ -180,8 +180,8 @@ namespace RapidXamlToolkit.Parsers
                         Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(method.Name));
                         var toAdd = this.GetOutputToAdd(semModel, method, numericCounter);
 
-                        numericCounter = toAdd.counter;
-                        propertyOutput.Add(toAdd.output);
+                        numericCounter = toAdd.Counter;
+                        propertyOutput.Add(toAdd.Output);
                     }
 
                     if (classGrouping != null
@@ -285,7 +285,7 @@ namespace RapidXamlToolkit.Parsers
             }
         }
 
-        protected virtual (SyntaxNode propertyNode, SyntaxNode classNode, SyntaxNode methodNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        protected virtual (SyntaxNode PropertyNode, SyntaxNode ClassNode, SyntaxNode MethodNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             throw new NotImplementedException();
         }
@@ -300,7 +300,7 @@ namespace RapidXamlToolkit.Parsers
             throw new NotImplementedException();
         }
 
-        protected virtual (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
+        protected virtual (List<string> Strings, int Count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
         {
             throw new NotImplementedException();
         }
@@ -310,21 +310,21 @@ namespace RapidXamlToolkit.Parsers
             throw new NotImplementedException();
         }
 
-        protected (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, PropertyDetails prop, int numericCounter = 0)
+        protected (string Output, string Name, int Counter) GetOutputToAdd(SemanticModel semModel, PropertyDetails prop, int numericCounter = 0)
         {
             var (output, counter) = this.GetPropertyOutputAndCounter(prop, numericCounter, semModel, () => this.GetSubPropertyOutput(prop, semModel));
 
             return (output, prop.Name, counter);
         }
 
-        protected (string output, string name, int counter) GetOutputToAdd(SemanticModel semModel, MethodDetails method, int numericCounter = 0)
+        protected (string Output, string Name, int Counter) GetOutputToAdd(SemanticModel semModel, MethodDetails method, int numericCounter = 0)
         {
             var (output, counter) = this.GetMethodOutputAndCounter(method, numericCounter, semModel);
 
             return (output, method.Name, counter);
         }
 
-        protected (string output, int counter) GetSubPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute)
+        protected (string Output, int Counter) GetSubPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute)
         {
             // Type is blank as it's can't be used in a subproperty
             return this.FormatOutput(this.Profile.SubPropertyOutput, type: string.Empty, name: property.Name, numericSubstitute: numericSubstitute, symbol: property.Symbol, attributes: property.Attributes, getSubPropertyOutput: null);
@@ -332,7 +332,7 @@ namespace RapidXamlToolkit.Parsers
 
         // Mapping match order = Type > ReadOnly > Name
         // Mapping Type match priority = Att+TypeName > Att+T > TypeName > T
-        protected (string output, int counter) GetPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute, SemanticModel semModel, Func<(List<string> strings, int count)> getSubPropertyOutput = null, string namePrefix = "")
+        protected (string Output, int Counter) GetPropertyOutputAndCounter(PropertyDetails property, int numericSubstitute, SemanticModel semModel, Func<(List<string> Strings, int Count)> getSubPropertyOutput = null, string namePrefix = "")
         {
             Mapping mappingOfInterest = null;
             string rawOutput = null;
@@ -440,7 +440,7 @@ namespace RapidXamlToolkit.Parsers
         }
 
 #pragma warning disable IDE0060 // Remove unused parameter
-        protected (string output, int counter) GetMethodOutputAndCounter(MethodDetails method, int numericSubstitute, SemanticModel semModel)
+        protected (string Output, int Counter) GetMethodOutputAndCounter(MethodDetails method, int numericSubstitute, SemanticModel semModel)
 #pragma warning restore IDE0060 // Remove unused parameter
         {
             var mappingOfInterest = this.GetMappingOfInterest(method);
@@ -456,7 +456,7 @@ namespace RapidXamlToolkit.Parsers
             return this.FormatMethodOutput(rawOutput, method.Name, numericSubstitute, method.Argument1Name, method.Argument2Name);
         }
 
-        private (string output, int counter) FormatMethodOutput(string rawOutput, string name, int numericSubstitute, string arg1, string arg2)
+        private (string Output, int Counter) FormatMethodOutput(string rawOutput, string name, int numericSubstitute, string arg1, string arg2)
         {
             Logger?.RecordInfo(StringRes.Info_FormattingOutputForMethod.WithParams(name));
             Logger?.RecordInfo(StringRes.Info_FormattingRawOutput.WithParams(rawOutput));
@@ -503,7 +503,7 @@ namespace RapidXamlToolkit.Parsers
             }
         }
 
-        private (string output, int counter) FormatOutput(string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, List<AttributeDetails> attributes, Func<(List<string> strings, int count)> getSubPropertyOutput)
+        private (string Output, int Counter) FormatOutput(string rawOutput, string type, string name, int numericSubstitute, ITypeSymbol symbol, List<AttributeDetails> attributes, Func<(List<string> Strings, int Count)> getSubPropertyOutput)
         {
             Logger?.RecordInfo(StringRes.Info_FormattingOutputForProperty.WithParams(name));
             Logger?.RecordInfo(StringRes.Info_FormattingRawOutput.WithParams(rawOutput));
@@ -588,9 +588,9 @@ namespace RapidXamlToolkit.Parsers
 
                 if (subProps.HasValue)
                 {
-                    Logger?.RecordInfo(StringRes.Info_FoundPropertyCount.WithParams(subProps.Value.strings.Count));
+                    Logger?.RecordInfo(StringRes.Info_FoundPropertyCount.WithParams(subProps.Value.Strings.Count));
 
-                    foreach (var subProp in subProps.Value.strings)
+                    foreach (var subProp in subProps.Value.Strings)
                     {
                         replacement.AppendLine(subProp);
                     }
@@ -619,11 +619,11 @@ namespace RapidXamlToolkit.Parsers
                     {
                         opener.AppendLine("<Grid.RowDefinitions>");
 
-                        Logger?.RecordInfo(StringRes.Info_AddedRowDefsCount.WithParams(subProps.Value.count));
+                        Logger?.RecordInfo(StringRes.Info_AddedRowDefsCount.WithParams(subProps.Value.Count));
 
-                        for (int i = 1; i <= subProps.Value.count; i++)
+                        for (int i = 1; i <= subProps.Value.Count; i++)
                         {
-                            opener.AppendLine(i < subProps.Value.count
+                            opener.AppendLine(i < subProps.Value.Count
                                 ? "<RowDefinition Height=\"Auto\" />"
                                 : "<RowDefinition Height=\"*\" />");
                         }

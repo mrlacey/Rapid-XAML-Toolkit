@@ -373,7 +373,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return null;
         }
 
-        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
+        public async Task<(SyntaxTree SyntaxTree, SemanticModel SemModel)> GetDocumentModelsAsync(string fileName)
         {
             this.componentModel ??= await this.serviceProvider.GetServiceAsync<SComponentModel, IComponentModel>();
 
@@ -391,7 +391,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return (null, null);
         }
 
-        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Microsoft.CodeAnalysis.Document document)
+        public async Task<(SyntaxTree SyntaxTree, SemanticModel SemModel)> GetDocumentModelsAsync(Microsoft.CodeAnalysis.Document document)
         {
             var root = await document.GetSyntaxRootAsync();
             var syntaxTree = root.SyntaxTree;

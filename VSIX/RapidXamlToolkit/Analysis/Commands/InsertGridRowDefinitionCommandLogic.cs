@@ -92,7 +92,7 @@ namespace RapidXamlToolkit.Commands
             return occurrences;
         }
 
-        public (int start, int end, Dictionary<int, int> exclusions) GetGridBoundary()
+        public (int Start, int End, Dictionary<int, int> Exclusions) GetGridBoundary()
         {
             var activeDocText = this.vs.GetActiveDocumentText();
 
@@ -145,7 +145,7 @@ namespace RapidXamlToolkit.Commands
             }
         }
 
-        public List<(string find, string replace)> GetReplacements()
+        public List<(string Find, string Replace)> GetReplacements()
         {
             var rowNumber = this.GetRowNumber();
 
@@ -169,7 +169,7 @@ namespace RapidXamlToolkit.Commands
             }
         }
 
-        public (string definition, int insertPos) GetDefinitionAtCursor()
+        public (string Definition, int InsertPos) GetDefinitionAtCursor()
         {
             var activeDocText = this.vs.GetActiveDocumentText();
 

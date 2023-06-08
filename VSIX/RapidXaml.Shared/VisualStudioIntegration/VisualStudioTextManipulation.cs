@@ -92,10 +92,10 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void ReplaceInActiveDoc(string find, string replace, int startIndex, int endIndex)
         {
-            this.ReplaceInActiveDoc(new List<(string find, string replace)> { (find, replace) }, startIndex, endIndex, null);
+            this.ReplaceInActiveDoc(new List<(string Find, string Replace)> { (find, replace) }, startIndex, endIndex, null);
         }
 
-        public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions = null)
+        public void ReplaceInActiveDoc(List<(string Find, string Replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions = null)
         {
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {

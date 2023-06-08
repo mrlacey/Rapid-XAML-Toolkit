@@ -23,7 +23,7 @@ namespace RapidXamlToolkit.Options
             return output.Contains(Placeholder.NoOutput) && output.Trim() != Placeholder.NoOutput;
         }
 
-        public (bool isValid, List<string> invalidPlaceholders) ContainsOnlyValidPlaceholders(Type type, string propertyName, string output)
+        public (bool IsValid, List<string> InvalidPlaceholders) ContainsOnlyValidPlaceholders(Type type, string propertyName, string output)
         {
             var propInfo = type.GetProperty(propertyName);
             var attribute = propInfo.GetCustomAttribute(typeof(AllowedPlaceholdersAttribute)) as AllowedPlaceholdersAttribute;
@@ -44,7 +44,7 @@ namespace RapidXamlToolkit.Options
             return (!incorrectlyUsedPlaceholders.Any(), incorrectlyUsedPlaceholders);
         }
 
-        public (bool isValid, List<string> invalidPlaceholders) ContainsUnknownPlaceholders(string source)
+        public (bool IsValid, List<string> InvalidPlaceholders) ContainsUnknownPlaceholders(string source)
         {
             var usedPlaceholders = source.GetPlaceholders();
             var validPlaceholders = Placeholder.All();

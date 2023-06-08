@@ -79,10 +79,10 @@ namespace RapidXamlToolkit.Parsers
                 Logger?.RecordInfo(StringRes.Info_AddingPropertyToOutput.WithParams(propDetails.Name));
                 var toAdd = this.GetPropertyOutputAndCounter(propDetails, numericCounter, semModel, () => this.GetSubPropertyOutput(propDetails, semModel));
 
-                if (!string.IsNullOrWhiteSpace(toAdd.output))
+                if (!string.IsNullOrWhiteSpace(toAdd.Output))
                 {
-                    numericCounter = toAdd.counter;
-                    output.AppendLine(toAdd.output);
+                    numericCounter = toAdd.Counter;
+                    output.AppendLine(toAdd.Output);
 
                     memberNames.Add(propDetails.Name);
                 }
@@ -95,10 +95,10 @@ namespace RapidXamlToolkit.Parsers
                 Logger?.RecordInfo(StringRes.Info_AddingMemberToOutput.WithParams(memberDets.Name));
                 var toAdd = this.GetMethodOutputAndCounter(memberDets, numericCounter, semModel);
 
-                if (!string.IsNullOrWhiteSpace(toAdd.output))
+                if (!string.IsNullOrWhiteSpace(toAdd.Output))
                 {
-                    numericCounter = toAdd.counter;
-                    output.AppendLine(toAdd.output);
+                    numericCounter = toAdd.Counter;
+                    output.AppendLine(toAdd.Output);
 
                     memberNames.Add(memberDets.Name);
                 }
@@ -259,7 +259,7 @@ namespace RapidXamlToolkit.Parsers
             return result;
         }
 
-        protected override (List<string> strings, int count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
+        protected override (List<string> Strings, int Count) GetSubPropertyOutput(PropertyDetails property, SemanticModel semModel)
         {
             var result = new List<string>();
 
@@ -513,7 +513,7 @@ namespace RapidXamlToolkit.Parsers
             return syntaxNode?.ChildTokens().FirstOrDefault(t => t.Kind() is SyntaxKind.IdentifierToken).ValueText;
         }
 
-        protected override (SyntaxNode propertyNode, SyntaxNode classNode, SyntaxNode methodNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
+        protected override (SyntaxNode PropertyNode, SyntaxNode ClassNode, SyntaxNode MethodNode) GetNodeUnderCaret(SyntaxNode documentRoot, int caretPosition)
         {
             PropertyDeclarationSyntax propertyNode = null;
             TypeDeclarationSyntax classNode = null;

@@ -20,7 +20,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
             return profile;
         }
 
-        protected (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) GetCSAbstractions(string fileContents)
+        protected (IFileSystemAbstraction Fs, IVisualStudioAbstractionAndDocumentModelAccess Vsa) GetCSAbstractions(string fileContents)
         {
             var fs = new TestFileSystem
             {
@@ -41,7 +41,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
             return (fs, vsa);
         }
 
-        protected (IFileSystemAbstraction fs, IVisualStudioAbstractionAndDocumentModelAccess vsa) GetVbAbstractions(string fileContents)
+        protected (IFileSystemAbstraction Fs, IVisualStudioAbstractionAndDocumentModelAccess Vsa) GetVbAbstractions(string fileContents)
         {
             var fs = new TestFileSystem
             {

@@ -30,7 +30,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     "Add more children.",
                     "Add child element",
                     "Child",
-                    new List<(string name, string value)>(new[] { ("Name", $"Junior-{element.Children.Count}") }));
+                    new List<(string Name, string Value)>(new[] { ("Name", $"Junior-{element.Children.Count}") }));
             }
         }
     }

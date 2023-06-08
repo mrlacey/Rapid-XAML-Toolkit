@@ -96,10 +96,10 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void ReplaceInActiveDoc(string find, string replace, int startIndex, int endIndex)
         {
-            this.ReplaceInActiveDoc(new List<(string find, string replace)> { (find, replace) }, startIndex, endIndex, null);
+            this.ReplaceInActiveDoc(new List<(string Find, string Replace)> { (find, replace) }, startIndex, endIndex, null);
         }
 
-        public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions = null)
+        public void ReplaceInActiveDoc(List<(string Find, string Replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions = null)
         {
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
@@ -405,9 +405,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         /// Attempts to find next match starting with <paramref name="startPoint"/> and if sucessful,
         /// updates <paramref name="endPoint"/> to point to the end position of the match.
         /// </summary>
-        /// <param name="startPoint"></param>
-        /// <param name="endPoint"></param>
-        /// <param name="patternString"></param>
         /// <returns>True if successful, false if no match found.</returns>
         internal static bool TryFindNextMatch(EditPoint startPoint, ref EditPoint endPoint, string patternString)
         {

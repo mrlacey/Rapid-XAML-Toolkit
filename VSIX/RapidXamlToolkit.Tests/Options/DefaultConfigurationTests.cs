@@ -83,32 +83,32 @@ namespace RapidXamlToolkit.Tests.Options
             {
                 var checkResult = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.FallbackOutput), profile.FallbackOutput);
 
-                if (!checkResult.isValid)
+                if (!checkResult.IsValid)
                 {
-                    Assert.Fail($"{nameof(Profile.FallbackOutput)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                    Assert.Fail($"{nameof(Profile.FallbackOutput)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.InvalidPlaceholders)}");
                 }
 
                 checkResult = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.SubPropertyOutput), profile.SubPropertyOutput);
 
-                if (!checkResult.isValid)
+                if (!checkResult.IsValid)
                 {
-                    Assert.Fail($"{nameof(Profile.SubPropertyOutput)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                    Assert.Fail($"{nameof(Profile.SubPropertyOutput)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.InvalidPlaceholders)}");
                 }
 
                 checkResult = apv.ContainsOnlyValidPlaceholders(typeof(Profile), nameof(Profile.EnumMemberOutput), profile.EnumMemberOutput);
 
-                if (!checkResult.isValid)
+                if (!checkResult.IsValid)
                 {
-                    Assert.Fail($"{nameof(Profile.EnumMemberOutput)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                    Assert.Fail($"{nameof(Profile.EnumMemberOutput)} in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.InvalidPlaceholders)}");
                 }
 
                 foreach (var mapping in profile.Mappings)
                 {
                     checkResult = apv.ContainsOnlyValidPlaceholders(typeof(Mapping), nameof(Mapping.Output), mapping.Output);
 
-                    if (!checkResult.isValid)
+                    if (!checkResult.IsValid)
                     {
-                        Assert.Fail($"Mapping output in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.invalidPlaceholders)}");
+                        Assert.Fail($"Mapping output in profile '{profile.Name}' contained invalid placeholder(s): {string.Join(", ", checkResult.InvalidPlaceholders)}");
                     }
                 }
             }
