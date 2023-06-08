@@ -21,7 +21,7 @@ namespace RapidXamlToolkit.Configuration
             get
             {
                 // TODO: fix
-                //return Properties.Settings.Default.AppInsightsConnStr;
+                ////return Properties.Settings.Default.AppInsightsConnStr;
                 return string.Empty;
             }
         }

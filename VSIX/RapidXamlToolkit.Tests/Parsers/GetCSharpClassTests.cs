@@ -1011,7 +1011,7 @@ namespace tests
         }
 
         // TODO: Get this working again
-        //[TestMethod]
+        ////[TestMethod]
         public async Task GetClassAndSubPropertiesInGenericList_ForNativeTypes()
         {
             var recurseProfile = new Profile
@@ -1075,10 +1075,10 @@ namespace tests
             catch (Exception exc)
             {
                 Console.WriteLine(exc.ToString());
-                //foreach (var item in exc.LoaderExceptions)
-                //{
-                //    Console.WriteLine($"LOADER: {item.ToString()}");
-                //}
+                ////foreach (var item in exc.LoaderExceptions)
+                ////{
+                ////    Console.WriteLine($"LOADER: {item.ToString()}");
+                ////}
                 Console.WriteLine($"INNER: {exc.InnerException?.ToString()}");
                 throw;
             }

@@ -55,6 +55,12 @@
     <Compile Include="..\RapidXamlToolkit.Tests\TestVisualStudioAbstraction.cs">
       <Link>TestVisualStudioAbstraction.cs</Link>
     </Compile>
+    <Compile Include="..\RapidXamlToolkit\VisualStudioIntegration\IDocumentModelAccess.cs">
+      <Link>IDocumentModelAccess.cs</Link>
+    </Compile>
+    <Compile Include="..\RapidXamlToolkit\VisualStudioIntegration\IVisualStudioAbstractionAndDocumentModelAccess.cs">
+      <Link>IVisualStudioAbstractionAndDocumentModelAccess.cs</Link>
+    </Compile>
     <Compile Include="AddAttributeTests.cs" />
     <Compile Include="AddChildStringTests.cs" />
     <Compile Include="AddXmlnsTests.cs" />
@@ -91,10 +97,6 @@
     <ProjectReference Include="..\RapidXaml.AutoFix\RapidXaml.AutoFix.csproj">
       <Project>{88c6355f-9c00-42f8-8595-a554960c3136}</Project>
       <Name>RapidXaml.AutoFix</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RapidXaml.Shared\RapidXaml.Shared.csproj">
-      <Project>{891d63bc-fa0d-4657-b433-f7f8dd27cd28}</Project>
-      <Name>RapidXaml.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj">
       <Project>{c5c70826-26a9-44ef-b91a-b2a46c066236}</Project>
