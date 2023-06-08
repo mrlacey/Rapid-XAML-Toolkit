@@ -590,10 +590,7 @@ namespace RapidXamlToolkit.Parsers
                 }
             }
 
-            if (typeSymbol == null)
-            {
-                typeSymbol = this.GetTypeSymbolWithFallback(prop.Type, semModel, prop.SyntaxTree);
-            }
+            typeSymbol ??= this.GetTypeSymbolWithFallback(prop.Type, semModel, prop.SyntaxTree);
 
             if (typeSymbol == null)
             {

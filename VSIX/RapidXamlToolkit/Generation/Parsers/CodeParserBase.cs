@@ -976,7 +976,7 @@ namespace RapidXamlToolkit.Parsers
 
         private Mapping GetMappingOfInterest(MethodDetails method)
         {
-            List<Mapping> typeMappings = new List<Mapping>();
+            List<Mapping> typeMappings = new();
 
             if (method.Attributes.Any())
             {

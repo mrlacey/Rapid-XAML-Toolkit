@@ -17,7 +17,6 @@ using Microsoft.VisualStudio.TextManager.Interop;
 
 namespace RapidXamlToolkit.VisualStudioIntegration
 {
-
     /// <summary>
     /// A static helper class for working with text documents.
     /// This is a slightly modified version of the TextDocumentHelper class from https://github.com/codecadwallader/codemaid
@@ -192,42 +191,42 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return result;
         }
 
-        ///// <summary>
-        ///// Inserts a blank line before the specified point except where adjacent to a brace.
-        ///// </summary>
-        ///// <param name="point">The point.</param>
-        //internal static void InsertBlankLineBeforePoint(EditPoint point)
-        //{
-        //    if (point.Line <= 1) return;
+        /////// <summary>
+        /////// Inserts a blank line before the specified point except where adjacent to a brace.
+        /////// </summary>
+        /////// <param name="point">The point.</param>
+        ////internal static void InsertBlankLineBeforePoint(EditPoint point)
+        ////{
+        ////    if (point.Line <= 1) return;
 
-        //    point.LineUp(1);
-        //    point.StartOfLine();
+        ////    point.LineUp(1);
+        ////    point.StartOfLine();
 
-        //    string text = point.GetLine();
-        //    if (RegexNullSafe.IsMatch(text, @"^\s*[^\s\{]")) // If it is not a scope boundary, insert newline.
-        //    {
-        //        point.EndOfLine();
-        //        point.Insert(Environment.NewLine);
-        //    }
-        //}
+        ////    string text = point.GetLine();
+        ////    if (RegexNullSafe.IsMatch(text, @"^\s*[^\s\{]")) // If it is not a scope boundary, insert newline.
+        ////    {
+        ////        point.EndOfLine();
+        ////        point.Insert(Environment.NewLine);
+        ////    }
+        ////}
 
-        ///// <summary>
-        ///// Inserts a blank line after the specified point except where adjacent to a brace.
-        ///// </summary>
-        ///// <param name="point">The point.</param>
-        //internal static void InsertBlankLineAfterPoint(EditPoint point)
-        //{
-        //    if (point.AtEndOfDocument) return;
+        /////// <summary>
+        /////// Inserts a blank line after the specified point except where adjacent to a brace.
+        /////// </summary>
+        /////// <param name="point">The point.</param>
+        ////internal static void InsertBlankLineAfterPoint(EditPoint point)
+        ////{
+        ////    if (point.AtEndOfDocument) return;
 
-        //    point.LineDown(1);
-        //    point.StartOfLine();
+        ////    point.LineDown(1);
+        ////    point.StartOfLine();
 
-        //    string text = point.GetLine();
-        //    if (RegexNullSafe.IsMatch(text, @"^\s*[^\s\}]"))
-        //    {
-        //        point.Insert(Environment.NewLine);
-        //    }
-        //}
+        ////    string text = point.GetLine();
+        ////    if (RegexNullSafe.IsMatch(text, @"^\s*[^\s\}]"))
+        ////    {
+        ////        point.Insert(Environment.NewLine);
+        ////    }
+        ////}
 
         /// <summary>
         /// Substitutes all occurrences in the specified text document of the specified pattern
@@ -406,16 +405,14 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
             if (replacements.Any())
             {
-                using (var edit = textBuffer.CreateEdit())
+                using var edit = textBuffer.CreateEdit();
+                foreach (var match in replacements)
                 {
-                    foreach (var match in replacements)
-                    {
-                        result = true;
-                        edit.Replace(match.Match, match.Replace);
-                    }
-
-                    edit.Apply();
+                    result = true;
+                    edit.Replace(match.Match, match.Replace);
                 }
+
+                edit.Apply();
             }
 
             return result;
@@ -423,8 +420,6 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         private static bool TryGetTextBufferAt(string filePath, out ITextBuffer textBuffer)
         {
-            IVsWindowFrame windowFrame;
-
             var componentModel = (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
 
             if (VsShellUtilities.IsDocumentOpen(
@@ -433,14 +428,13 @@ namespace RapidXamlToolkit.VisualStudioIntegration
               Guid.Empty,
               out var _,
               out var _,
-              out windowFrame))
+              out IVsWindowFrame windowFrame))
             {
                 IVsTextView view = VsShellUtilities.GetTextView(windowFrame);
-                IVsTextLines lines;
-                if (view.GetBuffer(out lines) == 0)
+
+                if (view.GetBuffer(out IVsTextLines lines) == 0)
                 {
-                    var buffer = lines as IVsTextBuffer;
-                    if (buffer != null)
+                    if (lines is IVsTextBuffer buffer)
                     {
                         var editorAdapterFactoryService = componentModel.GetService<IVsEditorAdaptersFactoryService>();
                         textBuffer = editorAdapterFactoryService.GetDataBuffer(buffer);

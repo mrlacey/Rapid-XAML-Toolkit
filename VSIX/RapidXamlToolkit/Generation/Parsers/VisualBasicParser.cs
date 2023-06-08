@@ -512,10 +512,7 @@ namespace RapidXamlToolkit.Parsers
                                 }
                             }
 
-                            if (value == null)
-                            {
-                                value = arg.ToString();
-                            }
+                            value ??= arg.ToString();
 
                             Logger?.RecordInfo(StringRes.Info_FoundAttributeArgument.WithParams(name, value));
 
