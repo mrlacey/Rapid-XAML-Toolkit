@@ -77,15 +77,6 @@ namespace RapidXamlToolkit.XamlAnalysis
                     {
                         list.AddRange(this.CreateActionSet(rxTag, CustomAnalysisAction.Create(cat, this.file)));
                     }
-                    else
-                    {
-                        switch (rxTag.GetType().Name)
-                        {
-                            case nameof(HardCodedStringTag):
-                                list.AddRange(this.CreateActionSet(rxTag, new HardCodedStringAction(this.file, this.view, (HardCodedStringTag)rxTag)));
-                                break;
-                        }
-                    }
                 }
             }
             catch (Exception e)

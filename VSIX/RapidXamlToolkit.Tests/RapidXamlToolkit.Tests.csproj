@@ -84,7 +84,6 @@
     <Compile Include="Extensions\StringExtensionTests.cs" />
     <Compile Include="Formatting\OutputGenerationTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Grid\InsertRowDefinitionTests.cs" />
     <Compile Include="Options\AllowedPlaceholderValidatorTests.cs" />
     <Compile Include="Options\DefaultConfigurationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

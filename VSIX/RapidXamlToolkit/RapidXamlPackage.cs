@@ -78,7 +78,6 @@ namespace RapidXamlToolkit
                 Logger?.RecordNotice(string.Empty);
 
                 await FeedbackCommand.InitializeAsync(this, Logger);
-                await MoveAllHardCodedStringsToResourceFileCommand.InitializeAsync(this, Logger);
                 await AnalyzeCurrentDocumentCommand.InitializeAsync(this, Logger);
                 await OpenAnalysisOptionsCommand.InitializeAsync(this, Logger);
 
