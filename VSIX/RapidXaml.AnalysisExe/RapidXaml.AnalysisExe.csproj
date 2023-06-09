@@ -5,6 +5,9 @@
     <TargetFramework>net48</TargetFramework>
     <Version>0.14.1</Version>
   </PropertyGroup>
+	<PropertyGroup>
+		<LangVersion>9.0</LangVersion>
+	</PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>TRACE;ANALYSISEXE</DefineConstants>
   </PropertyGroup>
@@ -16,7 +19,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\RapidXamlToolkit\Analysis\ErrorList\**" />
-    <Compile Include="..\RapidXamlToolkit\Analysis\XamlAnalysis\**" />
+	<Compile Include="..\RapidXamlToolkit\Analysis\XamlAnalysis\**" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\Processors\EveryElementProcessor.cs" />
@@ -39,8 +42,8 @@
     <PackageReference Include="Microsoft.CodeAnalysis.Scripting.Common" Version="4.4.0" />
     <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="17.5.33428.388" />
     <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="17.5.279" />
-        <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.1" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+        <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.3" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

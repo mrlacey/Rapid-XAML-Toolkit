@@ -153,7 +153,6 @@
     <Compile Include="Analysis\XamlAnalysis\Processors\TimePickerAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\ToggleMenuFlyoutItemAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\Processors\ToggleSwitchAnalyzer.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Processors\XamlElementProcessorExtensions.cs" />
     <Compile Include="Analysis\XamlAnalysis\RapidXamlDisplayedTagExtensions.cs" />
     <Compile Include="Analysis\XamlAnalysis\RapidXamlDocument.cs" />
     <Compile Include="Analysis\XamlAnalysis\RapidXamlDocumentCache.cs" />
@@ -163,7 +162,6 @@
     <Compile Include="Analysis\XamlAnalysis\RapidXamlTagProvider.cs" />
     <Compile Include="Analysis\XamlAnalysis\SuggestedActionsSource.cs" />
     <Compile Include="Analysis\XamlAnalysis\SuggestedActionsSourceProvider.cs" />
-    <Compile Include="Analysis\XamlAnalysis\Tags\HardCodedStringTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\InsertionTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\RapidXamlSuggestionAdornmentTag.cs" />
     <Compile Include="Analysis\XamlAnalysis\Tags\RapidXamlWarningAdornmentTag.cs" />
@@ -292,7 +290,6 @@
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
     <Compile Include="TaskExtensions.cs" />
-    <Compile Include="Telemetry\CoreDetails.cs" />
     <Compile Include="Telemetry\TelemetryAccessor.cs" />
     <Compile Include="Telemetry\TelemetryEvents.cs" />
     <Compile Include="Telemetry\TelemetryProperties.cs" />

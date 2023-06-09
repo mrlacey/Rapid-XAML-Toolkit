@@ -46,8 +46,9 @@ namespace RapidXamlToolkit.XamlAnalysis
             // This will be null if open a project with open XAML files before the package is initialized.
             var vsAbstraction = vsa;
 
+#if !ANALYSISEXE
             vsAbstraction ??= new VisualStudioAbstraction(new RxtLogger(), null, ProjectHelpers.Dte);
-
+#endif
             try
             {
                 var text = snapshot.GetText();
@@ -56,7 +57,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 {
                     result.RawText = text;
 
-                    var suppressions = GetSuppressions(fileName, vsAbstraction, projectFile);
+                    var suppressions = GetSuppressions(fileName, vsAbstraction, projectFile, logger);
 
                     // If suppressing all tags in file, don't bother parsing the file
                     if (suppressions == null || suppressions?.Any(s => string.IsNullOrWhiteSpace(s.TagErrorCode)) == false)
@@ -410,7 +411,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             SuppressionsCache.Clear();
         }
 
-        private static List<TagSuppression> GetSuppressions(string fileName, IVisualStudioAbstraction vsa, string projectFileName)
+        private static List<TagSuppression> GetSuppressions(string fileName, IVisualStudioAbstraction vsa, string projectFileName, ILogger logger)
         {
             List<TagSuppression> result = null;
 
@@ -452,8 +453,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             }
             catch (Exception exc)
             {
-                RapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToLoadSuppressionsAnalysisFile);
-                RapidXamlPackage.Logger?.RecordException(exc);
+                logger?.RecordError(StringRes.Error_FailedToLoadSuppressionsAnalysisFile);
+                logger?.RecordException(exc);
             }
 
             return result;

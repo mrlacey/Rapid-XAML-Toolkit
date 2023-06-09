@@ -51,7 +51,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
 
         public override void Execute(CancellationToken cancellationToken)
         {
-            // TODO: need to pass this interface in to the constructor
+            // TODO: need to pass this interface in to the constructor - although package may not have yet loaded
             var vs = new VisualStudioTextManipulation(ProjectHelpers.Dte);
             vs.StartSingleUndoOperation(this.DisplayText);
             try

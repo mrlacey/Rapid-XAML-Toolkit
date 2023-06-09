@@ -54,7 +54,7 @@ namespace RapidXaml.AnalysisExe
             return this.projFile;
         }
 
-        public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
+        public (string ProjectFileName, ProjectType PropjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
         {
             return (this.projFile, this.projectType);
         }
