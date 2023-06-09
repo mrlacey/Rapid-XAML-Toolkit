@@ -9,6 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: 'restqa-404-links'
-      uses: restqa/404-links@v3.1.4
+      uses: restqa/404-links@3.1.4
       with:
         path: 'docs'
