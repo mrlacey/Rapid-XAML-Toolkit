@@ -10,9 +10,7 @@ _If you had it, the preview version should be uninstalled first._
 
 ## Beta builds
 
-Automated builds with the [latest development version](https://vsixgallery.com/extension/RapidXamlToolkit.0dc8e86a-836b-47e5-aa3f-f5e71c15e37a/) of all functionality are available from the [VSIX Gallery](https://www.vsixgallery.com/feedguide). These are produced every time PRs are merged that contain code changes.
-
-_A version distributed via MyGet is no longer available._
+_Beta versions distributed via VSIX Gallery and MyGet are no longer available._
 
 ***
 
