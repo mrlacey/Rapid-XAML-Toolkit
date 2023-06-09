@@ -1,7 +1,10 @@
-name: 404 links
+name: 404 link checks
 
-
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
 
 jobs:
   check-links:
