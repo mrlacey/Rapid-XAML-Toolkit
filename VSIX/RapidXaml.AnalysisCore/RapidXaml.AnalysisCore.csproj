@@ -82,6 +82,9 @@
       <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.3" />
+    <PackageReference Include="System.Memory">
+      <Version>4.5.5</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

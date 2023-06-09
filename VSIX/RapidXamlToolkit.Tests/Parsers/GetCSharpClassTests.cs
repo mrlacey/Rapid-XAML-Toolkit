@@ -1010,9 +1010,8 @@ namespace tests
             this.PositionAtStarShouldProduceExpected(code, expected);
         }
 
-        // TODO: Get this working again
-        ////[TestMethod]
-        public async Task GetClassAndSubPropertiesInGenericList_ForNativeTypes()
+        [TestMethod]
+        public async Task GetClassAndSubPropertiesInGenericList_ForNativeTypes_Array()
         {
             var recurseProfile = new Profile
             {
@@ -1055,6 +1054,73 @@ namespace tests
          + Environment.NewLine + "                    <TextBlock Text=\"SP_IsReadOnly\" />"
          + Environment.NewLine + "                    <TextBlock Text=\"SP_IsFixedSize\" />"
          + Environment.NewLine + "                    <TextBlock Text=\"SP_IsSynchronized\" />"
+         + Environment.NewLine + "                </StackPanel>"
+         + Environment.NewLine + "            </DataTemplate>"
+         + Environment.NewLine + "        </ListView.ItemTemplate>"
+         + Environment.NewLine + "    </ListView>"
+         + Environment.NewLine + "</Grid>";
+
+            var expected = new ParserOutput
+            {
+                Name = "Class1",
+                Output = expectedOutput,
+                OutputType = ParserOutputType.Class,
+            };
+
+            try
+            {
+                await this.PositionAtStarShouldProduceExpectedUsingAdditionalReferences(code, expected, recurseProfile, "System.Array");
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.ToString());
+                ////foreach (var item in exc.LoaderExceptions)
+                ////{
+                ////    Console.WriteLine($"LOADER: {item.ToString()}");
+                ////}
+                Console.WriteLine($"INNER: {exc.InnerException?.ToString()}");
+                throw;
+            }
+        }
+
+        [TestMethod]
+        public async Task GetClassAndSubPropertiesInGenericList_ForNativeTypes_String()
+        {
+            var recurseProfile = new Profile
+            {
+                Name = "GridTestProfile",
+                ClassGrouping = "Grid",
+                FallbackOutput = "<TextBlock Text=\"FB_$name$\" />",
+                SubPropertyOutput = "<TextBlock Text=\"SP_$name$\" />",
+                Mappings = new ObservableCollection<Mapping>
+                {
+                    new Mapping
+                    {
+                        Type = "ObservableCollection<T>",
+                        NameContains = "",
+                        Output = "<ListView><ListView.ItemTemplate><DataTemplate><StackPanel>$subprops$</StackPanel></DataTemplate></ListView.ItemTemplate></ListView>",
+                        IfReadOnly = false,
+                    },
+                },
+            };
+
+            var code = @"
+using System;
+
+namespace tests
+{
+    class C☆lass1
+    {
+        public ObservableCollection<string> Items { get; set; }
+    }
+}";
+            // There are no subproperties on string, so we expect no property-specific output
+            var expectedOutput = "<Grid>"
+         + Environment.NewLine + "    <ListView>"
+         + Environment.NewLine + "        <ListView.ItemTemplate>"
+         + Environment.NewLine + "            <DataTemplate>"
+         + Environment.NewLine + "                <StackPanel>"
+         + Environment.NewLine + "                    <TextBlock Text=\"SP_\" />"
          + Environment.NewLine + "                </StackPanel>"
          + Environment.NewLine + "            </DataTemplate>"
          + Environment.NewLine + "        </ListView.ItemTemplate>"

@@ -181,7 +181,7 @@
       <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>4.4.0</Version>
+      <Version>4.6.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
       <Version>3.3.4</Version>
@@ -189,22 +189,34 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Common">
-      <Version>4.4.0</Version>
+      <Version>4.6.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp">
-      <Version>4.4.0</Version>
+      <Version>4.6.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Scripting.Common">
-      <Version>4.4.0</Version>
+      <Version>4.6.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.ServiceHub.Framework">
+      <Version>4.2.102</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.CoreUtility">
+      <Version>17.6.268</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.LanguageServices">
-      <Version>4.4.0</Version>
+      <Version>4.6.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.RpcContracts">
+      <Version>17.6.13</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK">
       <Version>17.5.33428.388</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Text.Data">
-      <Version>17.5.279</Version>
+      <Version>17.6.268</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Text.Logic">
+      <Version>17.6.268</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestAdapter">
       <Version>3.0.4</Version>
@@ -213,13 +225,16 @@
       <Version>3.0.4</Version>
     </PackageReference>
     <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.3" />
+    <PackageReference Include="StreamJsonRpc">
+      <Version>2.15.29</Version>
+    </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.2.0-beta.435</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="System.Collections.Immutable">
-      <Version>6.0.0</Version>
+      <Version>7.0.0</Version>
     </PackageReference>
     <PackageReference Include="System.Memory">
       <Version>4.5.5</Version>
