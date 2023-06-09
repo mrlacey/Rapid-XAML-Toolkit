@@ -2,5 +2,7 @@ folder: docs/ # The folder required to be parsed
 httpsOnly: true # enforce only HTTPS links
 pullRequestReview: true # If you want a nice review in your pull requests
 ignore: 
+  urls:
+    - https://example.com 
   files:
     - docs/warnings/_template.md
