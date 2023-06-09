@@ -6,7 +6,7 @@
 - **Categories** - Coding, Other, Scaffolding
 - **Tags** - XAML, UWP, WPF, Xamarin.Forms, MVVM, Xamarin
 - **Pricing Category** - Free
-- **Source code repository** - https://github.com/microsoft/rapid-xaml-toolkit
+- **Source code repository** - https://github.com/mrlacey/rapid-xaml-toolkit
 - **Allow Q&A for your extension** - True
 
 ---
@@ -61,14 +61,14 @@ and generate this
 </StackPanel>
 ```
 
-What is generated is based on common conventions but is highly [configurable](https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/docs/configuration.md) and with multiple profiles provided by default.
+What is generated is based on common conventions but is highly [configurable](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/docs/configuration.md) and with multiple profiles provided by default.
 
 ## XAML Analysis
 
 Like [Roslyn Analyzers](https://docs.microsoft.com/en-us/visualstudio/code-quality/roslyn-analyzers-overview?view=vs-2019) do for C# and VB&#183;Net, this toolkit can identify potential issues in XAML files and create suggestions, warnings, or errors about the problems. Suggested Actions are also provided to easily fix what is found.
 
-![Screenshot showing some of the issues that analysis can find](https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/docs/Assets/xaml-analysis-example.png?raw=true)
+![Screenshot showing some of the issues that analysis can find](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/docs/Assets/xaml-analysis-example.png?raw=true)
 
 ## Get Involved
 
-[Feedback](https://github.com/microsoft/Rapid-XAML-Toolkit/issues/new/choose) and [contributions](https://github.com/microsoft/Rapid-XAML-Toolkit/blob/dev/CONTRIBUTING.md) welcome.
+[Feedback](https://github.com/mrlacey/Rapid-XAML-Toolkit/issues/new/choose) and [contributions](https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CONTRIBUTING.md) welcome.
