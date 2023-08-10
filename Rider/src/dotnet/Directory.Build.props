@@ -1,0 +1,40 @@
+<Project>
+
+  <PropertyGroup>
+    <LangVersion>Latest</LangVersion>
+    <NoWarn>MSB3277</NoWarn>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+
+    <BaseIntermediateOutputPath>obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <DefaultItemExcludes>$(DefaultItemExcludes);obj\**</DefaultItemExcludes>
+    <OutputPath>bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>TRACE;DEBUG;JET_MODE_ASSERT</DefineConstants>
+  </PropertyGroup>
+
+  <Import Project="Plugin.props" />
+
+  <PropertyGroup>
+    <WaveVersion>$(SdkVersion.Substring(2,2))$(SdkVersion.Substring(5,1)).0.0</WaveVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Xaml" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="*.DotSettings" />
+  </ItemGroup>
+
+  <ItemDefinitionGroup>
+    <EmbeddedResource>
+      <Generator>JetResourceGenerator</Generator>
+    </EmbeddedResource>
+  </ItemDefinitionGroup>
+
+</Project>

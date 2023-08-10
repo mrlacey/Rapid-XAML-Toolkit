@@ -1,0 +1,222 @@
+// Reference https://www.jetbrains.org/intellij/sdk/docs/tutorials/build_system/gradle_guide.html
+import org.apache.tools.ant.taskdefs.condition.Os
+
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.10'
+    id 'org.jetbrains.intellij' version '1.13.3'     // See https://github.com/JetBrains/gradle-intellij-plugin/releases
+    id 'com.jetbrains.rdgen' version '2023.1.2'      // See https://github.com/JetBrains/rd/releases
+    id 'me.filippov.gradle.jvm.wrapper' version '0.14.0'
+}
+
+ext {
+    isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
+    rdLibDirectory = {
+        new File(setupDependencies.idea.get().classes, "lib/rd")
+    }
+}
+
+repositories {
+    maven { url 'https://cache-redirector.jetbrains.com/intellij-repository/snapshots' }
+    maven { url 'https://cache-redirector.jetbrains.com/maven-central' }
+}
+
+wrapper {
+    gradleVersion = '7.6'
+    distributionType = Wrapper.DistributionType.ALL
+    distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+}
+
+version = ext.PluginVersion
+
+tasks.named("processResources") {
+    from("dependencies.json", { into "META-INF" })
+}
+
+sourceSets {
+    main {
+        java.srcDir 'src/rider/main/java'
+        kotlin.srcDir 'src/rider/main/kotlin'
+        resources.srcDir 'src/rider/main/resources'
+    }
+}
+
+compileKotlin {
+    kotlinOptions { jvmTarget = "17" }
+}
+
+task setBuildTool {
+    doLast {
+        ext.executable = "dotnet"
+        ext.args = ["msbuild"]
+
+        if (isWindows) {
+            ByteArrayOutputStream stdout = new ByteArrayOutputStream()
+            exec {
+                executable "${rootDir}\\tools\\vswhere.exe"
+                args '-latest','-property','installationPath','-products','*'
+                standardOutput = stdout
+                workingDir rootDir
+            }
+
+            def directory = stdout.toString().trim()
+            if (directory) {
+                List<String> files = new FileNameFinder().getFileNames("${directory}\\MSBuild", "**/MSBuild.exe")
+                ext.executable = files.get(0)
+                ext.args = ["/v:minimal"]
+            }
+        }
+
+        ext.args << "${DotnetSolution}"
+        ext.args << "/p:Configuration=${BuildConfiguration}"
+        ext.args << "/p:HostFullIdentifier="
+    }
+}
+
+task compileDotNet {
+    dependsOn setBuildTool
+    doLast {
+        def arguments = setBuildTool.args.clone()
+        arguments << "/t:Restore;Rebuild"
+        exec {
+            executable setBuildTool.executable
+            args arguments
+            workingDir rootDir
+        }
+    }
+}
+
+task testDotNet {
+    doLast {
+        exec {
+            executable "dotnet"
+            args "test","${DotnetSolution}","--logger","GitHubActions"
+            workingDir rootDir
+        }
+    }
+}
+
+buildPlugin {
+    doLast {
+        copy {
+            from "${buildDir}/distributions/${rootProject.name}-${version}.zip"
+            into "${rootDir}/output"
+        }
+
+        // TODO: See also org.jetbrains.changelog: https://github.com/JetBrains/gradle-changelog-plugin
+        def changelogText = file("${rootDir}/CHANGELOG.md").text
+        def changelogMatches = changelogText =~ /(?s)(-.+?)(?=##|$)/
+        def changeNotes = changelogMatches.collect {
+            it[1].replaceAll(/(?s)- /, "\u2022 ").replaceAll(/`/, "").replaceAll(/,/, "%2C").replaceAll(/;/, "%3B")
+        }.take(1).join("")
+
+        def arguments = setBuildTool.args.clone()
+        arguments << "/t:Pack"
+        arguments << "/p:PackageOutputPath=${rootDir}/output"
+        arguments << "/p:PackageReleaseNotes=${changeNotes}"
+        arguments << "/p:PackageVersion=${version}"
+        exec {
+            executable setBuildTool.executable
+            args arguments
+            workingDir rootDir
+        }
+    }
+}
+
+intellij {
+    type = 'RD'
+    version = "${ProductVersion}"
+    downloadSources = false
+    instrumentCode = false
+    // TODO: add plugins
+    // plugins = ["uml", "com.jetbrains.ChooseRuntime:1.0.9"]
+}
+
+runIde {
+    // Match Rider's default heap size of 1.5Gb (default for runIde is 512Mb)
+    maxHeapSize = "1500m"
+
+    // Rider's backend doesn't support dynamic plugins. It might be possible to work with auto-reload of the frontend
+    // part of a plugin, but there are dangers about keeping plugins in sync
+    autoReloadPlugins = false
+
+    // gradle-intellij-plugin will download the default version of the JBR for the snapshot. Update if required
+    // jbrVersion = "jbr_jcef-11_0_6b765.40" // https://confluence.jetbrains.com/display/JBR/Release+notes
+}
+
+rdgen {
+    def modelDir = new File(rootDir, "protocol/src/main/kotlin/model")
+    def csOutput = new File(rootDir, "src/dotnet/${DotnetPluginId}/Rider")
+    def ktOutput = new File(rootDir, "src/rider/main/kotlin/${RiderPluginId.replace('.','/').toLowerCase()}")
+
+    verbose = true
+    classpath {
+        "${rdLibDirectory()}/rider-model.jar"
+    }
+    sources "${modelDir}/rider"
+    hashFolder = "${buildDir}"
+    packages = "model.rider"
+
+    generator {
+        language = "kotlin"
+        transform = "asis"
+        root = "com.jetbrains.rider.model.nova.ide.IdeRoot"
+        namespace = "com.jetbrains.rider.model"
+        directory = "$ktOutput"
+    }
+
+    generator {
+        language = "csharp"
+        transform = "reversed"
+        root = "com.jetbrains.rider.model.nova.ide.IdeRoot"
+        namespace = "JetBrains.Rider.Model"
+        directory = "$csOutput"
+    }
+}
+
+patchPluginXml {
+    // TODO: See also org.jetbrains.changelog: https://github.com/JetBrains/gradle-changelog-plugin
+    def changelogText = file("${rootDir}/CHANGELOG.md").text
+    def changelogMatches = changelogText =~ /(?s)(-.+?)(?=##|$)/
+
+    changeNotes = changelogMatches.collect {
+        it[1].replaceAll(/(?s)\r?\n/, "<br />\n")
+    }.take(1).join('')
+}
+
+prepareSandbox {
+    dependsOn compileDotNet
+
+    def outputFolder = "${rootDir}/src/dotnet/${DotnetPluginId}/bin/${DotnetPluginId}.Rider/${BuildConfiguration}"
+    def dllFiles = [
+            "$outputFolder/${DotnetPluginId}.dll",
+            "$outputFolder/${DotnetPluginId}.pdb",
+            // TODO: add additional assemblies
+    ]
+
+    dllFiles.forEach({ f ->
+        def file = file(f)
+        from(file, { into "${rootProject.name}/dotnet" })
+    })
+
+    doLast {
+        dllFiles.forEach({ f ->
+            def file = file(f)
+            if (!file.exists()) throw new RuntimeException("File ${file} does not exist")
+        })
+    }
+}
+
+publishPlugin {
+    dependsOn testDotNet
+    dependsOn buildPlugin
+    token = "${PublishToken}"
+
+    doLast {
+        exec {
+            executable "dotnet"
+            args "nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key","${PublishToken}","--source","https://plugins.jetbrains.com"
+            workingDir rootDir
+        }
+    }
+}
