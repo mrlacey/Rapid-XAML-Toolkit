@@ -9,8 +9,8 @@
     <Description>Description</Description>
 
     <Authors>Author</Authors>
-    <Copyright>Copyright $([System.DateTime]::Now.Year) Maintainers of RapidXaml</Copyright>
-    <PackageTags>resharper plugin</PackageTags>
+    <Copyright>Copyright $([System.DateTime]::Now.Year) Matt Lacey</Copyright>
+    <PackageTags>rider plugin</PackageTags>
 
     <PackageProjectUrl></PackageProjectUrl>
     <PackageLicenseUrl></PackageLicenseUrl>

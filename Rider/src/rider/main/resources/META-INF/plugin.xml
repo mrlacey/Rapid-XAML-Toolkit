@@ -1,6 +1,6 @@
 <idea-plugin require-restart="true">
   <id>com.jetbrains.rider.plugins.rapidxaml</id>
-  <name>RapidXaml</name>
+  <name>Rapid Xaml</name>
   <version>_PLACEHOLDER_</version>
   <vendor url="https://project-url">Author</vendor>
   <idea-version since-build="_PLACEHOLDER_" until-build="_PLACEHOLDER_" />
