@@ -12,8 +12,8 @@
     <Copyright>Copyright $([System.DateTime]::Now.Year) Matt Lacey</Copyright>
     <PackageTags>rider plugin</PackageTags>
 
-    <PackageProjectUrl></PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/mrlacey/Rapid-XAML-Toolkit</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/LICENSE.txt</PackageLicenseUrl>
     <PackageIconUrl></PackageIconUrl>
   </PropertyGroup>
 
