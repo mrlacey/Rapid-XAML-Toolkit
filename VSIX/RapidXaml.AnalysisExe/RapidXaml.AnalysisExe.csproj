@@ -22,9 +22,31 @@
 	<Compile Include="..\RapidXamlToolkit\Analysis\XamlAnalysis\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="..\RapidXamlToolkit\Analysis\ErrorList\ErrorListService.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\ErrorList\ErrorRow.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\ErrorList\FileErrorCollection.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\ErrorList\SinkManager.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\ErrorList\TableDataSource.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\ErrorList\TableEntriesSnapshot.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\Actions\BaseSuggestedAction.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\Actions\CustomAnalysisAction.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\Actions\SuppressWarningAction.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\AnalysisSpeedWarningInfoBar.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\IRapidXamlAdornmentTagExtensions.cs" />
     <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\Processors\EveryElementProcessor.cs" />
     <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\Processors\SelectedItemAttributeProcessor.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\RapidXamlDisplayedTagExtensions.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\RapidXamlDocumentCache.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\RapidXamlParsingEventArgs.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\RapidXamlRunningDocTableEvents.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\RapidXamlTagger.cs" />
     <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\RapidXamlTagProvider.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\SuggestedActionsSource.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\SuggestedActionsSourceProvider.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\Tags\RapidXamlSuggestionAdornmentTag.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\Tags\RapidXamlWarningAdornmentTag.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\VsTextSnapshot.cs" />
+    <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\VsTextSpan.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
@@ -40,8 +62,6 @@
 	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
 	  <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.4.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.Scripting.Common" Version="4.4.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Shell.Framework" Version="17.5.33428.388" />
-    <PackageReference Include="Microsoft.VisualStudio.Text.Data" Version="17.5.279" />
         <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
       <PrivateAssets>all</PrivateAssets>
