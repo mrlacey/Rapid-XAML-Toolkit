@@ -52,11 +52,11 @@ public class XamlThickness : DependencyObject
 
     public static readonly DependencyProperty BottomProperty = DependencyProperty.Register(nameof(Bottom), typeof(double), typeof(XamlThickness), new PropertyMetadata(0.0));
 
-    public static readonly DependencyProperty AllProperty = DependencyProperty.Register("All", typeof(double), typeof(XamlThickness), new PropertyMetadata(0.0, OnAllChanged));
+    public static readonly DependencyProperty AllProperty = DependencyProperty.Register(nameof(All), typeof(double), typeof(XamlThickness), new PropertyMetadata(0.0, OnAllChanged));
 
-    public static readonly DependencyProperty HorizontalProperty = DependencyProperty.Register("Horizontal", typeof(double), typeof(XamlThickness), new PropertyMetadata(0.0, OnHorizontalChanged));
+    public static readonly DependencyProperty HorizontalProperty = DependencyProperty.Register(nameof(Horizontal), typeof(double), typeof(XamlThickness), new PropertyMetadata(0.0, OnHorizontalChanged));
 
-    public static readonly DependencyProperty VerticalProperty = DependencyProperty.Register("Vertical", typeof(double), typeof(XamlThickness), new PropertyMetadata(0.0, OnVerticalChanged));
+    public static readonly DependencyProperty VerticalProperty = DependencyProperty.Register(nameof(Vertical), typeof(double), typeof(XamlThickness), new PropertyMetadata(0.0, OnVerticalChanged));
 
     private static void OnAllChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
