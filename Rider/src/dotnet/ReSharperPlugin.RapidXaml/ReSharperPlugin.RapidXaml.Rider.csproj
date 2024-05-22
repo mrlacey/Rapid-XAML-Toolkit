@@ -9,7 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Rider.SDK" Version="$(SdkVersion)" />
+    <PackageReference Include="JetBrains.Rider.SDK" Version="2023.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

@@ -3,10 +3,10 @@
   <PropertyGroup>
     <!-- See https://www.nuget.org/packages/JetBrains.ReSharper.SDK -->
     <!-- Keep in sync with ProductVersion in gradle.properties -->
-    <SdkVersion>2023.1.0</SdkVersion>
+    <SdkVersion>2023.2.0</SdkVersion>
 
-    <Title>RapidXaml</Title>
-    <Description>Description</Description>
+    <Title>Rapid XAML</Title>
+    <Description>Tools to accelerate XAML app development.</Description>
 
     <Authors>Author</Authors>
     <Copyright>Copyright $([System.DateTime]::Now.Year) Matt Lacey</Copyright>
