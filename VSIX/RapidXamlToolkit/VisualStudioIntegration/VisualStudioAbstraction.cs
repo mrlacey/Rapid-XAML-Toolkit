@@ -42,11 +42,15 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public string GetActiveDocumentFilePath()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             return this.Dte.ActiveDocument.FullName;
         }
 
         public ProjectType GetProjectType(EnvDTE.Project project)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             const string WpfGuid = "{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548}";
             const string UwpGuid = "{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A}";
             const string XamAndroidGuid = "{EFBA0AD7-5A72-4C68-AF49-83D382785DCF}";
@@ -253,6 +257,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public bool ProjectUsesWpf(EnvDTE.Project project)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var rawContent = System.IO.File.ReadAllText(project.FullName);
 
             return this.ProjectUsesWpf(rawContent);
@@ -285,6 +291,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         {
             string projectTypeGuids = string.Empty;
 
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 object service = this.GetService(proj.DTE, typeof(IVsSolution));
@@ -309,6 +317,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public Guid GetProjectGuid(EnvDTE.Project proj)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var projectGuid = Guid.Empty;
 
             try
@@ -339,6 +349,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public object GetService(object serviceProviderObject, Guid guid)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             object service = null;
 
             Microsoft.VisualStudio.OLE.Interop.IServiceProvider provider = (Microsoft.VisualStudio.OLE.Interop.IServiceProvider)serviceProviderObject;
@@ -361,6 +373,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public string GetActiveDocumentText()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var activeDoc = this.Dte.ActiveDocument;
 
             if (activeDoc.Object("TextDocument") is EnvDTE.TextDocument objectDoc)
@@ -414,6 +428,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public (int Position, int LineNo) GetCursorPositionAndLineNumber()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var offset = ((TextSelection)this.Dte.ActiveDocument.Selection).AnchorPoint.AbsoluteCharOffset;
             var lineNo = ((TextSelection)this.Dte.ActiveDocument.Selection).CurrentLine;
 
@@ -452,17 +468,23 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public string GetPathOfProjectContainingFile(string fileName)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             return this.Dte.Solution?.GetProjectContainingFile(fileName)?.FileName;
         }
 
         public (string ProjectFileName, ProjectType ProjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var proj = this.Dte.Solution.GetProjectContainingFile(fileName);
             return (proj.FileName, this.GetProjectType(proj));
         }
 
         public string GetLanguageFromContainingProject(string fileName)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 var proj = ProjectHelpers.Dte.Solution.GetProjectContainingFile(fileName);
@@ -498,6 +520,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public List<string> GetFilesFromContainingProject(string fileName, params string[] fileNameEndings)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var result = new List<string>();
 
             // See also https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.shell.interop.ivssolution.getprojectenum?view=visualstudiosdk-2017#Microsoft_VisualStudio_Shell_Interop_IVsSolution_GetProjectEnum_System_UInt32_System_Guid__Microsoft_VisualStudio_Shell_Interop_IEnumHierarchies__
@@ -549,6 +573,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         private NuGet.VisualStudio.Contracts.INuGetProjectService GetNuGetService(EnvDTE.Project proj)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             // Cache these to avoid the overhead of looking them up multiple times for the same solution.
             this.componentModel ??= this.GetService(proj.DTE, typeof(SComponentModel)) as IComponentModel;
 

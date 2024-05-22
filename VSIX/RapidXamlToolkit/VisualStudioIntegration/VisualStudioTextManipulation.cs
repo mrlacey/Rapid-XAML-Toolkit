@@ -26,6 +26,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void ReplaceInActiveDocOnLine(string find, string replace, int lineNumber)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 var matches = TextDocumentHelper.FindMatches(txtDoc, find);
@@ -47,6 +49,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void ReplaceInActiveDocOnLineOrAbove(string find, string replace, int lineNumber)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 var matches = TextDocumentHelper.FindMatches(txtDoc, find);
@@ -77,6 +81,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void ReplaceInActiveDoc(List<(string Find, string Replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions = null)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 // Have to implement search and replace directly as built-in functionality doesn't provide the control to only replace within the desired area
@@ -116,6 +122,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void InsertIntoActiveDocumentOnNextLine(string text, int pos)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 txtDoc.Selection.MoveToAbsoluteOffset(pos);
@@ -127,11 +135,17 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void InsertIntoActiveDocOnLineAfterClosingTag(int openingAngleBracketLineNumber, string toInsert)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (this.Dte.ActiveDocument.Object("TextDocument") is TextDocument txtDoc)
             {
                 var matches = TextDocumentHelper.FindMatches(txtDoc, ">");
 
-                var matchPoint = matches.FirstOrDefault(m => m.Line >= openingAngleBracketLineNumber);
+                var matchPoint = matches.FirstOrDefault(m =>
+                {
+                    Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+                    return m.Line >= openingAngleBracketLineNumber;
+                });
 
                 if (matchPoint is not null)
                 {
@@ -144,6 +158,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         // Track the return value to know whether to end/close the UndoContext.
         public bool StartSingleUndoOperation(string name)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (!this.Dte.UndoContext.IsOpen)
             {
                 this.Dte.UndoContext.Open(name);
@@ -155,11 +171,15 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void EndSingleUndoOperation()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             this.Dte.UndoContext.Close();
         }
 
         public void InsertAtEndOfLine(int lineNumber, string toInsert)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 txtDoc.Selection.MoveToLineAndOffset(lineNumber, 1);
@@ -170,6 +190,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void DeleteFromEndOfLine(int lineNumber, int charsToDelete)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 txtDoc.Selection.MoveToLineAndOffset(lineNumber, 1);
@@ -180,6 +202,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public void AddXmlnsAliasToActiveDoc(string alias, string value)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (this.Dte.ActiveDocument.Object("TextDocument") is EnvDTE.TextDocument txtDoc)
             {
                 var matches = TextDocumentHelper.FindMatches(txtDoc, ">");

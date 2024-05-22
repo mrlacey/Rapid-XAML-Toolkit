@@ -33,6 +33,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         public int OnAfterSave(uint docCookie)
         {
 #if VSIXNOTEXE
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var documentInfo = this.runningDocumentTable.GetDocumentInfo(docCookie);
 
             var documentPath = documentInfo.Moniker;

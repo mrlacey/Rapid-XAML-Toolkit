@@ -25,6 +25,8 @@ namespace RapidXamlToolkit.Options
         {
             try
             {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
                 var shellSettingsManager = new ShellSettingsManager(vsServiceProvider);
                 this.store = shellSettingsManager.GetWritableSettingsStore(SettingsScope.UserSettings);
 

@@ -28,6 +28,8 @@ namespace RapidXamlToolkit.Commands
 
             if (CodeParserBase.GetSettings().Profiles.Any())
             {
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
                 if (!(await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) is DTE dte))
                 {
                     RapidXamlPackage.Logger?.RecordError(StringRes.Error_FailedToGetDteInGetXamlAsync);
@@ -96,6 +98,8 @@ namespace RapidXamlToolkit.Commands
 
         protected static async Task ShowStatusBarMessageAsync(IAsyncServiceProvider serviceProvider, string message)
         {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
             try
             {
                 if (await serviceProvider.GetServiceAsync(typeof(EnvDTE.DTE)) is DTE dte)

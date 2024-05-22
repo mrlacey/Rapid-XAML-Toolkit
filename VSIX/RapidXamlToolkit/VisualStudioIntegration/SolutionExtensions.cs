@@ -12,6 +12,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public static IEnumerable<EnvDTE.Project> GetAllProjects(this EnvDTE.Solution solution)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             var item = solution.Projects.GetEnumerator();
 
             while (item.MoveNext())
@@ -37,6 +39,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public static IEnumerable<EnvDTE.Project> GetSolutionFolderProjects(this EnvDTE.Project solutionFolder)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             for (var i = 1; i <= solutionFolder.ProjectItems.Count; i++)
             {
                 var subProject = solutionFolder.ProjectItems.Item(i).SubProject;
@@ -62,6 +66,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public static EnvDTE.Project GetProjectContainingFile(this EnvDTE.Solution solution, string filePath)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             return solution.FindProjectItem(filePath).ContainingProject;
         }
     }

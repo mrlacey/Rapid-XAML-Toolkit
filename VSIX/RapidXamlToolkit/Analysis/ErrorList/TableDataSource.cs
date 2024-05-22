@@ -23,6 +23,8 @@ namespace RapidXamlToolkit.ErrorList
         private TableDataSource()
         {
 #if VSIXNOTEXE
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             var compositionService = ServiceProvider.GlobalProvider.GetService(typeof(SComponentModel)) as IComponentModel;
             compositionService?.DefaultCompositionService.SatisfyImportsOnce(this);
 

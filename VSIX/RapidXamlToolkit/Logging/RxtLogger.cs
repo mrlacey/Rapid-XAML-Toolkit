@@ -38,6 +38,8 @@ namespace RapidXamlToolkit.Logging
 
         public void RecordGeneralError(string message)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             GeneralOutputPane.Instance.Write($"[{StringRes.RapidXamlToolkit}]  {message}");
             GeneralOutputPane.Instance.Activate();
         }

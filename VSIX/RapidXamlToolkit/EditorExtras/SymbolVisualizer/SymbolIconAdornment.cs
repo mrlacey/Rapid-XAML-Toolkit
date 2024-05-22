@@ -22,6 +22,8 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
 
         public SymbolIconAdornment(SymbolIconTag tag)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             this.Foreground = TextColor;
             this.SymbolTag = tag;
             this.Height = this.GetFontSize() + 2;

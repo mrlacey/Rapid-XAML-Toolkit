@@ -49,6 +49,8 @@ namespace RapidXamlToolkit.DragDrop
 
         public IDropHandler GetAssociatedDropHandler(IWpfTextView view)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 ITextBufferUndoManager undoManager = this.UndoProvider.GetTextBufferUndoManager(view.TextBuffer);

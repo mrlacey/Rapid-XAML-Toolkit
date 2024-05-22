@@ -133,6 +133,8 @@ namespace RapidXamlToolkit.DragDrop
 
         private string GetFilename(DragDropInfo info)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (info.Data.GetData("CF_VSSTGPROJECTITEMS") is MemoryStream stream)
             {
                 var tryCount = 0;

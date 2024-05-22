@@ -36,6 +36,8 @@ namespace RapidXamlToolkit.Logging
 
         public static bool IsInitialized()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             if (ServiceProvider.GlobalProvider.GetService(typeof(SVsOutputWindow)) is IVsOutputWindow outWindow)
             {
                 outWindow.GetPane(ref rxtPaneGuid, out IVsOutputWindowPane pane);

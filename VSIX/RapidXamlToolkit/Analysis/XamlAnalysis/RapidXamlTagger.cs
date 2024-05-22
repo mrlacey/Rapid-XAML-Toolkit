@@ -101,6 +101,8 @@ namespace RapidXamlToolkit.XamlAnalysis
         private string GetProjectName(string fileName)
         {
 #if VSIXNOTEXE
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             try
             {
                 return ProjectHelpers.Dte2.Solution.FindProjectItem(fileName)?.ContainingProject?.Name ?? string.Empty;

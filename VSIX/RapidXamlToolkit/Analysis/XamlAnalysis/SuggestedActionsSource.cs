@@ -33,6 +33,8 @@ namespace RapidXamlToolkit.XamlAnalysis
             this.view = view;
             this.file = file;
 
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             RapidXamlDocumentCache.Add(this.file, textBuffer.CurrentSnapshot);
         }
 

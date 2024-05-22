@@ -76,6 +76,8 @@ namespace RapidXaml.EditorExtras.SymbolVisualizer
 
         protected override bool UpdateAdornment(SymbolIconAdornment adornment, SymbolIconTag dataTag)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             adornment.Update(dataTag);
             return true;
         }

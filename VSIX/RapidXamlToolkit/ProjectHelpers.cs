@@ -4,7 +4,6 @@
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Text.Operations;
 
 namespace RapidXamlToolkit
 {
@@ -12,6 +11,8 @@ namespace RapidXamlToolkit
     {
         static ProjectHelpers()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
             Dte = (DTE)Package.GetGlobalService(typeof(DTE));
             Dte2 = (DTE2)Package.GetGlobalService(typeof(DTE));
         }
