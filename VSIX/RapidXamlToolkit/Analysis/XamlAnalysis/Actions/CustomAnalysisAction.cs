@@ -38,7 +38,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Actions
         {
             var result = new List<CustomAnalysisAction>
             {
-                new CustomAnalysisAction(file, tag),
+                new(file, tag),
             };
 
             foreach (var altAction in tag.AlternativeActions)
