@@ -49,7 +49,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
             Assert.AreEqual(1, actual.Where(a => a.Code == "RXT150").Count());
 
             // Add accessible name
-            Assert.AreEqual(1, actual.Where(a => a.Code == "RXT654").Count());
+            Assert.AreEqual(1, actual.Where(a => a.Code == "RXT601").Count());
         }
     }
 }

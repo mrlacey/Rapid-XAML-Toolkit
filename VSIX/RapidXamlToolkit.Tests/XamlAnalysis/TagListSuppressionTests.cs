@@ -2,7 +2,9 @@
 // Licensed under the MIT license.
 
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -13,11 +15,14 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
     {
         private const string TestFileName = "testFile.xaml";
 
-        private readonly string element = "<MenuFlyoutItem Text=\"menu1\" />";
+        private static readonly string element = "<MenuFlyoutItem Text=\"menu1\" />";
 
         private readonly IRapidXamlAdornmentTag tag = new CustomAnalysisTag(
             new CustomAnalysisTagDependencies
             {
+                Action = AnalysisActions.HighlightAttributeWithoutAction(RapidXamlErrorType.Suggestion, "RXT200", "some description", new RapidXamlAttribute()).Actions.First(),
+                AnalyzedElement = RapidXamlElement.Build("MenuFlyoutItem", 0, element.Length, element),
+                ErrorCode = "RXT200",
                 Span = new RapidXaml.RapidXamlSpan(1, 14),
                 Snapshot = new FakeTextSnapshot(),
                 FileName = TestFileName,
@@ -33,7 +38,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
             var suppressions = new List<TagSuppression>();
 
-            var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
+            var tryResult = tags.TryAdd(this.tag, TagListSuppressionTests.element, suppressions);
 
             Assert.IsTrue(tryResult);
             Assert.AreEqual(1, tags.Count);
@@ -44,7 +49,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
         {
             var tags = new TagList();
 
-            var tryResult = tags.TryAdd(this.tag, this.element, suppressions: null);
+            var tryResult = tags.TryAdd(this.tag, TagListSuppressionTests.element, suppressions: null);
 
             Assert.IsTrue(tryResult);
             Assert.AreEqual(1, tags.Count);
@@ -66,7 +71,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 },
             };
 
-            var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
+            var tryResult = tags.TryAdd(this.tag, TagListSuppressionTests.element, suppressions);
 
             Assert.IsTrue(tryResult);
             Assert.AreEqual(1, tags.Count);
@@ -88,7 +93,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 },
             };
 
-            var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
+            var tryResult = tags.TryAdd(this.tag, TagListSuppressionTests.element, suppressions);
 
             Assert.IsTrue(tryResult);
             Assert.AreEqual(1, tags.Count);
@@ -117,7 +122,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 },
             };
 
-            var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
+            var tryResult = tags.TryAdd(this.tag, TagListSuppressionTests.element, suppressions);
 
             Assert.IsTrue(tryResult);
             Assert.AreEqual(1, tags.Count);
@@ -139,9 +144,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 },
             };
 
-            var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
+            var tryResult = tags.TryAdd(this.tag, TagListSuppressionTests.element, suppressions);
 
-            Assert.IsFalse(tryResult);
+            Assert.IsFalse(tryResult, "TryAdd returned `true` when it shoulln't have.");
             Assert.AreEqual(0, tags.Count);
         }
 
@@ -168,9 +173,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 },
             };
 
-            var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
+            var tryResult = tags.TryAdd(this.tag, TagListSuppressionTests.element, suppressions);
 
-            Assert.IsFalse(tryResult);
+            Assert.IsFalse(tryResult, "TryAdd returned `true` when it shouldn't have.");
             Assert.AreEqual(0, tags.Count);
         }
 
@@ -190,9 +195,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
                 },
             };
 
-            var tryResult = tags.TryAdd(this.tag, this.element, suppressions);
+            var tryResult = tags.TryAdd(this.tag, TagListSuppressionTests.element, suppressions);
 
-            Assert.IsFalse(tryResult);
+            Assert.IsFalse(tryResult, "TryAdd returned `true` when it shouldn't have.");
             Assert.AreEqual(0, tags.Count);
         }
     }
