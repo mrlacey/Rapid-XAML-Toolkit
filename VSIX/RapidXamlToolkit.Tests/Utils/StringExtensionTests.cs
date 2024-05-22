@@ -4,7 +4,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace RapidXamlToolkit.Tests.Extensions
+namespace RapidXamlToolkit.Tests.Utils
 {
     [TestClass]
     public class StringExtensionTests
