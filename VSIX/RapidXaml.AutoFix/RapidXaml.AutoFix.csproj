@@ -62,11 +62,6 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.3" />
-    <PackageReference Include="StyleCop.Analyzers">
-      <Version>1.2.0-beta.435</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="WarnAboutTODOs">
       <Version>1.6.0</Version>
     </PackageReference>
