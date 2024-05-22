@@ -2,7 +2,6 @@
 // Licensed under the MIT license.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RapidXaml;
@@ -189,7 +188,7 @@ namespace RapidXamlToolkit.Tests.AutoFix
             var (success, details) = sut.ConvertAllFilesInProject("MyApp.csproj", new[] { new WebViewMultipleActionsAnalyzer() });
 
             Assert.AreEqual(true, success);
-            Assert.AreEqual(20, details.Count());
+            Assert.AreEqual(20, details.Count(), "Unexpected number of details returned.");
             Assert.AreEqual(expectedXaml1, fs.WrittenFiles["Page1.xaml"]);
             Assert.AreEqual(expectedXaml2, fs.WrittenFiles["Page2.xaml"]);
             Assert.AreEqual(expectedXaml3, fs.WrittenFiles["Page3.xaml"]);

@@ -17,8 +17,8 @@
     <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
-                <dependency id="RapidXaml.CustomAnalysis" version="0.13.0" exclude="Build,Analyzers" />
-        <dependency id="System.Memory" version="4.5.4" exclude="Build,Analyzers" />
+        <dependency id="RapidXaml.CustomAnalysis" version="0.13.0" exclude="Build,Analyzers" />
+        <dependency id="System.Memory" version="4.5.5" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

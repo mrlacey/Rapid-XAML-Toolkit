@@ -71,9 +71,6 @@
     <NoWarn>,1573,1591,1712,1762,NU1605,NU1608</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
     <Compile Include="Analysis\AnalysisOptionsGrid.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -301,9 +298,6 @@
     <Compile Include="VisualStudioIntegration\VisualStudioTextManipulation.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
     <Content Include="EditorExtras\SymbolVisualizer\FontAwesome.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

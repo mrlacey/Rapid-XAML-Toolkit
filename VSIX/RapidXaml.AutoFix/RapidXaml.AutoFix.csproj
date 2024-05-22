@@ -22,9 +22,6 @@
     <NoWarn>NU1608</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
     <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\Attributes.cs" Link="_AnalysisCore\Attributes.cs" />
     <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\AttributeType.cs" Link="_AnalysisCore\AttributeType.cs" />
     <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\CustomAnalysis\BuiltInXamlAnalyzer.cs" Link="_AnalysisCore\BuiltInXamlAnalyzer.cs" />
@@ -52,16 +49,12 @@
     <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\XamlElementExtractor.cs" Link="_AnalysisCore\XamlElementExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
-  </ItemGroup>
-  <ItemGroup>
         <PackageReference Include="NuGet.CommandLine" Version="6.10.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.3" />
+        <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
     <PackageReference Include="WarnAboutTODOs">
       <Version>1.6.0</Version>
     </PackageReference>

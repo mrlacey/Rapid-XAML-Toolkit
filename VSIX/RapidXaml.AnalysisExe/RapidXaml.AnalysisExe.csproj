@@ -49,9 +49,6 @@
     <Compile Remove="..\RapidXamlToolkit\Analysis\XamlAnalysis\VsTextSpan.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\RapidXaml.AnalysisCore\RapidXaml.AnalysisCore.csproj" />
     <ProjectReference Include="..\RapidXaml.Resources\RapidXaml.Resources.csproj" />
     <ProjectReference Include="..\RapidXaml.Utils\RapidXaml.Utils.csproj" />

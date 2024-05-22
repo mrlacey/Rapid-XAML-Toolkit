@@ -16,9 +16,6 @@
         <NuspecProperties>publishDir=$([MSBuild]::NormalizeDirectory($(IntermediatePackDir)))</NuspecProperties>
     </PropertyGroup>
     <ItemGroup>
-        <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
-    </ItemGroup>
-    <ItemGroup>
         <PackageReference Include="GuiLabs.Language.Xml" Version="1.2.60" />
         <PackageReference Include="NuGet.CommandLine" Version="6.10.0">
             <PrivateAssets>all</PrivateAssets>
