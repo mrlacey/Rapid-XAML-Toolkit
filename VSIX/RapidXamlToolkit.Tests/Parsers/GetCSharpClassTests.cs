@@ -1114,6 +1114,7 @@ namespace tests
         public ObservableCollection<string> Items { get; set; }
     }
 }";
+
             // There are no subproperties on string, so we expect no property-specific output
             var expectedOutput = "<Grid>"
          + Environment.NewLine + "    <ListView>"

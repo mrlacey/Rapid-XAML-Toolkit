@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System;
 using System.Collections.Generic;
 
 namespace RapidXaml
@@ -89,7 +88,7 @@ namespace RapidXaml
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions AddChild(RapidXamlErrorType errorType, string code, string description, string actionText, string elementName, List<(string name, string value)> attributes = null, string moreInfoUrl = null, string extendedMessage = null)
+        public static AnalysisActions AddChild(RapidXamlErrorType errorType, string code, string description, string actionText, string elementName, List<(string Name, string Value)> attributes = null, string moreInfoUrl = null, string extendedMessage = null)
         {
             var result = new AnalysisActions();
 

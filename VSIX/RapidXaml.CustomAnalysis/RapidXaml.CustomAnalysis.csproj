@@ -20,7 +20,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="GuiLabs.Language.Xml" Version="1.2.60" />
-        <PackageReference Include="NuGet.CommandLine" Version="6.5.0">
+        <PackageReference Include="NuGet.CommandLine" Version="6.10.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -30,7 +30,7 @@
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
         <PackageReference Include="WarnAboutTODOs" Version="1.6.0" />
     </ItemGroup>
     <ItemGroup>

@@ -83,7 +83,7 @@ namespace RapidXaml
         /// <param name="extendedMessage">(Optional) Additional explanatory information about why the error is displayed.</param>
         /// <param name="moreInfoUrl">(Optional) The URL linked from the error code.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions AddChild(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string elementName, List<(string name, string value)> attributes = null, string extendedMessage = null, string moreInfoUrl = null)
+        public static AnalysisActions AddChild(this AnalysisActions analysisActions, RapidXamlErrorType errorType, string code, string description, string actionText, string elementName, List<(string Name, string Value)> attributes = null, string extendedMessage = null, string moreInfoUrl = null)
         {
             var result = analysisActions;
 
@@ -121,7 +121,7 @@ namespace RapidXaml
         /// <param name="elementName">The name of the child element to add.</param>
         /// <param name="attributes">(Optional) a collection of names and values specifying attributes for the added element.</param>
         /// <returns>An AnalysisActions result.</returns>
-        public static AnalysisActions AndAddChild(this AnalysisActions analysisActions, string elementName, List<(string name, string value)> attributes = null)
+        public static AnalysisActions AndAddChild(this AnalysisActions analysisActions, string elementName, List<(string Name, string Value)> attributes = null)
         {
             var attrs = new System.Text.StringBuilder();
 

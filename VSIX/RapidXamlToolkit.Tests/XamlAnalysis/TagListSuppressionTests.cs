@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.VisualStudio.Text;
 using RapidXamlToolkit.XamlAnalysis;
 using RapidXamlToolkit.XamlAnalysis.Tags;
 
@@ -16,19 +15,16 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis
 
         private readonly string element = "<MenuFlyoutItem Text=\"menu1\" />";
 
-        private readonly IRapidXamlAdornmentTag tag = new HardCodedStringTag(
-            new TagDependencies
+        private readonly IRapidXamlAdornmentTag tag = new CustomAnalysisTag(
+            new CustomAnalysisTagDependencies
             {
-                Span = (1, 14),
+                Span = new RapidXaml.RapidXamlSpan(1, 14),
                 Snapshot = new FakeTextSnapshot(),
                 FileName = TestFileName,
                 Logger = DefaultTestLogger.Create(),
                 VsPfp = new TestVisualStudioAbstraction(),
                 ProjectFilePath = string.Empty,
-            },
-            Elements.MenuFlyoutItem,
-            Attributes.Text,
-            ProjectType.Uwp);
+            });
 
         [TestMethod]
         public void Tag_AddedIf_NoSuppressions()
