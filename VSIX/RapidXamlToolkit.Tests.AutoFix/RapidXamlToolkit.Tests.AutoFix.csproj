@@ -87,10 +87,10 @@
       <Version>17.10.191</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestAdapter">
-      <Version>3.3.1</Version>
+      <Version>3.7.3</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestFramework">
-      <Version>3.3.1</Version>
+      <Version>3.7.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

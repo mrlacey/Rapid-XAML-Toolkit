@@ -51,14 +51,16 @@
     <Compile Include="..\RapidXaml.AnalysisCore\XamlAnalysis\XamlElementExtractor.cs" Link="_AnalysisCore\XamlElementExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
-        <PackageReference Include="NuGet.CommandLine" Version="6.10.0">
+        <PackageReference Include="NuGet.CommandLine" Version="6.12.2">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="RapidXaml.CustomAnalysis" Version="0.14.3" />
         <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
     <PackageReference Include="WarnAboutTODOs">
-      <Version>1.6.0</Version>
+      <Version>1.7.0</Version>
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
   </ItemGroup>

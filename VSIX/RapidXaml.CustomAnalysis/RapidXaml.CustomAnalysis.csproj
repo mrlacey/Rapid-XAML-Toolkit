@@ -17,14 +17,17 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="GuiLabs.Language.Xml" Version="1.2.60" />
-        <PackageReference Include="NuGet.CommandLine" Version="6.10.0">
+        <PackageReference Include="NuGet.CommandLine" Version="6.12.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
-        <PackageReference Include="WarnAboutTODOs" Version="1.6.0" />
+        <PackageReference Include="WarnAboutTODOs" Version="1.7.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
     <ItemGroup>
         <Compile Update="Resources.Designer.cs">
