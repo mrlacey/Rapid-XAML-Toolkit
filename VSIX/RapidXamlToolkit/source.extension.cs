@@ -11,7 +11,7 @@ namespace RapidXaml
         public const string Name = "Rapid XAML Toolkit";
         public const string Description = @"Tools to accelerate XAML app development.";
         public const string Language = "en-US";
-        public const string Version = "0.9.0.4";
+        public const string Version = "0.9.0.5";
         public const string Author = "Matt Lacey";
         public const string Tags = "XAML;UWP;WPF;Xamarin.Forms;Uno;MVVM;MAUI;WinUI;DotNetMaui";
     }
