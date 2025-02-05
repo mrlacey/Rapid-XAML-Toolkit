@@ -19,7 +19,8 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            if (!extraDetails.IsFramework(ProjectFramework.Uwp))
+            // TODO: Review MAUI support
+            if (!extraDetails.IsFramework(ProjectFramework.Uwp) && !extraDetails.IsFramework(ProjectFramework.WinUI))
             {
                 return AnalysisActions.None;
             }

@@ -1,8 +1,10 @@
-# Rapid XAML Toolkit - ChangeLog
+﻿# Rapid XAML Toolkit - ChangeLog
 
-## Upcoming
+## 2.0 (Feb 2025)
 
-- [See what's planned next](https://github.com/mrlacey/Rapid-XAML-Toolkit/milestone/7)
+- Support for Visual Studio 2022.
+- Combined in to a single VSIX package.
+- Now works with MAUI, WinUI, & WPF.
 
 ## 0.14.1
 

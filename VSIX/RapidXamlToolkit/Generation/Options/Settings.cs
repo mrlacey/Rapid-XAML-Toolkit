@@ -34,7 +34,7 @@ namespace RapidXamlToolkit.Options
             {
                 var list = new ObservableCollection<ProfileSummary>();
 
-                // If multile profiles have the same name as the active (or fall back) profile, use the first one in the list with matching name
+                // If multiple profiles have the same name as the active (or fall back) profile, use the first one in the list with matching name
                 Dictionary<string, bool> activeIndicated = new Dictionary<string, bool>
                 {
                     { ProjectType.Uwp.GetDescription(), false },

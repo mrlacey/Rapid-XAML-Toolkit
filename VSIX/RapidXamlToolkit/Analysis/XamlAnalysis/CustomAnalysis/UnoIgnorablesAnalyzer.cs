@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             if (!extraDetails.TryGet(KnownExtraDetails.Framework, out ProjectFramework framework)
-             || framework != ProjectFramework.Uwp)
+             || framework != ProjectFramework.WinUI)
             {
                 return AnalysisActions.None;
             }

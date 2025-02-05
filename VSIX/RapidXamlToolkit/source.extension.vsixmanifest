@@ -9,7 +9,7 @@
         <GettingStartedGuide>https://github.com/mrlacey/Rapid-XAML-Toolkit/tree/main/docs</GettingStartedGuide>
         <ReleaseNotes>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/CHANGELOG.md</ReleaseNotes>
         <Icon>Resources\RapidXamlToolkitLogo.png</Icon>
-        <Tags>XAML;UWP;WPF;Xamarin.Forms;Uno;MVVM;MAUI;WinUI;DotNetMaui</Tags>
+        <Tags>XAML;WPF;Uno;MVVM;MAUI;WinUI;DotNetMaui</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.10, 18.0)">

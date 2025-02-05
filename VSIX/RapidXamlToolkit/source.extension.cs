@@ -13,6 +13,6 @@ namespace RapidXaml
         public const string Language = "en-US";
         public const string Version = "0.9.0.5";
         public const string Author = "Matt Lacey";
-        public const string Tags = "XAML;UWP;WPF;Xamarin.Forms;Uno;MVVM;MAUI;WinUI;DotNetMaui";
+        public const string Tags = "XAML;WPF;Uno;MVVM;MAUI;WinUI;DotNetMaui";
     }
 }

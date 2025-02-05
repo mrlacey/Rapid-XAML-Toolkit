@@ -14,7 +14,7 @@
     <summary>Create custom XAML analyzers.</summary>
     <releaseNotes>Fix bug with `AnalysisActions.AddAttribute`</releaseNotes>
     <copyright>Copyright © 2023 Matt Lacey Ltd.</copyright>
-    <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
+    <tags>XAML, MAUI, MVVM, UNO, WinUI, WPF</tags>
     <readme>docs\readme.md</readme>
     <dependencies>
       <group targetFramework="netstandard2.0">

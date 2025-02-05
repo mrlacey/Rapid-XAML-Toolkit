@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RapidXaml.AutoFix</id>
@@ -13,8 +13,8 @@
     <description>Use Rapid XAML custom analyzers to modify XAML files.</description>
     <summary>Apply automatic changes to XAML files.</summary>
     <releaseNotes>.</releaseNotes>
-    <copyright>© 2022 Matt Lacey Ltd.</copyright>
-    <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
+    <copyright>© 2025 Matt Lacey Ltd.</copyright>
+    <tags>XAML, MAUI, MVVM, UNO, WinUI, WPF</tags>
     <dependencies>
       <group targetFramework="netstandard2.0">
         <dependency id="RapidXaml.CustomAnalysis" version="0.13.0" exclude="Build,Analyzers" />

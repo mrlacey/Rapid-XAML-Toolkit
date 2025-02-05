@@ -28,7 +28,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     result.HighlightDescendantWithoutAction(
                         RapidXamlErrorType.Error,
                         code: "WinUI-2PV",
-                        description: "Do not put a TwoPaneView inside the pane of another TwoPaneview.",
+                        description: "Do not put a TwoPaneView inside the pane of another TwoPaneView.",
                         descendant: desc,
                         moreInfoUrl: "https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/two-pane-view#dos-and-donts");
                 }

@@ -29,6 +29,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                     return this.CheckForHardCodedString(Attributes.Text, AttributeType.Any, element, extraDetails);
 
                 case ProjectFramework.Uwp:
+                case ProjectFramework.WinUI:
                 case ProjectFramework.Unknown:
                 default:
                     return AnalysisActions.EmptyList;

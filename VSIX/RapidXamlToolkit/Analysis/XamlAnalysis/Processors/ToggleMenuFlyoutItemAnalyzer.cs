@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.XamlAnalysis.Processors
 
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            if (!extraDetails.IsFramework(ProjectFramework.Uwp))
+            if (!extraDetails.IsFramework(ProjectFramework.Uwp) && !extraDetails.IsFramework(ProjectFramework.WinUI))
             {
                 return AnalysisActions.None;
             }
