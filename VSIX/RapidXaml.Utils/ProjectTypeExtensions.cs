@@ -26,24 +26,16 @@ namespace RapidXamlToolkit
             return source.ToString();
         }
 
-        public static bool Matches(this ProjectType source, ProjectType comparewith)
+        public static bool Matches(this ProjectType source, ProjectType compareWith)
         {
-            return (source & comparewith) == comparewith;
+            return (source & compareWith) == compareWith;
         }
 
         public static ProjectType AsProjectTypeEnum(this string source)
         {
-            if (ProjectType.Uwp.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
-            {
-                return ProjectType.Uwp;
-            }
-            else if (ProjectType.Wpf.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
+            if (ProjectType.Wpf.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
             {
                 return ProjectType.Wpf;
-            }
-            else if (ProjectType.XamarinForms.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
-            {
-                return ProjectType.XamarinForms;
             }
             else if (ProjectType.WinUI.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -52,6 +44,14 @@ namespace RapidXamlToolkit
             else if (ProjectType.MAUI.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
             {
                 return ProjectType.MAUI;
+            }
+            else if (ProjectType.XamarinForms.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return ProjectType.XamarinForms;
+            }
+            else if (ProjectType.Uwp.GetDescription().Equals(source, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return ProjectType.Uwp;
             }
             else
             {

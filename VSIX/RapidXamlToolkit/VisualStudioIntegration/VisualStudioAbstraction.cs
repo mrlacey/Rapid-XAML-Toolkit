@@ -47,6 +47,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return this.Dte.ActiveDocument.FullName;
         }
 
+        // TODO: check support for detecting MAUI
+        // TODO: check support for detecting WinUI
         public ProjectType GetProjectType(EnvDTE.Project project)
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();

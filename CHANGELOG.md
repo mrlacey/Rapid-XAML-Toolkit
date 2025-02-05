@@ -5,6 +5,7 @@
 - Support for Visual Studio 2022.
 - Combined in to a single VSIX package.
 - Now works with MAUI, WinUI, & WPF.
+- Removed UWP & Xamarin.Forms specific functionality.
 
 ## 0.14.1
 
