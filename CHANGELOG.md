@@ -83,7 +83,7 @@
 
 ---
 
-_earlier release notes are summary only_
+Note: _earlier release notes are summary only_
 
 ## 0.10.*
 
