@@ -86,7 +86,7 @@
 
 ---
 
-_earlier release notes are summary only_
+Note: _earlier release notes are summary only_
 
 ## 0.10.*
 
@@ -105,9 +105,9 @@ _earlier release notes are summary only_
 
 ## 0.3.*
 
-- First version available via the marketplace. 
-- Included latest developements in Generation and Analysis.
-- Added Rsolyn ANalyzers for C#.
+- First version available via the marketplace.
+- Included latest developments in Generation and Analysis.
+- Added Roslyn Analyzers for C#.
 
 ## 0.2.*
 

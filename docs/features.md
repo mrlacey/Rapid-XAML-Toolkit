@@ -30,7 +30,7 @@ The image below shows some of the issues that analysis can find (and fix).
 
 See the [full list of all warnings](./warnings/readme.md#rapid-xaml-toolkit---warnings).
 
-Additionaly, it's also possible to:
+Additionally, it's also possible to:
 
 - Right-click anywhere in a XAML source file and select 'Rapid XAML > Move all hard-coded string to Resource file' to move all hard-coded strings to a resource file.
 - Right-click on an opening `Grid` tag and easily add Row and Column definitions.

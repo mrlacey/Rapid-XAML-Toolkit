@@ -1,14 +1,15 @@
-name: 404 links
+name: 404 link checks
 
-
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
 
 jobs:
   check-links:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: 'restqa-404-links'
-      uses: restqa/404-links@v1.0.1
-      with:
-        path: 'docs'
+      uses: restqa/404-links@3.1.4

@@ -114,10 +114,10 @@ You can reference the project directly, the compiled DLL, or package the library
 
 The generated project also includes example tests to help you verify your analyzer is work correctly. They show how you can confirm the analyzer returns the expected response given different XAML strings as input.
 
-### Please note.
+### Please note
 
 While testing your newly developed custom analyzers, you may find that changes you make aren't always immediately showing up.
-A possible cause for this can be Visual Studio aggressively caching previoulsy generated and loaded assemblies. To work around this, try: cleaning the whole solution; manually deleting the 'bin' and 'obj' directories; and even restarting VS.
+A possible cause for this can be Visual Studio aggressively caching previously generated and loaded assemblies. To work around this, try: cleaning the whole solution; manually deleting the 'bin' and 'obj' directories; and even restarting VS.
 I recognize this can be frustrating but I haven't yet found a better solution. If you find one, please share it.
 
 ## Share your experiences

@@ -64,7 +64,7 @@ Only **$name$**, **$incint$**, and **$repint$** placeholders are valid in the su
 #### Enum Members mapping
 
 The mapping used for properties included from the **$members$** placeholder.
-Only the **$element$**, **$elementwithspace$** and **$enumname$** placeholders are valid in the enum member output.
+Only the **$element$**, **$elementwithspaces$** and **$enumname$** placeholders are valid in the enum member output.
 
 ## Placeholders
 
@@ -97,7 +97,7 @@ Attribute based placeholders take the form `$att:<attribute-name>:<output-if-att
 
 #### &lt;attribute-name&gt;
 
-This is the name of the attribute to look for. In the following code snippet this woudl be `Display`. (Use of `DisplayAttribute` also works.)
+This is the name of the attribute to look for. In the following code snippet this would be `Display`. (Use of `DisplayAttribute` also works.)
 
 ```csharp
     [Display(Name = ShortName)]
@@ -108,7 +108,7 @@ This is the name of the attribute to look for. In the following code snippet thi
 
 These can be regular strings to treat as XAML. It can also include values in square brackets which have special meaning with regard the properties of the attribute.
 
-- **[PropertName]** can be used to access the values of named items passed to the attribute constructor. e.g. `Name` in the above example.
+- **[PropertyName]** can be used to access the values of named items passed to the attribute constructor. e.g. `Name` in the above example.
 - **[1]** can be used to access values passed to the attribute constructor in numeric order. Order starts with '1'. (`[1]` and `[Name]` produce the same output in the above example.)
 
 #### &lt;fallback-value&gt;

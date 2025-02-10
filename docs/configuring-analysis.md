@@ -6,8 +6,8 @@ The issues reported via XAML Analysis have a default ErrorType ('Error', 'Warnin
 
 The ErrorType of a tag determines how it is displayed in Visual Studio.
 
-- **Error** is underlined in code and listed in the 'Errorw' tab in the Error List.
-- **Warning** is underlined in code and listed in the 'Warningw' tab in the Error List.
+- **Error** is underlined in code and listed in the 'Errors' tab in the Error List.
+- **Warning** is underlined in code and listed in the 'Warnings' tab in the Error List.
 - **Suggestion** is underlined in code and listed in the 'Messages' tab in the Error List.
 - **Hidden** has an underline hint in code and is not included in the Error List.
 
@@ -43,7 +43,7 @@ The file must contain a JSON formatted list of suppression objects.
 Each object is made up of:
 
 - **FileName** [required] Matching is case sensitive and done from the end of a full file path. No wildcards are supported but you can specify the FileName as '.xaml' for it to be applied to all XAML files.
-- **TagErrorCode** [optional] The warnign to suppress. If not specified the suppression will apply to all tags in the file.
+- **TagErrorCode** [optional] The warning to suppress. If not specified the suppression will apply to all tags in the file.
 - **ElementIdentifier** [optional] Used in a `Contains()` match on the full text of the element, and only those that match are suppressed. If not specified (or left blank) then all tags with the errorcode in the specified file will be suppressed.
 - **Reason** [optional] Nothing is done with this, it's simply a place to justify why the suppression has been added and allows developers to tell their future selves, or others working on the project, why they did this.
 
