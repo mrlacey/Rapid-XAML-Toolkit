@@ -21,12 +21,10 @@ Intel Core i7-8650U CPU 1.90GHz (Kaby Lake R), 1 CPU, 8 logical and 4 physical c
   [Host]     : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
   DefaultJob : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
 
-
 |       Method |     Mean |    Error |   StdDev | Ratio | Rank |     Gen 0 |     Gen 1 |    Gen 2 | Allocated |
 |------------- |---------:|---------:|---------:|------:|-----:|----------:|----------:|---------:|----------:|
 | ParseCurrent | 62.49 ms | 0.898 ms | 0.701 ms |  1.00 |    1 | 8000.0000 | 1125.0000 | 500.0000 |   33.9 MB |
 ```
-
 
 ## 0.10.5 (initial perf improvements)
 
@@ -38,7 +36,6 @@ Intel Core i7-8650U CPU 1.90GHz (Kaby Lake R), 1 CPU, 8 logical and 4 physical c
 .NET Core SDK=5.0.100-preview.6.20318.15
   [Host]     : .NET Core 3.1.6 (CoreCLR 4.700.20.26901, CoreFX 4.700.20.31603), X64 RyuJIT
   DefaultJob : .NET Core 3.1.6 (CoreCLR 4.700.20.26901, CoreFX 4.700.20.31603), X64 RyuJIT
-
 
 |       Method |     Mean |    Error |   StdDev | Ratio | Rank |      Gen 0 |     Gen 1 | Gen 2 | Allocated |
 |------------- |---------:|---------:|---------:|------:|-----:|-----------:|----------:|------:|----------:|
@@ -56,7 +53,6 @@ Intel Core i7-8650U CPU 1.90GHz (Kaby Lake R), 1 CPU, 8 logical and 4 physical c
   [Host]     : .NET Core 3.1.6 (CoreCLR 4.700.20.26901, CoreFX 4.700.20.31603), X64 RyuJIT
   DefaultJob : .NET Core 3.1.6 (CoreCLR 4.700.20.26901, CoreFX 4.700.20.31603), X64 RyuJIT
 
-
 |       Method |     Mean |    Error |   StdDev | Ratio | Rank |      Gen 0 |     Gen 1 | Gen 2 | Allocated |
 |------------- |---------:|---------:|---------:|------:|-----:|-----------:|----------:|------:|----------:|
 | ParseCurrent | 426.9 ms | 18.65 ms | 53.51 ms |  1.00 |    1 | 18000.0000 | 2000.0000 |     - |  79.86 MB |
@@ -65,4 +61,3 @@ Intel Core i7-8650U CPU 1.90GHz (Kaby Lake R), 1 CPU, 8 logical and 4 physical c
 **Notes.** 
 - Mean is better than expected.
 - Allocated memory is worryingly large.
-
