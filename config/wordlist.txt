@@ -11,11 +11,13 @@ dialogs
 dll
 DynamicResource
 ElementIdentifier
+elementwithspace
 elementwithspaces
 enum
 enumname
 errorcode
 ErrorType
+FallBack
 FileName
 incint
 intellicode
@@ -24,6 +26,7 @@ JSON
 MAUI
 mrlacey
 MVVM
+MyGet
 namespace
 namewithspaces
 nooutput
@@ -32,6 +35,7 @@ nupkg
 PascalCase
 pfx
 precompiled
+PropertyName
 RapidXaml
 RapidXamlToolkit
 repint
@@ -50,6 +54,7 @@ UWP
 UIElement
 ViewModel
 VM
+vsix
 VSIX
 WarnAboutTODOs
 WinUI
