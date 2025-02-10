@@ -2,5 +2,6 @@
     "default": true,
     "line-length": false,
     "commands-show-output": false,
-    "no-bare-urls": false
+    "no-bare-urls": false,
+    "disable": MD029
 }
