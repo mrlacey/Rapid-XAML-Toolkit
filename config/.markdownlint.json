@@ -3,5 +3,5 @@
     "line-length": false,
     "commands-show-output": false,
     "no-bare-urls": false,
-    "disable": MD029
+    "ol-prefix": false
 }
