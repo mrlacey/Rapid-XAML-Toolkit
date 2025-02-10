@@ -64,7 +64,7 @@ Only **$name$**, **$incint$**, and **$repint$** placeholders are valid in the su
 #### Enum Members mapping
 
 The mapping used for properties included from the **$members$** placeholder.
-Only the **$element$**, **$elementwithspace$** and **$enumname$** placeholders are valid in the enum member output.
+Only the **$element$**, **$elementwithspaces$** and **$enumname$** placeholders are valid in the enum member output.
 
 ## Placeholders
 
