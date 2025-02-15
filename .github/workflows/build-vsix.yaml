@@ -47,7 +47,7 @@ jobs:
       uses: josepho0918/vstest-action@main
       with:
         searchFolder: /_built/
-        testAssembly: /**/VSIX/**/*Tests.dll
+        testAssembly: /**/*Tests.dll
 
     - name: Publish Test Results
       uses: EnricoMi/publish-unit-test-result-action/windows@v2
