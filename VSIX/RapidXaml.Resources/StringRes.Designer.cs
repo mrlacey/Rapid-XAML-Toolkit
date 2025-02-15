@@ -333,9 +333,9 @@ namespace RapidXamlToolkit.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Attribute parameter with index &apos;{0}&apos; not found..
         /// </summary>
-        public static string Info_AttributeParameterWIthoutIndex {
+        public static string Info_AttributeParameterWithoutIndex {
             get {
-                return ResourceManager.GetString("Info_AttributeParameterWIthoutIndex", resourceCulture);
+                return ResourceManager.GetString("Info_AttributeParameterWithoutIndex", resourceCulture);
             }
         }
         
@@ -945,6 +945,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Property is not read-only so filtering out read-only mappings..
+        /// </summary>
+        public static string Info_PropertyIsNotReadOnly {
+            get {
+                return ResourceManager.GetString("Info_PropertyIsNotReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Property is read-only so looking for read-only mappings first..
         /// </summary>
         public static string Info_PropertyIsReadOnly {
@@ -968,15 +977,6 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_PropertyTypeNotRecognizedAsGeneric {
             get {
                 return ResourceManager.GetString("Info_PropertyTypeNotRecognizedAsGeneric", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Property is not read-only so filtering out read-only mappings..
-        /// </summary>
-        public static string Info_ProperyIsNotReadOnly {
-            get {
-                return ResourceManager.GetString("Info_ProperyIsNotReadOnly", resourceCulture);
             }
         }
         

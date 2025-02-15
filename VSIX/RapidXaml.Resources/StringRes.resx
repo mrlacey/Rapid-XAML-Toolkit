@@ -271,7 +271,7 @@
   <data name="Info_PropertyTypeNotRecognizedAsGeneric" xml:space="preserve">
     <value>'{0}' not recognized as generic.</value>
   </data>
-  <data name="Info_ProperyIsNotReadOnly" xml:space="preserve">
+  <data name="Info_PropertyIsNotReadOnly" xml:space="preserve">
     <value>Property is not read-only so filtering out read-only mappings.</value>
   </data>
   <data name="Info_ReplacingIncIntPlaceholder" xml:space="preserve">
@@ -682,7 +682,7 @@
   <data name="Info_AttributeNotFoundOnProperty" xml:space="preserve">
     <value>Attribute not found on property.</value>
   </data>
-  <data name="Info_AttributeParameterWIthoutIndex" xml:space="preserve">
+  <data name="Info_AttributeParameterWithoutIndex" xml:space="preserve">
     <value>Attribute parameter with index '{0}' not found.</value>
   </data>
   <data name="Info_FoundAttributeArgument" xml:space="preserve">

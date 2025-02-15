@@ -166,7 +166,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                                 : value.RemoveNonAlphaNumerics();
 
                             var xmlnsToUse = "properties"; // default/fallback
-                            var xmlnsExists = true; // Assume existence. (i.e. don't add it. It's better than douplicating or adding something wrong)
+                            var xmlnsExists = true; // Assume existence. (i.e. don't add it. It's better than duplicating or adding something wrong)
 
                             if (extraDetails.TryGet(KnownExtraDetails.Xmlns, out Dictionary<string, string> xmlns))
                             {

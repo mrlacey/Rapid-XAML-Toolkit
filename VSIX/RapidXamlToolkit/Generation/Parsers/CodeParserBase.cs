@@ -541,7 +541,7 @@ namespace RapidXamlToolkit.Parsers
 
             if (result.Contains(Placeholder.XName))
             {
-                // xname is a combination of propertyname and the type of the UIElement. e.g. IdTextBlock, FirstNameTextBox
+                // xname is a combination of property name and the type of the UIElement. e.g. IdTextBlock, FirstNameTextBox
                 // Save this for possible future reuse in subsequent properties
                 xname = $"{name}{rawOutput.AsSpan().GetXamlElement()}";
 
@@ -751,7 +751,7 @@ namespace RapidXamlToolkit.Parsers
 
                         if (replaceVal is null)
                         {
-                            Logger?.RecordInfo(StringRes.Info_AttributeParameterWIthoutIndex.WithParams(subIndex));
+                            Logger?.RecordInfo(StringRes.Info_AttributeParameterWithoutIndex.WithParams(subIndex));
 
                             // Output nothing for the attribute rather than something incomplete.
                             replace = string.Empty;
@@ -810,7 +810,7 @@ namespace RapidXamlToolkit.Parsers
 
                     Logger?.RecordInfo(StringRes.Info_KnownAttributes.WithParams(knownAttributes));
 
-                    // If the attribute isn't specified on the property then chek for the fallback.
+                    // If the attribute isn't specified on the property then check for the fallback.
                     var fallback = match.Groups["Fallback"].Value;
 
                     if (!string.IsNullOrEmpty(fallback))
@@ -888,7 +888,7 @@ namespace RapidXamlToolkit.Parsers
 
             if (!isReadOnly)
             {
-                Logger?.RecordInfo(StringRes.Info_ProperyIsNotReadOnly);
+                Logger?.RecordInfo(StringRes.Info_PropertyIsNotReadOnly);
                 typeMappings = typeMappings.Where(m => m.IfReadOnly == false).ToList();
             }
 
