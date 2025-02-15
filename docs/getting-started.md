@@ -1,4 +1,4 @@
-# Getting Started
+﻿# Getting Started
 
 Whether you want to use the extension or help make it even better--this is the place to start.
 
@@ -74,11 +74,6 @@ The other solution in the 'VSIX' folder contains everything in 'RapidXamlToolkit
 
 All warnings are treated as errors in the release build.  
 'TODO' comments that do not reference an issue number will create warnings and fail CI builds. (Courtesy of [WarnAboutTODOs](https://www.nuget.org/packages/WarnAboutTODOs/))
-
-### Intellicode
-
-An intellicode model for the code-base is automatically maintained and available if you enable automatic acquisition by going to Tools > Options > IntelliCode > Acquire team models for completion.  
-![options setting for enabling intellicode model](./Assets/enable-intellicode.png)
 
 ### Extending XAML Analysis
 
