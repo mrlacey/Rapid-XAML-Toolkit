@@ -1,6 +1,6 @@
 ﻿# Rapid XAML Toolkit - ChangeLog
 
-## 2.0 (Feb 2025)
+## 1.0 PREVIEW (Feb 2025)
 
 - Support for Visual Studio 2022.
 - Combined in to a single VSIX package.
