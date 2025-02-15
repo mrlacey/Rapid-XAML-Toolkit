@@ -273,7 +273,8 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public bool ProjectReferencesWinUI(string projectFileContents)
         {
-            return projectFileContents.Contains("PackageReference Include=\"Microsoft.WindowsAppsSDK.WinUI\"")
+            return projectFileContents.Contains("<UseWinUI>true</UseWinUI>")
+                || projectFileContents.Contains("PackageReference Include=\"Microsoft.WindowsAppsSDK.WinUI\"")
                 || projectFileContents.Contains("PackageReference Include=\"Microsoft.ProjectReunion.WinUI\"");
         }
 
