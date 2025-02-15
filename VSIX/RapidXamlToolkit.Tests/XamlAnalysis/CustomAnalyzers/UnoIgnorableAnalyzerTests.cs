@@ -33,7 +33,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var sut = this.CreateAnalyzer<UnoIgnorablesAnalyzer>();
 
-            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.WinUI));
 
             Assert.AreEqual(1, actual.Actions.Count);
             Assert.AreEqual(ActionType.RemoveAttribute, actual.Actions[0].Action);
@@ -87,7 +87,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = this.CreateAnalyzer<UnoIgnorablesAnalyzer>();
-            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.WinUI));
 
             Assert.AreEqual(1, actual.Actions.Count);
             Assert.AreEqual(ActionType.RemoveAttribute, actual.Actions[0].Action);
@@ -140,7 +140,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = this.CreateAnalyzer<UnoIgnorablesAnalyzer>();
-            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.WinUI));
 
             Assert.AreEqual(1, actual.Actions.Count);
             Assert.AreEqual(ActionType.RemoveAttribute, actual.Actions[0].Action);
@@ -193,7 +193,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = this.CreateAnalyzer<UnoIgnorablesAnalyzer>();
-            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.WinUI));
 
             Assert.AreEqual(1, actual.Actions.Count);
             Assert.AreEqual(ActionType.RemoveAttribute, actual.Actions[0].Action);
@@ -246,7 +246,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = this.CreateAnalyzer<UnoIgnorablesAnalyzer>();
-            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.WinUI));
 
             Assert.AreEqual(1, actual.Actions.Count);
             Assert.AreEqual(ActionType.RemoveAttribute, actual.Actions[0].Action);
@@ -299,7 +299,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = this.CreateAnalyzer<UnoIgnorablesAnalyzer>();
-            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.WinUI));
 
             Assert.AreEqual(1, actual.Actions.Count);
             Assert.AreEqual(ActionType.RemoveAttribute, actual.Actions[0].Action);
@@ -357,7 +357,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
             var rxElement = CustomAnalysisTestHelper.StringToElement(xaml);
 
             var sut = this.CreateAnalyzer<UnoIgnorablesAnalyzer>();
-            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.Uwp));
+            var actual = sut.Analyze(rxElement, FakeExtraAnalysisDetails.Create(ProjectFramework.WinUI));
 
             Assert.AreEqual(6, actual.Actions.Count);
         }
