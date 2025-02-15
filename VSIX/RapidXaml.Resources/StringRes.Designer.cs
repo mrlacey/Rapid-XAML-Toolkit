@@ -1460,7 +1460,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- No accessible properties when copying as XAML --&gt;.
+        ///   Looks up a localized string similar to &lt;!-- No accessible properties found for XAML in &apos;{0}&apos; --&gt;.
         /// </summary>
         public static string UI_NoPropertiesXaml {
             get {

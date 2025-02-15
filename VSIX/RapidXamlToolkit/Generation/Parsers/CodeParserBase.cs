@@ -224,7 +224,7 @@ namespace RapidXamlToolkit.Parsers
                 else
                 {
                     Logger?.RecordInfo(StringRes.Info_ClassNoPublicProperties);
-                    output.AppendLine(StringRes.UI_NoPropertiesXaml);
+                    output.AppendLine(StringRes.UI_NoPropertiesXaml.WithParams(className));
                 }
 
                 if (!string.IsNullOrWhiteSpace(classGrouping))

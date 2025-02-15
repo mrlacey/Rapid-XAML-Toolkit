@@ -314,7 +314,7 @@
     <value>Do you want to override the existing file?</value>
   </data>
   <data name="UI_NoPropertiesXaml" xml:space="preserve">
-    <value>&lt;!-- No accessible properties when copying as XAML --&gt;</value>
+    <value>&lt;!-- No accessible properties found for XAML in '{0}' --&gt;</value>
   </data>
   <data name="UI_ProfileFilterDescription" xml:space="preserve">
     <value>Rapid XAML Profile</value>

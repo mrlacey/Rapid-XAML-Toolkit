@@ -2590,7 +2590,7 @@ namespace tests
         private void FindNoPropertiesInClass(string code)
         {
             var expectedOutput = "<StackPanel>"
-         + Environment.NewLine + "    <!-- No accessible properties when copying as XAML -->"
+         + Environment.NewLine + "    <!-- No accessible properties found for XAML in 'Class1' -->"
          + Environment.NewLine + "</StackPanel>";
 
             var expected = new ParserOutput
