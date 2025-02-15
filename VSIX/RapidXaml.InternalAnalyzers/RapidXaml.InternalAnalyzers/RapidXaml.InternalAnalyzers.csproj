@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -20,7 +20,7 @@
     <Copyright>Copyright</Copyright>
     <PackageTags>RapidXaml.InternalAnalyzers;analyzers</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-	<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+	<EnforceExtendedAnalyzerRules>false</EnforceExtendedAnalyzerRules>
   </PropertyGroup>
 
   <ItemGroup>
