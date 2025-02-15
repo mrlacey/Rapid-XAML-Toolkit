@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: "Build VSIX"
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'VSIX/**'
+    paths-ignore:
+      - '*.md'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'VSIX/**'
+    paths-ignore:
+      - '*.md'
+      
+jobs:
+  build:
+    outputs:
+      version: ${{ steps.vsix_version.outputs.version-number }}
+    name: Build 
+    runs-on: windows-2022
+    env:
+      Configuration: Debug
+      DeployExtension: False
+      
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET build dependencies
+      uses: timheuer/bootstrap-dotnet@v2
+      with:
+        nuget: 'false'
+        sdk: 'false'
+        msbuild: 'true'
+
+    - name: Build
+      run: msbuild /v:m -restore /p:OutDir=\_built ./VSIX/RapidXamlToolkit.sln
