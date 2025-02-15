@@ -1,18 +1,9 @@
 
 # Rapid XAML Toolkit
 
-[![Build status](https://ci.appveyor.com/api/projects/status/kryvt4vdvy39940m/branch/dev?svg=true)](https://ci.appveyor.com/project/mrlacey/rapid-xaml-toolkit/branch/dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-![Works with Visual Studio 2019](https://img.shields.io/static/v1.svg?label=VS&message=2019&color=5F2E96)
-![AppVeyor tests](https://img.shields.io/appveyor/tests/mrlacey/rapid-xaml-toolkit)
 
-## ‼️ Important News ‼️
-
-The Visual Studio 2019 extensions helped a lot of people improve their XAML experiences. They also showed there's still a lot of opportunity to make things even better.  
-2023 will bring an update to the extension (including VS2022 support) and additional tools and functionality.  
-The best distribution and licensing options are currently under review.
-
-Expect more details soon....
+Visual Studio 2022 support coming soon...
 
 ---
 
