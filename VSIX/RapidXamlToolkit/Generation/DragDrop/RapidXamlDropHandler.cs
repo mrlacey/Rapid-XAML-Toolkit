@@ -46,7 +46,7 @@ namespace RapidXamlToolkit.DragDrop
         {
             var position = dragDropInfo.VirtualBufferPosition.Position;
 
-            // Get left padding (allowing for drop postion to not be on the start/end of a line)
+            // Get left padding (allowing for drop position to not be on the start/end of a line)
             var insertLineStart = this.view.GetTextViewLineContainingBufferPosition(position).Start.Position;
 
             var insertLinePadding = position.Position - insertLineStart;
