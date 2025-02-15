@@ -6,14 +6,12 @@ on:
     branches: [main]
     paths:
       - 'VSIX/**'
-    paths-ignore:
-      - '*.md'
+      - '!**/*.md'
   pull_request:
     branches: [main]
     paths:
       - 'VSIX/**'
-    paths-ignore:
-      - '*.md'
+      - '!**/*.md'
       
 jobs:
   build:
