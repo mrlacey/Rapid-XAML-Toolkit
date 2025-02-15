@@ -17,7 +17,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         private const string AnyContainingStart = "ANYCONTAINING:";
         private const string AnyOrChildrenContainingStart = "ANYORCHILDRENCONTAINING:";
 
-        public static bool Parse(string fileName, ITextSnapshotAbstraction snapshot, string xaml, List<(string element, XamlElementProcessor processor)> processors, TagList tags, List<TagSuppression> suppressions, XamlElementProcessor everyElementProcessor, ILogger logger)
+        public static bool Parse(string fileName, ITextSnapshotAbstraction snapshot, string xaml, List<(string Element, XamlElementProcessor Processor)> processors, TagList tags, List<TagSuppression> suppressions, XamlElementProcessor everyElementProcessor, ILogger logger)
         {
             var elementsBeingTracked = new Stack<TrackingElement>();
 
@@ -217,18 +217,18 @@ namespace RapidXamlToolkit.XamlAnalysis
 
                                 for (int j = 0; j < processors.Count; j++)
                                 {
-                                    if (processors[j].element == elementName
-                                     || processors[j].element == elementNameWithoutNamespace)
+                                    if (processors[j].Element == elementName
+                                     || processors[j].Element == elementNameWithoutNamespace)
                                     {
                                         try
                                         {
-                                            processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
+                                            processors[j].Processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
                                         }
                                         catch (Exception exc)
                                         {
                                             var bubbleUpError = true;
 
-                                            if (processors[j].processor is CustomProcessorWrapper wrapper)
+                                            if (processors[j].Processor is CustomProcessorWrapper wrapper)
                                             {
                                                 var customAnalyzer = wrapper.CustomAnalyzer;
 
@@ -247,22 +247,22 @@ namespace RapidXamlToolkit.XamlAnalysis
                                             }
                                         }
                                     }
-                                    else if (processors[j].element.StartsWith("ANY", StringComparison.InvariantCultureIgnoreCase))
+                                    else if (processors[j].Element.StartsWith("ANY", StringComparison.InvariantCultureIgnoreCase))
                                     {
                                         // These two calls will very rarely be true.
                                         // The above single check is to avoid two unlikely checks.
-                                        if (processors[j].element.StartsWith(AnyContainingStart, StringComparison.InvariantCultureIgnoreCase))
+                                        if (processors[j].Element.StartsWith(AnyContainingStart, StringComparison.InvariantCultureIgnoreCase))
                                         {
-                                            if (XamlElementProcessor.GetOpeningWithoutChildren(elementBody).Contains(processors[j].element.Substring(AnyContainingStart.Length)))
+                                            if (XamlElementProcessor.GetOpeningWithoutChildren(elementBody).Contains(processors[j].Element.Substring(AnyContainingStart.Length)))
                                             {
-                                                processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
+                                                processors[j].Processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
                                             }
                                         }
-                                        else if (processors[j].element.StartsWith(AnyOrChildrenContainingStart, StringComparison.InvariantCultureIgnoreCase))
+                                        else if (processors[j].Element.StartsWith(AnyOrChildrenContainingStart, StringComparison.InvariantCultureIgnoreCase))
                                         {
-                                            if (elementBody.Contains(processors[j].element.Substring(AnyOrChildrenContainingStart.Length)))
+                                            if (elementBody.Contains(processors[j].Element.Substring(AnyOrChildrenContainingStart.Length)))
                                             {
-                                                processors[j].processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
+                                                processors[j].Processor.Process(fileName, toProcess.StartPos, elementBody, lineIndent.ToString(), snapshot, tags, suppressions, xmlnsAliases);
                                             }
                                         }
                                     }

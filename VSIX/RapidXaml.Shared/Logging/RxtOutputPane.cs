@@ -50,7 +50,7 @@ namespace RapidXamlToolkit.Logging
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            this.rxtPane.OutputString(message);
+            this.rxtPane.OutputStringThreadSafe(message);
         }
 
         public void Activate()

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>RapidXaml.CustomAnalysis</id>
-    <version>0.14.0</version>
+    <version>0.14.3</version>
     <authors>Matt Lacey</authors>
     <owners>MRLacey</owners>
     <license type="expression">MIT</license>
@@ -12,16 +12,18 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Create custom XAML analyzers for use with the Rapid XAML Toolkit.</description>
     <summary>Create custom XAML analyzers.</summary>
-    <releaseNotes>Add placeholder support for WinUI3 and MAUI</releaseNotes>
-    <copyright>Copyright © 2022 Matt Lacey Ltd.</copyright>
-    <tags>XAML, MAUI, MVVM, UNO, UWP, WinUI, WPF, Xamarin.Forms</tags>
+    <releaseNotes>Fix bug with `AnalysisActions.AddAttribute`</releaseNotes>
+    <copyright>Copyright © 2023 Matt Lacey Ltd.</copyright>
+    <tags>XAML, MAUI, MVVM, UNO, WinUI, WPF</tags>
+    <readme>docs\readme.md</readme>
     <dependencies>
       <group targetFramework="netstandard2.0">
-        <dependency id="GuiLabs.Language.Xml" version="1.2.46" exclude="Build,Analyzers" />
+        <dependency id="GuiLabs.Language.Xml" version="1.2.60" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>
   <files>
+    <file src=".\readme.md" target="docs\" />
     <file src=".\icon.png" target="images\" />
     <file src=".\bin\release\netstandard2.0\RapidXaml.CustomAnalysis.dll" target="lib\netstandard2.0\RapidXaml.CustomAnalysis.dll" />
     <file src=".\bin\release\netstandard2.0\RapidXaml.CustomAnalysis.pdb" target="lib\netstandard2.0\RapidXaml.CustomAnalysis.pdb" />

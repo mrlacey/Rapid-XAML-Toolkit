@@ -29,6 +29,14 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string Foreground => "Foreground";
 
+        public static string GridRow => "Grid.Row";
+
+        public static string GridRowSpan => "Grid.RowSpan";
+
+        public static string GridColumn => "Grid.Column";
+
+        public static string GridColumnSpan => "Grid.ColumnSpan";
+
         public static string Header => "Header";
 
         public static string InputScope => "InputScope";

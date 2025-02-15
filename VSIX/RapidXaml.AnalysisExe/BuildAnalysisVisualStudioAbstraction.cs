@@ -37,7 +37,7 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
-        public (int, int) GetCursorPositionAndLineNumber()
+        public (int Position, int LineNo) GetCursorPositionAndLineNumber()
         {
             throw new NotImplementedException();
         }
@@ -54,16 +54,9 @@ namespace RapidXaml.AnalysisExe
             return this.projFile;
         }
 
-        public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
+        public (string ProjectFileName, ProjectType ProjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
         {
             return (this.projFile, this.projectType);
-        }
-
-#pragma warning disable IDE0060 // Remove unused parameter
-        public ProjectType GetProjectType(EnvDTE.Project project)
-#pragma warning restore IDE0060 // Remove unused parameter
-        {
-            return ProjectType.Any;
         }
 
         public Task<int> GetXamlIndentAsync()
@@ -96,7 +89,7 @@ namespace RapidXaml.AnalysisExe
             throw new NotImplementedException();
         }
 
-        public void ReplaceInActiveDoc(List<(string find, string replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions)
+        public void ReplaceInActiveDoc(List<(string Find, string Replace)> replacements, int startIndex, int endIndex, Dictionary<int, int> exclusions)
         {
             throw new NotImplementedException();
         }

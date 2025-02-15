@@ -188,6 +188,7 @@ namespace RapidXamlToolkit.XamlAnalysis
                 customProcessors.Add(new CustomAnalysis.SwipeItemAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new CustomAnalysis.SliderAnalyzer(vsAbstraction, logger));
                 customProcessors.Add(new CustomAnalysis.StepperAnalyzer(vsAbstraction, logger));
+                customProcessors.Add(new CustomAnalysis.TextBoxAnalyzer(vsAbstraction, logger));
 
                 // Make sure that all custom analyzers are correctly used as processors
                 processors.AddRange(WrapCustomProcessors(customProcessors, projType, projectFilePath, logger, vsAbstraction));

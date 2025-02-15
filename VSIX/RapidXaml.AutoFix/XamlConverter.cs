@@ -30,7 +30,7 @@ namespace RapidXaml
 
         private IFileSystemAbstraction FileSystem { get; set; }
 
-        public (bool success, IEnumerable<string> details) ConvertFile(string xamlFilePath, IEnumerable<ICustomAnalyzer> analyzers)
+        public (bool Success, IEnumerable<string> Details) ConvertFile(string xamlFilePath, IEnumerable<ICustomAnalyzer> analyzers)
         {
             if (!this.FileSystem.FileExists(xamlFilePath))
             {
@@ -62,7 +62,7 @@ namespace RapidXaml
             }
         }
 
-        public (bool success, IEnumerable<string> details) ConvertAllFilesInProject(string projectFilePath, IEnumerable<ICustomAnalyzer> analyzers)
+        public (bool Success, IEnumerable<string> Details) ConvertAllFilesInProject(string projectFilePath, IEnumerable<ICustomAnalyzer> analyzers)
         {
             if (!this.FileSystem.FileExists(projectFilePath))
             {

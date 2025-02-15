@@ -49,7 +49,7 @@ namespace RapidXamlToolkit.Tests.DragDrop
             var actual = await sut.ExecuteAsync("C:\\Tests\\SomeFile.cs", 8, profile.ProjectType);
 
             var expected = "<StackPanel>"
-   + Environment.NewLine + "            <!-- No accessible properties when copying as XAML -->"
+   + Environment.NewLine + "            <!-- No accessible properties found for XAML in 'TestViewModel' -->"
    + Environment.NewLine + "        </StackPanel>";
 
             StringAssert.AreEqual(expected, actual);

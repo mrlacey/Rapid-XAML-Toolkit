@@ -19,7 +19,7 @@ namespace RapidXamlToolkit.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class StringRes {
@@ -333,9 +333,9 @@ namespace RapidXamlToolkit.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Attribute parameter with index &apos;{0}&apos; not found..
         /// </summary>
-        public static string Info_AttributeParameterWIthoutIndex {
+        public static string Info_AttributeParameterWithoutIndex {
             get {
-                return ResourceManager.GetString("Info_AttributeParameterWIthoutIndex", resourceCulture);
+                return ResourceManager.GetString("Info_AttributeParameterWithoutIndex", resourceCulture);
             }
         }
         
@@ -718,6 +718,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rapid XAML Toolkit (v{0}).
+        /// </summary>
+        public static string Info_LaunchVersionRxt {
+            get {
+                return ResourceManager.GetString("Info_LaunchVersionRxt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Looking for mappings that are not read-only..
         /// </summary>
         public static string Info_LookingForReadWriteMappings {
@@ -936,6 +945,15 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Property is not read-only so filtering out read-only mappings..
+        /// </summary>
+        public static string Info_PropertyIsNotReadOnly {
+            get {
+                return ResourceManager.GetString("Info_PropertyIsNotReadOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Property is read-only so looking for read-only mappings first..
         /// </summary>
         public static string Info_PropertyIsReadOnly {
@@ -959,15 +977,6 @@ namespace RapidXamlToolkit.Resources {
         public static string Info_PropertyTypeNotRecognizedAsGeneric {
             get {
                 return ResourceManager.GetString("Info_PropertyTypeNotRecognizedAsGeneric", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Property is not read-only so filtering out read-only mappings..
-        /// </summary>
-        public static string Info_ProperyIsNotReadOnly {
-            get {
-                return ResourceManager.GetString("Info_ProperyIsNotReadOnly", resourceCulture);
             }
         }
         
@@ -1451,7 +1460,7 @@ namespace RapidXamlToolkit.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;!-- No accessible properties when copying as XAML --&gt;.
+        ///   Looks up a localized string similar to &lt;!-- No accessible properties found for XAML in &apos;{0}&apos; --&gt;.
         /// </summary>
         public static string UI_NoPropertiesXaml {
             get {
@@ -2230,6 +2239,33 @@ namespace RapidXamlToolkit.Resources {
         public static string UI_XamlAnalysisStyleColorContrastExtendedMessage {
             get {
                 return ResourceManager.GetString("UI_XamlAnalysisStyleColorContrastExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Focusable element (TextBox) is missing a name..
+        /// </summary>
+        public static string UI_XamlAnalysisTextBoxA11yNameMissingDescription {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisTextBoxA11yNameMissingDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Name of a focusable element must not be null. Provide a UI Automation Name property that concisely identifies the element..
+        /// </summary>
+        public static string UI_XamlAnalysisTextBoxA11yNameMissingExtendedMessage {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisTextBoxA11yNameMissingExtendedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add automation name..
+        /// </summary>
+        public static string UI_XamlAnalysisTextBoxA11yNameMissingToolTip {
+            get {
+                return ResourceManager.GetString("UI_XamlAnalysisTextBoxA11yNameMissingToolTip", resourceCulture);
             }
         }
         

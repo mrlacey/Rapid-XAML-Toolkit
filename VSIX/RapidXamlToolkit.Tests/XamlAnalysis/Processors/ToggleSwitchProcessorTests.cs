@@ -3,23 +3,24 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
+using RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers;
 using RapidXamlToolkit.XamlAnalysis.Processors;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
     [TestClass]
-    public class ToggleSwitchProcessorTests : ProcessorTestsBase
+    public class ToggleSwitchProcessorTests : AnalyzerTestsBase
     {
         [TestMethod]
         public void HardCoded_HeaderAndOnContentAndOffContent_Detected()
         {
-            var xaml = @"<CalendarDatePicker Header=""HCValue"" OnContent=""HCOn"" OffContent=""HCOff"" />";
+            var xaml = @"<ToggleSwitch Header=""HCValue"" OnContent=""HCOn"" OffContent=""HCOff"" />";
 
-            var outputTags = this.GetTags<ToggleSwitchProcessor>(xaml);
+            var actual = this.Act<ToggleSwitchAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(3, outputTags.Count);
-            Assert.AreEqual(3, outputTags.OfType<HardCodedStringTag>().Count());
+            Assert.AreEqual(3, actual.Count);
+            Assert.AreEqual(3, actual.Count(a => a.Action == ActionType.CreateResource));
         }
     }
 }

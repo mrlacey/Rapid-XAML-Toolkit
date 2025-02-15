@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,7 +26,21 @@ namespace RapidXamlToolkit.Tests.RoslynAnalyzers
         {
             var test = @"public string Property1 => $""Some static value"";";
 
+            try
+            {
             this.VerifyCSharpDiagnostic(this.ClassWithOnPropertyChanged(test));
+
+            }
+            catch (System.AggregateException exc)
+            {
+                Console.WriteLine(exc.ToString());
+                foreach (var item in exc.InnerExceptions)
+                {
+                    Console.WriteLine($"AGG: {item.ToString()}");
+                }
+                Console.WriteLine($"INNER: {exc.InnerException?.ToString()}");
+                throw;
+            }
         }
 
         [TestMethod]

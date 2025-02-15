@@ -400,7 +400,7 @@ namespace RapidXamlToolkit.Tests.Parsers
             StringAssert.AreEqual(expected.Output, actual.Output);
         }
 
-        private (int startPos, int endPos, string actualCode) GetCodeAndCursorRange(string code)
+        private (int StartPos, int EndPos, string ActualCode) GetCodeAndCursorRange(string code)
         {
             var start = code.IndexOf("☆", StringComparison.Ordinal);
             var end = code.LastIndexOf("☆", StringComparison.Ordinal) - 1;
@@ -410,7 +410,7 @@ namespace RapidXamlToolkit.Tests.Parsers
             return (start, end, codeWithoutStar);
         }
 
-        private (int cursorPos, string actualCode) GetCodeAndCursorPos(string code)
+        private (int CursorPos, string ActualCode) GetCodeAndCursorPos(string code)
         {
             var pos = code.IndexOf("☆", StringComparison.Ordinal);
 

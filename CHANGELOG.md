@@ -1,8 +1,11 @@
-# Rapid XAML Toolkit - ChangeLog
+﻿# Rapid XAML Toolkit - ChangeLog
 
-## Upcoming
+## 1.0 PREVIEW (Feb 2025)
 
-- [See what's planned next](https://github.com/mrlacey/Rapid-XAML-Toolkit/milestone/7)
+- Support for Visual Studio 2022.
+- Combined in to a single VSIX package.
+- Now works with MAUI, WinUI, & WPF.
+- Removed UWP & Xamarin.Forms specific functionality.
 
 ## 0.14.1
 

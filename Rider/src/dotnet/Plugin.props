@@ -1,0 +1,20 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <!-- See https://www.nuget.org/packages/JetBrains.ReSharper.SDK -->
+    <!-- Keep in sync with ProductVersion in gradle.properties -->
+    <SdkVersion>2023.2.0</SdkVersion>
+
+    <Title>Rapid XAML</Title>
+    <Description>Tools to accelerate XAML app development.</Description>
+
+    <Authors>Author</Authors>
+    <Copyright>Copyright $([System.DateTime]::Now.Year) Matt Lacey</Copyright>
+    <PackageTags>rider plugin</PackageTags>
+
+    <PackageProjectUrl>https://github.com/mrlacey/Rapid-XAML-Toolkit</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/mrlacey/Rapid-XAML-Toolkit/blob/main/LICENSE.txt</PackageLicenseUrl>
+    <PackageIconUrl></PackageIconUrl>
+  </PropertyGroup>
+
+</Project>

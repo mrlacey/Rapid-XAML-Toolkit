@@ -1,0 +1,27 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Rapid XAML Suppressions schema",
+
+  "type": "array",
+  "items": {
+    "required": [ "FileName" ],
+    "properties": {
+      "TagErrorCode": {
+        "type": "string",
+        "description": "The error code this suppression applies to. (Optional)"
+      },
+      "FileName": {
+        "type": "string",
+        "description": "The name of the file this suppression applies to."
+      },
+      "ElementIdentifier": {
+        "type": "string",
+        "description": "A way of identifying a specific element this suppression applies to. (Optional)"
+      },
+      "Reason": {
+        "type": "string",
+        "description": "The reason for this suppression. (Optional)"
+      }
+    }
+  }
+}

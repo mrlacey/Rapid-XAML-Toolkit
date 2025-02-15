@@ -60,7 +60,7 @@ namespace RapidXaml.AnalysisExe
                 var projDir = Path.GetDirectoryName(projectPath);
 
                 // Ensure any errors are output - otherwise debugging problems is really hard
-                SharedRapidXamlPackage.Logger = new AnalysisExeLogger();
+                var logger = new AnalysisExeLogger();
 
                 // Treat project type as unknown as unable to resolve referenced projects and installed NuGet packages.
                 var bavsa = new BuildAnalysisVisualStudioAbstraction(projectPath, ProjectType.Unknown);
@@ -82,7 +82,7 @@ namespace RapidXaml.AnalysisExe
                             Console.WriteLine($"- Analyzing: '{xamlFilePath}'");
 
                             var snapshot = new BuildAnalysisTextSnapshot(xamlFilePath);
-                            var rxdoc = RapidXamlDocument.Create(snapshot, xamlFilePath, bavsa, projectPath);
+                            var rxdoc = RapidXamlDocument.Create(snapshot, xamlFilePath, bavsa, projectPath, logger);
 
                             Debug.WriteLine($"Found {rxdoc.Tags.Count} taggable issues in '{xamlFilePath}'.");
 

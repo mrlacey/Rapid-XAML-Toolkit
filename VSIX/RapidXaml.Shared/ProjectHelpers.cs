@@ -4,6 +4,7 @@
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Text.Operations;
 
 namespace RapidXamlToolkit
 {

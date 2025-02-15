@@ -3,23 +3,24 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RapidXaml;
+using RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers;
 using RapidXamlToolkit.XamlAnalysis.Processors;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
     [TestClass]
-    public class HyperlinkButtonProcessorTests : ProcessorTestsBase
+    public class HyperlinkButtonProcessorTests : AnalyzerTestsBase
     {
         [TestMethod]
         public void HardCoded_Content_Detected()
         {
             var xaml = @"<HyperlinkButton Content=""HCValue"" />";
 
-            var outputTags = this.GetTags<HyperlinkButtonProcessor>(xaml);
+            var actual = this.Act<HyperlinkButtonAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.CreateResource));
         }
     }
 }

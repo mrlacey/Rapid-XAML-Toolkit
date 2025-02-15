@@ -1,27 +1,26 @@
 ﻿// Copyright (c) Matt Lacey Ltd. All rights reserved.
 // Licensed under the MIT license.
 
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RapidXamlToolkit.XamlAnalysis;
+using RapidXaml;
+using RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers;
 using RapidXamlToolkit.XamlAnalysis.Processors;
-using RapidXamlToolkit.XamlAnalysis.Tags;
 
 namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
 {
     [TestClass]
-    public class TextBlockProcessorTests : ProcessorTestsBase
+    public class TextBlockProcessorTests : AnalyzerTestsBase
     {
         [TestMethod]
         public void DetectsHardcodedText_OnlyAttribute_SelfClosing()
         {
             var xaml = @"<TextBlock Text=""HCValue"" />";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.CreateResource));
         }
 
         [TestMethod]
@@ -29,10 +28,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<TextBlock Text=""HCValue""></TextBlock>";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.CreateResource));
         }
 
         [TestMethod]
@@ -40,19 +39,19 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<TextBlock Text="""" />";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
-        public void DetectsNothingIfNoText_EmptyAttribute_xplicitClosing()
+        public void DetectsNothingIfNoText_EmptyAttribute_ExplicitClosing()
         {
             var xaml = @"<TextBlock Text=""""></TextBlock>";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -60,9 +59,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<TextBlock Text=""  "" />";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -70,9 +69,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<TextBlock Text=""  ""></TextBlock>";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -80,9 +79,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<TextBlock Text=""{x:Bind something}"" />";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -90,9 +89,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<TextBlock Text=""{x:Bind something}""></TextBlock>";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -100,9 +99,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<TextBlock />";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -110,9 +109,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<TextBlock></TextBlock>";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -120,9 +119,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<TextBlock Attr1=""Value1"" Attr2=""Value2"" />";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -130,9 +129,9 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<TextBlock Attr1=""Value1"" Attr2=""Value2""></TextBlock>";
 
-            var outputTags = this.Act(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(0, outputTags.Count);
+            Assert.AreEqual(0, actual.Count);
         }
 
         [TestMethod]
@@ -140,23 +139,10 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.Processors
         {
             var xaml = @"<TextBlock Text=""HCValue"" />";
 
-            var outputTags = this.GetTags<TextBlockProcessor>(xaml);
+            var actual = this.Act<TextBlockAnalyzer>(xaml, ProjectFramework.Uwp);
 
-            Assert.AreEqual(1, outputTags.Count);
-            Assert.AreEqual(1, outputTags.OfType<HardCodedStringTag>().Count());
-        }
-
-        private List<IRapidXamlAdornmentTag> Act(string xaml)
-        {
-            var outputTags = new TagList();
-
-            var sut = new TextBlockProcessor(new ProcessorEssentialsForSimpleTests());
-
-            var snapshot = new FakeTextSnapshot(xaml.Length);
-
-            sut.Process("nofile.xaml", 0, xaml, string.Empty, snapshot, outputTags);
-
-            return outputTags;
+            Assert.AreEqual(1, actual.Count);
+            Assert.AreEqual(1, actual.Count(a => a.Action == ActionType.CreateResource));
         }
     }
 }

@@ -90,7 +90,7 @@ namespace RapidXamlToolkit.Tests.XamlAnalysis.CustomAnalyzers
 
             var processors = new List<(string, XamlElementProcessor)>
             {
-                (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.Uwp, string.Empty, logger, vsa)),
+                (analyzer.TargetType(), new CustomProcessorWrapper(analyzer, ProjectType.WinUI, string.Empty, logger, vsa)),
             };
 
             var snapshot = new FakeTextSnapshot(xaml.Length);

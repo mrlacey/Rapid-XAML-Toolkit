@@ -25,7 +25,7 @@ namespace RapidXamlToolkit.Telemetry
 
         private TelemetryClient Client { get; set; }
 
-        public static TelemetryAccessor Create(ILogger logger, string key)
+        public static TelemetryAccessor Create(ILogger logger, string connStr)
         {
             if (logger == null)
             {
@@ -38,14 +38,12 @@ namespace RapidXamlToolkit.Telemetry
             {
                 instance = new TelemetryAccessor(logger);
 
-                if (VsTelemetryIsOptedIn(logger) && !string.IsNullOrWhiteSpace(key))
+                if (VsTelemetryIsOptedIn(logger) && !string.IsNullOrWhiteSpace(connStr))
                 {
-                    instance.Client = new TelemetryClient()
+                    instance.Client = new TelemetryClient(new TelemetryConfiguration
                     {
-                        InstrumentationKey = key,
-                    };
-
-                    TelemetryConfiguration.Active.InstrumentationKey = key;
+                        ConnectionString = connStr,
+                    });
 
                     SetContextData(instance.Client);
 

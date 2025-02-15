@@ -14,9 +14,9 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
        // ProjectType GetProjectType(EnvDTE.Project project);
 
-        (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName);
+        (string ProjectFileName, ProjectType ProjectType) GetNameAndTypeOfProjectContainingFile(string fileName);
 
-        (int, int) GetCursorPositionAndLineNumber();
+        (int Position, int LineNo) GetCursorPositionAndLineNumber();
 
         Task<int> GetXamlIndentAsync();
 

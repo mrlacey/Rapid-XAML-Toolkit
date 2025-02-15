@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
@@ -29,7 +30,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         private readonly ILogger logger;
         private readonly IAsyncServiceProvider serviceProvider;
         private IComponentModel componentModel;
-        private NuGet.VisualStudio.IVsPackageInstallerServices nugetService;
+        private NuGet.VisualStudio.Contracts.INuGetProjectService nugetService;
 
         // Pass in the DTE even though could get it from the ServiceProvider because it's needed in constructors but usage is async
         public VisualStudioAbstraction(ILogger logger, IAsyncServiceProvider serviceProvider, DTE dte)
@@ -80,16 +81,34 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             {
                 try
                 {
-                    var nugetService = this.GetNuGetService(proj);
-
-                    if (nugetService != null)
+                    if (this.nugetService == null)
                     {
-                        foreach (var item in nugetService.GetInstalledPackages(proj))
+                        this.nugetService = this.GetNuGetService(proj);
+                    }
+
+                    if (this.nugetService != null)
+                    {
+                        var foundRef = false;
+
+                        ThreadHelper.JoinableTaskFactory.Run(async () =>
                         {
-                            if (item?.Id.ToLowerInvariant().Contains(name) ?? false)
+                            var projGuid = this.GetProjectGuid(proj);
+
+                            var packagesResult = await this.nugetService.GetInstalledPackagesAsync(projGuid, CancellationToken.None);
+
+                            foreach (var item in packagesResult.Packages)
                             {
-                                return true;
+                                if (item?.Id.ToLowerInvariant().Contains(name) ?? false)
+                                {
+                                    foundRef = true;
+                                    break;
+                                }
                             }
+                        });
+
+                        if (foundRef)
+                        {
+                            return true;
                         }
                     }
                 }
@@ -181,9 +200,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             }
 
             // Set default to make it clear what the default is.
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
             var result = ProjectType.Unknown;
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
 
             // Check with `Contains` as there may be multiple GUIDs specified (e.g. for programming language too)
             if (guids.IndexOf(WpfGuid, StringComparison.InvariantCultureIgnoreCase) >= 0)
@@ -241,7 +258,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         {
             var rawContent = System.IO.File.ReadAllText(project.FullName);
 
-            return rawContent.Contains("<UseWPF>true</UseWPF>");
+            return this.ProjectUsesWpf(rawContent);
         }
 
         public bool ProjectUsesWpf(string projectFileContents)
@@ -293,6 +310,31 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return projectTypeGuids;
         }
 
+        public Guid GetProjectGuid(EnvDTE.Project proj)
+        {
+            var projectGuid = Guid.Empty;
+
+            try
+            {
+                object service = this.GetService(proj.DTE, typeof(IVsSolution));
+                var solution = (IVsSolution)service;
+
+                int result = solution.GetProjectOfUniqueName(proj.UniqueName, out IVsHierarchy hierarchy);
+
+                if (result == 0)
+                {
+                    solution.GetGuidOfProject(hierarchy, out projectGuid);
+                }
+            }
+            catch (Exception exc)
+            {
+                // Some (unknown/irrelevant) project types may cause above casts to fail
+                System.Diagnostics.Debug.WriteLine(exc);
+            }
+
+            return projectGuid;
+        }
+
         public object GetService(object serviceProvider, Type type)
         {
             return this.GetService(serviceProvider, type.GUID);
@@ -302,10 +344,10 @@ namespace RapidXamlToolkit.VisualStudioIntegration
         {
             object service = null;
 
-            Microsoft.VisualStudio.OLE.Interop.IServiceProvider serviceProvider = (Microsoft.VisualStudio.OLE.Interop.IServiceProvider)serviceProviderObject;
+            Microsoft.VisualStudio.OLE.Interop.IServiceProvider provider = (Microsoft.VisualStudio.OLE.Interop.IServiceProvider)serviceProviderObject;
             Guid serviceGuid = guid;
             Guid interopGuid = serviceGuid;
-            int hresult = serviceProvider.QueryService(ref serviceGuid, ref interopGuid, out IntPtr serviceIntPtr);
+            int hresult = provider.QueryService(ref serviceGuid, ref interopGuid, out IntPtr serviceIntPtr);
 
             if (hresult != 0)
             {
@@ -334,10 +376,14 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return null;
         }
 
-        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(string fileName)
+        public async Task<(SyntaxTree SyntaxTree, SemanticModel SemModel)> GetDocumentModelsAsync(string fileName)
         {
-            var componentModel = await this.serviceProvider.GetServiceAsync<SComponentModel, IComponentModel>();
-            var visualStudioWorkspace = componentModel?.GetService<VisualStudioWorkspace>();
+            if (this.componentModel == null)
+            {
+                this.componentModel = await this.serviceProvider.GetServiceAsync<SComponentModel, IComponentModel>();
+            }
+
+            var visualStudioWorkspace = this.componentModel?.GetService<VisualStudioWorkspace>();
 
             if (visualStudioWorkspace != null)
             {
@@ -351,7 +397,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return (null, null);
         }
 
-        public async Task<(SyntaxTree syntaxTree, SemanticModel semModel)> GetDocumentModelsAsync(Microsoft.CodeAnalysis.Document document)
+        public async Task<(SyntaxTree SyntaxTree, SemanticModel SemModel)> GetDocumentModelsAsync(Microsoft.CodeAnalysis.Document document)
         {
             var root = await document.GetSyntaxRootAsync();
             var syntaxTree = root.SyntaxTree;
@@ -372,7 +418,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return msgResult == MessageBoxResult.Yes;
         }
 
-        public (int, int) GetCursorPositionAndLineNumber()
+        public (int Position, int LineNo) GetCursorPositionAndLineNumber()
         {
             var offset = ((TextSelection)this.Dte.ActiveDocument.Selection).AnchorPoint.AbsoluteCharOffset;
             var lineNo = ((TextSelection)this.Dte.ActiveDocument.Selection).CurrentLine;
@@ -415,7 +461,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return this.Dte.Solution?.GetProjectContainingFile(fileName)?.FileName;
         }
 
-        public (string projectFileName, ProjectType propjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
+        public (string ProjectFileName, ProjectType ProjectType) GetNameAndTypeOfProjectContainingFile(string fileName)
         {
             var proj = this.Dte.Solution.GetProjectContainingFile(fileName);
             return (proj.FileName, this.GetProjectType(proj));
@@ -507,7 +553,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
             return result;
         }
 
-        private NuGet.VisualStudio.IVsPackageInstallerServices GetNuGetService(EnvDTE.Project proj)
+        private NuGet.VisualStudio.Contracts.INuGetProjectService GetNuGetService(EnvDTE.Project proj)
         {
             // Cache these to avoid the overhead of looking them up multiple times for the same solution.
             if (this.componentModel is null)
@@ -517,7 +563,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
             if (this.nugetService is null)
             {
-                this.nugetService = this.componentModel.GetService<NuGet.VisualStudio.IVsPackageInstallerServices>();
+                this.nugetService = this.componentModel.GetService<NuGet.VisualStudio.Contracts.INuGetProjectService>();
             }
 
             return this.nugetService;

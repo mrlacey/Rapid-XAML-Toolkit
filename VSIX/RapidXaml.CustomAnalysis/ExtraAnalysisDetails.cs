@@ -37,5 +37,15 @@ namespace RapidXaml
             detail = default;
             return false;
         }
+
+        public bool IsFramework(ProjectFramework framework)
+        {
+            if (!this.TryGet(KnownExtraDetails.Framework, out ProjectFramework projectFramework))
+            {
+                return false;
+            }
+
+            return projectFramework == framework;
+        }
     }
 }

@@ -271,7 +271,7 @@
   <data name="Info_PropertyTypeNotRecognizedAsGeneric" xml:space="preserve">
     <value>'{0}' not recognized as generic.</value>
   </data>
-  <data name="Info_ProperyIsNotReadOnly" xml:space="preserve">
+  <data name="Info_PropertyIsNotReadOnly" xml:space="preserve">
     <value>Property is not read-only so filtering out read-only mappings.</value>
   </data>
   <data name="Info_ReplacingIncIntPlaceholder" xml:space="preserve">
@@ -314,7 +314,7 @@
     <value>Do you want to override the existing file?</value>
   </data>
   <data name="UI_NoPropertiesXaml" xml:space="preserve">
-    <value>&lt;!-- No accessible properties when copying as XAML --&gt;</value>
+    <value>&lt;!-- No accessible properties found for XAML in '{0}' --&gt;</value>
   </data>
   <data name="UI_ProfileFilterDescription" xml:space="preserve">
     <value>Rapid XAML Profile</value>
@@ -682,7 +682,7 @@
   <data name="Info_AttributeNotFoundOnProperty" xml:space="preserve">
     <value>Attribute not found on property.</value>
   </data>
-  <data name="Info_AttributeParameterWIthoutIndex" xml:space="preserve">
+  <data name="Info_AttributeParameterWithoutIndex" xml:space="preserve">
     <value>Attribute parameter with index '{0}' not found.</value>
   </data>
   <data name="Info_FoundAttributeArgument" xml:space="preserve">
@@ -896,5 +896,17 @@ If you're noticing an issue, you can disable automatic analysis every time a fil
   </data>
   <data name="Info_UnableToRetrieveEditorDocument" xml:space="preserve">
     <value>Unable to retrieve the latest version of the document from the editor.</value>
+  </data>
+  <data name="Info_LaunchVersionRxt" xml:space="preserve">
+    <value>Rapid XAML Toolkit (v{0})</value>
+  </data>
+  <data name="UI_XamlAnalysisTextBoxA11yNameMissingDescription" xml:space="preserve">
+    <value>Focusable element (TextBox) is missing a name.</value>
+  </data>
+  <data name="UI_XamlAnalysisTextBoxA11yNameMissingExtendedMessage" xml:space="preserve">
+    <value>The Name of a focusable element must not be null. Provide a UI Automation Name property that concisely identifies the element.</value>
+  </data>
+  <data name="UI_XamlAnalysisTextBoxA11yNameMissingToolTip" xml:space="preserve">
+    <value>Add automation name.</value>
   </data>
 </root>

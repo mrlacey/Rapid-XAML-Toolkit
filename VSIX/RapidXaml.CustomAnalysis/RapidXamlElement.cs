@@ -428,6 +428,8 @@ namespace RapidXaml
             return this.isSelfClosing.Value;
         }
 
+        public bool IsEmpty() => this.IsSelfClosing();
+
         public void OverrideIsSelfClosing(bool newValue)
         {
             this.isSelfClosing = newValue;
