@@ -279,14 +279,7 @@ namespace RapidXamlToolkit.VisualStudioIntegration
 
         public bool ProjectTargetsMaui(string projectFileContents)
         {
-            var tfms = projectFileContents.AsSpan().GetBetweenXmlElement("TargetFrameworks");
-
-            if (string.IsNullOrWhiteSpace(tfms))
-            {
-                return false;
-            }
-
-            return tfms.ContainsAnyOf(new[] { "net6.0-ios", "net6.0-android", "net6.0-maccatalyst" });
+            return projectFileContents.ContainsAnyOf(new[] { "<MauiVersion>", "PackageReference Include=\"Microsoft.Maui.Controls" });
         }
 
         public string GetProjectTypeGuids(EnvDTE.Project proj)
