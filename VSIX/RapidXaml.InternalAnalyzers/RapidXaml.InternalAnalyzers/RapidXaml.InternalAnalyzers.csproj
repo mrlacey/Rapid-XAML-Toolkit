@@ -24,7 +24,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="AnalyzerReleases.Shipped.md" />
+	  <None Remove="AnalyzerReleases.Shipped.md" />
+	  <None Remove="AnalyzerReleases.Unshipped.md" />
   </ItemGroup>
 
   <ItemGroup>
