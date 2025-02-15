@@ -461,9 +461,7 @@
       <Name>RapidXaml.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Generators\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\ImageResources.en-us.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
