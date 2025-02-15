@@ -19,6 +19,11 @@ jobs:
       version: ${{ steps.vsix_version.outputs.version-number }}
     name: Build 
     runs-on: windows-2022
+    permissions:
+      checks: write
+
+      # needed unless run with comment_mode: off
+      pull-requests: write
     env:
       Configuration: Debug
       DeployExtension: False
@@ -35,3 +40,51 @@ jobs:
 
     - name: Build
       run: msbuild /v:m -restore /p:OutDir=\_built ./VSIX/RapidXamlToolkit.sln
+
+    - name: Run Tests
+      # See https://github.com/microsoft/vstest-action/issues/31
+      # uses: microsoft/vstest-action@v1.0.0
+      uses: josepho0918/vstest-action@main
+      with:
+        searchFolder: /_built/
+        testAssembly: /VSIX/**/*Tests.dll
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/windows@v2
+      id: test-results
+      with:
+        files: testresults\**\*.trx
+
+    - name: Set badge color
+      shell: bash
+      run: |
+        case ${{ fromJSON( steps.test-results.outputs.json ).conclusion }} in
+          success)
+            echo "BADGE_COLOR=31c653" >> $GITHUB_ENV
+            ;;
+          failure)
+            echo "BADGE_COLOR=800000" >> $GITHUB_ENV
+            ;;
+          neutral)
+            echo "BADGE_COLOR=696969" >> $GITHUB_ENV
+            ;;
+        esac
+
+    - name: Create badge
+      uses: emibcn/badge-action@808173dd03e2f30c980d03ee49e181626088eee8
+      with:
+        label: Tests
+        status: '${{ fromJSON( steps.test-results.outputs.json ).formatted.stats.tests }} tests: ${{ fromJSON( steps.test-results.outputs.json ).conclusion }}'
+        color: ${{ env.BADGE_COLOR }}
+        path: RapidXamlToolkit.badge.svg
+
+    - name: Upload badge to Gist
+      # Upload only for main branch
+      if: >
+        github.event_name == 'workflow_run' && github.event.workflow_run.head_branch == 'main' ||
+        github.event_name != 'workflow_run' && github.ref == 'refs/heads/main'
+      uses: jpontdia/append-gist-action@master
+      with:
+        token: ${{ secrets.GIST_TOKEN }}
+        gistURL: https://gist.githubusercontent.com/mrlacey/c586ff0f495b4a8dd76ab0dbdf9c89e0
+        file: RapidXamlToolkit.badge.svg
