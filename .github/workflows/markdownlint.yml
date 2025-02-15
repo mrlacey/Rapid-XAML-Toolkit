@@ -3,8 +3,12 @@ name: Markdownlint Action
 on:
   push:
     branches: [ main ]
+    paths:
+      - '*.md'
   pull_request:
     types: [assigned, opened, synchronize, reopened]
+    paths:
+      - '*.md'
 
 jobs:
   build:
