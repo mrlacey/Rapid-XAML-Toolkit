@@ -1,61 +1,56 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+		<TargetFrameworks>net9.0;net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<LangVersion>10.0</LangVersion>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>$(AssemblyName)</PackageId>
 		<Title>Rapid XAML helpers for .NET MAUI</Title>
+
+		<PackageVersion>1.0.0</PackageVersion>
+		<PackageReleaseNotes>Initial release</PackageReleaseNotes>
+
+		<PackageTags>MAUI;dotnetmaui;XAML;RapidXAML</PackageTags>
 		<Authors>MRLacey</Authors>
 		<Company>Matt Lacey Ltd.</Company>
 		<Product>Rapid XAML</Product>
-		<Copyright>(c) 2024 - Matt Lacey</Copyright>
+		<Copyright>(c) 2025 - Matt Lacey</Copyright>
 		<PackageProjectUrl>https://rapidxaml.dev/</PackageProjectUrl>
 		<PackageIcon>Logo-blue-128.png</PackageIcon>
 		<PackageReadmeFile>RapidXaml.MAUI.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/mrlacey/Rapid-XAML-Toolkit</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>MAUI;dotnetmaui;XAML</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<DebugType>portable</DebugType>
 		<IncludeSymbols>True</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="RapidXaml.MAUI.md" />
+		<None Include="RapidXaml.MAUI.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\Assets\Logo-blue-128.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="RapidXaml.MAUI.md">
-	    <PackagePath>\</PackagePath>
-	    <Pack>True</Pack>
-	  </Content>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="..\..\Assets\Logo-blue-128.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 	  <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
 	</ItemGroup>
+
+	<Import Project="..\signnupkg.targets" />
 
 </Project>

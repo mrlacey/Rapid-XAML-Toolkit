@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>RapidXaml.WinUI</RootNamespace>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
-	<LangVersion>10.0</LangVersion>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<Authors>MRLacey</Authors>
 	<Product>Rapid XAML</Product>
@@ -18,7 +17,7 @@
 	<PackageIcon>Logo-blue-128.png</PackageIcon>
 	<PackageReadmeFile>RapidXaml.WinUI.md</PackageReadmeFile>
 	<Title>Rapid XAML helpers for WinUI3</Title>
-	<Copyright>(c) 2022 - Matt Lacey</Copyright>
+	<Copyright>(c) 2025 - Matt Lacey</Copyright>
 	<Company>Matt Lacey Ltd.</Company>
   </PropertyGroup>
   <ItemGroup>

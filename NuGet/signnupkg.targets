@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- This assumes that the SIGN global tool is installed - https://www.nuget.org/packages/sign/ -->
+  <Target Name="PostBuild" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release' ">
+    <Message Text="Signing Nuget Packages $(PackageId).$(PackageVersion) (including snupkg)" Importance="High" />
+    <Exec Command="sign code certificate-store -cfp $(SM_CERT_FP_SHA256) -csp &quot;DigiCert Software Trust Manager KSP&quot; -k $(SM_KP) -u &quot;http://timestamp.digicert.com&quot;  $(SolutionDir)$(PackageId)\bin\Release\$(PackageId).$(PackageVersion).nupkg" Condition="'$(SM_CERT_FP_SHA256)' != ''" ConsoleToMSBuild="true" />
+    <Exec Command="sign code certificate-store -cfp $(SM_CERT_FP_SHA256) -csp &quot;DigiCert Software Trust Manager KSP&quot; -k $(SM_KP) -u &quot;http://timestamp.digicert.com&quot;  $(SolutionDir)$(PackageId)\bin\Release\$(PackageId).$(PackageVersion).snupkg" Condition="'$(SM_CERT_FP_SHA256)' != ''" ConsoleToMSBuild="true" />
+  </Target>
+</Project>
