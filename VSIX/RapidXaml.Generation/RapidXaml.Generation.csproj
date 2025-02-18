@@ -61,9 +61,6 @@
     <DocumentationFile>bin\Release\RapidXaml.Generation.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
     <Compile Include="Commands\CopyToClipboardCommand.cs" />
     <Compile Include="Commands\GetXamlFromCodeWindowBaseCommand.cs" />
     <Compile Include="Commands\OpenOptionsCommand.cs" />
@@ -139,9 +136,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
     <AdditionalFiles Include="..\todo-warn.config" Condition=" '$(Configuration)' == 'Release' ">
       <Link>todo-warn.config</Link>
     </AdditionalFiles>
@@ -201,14 +195,6 @@
       <Version>16.9.244</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.9.1050">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VSSDK.Vsixsigntool">
-      <Version>16.3.29220.27</Version>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers">
-      <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
