@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace RapidXaml.MAUI;
+namespace RapidXaml;
 
 public partial class GestureRecognizer : BindableObject
 {

@@ -1,4 +1,4 @@
-﻿namespace RapidXaml.MAUI;
+﻿namespace RapidXaml;
 
 /// <summary>
 /// EventToCommand functionality, but with a shorter and more semantically meaningful name.
