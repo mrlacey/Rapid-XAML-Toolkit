@@ -21,7 +21,7 @@ public partial class EventToCommand : BindableObject
 			{
 				for (int i = cb.Behaviors.Count; i >= 0; i--)
 				{
-					if (cb.Behaviors[i] is EventToCommandClickBehavior oldBehavior && oldBehavior.CommandToInvoke == oldCmd)
+					if (cb.Behaviors[i] is EventToCommandCheckBoxCheckedBehavior oldBehavior && oldBehavior.CommandToInvoke == oldCmd)
 					{
 						cb.Behaviors.Remove(oldBehavior);
 						break;
@@ -31,12 +31,31 @@ public partial class EventToCommand : BindableObject
 
 			if (newValue is ICommand newCmd)
 			{
-				cb.Behaviors.Add(new EventToCommandClickBehavior { CommandToInvoke = newCmd });
+				cb.Behaviors.Add(new EventToCommandCheckBoxCheckedBehavior { CommandToInvoke = newCmd });
+			}
+		}
+		else if (bindable is RadioButton rb)
+		{
+			if (oldValue is ICommand oldCmd)
+			{
+				for (int i = rb.Behaviors.Count; i >= 0; i--)
+				{
+					if (rb.Behaviors[i] is EventToCommandRadioButtonCheckedBehavior oldBehavior && oldBehavior.CommandToInvoke == oldCmd)
+					{
+						rb.Behaviors.Remove(oldBehavior);
+						break;
+					}
+				}
+			}
+
+			if (newValue is ICommand newCmd)
+			{
+				rb.Behaviors.Add(new EventToCommandRadioButtonCheckedBehavior { CommandToInvoke = newCmd });
 			}
 		}
 	}
 
-	internal partial class EventToCommandCheckBehavior : Behavior<CheckBox>
+	internal partial class EventToCommandCheckBoxCheckedBehavior : Behavior<CheckBox>
 	{
 		public ICommand? CommandToInvoke { get; set; }
 
