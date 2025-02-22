@@ -21,7 +21,7 @@ public partial class EventToCommand : BindableObject
 			{
 				for (int i = sldr.Behaviors.Count; i >= 0; i--)
 				{
-					if (sldr.Behaviors[i] is EventToCommandValueChangedBehavior oldBehavior && oldBehavior.CommandToInvoke == oldCmd)
+					if (sldr.Behaviors[i] is EventToCommandSliderValueChangedBehavior oldBehavior && oldBehavior.CommandToInvoke == oldCmd)
 					{
 						sldr.Behaviors.Remove(oldBehavior);
 						break;
@@ -31,12 +31,32 @@ public partial class EventToCommand : BindableObject
 
 			if (newValue is ICommand newCmd)
 			{
-				sldr.Behaviors.Add(new EventToCommandValueChangedBehavior { CommandToInvoke = newCmd });
+				sldr.Behaviors.Add(new EventToCommandSliderValueChangedBehavior { CommandToInvoke = newCmd });
+			}
+		}
+		else
+		if (bindable is Stepper stpr)
+		{
+			if (oldValue is ICommand oldCmd)
+			{
+				for (int i = stpr.Behaviors.Count; i >= 0; i--)
+				{
+					if (stpr.Behaviors[i] is EventToCommandStepperValueChangedBehavior oldBehavior && oldBehavior.CommandToInvoke == oldCmd)
+					{
+						stpr.Behaviors.Remove(oldBehavior);
+						break;
+					}
+				}
+			}
+
+			if (newValue is ICommand newCmd)
+			{
+				stpr.Behaviors.Add(new EventToCommandStepperValueChangedBehavior { CommandToInvoke = newCmd });
 			}
 		}
 	}
 
-	internal partial class EventToCommandValueChangedBehavior : Behavior<Slider>
+	internal partial class EventToCommandSliderValueChangedBehavior : Behavior<Slider>
 	{
 		public ICommand? CommandToInvoke { get; set; }
 
