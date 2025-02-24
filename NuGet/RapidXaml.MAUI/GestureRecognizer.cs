@@ -400,6 +400,45 @@ public partial class GestureRecognizer : BindableObject
 	public static void SetSwipeDown(BindableObject view, ICommand value)
 		=> view.SetValue(SwipeDownProperty, value);
 
+
+	/// <summary>
+	/// Command to execute when the view is pinched. The command will receive a <see cref="PinchGestureUpdatedEventArgs"/> as a parameter.
+	/// </summary>
+	public static readonly BindableProperty PinchProperty =
+	 BindableProperty.CreateAttached("Pinch", typeof(Command<PinchGestureUpdatedEventArgs>), typeof(GestureRecognizer), defaultValue: null, propertyChanged: OnPinchChanged);
+
+	private static void OnPinchChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		if (bindable is View view)
+		{
+			if (oldValue is ICommand oldCmd)
+			{
+				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				{
+					if (view.GestureRecognizers[i] is PinchGestureRecognizer oldPgr)
+					{
+						view.GestureRecognizers.Remove(oldPgr);
+						break;
+					}
+				}
+			}
+
+			if (newValue is ICommand newCmd)
+			{
+				var pgr = new PinchGestureRecognizer();
+
+				pgr.PinchUpdated += (_, e) => { newCmd.Execute(e); };
+
+				view.GestureRecognizers.Add(pgr);
+			}
+		}
+	}
+
+	public static ICommand GetPinch(BindableObject view)
+		=> (ICommand)view.GetValue(PinchProperty);
+
+	public static void SetPinch(BindableObject view, ICommand value)
+		=> view.SetValue(PinchProperty, value);
 }
 
 public partial class Gesture : GestureRecognizer
