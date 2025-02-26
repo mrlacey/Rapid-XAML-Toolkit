@@ -16,7 +16,7 @@ public partial class GestureRecognizer : BindableObject
 		{
 			if (oldValue is ICommand oldCmd)
 			{
-				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
 				{
 					if (view.GestureRecognizers[i] is TapGestureRecognizer oldTgr && oldTgr.Command == oldCmd)
 					{
@@ -63,7 +63,7 @@ public partial class GestureRecognizer : BindableObject
 		{
 			if (oldValue is ICommand oldCmd)
 			{
-				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
 				{
 					if (view.GestureRecognizers[i] is TapGestureRecognizer oldTgr && oldTgr.Command == oldCmd)
 					{
@@ -98,7 +98,7 @@ public partial class GestureRecognizer : BindableObject
 		{
 			if (oldValue is ICommand oldCmd)
 			{
-				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
 				{
 					if (view.GestureRecognizers[i] is TapGestureRecognizer oldTgr && oldTgr.Command == oldCmd)
 					{
@@ -134,7 +134,7 @@ public partial class GestureRecognizer : BindableObject
 		{
 			if (oldValue is ICommand oldCmd)
 			{
-				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
 				{
 					if (view.GestureRecognizers[i] is PanGestureRecognizer oldPgr)
 					{
@@ -173,7 +173,7 @@ public partial class GestureRecognizer : BindableObject
 		{
 			if (oldValue is ICommand oldCmd)
 			{
-				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
 				{
 					if (view.GestureRecognizers[i] is PanGestureRecognizer oldPgr)
 					{
@@ -213,7 +213,7 @@ public partial class GestureRecognizer : BindableObject
 		{
 			if (oldValue is Command<SwipeDirection> oldCmd)
 			{
-				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
 				{
 					if (view.GestureRecognizers[i] is SwipeGestureRecognizer oldSgr)
 					{
@@ -253,7 +253,7 @@ public partial class GestureRecognizer : BindableObject
 		{
 			if (oldValue is ICommand oldCmd)
 			{
-				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
 				{
 					if (view.GestureRecognizers[i] is SwipeGestureRecognizer oldSgr)
 					{
@@ -293,7 +293,7 @@ public partial class GestureRecognizer : BindableObject
 		{
 			if (oldValue is ICommand oldCmd)
 			{
-				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
 				{
 					if (view.GestureRecognizers[i] is SwipeGestureRecognizer oldSgr)
 					{
@@ -333,7 +333,7 @@ public partial class GestureRecognizer : BindableObject
 		{
 			if (oldValue is ICommand oldCmd)
 			{
-				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
 				{
 					if (view.GestureRecognizers[i] is SwipeGestureRecognizer oldSgr)
 					{
@@ -373,7 +373,7 @@ public partial class GestureRecognizer : BindableObject
 		{
 			if (oldValue is ICommand oldCmd)
 			{
-				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
 				{
 					if (view.GestureRecognizers[i] is SwipeGestureRecognizer oldSgr)
 					{
@@ -413,7 +413,7 @@ public partial class GestureRecognizer : BindableObject
 		{
 			if (oldValue is ICommand oldCmd)
 			{
-				for (int i = view.GestureRecognizers.Count; i >= 0; i--)
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
 				{
 					if (view.GestureRecognizers[i] is PinchGestureRecognizer oldPgr)
 					{
