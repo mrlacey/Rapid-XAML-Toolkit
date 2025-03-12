@@ -186,7 +186,7 @@ namespace RapidXamlToolkit
             }
 
             // Quick hacky way of doing this and relies on being in C# format
-            return value.ToCSharpFormat().EndsWith(">");
+            return value.ToCSharpFormat().EndsWith(">") || value.ToCSharpFormat().EndsWith(">?");
         }
 
         public static string RemoveFromEndIfExists(this string value, string toRemove)
