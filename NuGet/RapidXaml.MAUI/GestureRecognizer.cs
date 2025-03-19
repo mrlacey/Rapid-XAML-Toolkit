@@ -402,6 +402,87 @@ public partial class GestureRecognizer : BindableObject
 
 
 	/// <summary>
+	/// Command to execute when the view starts being dragged. The command will receive a <see cref="DragStartingEventArgs"/> as a parameter.
+	/// </summary>
+	public static readonly BindableProperty DragStartingProperty =
+	 BindableProperty.CreateAttached("DragStarting", typeof(Command<DragStartingEventArgs>), typeof(GestureRecognizer), defaultValue: null, propertyChanged: OnDragStartingChanged);
+
+	private static void OnDragStartingChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		if (bindable is View view)
+		{
+			if (oldValue is ICommand oldCmd)
+			{
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
+				{
+					if (view.GestureRecognizers[i] is DragGestureRecognizer oldDgr)
+					{
+						view.GestureRecognizers.Remove(oldDgr);
+						break;
+					}
+				}
+			}
+
+			if (newValue is ICommand newCmd)
+			{
+				var dgr = new DragGestureRecognizer();
+
+				dgr.DragStarting += (_, e) => { newCmd.Execute(e); };
+
+				view.GestureRecognizers.Add(dgr);
+			}
+		}
+	}
+
+	public static ICommand GetDragStarting(BindableObject view)
+		=> (ICommand)view.GetValue(DragStartingProperty);
+
+	public static void SetDragStarting(BindableObject view, ICommand value)
+		=> view.SetValue(DragStartingProperty, value);
+
+
+	/// <summary>
+	/// Command to execute when the view that was being dragged is dropped. The command will receive a <see cref="DropCompletedEventArgs"/> as a parameter.
+	/// </summary>
+	public static readonly BindableProperty DropCompletedProperty =
+	 BindableProperty.CreateAttached("DragStarting", typeof(Command<DropCompletedEventArgs>), typeof(GestureRecognizer), defaultValue: null, propertyChanged: OnDropCompletedChanged);
+
+	private static void OnDropCompletedChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		if (bindable is View view)
+		{
+			if (oldValue is ICommand oldCmd)
+			{
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
+				{
+					if (view.GestureRecognizers[i] is DragGestureRecognizer oldDgr)
+					{
+						view.GestureRecognizers.Remove(oldDgr);
+						break;
+					}
+				}
+			}
+
+			if (newValue is ICommand newCmd)
+			{
+				var dgr = new DragGestureRecognizer();
+
+				dgr.DropCompleted += (_, e) => { newCmd.Execute(e); };
+
+				view.GestureRecognizers.Add(dgr);
+			}
+		}
+	}
+
+	public static ICommand GetDDropCompleted(BindableObject view)
+		=> (ICommand)view.GetValue(DropCompletedProperty);
+
+	public static void SetDropCompleted(BindableObject view, ICommand value)
+		=> view.SetValue(DropCompletedProperty, value);
+
+
+
+	/// <summary>
 	/// Command to execute when the view is pinched. The command will receive a <see cref="PinchGestureUpdatedEventArgs"/> as a parameter.
 	/// </summary>
 	public static readonly BindableProperty PinchProperty =
@@ -439,6 +520,128 @@ public partial class GestureRecognizer : BindableObject
 
 	public static void SetPinch(BindableObject view, ICommand value)
 		=> view.SetValue(PinchProperty, value);
+
+
+	/// <summary>
+	/// Command to execute when an item is dragged over the view.
+	/// </summary>
+	public static readonly BindableProperty DragOverProperty =
+	 BindableProperty.CreateAttached("DragOver", typeof(ICommand), typeof(GestureRecognizer), defaultValue: null, propertyChanged: OnDragOverChanged);
+
+	private static void OnDragOverChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		if (bindable is View view)
+		{
+			if (oldValue is ICommand oldCmd)
+			{
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
+				{
+					if (view.GestureRecognizers[i] is DropGestureRecognizer oldDgr)
+					{
+						view.GestureRecognizers.Remove(oldDgr);
+						break;
+					}
+				}
+			}
+
+			if (newValue is ICommand newCmd)
+			{
+				var dgr = new DropGestureRecognizer();
+
+				dgr.DragOver += (_, e) => { newCmd.Execute(e); };
+
+				view.GestureRecognizers.Add(dgr);
+			}
+		}
+	}
+
+	public static ICommand GetDragOver(BindableObject view)
+		=> (ICommand)view.GetValue(DragOverProperty);
+
+	public static void SetDragOver(BindableObject view, ICommand value)
+		=> view.SetValue(DragOverProperty, value);
+
+
+	/// <summary>
+	/// Command to execute when an item is dragged outside of the view.
+	/// </summary>
+	public static readonly BindableProperty DragLeaveProperty =
+	 BindableProperty.CreateAttached("DragLeave", typeof(ICommand), typeof(GestureRecognizer), defaultValue: null, propertyChanged: OnDragLeaveChanged);
+
+	private static void OnDragLeaveChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		if (bindable is View view)
+		{
+			if (oldValue is ICommand oldCmd)
+			{
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
+				{
+					if (view.GestureRecognizers[i] is DropGestureRecognizer oldDgr)
+					{
+						view.GestureRecognizers.Remove(oldDgr);
+						break;
+					}
+				}
+			}
+
+			if (newValue is ICommand newCmd)
+			{
+				var dgr = new DropGestureRecognizer();
+
+				dgr.DragLeave += (_, e) => { newCmd.Execute(e); };
+
+				view.GestureRecognizers.Add(dgr);
+			}
+		}
+	}
+
+	public static ICommand GetDragLeave(BindableObject view)
+		=> (ICommand)view.GetValue(DragLeaveProperty);
+
+	public static void SetDragLeave(BindableObject view, ICommand value)
+		=> view.SetValue(DragLeaveProperty, value);
+
+
+	/// <summary>
+	/// Command to execute when an item is dropped on the view.
+	/// </summary>
+	public static readonly BindableProperty DropProperty =
+	 BindableProperty.CreateAttached("Drop", typeof(ICommand), typeof(GestureRecognizer), defaultValue: null, propertyChanged: OnDropChanged);
+
+	private static void OnDropChanged(BindableObject bindable, object oldValue, object newValue)
+	{
+		if (bindable is View view)
+		{
+			if (oldValue is ICommand oldCmd)
+			{
+				for (int i = view.GestureRecognizers.Count - 1; i >= 0; i--)
+				{
+					if (view.GestureRecognizers[i] is DropGestureRecognizer oldDgr)
+					{
+						view.GestureRecognizers.Remove(oldDgr);
+						break;
+					}
+				}
+			}
+
+			if (newValue is ICommand newCmd)
+			{
+				var dgr = new DropGestureRecognizer();
+
+				dgr.Drop += (_, e) => { newCmd.Execute(e); };
+
+				view.GestureRecognizers.Add(dgr);
+			}
+		}
+	}
+
+	public static ICommand GetDrop(BindableObject view)
+		=> (ICommand)view.GetValue(DropProperty);
+
+	public static void SetDrop(BindableObject view, ICommand value)
+		=> view.SetValue(DropProperty, value);
+
+
 }
 
 public partial class Gesture : GestureRecognizer
