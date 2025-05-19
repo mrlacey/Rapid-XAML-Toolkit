@@ -12,17 +12,18 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
         // This indicates which elements in the XAML document this Analyzer will run against
         public string TargetType() => "WebView";
 
+        // TODO: Limit this to not MAUI
         public AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
-            var defaultAllias = "controls";
-            var xmlnamespace = "using:Microsoft.UI.Xaml.Controls";
-            var aliasToUse = defaultAllias;
+            var defaultAlias = "controls";
+            var xmlNamespace = "using:Microsoft.UI.Xaml.Controls";
+            var aliasToUse = defaultAlias;
             var addAlias = true;
 
             extraDetails.TryGet(KnownExtraDetails.Xmlns, out Dictionary<string, string> xmlns);
 
             // Check to see if there is already an alias for the desired namespace
-            var xns = xmlns.FirstOrDefault(x => x.Value == xmlnamespace);
+            var xns = xmlns.FirstOrDefault(x => x.Value == xmlNamespace);
 
             if (xns.Equals(default(KeyValuePair<string, string>)))
             {
@@ -30,7 +31,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
                 var numericSuffix = 1;
                 while (xmlns.ContainsKey(aliasToUse))
                 {
-                    aliasToUse = defaultAllias + numericSuffix++.ToString();
+                    aliasToUse = defaultAlias + numericSuffix++.ToString();
                 }
             }
             else
@@ -49,7 +50,7 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
 
             if (addAlias)
             {
-                result.AndAddXmlns(aliasToUse, xmlnamespace);
+                result.AndAddXmlns(aliasToUse, xmlNamespace);
             }
 
             return result;

@@ -186,6 +186,7 @@ namespace RapidXamlToolkit.XamlAnalysis
             customProcessors.Add(new CustomAnalysis.SwipeItemAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new CustomAnalysis.SliderAnalyzer(vsAbstraction, logger));
             customProcessors.Add(new CustomAnalysis.StepperAnalyzer(vsAbstraction, logger));
+            customProcessors.Add(new CustomAnalysis.ScrollViewerAnalyzer(vsAbstraction, logger));
 
             // Make sure that all custom analyzers are correctly used as processors
             // This is here for historic reasons. Before there were (custom) Analyzers, there were processors....

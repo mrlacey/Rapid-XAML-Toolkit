@@ -19,6 +19,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string ComboBox => "ComboBox";
 
+        public static string CollectionView => "CollectionView";
+
         public static string DataGrid => "DataGrid";
 
         public static string DatePicker => "DatePicker";
@@ -67,6 +69,8 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string RichEditBox => "RichEditBox";
 
+        public static string ScrollView => "ScrollView";
+
         public static string SearchBar => "SearchBar";
 
         public static string Setter => "Setter";
@@ -92,5 +96,7 @@ namespace RapidXamlToolkit.XamlAnalysis
         public static string ToggleMenuFlyoutItem => "ToggleMenuFlyoutItem";
 
         public static string ToggleSwitch => "ToggleSwitch";
+
+        public static string WebView => "WebView";
     }
 }

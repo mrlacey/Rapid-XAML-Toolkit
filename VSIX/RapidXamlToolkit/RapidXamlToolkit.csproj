@@ -99,6 +99,7 @@
     <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\InternalBadCustomAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\Issue364ExampleAnalyzer2.cs" />
+    <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\MAUI\ScrollViewerAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\RemoveFirstChildAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\RenameElementTestAnalyzer.cs" />
     <Compile Include="Analysis\XamlAnalysis\CustomAnalysis\ReplaceElementTestAnalyzer.cs" />

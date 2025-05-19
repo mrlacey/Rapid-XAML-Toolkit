@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace RapidXaml
 {
+    // TODO: Change all parameter orders so that extendedMessage always comes before moreInfoUrl
     /// <summary>
     /// Result object for custom analyzer responses.
     /// </summary>

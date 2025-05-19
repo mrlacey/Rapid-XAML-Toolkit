@@ -69,6 +69,10 @@ namespace RapidXamlToolkit.XamlAnalysis
 
         public static string SelectedItem => "SelectedItem";
 
+        public static string SPDescription => "SemanticProperties.Description";
+
+        public static string SPHint => "SemanticProperties.Hint";
+
         public static string Source => "Source";
 
         public static string Text => "Text";

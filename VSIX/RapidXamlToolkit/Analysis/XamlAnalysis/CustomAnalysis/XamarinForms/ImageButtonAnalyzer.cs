@@ -19,13 +19,16 @@ namespace RapidXamlToolkit.XamlAnalysis.CustomAnalysis
         public override AnalysisActions Analyze(RapidXamlElement element, ExtraAnalysisDetails extraDetails)
         {
             // Don't report anything if the source hasn't been set.
-            // Allow for multiple possible values that could be used by accesibility tools.
+            // Allow for multiple possible values that could be used by accessibility tools.
             if (element.HasAttribute(Attributes.Source)
              && !element.HasAttribute(Attributes.AutomationId)
              && !element.HasAttribute(Attributes.APName)
+             && !element.HasAttribute(Attributes.SPDescription)
+             && !element.HasAttribute(Attributes.SPHint)
              && !element.HasAttribute(Attributes.APHelpText)
              && !element.HasAttribute(Attributes.APLabeledBy))
             {
+                // TODO: Review what attribute to set
                 return AnalysisActions.AddAttribute(
                     RapidXamlErrorType.Warning,
                     code: "RXT351",

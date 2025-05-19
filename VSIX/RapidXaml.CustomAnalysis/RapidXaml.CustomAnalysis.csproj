@@ -16,7 +16,7 @@
         <NuspecProperties>publishDir=$([MSBuild]::NormalizeDirectory($(IntermediatePackDir)))</NuspecProperties>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="GuiLabs.Language.Xml" Version="1.2.60" />
+        <PackageReference Include="GuiLabs.Language.Xml" Version="1.2.93" />
         <PackageReference Include="NuGet.CommandLine" Version="6.12.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
