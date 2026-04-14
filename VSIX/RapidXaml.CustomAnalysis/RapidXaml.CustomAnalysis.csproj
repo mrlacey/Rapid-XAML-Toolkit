@@ -17,7 +17,7 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="GuiLabs.Language.Xml" Version="1.2.93" />
-        <PackageReference Include="NuGet.CommandLine" Version="6.12.2">
+        <PackageReference Include="NuGet.CommandLine" Version="6.12.5">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
